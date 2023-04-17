@@ -1,0 +1,763 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{9b317fb5-24d0-4ac1-b638-ed8e265f5b77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents">
+      <UniqueIdentifier>{fb0c52b3-b499-4dd3-b424-b69d5b64c8d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene">
+      <UniqueIdentifier>{e815da94-dea3-4659-aea4-befa64a28ea9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{ab397515-c8cc-4f05-8351-1378422b1b1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Common">
+      <UniqueIdentifier>{632edfd5-9bba-4857-b7eb-c543e20d2995}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component">
+      <UniqueIdentifier>{6cd28244-60d6-4c3e-80e2-c025eb160027}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Gameobject">
+      <UniqueIdentifier>{e7262a87-1d87-485d-b1fe-5256b359eb83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Input">
+      <UniqueIdentifier>{27c76278-7f93-40a0-ab58-0ec6efaf3b19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Layer">
+      <UniqueIdentifier>{d30b7b1b-6e0a-4083-8a98-d97efe0c59d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene">
+      <UniqueIdentifier>{fde39bea-8dad-4439-a815-b8c2204b6fb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Time">
+      <UniqueIdentifier>{3a47766f-b30d-4077-ba64-89d94de05e8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Resource">
+      <UniqueIdentifier>{77884589-4172-4b9a-8d4f-3c3cf068325f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG">
+      <UniqueIdentifier>{72ac1bdf-1be9-49fc-ba17-c1dbfedca304}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\Ending">
+      <UniqueIdentifier>{9b6c0645-cade-4eb1-a5bf-4daa87a156c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\Minigame">
+      <UniqueIdentifier>{025d382c-1fb0-4fc7-9b17-80d55287f61b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\High Level Interface">
+      <UniqueIdentifier>{cef209f9-34a4-4216-8320-4670c07160c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\Choice">
+      <UniqueIdentifier>{5f8ee7b5-f487-4f9d-8c3b-c4d3b02573dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\Title">
+      <UniqueIdentifier>{667600fb-eae9-423b-894a-0b4c61e1d61d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\Ending">
+      <UniqueIdentifier>{15f350d0-6e92-4981-a6f4-0c024702809c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\Minigame">
+      <UniqueIdentifier>{c9583911-2887-411e-ad38-4b4f21faf4cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\Playgame">
+      <UniqueIdentifier>{b9bd193f-e48d-4d93-aed8-2b038ec84254}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Player">
+      <UniqueIdentifier>{24d91497-532e-438a-9376-ecaa353ecdda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\monster">
+      <UniqueIdentifier>{8e595fef-1dd3-476a-ad46-9b385f261797}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Boss">
+      <UniqueIdentifier>{97c0833c-17eb-4bf0-b17f-d748c1b0c738}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BaseBullet">
+      <UniqueIdentifier>{5e4b49b8-5c20-457e-be18-73e3c1fdd376}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\Collider">
+      <UniqueIdentifier>{334db0d7-9d2d-4760-9e63-20f2321cc9cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\StageSave">
+      <UniqueIdentifier>{bd31b8d1-50b6-412c-b415-96d018b8193f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Camera">
+      <UniqueIdentifier>{1c46ed71-ec27-4be3-a4a1-ed7f19402ad7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Item">
+      <UniqueIdentifier>{53ddea08-13f8-4dd6-b09c-97a5817aef5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\PlayBG">
+      <UniqueIdentifier>{e0596fd9-b663-4eeb-b5ea-526d6c627281}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\TitleBG">
+      <UniqueIdentifier>{254c8b8c-e64b-43c7-982b-72f3f31b642d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\CharacterChoice BG">
+      <UniqueIdentifier>{7e5461c1-7ac7-4306-9e79-177fb710bfd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\Animation">
+      <UniqueIdentifier>{0198e478-bed3-4be7-99e1-2395db74a734}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\Base">
+      <UniqueIdentifier>{a21234ef-755f-46a4-8c32-14a1aa74451c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\Transform">
+      <UniqueIdentifier>{4d11de15-856c-472c-b01d-c0cc3d8f7440}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\RigidBody">
+      <UniqueIdentifier>{a8139cc2-c837-4e44-ab64-12763e195123}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\Alpa Blending">
+      <UniqueIdentifier>{d3f89ba9-a0e6-45e8-acc9-c296dbd0cbef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Player\Sonic">
+      <UniqueIdentifier>{059bb951-2922-4fe9-8bf6-4ac3893441af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Player\Sonic\minigame">
+      <UniqueIdentifier>{261e9c6f-e816-4cbf-a841-8288247ac61a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Player\Sonic\emelarld">
+      <UniqueIdentifier>{cd4be9fb-4cd7-463c-90c7-3b51036c13b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Player\Sonic\Default">
+      <UniqueIdentifier>{cd9b9e03-9e25-4d77-9713-2f936af8800a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Player\Tails">
+      <UniqueIdentifier>{5fa56f6e-94f7-43fb-8577-98738820222e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Player\Tails\Tails_tail">
+      <UniqueIdentifier>{b9380e70-3372-4277-b276-df1400338693}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Player\Tails\Tails_tail\Default">
+      <UniqueIdentifier>{dd1976cb-2e95-4aa2-995a-5d618ab8a2a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\RigidBody\rotation">
+      <UniqueIdentifier>{998b4ed3-5826-49e0-bab6-90585c160d06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\monster\Snake">
+      <UniqueIdentifier>{91a4a755-46db-4417-8ce3-d1b611d0ed60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\monster\Canon">
+      <UniqueIdentifier>{97af09c5-6d07-42c5-86b2-b22502bc2ef8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\monster\Monkey">
+      <UniqueIdentifier>{741df653-54fd-4cb9-9bce-66e09095a63e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\monster\Rino-완료-">
+      <UniqueIdentifier>{0e88a2e2-1176-4ec8-9926-06d8c41c3b2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\monster\Animal">
+      <UniqueIdentifier>{1f65b018-faa2-43b2-8598-6b9537b619d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\PlayBG\act1_BG">
+      <UniqueIdentifier>{13a480ef-1a77-4b8e-beab-c2d16791ebba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\PlayBG\Event_bg">
+      <UniqueIdentifier>{34b1d06c-6958-4148-b142-9753ee24bf36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\PlayBG\Event_bg\Rock">
+      <UniqueIdentifier>{188c79e0-e662-4cb6-b84e-7d3171fb21f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\PlayBG\Event_bg\Move_Ground">
+      <UniqueIdentifier>{6c84059f-6a7e-4937-ba1e-b07da973f726}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\PlayBG\Event_bg\Spring">
+      <UniqueIdentifier>{ab987dae-a76e-4f7c-a12e-96fd43fb21ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Item\Change_SONIC">
+      <UniqueIdentifier>{04c6b5a4-6972-4013-ac32-7b3d9d7cfcfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Item\Event">
+      <UniqueIdentifier>{dc13c7be-8c0d-4f8f-b748-9d2047d6a561}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Item\Ring">
+      <UniqueIdentifier>{9b578b8f-bae8-4bd7-a733-eb0090fd0eff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\PlayBG\Event_bg\Spike">
+      <UniqueIdentifier>{4dd75745-01c4-47c4-9c3f-a97a7ab50ccd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\PlayBG\Event_bg\JEEP_line">
+      <UniqueIdentifier>{fd2638e1-2817-4a0b-85ee-247b7e482d23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\PlayBG\Event_bg\Collapses Ground">
+      <UniqueIdentifier>{69b7be78-998f-4938-85b3-f777001d145f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\Circle_check">
+      <UniqueIdentifier>{621f30a1-c21f-46f7-8d81-80e2942b04a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\Circle_check\Act1-1">
+      <UniqueIdentifier>{936d05b2-5f64-4ba0-b9cc-fdb1cec70dd5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="SONIC_JK.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Commoninclude.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Entity.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Enums.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Math.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="SONIC_Engine.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Gameobject.h">
+      <Filter>Engine\Gameobject</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Application.h">
+      <Filter>Engine\High Level Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Input.h">
+      <Filter>Engine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Layer.h">
+      <Filter>Engine\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Time.h">
+      <Filter>Engine\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Scene.h">
+      <Filter>Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_SceneManager.h">
+      <Filter>Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Resource.h">
+      <Filter>Engine\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Resources.h">
+      <Filter>Engine\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_CharaterChoice.h">
+      <Filter>Contents\BG\CharacterChoice BG</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Ending.h">
+      <Filter>Contents\BG\Ending</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Minigame.h">
+      <Filter>Contents\BG\Minigame</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Title.h">
+      <Filter>Contents\BG\TitleBG</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_ChatarcterChoiseSC.h">
+      <Filter>Contents\Scene\Choice</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_PlayScene.h">
+      <Filter>Contents\Scene\Playgame</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_TitleScene.h">
+      <Filter>Contents\Scene\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_EndingScene.h">
+      <Filter>Contents\Scene\Ending</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_MinigameScene.h">
+      <Filter>Contents\Scene\Minigame</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Boss.h">
+      <Filter>Contents\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_BaseBullet.h">
+      <Filter>Contents\BaseBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Collider.h">
+      <Filter>Engine\Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Image.h">
+      <Filter>Engine\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_CollisionManager.h">
+      <Filter>Engine\Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_StageSave.h">
+      <Filter>Contents\StageSave</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Camera.h">
+      <Filter>Engine\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Object.h">
+      <Filter>Engine\Gameobject</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Airplanetails.h">
+      <Filter>Contents\BG\TitleBG</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Titlesonic.h">
+      <Filter>Contents\BG\TitleBG</Filter>
+    </ClInclude>
+    <ClInclude Include="JK_TitleSN.h">
+      <Filter>Contents\BG\TitleBG</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_ChoiceCC.h">
+      <Filter>Contents\BG\CharacterChoice BG</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Animator.h">
+      <Filter>Engine\Component\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Animation.h">
+      <Filter>Engine\Component\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Component.h">
+      <Filter>Engine\Component\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Transform.h">
+      <Filter>Engine\Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Rigidbody.h">
+      <Filter>Engine\Component\RigidBody</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Blending.h">
+      <Filter>Contents\BG\Alpa Blending</Filter>
+    </ClInclude>
+    <ClInclude Include="EndingBlend.h">
+      <Filter>Contents\BG\Alpa Blending</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_EmeraldSonic.h">
+      <Filter>Contents\Player\Sonic\emelarld</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_SONIC.h">
+      <Filter>Contents\Player\Sonic\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Tails.h">
+      <Filter>Contents\Player\Tails</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_tail_jump.h">
+      <Filter>Contents\Player\Tails\Tails_tail\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_tails_tail.h">
+      <Filter>Contents\Player\Tails\Tails_tail\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Electsonic.h">
+      <Filter>Contents\Player\Sonic\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="SonicState.h" />
+    <ClInclude Include="Rigdbody_L.h">
+      <Filter>Engine\Component\RigidBody\rotation</Filter>
+    </ClInclude>
+    <ClInclude Include="Rigdbody_R.h">
+      <Filter>Engine\Component\RigidBody\rotation</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Snake.h">
+      <Filter>Contents\monster\Snake</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Cannon.h">
+      <Filter>Contents\monster\Canon</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Snake_Body_Smoke.h">
+      <Filter>Contents\monster\Snake</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Snake_Body.h">
+      <Filter>Contents\monster\Snake</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Snake_body2.h">
+      <Filter>Contents\monster\Snake</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Snake_mTaIl.h">
+      <Filter>Contents\monster\Snake</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Snake_Tail_End.h">
+      <Filter>Contents\monster\Snake</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Monkey.h">
+      <Filter>Contents\monster\Monkey</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Monster.h">
+      <Filter>Contents\monster\Rino-완료-</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Monket_Bullet.h">
+      <Filter>Contents\monster\Monkey</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Canon_Bullet.h">
+      <Filter>Contents\monster\Canon</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Animal.h">
+      <Filter>Contents\monster\Animal</Filter>
+    </ClInclude>
+    <ClInclude Include="midlesky.h">
+      <Filter>Contents\BG\PlayBG\act1_BG</Filter>
+    </ClInclude>
+    <ClInclude Include="acr1_forest2.h">
+      <Filter>Contents\BG\PlayBG\act1_BG</Filter>
+    </ClInclude>
+    <ClInclude Include="act1_forest1.h">
+      <Filter>Contents\BG\PlayBG\act1_BG</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Act1_BG_object.h">
+      <Filter>Contents\BG\PlayBG\act1_BG</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Act1skyBG.h">
+      <Filter>Contents\BG\PlayBG\act1_BG</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Rock_big.h">
+      <Filter>Contents\BG\PlayBG\Event_bg\Rock</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Rock_middle.h">
+      <Filter>Contents\BG\PlayBG\Event_bg\Rock</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Rock_Pice.h">
+      <Filter>Contents\BG\PlayBG\Event_bg\Rock</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Rock_small.h">
+      <Filter>Contents\BG\PlayBG\Event_bg\Rock</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Move_GR.h">
+      <Filter>Contents\BG\PlayBG\Event_bg\Move_Ground</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Spring_Up.h">
+      <Filter>Contents\BG\PlayBG\Event_bg\Spring</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Sky.h">
+      <Filter>Contents\BG\PlayBG\act1_BG</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Item.h">
+      <Filter>Contents\Item\Change_SONIC</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Item_Fire.h">
+      <Filter>Contents\Item\Change_SONIC</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_ItemBigRing.h">
+      <Filter>Contents\Item\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_MGEmerald.h">
+      <Filter>Contents\Item\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Ring.h">
+      <Filter>Contents\Item\Ring</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Ring_Falling.h">
+      <Filter>Contents\Item\Ring</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Item_water.h">
+      <Filter>Contents\Item\Change_SONIC</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Item_super.h">
+      <Filter>Contents\Item\Change_SONIC</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Spring_Left.h">
+      <Filter>Contents\BG\PlayBG\Event_bg\Spring</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Spike_Up.h">
+      <Filter>Contents\BG\PlayBG\Event_bg\Spike</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Jeep_line_Handle.h">
+      <Filter>Contents\BG\PlayBG\Event_bg\JEEP_line</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Jeep_line.h">
+      <Filter>Contents\BG\PlayBG\Event_bg\JEEP_line</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Collapses_Ground.h">
+      <Filter>Contents\BG\PlayBG\Event_bg\Collapses Ground</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Callapses.h">
+      <Filter>Contents\BG\PlayBG\Event_bg\Collapses Ground</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Choice_select.h">
+      <Filter>Contents\BG\CharacterChoice BG</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Ground.h" />
+    <ClInclude Include="jk_check1.h">
+      <Filter>Contents\BG\Circle_check\Act1-1</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_check2.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SONIC_JK.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="SONIC_JK.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Entity.cpp">
+      <Filter>Engine\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Math.cpp">
+      <Filter>Engine\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Gameobject.cpp">
+      <Filter>Engine\Gameobject</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Application.cpp">
+      <Filter>Engine\High Level Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Input.cpp">
+      <Filter>Engine\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Layer.cpp">
+      <Filter>Engine\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Time.cpp">
+      <Filter>Engine\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Scene.cpp">
+      <Filter>Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_SceneManager.cpp">
+      <Filter>Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Resource.cpp">
+      <Filter>Engine\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Resources.cpp">
+      <Filter>Engine\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_CharaterChoice.cpp">
+      <Filter>Contents\BG\CharacterChoice BG</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Ending.cpp">
+      <Filter>Contents\BG\Ending</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Minigame.cpp">
+      <Filter>Contents\BG\Minigame</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Title.cpp">
+      <Filter>Contents\BG\TitleBG</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_ChatarcterChoiseSC.cpp">
+      <Filter>Contents\Scene\Choice</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_PlayScene.cpp">
+      <Filter>Contents\Scene\Playgame</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_TitleScene.cpp">
+      <Filter>Contents\Scene\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_EndingScene.cpp">
+      <Filter>Contents\Scene\Ending</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_MinigameScene.cpp">
+      <Filter>Contents\Scene\Minigame</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Boss.cpp">
+      <Filter>Contents\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_BaseBullet.cpp">
+      <Filter>Contents\BaseBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Collider.cpp">
+      <Filter>Engine\Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Image.cpp">
+      <Filter>Engine\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_CollisionManager.cpp">
+      <Filter>Engine\Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_StageSave.cpp">
+      <Filter>Contents\StageSave</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Camera.cpp">
+      <Filter>Engine\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Airplanetails.cpp">
+      <Filter>Contents\BG\TitleBG</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Titlesonic.cpp">
+      <Filter>Contents\BG\TitleBG</Filter>
+    </ClCompile>
+    <ClCompile Include="JK_TitleSN.cpp">
+      <Filter>Contents\BG\TitleBG</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_ChoiceCC.cpp">
+      <Filter>Contents\BG\CharacterChoice BG</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Animator.cpp">
+      <Filter>Engine\Component\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Animation.cpp">
+      <Filter>Engine\Component\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Component.cpp">
+      <Filter>Engine\Component\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Transform.cpp">
+      <Filter>Engine\Component\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="Rigidbody.cpp">
+      <Filter>Engine\Component\RigidBody</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Blending.cpp">
+      <Filter>Contents\BG\Alpa Blending</Filter>
+    </ClCompile>
+    <ClCompile Include="EndingBlend.cpp">
+      <Filter>Contents\BG\Alpa Blending</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_EmeraldSonic.cpp">
+      <Filter>Contents\Player\Sonic\emelarld</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_SONIC.cpp">
+      <Filter>Contents\Player\Sonic\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Tails.cpp">
+      <Filter>Contents\Player\Tails</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_tail_jump.cpp">
+      <Filter>Contents\Player\Tails\Tails_tail\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_tails_tail.cpp">
+      <Filter>Contents\Player\Tails\Tails_tail\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="Electsonic.cpp">
+      <Filter>Contents\Player\Sonic\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="Rigdbody_L.cpp">
+      <Filter>Engine\Component\RigidBody\rotation</Filter>
+    </ClCompile>
+    <ClCompile Include="Rigdbody_R.cpp">
+      <Filter>Engine\Component\RigidBody\rotation</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Snake.cpp">
+      <Filter>Contents\monster\Snake</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Cannon.cpp">
+      <Filter>Contents\monster\Canon</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Snake_Body_Smoke.cpp">
+      <Filter>Contents\monster\Snake</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Snake_Body.cpp">
+      <Filter>Contents\monster\Snake</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Snake_body2.cpp">
+      <Filter>Contents\monster\Snake</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Snake_mTaIl.cpp">
+      <Filter>Contents\monster\Snake</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Snake_Tail_End.cpp">
+      <Filter>Contents\monster\Snake</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Monkey.cpp">
+      <Filter>Contents\monster\Monkey</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Monster.cpp">
+      <Filter>Contents\monster\Rino-완료-</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Monket_Bullet.cpp">
+      <Filter>Contents\monster\Monkey</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Canon_Bullet.cpp">
+      <Filter>Contents\monster\Canon</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Animal.cpp">
+      <Filter>Contents\monster\Animal</Filter>
+    </ClCompile>
+    <ClCompile Include="acr1_forest2.cpp">
+      <Filter>Contents\BG\PlayBG\act1_BG</Filter>
+    </ClCompile>
+    <ClCompile Include="act1_forest1.cpp">
+      <Filter>Contents\BG\PlayBG\act1_BG</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Act1_BG_object.cpp">
+      <Filter>Contents\BG\PlayBG\act1_BG</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Act1skyBG.cpp">
+      <Filter>Contents\BG\PlayBG\act1_BG</Filter>
+    </ClCompile>
+    <ClCompile Include="midlesky.cpp">
+      <Filter>Contents\BG\PlayBG\act1_BG</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Rock_big.cpp">
+      <Filter>Contents\BG\PlayBG\Event_bg\Rock</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Rock_middle.cpp">
+      <Filter>Contents\BG\PlayBG\Event_bg\Rock</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Rock_Pice.cpp">
+      <Filter>Contents\BG\PlayBG\Event_bg\Rock</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Rock_small.cpp">
+      <Filter>Contents\BG\PlayBG\Event_bg\Rock</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Move_GR.cpp">
+      <Filter>Contents\BG\PlayBG\Event_bg\Move_Ground</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Spring_Up.cpp">
+      <Filter>Contents\BG\PlayBG\Event_bg\Spring</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Sky.cpp">
+      <Filter>Contents\BG\PlayBG\act1_BG</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Item.cpp">
+      <Filter>Contents\Item\Change_SONIC</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Item_Fire.cpp">
+      <Filter>Contents\Item\Change_SONIC</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_ItemBigRing.cpp">
+      <Filter>Contents\Item\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_MGEmerald.cpp">
+      <Filter>Contents\Item\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Ring.cpp">
+      <Filter>Contents\Item\Ring</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Ring_Falling.cpp">
+      <Filter>Contents\Item\Ring</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Item_water.cpp">
+      <Filter>Contents\Item\Change_SONIC</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Item_super.cpp">
+      <Filter>Contents\Item\Change_SONIC</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Spring_Left.cpp">
+      <Filter>Contents\BG\PlayBG\Event_bg\Spring</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Spike_Up.cpp">
+      <Filter>Contents\BG\PlayBG\Event_bg\Spike</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Jeep_line.cpp">
+      <Filter>Contents\BG\PlayBG\Event_bg\JEEP_line</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Jeep_line_Handle.cpp">
+      <Filter>Contents\BG\PlayBG\Event_bg\JEEP_line</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Collapses_Ground.cpp">
+      <Filter>Contents\BG\PlayBG\Event_bg\Collapses Ground</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Callapses.cpp">
+      <Filter>Contents\BG\PlayBG\Event_bg\Collapses Ground</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Choice_select.cpp">
+      <Filter>Contents\BG\CharacterChoice BG</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Ground.cpp" />
+    <ClCompile Include="jk_check1.cpp">
+      <Filter>Contents\BG\Circle_check\Act1-1</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_check2.cpp" />
+  </ItemGroup>
+</Project>

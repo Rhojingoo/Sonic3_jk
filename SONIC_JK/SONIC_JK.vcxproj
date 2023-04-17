@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{511aea1d-459b-4c10-b0e3-470aa2f420e8}</ProjectGuid>
+    <RootNamespace>SONICJK</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <EnableUnitySupport>false</EnableUnitySupport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="acr1_forest2.h" />
+    <ClInclude Include="act1_forest1.h" />
+    <ClInclude Include="Commoninclude.h" />
+    <ClInclude Include="Electsonic.h" />
+    <ClInclude Include="EndingBlend.h" />
+    <ClInclude Include="framework.h" />
+    <ClInclude Include="jk_Act1skyBG.h" />
+    <ClInclude Include="jk_Airplanetails.h" />
+    <ClInclude Include="jk_Animal.h" />
+    <ClInclude Include="jk_Animation.h" />
+    <ClInclude Include="jk_Animator.h" />
+    <ClInclude Include="jk_Application.h" />
+    <ClInclude Include="jk_Act1_BG_object.h" />
+    <ClInclude Include="jk_Blending.h" />
+    <ClInclude Include="jk_Boss.h" />
+    <ClInclude Include="jk_BaseBullet.h" />
+    <ClInclude Include="jk_Callapses.h" />
+    <ClInclude Include="jk_Camera.h" />
+    <ClInclude Include="jk_Cannon.h" />
+    <ClInclude Include="jk_Canon_Bullet.h" />
+    <ClInclude Include="jk_CharaterChoice.h" />
+    <ClInclude Include="jk_ChatarcterChoiseSC.h" />
+    <ClInclude Include="jk_check1.h" />
+    <ClInclude Include="jk_check2.h" />
+    <ClInclude Include="jk_ChoiceCC.h" />
+    <ClInclude Include="jk_Choice_select.h" />
+    <ClInclude Include="jk_Collapses_Ground.h" />
+    <ClInclude Include="jk_Collider.h" />
+    <ClInclude Include="jk_CollisionManager.h" />
+    <ClInclude Include="jk_Component.h" />
+    <ClInclude Include="jk_EmeraldSonic.h" />
+    <ClInclude Include="jk_Ending.h" />
+    <ClInclude Include="jk_EndingScene.h" />
+    <ClInclude Include="jk_Entity.h" />
+    <ClInclude Include="jk_Enums.h" />
+    <ClInclude Include="jk_Gameobject.h" />
+    <ClInclude Include="jk_Ground.h" />
+    <ClInclude Include="jk_Image.h" />
+    <ClInclude Include="jk_Input.h" />
+    <ClInclude Include="jk_Item.h" />
+    <ClInclude Include="jk_ItemBigRing.h" />
+    <ClInclude Include="jk_Item_Fire.h" />
+    <ClInclude Include="jk_Item_super.h" />
+    <ClInclude Include="jk_Item_water.h" />
+    <ClInclude Include="jk_Jeep_line.h" />
+    <ClInclude Include="jk_Jeep_line_Handle.h" />
+    <ClInclude Include="jk_Layer.h" />
+    <ClInclude Include="jk_Math.h" />
+    <ClInclude Include="jk_MGEmerald.h" />
+    <ClInclude Include="jk_Minigame.h" />
+    <ClInclude Include="jk_MinigameScene.h" />
+    <ClInclude Include="jk_Monket_Bullet.h" />
+    <ClInclude Include="jk_Monkey.h" />
+    <ClInclude Include="jk_Monster.h" />
+    <ClInclude Include="jk_Move_GR.h" />
+    <ClInclude Include="jk_Object.h" />
+    <ClInclude Include="jk_Ring.h" />
+    <ClInclude Include="jk_Ring_Falling.h" />
+    <ClInclude Include="jk_Rock_big.h" />
+    <ClInclude Include="jk_Rock_middle.h" />
+    <ClInclude Include="jk_Rock_Pice.h" />
+    <ClInclude Include="jk_Rock_small.h" />
+    <ClInclude Include="jk_Sky.h" />
+    <ClInclude Include="jk_Snake.h" />
+    <ClInclude Include="jk_Snake_Body.h" />
+    <ClInclude Include="jk_Snake_body2.h" />
+    <ClInclude Include="jk_Snake_Body_Smoke.h" />
+    <ClInclude Include="jk_Snake_mTaIl.h" />
+    <ClInclude Include="jk_Snake_Tail_End.h" />
+    <ClInclude Include="jk_Spike_Up.h" />
+    <ClInclude Include="jk_Spring_Left.h" />
+    <ClInclude Include="jk_Spring_Up.h" />
+    <ClInclude Include="jk_StageSave.h" />
+    <ClInclude Include="jk_Tails.h" />
+    <ClInclude Include="jk_tails_tail.h" />
+    <ClInclude Include="jk_tail_jump.h" />
+    <ClInclude Include="jk_Title.h" />
+    <ClInclude Include="jk_PlayScene.h" />
+    <ClInclude Include="jk_Resource.h" />
+    <ClInclude Include="jk_Resources.h" />
+    <ClInclude Include="jk_Scene.h" />
+    <ClInclude Include="jk_SceneManager.h" />
+    <ClInclude Include="jk_SONIC.h" />
+    <ClInclude Include="jk_Time.h" />
+    <ClInclude Include="jk_TitleScene.h" />
+    <ClInclude Include="JK_TitleSN.h" />
+    <ClInclude Include="jk_Titlesonic.h" />
+    <ClInclude Include="jk_Transform.h" />
+    <ClInclude Include="midlesky.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="Rigdbody_L.h" />
+    <ClInclude Include="Rigdbody_R.h" />
+    <ClInclude Include="Rigidbody.h" />
+    <ClInclude Include="SonicState.h" />
+    <ClInclude Include="SONIC_Engine.h" />
+    <ClInclude Include="SONIC_JK.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="acr1_forest2.cpp" />
+    <ClCompile Include="act1_forest1.cpp" />
+    <ClCompile Include="Electsonic.cpp" />
+    <ClCompile Include="EndingBlend.cpp" />
+    <ClCompile Include="jk_Act1skyBG.cpp" />
+    <ClCompile Include="jk_Airplanetails.cpp" />
+    <ClCompile Include="jk_Animal.cpp" />
+    <ClCompile Include="jk_Animation.cpp" />
+    <ClCompile Include="jk_Animator.cpp" />
+    <ClCompile Include="jk_Blending.cpp" />
+    <ClCompile Include="jk_Boss.cpp" />
+    <ClCompile Include="jk_BaseBullet.cpp" />
+    <ClCompile Include="jk_Callapses.cpp" />
+    <ClCompile Include="jk_Camera.cpp" />
+    <ClCompile Include="jk_Cannon.cpp" />
+    <ClCompile Include="jk_Canon_Bullet.cpp" />
+    <ClCompile Include="jk_ChatarcterChoiseSC.cpp" />
+    <ClCompile Include="jk_check1.cpp" />
+    <ClCompile Include="jk_check2.cpp" />
+    <ClCompile Include="jk_ChoiceCC.cpp" />
+    <ClCompile Include="jk_Choice_select.cpp" />
+    <ClCompile Include="jk_Collapses_Ground.cpp" />
+    <ClCompile Include="jk_Collider.cpp" />
+    <ClCompile Include="jk_CollisionManager.cpp" />
+    <ClCompile Include="jk_EmeraldSonic.cpp" />
+    <ClCompile Include="jk_Ending.cpp" />
+    <ClCompile Include="jk_Application.cpp" />
+    <ClCompile Include="jk_Act1_BG_object.cpp" />
+    <ClCompile Include="jk_CharaterChoice.cpp" />
+    <ClCompile Include="jk_Component.cpp" />
+    <ClCompile Include="jk_EndingScene.cpp" />
+    <ClCompile Include="jk_Entity.cpp" />
+    <ClCompile Include="jk_Gameobject.cpp" />
+    <ClCompile Include="jk_Ground.cpp" />
+    <ClCompile Include="jk_Image.cpp" />
+    <ClCompile Include="jk_Input.cpp" />
+    <ClCompile Include="jk_Item.cpp" />
+    <ClCompile Include="jk_ItemBigRing.cpp" />
+    <ClCompile Include="jk_Item_Fire.cpp" />
+    <ClCompile Include="jk_Item_super.cpp" />
+    <ClCompile Include="jk_Item_water.cpp" />
+    <ClCompile Include="jk_Jeep_line.cpp" />
+    <ClCompile Include="jk_Jeep_line_Handle.cpp" />
+    <ClCompile Include="jk_Layer.cpp" />
+    <ClCompile Include="jk_Math.cpp" />
+    <ClCompile Include="jk_MGEmerald.cpp" />
+    <ClCompile Include="jk_Minigame.cpp" />
+    <ClCompile Include="jk_MinigameScene.cpp" />
+    <ClCompile Include="jk_Monket_Bullet.cpp" />
+    <ClCompile Include="jk_Monkey.cpp" />
+    <ClCompile Include="jk_Monster.cpp" />
+    <ClCompile Include="jk_Move_GR.cpp" />
+    <ClCompile Include="jk_Ring.cpp" />
+    <ClCompile Include="jk_Ring_Falling.cpp" />
+    <ClCompile Include="jk_Rock_big.cpp" />
+    <ClCompile Include="jk_Rock_middle.cpp" />
+    <ClCompile Include="jk_Rock_Pice.cpp" />
+    <ClCompile Include="jk_Rock_small.cpp" />
+    <ClCompile Include="jk_Sky.cpp" />
+    <ClCompile Include="jk_Snake.cpp" />
+    <ClCompile Include="jk_Snake_Body.cpp" />
+    <ClCompile Include="jk_Snake_body2.cpp" />
+    <ClCompile Include="jk_Snake_Body_Smoke.cpp" />
+    <ClCompile Include="jk_Snake_mTaIl.cpp" />
+    <ClCompile Include="jk_Snake_Tail_End.cpp" />
+    <ClCompile Include="jk_Spike_Up.cpp" />
+    <ClCompile Include="jk_Spring_Left.cpp" />
+    <ClCompile Include="jk_Spring_Up.cpp" />
+    <ClCompile Include="jk_StageSave.cpp" />
+    <ClCompile Include="jk_Tails.cpp" />
+    <ClCompile Include="jk_tails_tail.cpp" />
+    <ClCompile Include="jk_tail_jump.cpp" />
+    <ClCompile Include="jk_Title.cpp" />
+    <ClCompile Include="jk_PlayScene.cpp" />
+    <ClCompile Include="jk_Resource.cpp" />
+    <ClCompile Include="jk_Resources.cpp" />
+    <ClCompile Include="jk_Scene.cpp" />
+    <ClCompile Include="jk_SceneManager.cpp" />
+    <ClCompile Include="jk_SONIC.cpp" />
+    <ClCompile Include="jk_Time.cpp" />
+    <ClCompile Include="jk_TitleScene.cpp" />
+    <ClCompile Include="JK_TitleSN.cpp" />
+    <ClCompile Include="jk_Titlesonic.cpp" />
+    <ClCompile Include="jk_Transform.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="midlesky.cpp" />
+    <ClCompile Include="Rigdbody_L.cpp" />
+    <ClCompile Include="Rigdbody_R.cpp" />
+    <ClCompile Include="Rigidbody.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SONIC_JK.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico" />
+    <Image Include="SONIC_JK.ico" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
