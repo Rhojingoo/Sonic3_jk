@@ -49,11 +49,10 @@ namespace jk
 		
 		if (Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner()))
 		{
-			if(checkcheck==0)
-			{
-			mGround->Set_Circle_Center(Vector2{26823.f,2637.f});	
-			checkcheck - 1;
-			}
+	
+			mGround->Set_Circle_Center(Vector2{26823.f,2637.f});		
+			mGround->CheckLoopEnter_R();
+		
 		}
 	}
 	void check2::OnCollisionStay(Collider* other)

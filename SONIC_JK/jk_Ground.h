@@ -36,7 +36,7 @@ namespace jk
 		}
 
 
-	private:
+	public:
 		void CheckGround();
 		void CheckLoopEnter_R();
 		void CheckLoopStoneEnter_R();

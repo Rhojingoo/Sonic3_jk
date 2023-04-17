@@ -27,7 +27,7 @@
 #include "jk_Jeep_line_Handle.h"
 #include "jk_Collapses_Ground.h"
 #include "jk_Move_GR.h"
-
+#include "jk_Cylinder.h"
 
 int ringpoint = 0;
 float RandomFloat(float min, float max)
@@ -65,7 +65,9 @@ namespace jk
 		//tr->SetPos(Vector2{ 15424.0f , 2921.f });
 		//tr->SetPos(Vector2{ 12310.0f, 3211.0f });
 		//tr->SetPos(Vector2(19718.f, 3450.f));//원돌기
-		tr->SetPos(Vector2{ 26201.f, 3333.f });
+		//tr->SetPos(Vector2{ 26201.f, 3333.f });//밑에 원돌기
+		tr->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
+		
 	}		
 
 		Sonic::~Sonic()
@@ -474,8 +476,23 @@ namespace jk
 						mAnimator->Play(L"LSonicStand", true);
 					}
 				}
-
+				
+				//Cylinder 충돌처리
+				//if (Cylinder* cylinder = dynamic_cast<Cylinder*>(other->GetOwner()))
+				//{
+				//	if (mDir == 1)
+				//	{
+				//		mState = eSonicState::Spring_Jump;
+				//		mAnimator->Play(L"LSonic_Spring_up", true);
+				//	}
+				//	else if (mDir == -1)
+				//	{
+				//		mState = eSonicState::Spring_Jump;
+				//		mAnimator->Play(L"LSonic_Spring_up", true);
+				//	}
+				//}
 	
+		
 
 
 				//Rock 충돌처리(푸쉬) --락에 콜라이더 문제 있음
@@ -756,6 +773,25 @@ namespace jk
 
 		Transform* tr = GetComponent<Transform>();
 		tr->GetPos();
+
+
+		////Cylinder 충돌처리
+		//if (Cylinder* cylinder = dynamic_cast<Cylinder*>(other->GetOwner()))
+		//{
+		//	if (mDir == 1)
+		//	{
+		//		mState = eSonicState::Spring_Jump;
+		//		mAnimator->Play(L"LSonic_Spring_up", true);
+		//	}
+		//	else if (mDir == -1)
+		//	{
+		//		mState = eSonicState::Spring_Jump;
+		//		mAnimator->Play(L"LSonic_Spring_up", true);
+		//	}
+		//}
+
+
+
 	}
 
 		void Sonic::OnCollisionExit(Collider * other)
@@ -768,6 +804,21 @@ namespace jk
 					mAnimator->Play(L"RSonicStand", true);
 				}				
 			}
+
+			//if (Cylinder* cylinder = dynamic_cast<Cylinder*>(other->GetOwner()))
+			//{
+			//	if (mDir == 1)
+			//	{
+			//		mState = eSonicState::Idle;
+			//		mAnimator->Play(L"RSonicStand", true);
+			//	}
+			//	else if (mDir == -1)
+			//	{
+			//		mState = eSonicState::Spring_Jump;
+			//		mAnimator->Play(L"LSonicStand", true);
+			//	}
+			//}
+
 
 		//mState = eSonicState::Idle;
 		//mAnimator->Play(L"RSonicStand", true);

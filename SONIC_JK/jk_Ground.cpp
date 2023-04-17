@@ -21,6 +21,7 @@
 
 #define GROUNDCOLOR						RGB(0, 0, 0)
 #define WALLCOLOR						RGB(0, 12, 123)
+#define FLYLCOLOR						RGB(51, 102, 102)
 
 #define STONEGREY_LOOPENTER				RGB(127, 127, 127) 
 #define STONEORANGE_LOOPHALF			RGB(255, 127, 0)
@@ -204,7 +205,7 @@ namespace jk
 
 
 
-		CheckGround();
+	
 
 		//소닉 Circle 진입확인
 		Vector2 playerPos = mPlayerTR->GetPos();
@@ -235,7 +236,7 @@ namespace jk
 			int a = 0;
 		}
 
-		
+		CheckGround();
 
 		if (mDirect == 1)
 		{
@@ -244,7 +245,10 @@ namespace jk
 				CheckLoopStoneEnter_R();
 			}
 
-			CheckLoopEnter_R();
+			if (mRotationcheck == LOOPENTERCOLOR)
+			{
+				CheckLoopEnter_R();
+			}
 			CheckLoopStoneSecond_R();
 			CheckLoopHalfAfter_R();
 			if (Circlecheck == -1)
@@ -267,7 +271,8 @@ namespace jk
 			{
 				CheckLoopStoneGround_L();
 			}
-		}		
+		}
+	
 
 		Gameobject::Update();
 	}
@@ -279,7 +284,7 @@ namespace jk
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 		Vector2 mpos = pos - (Camera::CaluatePos(pos) - pos);
-		TransparentBlt(hdc, 0, 0, 1200, 840, Cicle_Rturn->GetHdc(), mpos.x, mpos.y, 1200, 840, RGB(255, 255, 255));
+		TransparentBlt(hdc, 0, 0, 1200, 840, Ground_Image->GetHdc(), mpos.x, mpos.y, 1200, 840, RGB(255, 255, 255));
 		
 	}
 
@@ -445,7 +450,7 @@ namespace jk
 		float Yrevice_side = 50.0f;
 
 
-		//오른쪽벽
+		//오른쪽벽 	WallCheck가 1일땐 오른쪽으로 미는 모션, -1일떈 왼쪽으로 미는 모션, 0일땐 그냥 아이들상태(소닉에서 설정필요)
 		COLORREF player_R_Side_PosColor = Ground_Image->GetPixel(playerPos.x + 80.f, playerPos.y + Yrevice_side);
 		if (player_R_Side_PosColor == WALLCOLOR)
 		{
@@ -512,6 +517,32 @@ namespace jk
 			WallCheck = 0;
 		}
 
+
+		//FLY통
+		COLORREF player_Down_Side_PosColor = Cicle_Rturn->GetPixel(playerPos.x + 40.f, playerPos.y + 100.f);
+		if (player_Down_Side_PosColor == FLYLCOLOR)
+		{
+			COLORREF color_Push_DOWN = Cicle_Rturn->GetPixel(playerPos.x + 40.f, playerPos.y + 100.f);
+			mPlayerRigidBody->SetGround(true);
+			if (color_Push_DOWN == FLYLCOLOR)
+			{
+				while (color_Push_DOWN == FLYLCOLOR)
+				{
+					playerPos.y -= 1;
+					color_Push_DOWN = Cicle_Rturn->GetPixel(playerPos.x + 40.f, playerPos.y + 100.f);
+					WallCheck = 1;
+				}
+				mPlayerTR->SetPos(playerPos);
+			}
+		}
+		else
+		{
+			WallCheck = 0;
+		}
+
+
+
+
 		//COLORREF player_Down_Side_PosColor = Ground_Image->GetPixel(playerPos.x + 40.f, playerPos.y + 100.f);
 		//if (player_Down_Side_PosColor == WALLCOLOR)
 		//{
@@ -534,7 +565,7 @@ namespace jk
 		//}
 		//WallCheck가 1일땐 오른쪽으로 미는 모션, -1일떈 왼쪽으로 미는 모션, 0일땐 그냥 아이들상태(소닉에서 설정필요)
 
-
+		//테일즈
 		//테일즈 발판
 		//COLORREF tailsFootPosColor = Ground_Image->GetPixel(playerPos_Tails.x + 75.f, playerPos_Tails.y + 100.f + 1);
 		//if (tailsFootPosColor == GROUNDCOLOR)
@@ -616,11 +647,11 @@ namespace jk
 
 			Vector2 TempVel;
 			TempVel = mPlayerRigidBody->Getgravity();
-			mPlayerRigidBody->SetGravity(Vector2{ 0.0f,500.0f });
-			mRotationcheck = GROUND;
-			Ground::CheckGround();		
+			//mPlayerRigidBody->SetGravity(Vector2{ 0.0f,500.0f });
+			//mRotationcheck = GROUND;
+			//Ground::CheckGround();		
 		}
-		else if (Circle_pice == 1)
+		if (Circle_pice == 1)
 		{
 			//Vector2 rotation = { radius, 0.0f };
 			//rotation = math::Rotate(rotation, 45.f);
@@ -676,7 +707,7 @@ namespace jk
 		}
 		else
 		{
-			int check = 50;
+			int check = 10;
 			if (mPlayer->Getsonicstate() == Sonic::eSonicState::Jump)
 				check = 2;
 			COLORREF colorDown = Cicle_Rturn->GetPixel(playerPos.x + Xrevice + check, playerPos.y + Yrevice);
@@ -753,49 +784,49 @@ namespace jk
 
 		float Xrevice = 0.0f;
 		float Yrevice = 0.0f;
-	/*	Vector2 center = { 50.0f, 35.0f };
-		float radius = 65.0f;*/
+		Vector2 center = { 50.0f, 35.0f };
+		float radius = 65.0f;
 
 
 		if (Circle_pice == 4)
 		{
-			//Vector2 rotation = { radius, 0.0f };
-			//rotation = math::Rotate(rotation, -90.f);
+			Vector2 rotation = { radius, 0.0f };
+			rotation = math::Rotate(rotation, -90.f);
 
-	/*		Xrevice = center.x + rotation.x;
-			Yrevice = center.y + rotation.y;*/
-			Xrevice = 60.0f;
-			Yrevice = -35.0f;
+			Xrevice = center.x + rotation.x;
+			Yrevice = center.y + rotation.y;
+			//Xrevice = 60.0f;
+			//Yrevice = -35.0f;
 		}
 		else if (Circle_pice == 5)
 		{
-			//Vector2 rotation = { radius, 0.0f };
-			//rotation = math::Rotate(rotation, -135.f);
+			Vector2 rotation = { radius, 0.0f };
+			rotation = math::Rotate(rotation, -135.f);
 
-	/*		Xrevice = center.x + rotation.x;
-			Yrevice = center.y + rotation.y;*/
-			Xrevice = 0.0f;
-			Yrevice = 0.0f;
+			Xrevice = center.x + rotation.x;
+			Yrevice = center.y + rotation.y;
+			//Xrevice = 0.0f;
+			//Yrevice = 0.0f;
 		}
 		else if (Circle_pice == 6)
 		{
-			//Vector2 rotation = { radius, 0.0f };
-			//rotation = math::Rotate(rotation, -180.f);
+			Vector2 rotation = { radius, 0.0f };
+			rotation = math::Rotate(rotation, -180.f);
 
-	/*		Xrevice = center.x + rotation.x;
-			Yrevice = center.y + rotation.y;*/
-			Xrevice = -10.0f;
-			Yrevice = 80.0f;
+			Xrevice = center.x + rotation.x;
+			Yrevice = center.y + rotation.y;
+			//Xrevice = -10.0f;
+			//Yrevice = 80.0f;
 		}
 		else if (Circle_pice == 7)
 		{
-			//Vector2 rotation = { radius, 0.0f };
-			//rotation = math::Rotate(rotation, 135.f);
+			Vector2 rotation = { radius, 0.0f };
+			rotation = math::Rotate(rotation, 135.f);
 
-	/*		Xrevice = center.x + rotation.x;
-			Yrevice = center.y + rotation.y;*/
-			Xrevice = 0.0f;
-			Yrevice = 80.0f;
+			Xrevice = center.x + rotation.x;
+			Yrevice = center.y + rotation.y;
+			//Xrevice = 0.0f;
+			//Yrevice = 80.0f;
 		}
 
 

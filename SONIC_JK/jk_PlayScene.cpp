@@ -45,6 +45,8 @@
 #include "jk_Collapses_Ground.h"
 #include "jk_check1.h"
 #include "jk_check2.h"
+#include "jk_Cylinder.h"
+
 namespace jk
 {
 	PlayScene::PlayScene()
@@ -237,6 +239,11 @@ namespace jk
 		spike_Up[1]->GetComponent<Transform>()->SetPos(Vector2{ 16032.0f, 2950.0f });
 		spike_Up[2]->GetComponent<Transform>()->SetPos(Vector2{ 19101.0f, 1858.0f });
 		spike_Up[3]->GetComponent<Transform>()->SetPos(Vector2{ 19532.0f, 1858.0f });
+
+		Cylinder* cylinder =  new Cylinder();
+		cylinder->SetName(L"cylinder");
+		AddGameobeject(cylinder, jk_LayerType::BG_props);
+		cylinder->GetComponent<Transform>()->SetPos(Vector2{ 28085.0f, 2510.0f });
 
 		//∏ÛΩ∫≈Õ
 		Monster* mRino[3];

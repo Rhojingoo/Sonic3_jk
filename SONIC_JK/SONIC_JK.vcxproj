@@ -172,6 +172,7 @@
     <ClInclude Include="jk_Collider.h" />
     <ClInclude Include="jk_CollisionManager.h" />
     <ClInclude Include="jk_Component.h" />
+    <ClInclude Include="jk_Cylinder.h" />
     <ClInclude Include="jk_EmeraldSonic.h" />
     <ClInclude Include="jk_Ending.h" />
     <ClInclude Include="jk_EndingScene.h" />
@@ -265,6 +266,7 @@
     <ClCompile Include="jk_Collapses_Ground.cpp" />
     <ClCompile Include="jk_Collider.cpp" />
     <ClCompile Include="jk_CollisionManager.cpp" />
+    <ClCompile Include="jk_Cylinder.cpp" />
     <ClCompile Include="jk_EmeraldSonic.cpp" />
     <ClCompile Include="jk_Ending.cpp" />
     <ClCompile Include="jk_Application.cpp" />

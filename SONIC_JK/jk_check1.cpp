@@ -47,6 +47,7 @@ namespace jk
 		{
 			mGround->Set_Circlecheck(1);
 			//mGround->Set_Circle_Center(Vector2{ 26823.f,2637.f });
+			//mGround->CheckLoopEnter_R(); 
 		}
 		
 	}
