@@ -41,7 +41,7 @@ namespace jk
 			{
 				Animator::Events* events
 					= FindEvents(mActiveAnimation->GetName());
-				//선생님
+
 				if (events != nullptr)
 					events->mCompleteEvent();
 			}
@@ -103,8 +103,6 @@ namespace jk
 	/*	mActiveAnimation = FindAnimation(name);
 		mbLoop = loop;*/
 
-
-		//선생님 애니메이터 나눠진행  따라
 		if (mActiveAnimation != nullptr)
 		{
 			Animator::Events* prevEvents
@@ -114,7 +112,6 @@ namespace jk
 			{
 				prevEvents->mEndEvent();
 			}
-
 		}
 			mActiveAnimation = FindAnimation(name);
 			mActiveAnimation->Reset();
@@ -126,15 +123,12 @@ namespace jk
 			if (events != nullptr)
 			{
 				events->mStartEvent();
-			}
-		
+			}	
 	}
 
 	Animator::Events* Animator::FindEvents(const std::wstring& name)
-	{
+	{	
 		
-		
-		//선생님 애니메이터 나눠진행  따라
 		std::map<std::wstring, Events*>::iterator iter
 			= mEvents.find(name);
 

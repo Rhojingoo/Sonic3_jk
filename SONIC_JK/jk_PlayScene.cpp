@@ -154,8 +154,11 @@ namespace jk
 			AddGameobeject(s_rock[a], jk_LayerType::BG_props);
 		}
 		s_rock[0]->GetComponent<Transform>()->SetPos(Vector2{ 13308.0f, 3174.0f });
+		s_rock[0]->GetComponent<Collider>()->SetPos(Vector2{ 13308.0f, 3174.0f });
 		s_rock[1]->GetComponent<Transform>()->SetPos(Vector2{ 19398.0f, 2766.0f });
+		s_rock[1]->GetComponent<Collider>()->SetPos(Vector2{ 19398.0f, 2766.0f });
 		s_rock[2]->GetComponent<Transform>()->SetPos(Vector2{ 25000.0f, 3340.0f });
+		s_rock[1]->GetComponent<Collider>()->SetPos(Vector2{ 25000.0f, 3340.0f });
 
 
 		//Rock_middle* rock_middle[1];
@@ -427,47 +430,41 @@ namespace jk
 
 				
 
-		//아이템 
+
 		//링위치
-		Ring* ring[100];
-		for (int a = 0; a < 100; a++)
-		{
-			ring[a] = new Ring(mSonic);
-			AddGameobeject(ring[a], jk_LayerType::Rings);
-		}		
-		ring[0]->GetComponent<Transform>()->SetPos(Vector2{ 11276.0f, 3056.0f});	
-		ring[1]->GetComponent<Transform>()->SetPos(Vector2{ 11376.0f, 3056.0f});
-		ring[2]->GetComponent<Transform>()->SetPos(Vector2{ 11476.0f, 3056.0f });
-
-		ring[3]->GetComponent<Transform>()->SetPos(Vector2{ 11712.0f, 3161.0f });
-		ring[4]->GetComponent<Transform>()->SetPos(Vector2{ 11812.0f, 3211.0f });
-		ring[5]->GetComponent<Transform>()->SetPos(Vector2{ 11912.0f, 3261.0f });
-		ring[6]->GetComponent<Transform>()->SetPos(Vector2{ 12012.0f, 3311.0f });
-		ring[7]->GetComponent<Transform>()->SetPos(Vector2{ 12112.0f, 3361.0f });
-
-		ring[8]->GetComponent<Transform>()->SetPos(Vector2{ 12627.f, 3405.f });
-		ring[9]->GetComponent<Transform>()->SetPos(Vector2{ 12727.f, 3355.f });
-		ring[10]->GetComponent<Transform>()->SetPos(Vector2{ 12797.f, 3285.f });
-
-		ring[11]->GetComponent<Transform>()->SetPos(Vector2{ 13687.f, 3208.f });
-		ring[12]->GetComponent<Transform>()->SetPos(Vector2{ 13787.f, 3208.f });
-		ring[13]->GetComponent<Transform>()->SetPos(Vector2{ 13887.f, 3208.f });
+		//Ring* ring[22];
+		//for (int a = 0; a < 22; a++)
+		//{
+		//	ring[a] = new Ring(mSonic);
+		//	AddGameobeject(ring[a], jk_LayerType::Rings);
+		//}		
 
 
-		ring[14]->GetComponent<Transform>()->SetPos(Vector2{ 17232.f, 3783.f });
-		ring[15]->GetComponent<Transform>()->SetPos(Vector2{ 17332.f, 3733.f });
-		ring[16]->GetComponent<Transform>()->SetPos(Vector2{ 17432.f, 3683.f });
-
-		ring[17]->GetComponent<Transform>()->SetPos(Vector2{ 20013.f, 3376.f });
-		ring[18]->GetComponent<Transform>()->SetPos(Vector2{ 20092.f, 3226.f });
-		ring[19]->GetComponent<Transform>()->SetPos(Vector2{ 20258.f, 3163.f });
-		ring[20]->GetComponent<Transform>()->SetPos(Vector2{ 20426.f, 3225.f });
-		ring[21]->GetComponent<Transform>()->SetPos(Vector2{ 20498.f, 3379.f });
-
+		//ring[0]->GetComponent<Transform>()->SetPos(Vector2{ 11276.0f, 3056.0f});	
+		//ring[1]->GetComponent<Transform>()->SetPos(Vector2{ 11376.0f, 3056.0f});
+		//ring[2]->GetComponent<Transform>()->SetPos(Vector2{ 11476.0f, 3056.0f });
+		//ring[3]->GetComponent<Transform>()->SetPos(Vector2{ 11712.0f, 3161.0f });
+		//ring[4]->GetComponent<Transform>()->SetPos(Vector2{ 11812.0f, 3211.0f });
+		//ring[5]->GetComponent<Transform>()->SetPos(Vector2{ 11912.0f, 3261.0f });
+		//ring[6]->GetComponent<Transform>()->SetPos(Vector2{ 12012.0f, 3311.0f });
+		//ring[7]->GetComponent<Transform>()->SetPos(Vector2{ 12112.0f, 3361.0f });
+		//ring[8]->GetComponent<Transform>()->SetPos(Vector2{ 12627.f, 3405.f });
+		//ring[9]->GetComponent<Transform>()->SetPos(Vector2{ 12727.f, 3355.f });
+		//ring[10]->GetComponent<Transform>()->SetPos(Vector2{ 12797.f, 3285.f });
+		//ring[11]->GetComponent<Transform>()->SetPos(Vector2{ 13687.f, 3208.f });
+		//ring[12]->GetComponent<Transform>()->SetPos(Vector2{ 13787.f, 3208.f });
+		//ring[13]->GetComponent<Transform>()->SetPos(Vector2{ 13887.f, 3208.f });
+		//ring[14]->GetComponent<Transform>()->SetPos(Vector2{ 17232.f, 3783.f });
+		//ring[15]->GetComponent<Transform>()->SetPos(Vector2{ 17332.f, 3733.f });
+		//ring[16]->GetComponent<Transform>()->SetPos(Vector2{ 17432.f, 3683.f });
+		//ring[17]->GetComponent<Transform>()->SetPos(Vector2{ 20013.f, 3376.f });
+		//ring[18]->GetComponent<Transform>()->SetPos(Vector2{ 20092.f, 3226.f });
+		//ring[19]->GetComponent<Transform>()->SetPos(Vector2{ 20258.f, 3163.f });
+		//ring[20]->GetComponent<Transform>()->SetPos(Vector2{ 20426.f, 3225.f });
+		//ring[21]->GetComponent<Transform>()->SetPos(Vector2{ 20498.f, 3379.f });
 		//ItemBigRing* Big_Ring = new ItemBigRing();
 		//Big_Ring->SetName(L"BIGRING");
-		//AddGameobeject(Big_Ring, jk_LayerType::Item);
-	
+		//AddGameobeject(Big_Ring, jk_LayerType::Item);	
 
 		Scene::Initialize();		
 	}
@@ -528,6 +525,7 @@ namespace jk
 		CollisionManager::SetLayer(jk_LayerType::Player2, jk_LayerType::Ground, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::BG_props, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Player2, true);
+		
 		if (Camera_Switch == 0)
 		{
 		Camera::SetTarget(mSonic);
@@ -550,10 +548,7 @@ namespace jk
 		minibos_show* mbos_show = new minibos_show();
 		mbos_show->SetName(L"mbos_show");
 		AddGameobeject(mbos_show, jk_LayerType::MiniBoss);
-		mbos_show->GetComponent<Transform>()->SetPos(Vector2{ 30792.f, 2407.f });
-
-
-	
+		mbos_show->GetComponent<Transform>()->SetPos(Vector2{ 30792.f, 2407.f });	
 
 		//= new Lttle_miniboss();
 		//little_miniboss->SetName(L"little_miniboss");

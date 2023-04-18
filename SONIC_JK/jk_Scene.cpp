@@ -35,25 +35,34 @@ namespace jk
 	}
 	void Scene::Destory()
 	{
-		std::vector<Gameobject*> deleteGameobjects = {};
+		std::vector<Gameobject*> deleteGameObjects = {};
 		for (Layer& layer : mLayers)
-		{		
-			std::vector<Gameobject*>& gameobjects
-				= layer.GetGameobjects();			
+		{
+			std::vector<Gameobject*>& gameObjects
+				= layer.GetGameobjects();
 
-			for (std::vector<Gameobject*>::iterator iter = gameobjects.begin();
-				iter != gameobjects.end();)
+			for (std::vector<Gameobject*>::iterator iter = gameObjects.begin()
+				; iter != gameObjects.end(); )
 			{
 				if ((*iter)->GetState() == Gameobject::eState::Death)
 				{
-					deleteGameobjects.push_back((*iter));
-					iter = gameobjects.erase(iter);
+					deleteGameObjects.push_back((*iter));
+					iter = gameObjects.erase(iter);
 				}
 				else
 				{
 					iter++;
 				}
 			}
+		}
+
+		// 죽은 위치에서 충돌중인 다른 충돌체가 있었다면 Exit를
+		// 호출 해준후에 삭제 해주어야한다.
+
+		for (Gameobject* deathObj : deleteGameObjects)
+		{
+			delete deathObj;
+			deathObj = nullptr;
 		}
 	}
 

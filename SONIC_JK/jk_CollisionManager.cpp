@@ -8,19 +8,16 @@
 int frame_check = 0;
 
 namespace jk
-{
-
-	
+{	
 	WORD CollisionManager::mMatrix[(UINT)jk_LayerType::End] = {};	
 	std::map<UINT64, bool>CollisionManager::mCollisionMap;
 
 	void CollisionManager::Update()
 	{		
 		Scene* scene = SceneManager::GetActiveScene();
-
-		for (UINT row = 0; row < (UINT)jk_LayerType::End;row++)
+		for (UINT row = 0; row < (UINT)jk_LayerType::End;row++)		
 		{
-			for (UINT col = 0; col < (UINT)jk_LayerType::End; col++)
+			for (UINT col = 0; col < (UINT)jk_LayerType::End; col++)			
 			{
 				if (mMatrix[row] & (1 << col))
 				{
@@ -109,8 +106,10 @@ namespace jk
 		Transform* tr = left->GetOwner()->GetComponent<Transform>();
 		Transform* tr1 = right->GetOwner()->GetComponent<Transform>();
 
+		Vector2 leftPos_tr = tr->GetPos();
+		Vector2 rightPos_tr = tr1->GetPos();
 
-	
+
 			Vector2 leftPos = left->Getpos();
 			Vector2 rightPos = right->Getpos();
 		
@@ -129,20 +128,18 @@ namespace jk
 				&& fabs(leftPos.y - rightPos.y) < (leftSize.y / 2.0f) + (rightSize.y / 2.0f))
 			{
 				return true;
-			}	
+			}						
 	
-				
-		//	Vector2 L_mCenter = left->GetCenter();
-		//	Vector2 R_mCenter = right->GetCenter();
-
-		//if (fabs(leftPos.x/* + L_mCenter.x*/- rightPos.x/*+ R_mCenter.x*/) < (leftSize.x / 2.0f) + (rightSize.x / 2.0f)
-		//	&& fabs(leftPos.y /*+ L_mCenter.y*/ - rightPos.y/*+ R_mCenter.y*/) < (leftSize.y / 2.0f) + (rightSize.y / 2.0f))
-		//{
-		//	return true;//여기다 중단점 걸어 충돌되는지 확인가능
-		//}
 		return false;
 	}
+	//	Vector2 L_mCenter = left->GetCenter();
+	//	Vector2 R_mCenter = right->GetCenter();
 
+	//if (fabs(leftPos.x/* + L_mCenter.x*/- rightPos.x/*+ R_mCenter.x*/) < (leftSize.x / 2.0f) + (rightSize.x / 2.0f)
+	//	&& fabs(leftPos.y /*+ L_mCenter.y*/ - rightPos.y/*+ R_mCenter.y*/) < (leftSize.y / 2.0f) + (rightSize.y / 2.0f))
+	//{
+	//	return true;//여기다 중단점 걸어 충돌되는지 확인가능
+	//}
 
 	void CollisionManager::SetLayer(jk_LayerType left, jk_LayerType right, bool value)
 	{

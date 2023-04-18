@@ -31,19 +31,12 @@ namespace jk
 {
 	Rock_small::Rock_small()
 	{
-	}
-	Rock_small::~Rock_small()
-	{
-	}
-
-	void Rock_small::Initialize()
-	{
 		mImage = Resources::Load<Image>(L"Rock_Platform", L"..\\Resources\\Rock_Platform.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"small_Rock", mImage, Vector2(164, 578), Vector2(48, 32), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
 		mAnimator->Play(L"small_Rock", true);
-		
-		
+
+
 		Collider* collider = AddComponent<Collider>();
 		collider->SetSize(Vector2(130.0f, 95.0f));
 		Vector2 size = collider->GetSize();
@@ -51,6 +44,14 @@ namespace jk
 
 		mRigidbody = AddComponent<Rigidbody>();
 		mRigidbody->SetMass(1.0f);
+	}
+	Rock_small::~Rock_small()
+	{
+	}
+
+	void Rock_small::Initialize()
+	{
+
 
 		Gameobject::Initialize();
 	}
