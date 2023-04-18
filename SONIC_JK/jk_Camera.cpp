@@ -7,12 +7,15 @@
 #include "jk_Image.h"
 
 extern jk::Application application;
+
 namespace jk
 {
+	
 	Vector2 Camera::mResolution = Vector2::Zero;
 	Vector2 Camera::mLookPosition = Vector2::Zero;
 	Vector2 Camera::mDistance = Vector2::Zero;
 	Gameobject* Camera::mTarget = nullptr;
+	
 
 	//Camera::eCameraEffectType Camera::mType = Camera::eCameraEffectType::None;
 	//class Image* Camera::mCutton = nullptr;
@@ -25,7 +28,7 @@ namespace jk
 		mResolution.x = static_cast<float>(application.GetWidth());
 		mResolution.y = static_cast<float>(application.GetHeight());
 		mLookPosition = (mResolution / 2.0f);		
-
+		
 		//mType = eCameraEffectType::FadeIn;
 		//mCutton = Image::Create(L"Cutton", mResolution.x, mResolution.y, RGB(255, 255,255));
 	}
@@ -47,6 +50,8 @@ namespace jk
 
 		
 		//캐릭터를 중심으로 움직이게 설정
+		
+
 		if (mTarget != nullptr)
 		{
 			mLookPosition

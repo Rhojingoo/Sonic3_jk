@@ -155,9 +155,6 @@
     <Filter Include="Contents\monster\Animal">
       <UniqueIdentifier>{1f65b018-faa2-43b2-8598-6b9537b619d5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\BG\PlayBG\act1_BG">
-      <UniqueIdentifier>{13a480ef-1a77-4b8e-beab-c2d16791ebba}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\BG\PlayBG\Event_bg">
       <UniqueIdentifier>{34b1d06c-6958-4148-b142-9753ee24bf36}</UniqueIdentifier>
     </Filter>
@@ -196,6 +193,45 @@
     </Filter>
     <Filter Include="Contents\BG\PlayBG\Event_bg\CYLINDER">
       <UniqueIdentifier>{5c4c1457-647b-4fd2-b8d7-a150d585bd00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\PlayBG\BG_act1-1">
+      <UniqueIdentifier>{13a480ef-1a77-4b8e-beab-c2d16791ebba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Boss\Act1_boss">
+      <UniqueIdentifier>{32dee091-3d23-43e9-a720-7c7f90587c5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Boss\Act1_minibos_show">
+      <UniqueIdentifier>{0ae8e8fc-483e-4864-af45-ea205bfb64b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Boss\Act1_miniboss">
+      <UniqueIdentifier>{1c0b293f-19d6-4e07-af9f-b03324634968}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\PlayBG\BG_act1-2">
+      <UniqueIdentifier>{0d3c2548-8d21-46f1-a991-804e4029ed5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\Playgame\Act1-1">
+      <UniqueIdentifier>{b9ef15d3-36b7-4c3f-9dc2-7b2132f2a383}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\Playgame\Act1-2">
+      <UniqueIdentifier>{0da14897-cf50-45b8-b589-0256b793029a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\PlayBG\Ground act1-2">
+      <UniqueIdentifier>{92797704-beb1-4317-88ab-059972d715b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\PlayBG\Ground">
+      <UniqueIdentifier>{9c1a1423-07ab-4243-9593-915adf8f4e16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Boss\Act1_minibos_show\fire">
+      <UniqueIdentifier>{2f0a74b0-7796-4d3b-ac9c-4dca23294df8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Boss\Act1_minibos_show\lttle boss">
+      <UniqueIdentifier>{26bd6aa4-699e-41bc-a7be-f09aba9890bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Boss\Act1_minibos_show\bullet">
+      <UniqueIdentifier>{dbf38549-2ef7-4f5b-954d-450fe4daf549}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Boss\Act1_minibos_show\show">
+      <UniqueIdentifier>{2552fdff-9ef6-4838-a445-9118e417b140}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -268,9 +304,6 @@
     <ClInclude Include="jk_ChatarcterChoiseSC.h">
       <Filter>Contents\Scene\Choice</Filter>
     </ClInclude>
-    <ClInclude Include="jk_PlayScene.h">
-      <Filter>Contents\Scene\Playgame</Filter>
-    </ClInclude>
     <ClInclude Include="jk_TitleScene.h">
       <Filter>Contents\Scene\Title</Filter>
     </ClInclude>
@@ -279,9 +312,6 @@
     </ClInclude>
     <ClInclude Include="jk_MinigameScene.h">
       <Filter>Contents\Scene\Minigame</Filter>
-    </ClInclude>
-    <ClInclude Include="jk_Boss.h">
-      <Filter>Contents\Boss</Filter>
     </ClInclude>
     <ClInclude Include="jk_BaseBullet.h">
       <Filter>Contents\BaseBullet</Filter>
@@ -399,19 +429,19 @@
       <Filter>Contents\monster\Animal</Filter>
     </ClInclude>
     <ClInclude Include="midlesky.h">
-      <Filter>Contents\BG\PlayBG\act1_BG</Filter>
+      <Filter>Contents\BG\PlayBG\BG_act1-1</Filter>
     </ClInclude>
     <ClInclude Include="acr1_forest2.h">
-      <Filter>Contents\BG\PlayBG\act1_BG</Filter>
+      <Filter>Contents\BG\PlayBG\BG_act1-1</Filter>
     </ClInclude>
     <ClInclude Include="act1_forest1.h">
-      <Filter>Contents\BG\PlayBG\act1_BG</Filter>
+      <Filter>Contents\BG\PlayBG\BG_act1-1</Filter>
     </ClInclude>
     <ClInclude Include="jk_Act1_BG_object.h">
-      <Filter>Contents\BG\PlayBG\act1_BG</Filter>
+      <Filter>Contents\BG\PlayBG\BG_act1-1</Filter>
     </ClInclude>
     <ClInclude Include="jk_Act1skyBG.h">
-      <Filter>Contents\BG\PlayBG\act1_BG</Filter>
+      <Filter>Contents\BG\PlayBG\BG_act1-1</Filter>
     </ClInclude>
     <ClInclude Include="jk_Rock_big.h">
       <Filter>Contents\BG\PlayBG\Event_bg\Rock</Filter>
@@ -432,7 +462,7 @@
       <Filter>Contents\BG\PlayBG\Event_bg\Spring</Filter>
     </ClInclude>
     <ClInclude Include="jk_Sky.h">
-      <Filter>Contents\BG\PlayBG\act1_BG</Filter>
+      <Filter>Contents\BG\PlayBG\BG_act1-1</Filter>
     </ClInclude>
     <ClInclude Include="jk_Item.h">
       <Filter>Contents\Item\Change_SONIC</Filter>
@@ -479,14 +509,49 @@
     <ClInclude Include="jk_Choice_select.h">
       <Filter>Contents\BG\CharacterChoice BG</Filter>
     </ClInclude>
-    <ClInclude Include="jk_Ground.h" />
     <ClInclude Include="jk_check1.h">
       <Filter>Contents\BG\Circle_check\Act1-1</Filter>
     </ClInclude>
-    <ClInclude Include="jk_check2.h" />
     <ClInclude Include="jk_Cylinder.h">
       <Filter>Contents\BG\PlayBG\Event_bg\CYLINDER</Filter>
     </ClInclude>
+    <ClInclude Include="jk_Boss.h">
+      <Filter>Contents\Boss\Act1_boss</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Minibos.h">
+      <Filter>Contents\Boss\Act1_miniboss</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_check2.h">
+      <Filter>Contents\BG\Circle_check\Act1-1</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_PlayScene.h">
+      <Filter>Contents\Scene\Playgame\Act1-1</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_PlayScene2.h">
+      <Filter>Contents\Scene\Playgame\Act1-2</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Act1_2_BG.h">
+      <Filter>Contents\BG\PlayBG\BG_act1-2</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Ground.h">
+      <Filter>Contents\BG\PlayBG\Ground</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Ground_act1_2.h">
+      <Filter>Contents\BG\PlayBG\Ground act1-2</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_fire_show.h">
+      <Filter>Contents\Boss\Act1_minibos_show\fire</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Lttle_miniboss.h">
+      <Filter>Contents\Boss\Act1_minibos_show\lttle boss</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_midlle_boss_shoot.h">
+      <Filter>Contents\Boss\Act1_minibos_show\bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_minibos_show.h">
+      <Filter>Contents\Boss\Act1_minibos_show\show</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Clean_wall.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SONIC_JK.rc">
@@ -553,9 +618,6 @@
     <ClCompile Include="jk_ChatarcterChoiseSC.cpp">
       <Filter>Contents\Scene\Choice</Filter>
     </ClCompile>
-    <ClCompile Include="jk_PlayScene.cpp">
-      <Filter>Contents\Scene\Playgame</Filter>
-    </ClCompile>
     <ClCompile Include="jk_TitleScene.cpp">
       <Filter>Contents\Scene\Title</Filter>
     </ClCompile>
@@ -564,9 +626,6 @@
     </ClCompile>
     <ClCompile Include="jk_MinigameScene.cpp">
       <Filter>Contents\Scene\Minigame</Filter>
-    </ClCompile>
-    <ClCompile Include="jk_Boss.cpp">
-      <Filter>Contents\Boss</Filter>
     </ClCompile>
     <ClCompile Include="jk_BaseBullet.cpp">
       <Filter>Contents\BaseBullet</Filter>
@@ -680,19 +739,19 @@
       <Filter>Contents\monster\Animal</Filter>
     </ClCompile>
     <ClCompile Include="acr1_forest2.cpp">
-      <Filter>Contents\BG\PlayBG\act1_BG</Filter>
+      <Filter>Contents\BG\PlayBG\BG_act1-1</Filter>
     </ClCompile>
     <ClCompile Include="act1_forest1.cpp">
-      <Filter>Contents\BG\PlayBG\act1_BG</Filter>
+      <Filter>Contents\BG\PlayBG\BG_act1-1</Filter>
     </ClCompile>
     <ClCompile Include="jk_Act1_BG_object.cpp">
-      <Filter>Contents\BG\PlayBG\act1_BG</Filter>
+      <Filter>Contents\BG\PlayBG\BG_act1-1</Filter>
     </ClCompile>
     <ClCompile Include="jk_Act1skyBG.cpp">
-      <Filter>Contents\BG\PlayBG\act1_BG</Filter>
+      <Filter>Contents\BG\PlayBG\BG_act1-1</Filter>
     </ClCompile>
     <ClCompile Include="midlesky.cpp">
-      <Filter>Contents\BG\PlayBG\act1_BG</Filter>
+      <Filter>Contents\BG\PlayBG\BG_act1-1</Filter>
     </ClCompile>
     <ClCompile Include="jk_Rock_big.cpp">
       <Filter>Contents\BG\PlayBG\Event_bg\Rock</Filter>
@@ -713,7 +772,7 @@
       <Filter>Contents\BG\PlayBG\Event_bg\Spring</Filter>
     </ClCompile>
     <ClCompile Include="jk_Sky.cpp">
-      <Filter>Contents\BG\PlayBG\act1_BG</Filter>
+      <Filter>Contents\BG\PlayBG\BG_act1-1</Filter>
     </ClCompile>
     <ClCompile Include="jk_Item.cpp">
       <Filter>Contents\Item\Change_SONIC</Filter>
@@ -760,13 +819,48 @@
     <ClCompile Include="jk_Choice_select.cpp">
       <Filter>Contents\BG\CharacterChoice BG</Filter>
     </ClCompile>
-    <ClCompile Include="jk_Ground.cpp" />
     <ClCompile Include="jk_check1.cpp">
       <Filter>Contents\BG\Circle_check\Act1-1</Filter>
     </ClCompile>
-    <ClCompile Include="jk_check2.cpp" />
     <ClCompile Include="jk_Cylinder.cpp">
       <Filter>Contents\BG\PlayBG\Event_bg\CYLINDER</Filter>
     </ClCompile>
+    <ClCompile Include="jk_Boss.cpp">
+      <Filter>Contents\Boss\Act1_boss</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Minibos.cpp">
+      <Filter>Contents\Boss\Act1_miniboss</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_check2.cpp">
+      <Filter>Contents\BG\Circle_check\Act1-1</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_PlayScene.cpp">
+      <Filter>Contents\Scene\Playgame\Act1-1</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_PlayScene2.cpp">
+      <Filter>Contents\Scene\Playgame\Act1-2</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Act1_2_BG.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act1-2</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Ground.cpp">
+      <Filter>Contents\BG\PlayBG\Ground</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Ground_act1_2.cpp">
+      <Filter>Contents\BG\PlayBG\Ground act1-2</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_fire_show.cpp">
+      <Filter>Contents\Boss\Act1_minibos_show\fire</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Lttle_miniboss.cpp">
+      <Filter>Contents\Boss\Act1_minibos_show\lttle boss</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_midlle_boss_shoot.cpp">
+      <Filter>Contents\Boss\Act1_minibos_show\bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_minibos_show.cpp">
+      <Filter>Contents\Boss\Act1_minibos_show\show</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Clean_wall.cpp" />
   </ItemGroup>
 </Project>

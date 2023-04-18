@@ -71,9 +71,7 @@ namespace jk
 
 		case jk::Monster::eMonsterState::Turn:turn();
 			break;
-
-		/*case jk::Monster::eMonsterState::Deth:deth();
-			break;	*/
+	
 
 		default:
 			break;

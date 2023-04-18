@@ -1,8 +1,10 @@
 #include "jk_SceneManager.h"
 #include "jk_PlayScene.h"
+#include "jk_PlayScene2.h"
 #include "jk_TitleScene.h"
 #include "jk_EndingScene.h"
 #include "jk_ChatarcterChoiseSC.h"
+#include "jk_CollisionManager.h"
 #include "jk_MinigameScene.h"
 
 namespace jk
@@ -20,7 +22,9 @@ namespace jk
 		mScenes[(UINT)jk_SceneType::CharacterChoice] = new ChatarcterChoiseSC();
 		mScenes[(UINT)jk_SceneType::CharacterChoice]->SetName(L"CharacterChoice");
 		mScenes[(UINT)jk_SceneType::GamePlay] = new PlayScene();
-		mScenes[(UINT)jk_SceneType::GamePlay]->SetName(L"GamePlay");
+		mScenes[(UINT)jk_SceneType::GamePlay]->SetName(L"Act1-1");
+		mScenes[(UINT)jk_SceneType::GamePlay2] = new PlayScene2();
+		mScenes[(UINT)jk_SceneType::GamePlay2]->SetName(L"Act1-2");
 		mScenes[(UINT)jk_SceneType::MiniGameplay] = new MinigameScene();
 		mScenes[(UINT)jk_SceneType::MiniGameplay]->SetName(L"MiniGameplay");
 		mScenes[(UINT)jk_SceneType::Ending] = new EndingScene();
@@ -66,6 +70,7 @@ namespace jk
 	{
 		// «ˆ¿Áæ¿
 		mActiveScene->OnExit();
+		//CollisionManager::Clear();
 		//¥Ÿ¿Ωæ¿
 		mActiveScene = mScenes[(UINT)type];
 

@@ -149,6 +149,7 @@
     <ClInclude Include="EndingBlend.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="jk_Act1skyBG.h" />
+    <ClInclude Include="jk_Act1_2_BG.h" />
     <ClInclude Include="jk_Airplanetails.h" />
     <ClInclude Include="jk_Animal.h" />
     <ClInclude Include="jk_Animation.h" />
@@ -168,6 +169,7 @@
     <ClInclude Include="jk_check2.h" />
     <ClInclude Include="jk_ChoiceCC.h" />
     <ClInclude Include="jk_Choice_select.h" />
+    <ClInclude Include="jk_Clean_wall.h" />
     <ClInclude Include="jk_Collapses_Ground.h" />
     <ClInclude Include="jk_Collider.h" />
     <ClInclude Include="jk_CollisionManager.h" />
@@ -178,8 +180,10 @@
     <ClInclude Include="jk_EndingScene.h" />
     <ClInclude Include="jk_Entity.h" />
     <ClInclude Include="jk_Enums.h" />
+    <ClInclude Include="jk_fire_show.h" />
     <ClInclude Include="jk_Gameobject.h" />
     <ClInclude Include="jk_Ground.h" />
+    <ClInclude Include="jk_Ground_act1_2.h" />
     <ClInclude Include="jk_Image.h" />
     <ClInclude Include="jk_Input.h" />
     <ClInclude Include="jk_Item.h" />
@@ -190,8 +194,12 @@
     <ClInclude Include="jk_Jeep_line.h" />
     <ClInclude Include="jk_Jeep_line_Handle.h" />
     <ClInclude Include="jk_Layer.h" />
+    <ClInclude Include="jk_Lttle_miniboss.h" />
     <ClInclude Include="jk_Math.h" />
     <ClInclude Include="jk_MGEmerald.h" />
+    <ClInclude Include="jk_midlle_boss_shoot.h" />
+    <ClInclude Include="jk_Minibos.h" />
+    <ClInclude Include="jk_minibos_show.h" />
     <ClInclude Include="jk_Minigame.h" />
     <ClInclude Include="jk_MinigameScene.h" />
     <ClInclude Include="jk_Monket_Bullet.h" />
@@ -199,6 +207,7 @@
     <ClInclude Include="jk_Monster.h" />
     <ClInclude Include="jk_Move_GR.h" />
     <ClInclude Include="jk_Object.h" />
+    <ClInclude Include="jk_PlayScene2.h" />
     <ClInclude Include="jk_Ring.h" />
     <ClInclude Include="jk_Ring_Falling.h" />
     <ClInclude Include="jk_Rock_big.h" />
@@ -247,6 +256,7 @@
     <ClCompile Include="Electsonic.cpp" />
     <ClCompile Include="EndingBlend.cpp" />
     <ClCompile Include="jk_Act1skyBG.cpp" />
+    <ClCompile Include="jk_Act1_2_BG.cpp" />
     <ClCompile Include="jk_Airplanetails.cpp" />
     <ClCompile Include="jk_Animal.cpp" />
     <ClCompile Include="jk_Animation.cpp" />
@@ -263,6 +273,7 @@
     <ClCompile Include="jk_check2.cpp" />
     <ClCompile Include="jk_ChoiceCC.cpp" />
     <ClCompile Include="jk_Choice_select.cpp" />
+    <ClCompile Include="jk_Clean_wall.cpp" />
     <ClCompile Include="jk_Collapses_Ground.cpp" />
     <ClCompile Include="jk_Collider.cpp" />
     <ClCompile Include="jk_CollisionManager.cpp" />
@@ -275,8 +286,10 @@
     <ClCompile Include="jk_Component.cpp" />
     <ClCompile Include="jk_EndingScene.cpp" />
     <ClCompile Include="jk_Entity.cpp" />
+    <ClCompile Include="jk_fire_show.cpp" />
     <ClCompile Include="jk_Gameobject.cpp" />
     <ClCompile Include="jk_Ground.cpp" />
+    <ClCompile Include="jk_Ground_act1_2.cpp" />
     <ClCompile Include="jk_Image.cpp" />
     <ClCompile Include="jk_Input.cpp" />
     <ClCompile Include="jk_Item.cpp" />
@@ -287,14 +300,19 @@
     <ClCompile Include="jk_Jeep_line.cpp" />
     <ClCompile Include="jk_Jeep_line_Handle.cpp" />
     <ClCompile Include="jk_Layer.cpp" />
+    <ClCompile Include="jk_Lttle_miniboss.cpp" />
     <ClCompile Include="jk_Math.cpp" />
     <ClCompile Include="jk_MGEmerald.cpp" />
+    <ClCompile Include="jk_midlle_boss_shoot.cpp" />
+    <ClCompile Include="jk_Minibos.cpp" />
+    <ClCompile Include="jk_minibos_show.cpp" />
     <ClCompile Include="jk_Minigame.cpp" />
     <ClCompile Include="jk_MinigameScene.cpp" />
     <ClCompile Include="jk_Monket_Bullet.cpp" />
     <ClCompile Include="jk_Monkey.cpp" />
     <ClCompile Include="jk_Monster.cpp" />
     <ClCompile Include="jk_Move_GR.cpp" />
+    <ClCompile Include="jk_PlayScene2.cpp" />
     <ClCompile Include="jk_Ring.cpp" />
     <ClCompile Include="jk_Ring_Falling.cpp" />
     <ClCompile Include="jk_Rock_big.cpp" />

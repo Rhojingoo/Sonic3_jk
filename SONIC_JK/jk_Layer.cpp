@@ -6,13 +6,16 @@ namespace jk
 	{
 
 	}
-
+	
 	Layer::~Layer()
 	{
 		for (Gameobject* gameObj : mGameobjects)
 		{
-			delete gameObj;
-			gameObj = nullptr;
+			if (gameObj)
+			{
+				delete gameObj;
+				gameObj = nullptr;
+			}
 		}
 	}
 

@@ -7,48 +7,50 @@
 namespace jk
 {
 	class Animator;
-	class Boss : public Gameobject
+	class fire_show : public Gameobject
 	{
 	public:
-		enum class eBossState
+		enum class eState
 		{
 			Move,
 			Attack,
-			Hit,
 			Death
 		};
 
 
-		Boss(Gameobject* owner);
-		~Boss();
+		fire_show();
+		~fire_show();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void Render(HDC hdc) override;
 		virtual void Release() override;
 
+
 		virtual void OnCollisionEnter(class Collider* other) override;
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
-
+		void SetCenterpos(Vector2 pos) { mCenterpos = pos; }
 
 	private:
 		void move();
 		void attack();
-		void hit();
 		void death();
 
 
 	private:
 		Image* mImage;
 		Animator* mAnimator;
+
+		float fDist;
+		Vector2 pos;
 		Vector2 mCenterpos;
-		Vector2 mCurpos;
 		float mMonspeed;
 		float mMonmaxdistance;
+
 		int mDir;
-		eBossState mState;
+		eState mState;
 		Gameobject* mOwner;
 	};
 }

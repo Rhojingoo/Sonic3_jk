@@ -15,8 +15,9 @@ namespace jk
 		for (Component* comp : mComponents)
 		{
 			delete comp;
-			comp = nullptr;
+			comp = nullptr;			
 		}
+		
 	}
 
 	void Gameobject::Initialize()

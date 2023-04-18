@@ -20,15 +20,16 @@ namespace jk
 		, mDir(-1)
 	{
 		Transform* tr = GetComponent<Transform>();
-		tr->SetPos(Vector2(750.0f, 151.0f));
+		tr->SetPos(Vector2(2790.0f, 3050.0f));
+		//2790.0f * 3, 3200.f
 	}
 	Boss::~Boss()
 	{
 	}
 	void Boss::Initialize()
 	{
-		Transform* tr = GetComponent<Transform>();
-		tr->SetPos(Vector2(750.0f, 151.0f));
+	/*	Transform* tr = GetComponent<Transform>();
+		tr->SetPos(Vector2(750.0f, 151.0f));*/
 		mImage = Resources::Load<Image>(L"ROBOT", L"..\\Resources\\ROBOT.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"RROBOT", mImage, Vector2::rRobotAtackLTC, Vector2::rRobotAtacksize, Vector2::rRobotAtackSpace, 1, 1, 1, Vector2::Zero, 0.1f);
@@ -109,6 +110,18 @@ namespace jk
 	void Boss::Release()
 	{
 		Gameobject::Release();
+	}
+
+	void Boss::OnCollisionEnter(Collider* other)
+	{
+	}
+
+	void Boss::OnCollisionStay(Collider* other)
+	{
+	}
+
+	void Boss::OnCollisionExit(Collider* other)
+	{
 	}
 
 	void Boss::move()

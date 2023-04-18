@@ -7,7 +7,7 @@
 namespace jk
 {
 	class Animator;
-	class Boss : public Gameobject
+	class Minibos : public Gameobject
 	{
 	public:
 		enum class eBossState
@@ -19,8 +19,8 @@ namespace jk
 		};
 
 
-		Boss(Gameobject* owner);
-		~Boss();
+		Minibos(Gameobject* owner);
+		~Minibos();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
@@ -30,8 +30,6 @@ namespace jk
 		virtual void OnCollisionEnter(class Collider* other) override;
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
-
-
 
 	private:
 		void move();

@@ -168,25 +168,28 @@ namespace jk
 	{
 
 		Transform* tr = GetComponent<Transform>();
-		Rigidbody* bullet_rb = GetComponent<Rigidbody>();
-		Scene* curScene = SceneManager::GetActiveScene();
-		Canon_Bullet* bullet = new Canon_Bullet(this);
+		Rigidbody* bullet_rb = GetComponent<Rigidbody>();	
 		Image* groundImage = check->GetGroundImage();
 		
 		if (mDir == -1)
 		{
+			Scene* curScene = SceneManager::GetActiveScene();
+			Canon_Bullet* bullet = new Canon_Bullet(this);
 			bullet->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x, tr->GetPos().y - 25 });
 			bullet->GetComponent<Rigidbody>()->SetVelocity(Vector2{ -300.0f, -300.0f });
-			curScene->AddGameobeject(bullet, jk_LayerType::Bullet);	
 			bullet->SetGroundImage(groundImage);
+			curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
 		}
 		else
 		{
+			Scene* curScene = SceneManager::GetActiveScene();
+			Canon_Bullet* bullet = new Canon_Bullet(this);
 			bullet->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x, tr->GetPos().y - 25 });
-			bullet->GetComponent<Rigidbody>()->SetVelocity(Vector2{ 300.0f, -300.0f });
-			curScene->AddGameobeject(bullet, jk_LayerType::Bullet);				
+			bullet->GetComponent<Rigidbody>()->SetVelocity(Vector2{ 300.0f, -300.0f });			
 			bullet->SetGroundImage(groundImage);
+			curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
 		}
+		
 		mDir = mDir * -1;
 		mState = eCannon::Idle;		
 	}

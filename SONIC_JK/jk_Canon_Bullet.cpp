@@ -25,7 +25,7 @@ namespace jk
 		mImage = Resources::Load<Image>(L"Canon_B", L"..\\Resources\\Monster2.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"Canon_B", mImage, Vector2{ 319.f,336.f }, Vector2{ 16.f,16.f }, Vector2{ 0.f,0.f }, 1, 1, 1, Vector2::Zero, 0.5f);
-
+		mAnimator->Play(L"Canon_B", true);
 
 		Collider* collider = AddComponent<Collider>();
 		collider->SetSize(Vector2(30.0f, 35.0f));
@@ -36,12 +36,13 @@ namespace jk
 		mRigidbody->SetMass(1.0f);
 	
 		mOwner = owner;
-		Cannon* canon = new Cannon(this);
+		Cannon* canon = new Cannon(this);	
 		mDir = canon->GetDir();
 		check_ground_Cb = 0;
 	}
 	Canon_Bullet::~Canon_Bullet()
 	{
+		Cannon;
 	}
 	void Canon_Bullet::Initialize()
 	{
@@ -83,7 +84,7 @@ namespace jk
 		}
 
 
-		mAnimator->Play(L"Canon_B", true);			
+			
 
 		Gameobject::Update();
 	}

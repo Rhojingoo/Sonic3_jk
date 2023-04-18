@@ -1,54 +1,57 @@
 #pragma once
 #include "jk_Gameobject.h"
 #include "jk_Image.h"
-#include "jk_Time.h"
-
+#include "jk_SONIC.h"
+#include "jk_Animator.h"
 
 namespace jk
 {
+	class Ground;
+	class Rigidbody;
 	class Animator;
-	class Boss : public Gameobject
+	class Clean_wall : public Gameobject
 	{
 	public:
-		enum class eBossState
+		enum class eState
 		{
-			Move,
-			Attack,
-			Hit,
-			Death
+			Idle,		
+			Death,
 		};
 
-
-		Boss(Gameobject* owner);
-		~Boss();
+		Clean_wall();
+		~Clean_wall();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void Render(HDC hdc) override;
 		virtual void Release() override;
 
+
 		virtual void OnCollisionEnter(class Collider* other) override;
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
-
+		void SetGroundImage(Image* image) { mGroundImage = image; }
+		void SetCheckTargetGround(Ground* ground) { check = ground; }
 
 	private:
-		void move();
-		void attack();
-		void hit();
+		void idle();
 		void death();
 
 
 	private:
 		Image* mImage;
+		Image* mGroundImage;
 		Animator* mAnimator;
-		Vector2 mCenterpos;
-		Vector2 mCurpos;
-		float mMonspeed;
-		float mMonmaxdistance;
-		int mDir;
-		eBossState mState;
 		Gameobject* mOwner;
+		eState mState;
+		Ground* check;
+
+		class Collider* mCollider;
+		int mDir;
+		Sonic::eSonicState sonicState;
+		int Itemcheck;
+		Rigidbody* mRigidbody;
 	};
+
 }

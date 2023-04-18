@@ -73,21 +73,6 @@ namespace jk
 			return;
 		}
 
-		//	Sonic = mOwner->GetComponent<Transform>()->GetPos();		
-		//		if (Sonic.x > pos.x)
-		//{
-		//	pos.x += 150.0f * static_cast<float>(Time::DeltaTime());
-		//	pos.y += 150.0f * static_cast<float>(Time::DeltaTime());
-		//	mAnimator->Play(L"RM_B", true);
-		//}
-		//if (Sonic.x < pos.x)
-		//{
-		//	pos.x -= 150.0f * static_cast<float>(Time::DeltaTime());
-		//	pos.y += 150.0f * static_cast<float>(Time::DeltaTime());
-		//	mAnimator->Play(L"LM_B", true);
-		//}
-		//
-
 		tr->SetPos(Bullet_ps);
 
 		Gameobject::Update();

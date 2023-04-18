@@ -323,9 +323,7 @@ namespace jk
 
 
 	void Monkey::deth()
-	{
-		//mAnimator->GetCompleteEvent(L"deth") = std::bind(&Monkey::release_animal, this);
-		//Monkey::release_animal();
+	{	
 		Transform* tr = GetComponent<Transform>();
 		Scene* curScene = SceneManager::GetActiveScene();
 		Animal* ani = new Animal(mOwner);
@@ -338,28 +336,28 @@ namespace jk
 
 	void Monkey::throw_CompleteEvent()
 	{
-		Transform* tr = GetComponent<Transform>();
-		Scene* curScene = SceneManager::GetActiveScene();
-		Monket_Bullet* bullet = new Monket_Bullet(mOwner);
-		//bullet->GetComponent<Transform>()->SetPos(tr->GetPos());	
-
-		if (sonicpattern == -1)
-		{
-			bullet->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos()});
-			bullet->GetComponent<Rigidbody>()->SetVelocity(Vector2{ -300.0f, -300.0f });
-			curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
-			bullet->SetGroundImage(mGroundImage);
-		}
-		else if(sonicpattern ==1)
-		{
-			bullet->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos()});
-			bullet->GetComponent<Rigidbody>()->SetVelocity(Vector2{ 300.0f, -300.0f });
-			curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
-			bullet->SetGroundImage(mGroundImage);
-		}
-
-
-		mState = eMonkey::Turn;
+		//Transform* tr = GetComponent<Transform>();
+		//Scene* curScene = SceneManager::GetActiveScene();
+		//Monket_Bullet* bullet = new Monket_Bullet(mOwner);
+		////bullet->GetComponent<Transform>()->SetPos(tr->GetPos());	
+		//
+		//if (sonicpattern == -1)
+		//{
+		//	bullet->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos()});
+		//	bullet->GetComponent<Rigidbody>()->SetVelocity(Vector2{ -300.0f, -300.0f });
+		//	curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
+		//	bullet->SetGroundImage(mGroundImage);
+		//}
+		//else if(sonicpattern ==1)
+		//{
+		//	bullet->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos()});
+		//	bullet->GetComponent<Rigidbody>()->SetVelocity(Vector2{ 300.0f, -300.0f });
+		//	curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
+		//	bullet->SetGroundImage(mGroundImage);
+		//}
+		//
+		//
+		//mState = eMonkey::Turn;
 	}
 
 	void Monkey::release_animal()

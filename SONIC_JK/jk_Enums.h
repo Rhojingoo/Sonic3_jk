@@ -6,6 +6,7 @@ enum class jk_SceneType
 	Tittle,
 	CharacterChoice,
 	GamePlay,
+	GamePlay2,
 	Contunue,
 	MiniGameplay,
 	Ending,

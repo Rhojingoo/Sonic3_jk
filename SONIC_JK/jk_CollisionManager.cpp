@@ -102,23 +102,22 @@ namespace jk
 
 	bool CollisionManager::Intersect(Collider* left, Collider* right)
 	{
-		//Vector2 leftPos = left->Getpos();
-		//Vector2 rightPos = right->Getpos();
+
+	
+		//Vector2 L_mCenter = left->GetCenter();
+		//Vector2 R_mCenter = right->GetCenter();
 
 		Transform* tr = left->GetOwner()->GetComponent<Transform>();
 		Transform* tr1 = right->GetOwner()->GetComponent<Transform>();
-
 
 		Vector2 leftPos = tr->GetPos();
 		Vector2 rightPos = tr1->GetPos();
 		Vector2 L_mCenter = left->GetCenter();
 		Vector2 R_mCenter = right->GetCenter();
 
-		// 두 충돌체 간의 거리와, 각면적의 절반끼리의 합을 비교해서
-		// 거리가 더 길다면 충돌 X, 거리가 더 짧다면 충돌 O
 		Vector2 leftSize = left->GetSize();
 		Vector2 rightSize = right->GetSize();
-	
+
 
 		//leftPos.x = leftPos.x + leftSize.x / 2.0f;
 		//leftPos.y = leftPos.y + leftSize.y / 2.0f;
@@ -126,25 +125,15 @@ namespace jk
 		//rightPos.x = rightPos.x + rightSize.x / 2.0f;
 		//rightPos.y = rightPos.y + rightSize.y / 2.0f;
 
-		/*if (fabs(leftPos.x - rightPos.x) < (leftSize.x / 2.0f) + (rightSize.x / 2.0f)
-			&& fabs(leftPos.y - rightPos.y) < (leftSize.y / 2.0f) + (rightSize.y / 2.0f))
-		{
-			return true;
-		}*/
-
-		//규성
-		//RECT rightR = { leftPos.x + L_mCenter.x ,  leftPos.y + L_mCenter.y , leftPos.x + L_mCenter.x + leftSize.x ,leftPos.y + L_mCenter.y + leftSize.y };
-		//RECT leftR = { rightPos.x + L_mCenter.x ,  rightPos.y + L_mCenter.y , rightPos.x + L_mCenter.x + rightSize.x ,rightPos.y + L_mCenter.y + rightSize.y };
-
-		//RECT a;
-		//if (IntersectRect(&a, &rightR, &leftR))
+		//if (fabs(leftPos.x - rightPos.x) < (leftSize.x / 2.0f) + (rightSize.x / 2.0f)
+		//	&& fabs(leftPos.y - rightPos.y) < (leftSize.y / 2.0f) + (rightSize.y / 2.0f))
 		//{
 		//	return true;
-		//}
-		//else return false;
-		 
-		if (fabs(leftPos.x + L_mCenter.x- rightPos.x+ R_mCenter.x) < (leftSize.x / 2.0f) + (rightSize.x / 2.0f)
-			&& fabs(leftPos.y + L_mCenter.y - rightPos.y+ R_mCenter.y) < (leftSize.y / 2.0f) + (rightSize.y / 2.0f))
+		//}	
+
+	
+		if (fabs(leftPos.x/* + L_mCenter.x*/- rightPos.x/*+ R_mCenter.x*/) < (leftSize.x / 2.0f) + (rightSize.x / 2.0f)
+			&& fabs(leftPos.y /*+ L_mCenter.y*/ - rightPos.y/*+ R_mCenter.y*/) < (leftSize.y / 2.0f) + (rightSize.y / 2.0f))
 		{
 			return true;//여기다 중단점 걸어 충돌되는지 확인가능
 		}

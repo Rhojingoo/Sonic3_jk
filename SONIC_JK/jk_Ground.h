@@ -24,8 +24,8 @@ namespace jk
 
 		void Set_Circle_Center(Vector2 check) { Circle1_Center = check; }
 		void Set_Circlecheck(int cir_check) { Circlecheck = cir_check; }
-
 		void SetPlayer(class Sonic* player, class Tails* player2) { mPlayer = player, mPlayer2 = player2; }
+		
 
 		class Image* GetGroundImage() 
 		{ 
@@ -51,6 +51,7 @@ namespace jk
 		void CheckLoopEnter_L();
 		void CheckLoopHalfAfter_L();
 
+		void Set_map_check(int chek) { map_chek = chek; }
 
 		//void MonsterGround();
 
@@ -75,9 +76,16 @@ namespace jk
 
 
 		int Circlecheck;
+		//act1-1 이미지
 		class Image* Ground_Image;
 		class Image* Cicle_Rturn;
 		class Image* Cicle_Lturn;
+		//act1-2 이미지
+		class Image* Ground_Image2;
+		class Image* Cicle_Rturn2;
+		class Image* Cicle_Lturn2;
+
+
 		int mDirect;
 		int Circle_pice;
 		int Circle_pice_Tails;
@@ -89,7 +97,6 @@ namespace jk
 		int WallCheck;
 
 		class Collider* mCollider;
-
-		//check가 1이라면 오른쪽중간 //check가 2라면 위로 //check가 3이상이라면 중간에서 안떨어짐 // check가 4라면 왼쪽위 //check가 5라면 원상복귀
+		int map_chek;
 	};
 }

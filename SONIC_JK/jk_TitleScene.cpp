@@ -36,7 +36,7 @@ namespace jk
 	void TitleScene::Update()
 	{
 		Scene::Update();
-		if (Input::GetKeyState(eKeyCode::SPACE) == eKeyState::Down)
+		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
 			SceneManager::LoadScene(jk_SceneType::CharacterChoice);
 			CreateBlending();

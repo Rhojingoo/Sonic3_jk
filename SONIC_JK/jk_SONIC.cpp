@@ -66,8 +66,10 @@ namespace jk
 		//tr->SetPos(Vector2{ 12310.0f, 3211.0f });
 		//tr->SetPos(Vector2(19718.f, 3450.f));//원돌기
 		//tr->SetPos(Vector2{ 26201.f, 3333.f });//밑에 원돌기
-		tr->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
-		
+		//tr->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
+		//tr->SetPos(Vector2{ 29043.0f, 2499.0f });
+
+
 	}		
 
 		Sonic::~Sonic()
@@ -178,6 +180,11 @@ namespace jk
 			Vector2 check_sonic = tr->GetPos();
 			check_sonic.x;
 			check_sonic.y;
+		
+			if (check_sonic.x > 30300.f)
+			{
+				int a = 0;
+			}
 
 			switch (mState)
 			{
@@ -930,8 +937,7 @@ namespace jk
 						mDir = -1;
 					}
 				}
-			}	
-			
+			}				
 	
 				//else
 				//{

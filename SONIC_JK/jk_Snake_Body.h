@@ -42,7 +42,7 @@ namespace jk
 		void deth();
 
 	private:
-		Gameobject* mOwner;
+		//Gameobject* mOwner;
 		Image* mImage;
 		Animator* mAnimator;		
 		Vector2 pos;
