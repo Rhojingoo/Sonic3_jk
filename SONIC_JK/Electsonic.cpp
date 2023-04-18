@@ -29,8 +29,8 @@ namespace jk
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 		pos = mSonic;
-	
 		mAnimator->Play(L"Elect", true);
+		
 	}
 	Electsonic::~Electsonic()
 	{
@@ -48,7 +48,7 @@ namespace jk
 		Vector2 pos = tr->GetPos();
 		tr->SetPos(mSonic);
 		
-
+		
 		//if (Input::GetKeyDown(eKeyCode::RIGHT)
 		//	|| Input::GetKeyDown(eKeyCode::LEFT))
 		//	object::Destory(this);

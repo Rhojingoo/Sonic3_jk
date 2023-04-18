@@ -29,7 +29,13 @@
 #include "jk_Move_GR.h"
 #include "jk_Cylinder.h"
 
+
 int ringpoint = 0;
+int Elect = 0;
+int Water = 0;
+int Fire = 0;
+
+
 float RandomFloat(float min, float max)
 {
 	std::random_device rd;
@@ -61,15 +67,13 @@ namespace jk
 		//tr->SetPos(Vector2{ 16350.0f, 2847.0f });//jeepline
 		//tr->SetPos(Vector2{ 13218.0f, 3174.0f });//캐논
 	
-		//tr->SetPos(Vector2{ 2790.0f * 3, 3200.f }); //시작		
+		//tr->SetPos(Vector2{ 2790.0f * 3, 3200.f }); //시작
 		//tr->SetPos(Vector2{ 15424.0f , 2921.f });
 		//tr->SetPos(Vector2{ 12310.0f, 3211.0f });
 		//tr->SetPos(Vector2(19718.f, 3450.f));//원돌기
 		//tr->SetPos(Vector2{ 26201.f, 3333.f });//밑에 원돌기
 		//tr->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
 		//tr->SetPos(Vector2{ 29043.0f, 2499.0f });
-
-
 	}		
 
 		Sonic::~Sonic()
@@ -79,6 +83,8 @@ namespace jk
 
 		void Sonic::Initialize()
 	{
+			
+			
 		//Transform* tr = GetComponent<Transform>();
 		//tr->SetPos(Vector2{ 2790.0f * 3, 3200.f });
 		//tr->SetPos(Vector2(19718.f, 3450.f));
@@ -91,7 +97,7 @@ namespace jk
 		mAnimator->CreateAnimation(L"RSonicSit", mImage, Vector2::RSonicSitLTC, Vector2::RSonicSitsize, Vector2::RSonicSitSpace, 2, 1, 2, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"RSonicShock", mImage, Vector2(740,750), Vector2(52,52), Vector2(4,4), 1, 1, 1, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"RSonicRun", mImage, Vector2(24, 397), Vector2(52, 52), Vector2(4, 4), 4, 1, 4, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"RSonicRollandJunp", mImage, Vector2(248, 397), Vector2(52, 52), Vector2(4, 4), 5, 1, 5, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"RSonicRollandJunp", mImage, Vector2(248, 397), Vector2(52, 52), Vector2(4, 4), 5, 1, 5, Vector2::Zero, 0.05);
 		mAnimator->CreateAnimation(L"RSonicBrake", mImage, Vector2(412, 478), Vector2(52, 52), Vector2(4, 4), 3, 1, 3, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"RSonicSpin", mImage, Vector2(24, 534), Vector2(62, 52), Vector2(4, 4), 6, 2, 12, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"RSonichurt", mImage, Vector2(956, 530), Vector2(56, 48), Vector2(8, 0), 2, 1, 2, Vector2::Zero, 0.1);
@@ -107,7 +113,7 @@ namespace jk
 		mAnimator->CreateAnimation(L"LSonicLookUp", mImage1, Vector2::LSonicLookUpLTC, Vector2::LSonicLookUpsize, Vector2::LSonicLookUpSpace, 1, 1, 1, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"LSonicSit", mImage1, Vector2::LSonicSitLTC, Vector2::LSonicSitsize, Vector2::LSonicSitSpace, 2, 1, 2, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"LSonicRun", mImage1, Vector2(24, 397), Vector2(52, 52), Vector2(4, 4), 4, 1, 4, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"LSonicRollandJunp", mImage1, Vector2(248, 397), Vector2(52, 52), Vector2(4, 4), 5, 1, 5, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"LSonicRollandJunp", mImage1, Vector2(248, 397), Vector2(52, 52), Vector2(4, 4), 5, 1, 5, Vector2::Zero, 0.05);
 		mAnimator->CreateAnimation(L"LSonicBrake", mImage1, Vector2(412, 478), Vector2(52, 52), Vector2(4, 4), 3, 1, 3, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"LSonicSpin", mImage1, Vector2(24, 534), Vector2(62, 52), Vector2(4, 4), 6, 2, 12, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"LSonichurt", mImage1, Vector2(956, 530), Vector2(56, 48), Vector2(8, 0), 2, 1, 2, Vector2::Zero, 0.1);
@@ -642,9 +648,10 @@ namespace jk
 							Electsonic* elect = new Electsonic(this);
 							elect->GetComponent<Transform>()->SetPos(tr->GetPos());
 							curScene->AddGameobeject(elect, jk_LayerType::Player_smoke);
+							Elect = 1;
 						}
 						else
-						{
+						{ 
 							return;
 						}
 					}
@@ -1556,6 +1563,31 @@ namespace jk
 				mRigidbody->AddForce(Vector2(+150.0f, 0.0f));
 				SonicVelocity = mRigidbody->Velocity();		
 			}
+
+			if ((Elect == 1)&& (Input::GetKey(eKeyCode::SPACE)))
+			{
+		
+				Vector2 velocity = mRigidbody->GetVelocity();
+				mRigidbody->SetVelocity(velocity);
+				mRigidbody->SetGround(true);
+				mState = eSonicState::Twojump;
+				if (mDir == 1)
+				{
+					velocity.y -= 550.0f;
+					velocity.x = velocity.x;
+					mDir = 1;
+				}
+				else if (mDir == -1)
+				{
+					velocity.y -= 550.0f;
+					velocity.x = velocity.x;
+					mDir = -1;
+				}
+
+			}
+
+
+
 			tr->SetPos(pos);
 		}
 
@@ -1728,6 +1760,32 @@ namespace jk
 
 		void Sonic::twojump()
 		{
+			if (mRigidbody->GetGround())
+			{
+				mState = eSonicState::Idle;
+				if (mDir = 1)
+				{
+					mAnimator->Play(L"RSonicStand", true);
+				}
+				else if (mDir = -1)
+				{
+					mAnimator->Play(L"LSonicStand", true);
+				}
+				else if (Input::GetKeyDown(eKeyCode::RIGHT) || Input::GetKeyDown(eKeyCode::LEFT))
+				{
+					mState = eSonicState::Move;
+					if (Input::GetKeyDown(eKeyCode::RIGHT))
+					{
+						mAnimator->Play(L"RSonicWalk", true);
+						mDir = 1;
+					}
+					else if (Input::GetKeyDown(eKeyCode::LEFT))
+					{
+						mAnimator->Play(L"LSonicWalk", true);
+						mDir = -1;
+					}
+				}
+			}
 		}
 
 		void Sonic::fire_Shield()

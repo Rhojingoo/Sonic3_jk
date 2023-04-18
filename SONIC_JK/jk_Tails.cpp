@@ -31,8 +31,8 @@ namespace jk
 	{
 		mOwner = owner;
 		Transform* tr = GetComponent<Transform>();
-		//tr->SetPos(Vector2{ 2790.0f * 3, 3200.f });
-
+		
+		tr->SetPos(Vector2{ 2790.0f * 3, 3200.f });
 
 		
 	}
@@ -296,13 +296,13 @@ namespace jk
 	{
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
-		
+		mRigidbody->SetFiction(100);
 
 
 		if (Input::GetKeyDown(eKeyCode::RIGHT)
 			|| Input::GetKeyDown(eKeyCode::LEFT))
 		{
-			mRigidbody->SetFiction(100);
+			
 			mState = eTailsState::Move;
 			if (Input::GetKeyDown(eKeyCode::RIGHT))
 				mAnimator->Play(L"RTailsWalk", true);

@@ -54,6 +54,7 @@ namespace jk
 		Time::Initiailize();
 		Input::Initialize();
 		SceneManager::Initialize();
+		//CollisionManager
 		Camera::Initialize();
 		
 	}
@@ -67,6 +68,7 @@ namespace jk
 
 	void Application::Update()
 	{
+		
 		Time::Update();
 		Input::Update();
 		Camera::Update();

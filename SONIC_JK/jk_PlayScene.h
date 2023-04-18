@@ -4,6 +4,7 @@
 
 namespace jk
 {
+	class Tails;
 	class Sonic;
 	class PlayScene : public Scene
 	{
@@ -24,8 +25,11 @@ namespace jk
 
 	private:
 		Sonic* mSonic;
+		Tails* mTails;
 		int Camera_Switch;
 		int dir;
 		int check_minibos;
+
+		int frame_check;
 	};
 }

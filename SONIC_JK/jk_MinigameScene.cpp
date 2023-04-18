@@ -56,7 +56,7 @@ namespace jk
 	{
 		Scene::Release();
 	}
-
+	
 
 	void MinigameScene::OnEnter()
 	{

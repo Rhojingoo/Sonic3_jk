@@ -15,7 +15,7 @@ namespace jk
 {
 	Item::Item(Gameobject* owner)	
 		:mOwner(owner)
-		, Itemcheck(1)
+		, Itemcheck(0)
 	{		
 		//Transform* tr = GetComponent<Transform>();
 		//tr->SetPos(Vector2(90.0f, 551.0f));
@@ -27,7 +27,7 @@ namespace jk
 	{
 		mImage = Resources::Load<Image>(L"Item", L"..\\Resources\\Item.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"FireItem", mImage, Vector2(528, 131), Vector2(32, 32), Vector2(0, 0), 1,1, 1, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"ElectItem", mImage, Vector2(565, 131), Vector2(32, 32), Vector2(0, 0), 1,1, 1, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"ItemDeath", mImage, Vector2(460, 216), Vector2(32, 16), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
 		mAnimator->Play(L"ElectItem", true);
 		Collider* collider = AddComponent<Collider>();
@@ -71,7 +71,7 @@ namespace jk
 			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
 			{
 				mAnimator->Play(L"ItemDeath", true);
-				Itemcheck = 0;
+				Itemcheck = 1;
 			}
 		}
 	}

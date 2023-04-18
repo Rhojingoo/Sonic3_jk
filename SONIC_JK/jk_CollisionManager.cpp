@@ -5,13 +5,17 @@
 #include "jk_Component.h"
 #include "jk_Gameobject.h"
 
+int frame_check = 0;
+
 namespace jk
 {
+
+	
 	WORD CollisionManager::mMatrix[(UINT)jk_LayerType::End] = {};	
 	std::map<UINT64, bool>CollisionManager::mCollisionMap;
 
 	void CollisionManager::Update()
-	{
+	{		
 		Scene* scene = SceneManager::GetActiveScene();
 
 		for (UINT row = 0; row < (UINT)jk_LayerType::End;row++)
@@ -102,41 +106,40 @@ namespace jk
 
 	bool CollisionManager::Intersect(Collider* left, Collider* right)
 	{
-
-	
-		//Vector2 L_mCenter = left->GetCenter();
-		//Vector2 R_mCenter = right->GetCenter();
-
 		Transform* tr = left->GetOwner()->GetComponent<Transform>();
 		Transform* tr1 = right->GetOwner()->GetComponent<Transform>();
 
-		Vector2 leftPos = tr->GetPos();
-		Vector2 rightPos = tr1->GetPos();
-		Vector2 L_mCenter = left->GetCenter();
-		Vector2 R_mCenter = right->GetCenter();
-
-		Vector2 leftSize = left->GetSize();
-		Vector2 rightSize = right->GetSize();
-
-
-		//leftPos.x = leftPos.x + leftSize.x / 2.0f;
-		//leftPos.y = leftPos.y + leftSize.y / 2.0f;
-
-		//rightPos.x = rightPos.x + rightSize.x / 2.0f;
-		//rightPos.y = rightPos.y + rightSize.y / 2.0f;
-
-		//if (fabs(leftPos.x - rightPos.x) < (leftSize.x / 2.0f) + (rightSize.x / 2.0f)
-		//	&& fabs(leftPos.y - rightPos.y) < (leftSize.y / 2.0f) + (rightSize.y / 2.0f))
-		//{
-		//	return true;
-		//}	
 
 	
-		if (fabs(leftPos.x/* + L_mCenter.x*/- rightPos.x/*+ R_mCenter.x*/) < (leftSize.x / 2.0f) + (rightSize.x / 2.0f)
-			&& fabs(leftPos.y /*+ L_mCenter.y*/ - rightPos.y/*+ R_mCenter.y*/) < (leftSize.y / 2.0f) + (rightSize.y / 2.0f))
-		{
-			return true;//여기다 중단점 걸어 충돌되는지 확인가능
-		}
+			Vector2 leftPos = left->Getpos();
+			Vector2 rightPos = right->Getpos();
+		
+
+			Vector2 leftSize = left->GetSize();
+			Vector2 rightSize = right->GetSize();
+
+
+			leftPos.x = leftPos.x + leftSize.x / 2.0f;
+			leftPos.y = leftPos.y + leftSize.y / 2.0f;
+
+			rightPos.x = rightPos.x + rightSize.x / 2.0f;
+			rightPos.y = rightPos.y + rightSize.y / 2.0f;
+
+			if (fabs(leftPos.x - rightPos.x) < (leftSize.x / 2.0f) + (rightSize.x / 2.0f)
+				&& fabs(leftPos.y - rightPos.y) < (leftSize.y / 2.0f) + (rightSize.y / 2.0f))
+			{
+				return true;
+			}	
+	
+				
+		//	Vector2 L_mCenter = left->GetCenter();
+		//	Vector2 R_mCenter = right->GetCenter();
+
+		//if (fabs(leftPos.x/* + L_mCenter.x*/- rightPos.x/*+ R_mCenter.x*/) < (leftSize.x / 2.0f) + (rightSize.x / 2.0f)
+		//	&& fabs(leftPos.y /*+ L_mCenter.y*/ - rightPos.y/*+ R_mCenter.y*/) < (leftSize.y / 2.0f) + (rightSize.y / 2.0f))
+		//{
+		//	return true;//여기다 중단점 걸어 충돌되는지 확인가능
+		//}
 		return false;
 	}
 

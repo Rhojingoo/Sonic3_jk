@@ -10,6 +10,7 @@
 
 
 #include "jk_Sonic.h"
+#include "Electsonic.h"
 #include "jk_Tails.h"
 
 #include "jk_Ground.h"
@@ -81,9 +82,10 @@ namespace jk
 		//Big_Ring->SetName(L"BIGRING");
 
 
-		//Item* items = new Item(mSonic);
-		//items->SetName(L"items");
-
+		Item* items = new Item(mSonic);
+		items->SetName(L"items");
+		AddGameobeject(items, jk_LayerType::Item);
+		items->GetComponent<Transform>()->SetPos(Vector2(800.f, 3033.f));
 
 		//¹è°æ
 		Act1_2_BG* act1_2_BG = new Act1_2_BG();
@@ -186,7 +188,7 @@ namespace jk
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
 			SceneManager::LoadScene(jk_SceneType::MiniGameplay);
-			CreateBlending();
+			//CreateBlending();
 			check_map = 0;
 		}
 	}

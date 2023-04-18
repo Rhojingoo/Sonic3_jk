@@ -40,7 +40,7 @@ namespace jk
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
 			SceneManager::LoadScene(jk_SceneType::GamePlay);
-			//CreateBlending();
+			CreateBlending();
 		}
 		Scene::Update();
 	}

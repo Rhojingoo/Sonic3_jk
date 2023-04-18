@@ -49,8 +49,8 @@ namespace jk
 		Vector2 size = collider->GetSize();
 		collider->SetCenter(Vector2{ (-0.15f) * size.x, (-0.35f) * size.y });
 
-		//mRigidbody = AddComponent<Rigidbody>();
-		//mRigidbody->SetMass(1.0f);
+		mRigidbody = AddComponent<Rigidbody>();
+		mRigidbody->SetMass(1.0f);
 
 		Gameobject::Initialize();
 	}

@@ -58,87 +58,92 @@ namespace jk
 		, dir(1)
 		, Camera_Switch(0)
 		, check_minibos(0)
+		, frame_check(0)
 	{
+	
 	}
 
 	PlayScene::~PlayScene()
 	{
+
 	}
 
 	void PlayScene::Initialize()
 	{	
-		//object::Instantiate<Ground>(Vector2(700.0f, 505.0f), jk_LayerType::Ground, jk_SceneType::GamePlay);
-		//Instantiate<Sonic>(Vector2(400.0f, 400.0f), jk_LayerType::Player);
+
+	
 		mSonic = new Sonic();
 		mSonic->SetName(L"Player");
+		AddGameobeject(mSonic, jk_LayerType::Player);
+		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
 
 
-		Tails* tails = new Tails(mSonic);
-		tails->SetName(L"Player2");		
-		//Boss* ROBOT = new Boss(mSonic);
-		//ROBOT->SetName(L"BOSS");
-		//BaseBullet* bullet = new BaseBullet(mSonic);
-		ItemBigRing* Big_Ring = new ItemBigRing();
-		Big_Ring->SetName(L"BIGRING");
-		//Item* items = new Item(mSonic);
-		//items->SetName(L"items");		
-		
-		
-		//StageSave* save = new StageSave;
-		//save->SetName(L"StageSave");
+		mTails = new Tails(mSonic);
+		mTails->SetName(L"Player2");
+		AddGameobeject(mTails, jk_LayerType::Player2);
+		mTails->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });		
+
 	
 	//뒷배경
 		Act1skyBG*  act1sky = new Act1skyBG();
 		act1sky->SetName(L"SkyBG");
+		AddGameobeject(act1sky, jk_LayerType::foreground);
+		
 		act1_forest1* forestup = new act1_forest1();
 		forestup->SetName(L"fOREST1");
-		acr1_forest2* forest2 = new acr1_forest2();
-		//forest2->SetName(L"fOREST2");
+		AddGameobeject(forestup, jk_LayerType::foreground);
+
+		acr1_forest2* forest2 = new acr1_forest2();		
+		AddGameobeject(forest2, jk_LayerType::foreground);
+
 		midlesky* msky = new midlesky();
 		msky->SetName(L"msky");
+		AddGameobeject(msky, jk_LayerType::foreground);
+		
 		Sky* sky = new Sky();
 		sky->SetName(L"sky");
-
+		AddGameobeject(sky, jk_LayerType::foreground);
 
 		Act1_BG_object* bg = new Act1_BG_object();
 		AddGameobeject(bg, jk_LayerType::BG);
 		bg->SetName(L"Act1BG");		 
 		bg->Set_Owner(mSonic);
+	
+	
+	
+		
+		//Boss* ROBOT = new Boss(mSonic);
+		//ROBOT->SetName(L"BOSS");
+	    //AddGameobeject(ROBOT, jk_LayerType::BOSS);
 
-		/*mSonic->SetName(L"Player");*/
-		AddGameobeject(act1sky, jk_LayerType::foreground);
-		AddGameobeject(forestup, jk_LayerType::foreground);
-		AddGameobeject(forest2, jk_LayerType::foreground);
-		AddGameobeject(msky, jk_LayerType::foreground);
-		AddGameobeject(sky, jk_LayerType::foreground);
-		//AddGameobeject(playgr, jk_LayerType::foreground);
 
-		//AddGameobeject(ROBOT, jk_LayerType::BOSS);
+		//Item* items = new Item(mSonic);
+		//items->SetName(L"items");			
 		
 	
 		
 		//배경소품
-		Spring_Up* spring_Up[2];
-		for (int a = 0; a < 2; a++)
-		{
-			spring_Up[a] = new Spring_Up();
-			spring_Up[a]->SetName(L"spring_Up");
-			AddGameobeject(spring_Up[a], jk_LayerType::BG_props);
-		}
-		spring_Up[0]->GetComponent<Transform>()->SetPos(Vector2{ 13318.0f, 3224.0f });
-		spring_Up[1]->GetComponent<Transform>()->SetPos(Vector2{ 13169.0f, 2808.0f });
+		//Spring_Up* spring_Up[2];
+		//for (int a = 0; a < 2; a++)
+		//{
+		//	spring_Up[a] = new Spring_Up();
+		//	spring_Up[a]->SetName(L"spring_Up");
+		//	AddGameobeject(spring_Up[a], jk_LayerType::BG_props);
+		//}
+		//spring_Up[0]->GetComponent<Transform>()->SetPos(Vector2{ 13318.0f, 3224.0f });
+		//spring_Up[1]->GetComponent<Transform>()->SetPos(Vector2{ 13169.0f, 2808.0f });
 
 
-		Spring_Left* spring_Left[3];
-		for (int a = 0; a < 3; a++)
-		{
-			spring_Left[a] = new Spring_Left();
-			spring_Left[a]->SetName(L"spring_Left");
-			AddGameobeject(spring_Left[a], jk_LayerType::BG_props);
-		}
-		spring_Left[0]->GetComponent<Transform>()->SetPos(Vector2{ 14080.0f, 3135.0f });
-		spring_Left[1]->GetComponent<Transform>()->SetPos(Vector2{ 17739.0f, 3615.0f });
-		spring_Left[2]->GetComponent<Transform>()->SetPos(Vector2{ 18111.0f, 3515.0f });
+		//Spring_Left* spring_Left[3];
+		//for (int a = 0; a < 3; a++)
+		//{
+		//	spring_Left[a] = new Spring_Left();
+		//	spring_Left[a]->SetName(L"spring_Left");
+		//	AddGameobeject(spring_Left[a], jk_LayerType::BG_props);
+		//}
+		//spring_Left[0]->GetComponent<Transform>()->SetPos(Vector2{ 14080.0f, 3135.0f });
+		//spring_Left[1]->GetComponent<Transform>()->SetPos(Vector2{ 17739.0f, 3615.0f });
+		//spring_Left[2]->GetComponent<Transform>()->SetPos(Vector2{ 18111.0f, 3515.0f });
 
 
 		Rock_small* s_rock[3];
@@ -153,163 +158,166 @@ namespace jk
 		s_rock[2]->GetComponent<Transform>()->SetPos(Vector2{ 25000.0f, 3340.0f });
 
 
-		Rock_middle* rock_middle[1];
-		for (int a = 0; a < 1; a++)
-		{
-			rock_middle[a] = new Rock_middle();
-			rock_middle[a]->SetName(L"rock_middle");
-			AddGameobeject(rock_middle[a], jk_LayerType::BG_props);
-		}
-		rock_middle[0]->GetComponent<Transform>()->SetPos(Vector2{ 19611.0f, 2724.0f });
+		//Rock_middle* rock_middle[1];
+		//for (int a = 0; a < 1; a++)
+		//{
+		//	rock_middle[a] = new Rock_middle();
+		//	rock_middle[a]->SetName(L"rock_middle");
+		//	AddGameobeject(rock_middle[a], jk_LayerType::BG_props);
+		//}
+		//rock_middle[0]->GetComponent<Transform>()->SetPos(Vector2{ 19611.0f, 2724.0f });
 
 
-		Rock_big* rock_big[2];
-		for (int a = 0; a < 2; a++)
-		{
-			rock_big[a] = new Rock_big();
-			rock_big[a]->SetName(L"rock_big");
-			AddGameobeject(rock_big[a], jk_LayerType::BG_props);
-		}
-		rock_big[0]->GetComponent<Transform>()->SetPos(Vector2{ 15993.0f, 3628.0f });
-		rock_big[1]->GetComponent<Transform>()->SetPos(Vector2{ 19824.0f, 2625.0f });
+		//Rock_big* rock_big[2];
+		//for (int a = 0; a < 2; a++)
+		//{
+		//	rock_big[a] = new Rock_big();
+		//	rock_big[a]->SetName(L"rock_big");
+		//	AddGameobeject(rock_big[a], jk_LayerType::BG_props);
+		//}
+		//rock_big[0]->GetComponent<Transform>()->SetPos(Vector2{ 15993.0f, 3628.0f });
+		//rock_big[1]->GetComponent<Transform>()->SetPos(Vector2{ 19824.0f, 2625.0f });
 
 
-		Collapses_Ground* collapses_Ground[1];
-		for (int a = 0; a < 1; a++)
-		{
-			collapses_Ground[a] = new Collapses_Ground();
-			collapses_Ground[a]->SetName(L"collapses_Ground");
-			AddGameobeject(collapses_Ground[a], jk_LayerType::BG_props);
-		}
-		collapses_Ground[0]->GetComponent<Transform>()->SetPos(Vector2{ 16350.0f, 3070.0f });
+		//Collapses_Ground* collapses_Ground[1];
+		//for (int a = 0; a < 1; a++)
+		//{
+		//	collapses_Ground[a] = new Collapses_Ground();
+		//	collapses_Ground[a]->SetName(L"collapses_Ground");
+		//	AddGameobeject(collapses_Ground[a], jk_LayerType::BG_props);
+		//}
+		//collapses_Ground[0]->GetComponent<Transform>()->SetPos(Vector2{ 16350.0f, 3070.0f });
 
 
-		Jeep_line_Handle* jeep_line_Handle[3];
-		for (int a = 0; a < 3; a++)
-		{
-			jeep_line_Handle[a] = new Jeep_line_Handle();
-			jeep_line_Handle[a]->SetName(L"jeep_line_Handle");
-			AddGameobeject(jeep_line_Handle[a], jk_LayerType::BG_props);
-		}
-		jeep_line_Handle[0]->GetComponent<Transform>()->SetPos(Vector2{ 16906.f, 2725.f });
-		jeep_line_Handle[0]->SetCenterpos(Vector2{ 16906.f, 2725.f });
-		jeep_line_Handle[0]->SetAngle(float{ 90 });
-		jeep_line_Handle[0]->SetDirect(int{ -1 });
-		jeep_line_Handle[1]->GetComponent<Transform>()->SetPos(Vector2{ 17621.f, 2725.f });
-		jeep_line_Handle[1]->SetCenterpos(Vector2{ 17621.f, 2725.f });
-		jeep_line_Handle[1]->SetAngle(float{ 90 });
-		jeep_line_Handle[1]->SetDirect(int{ 1 });
-		jeep_line_Handle[2]->GetComponent<Transform>()->SetPos(Vector2{ 18321.f, 2725.f });
-		jeep_line_Handle[2]->SetCenterpos(Vector2{ 18321.f, 2725.f });
-		jeep_line_Handle[2]->SetAngle(float{ 90 });
-		jeep_line_Handle[2]->SetDirect(int{ -1 });
+		//Jeep_line_Handle* jeep_line_Handle[3];
+		//for (int a = 0; a < 3; a++)
+		//{
+		//	jeep_line_Handle[a] = new Jeep_line_Handle();
+		//	jeep_line_Handle[a]->SetName(L"jeep_line_Handle");
+		//	AddGameobeject(jeep_line_Handle[a], jk_LayerType::BG_props);
+		//}
+		//jeep_line_Handle[0]->GetComponent<Transform>()->SetPos(Vector2{ 16906.f, 2725.f });
+		//jeep_line_Handle[0]->SetCenterpos(Vector2{ 16906.f, 2725.f });
+		//jeep_line_Handle[0]->SetAngle(float{ 90 });
+		//jeep_line_Handle[0]->SetDirect(int{ -1 });
+		//jeep_line_Handle[1]->GetComponent<Transform>()->SetPos(Vector2{ 17621.f, 2725.f });
+		//jeep_line_Handle[1]->SetCenterpos(Vector2{ 17621.f, 2725.f });
+		//jeep_line_Handle[1]->SetAngle(float{ 90 });
+		//jeep_line_Handle[1]->SetDirect(int{ 1 });
+		//jeep_line_Handle[2]->GetComponent<Transform>()->SetPos(Vector2{ 18321.f, 2725.f });
+		//jeep_line_Handle[2]->SetCenterpos(Vector2{ 18321.f, 2725.f });
+		//jeep_line_Handle[2]->SetAngle(float{ 90 });
+		//jeep_line_Handle[2]->SetDirect(int{ -1 });
 		
 
 
-		Jeep_line* jeep_line[3];
-		for (int a = 0; a < 3; a++)
-		{
-			jeep_line[a] = new Jeep_line(jeep_line_Handle[a]);
-			jeep_line[a]->SetName(L"jeep_line");
-			AddGameobeject(jeep_line[a], jk_LayerType::BG_props);
-		}
-		jeep_line[0]->GetComponent<Transform>()->SetPos(Vector2{ 16806.f, 2743.f });
-		jeep_line[0]->SetCheck_JeepLine(jeep_line_Handle[0]);
-		jeep_line[1]->GetComponent<Transform>()->SetPos(Vector2{ 17521.f, 2743.f });
-		jeep_line[1]->SetCheck_JeepLine(jeep_line_Handle[1]);
-		jeep_line[2]->GetComponent<Transform>()->SetPos(Vector2{ 18221.f, 2743.f });
-		jeep_line[2]->SetCheck_JeepLine(jeep_line_Handle[2]);
-		//183, 213
-		//16806.f, 2547.f
+		//Jeep_line* jeep_line[3];
+		//for (int a = 0; a < 3; a++)
+		//{
+		//	jeep_line[a] = new Jeep_line(jeep_line_Handle[a]);
+		//	jeep_line[a]->SetName(L"jeep_line");
+		//	AddGameobeject(jeep_line[a], jk_LayerType::BG_props);
+		//}
+		//jeep_line[0]->GetComponent<Transform>()->SetPos(Vector2{ 16806.f, 2743.f });
+		//jeep_line[0]->SetCheck_JeepLine(jeep_line_Handle[0]);
+		//jeep_line[1]->GetComponent<Transform>()->SetPos(Vector2{ 17521.f, 2743.f });
+		//jeep_line[1]->SetCheck_JeepLine(jeep_line_Handle[1]);
+		//jeep_line[2]->GetComponent<Transform>()->SetPos(Vector2{ 18221.f, 2743.f });
+		//jeep_line[2]->SetCheck_JeepLine(jeep_line_Handle[2]);
+	
 
 
-		Move_GR* gr_move[3];
-		for (int a = 0; a < 3; a++)
-		{
-			gr_move[a] = new Move_GR();
-			gr_move[a]->SetName(L"gr_move");
-			AddGameobeject(gr_move[a], jk_LayerType::BG_props);
-		}
-		gr_move[0]->GetComponent<Transform>()->SetPos(Vector2{ 12450.0f, 2444.0f });
-		gr_move[0]->SetCenterpos(Vector2{ 12450.0f, 2444.0f });
-		gr_move[0]->Setmaxdistance(float{ 100.f });
-		gr_move[1]->GetComponent<Transform>()->SetPos(Vector2{ 14891.0f, 2989.0f });
-		gr_move[1]->SetCenterpos(Vector2{ 14891.0f, 2989.0f });
-		gr_move[1]->Setmaxdistance(float{ 500.f });
-		gr_move[2]->GetComponent<Transform>()->SetPos(Vector2{ 14691.0f, 2189.0f });
-		gr_move[2]->SetCenterpos(Vector2{ 14691.0f, 2189.0f });
-		gr_move[2]->Setmaxdistance(float{ 300.f });
-
-
-
-		Spike_Up* spike_Up[4];
-		for (int a = 0; a < 4; a++)
-		{
-			spike_Up[a] = new Spike_Up();
-			spike_Up[a]->SetName(L"spike_Up");
-			AddGameobeject(spike_Up[a], jk_LayerType::BG_props);
-		}
-		spike_Up[0]->GetComponent<Transform>()->SetPos(Vector2{ 15621.0f, 2950.0f });
-		spike_Up[1]->GetComponent<Transform>()->SetPos(Vector2{ 16032.0f, 2950.0f });
-		spike_Up[2]->GetComponent<Transform>()->SetPos(Vector2{ 19101.0f, 1858.0f });
-		spike_Up[3]->GetComponent<Transform>()->SetPos(Vector2{ 19532.0f, 1858.0f });
+		//Move_GR* gr_move[1];
+		//for (int a = 0; a < 1; a++)
+		//{
+		//	gr_move[a] = new Move_GR();
+		//	gr_move[a]->SetName(L"gr_move");
+		//	AddGameobeject(gr_move[a], jk_LayerType::BG_props);
+		//}
+		//gr_move[0]->GetComponent<Transform>()->SetPos(Vector2{ 12450.0f, 2444.0f });
+		//gr_move[0]->SetCenterpos(Vector2{ 12450.0f, 2444.0f });
+		//gr_move[0]->Setmaxdistance(float{ 100.f });
+		//gr_move[1]->GetComponent<Transform>()->SetPos(Vector2{ 14891.0f, 2989.0f });
+		//gr_move[1]->SetCenterpos(Vector2{ 14891.0f, 2989.0f });
+		//gr_move[1]->Setmaxdistance(float{ 500.f });
+		//gr_move[2]->GetComponent<Transform>()->SetPos(Vector2{ 14691.0f, 2189.0f });
+		//gr_move[2]->SetCenterpos(Vector2{ 14691.0f, 2189.0f });
+		//gr_move[2]->Setmaxdistance(float{ 300.f });
 
 
 
-		Cylinder* cylinder =  new Cylinder();
-		cylinder->SetName(L"cylinder");
-		AddGameobeject(cylinder, jk_LayerType::BG_props);
-		cylinder->GetComponent<Transform>()->SetPos(Vector2{ 28085.0f, 2510.0f });
+		//Spike_Up* spike_Up[4];
+		//for (int a = 0; a < 4; a++)
+		//{
+		//	spike_Up[a] = new Spike_Up();
+		//	spike_Up[a]->SetName(L"spike_Up");
+		//	AddGameobeject(spike_Up[a], jk_LayerType::BG_props);
+		//}
+		//spike_Up[0]->GetComponent<Transform>()->SetPos(Vector2{ 15621.0f, 2950.0f });
+		//spike_Up[1]->GetComponent<Transform>()->SetPos(Vector2{ 16032.0f, 2950.0f });
+		//spike_Up[2]->GetComponent<Transform>()->SetPos(Vector2{ 19101.0f, 1858.0f });
+		//spike_Up[3]->GetComponent<Transform>()->SetPos(Vector2{ 19532.0f, 1858.0f });
+
+
+
+		//Cylinder* cylinder =  new Cylinder();
+		//cylinder->SetName(L"cylinder");
+		//AddGameobeject(cylinder, jk_LayerType::BG_props);
+		//cylinder->GetComponent<Transform>()->SetPos(Vector2{ 28085.0f, 2510.0f });
+
+		//StageSave* save = new StageSave;
+		//save->SetName(L"StageSave");
+
 
 
 
 		//몬스터
-		Monster* mRino[3];
-		for (int a = 0; a <3; a++)
-		{
-			mRino[a] = new Monster();
-			mRino[a]->SetName(L"RinoMonster");
-			AddGameobeject(mRino[a], jk_LayerType::Monster);
-		}
-		mRino[0]->GetComponent<Transform>()->SetPos(Vector2{ 14524.0f, 3021.0f });
-		mRino[0]->SetCenterpos(Vector2{ 14524.0f, 3021.0f });
-		mRino[1]->GetComponent<Transform>()->SetPos(Vector2{ 18126.0f, 1770.0f });
-		mRino[1]->SetCenterpos(Vector2{ 18126.0f, 1770.0f });
-		mRino[2]->GetComponent<Transform>()->SetPos(Vector2{ 24332.0f, 2417.0f });
-		mRino[2]->SetCenterpos(Vector2{ 24332.0f, 2417.0f });
+		//Monster* mRino[3];
+		//for (int a = 0; a <3; a++)
+		//{
+		//	mRino[a] = new Monster();
+		//	mRino[a]->SetName(L"RinoMonster");
+		//	AddGameobeject(mRino[a], jk_LayerType::Monster);
+		//}
+		//mRino[0]->GetComponent<Transform>()->SetPos(Vector2{ 14524.0f, 3021.0f });
+		//mRino[0]->SetCenterpos(Vector2{ 14524.0f, 3021.0f });
+		//mRino[1]->GetComponent<Transform>()->SetPos(Vector2{ 18126.0f, 1770.0f });
+		//mRino[1]->SetCenterpos(Vector2{ 18126.0f, 1770.0f });
+		//mRino[2]->GetComponent<Transform>()->SetPos(Vector2{ 24332.0f, 2417.0f });
+		//mRino[2]->SetCenterpos(Vector2{ 24332.0f, 2417.0f });
 
-		//14524.0f, 3021.0f)
+	
 		
-		Monkey* mMokey[5];
-		for (int a = 0; a < 5; a++)
-		{
-			mMokey[a] = new Monkey(mSonic);
-			mMokey[a]->SetName(L"Monkey");
-			AddGameobeject(mMokey[a], jk_LayerType::Monster);
-		}
-		//mMokey[0]->GetComponent<Transform>()->SetPos(Vector2{ 12450.0f, 3111.0f }); 오른쪽 원숭이
-		mMokey[0]->GetComponent<Transform>()->SetPos(Vector2{ 12280.0f, 3111.0f });
-		mMokey[0]->SetCenterpos(Vector2{ 12280.f,3111.f });
-		mMokey[1]->GetComponent<Transform>()->SetPos(Vector2{ 16865.0f, 3503.0f });
-		mMokey[1]->SetCenterpos(Vector2{ 16865.0f, 3503.0f });
-		mMokey[2]->GetComponent<Transform>()->SetPos(Vector2{ 18410.0f, 1550.0f });
-		mMokey[2]->SetCenterpos(Vector2{ 18410.0f, 1550.0f });
-		mMokey[3]->GetComponent<Transform>()->SetPos(Vector2{ 23796.0f, 3463.0f });
-		mMokey[3]->SetCenterpos(Vector2{ 23796.0f, 3463.0f });
-		mMokey[4]->GetComponent<Transform>()->SetPos(Vector2{ 23395.0f, 2350.0f });
-		mMokey[4]->SetCenterpos(Vector2{ 23395.0f, 2350.0f });
+		//Monkey* mMokey[5];
+		//for (int a = 0; a < 5; a++)
+		//{
+		//	mMokey[a] = new Monkey(mSonic);
+		//	mMokey[a]->SetName(L"Monkey");
+		//	AddGameobeject(mMokey[a], jk_LayerType::Monster);
+		//}
+		////mMokey[0]->GetComponent<Transform>()->SetPos(Vector2{ 12450.0f, 3111.0f }); 오른쪽 원숭이
+		//mMokey[0]->GetComponent<Transform>()->SetPos(Vector2{ 12280.0f, 3111.0f });
+		//mMokey[0]->SetCenterpos(Vector2{ 12280.f,3111.f });
+		//mMokey[1]->GetComponent<Transform>()->SetPos(Vector2{ 16865.0f, 3503.0f });
+		//mMokey[1]->SetCenterpos(Vector2{ 16865.0f, 3503.0f });
+		//mMokey[2]->GetComponent<Transform>()->SetPos(Vector2{ 18410.0f, 1550.0f });
+		//mMokey[2]->SetCenterpos(Vector2{ 18410.0f, 1550.0f });
+		//mMokey[3]->GetComponent<Transform>()->SetPos(Vector2{ 23796.0f, 3463.0f });
+		//mMokey[3]->SetCenterpos(Vector2{ 23796.0f, 3463.0f });
+		//mMokey[4]->GetComponent<Transform>()->SetPos(Vector2{ 23395.0f, 2350.0f });
+		//mMokey[4]->SetCenterpos(Vector2{ 23395.0f, 2350.0f });
 
 
-		Cannon* cannon[3];
-		for (int a = 0; a < 3; a++)
-		{
-			cannon[a] = new Cannon(mSonic);
-			cannon[a]->SetName(L"Cannon");
-			AddGameobeject(cannon[a], jk_LayerType::Monster);
-		}
-		cannon[0]->GetComponent<Transform>()->SetPos(Vector2{ 13518.0f, 3174.0f });
-		cannon[1]->GetComponent<Transform>()->SetPos(Vector2{ 16563.0f, 1887.0f });
-		cannon[2]->GetComponent<Transform>()->SetPos(Vector2{ 20928.0f, 2680.0f });
+		//Cannon* cannon[3];
+		//for (int a = 0; a < 3; a++)
+		//{
+		//	cannon[a] = new Cannon(mSonic);
+		//	cannon[a]->SetName(L"Cannon");
+		//	AddGameobeject(cannon[a], jk_LayerType::Monster);
+		//}
+		//cannon[0]->GetComponent<Transform>()->SetPos(Vector2{ 13518.0f, 3174.0f });
+		//cannon[1]->GetComponent<Transform>()->SetPos(Vector2{ 16563.0f, 1887.0f });
+		//cannon[2]->GetComponent<Transform>()->SetPos(Vector2{ 20928.0f, 2680.0f });
 
 
 
@@ -321,8 +329,7 @@ namespace jk
 			AddGameobeject(Snake_head[a], jk_LayerType::Monster);
 		}
 		Snake_head[0]->GetComponent<Transform>()->SetPos(Vector2{ 8370.f, 3250.f });
-		//Snake_head[1]->GetComponent<Transform>()->SetPos(Vector2{ 8370.f, 3250.f });
-		//Snake_head[2]->GetComponent<Transform>()->SetPos(Vector2{ 8370.f, 3250.f });
+
 
 
 		Snake_Body_Smoke* snake_Body_Smoke[1];
@@ -334,13 +341,7 @@ namespace jk
 		}
 		snake_Body_Smoke[0]->GetComponent<Transform>()->SetPos(Vector2{ 8370.f, 3250.f });
 		snake_Body_Smoke[0]->Set_Snake_Body(Snake_head[0]);
-		//snake_Body_Smoke[1]->Set_Snake_Body(snake_Body_Smoke[0]); 스네이크 몸통 따라가기
-
-		//snake_Body_Smoke[1]->GetComponent<Transform>()->SetPos(Vector2{ 8370.f, 3250.f });
-		//snake_Body_Smoke[1]->Set_Snake_Body(Snake_head[0]);
-		//
-		//snake_Body_Smoke[2]->GetComponent<Transform>()->SetPos(Vector2{ 8370.f, 3250.f });
-		//snake_Body_Smoke[2]->Set_Snake_Body(Snake_head[0]);
+	
 
 		Snake_Body* snake_body[1];
 		for (int a = 0; a < 1; a++)
@@ -392,37 +393,41 @@ namespace jk
 		check2* circle_chek2 = new check2();
 		AddGameobeject(circle_chek2, jk_LayerType::Player2);
 
-
-
-
 		Ground* playgr = new Ground();
 		playgr->SetName(L"Ground");
-		playgr->SetPlayer(mSonic, tails);
+		playgr->SetPlayer(mSonic, mTails);
+		AddGameobeject(playgr, jk_LayerType::Ground);
 
+
+	
 		mSonic->SetCheckTargetGround(playgr);
-		tails->SetCheckTargetGround(playgr);
+		mTails->SetCheckTargetGround(playgr);
+		
+	
 		s_rock[0]->SetCheckTargetGround(playgr);
 		s_rock[1]->SetCheckTargetGround(playgr); 
 		s_rock[2]->SetCheckTargetGround(playgr);
-		rock_middle[0]->SetCheckTargetGround(playgr);
-		rock_big[0]->SetCheckTargetGround(playgr);
-		rock_big[1]->SetCheckTargetGround(playgr);
-		cannon[0]->SetCheckTargetGround(playgr);
-		cannon[1]->SetCheckTargetGround(playgr);
-		cannon[2]->SetCheckTargetGround(playgr);
-		mRino[0]->SetCheckTargetGround(playgr);
-		mRino[1]->SetCheckTargetGround(playgr);
-		mRino[2]->SetCheckTargetGround(playgr);
-		mMokey[0]->SetCheckTargetGround(playgr);
-		mMokey[1]->SetCheckTargetGround(playgr);
-		mMokey[2]->SetCheckTargetGround(playgr);
-		mMokey[3]->SetCheckTargetGround(playgr);
-		mMokey[4]->SetCheckTargetGround(playgr);
+		//rock_middle[0]->SetCheckTargetGround(playgr);
+		//rock_big[0]->SetCheckTargetGround(playgr);
+		//rock_big[1]->SetCheckTargetGround(playgr);
+		//cannon[0]->SetCheckTargetGround(playgr);
+		//cannon[1]->SetCheckTargetGround(playgr);
+		//cannon[2]->SetCheckTargetGround(playgr);
+		//mRino[0]->SetCheckTargetGround(playgr);
+		//mRino[1]->SetCheckTargetGround(playgr);
+		//mRino[2]->SetCheckTargetGround(playgr);
+		//mMokey[0]->SetCheckTargetGround(playgr);
+		//mMokey[1]->SetCheckTargetGround(playgr);
+		//mMokey[2]->SetCheckTargetGround(playgr);
+		//mMokey[3]->SetCheckTargetGround(playgr);
+		//mMokey[4]->SetCheckTargetGround(playgr);
 		circle_chek->SetCheckTargetGround(playgr);
 		circle_chek2->SetCheckTargetGround(playgr);
-		AddGameobeject(playgr, jk_LayerType::Ground);
+	
 
 				
+
+		//아이템 
 		//링위치
 		Ring* ring[100];
 		for (int a = 0; a < 100; a++)
@@ -458,29 +463,10 @@ namespace jk
 		ring[19]->GetComponent<Transform>()->SetPos(Vector2{ 20258.f, 3163.f });
 		ring[20]->GetComponent<Transform>()->SetPos(Vector2{ 20426.f, 3225.f });
 		ring[21]->GetComponent<Transform>()->SetPos(Vector2{ 20498.f, 3379.f });
-		
 
-		// Ground에서 GetGroundImage()로 가지고 있는 이미지 Getter 함수 정의
-		// Ground Image를 설정하기 위해서 Ring_Falling에 Ground 이미지 용 포인터 변수 선언, Setter 함수 정의
-		// Ring_Falling을 생성할 때, Ground로부터 Getter로 얻어온 이미지를 설정
-		// Ring_Falling의 Update()에서 Ground Image가 있으면 충돌 체크를 하고 아니면 충돌 체크를 절대로 못하게 막을 것.(nullptr이므로 크래시나니까.)
-		
-		
-
-
-		//아이템
-		AddGameobeject(Big_Ring, jk_LayerType::Item);
-		//AddGameobeject(items, jk_LayerType::Items);
-
-		//object::Instantiate<Ring>(Vector2(11256.0f, 3056.0f), jk_LayerType::Rings);
-		//object::Instantiate<Ring>(Vector2(400.0f, 400.0f), jk_LayerType::Item);
-
-
-						
-		AddGameobeject(tails, jk_LayerType::Player2);		
-		AddGameobeject(mSonic, jk_LayerType::Player);
-		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
-		tails -> GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
+		//ItemBigRing* Big_Ring = new ItemBigRing();
+		//Big_Ring->SetName(L"BIGRING");
+		//AddGameobeject(Big_Ring, jk_LayerType::Item);
 	
 
 		Scene::Initialize();		
@@ -488,6 +474,9 @@ namespace jk
 
 	void PlayScene::Update()
 	{
+
+		frame_check = 1;
+
 		Vector2 sonic_pos = mSonic->GetComponent<Transform>()->GetPos();
 		
 		if (sonic_pos.x >= 30300.f)
