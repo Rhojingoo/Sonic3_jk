@@ -110,26 +110,30 @@ namespace jk
 		Vector2 rightPos_tr = tr1->GetPos();
 
 
-			Vector2 leftPos = left->Getpos();
-			Vector2 rightPos = right->Getpos();
+		Vector2 leftPos = left->Getpos();
+		Vector2 rightPos = right->Getpos();
 		
 
-			Vector2 leftSize = left->GetSize();
-			Vector2 rightSize = right->GetSize();
+		Vector2 leftSize = left->GetSize();
+		Vector2 rightSize = right->GetSize();
+
+		//1¾È
+		//leftPos.x = leftPos_tr.x + leftSize.x / 2.0f;
+		//leftPos.y = leftPos_tr.y + leftSize.y / 2.0f;
+
+		//2¾È
+		leftPos.x = leftPos.x + leftSize.x / 2.0f;
+		leftPos.y = leftPos.y + leftSize.y / 2.0f;
+
+		rightPos.x = rightPos_tr.x + rightSize.x / 2.0f;
+		rightPos.y = rightPos_tr.y + rightSize.y / 2.0f;
 
 
-			leftPos.x = leftPos_tr.x + leftSize.x / 2.0f;
-			leftPos.y = leftPos_tr.y + leftSize.y / 2.0f;
-
-			rightPos.x = rightPos_tr.x + rightSize.x / 2.0f;
-			rightPos.y = rightPos_tr.y + rightSize.y / 2.0f;
-
-
-			if (fabs(leftPos.x - rightPos.x) < (leftSize.x / 2.0f) + (rightSize.x / 2.0f)
-				&& fabs(leftPos.y - rightPos.y) < (leftSize.y / 2.0f) + (rightSize.y / 2.0f))
-			{
-				return true;
-			}						
+		if (fabs(leftPos.x - rightPos.x) < (leftSize.x / 2.0f) + (rightSize.x / 2.0f)
+			&& fabs(leftPos.y - rightPos.y) < (leftSize.y / 2.0f) + (rightSize.y / 2.0f))
+		{
+			return true;
+		}						
 	
 		return false;
 	}

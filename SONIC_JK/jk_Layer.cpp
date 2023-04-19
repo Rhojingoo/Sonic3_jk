@@ -11,6 +11,9 @@ namespace jk
 	{
 		for (Gameobject* gameObj : mGameobjects)
 		{
+			if (gameObj == nullptr)
+				continue;
+
 			if (gameObj)
 			{
 				delete gameObj;

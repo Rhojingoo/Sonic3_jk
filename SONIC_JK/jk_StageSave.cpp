@@ -6,6 +6,7 @@
 #include "jk_Animator.h"
 #include "jk_Collider.h"
 #include "jk_Scene.h"
+#include "Rigidbody.h"
 
 namespace jk
 {
@@ -13,30 +14,31 @@ namespace jk
 		: mState(eState::Idle)
 		, mDir(1)
 	{
-
-
 	}
 
 	StageSave::~StageSave()
 	{
-
-
 	}
 
 	void StageSave::Initialize()
 	{
 		Transform* tr = GetComponent<Transform>();
-		tr->SetPos(Vector2(400.0f, 471.0f));
+		//tr->SetPos(Vector2(400.0f, 471.0f));
+
 		mImage = Resources::Load<Image>(L"save", L"..\\Resources\\Stagesave.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"saveidle", mImage, Vector2(24, 196), Vector2(48, 72), Vector2(8, 8), 1, 1, 1, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"save", mImage, Vector2(24, 196), Vector2(48, 72), Vector2(8, 8), 4, 4, 12, Vector2::Zero, 0.1);
+		mAnimator->Play(L"saveidle", true);
 
 		Collider* collider = AddComponent<Collider>();
 		collider->SetSize(Vector2(85.0f, 200.0f));
 		Vector2 size = collider->GetSize();
 		collider->SetCenter(Vector2{ (0.0f) * size.x, (-0.35f) * size.y });
-		mAnimator->Play(L"saveidle", true);
+
+		//mRigidbody = AddComponent<Rigidbody>();
+		//mRigidbody->SetMass(1.0f);
+
 		Gameobject::Initialize();
 
 	}

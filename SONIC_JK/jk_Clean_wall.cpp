@@ -18,6 +18,8 @@
 namespace jk
 {
 	Clean_wall::Clean_wall()
+		: mImage(nullptr)
+	
 	{
 	}
 	Clean_wall::~Clean_wall()
@@ -25,10 +27,13 @@ namespace jk
 	}
 	void Clean_wall::Initialize()
 	{
+	
+
 		mCollider = AddComponent<Collider>();
-		mCollider->SetSize(Vector2(170.0f, 270.0f));
+		mCollider->SetSize(Vector2(170.0f, 270.0f));	
+		
 		Transform* tr = GetComponent<Transform>();
-		tr->SetPos(Vector2{ 1989.f, 1421.f });
+		tr->SetPos(Vector2{ 661.f, 3033.f });
 
 		Gameobject::Initialize();
 	}

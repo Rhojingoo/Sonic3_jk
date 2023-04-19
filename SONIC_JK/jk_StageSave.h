@@ -5,6 +5,8 @@
 
 namespace jk
 {
+	class Ground;
+	class Rigidbody;
 	class Animator;
 	class StageSave : public Gameobject
 	{
@@ -27,6 +29,7 @@ namespace jk
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
+		void SetCheckTargetGround(Ground* ground) { check = ground; }
 
 
 	private:
@@ -38,6 +41,9 @@ namespace jk
 		Animator* mAnimator;
 		eState mState;
 		int mDir;
+		Ground* check;
+		Rigidbody* mRigidbody;
+
 	};
 
 }

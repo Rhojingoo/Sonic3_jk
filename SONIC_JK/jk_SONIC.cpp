@@ -72,7 +72,7 @@ namespace jk
 		//tr->SetPos(Vector2{ 12310.0f, 3211.0f });
 		//tr->SetPos(Vector2(19718.f, 3450.f));//원돌기
 		//tr->SetPos(Vector2{ 26201.f, 3333.f });//밑에 원돌기
-		//tr->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
+		tr->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
 		//tr->SetPos(Vector2{ 29043.0f, 2499.0f });
 	}		
 
@@ -635,7 +635,7 @@ namespace jk
 
 
 			//아이템 충돌★
-				//ELECT_ITEM 충돌처리
+				//ITEM(ELECT) 충돌처리
 				if (Item* electitem = dynamic_cast<Item*>(other->GetOwner()))
 				{
 					if (mState == eSonicState::Jump || mState == eSonicState::Spin || mState == eSonicState::Dash)
@@ -789,20 +789,20 @@ namespace jk
 		tr->GetPos();
 
 
-		////Cylinder 충돌처리
-		//if (Cylinder* cylinder = dynamic_cast<Cylinder*>(other->GetOwner()))
-		//{
-		//	if (mDir == 1)
-		//	{
-		//		mState = eSonicState::Spring_Jump;
-		//		mAnimator->Play(L"LSonic_Spring_up", true);
-		//	}
-		//	else if (mDir == -1)
-		//	{
-		//		mState = eSonicState::Spring_Jump;
-		//		mAnimator->Play(L"LSonic_Spring_up", true);
-		//	}
-		//}
+		//Cylinder 충돌처리
+		if (Cylinder* cylinder = dynamic_cast<Cylinder*>(other->GetOwner()))
+		{
+			if (mDir == 1)
+			{
+				mState = eSonicState::Spring_Jump;
+				mAnimator->Play(L"LSonic_Spring_up", true);
+			}
+			else if (mDir == -1)
+			{
+				mState = eSonicState::Spring_Jump;
+				mAnimator->Play(L"LSonic_Spring_up", true);
+			}
+		}
 
 
 
@@ -1585,9 +1585,6 @@ namespace jk
 				}
 
 			}
-
-
-
 			tr->SetPos(pos);
 		}
 
@@ -1626,14 +1623,14 @@ namespace jk
 			if (Input::GetKey(eKeyCode::LEFT))
 			{
 				mDir = -1;
-				mRigidbody->AddForce(Vector2(-150.0f, 0.0f));
+				mRigidbody->AddForce(Vector2(-550.0f, 0.0f));
 				SonicVelocity = mRigidbody->Velocity();
 			}
 
 			if (Input::GetKey(eKeyCode::RIGHT))
 			{
 				mDir = 1;
-				mRigidbody->AddForce(Vector2(+150.0f, 0.0f));
+				mRigidbody->AddForce(Vector2(+550.0f, 0.0f));
 				SonicVelocity = mRigidbody->Velocity();
 			}
 			tr->SetPos(pos);

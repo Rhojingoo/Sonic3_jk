@@ -31,6 +31,7 @@
 #include "jk_Collapses_Ground.h"
 #include "jk_check1.h"
 #include "jk_check2.h"
+#include "jk_Clean_wall.h"
 
 #include "jk_Ring.h"
 #include "jk_Ring_Falling.h"
@@ -64,6 +65,12 @@ namespace jk
 	void PlayScene2::Initialize()
 	{
 		check_map = 1;
+
+	
+	
+
+
+
 		//캐릭터
 		mSonic = new Sonic();
 		mSonic->SetName(L"Player");
@@ -75,7 +82,14 @@ namespace jk
 		tails->SetName(L"Player2");
 		AddGameobeject(tails, jk_LayerType::Player2);
 		tails->GetComponent<Transform>()->SetPos(Vector2(661.f, 3033.f));
+	
 
+		playgr = new Ground();
+		playgr->SetName(L"Ground2");
+		playgr->SetPlayer(mSonic, tails);
+		AddGameobeject(playgr, jk_LayerType::Ground);
+		mSonic->SetCheckTargetGround(playgr);
+		tails->SetCheckTargetGround(playgr);
 
 		//아이템
 		//ItemBigRing* Big_Ring = new ItemBigRing();
@@ -93,18 +107,34 @@ namespace jk
 		AddGameobeject(act1_2_BG, jk_LayerType::BG);
 
 
-
 		//배경소품
-		playgr = new Ground();
-		playgr->SetName(L"Ground2");
-		playgr->SetPlayer(mSonic, tails);
-		AddGameobeject(playgr, jk_LayerType::Ground);
+		StageSave* save = new StageSave();
+		save->SetName(L"StageSave");
+		AddGameobeject(save, jk_LayerType::BG_props);
+		save->GetComponent<Transform>()->SetPos(Vector2(2208.f, 2818.f));
 
-		mSonic->SetCheckTargetGround(playgr);
-		tails->SetCheckTargetGround(playgr);
 
-		//StageSave* save = new StageSave;
-		//save->SetName(L"StageSave");
+		Rock_big* rock_big[1];
+		for (int a = 0; a < 1; a++)
+		{
+			rock_big[a] = new Rock_big();
+			rock_big[a]->SetName(L"rock_big");
+			AddGameobeject(rock_big[a], jk_LayerType::BG_props);
+		}
+		rock_big[0]->GetComponent<Transform>()->SetPos(Vector2{ 2096.0f, 3363.0f });
+		rock_big[0]->SetCheckTargetGround(playgr);
+
+
+		Collapses_Ground* collapses_Ground[2];
+		for (int a = 0; a < 2; a++)
+		{
+			collapses_Ground[a] = new Collapses_Ground();
+			collapses_Ground[a]->SetName(L"collapses_Ground");
+			AddGameobeject(collapses_Ground[a], jk_LayerType::BG_props);
+		}
+		collapses_Ground[0]->GetComponent<Transform>()->SetPos(Vector2{ 4296.0f, 3237.0f });
+		//collapses_Ground[0]->GetComponent<Transform>()->SetPos(Vector2{ 961.f, 3033.f });
+
 
 
 		Spring_Up* spring_Up[1];
@@ -129,15 +159,9 @@ namespace jk
 		gr_move[0]->Setmaxdistance(float{ 100.f });
 
 
-
-
-
-
 		//몬스터 및 보스
 		//Boss* ROBOT = new Boss(mSonic);
 		//ROBOT->SetName(L"BOSS");
-
-
 
 		//링위치
 		//Ring* ring[100];
@@ -149,26 +173,20 @@ namespace jk
 		//ring[0]->GetComponent<Transform>()->SetPos(Vector2{ 11276.0f, 3056.0f });
 		//ring[1]->GetComponent<Transform>()->SetPos(Vector2{ 11376.0f, 3056.0f });
 		//ring[2]->GetComponent<Transform>()->SetPos(Vector2{ 11476.0f, 3056.0f });
-
 		//ring[3]->GetComponent<Transform>()->SetPos(Vector2{ 11712.0f, 3161.0f });
 		//ring[4]->GetComponent<Transform>()->SetPos(Vector2{ 11812.0f, 3211.0f });
 		//ring[5]->GetComponent<Transform>()->SetPos(Vector2{ 11912.0f, 3261.0f });
 		//ring[6]->GetComponent<Transform>()->SetPos(Vector2{ 12012.0f, 3311.0f });
 		//ring[7]->GetComponent<Transform>()->SetPos(Vector2{ 12112.0f, 3361.0f });
-
 		//ring[8]->GetComponent<Transform>()->SetPos(Vector2{ 12627.f, 3405.f });
 		//ring[9]->GetComponent<Transform>()->SetPos(Vector2{ 12727.f, 3355.f });
 		//ring[10]->GetComponent<Transform>()->SetPos(Vector2{ 12797.f, 3285.f });
-
 		//ring[11]->GetComponent<Transform>()->SetPos(Vector2{ 13687.f, 3208.f });
 		//ring[12]->GetComponent<Transform>()->SetPos(Vector2{ 13787.f, 3208.f });
 		//ring[13]->GetComponent<Transform>()->SetPos(Vector2{ 13887.f, 3208.f });
-
-
 		//ring[14]->GetComponent<Transform>()->SetPos(Vector2{ 17232.f, 3783.f });
 		//ring[15]->GetComponent<Transform>()->SetPos(Vector2{ 17332.f, 3733.f });
 		//ring[16]->GetComponent<Transform>()->SetPos(Vector2{ 17432.f, 3683.f });
-
 		//ring[17]->GetComponent<Transform>()->SetPos(Vector2{ 20013.f, 3376.f });
 		//ring[18]->GetComponent<Transform>()->SetPos(Vector2{ 20092.f, 3226.f });
 		//ring[19]->GetComponent<Transform>()->SetPos(Vector2{ 20258.f, 3163.f });

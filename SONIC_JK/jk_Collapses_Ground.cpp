@@ -13,6 +13,7 @@
 #include "Rigidbody.h"
 #include "jk_Callapses.h"
 
+
 float time_Gr = 0.0f; 
 int check_Gr = 0;
 
@@ -33,7 +34,7 @@ namespace jk
 
 
 		Collider* collider = AddComponent<Collider>();
-		collider->SetSize(Vector2(96.0f, 50.0f));
+		collider->SetSize(Vector2(288.0f, 192.0f));
 		Vector2 size = collider->GetSize();
 		collider->SetCenter(Vector2{ (-0.15f) * size.x, (-0.35f) * size.y });
 
@@ -94,22 +95,22 @@ namespace jk
 			Transform* grTr = this->GetComponent<Transform>();
 			Vector2 sonic_Pos = sonicTr->GetPos();
 
-			float fLen = fabs(sonic_Pos.y - groundPos.y);
-			float fSize = (mSonic_Col->GetSize().y / 2.0f) + (groundCol->GetSize().y / 2.0f);
-			
-			if (fLen < fSize)
-			{
-						sonic_Pos.y -= (fSize - fLen) - 1.0f;
-				sonicTr->SetPos(sonic_Pos);
-			}
-
-
-			//if(! ((mSonic->Getsonicstate() == Sonic::eSonicState::Jump) || (mSonic->Getsonicstate() == Sonic::eSonicState::Hurt)))
+			//float fLen = fabs(sonic_Pos.y - groundPos.y);
+			//float fSize = (mSonic_Col->GetSize().y / 2.0f) + (groundCol->GetSize().y / 2.0f);
+			//
+			//if (fLen < fSize)
 			//{
-			//	sonic_Pos.y = pos.y - groundCol->GetSize().y;
-			//	check_Gr = 1;
+			//			sonic_Pos.y -= (fSize - fLen) - 1.0f;
 			//	sonicTr->SetPos(sonic_Pos);
-			//}	
+			//}
+
+
+			if(! ((mSonic->Getsonicstate() == Sonic::eSonicState::Jump) || (mSonic->Getsonicstate() == Sonic::eSonicState::Hurt)))
+			{
+				sonic_Pos.y = pos.y - groundCol->GetSize().y;
+				check_Gr = 1;
+				sonicTr->SetPos(sonic_Pos);
+			}	
 
 			if ((mSonic->Getsonicstate() == Sonic::eSonicState::Jump) || (mSonic->Getsonicstate() == Sonic::eSonicState::Hurt))
 			{
@@ -122,6 +123,7 @@ namespace jk
 				sonic_Pos = sonicTr->GetPos();
 				//sonic_Pos = sonic_Pos + Vector2{ 350.f ,-350.f };
 				sonicTr->SetPos(sonic_Pos);
+				
 			}
 		}
 		if (check_Gr == 1)
@@ -129,8 +131,8 @@ namespace jk
 			time_Gr += Time::DeltaTime();
 			if (time_Gr >= 3)
 			{
-				jk::object::Destory(this);
 				mState = eState::Death;
+				jk::object::Destory(this);
 				return;
 			}
 		}
@@ -153,5 +155,6 @@ namespace jk
 		Scene* curScene = SceneManager::GetActiveScene();
 		curScene->AddGameobeject(GR_callapese, jk_LayerType::BG_props);		
 		GR_callapese->GetComponent<Transform>()->SetPos(pos);
+		
 	}
 }
