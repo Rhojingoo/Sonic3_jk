@@ -241,6 +241,8 @@
     <ClInclude Include="JK_TitleSN.h" />
     <ClInclude Include="jk_Titlesonic.h" />
     <ClInclude Include="jk_Transform.h" />
+    <ClInclude Include="mBoss_Bl_L.h" />
+    <ClInclude Include="mBoss_BL_R.h" />
     <ClInclude Include="midlesky.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Rigdbody_L.h" />
@@ -348,6 +350,8 @@
     <ClCompile Include="jk_Titlesonic.cpp" />
     <ClCompile Include="jk_Transform.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="mBoss_Bl_L.cpp" />
+    <ClCompile Include="mBoss_BL_R.cpp" />
     <ClCompile Include="midlesky.cpp" />
     <ClCompile Include="Rigdbody_L.cpp" />
     <ClCompile Include="Rigdbody_R.cpp" />

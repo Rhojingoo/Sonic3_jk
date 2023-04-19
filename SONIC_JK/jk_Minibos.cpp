@@ -8,6 +8,8 @@
 #include "jk_Collider.h"
 #include "jk_Scene.h"
 #include "jk_Object.h"
+#include "mBoss_Bl_L.h"
+#include "mBoss_BL_R.h"
 
 
 namespace jk
@@ -208,12 +210,39 @@ namespace jk
 	void Minibos::atack()
 	{
 		time_check += Time::DeltaTime();
-		if (time_check >= 3)
-		{
-			//mAnimator->Play(L"L_mBoss", true);
-			mState = eState::Waiting;
-			time_check = 0;
-		}	
+		Transform* tr = GetComponent<Transform>();
+	
+			if (mDir == -1)//¿ÞÂÊ
+			{
+				Scene* curScene = SceneManager::GetActiveScene();
+				mBoss_Bl_L* bullet = new mBoss_Bl_L(this);
+				bullet->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x-400, tr->GetPos().y + 25 });
+				curScene->AddGameobeject(bullet, jk_LayerType::Bullet);		
+				if (time_check >= 3)
+				{
+					object::Destory(bullet);
+					mState = eState::Waiting;
+					time_check = 0;
+				}
+
+			}
+			if (mDir == 1)//¿À¸¥ÂÊ
+			{
+				Scene* curScene = SceneManager::GetActiveScene();
+				mBoss_BL_R* bullet = new mBoss_BL_R(this);
+				bullet->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x+245, tr->GetPos().y + 25 });
+				curScene->AddGameobeject(bullet, jk_LayerType::Bullet);		
+
+				if (time_check >= 3)
+				{
+					object::Destory(bullet);
+					mState = eState::Waiting;
+					time_check = 0;
+				}
+			}
+		
+			
+		tr->SetPos(pos);
 	}
 
 	void Minibos::hurt()

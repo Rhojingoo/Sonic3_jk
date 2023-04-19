@@ -3,28 +3,16 @@
 #include "jk_Image.h"
 #include "jk_Time.h"
 
-
 namespace jk
 {
 	class Animator;
-	class Minibos : public Gameobject
+	class mBoss_Bl_L : public Gameobject
 	{
 	public:
-		enum class eState
-		{
-			Down,
-			Up,
-			Left,
-			Right,
-			Waiting,
-			Atack,
-			Hurt,
-			Death
-		};
 
 
-		Minibos(Gameobject* owner);
-		~Minibos();
+		mBoss_Bl_L(Gameobject* owner);
+		~mBoss_Bl_L();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
@@ -35,30 +23,10 @@ namespace jk
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
-	private:
-		void down();
-		void up();
-		void right();
-		void left();
-		void waiting();
-		void atack();
-		void hurt();
 		void death();
 
 	private:
 		Image* mImage;
 		Animator* mAnimator;
-		eState mState;
-
-		Gameobject* mOwner;
-		Vector2 mCenterpos;
-		Vector2 pos;
-		float mMonspeed;
-		float mMonmaxdistance;
-		int mDir;
-		int UpDOWN;
-		float fDist;
-		float time_check;
-		int attack;		
 	};
 }

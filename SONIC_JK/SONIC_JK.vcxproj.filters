@@ -233,6 +233,9 @@
     <Filter Include="Contents\Boss\Act1_minibos_show\show">
       <UniqueIdentifier>{2552fdff-9ef6-4838-a445-9118e417b140}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Boss\Act1_miniboss\Bullet">
+      <UniqueIdentifier>{2e7c2a7f-1174-417e-8373-ef5caf9db912}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -555,6 +558,12 @@
     <ClInclude Include="jk_Collapses_GR_left.h">
       <Filter>Contents\BG\PlayBG\Event_bg\Collapses Ground</Filter>
     </ClInclude>
+    <ClInclude Include="mBoss_BL_R.h">
+      <Filter>Contents\Boss\Act1_miniboss\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="mBoss_Bl_L.h">
+      <Filter>Contents\Boss\Act1_miniboss\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SONIC_JK.rc">
@@ -867,6 +876,12 @@
     <ClCompile Include="jk_Clean_wall.cpp" />
     <ClCompile Include="jk_Collapses_GR_left.cpp">
       <Filter>Contents\BG\PlayBG\Event_bg\Collapses Ground</Filter>
+    </ClCompile>
+    <ClCompile Include="mBoss_Bl_L.cpp">
+      <Filter>Contents\Boss\Act1_miniboss\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="mBoss_BL_R.cpp">
+      <Filter>Contents\Boss\Act1_miniboss\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
