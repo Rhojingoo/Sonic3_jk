@@ -236,6 +236,9 @@
     <Filter Include="Contents\Boss\Act1_miniboss\Bullet">
       <UniqueIdentifier>{2e7c2a7f-1174-417e-8373-ef5caf9db912}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Boss\Act1_miniboss\Dead">
+      <UniqueIdentifier>{a1b4122b-e00a-4d0a-adf5-66176085a536}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -564,6 +567,12 @@
     <ClInclude Include="mBoss_Bl_L.h">
       <Filter>Contents\Boss\Act1_miniboss\Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="mB_Ldeath.h">
+      <Filter>Contents\Boss\Act1_miniboss\Dead</Filter>
+    </ClInclude>
+    <ClInclude Include="mB_Rdeath.h">
+      <Filter>Contents\Boss\Act1_miniboss\Dead</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SONIC_JK.rc">
@@ -882,6 +891,12 @@
     </ClCompile>
     <ClCompile Include="mBoss_BL_R.cpp">
       <Filter>Contents\Boss\Act1_miniboss\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="mB_Ldeath.cpp">
+      <Filter>Contents\Boss\Act1_miniboss\Dead</Filter>
+    </ClCompile>
+    <ClCompile Include="mB_Rdeath.cpp">
+      <Filter>Contents\Boss\Act1_miniboss\Dead</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

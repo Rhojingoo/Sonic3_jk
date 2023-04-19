@@ -243,6 +243,8 @@
     <ClInclude Include="jk_Transform.h" />
     <ClInclude Include="mBoss_Bl_L.h" />
     <ClInclude Include="mBoss_BL_R.h" />
+    <ClInclude Include="mB_Ldeath.h" />
+    <ClInclude Include="mB_Rdeath.h" />
     <ClInclude Include="midlesky.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Rigdbody_L.h" />
@@ -352,6 +354,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mBoss_Bl_L.cpp" />
     <ClCompile Include="mBoss_BL_R.cpp" />
+    <ClCompile Include="mB_Ldeath.cpp" />
+    <ClCompile Include="mB_Rdeath.cpp" />
     <ClCompile Include="midlesky.cpp" />
     <ClCompile Include="Rigdbody_L.cpp" />
     <ClCompile Include="Rigdbody_R.cpp" />

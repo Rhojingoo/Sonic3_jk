@@ -10,7 +10,9 @@
 #include "jk_Object.h"
 #include "mBoss_Bl_L.h"
 #include "mBoss_BL_R.h"
-
+#include "mB_Rdeath.h"
+#include "mB_Ldeath.h"
+#include "Rigidbody.h"
 
 namespace jk
 {
@@ -19,7 +21,7 @@ namespace jk
 		, mMonspeed(100.0f)
 		, mMonmaxdistance(100.0f)
 		, mDir(-1)
-		, UpDOWN(1)
+		,attack_check(0)
 		, fDist(0)
 		, attack(0)
 	{
@@ -29,6 +31,13 @@ namespace jk
 		mAnimator->CreateAnimation(L"R_mBoss", mImage, Vector2{ 4.f,285.f }, Vector2{ 96.f,72.f }, Vector2{ 8.f,0.f }, 3, 1, 3, Vector2::Zero, 0.1f);
 		mAnimator->CreateAnimation(L"L_mBoss", mImage, Vector2{ 4.f,206.f }, Vector2{ 96.f,72.f }, Vector2{ 8.f,0.f }, 3, 1, 3, Vector2::Zero, 0.1f);
 		mAnimator->CreateAnimation(L"middle_bos_cover_open", mImage, Vector2{ 4.f,25.f }, Vector2{ 96.f,79.f }, Vector2{ 8.f,0.f }, 6, 1, 6, Vector2::Zero, 0.1f);
+
+
+		mAnimator->CreateAnimation(L"L_mBDeath", mImage, Vector2{ 452.f,418.f }, Vector2{ 80.f,64.f }, Vector2{ 0.f,0.f }, 1, 1, 1, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"R_mBDeath", mImage, Vector2{ 451.f,351.f }, Vector2{ 80.f,64.f }, Vector2{ 0.f,0.f }, 1, 1, 1, Vector2::Zero, 0.1f);
+
+
+
 
 		mAnimator->Play(L"L_mBoss", true);
 
@@ -94,6 +103,48 @@ namespace jk
 
 	void Minibos::OnCollisionEnter(Collider* other)
 	{
+		if (Sonic* sonic = dynamic_cast<Sonic*>(other->GetOwner()))
+		{
+			sonicState = sonic->Getsonicstate();
+
+			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
+			{
+				attack_check += 1;
+
+
+				Transform* tr = GetComponent<Transform>();
+				if ((attack_check>=6)&&(mDir == -1))//왼쪽
+				{
+
+					mAnimator->Play(L"L_mBDeath", true);
+					mState = eState::Death;
+					mRigidbody = AddComponent<Rigidbody>();
+					mRigidbody->SetGravity(Vector2{ 0.f,1.f });
+					time_check += Time::DeltaTime();
+
+					if (time_check >= 3)
+					{
+						mState = eState::Death;
+						time_check = 0;
+					}	
+				}
+				if ((attack_check >= 6) && (mDir == 1))//오른쪽
+				{
+					mAnimator->Play(L"R_mBDeath", true);					
+					mRigidbody = AddComponent<Rigidbody>();
+					mRigidbody->SetGravity(Vector2{ 0.f,1.f });
+					time_check += Time::DeltaTime();
+
+					if (time_check >= 3)
+					{
+						mState = eState::Death;
+						time_check = 0;
+					}
+
+				}
+				tr->SetPos(pos);
+			}
+		}
 	}
 
 	void Minibos::OnCollisionStay(Collider* other)
@@ -177,18 +228,13 @@ namespace jk
 			mDir = 1;
 		}
 		tr->SetPos(pos);
-
-
 	}
 
 	void Minibos::waiting()
 	{
 		time_check += Time::DeltaTime();
-
-
 		if (time_check > 3)//다운
 		{
-
 			if (attack == 0)
 			{
 				//mAnimator->Play(L"middle_bos_cover_open", false);
@@ -196,14 +242,12 @@ namespace jk
 				time_check = 0;
 				attack = 1;
 			}
-
 			if (attack == 1)
 			{				
 				mState = eState::Up;
 				time_check = 0;
 				attack = 0;
 			}
-
 		}
 	}
 
@@ -224,7 +268,6 @@ namespace jk
 					mState = eState::Waiting;
 					time_check = 0;
 				}
-
 			}
 			if (mDir == 1)//오른쪽
 			{
@@ -239,9 +282,7 @@ namespace jk
 					mState = eState::Waiting;
 					time_check = 0;
 				}
-			}
-		
-			
+			}			
 		tr->SetPos(pos);
 	}
 
@@ -251,5 +292,7 @@ namespace jk
 
 	void Minibos::death()
 	{
+		object::Destory(this);
+
 	}
 }
