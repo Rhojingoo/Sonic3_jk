@@ -38,6 +38,7 @@ namespace jk
 	void Snake_body2::Update()
 	{
 		prevPos = GetComponent<Transform>()->GetPos();
+	
 		switch (mState)
 		{
 		case jk::Snake_body2::eSnake::Right:

@@ -58,7 +58,6 @@ namespace jk
 
 		// 죽은 위치에서 충돌중인 다른 충돌체가 있었다면 Exit를
 		// 호출 해준후에 삭제 해주어야한다.
-
 		for (Gameobject* deathObj : deleteGameObjects)
 		{
 			delete deathObj;

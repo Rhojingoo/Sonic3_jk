@@ -268,8 +268,8 @@ namespace jk
 		AddGameobeject(cylinder, jk_LayerType::BG_props);
 		cylinder->GetComponent<Transform>()->SetPos(Vector2{ 28085.0f, 2510.0f });
 
-		StageSave* save = new StageSave;
-		save->SetName(L"StageSave");
+		//StageSave* save = new StageSave;
+		//save->SetName(L"StageSave");
 
 
 
@@ -333,8 +333,6 @@ namespace jk
 		}
 		Snake_head[0]->GetComponent<Transform>()->SetPos(Vector2{ 8370.f, 3250.f });
 
-
-
 		Snake_Body_Smoke* snake_Body_Smoke[1];
 		for (int a = 0; a < 1; a++)
 		{
@@ -355,14 +353,13 @@ namespace jk
 		}
 		snake_body[0]->GetComponent<Transform>()->SetPos(Vector2{ 8370.f, 3250.f });
 		snake_body[0]->Set_Snake_Body(snake_Body_Smoke[0]);
+				
 
-		
 		Snake_body2* snake_body_2 = new Snake_body2();
 		snake_body_2->SetName(L"Snake_Body2");
 		AddGameobeject(snake_body_2, jk_LayerType::Monster);
 		snake_body_2->GetComponent<Transform>()->SetPos(Vector2{ 8370.f, 3250.f });
-		snake_body_2->Set_Snake_body_third(snake_body[0]);
-		
+		snake_body_2->Set_Snake_body_third(snake_body[0]);	
 
 
 		Snake_mTaIl* snake_mT[1];

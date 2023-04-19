@@ -36,7 +36,7 @@ namespace jk
 		eSnake Get_Snake_state() { return mState; }
 		virtual Vector2 GetPrevPos() override;
 		Vector2 Getmonster() { return mCurpos; }
-
+		void SetCenterpos(Vector2 pos) { mCenterpos = pos; }
 		void release_animal();
 
 	private:
