@@ -29,6 +29,7 @@
 #include "jk_Jeep_line.h"
 #include "jk_Jeep_line_Handle.h"
 #include "jk_Collapses_Ground.h"
+#include "jk_Collapses_GR_left.h"
 #include "jk_check1.h"
 #include "jk_check2.h"
 #include "jk_Clean_wall.h"
@@ -65,12 +66,7 @@ namespace jk
 	void PlayScene2::Initialize()
 	{
 		check_map = 1;
-
-	
-	
-
-
-
+		
 		//캐릭터
 		mSonic = new Sonic();
 		mSonic->SetName(L"Player");
@@ -94,7 +90,6 @@ namespace jk
 		//아이템
 		//ItemBigRing* Big_Ring = new ItemBigRing();
 		//Big_Ring->SetName(L"BIGRING");
-
 
 		Item* items = new Item(mSonic);
 		items->SetName(L"items");
@@ -137,7 +132,21 @@ namespace jk
 		collapses_Ground[2]->GetComponent<Transform>()->SetPos(Vector2{ 8180.f, 3990.f });
 		collapses_Ground[3]->GetComponent<Transform>()->SetPos(Vector2{ 4720.f, 4560.f });
 		collapses_Ground[4]->GetComponent<Transform>()->SetPos(Vector2{ 11050.f, 3415.f });
-		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 8180.f, 4010.f });
+		
+
+		Collapses_GR_left* collapses_GR_left[4];
+		for (int a = 0; a < 4; a++)
+		{
+			collapses_GR_left[a] = new Collapses_GR_left();
+			collapses_GR_left[a]->SetName(L"collapses_Ground_L");
+			AddGameobeject(collapses_GR_left[a], jk_LayerType::BG_props);
+		}
+		collapses_GR_left[0]->GetComponent<Transform>()->SetPos(Vector2{ 4825.0f, 3410.0f });
+		collapses_GR_left[1]->GetComponent<Transform>()->SetPos(Vector2{ 7125.f, 3980.f });
+		collapses_GR_left[2]->GetComponent<Transform>()->SetPos(Vector2{ 8490.f, 3800.f });
+		collapses_GR_left[3]->GetComponent<Transform>()->SetPos(Vector2{ 11550.f, 3210.f });
+		
+
 
 		Spring_Up* spring_Up[5];
 		for (int a = 0; a < 5; a++)
@@ -150,7 +159,7 @@ namespace jk
 		spring_Up[1]->GetComponent<Transform>()->SetPos(Vector2{ 1750.0f, 4558.0f });
 		spring_Up[2]->GetComponent<Transform>()->SetPos(Vector2{ 5550.0f, 5000.0f });
 		spring_Up[3]->GetComponent<Transform>()->SetPos(Vector2{ 10248.0f, 4812.0f });
-		spring_Up[4]->GetComponent<Transform>()->SetPos(Vector2{ 11300.0f, 4430.0f });
+		spring_Up[4]->GetComponent<Transform>()->SetPos(Vector2{ 11300.0f, 4400.0f });
 		
 
 		Move_GR* gr_move[2];
@@ -169,8 +178,31 @@ namespace jk
 
 
 		//몬스터 및 보스
+		Monster* mRino = new Monster();
+		mRino->SetName(L"RinoMonster2");
+		AddGameobeject(mRino, jk_LayerType::Monster);
+		mRino->GetComponent<Transform>()->SetPos(Vector2{6450.0f,4350.0f });
+		mRino->SetCenterpos(Vector2{ 6540.0f, 4350.0f });
+		mRino->SetCheckTargetGround(playgr);
+		
+		
+		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 6540.0f, 4350.0f });
+
+
+
+
+
 		//Boss* ROBOT = new Boss(mSonic);
 		//ROBOT->SetName(L"BOSS");
+
+
+
+
+
+
+
+
+
 
 		//링위치
 		//Ring* ring[100];

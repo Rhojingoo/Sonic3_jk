@@ -171,6 +171,7 @@
     <ClInclude Include="jk_Choice_select.h" />
     <ClInclude Include="jk_Clean_wall.h" />
     <ClInclude Include="jk_Collapses_Ground.h" />
+    <ClInclude Include="jk_Collapses_GR_left.h" />
     <ClInclude Include="jk_Collider.h" />
     <ClInclude Include="jk_CollisionManager.h" />
     <ClInclude Include="jk_Component.h" />
@@ -275,6 +276,7 @@
     <ClCompile Include="jk_Choice_select.cpp" />
     <ClCompile Include="jk_Clean_wall.cpp" />
     <ClCompile Include="jk_Collapses_Ground.cpp" />
+    <ClCompile Include="jk_Collapses_GR_left.cpp" />
     <ClCompile Include="jk_Collider.cpp" />
     <ClCompile Include="jk_CollisionManager.cpp" />
     <ClCompile Include="jk_Cylinder.cpp" />

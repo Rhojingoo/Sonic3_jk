@@ -35,6 +35,15 @@ namespace jk
 			return Ground_Image;
 		}
 
+		class Image* GetGroundImage2()
+		{
+			if (!Ground_Image)
+				return nullptr;
+
+			return Ground_Image2;
+		}
+
+
 
 	public:
 		void CheckGround();
@@ -52,7 +61,7 @@ namespace jk
 		void CheckLoopHalfAfter_L();
 
 		void Set_map_check(int chek) { map_chek = chek; }
-
+		int Get_ma_check() { return map_chek; }
 		//void MonsterGround();
 
 	private:		
@@ -80,6 +89,7 @@ namespace jk
 		class Image* Ground_Image;
 		class Image* Cicle_Rturn;
 		class Image* Cicle_Lturn;
+		
 		//act1-2 ¿ÃπÃ¡ˆ
 		class Image* Ground_Image2;
 		class Image* Cicle_Rturn2;

@@ -1,62 +1,46 @@
 #pragma once
 #include "jk_Gameobject.h"
 #include "jk_Image.h"
-#include "jk_Sonic.h"
-#include "jk_Time.h"
-
+#include "jk_SONIC.h"
+#include "jk_Animator.h"
 
 namespace jk
 {
-	class Ground;
 	class Rigidbody;
 	class Animator;
-	class Monster : public Gameobject
+	class Collapses_GR_left : public Gameobject
 	{
 	public:
-		enum class eMonsterState
-		{		
-			Move,	
-			Run,
-			Turn,
-			Deth,
-			Release_animal,
+		enum class eState
+		{
+			Idle,
+			Death,
 		};
 
-
-		Monster();
-		~Monster();
+		Collapses_GR_left();
+		~Collapses_GR_left();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void Render(HDC hdc) override;
 		virtual void Release() override;
 
+
 		virtual void OnCollisionEnter(class Collider* other) override;
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
+	private:
+		void idle();
+		void death();
 
-		void SetGroundImage(Image* image) { mGroundImage = image; }
-		void SetCheckTargetGround(Ground* ground) { check = ground; }
-		void SetCenterpos(Vector2 pos) {mCenterpos = pos;}
 
-		Vector2 Getmonster() {return mCurpos; }
-		void release_animal();
-
-	private:	
-		void move();
-		void run();
-		void turn();
-		void deth();
-
-	private:	
+	private:
 		Gameobject* mOwner;
-		Rigidbody* mRigidbody;
+		eState mState;
 		Image* mImage;
 		Image* mImage1;
 		Image* mGroundImage;
-		Image* mGroundImage2;
-		
 		Ground* check;
 		Animator* mAnimator;
 		Vector2 mCenterpos;
@@ -64,10 +48,13 @@ namespace jk
 		float mMonspeed;
 		float mMonmaxdistance;
 		int mDir;
-		eMonsterState mState;	
-		Sonic::eSonicState sonicState;		
+		Vector2 pos;
+		float fDist;
+		Vector2 mSonic;
 
+		Sonic::eSonicState sonicState;
+		int sonicpattern;
 
-		int check_map;
 	};
+
 }

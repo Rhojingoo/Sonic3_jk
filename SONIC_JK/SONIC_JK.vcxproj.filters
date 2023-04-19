@@ -552,6 +552,9 @@
       <Filter>Contents\Boss\Act1_minibos_show\show</Filter>
     </ClInclude>
     <ClInclude Include="jk_Clean_wall.h" />
+    <ClInclude Include="jk_Collapses_GR_left.h">
+      <Filter>Contents\BG\PlayBG\Event_bg\Collapses Ground</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SONIC_JK.rc">
@@ -862,5 +865,8 @@
       <Filter>Contents\Boss\Act1_minibos_show\show</Filter>
     </ClCompile>
     <ClCompile Include="jk_Clean_wall.cpp" />
+    <ClCompile Include="jk_Collapses_GR_left.cpp">
+      <Filter>Contents\BG\PlayBG\Event_bg\Collapses Ground</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -23,6 +23,7 @@ namespace jk
 		, mMonspeed(350.0f)
 		, mMonmaxdistance(300.0f)
 		, mDir(1)
+		, check_map(0)
 	{
 		//Transform* tr = GetComponent<Transform>();
 		//tr->SetPos(Vector2(15224.0f, 2921.0f));
@@ -79,23 +80,60 @@ namespace jk
 
 		Transform* Rino_TR = GetComponent<Transform>();
 		Rigidbody* Rino_rb = GetComponent<Rigidbody>();
+		
+		check_map = check->Get_ma_check();
+
 		mGroundImage = check->GetGroundImage();
+		mGroundImage2 = check->GetGroundImage2();
 
-		if (Rino_TR && Rino_rb && mGroundImage)
+		if (check_map == 0)
 		{
-			Vector2 Rino_ps = Rino_TR->GetPos();
-			COLORREF RING_Color = mGroundImage->GetPixel(Rino_ps.x, Rino_ps.y + 75);
-			if (RING_Color == RGB(0, 0, 0))
+			if (Rino_TR && Rino_rb && mGroundImage)
 			{
+				Vector2 Rino_ps = Rino_TR->GetPos();
 				COLORREF RING_Color = mGroundImage->GetPixel(Rino_ps.x, Rino_ps.y + 75);
-
-				while (RING_Color == RGB(0, 0, 0))
+				if (RING_Color == RGB(0, 0, 0))
 				{
-					Rino_ps.y -= 1;
-					RING_Color = mGroundImage->GetPixel(Rino_ps.x, Rino_ps.y + 75);
-					Rino_TR->SetPos(Rino_ps);
-					Rino_rb->SetGround(true);
+					COLORREF RING_Color = mGroundImage->GetPixel(Rino_ps.x, Rino_ps.y + 75);
+
+					while (RING_Color == RGB(0, 0, 0))
+					{
+						Rino_ps.y -= 1;
+						RING_Color = mGroundImage->GetPixel(Rino_ps.x, Rino_ps.y + 75);
+						Rino_TR->SetPos(Rino_ps);
+						Rino_rb->SetGround(true);
+					}
 				}
+				else
+				{
+					Rino_rb->SetGround(false);
+				}
+			}
+
+		}
+		else if (check_map == 1)
+		{
+			if (Rino_TR && Rino_rb && mGroundImage2)
+			{
+				Vector2 Rino_ps = Rino_TR->GetPos();
+				COLORREF RING_Color = mGroundImage2->GetPixel(Rino_ps.x, Rino_ps.y + 75);
+				if (RING_Color == RGB(0, 0, 0))
+				{
+					COLORREF RING_Color = mGroundImage2->GetPixel(Rino_ps.x, Rino_ps.y + 75);
+
+					while (RING_Color == RGB(0, 0, 0))
+					{
+						Rino_ps.y -= 1;
+						RING_Color = mGroundImage2->GetPixel(Rino_ps.x, Rino_ps.y + 75);
+						Rino_TR->SetPos(Rino_ps);
+						Rino_rb->SetGround(true);
+					}
+				}
+				else
+				{
+					Rino_rb->SetGround(false);
+				}
+
 			}
 		}
 
