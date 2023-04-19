@@ -75,7 +75,7 @@ namespace jk
 		mSonic = new Sonic();
 		mSonic->SetName(L"Player");
 		AddGameobeject(mSonic, jk_LayerType::Player);
-		mSonic->GetComponent<Transform>()->SetPos(Vector2(661.f, 3033.f));
+		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 4486.f, 4500.f });
 
 
 		Tails* tails = new Tails(mSonic);
@@ -125,30 +125,36 @@ namespace jk
 		rock_big[0]->SetCheckTargetGround(playgr);
 
 
-		Collapses_Ground* collapses_Ground[2];
-		for (int a = 0; a < 2; a++)
+		Collapses_Ground* collapses_Ground[5];
+		for (int a = 0; a < 5; a++)
 		{
 			collapses_Ground[a] = new Collapses_Ground();
 			collapses_Ground[a]->SetName(L"collapses_Ground");
 			AddGameobeject(collapses_Ground[a], jk_LayerType::BG_props);
 		}
-		collapses_Ground[0]->GetComponent<Transform>()->SetPos(Vector2{ 4296.0f, 3237.0f });
-		//collapses_Ground[0]->GetComponent<Transform>()->SetPos(Vector2{ 961.f, 3033.f });
+		collapses_Ground[0]->GetComponent<Transform>()->SetPos(Vector2{ 4335.0f, 3300.0f });
+		collapses_Ground[1]->GetComponent<Transform>()->SetPos(Vector2{ 6640.f, 3410.f });
+		collapses_Ground[2]->GetComponent<Transform>()->SetPos(Vector2{ 8180.f, 3990.f });
+		collapses_Ground[3]->GetComponent<Transform>()->SetPos(Vector2{ 4720.f, 4560.f });
+		collapses_Ground[4]->GetComponent<Transform>()->SetPos(Vector2{ 11050.f, 3415.f });
+		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 8180.f, 4010.f });
 
-
-
-		Spring_Up* spring_Up[1];
-		for (int a = 0; a < 1; a++)
+		Spring_Up* spring_Up[5];
+		for (int a = 0; a < 5; a++)
 		{
 			spring_Up[a] = new Spring_Up();
 			spring_Up[a]->SetName(L"spring_Up");
 			AddGameobeject(spring_Up[a], jk_LayerType::BG_props);
 		}
 		spring_Up[0]->GetComponent<Transform>()->SetPos(Vector2{ 3624.0f, 3381.0f });
+		spring_Up[1]->GetComponent<Transform>()->SetPos(Vector2{ 1750.0f, 4558.0f });
+		spring_Up[2]->GetComponent<Transform>()->SetPos(Vector2{ 5550.0f, 5000.0f });
+		spring_Up[3]->GetComponent<Transform>()->SetPos(Vector2{ 10248.0f, 4812.0f });
+		spring_Up[4]->GetComponent<Transform>()->SetPos(Vector2{ 11300.0f, 4430.0f });
+		
 
-
-		Move_GR* gr_move[1];
-		for (int a = 0; a < 1; a++)
+		Move_GR* gr_move[2];
+		for (int a = 0; a < 2; a++)
 		{
 			gr_move[a] = new Move_GR();
 			gr_move[a]->SetName(L"gr_move");
@@ -157,6 +163,9 @@ namespace jk
 		gr_move[0]->GetComponent<Transform>()->SetPos(Vector2{ 661.f, 2933.f });
 		gr_move[0]->SetCenterpos(Vector2{ 661.f,2933.f });
 		gr_move[0]->Setmaxdistance(float{ 100.f });
+		gr_move[1]->GetComponent<Transform>()->SetPos(Vector2{ 9714.f,5346.f });
+		gr_move[1]->SetCenterpos(Vector2{ 9714.f,5346.f });
+		gr_move[1]->Setmaxdistance(float{ 150.f });
 
 
 		//몬스터 및 보스
