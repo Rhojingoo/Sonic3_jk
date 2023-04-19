@@ -29,7 +29,8 @@ namespace jk
 		mAnimator->CreateAnimation(L"middle_bos_cover_open", mImage, Vector2{ 4.f,25.f }, Vector2{ 96.f,79.f }, Vector2{ 8.f,0.f }, 6, 1, 6, Vector2::Zero, 0.1f);
 		mAnimator->CreateAnimation(L"middle_bos_cover_close", mImage, Vector2{ 4.f,115.f }, Vector2{ 96.f,79.f }, Vector2{ 8.f,0.f }, 6, 1, 6, Vector2::Zero, 0.1f);
 
-		mAnimator->Play(L"middle_bos_show_idle", true);
+
+		mAnimator->Play(L"middle_bos_show_idle", true);		
 	}
 	minibos_show::~minibos_show()
 	{
@@ -44,8 +45,8 @@ namespace jk
 		//mAnimator->CreateAnimation(L"middle_bos_cover_close", mImage, Vector2{ 4.f,115.f }, Vector2{ 96.f,79.f }, Vector2{ 8.f,0.f }, 8, 1, 8, Vector2::Zero, 0.1f);
 
 		//mAnimator->Play(L"middle_bos_show_idle", true);
-		mImage = Resources::Load<Image>(L"middle_bos", L"..\\Resources\\middle_bos.bmp");
-		mAnimator->GetCompleteEvent(L"middle_bos_cover_open") = std::bind(&minibos_show::attack, this);
+		//mImage = Resources::Load<Image>(L"middle_bos", L"..\\Resources\\middle_bos.bmp");
+		//mAnimator->GetCompleteEvent(L"middle_bos_cover_open") = std::bind(&minibos_show::attack, this);
 
 
 		Gameobject::Initialize();

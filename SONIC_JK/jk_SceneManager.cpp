@@ -70,7 +70,9 @@ namespace jk
 	{
 		// «ˆ¿Áæ¿
 		mActiveScene->OnExit();
-		//CollisionManager::Clear();
+
+
+		CollisionManager::Clear();
 		//¥Ÿ¿Ωæ¿
 		mActiveScene = mScenes[(UINT)type];
 

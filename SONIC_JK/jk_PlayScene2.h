@@ -20,16 +20,26 @@ namespace jk
 		virtual void OnEnter() override;
 		virtual void OnExit() override;
 		
+	
 
 		void CreateBlending();
-		void Create_Miniboss_show();
+		void Create_Miniboss();
+
+
 
 	private:
 		Ground* playgr;
-		Sonic* mSonic;
-		int Camera_Switch;
+		Sonic* mSonic;		
 		int dir;
 		int check_map;
+
+
+		//ø’√‚«ˆ
+		int Camera_Switch;
+		int check_minibos;
+		int frame_check;
+
+
 
 	};
 }

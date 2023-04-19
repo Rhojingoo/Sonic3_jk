@@ -540,6 +540,7 @@ namespace jk
 	{	
 		object::Instantiate<Blending>(jk_LayerType::Blend);
 	}
+
 	void PlayScene::Create_Miniboss_show()
 	{
 		minibos_show* mbos_show = new minibos_show();

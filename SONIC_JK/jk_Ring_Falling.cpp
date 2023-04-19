@@ -96,7 +96,6 @@ namespace jk
 					}	
 				}
 			}
-
 		
 			if (check_ground > 0)
 			{

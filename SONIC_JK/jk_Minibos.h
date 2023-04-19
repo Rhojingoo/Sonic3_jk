@@ -10,11 +10,15 @@ namespace jk
 	class Minibos : public Gameobject
 	{
 	public:
-		enum class eBossState
+		enum class eState
 		{
-			Move,
-			Attack,
-			Hit,
+			Down,
+			Up,
+			Left,
+			Right,
+			Waiting,
+			Atack,
+			Hurt,
 			Death
 		};
 
@@ -32,21 +36,35 @@ namespace jk
 		virtual void OnCollisionExit(class Collider* other) override;
 
 	private:
-		void move();
-		void attack();
-		void hit();
+		void down();
+		void up();
+		void right();
+		void left();
+		void waiting();
+		void atack();
+		void hurt();
 		void death();
+
+
+
 
 
 	private:
 		Image* mImage;
 		Animator* mAnimator;
+		eState mState;
+
+		Gameobject* mOwner;
 		Vector2 mCenterpos;
-		Vector2 mCurpos;
+		Vector2 pos;
 		float mMonspeed;
 		float mMonmaxdistance;
 		int mDir;
-		eBossState mState;
-		Gameobject* mOwner;
+		int UpDOWN;
+		float fDist;
+		float time_check;
+		int attack;
+		
+		
 	};
 }

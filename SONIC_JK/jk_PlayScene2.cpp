@@ -40,6 +40,9 @@
 #include "jk_StageSave.h"
 #include "jk_ItemBigRing.h"
 
+#include "jk_Minibos.h"
+
+
 #include "jk_Monster.h"
 #include "jk_Monkey.h"
 #include "jk_Cannon.h"
@@ -57,6 +60,8 @@ namespace jk
 		: mSonic(nullptr)
 		, dir(1)
 		, Camera_Switch(0)
+		, check_minibos(0)
+		, frame_check(0)
 		, check_map(0)
 	{
 	}
@@ -71,8 +76,8 @@ namespace jk
 		mSonic = new Sonic();
 		mSonic->SetName(L"Player");
 		AddGameobeject(mSonic, jk_LayerType::Player);
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 4486.f, 4500.f });
-
+		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 13100.f,3240.f });
+		//13770.f, 2880.f
 
 		Tails* tails = new Tails(mSonic);
 		tails->SetName(L"Player2");
@@ -184,10 +189,8 @@ namespace jk
 		mRino->GetComponent<Transform>()->SetPos(Vector2{6450.0f,4350.0f });
 		mRino->SetCenterpos(Vector2{ 6540.0f, 4350.0f });
 		mRino->SetCheckTargetGround(playgr);
-			
-		
 
-		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 6270.f, 3210.f });
+
 		Snake* Snake_head[1];
 		for (int a = 0; a < 1; a++)
 		{
@@ -309,6 +312,25 @@ namespace jk
 	{
 		playgr->Set_map_check(check_map);
 
+		Vector2 sonic_pos = mSonic->GetComponent<Transform>()->GetPos();
+
+		if (sonic_pos.x >= 13200.f)
+		{
+			Camera_Switch = 1;
+		}
+		if (Camera_Switch == 1)
+		{
+			Camera::SetTarget(nullptr);
+			if (check_minibos == 0)
+			{
+				if (check_minibos != 0)
+					return;
+
+				Create_Miniboss();
+				check_minibos = 1;
+			}
+		}
+
 		//Camera::SetTarget(nullptr);
 		Scene::Update();
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
@@ -340,6 +362,9 @@ namespace jk
 		CollisionManager::SetLayer(jk_LayerType::Player2, jk_LayerType::Ground, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::BG_props, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Player2, true);
+		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::MiniBoss, true);
+		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::BOSS, true);
+
 
 		Camera::SetTarget(mSonic);
 	}
@@ -349,7 +374,12 @@ namespace jk
 	void PlayScene2::CreateBlending()
 	{
 	}
-	void PlayScene2::Create_Miniboss_show()
+	void PlayScene2::Create_Miniboss()
 	{
+		Minibos* mboss = new Minibos(mSonic);
+		mboss->SetName(L"mboss");
+		AddGameobeject(mboss, jk_LayerType::MiniBoss);
+		mboss->GetComponent<Transform>()->SetPos(Vector2{ 13770.f, 2880.f });
 	}
+
 }
