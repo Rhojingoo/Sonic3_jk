@@ -12,9 +12,21 @@ namespace jk
 	public:
 		enum class eBossState
 		{
+			Idle,
 			Move,
-			Attack,
-			Hit,
+			Side_Dianogol,
+			Dianogol_Down,
+			Down_Dianogol,
+			Side_Down,
+
+			Attack_Side,
+			Attack_Dianogol,
+			Attack_Down,
+
+			Hurt_Down,
+			Hurt_Side,
+			Hurt_Dianogol,
+
 			Death
 		};
 
@@ -34,21 +46,40 @@ namespace jk
 
 
 	private:
-		void move();
-		void attack();
-		void hit();
-		void death();
 
+		void idle();
+		void move();
+		void side_down();
+		void side_dianogol();
+		void dianogol_down();
+		void down_dianogol();		
+
+		void attack_side();
+		void attack_dianogol();
+		void attack_down();
+
+		void hurt_down();
+		void hurt_side();
+		void hurt_dianogol();
+
+		void death();
+	
 
 	private:
 		Image* mImage;
 		Animator* mAnimator;
 		Vector2 mCenterpos;
 		Vector2 mCurpos;
+		Vector2 pos;
+
 		float mMonspeed;
 		float mMonmaxdistance;
 		int mDir;
+		float fDist;
 		eBossState mState;
 		Gameobject* mOwner;
+
+		int time;
+		int starscene;
 	};
 }

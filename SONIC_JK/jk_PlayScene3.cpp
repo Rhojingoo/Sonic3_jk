@@ -86,6 +86,7 @@ namespace jk
 		AddGameobeject(last_Bridge, jk_LayerType::BG_props);
 		last_Bridge->GetComponent<Transform>()->SetPos(Vector2{ 18980.f, 3930.f });
 
+
 		//StageSave* save = new StageSave();
 		//save->SetName(L"StageSave");
 		//AddGameobeject(save, jk_LayerType::BG_props);
@@ -168,8 +169,6 @@ namespace jk
 				check_boss = 1;
 			}
 		}
-
-
 
 		Scene::Update();
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
