@@ -26,12 +26,12 @@ namespace jk
 	{
 		mImage = Resources::Load<Image>(L"bridge_last", L"..\\Resources\\last_bridge.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"bridge_last", mImage, Vector2(598, 70), Vector2(240, 37), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"bridge_last", mImage, Vector2(622, 91), Vector2(192, 16), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
 		mAnimator->Play(L"bridge_last", true);
 
 
 		Collider* collider = AddComponent<Collider>();
-		collider->SetSize(Vector2(720.0f, 111.0f));
+		collider->SetSize(Vector2(576.0f, 48.0f));
 		Vector2 size = collider->GetSize();
 		collider->SetCenter(Vector2{ (-0.15f) * size.x, (-0.35f) * size.y });
 
@@ -83,6 +83,19 @@ namespace jk
 		Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
 		rb->SetGround(true);
 
+
+	}
+
+	void Last_Bridge::OnCollisionStay(Collider* other)
+	{
+		
+		Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner());
+		if (mSonic == nullptr)
+			return;
+
+		Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
+		rb->SetGround(true);
+
 		Collider* mSonic_Col = mSonic->GetComponent<Collider>();
 		Vector2 mSonic_Pos = mSonic_Col->Getpos();
 
@@ -103,10 +116,22 @@ namespace jk
 			sonic_Pos.y -= (fSize - fLen) - 0.5f;
 			sonicTr->SetPos(sonic_Pos);
 		}
-	}
 
-	void Last_Bridge::OnCollisionStay(Collider* other)
-	{
+		if ((mSonic->Getsonicstate() == Sonic::eSonicState::Jump) || (mSonic->Getsonicstate() == Sonic::eSonicState::Hurt))
+		{	
+			Vector2 velocity = rb->GetVelocity();
+			velocity.y = -550.0f;
+
+			rb->SetVelocity(velocity);
+			rb->SetGround(false);
+
+			sonic_Pos = sonicTr->GetPos();
+			//sonic_Pos = sonic_Pos + Vector2{ 350.f ,-350.f };
+			sonicTr->SetPos(sonic_Pos);
+
+		}
+
+
 	}
 
 	void Last_Bridge::OnCollisionExit(Collider* other)

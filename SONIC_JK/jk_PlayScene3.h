@@ -36,7 +36,7 @@ namespace jk
 
 		//¿ÕÃâÇö
 		int Camera_Switch;
-		int check_minibos;
+		int check_boss;
 		int frame_check;
 
 

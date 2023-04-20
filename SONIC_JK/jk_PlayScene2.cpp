@@ -308,6 +308,7 @@ namespace jk
 		Scene::Initialize();
 
 	}
+
 	void PlayScene2::Update()
 	{
 		playgr->Set_map_check(check_map);

@@ -183,14 +183,14 @@ namespace jk
 				sonic_Pos = pos;
 				sonicTr->SetPos(sonic_Pos);				
 			}
-			if ((mSonic->Getsonicstate() == Sonic::eSonicState::Jump) || (mSonic->Getsonicstate() == Sonic::eSonicState::Hurt))
+			else
 			{
 				//OnCollisionExit(mSonic_Col);
 
 				rb->SetGround(false);
 				Vector2 velocity = rb->GetVelocity();				
-				velocity.x += 60.f;
-				velocity.y -= 165.f;
+				velocity.x += 20.f;
+				velocity.y -= 30.f;
 				rb->SetVelocity(velocity);
 				rb->SetGround(false);
 				sonic_Pos = sonicTr->GetPos();

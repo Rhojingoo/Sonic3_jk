@@ -28,6 +28,7 @@
 #include "jk_Collapses_Ground.h"
 #include "jk_Move_GR.h"
 #include "jk_Cylinder.h"
+#include "jk_Last_Bridge.h"
 
 
 int ringpoint = 0;
@@ -64,7 +65,7 @@ namespace jk
 		//tr->SetPos(Vector2{ 19924.0f, 2625.0f });//돌3
 
 		//tr->SetPos(Vector2{ 18785.0f, 1495.0f });//상부원숭이
-		//tr->SetPos(Vector2{ 16350.0f, 2847.0f });//jeepline
+		tr->SetPos(Vector2{ 16350.0f, 2847.0f });//jeepline
 		//tr->SetPos(Vector2{ 13218.0f, 3174.0f });//캐논
 	
 		//tr->SetPos(Vector2{ 2790.0f * 3, 3200.f }); //시작
@@ -72,7 +73,7 @@ namespace jk
 		//tr->SetPos(Vector2{ 12310.0f, 3211.0f });
 		//tr->SetPos(Vector2(19718.f, 3450.f));//원돌기
 		//tr->SetPos(Vector2{ 26201.f, 3333.f });//밑에 원돌기
-		tr->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
+		//tr->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
 		//tr->SetPos(Vector2{ 29043.0f, 2499.0f });
 	}		
 
@@ -490,6 +491,27 @@ namespace jk
 					}
 				}
 				
+				//last_Bridge 충돌처리
+				if (Last_Bridge* last_Bridge = dynamic_cast<Last_Bridge*>(other->GetOwner()))
+					{
+						Vector2 mlast_Bridge_pos = last_Bridge->GetComponent<Transform>()->GetPos();
+						Transform* tr = GetComponent<Transform>();
+						Vector2 msonic = tr->GetPos();
+
+
+						if (mDir == 1)
+						{
+							mState = eSonicState::Idle;
+							mAnimator->Play(L"RSonicStand", true);
+						}
+						else if (mDir == -1)
+						{
+							mState = eSonicState::Idle;
+							mAnimator->Play(L"LSonicStand", true);
+						}
+					}
+
+
 				//Cylinder 충돌처리
 				//if (Cylinder* cylinder = dynamic_cast<Cylinder*>(other->GetOwner()))
 				//{
@@ -506,8 +528,6 @@ namespace jk
 				//}
 	
 		
-
-
 				//Rock 충돌처리(푸쉬) --락에 콜라이더 문제 있음
 				if (Rock_small* rock_small = dynamic_cast<Rock_small*>(other->GetOwner()))
 				{
@@ -632,8 +652,6 @@ namespace jk
 				}
 
 
-
-
 			//아이템 충돌★
 				//ITEM(ELECT) 충돌처리
 				if (Item* electitem = dynamic_cast<Item*>(other->GetOwner()))
@@ -664,9 +682,7 @@ namespace jk
 					ringpoint += 1;
 				}
 
-
-
-				 
+								 
 			//몬스터 충돌★
 				//Rino 충돌처리		
 				if (Monster* rino = dynamic_cast<Monster*>(other->GetOwner()))
@@ -810,14 +826,14 @@ namespace jk
 
 		void Sonic::OnCollisionExit(Collider * other)
 	{
-			if (Jeep_line_Handle* jeep_line = dynamic_cast<Jeep_line_Handle*>(other->GetOwner()))
-			{				
-				if (!(mState == eSonicState::Jump))
-				{
-					mState == eSonicState::Idle;
-					mAnimator->Play(L"RSonicStand", true);
-				}				
-			}
+			//if (Jeep_line_Handle* jeep_line = dynamic_cast<Jeep_line_Handle*>(other->GetOwner()))
+			//{				
+			//	if (!(mState == eSonicState::Jump))
+			//	{
+			//		mState == eSonicState::Idle;
+			//		mAnimator->Play(L"RSonicStand", true);
+			//	}				
+			//}
 
 			//if (Cylinder* cylinder = dynamic_cast<Cylinder*>(other->GetOwner()))
 			//{

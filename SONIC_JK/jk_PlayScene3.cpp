@@ -41,7 +41,7 @@ namespace jk
 		: mSonic(nullptr)
 		, dir(1)
 		, Camera_Switch(0)
-		, check_minibos(0)
+		, check_boss(0)
 		, frame_check(0)
 		, check_map(0)
 	{
@@ -84,7 +84,7 @@ namespace jk
 		Last_Bridge* last_Bridge = new Last_Bridge();
 		last_Bridge->SetName(L"last_Bridge");
 		AddGameobeject(last_Bridge, jk_LayerType::BG_props);
-		last_Bridge->GetComponent<Transform>()->SetPos(Vector2{ 18930.f, 3900.f });
+		last_Bridge->GetComponent<Transform>()->SetPos(Vector2{ 18980.f, 3930.f });
 
 		//StageSave* save = new StageSave();
 		//save->SetName(L"StageSave");
@@ -151,6 +151,26 @@ namespace jk
 	{
 		playgr->Set_map_check(check_map);
 
+		Vector2 sonic_pos = mSonic->GetComponent<Transform>()->GetPos();
+		if (sonic_pos.x >= 19470.f)
+		{
+			Camera_Switch = 1;
+		}
+		if (Camera_Switch == 1)
+		{
+			Camera::SetTarget(nullptr);
+			if (check_boss == 0)
+			{
+				if (check_boss != 0)
+					return;
+
+				Create_Boss();
+				check_boss = 1;
+			}
+		}
+
+
+
 		Scene::Update();
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
@@ -199,5 +219,9 @@ namespace jk
 
 	void PlayScene3::Create_Boss()
 	{
+		Boss* boss = new Boss(mSonic);
+		boss->SetName(L"boss");
+		AddGameobeject(boss, jk_LayerType::BOSS);
+		boss->GetComponent<Transform>()->SetPos(Vector2{ 19005.f, 3480.f });
 	}
 }
