@@ -18,6 +18,7 @@
 #include "jk_Gameobject.h"
 
 #include "jk_Act1_3_BG.h"
+#include "jk_Last_Bridge.h"
 
 #include "jk_Ring.h"
 #include "jk_Ring_Falling.h"
@@ -56,7 +57,7 @@ namespace jk
 		mSonic = new Sonic();
 		mSonic->SetName(L"Player");
 		AddGameobeject(mSonic, jk_LayerType::Player);
-		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 600.f, 3285.f });
+		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 18400.f, 3900.f });
 		//13770.f, 2880.f
 
 		Tails* tails = new Tails(mSonic);
@@ -79,8 +80,12 @@ namespace jk
 		AddGameobeject(act1_3_BG, jk_LayerType::BG);
 
 
-
 		//배경 소품
+		Last_Bridge* last_Bridge = new Last_Bridge();
+		last_Bridge->SetName(L"last_Bridge");
+		AddGameobeject(last_Bridge, jk_LayerType::BG_props);
+		last_Bridge->GetComponent<Transform>()->SetPos(Vector2{ 18930.f, 3900.f });
+
 		//StageSave* save = new StageSave();
 		//save->SetName(L"StageSave");
 		//AddGameobeject(save, jk_LayerType::BG_props);
@@ -139,7 +144,6 @@ namespace jk
 		//}
 		//Snake_Tail[0]->GetComponent<Transform>()->SetPos(Vector2{ 6270.f, 3210.f });
 		//Snake_Tail[0]->Set_Snake_body_third(snake_mT[0]);
-
 		Scene::Initialize();
 
 	}
@@ -180,18 +184,20 @@ namespace jk
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Player2, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::MiniBoss, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::BOSS, true);
-
+		CollisionManager::SetLayer(jk_LayerType::Bullet, jk_LayerType::BG_props, true);
 
 		Camera::SetTarget(mSonic);
 	}
+
 	void PlayScene3::OnExit()
 	{
 	}
+
 	void PlayScene3::CreateBlending()
 	{
 	}
+
 	void PlayScene3::Create_Boss()
 	{
 	}
-
 }

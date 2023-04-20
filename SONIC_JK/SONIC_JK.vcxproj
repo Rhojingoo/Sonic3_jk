@@ -195,6 +195,7 @@
     <ClInclude Include="jk_Item_water.h" />
     <ClInclude Include="jk_Jeep_line.h" />
     <ClInclude Include="jk_Jeep_line_Handle.h" />
+    <ClInclude Include="jk_Last_Bridge.h" />
     <ClInclude Include="jk_Layer.h" />
     <ClInclude Include="jk_Lttle_miniboss.h" />
     <ClInclude Include="jk_Math.h" />
@@ -308,6 +309,7 @@
     <ClCompile Include="jk_Item_water.cpp" />
     <ClCompile Include="jk_Jeep_line.cpp" />
     <ClCompile Include="jk_Jeep_line_Handle.cpp" />
+    <ClCompile Include="jk_Last_Bridge.cpp" />
     <ClCompile Include="jk_Layer.cpp" />
     <ClCompile Include="jk_Lttle_miniboss.cpp" />
     <ClCompile Include="jk_Math.cpp" />

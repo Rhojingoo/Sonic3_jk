@@ -245,6 +245,9 @@
     <Filter Include="Contents\Scene\Playgame\Act1-3">
       <UniqueIdentifier>{125c8b09-be3f-4830-bdce-978a93526da7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\BG\PlayBG\Event_bg\Last_Bridge">
+      <UniqueIdentifier>{d4526b4e-e174-45ec-a3d4-08543190e62e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -585,6 +588,9 @@
     <ClInclude Include="jk_PlayScene3.h">
       <Filter>Contents\Scene\Playgame\Act1-3</Filter>
     </ClInclude>
+    <ClInclude Include="jk_Last_Bridge.h">
+      <Filter>Contents\BG\PlayBG\Event_bg\Last_Bridge</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SONIC_JK.rc">
@@ -915,6 +921,9 @@
     </ClCompile>
     <ClCompile Include="jk_PlayScene3.cpp">
       <Filter>Contents\Scene\Playgame\Act1-3</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Last_Bridge.cpp">
+      <Filter>Contents\BG\PlayBG\Event_bg\Last_Bridge</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
