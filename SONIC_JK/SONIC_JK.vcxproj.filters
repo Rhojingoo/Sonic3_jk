@@ -239,6 +239,12 @@
     <Filter Include="Contents\Boss\Act1_miniboss\Dead">
       <UniqueIdentifier>{a1b4122b-e00a-4d0a-adf5-66176085a536}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\BG\PlayBG\BG_act1-3">
+      <UniqueIdentifier>{a1e539f3-d248-4c8f-a303-5146f603d760}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\Playgame\Act1-3">
+      <UniqueIdentifier>{125c8b09-be3f-4830-bdce-978a93526da7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -573,6 +579,12 @@
     <ClInclude Include="mB_Rdeath.h">
       <Filter>Contents\Boss\Act1_miniboss\Dead</Filter>
     </ClInclude>
+    <ClInclude Include="jk_Act1_3_BG.h">
+      <Filter>Contents\BG\PlayBG\BG_act1-3</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_PlayScene3.h">
+      <Filter>Contents\Scene\Playgame\Act1-3</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SONIC_JK.rc">
@@ -897,6 +909,12 @@
     </ClCompile>
     <ClCompile Include="mB_Rdeath.cpp">
       <Filter>Contents\Boss\Act1_miniboss\Dead</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Act1_3_BG.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act1-3</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_PlayScene3.cpp">
+      <Filter>Contents\Scene\Playgame\Act1-3</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

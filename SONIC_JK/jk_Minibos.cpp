@@ -24,6 +24,8 @@ namespace jk
 		,attack_check(0)
 		, fDist(0)
 		, attack(0)
+		,time(0)
+		, Death(0)
 	{
 		mImage = Resources::Load<Image>(L"middle_bos", L"..\\Resources\\middle_bos.bmp");
 
@@ -88,6 +90,18 @@ namespace jk
 		default:
 			break;
 		}
+
+		if (Death == 1)
+		{
+			time += Time::DeltaTime();
+			if (time >= 5)
+			{
+				SceneManager::LoadScene(jk_SceneType::GamePlay3);
+				map_check = 1;
+			}
+		}
+
+
 		Gameobject::Update();
 	}
 
@@ -292,6 +306,7 @@ namespace jk
 
 	void Minibos::death()
 	{
+		Death = 1;
 		object::Destory(this);
 
 	}

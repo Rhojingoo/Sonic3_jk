@@ -62,8 +62,13 @@ namespace jk
 		float fDist;
 		float time_check;
 		int attack;		
+		float time;
 
 		int attack_check;
 		Sonic::eSonicState sonicState;
+
+		int Death; //다음장면으로 가기위한변수
+		int map_check;
+
 	};
 }

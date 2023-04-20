@@ -22,6 +22,7 @@ namespace jk
 		int GetCicle_piece() { return Circle_pice; }		
 		virtual int GetgroundCh() {return mRotationcheck;}
 
+
 		void Set_Circle_Center(Vector2 check) { Circle1_Center = check; }
 		void Set_Circlecheck(int cir_check) { Circlecheck = cir_check; }
 		void SetPlayer(class Sonic* player, class Tails* player2) { mPlayer = player, mPlayer2 = player2; }
@@ -37,11 +38,21 @@ namespace jk
 
 		class Image* GetGroundImage2()
 		{
-			if (!Ground_Image)
+			if (!Ground_Image2)
 				return nullptr;
 
 			return Ground_Image2;
 		}
+
+
+		class Image* GetGroundImage3()
+		{
+			if (!Ground_Image3)
+				return nullptr;
+
+			return Ground_Image3;
+		}
+
 
 
 
@@ -94,6 +105,9 @@ namespace jk
 		class Image* Ground_Image2;
 		class Image* Cicle_Rturn2;
 		class Image* Cicle_Lturn2;
+
+		//act1-3 ¿ÃπÃ¡ˆ
+		class Image* Ground_Image3;
 
 
 		int mDirect;

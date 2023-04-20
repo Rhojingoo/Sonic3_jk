@@ -82,8 +82,6 @@ namespace jk
 				map_check = 1;
 			}
 		}
-
-
 		Gameobject::Update();
 	}
 

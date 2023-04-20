@@ -150,6 +150,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="jk_Act1skyBG.h" />
     <ClInclude Include="jk_Act1_2_BG.h" />
+    <ClInclude Include="jk_Act1_3_BG.h" />
     <ClInclude Include="jk_Airplanetails.h" />
     <ClInclude Include="jk_Animal.h" />
     <ClInclude Include="jk_Animation.h" />
@@ -209,6 +210,7 @@
     <ClInclude Include="jk_Move_GR.h" />
     <ClInclude Include="jk_Object.h" />
     <ClInclude Include="jk_PlayScene2.h" />
+    <ClInclude Include="jk_PlayScene3.h" />
     <ClInclude Include="jk_Ring.h" />
     <ClInclude Include="jk_Ring_Falling.h" />
     <ClInclude Include="jk_Rock_big.h" />
@@ -262,6 +264,7 @@
     <ClCompile Include="EndingBlend.cpp" />
     <ClCompile Include="jk_Act1skyBG.cpp" />
     <ClCompile Include="jk_Act1_2_BG.cpp" />
+    <ClCompile Include="jk_Act1_3_BG.cpp" />
     <ClCompile Include="jk_Airplanetails.cpp" />
     <ClCompile Include="jk_Animal.cpp" />
     <ClCompile Include="jk_Animation.cpp" />
@@ -319,6 +322,7 @@
     <ClCompile Include="jk_Monster.cpp" />
     <ClCompile Include="jk_Move_GR.cpp" />
     <ClCompile Include="jk_PlayScene2.cpp" />
+    <ClCompile Include="jk_PlayScene3.cpp" />
     <ClCompile Include="jk_Ring.cpp" />
     <ClCompile Include="jk_Ring_Falling.cpp" />
     <ClCompile Include="jk_Rock_big.cpp" />

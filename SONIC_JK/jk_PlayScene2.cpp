@@ -335,7 +335,7 @@ namespace jk
 		Scene::Update();
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
-			SceneManager::LoadScene(jk_SceneType::MiniGameplay);
+			SceneManager::LoadScene(jk_SceneType::GamePlay3);
 			//CreateBlending();
 			check_map = 0;
 		}
