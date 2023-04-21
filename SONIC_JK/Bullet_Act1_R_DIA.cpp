@@ -28,9 +28,9 @@ namespace jk
 
 
         Collider* collider = AddComponent<Collider>();
-        collider->SetSize(Vector2(96.0f, 144.0f));
+        collider->SetSize(Vector2(90.0f, 90.0f));
         Vector2 size = collider->GetSize();
-        collider->SetCenter(Vector2{ (-0.10f) * size.x, (-0.11f) * size.y });
+        collider->SetCenter(Vector2{ (-0.20f) * size.x, (-0.11f) * size.y });
         mOwner = owner;
     }
     Bullet_Act1_R_DIA::~Bullet_Act1_R_DIA()
@@ -45,8 +45,8 @@ namespace jk
         Transform* tr = GetComponent<Transform>();
         Vector2 pos = tr->GetPos();
         Sonic = mOwner->GetComponent<Transform>()->GetPos();
-
-
+        pos.y += 150.0f * static_cast<float>(Time::DeltaTime());
+        pos.x -= 150.0f * static_cast<float>(Time::DeltaTime());
         tr->SetPos(pos);
 
         Gameobject::Update();

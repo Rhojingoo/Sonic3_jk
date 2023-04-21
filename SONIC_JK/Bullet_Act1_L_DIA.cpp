@@ -24,14 +24,16 @@ namespace jk
 		mImage = Resources::Load<Image>(L"ROBOT", L"..\\Resources\\ROBOT.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"Bullet_Act1_L_DIA", mImage, Vector2(1367, 220), Vector2(48, 40), Vector2(8, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"Bullet_Act1_L_Side", mImage, Vector2(1465, 146), Vector2(48, 32), Vector2(0, 8), 1, 2, 2, Vector2::Zero, 0.1f);
+
 		mAnimator->Play(L"Bullet_Act1_L_DIA", true);
 
 
 
 		Collider* collider = AddComponent<Collider>();
-		collider->SetSize(Vector2(96.0f, 144.0f));
+		collider->SetSize(Vector2(90.0f, 90.0f));
 		Vector2 size = collider->GetSize();
-		collider->SetCenter(Vector2{ (-0.10f) * size.x, (-0.11f) * size.y });
+		collider->SetCenter(Vector2{ (0.10f) * size.x, (-0.11f) * size.y });
 		mOwner = owner;
 	}
 
@@ -47,8 +49,8 @@ namespace jk
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 		Sonic = mOwner->GetComponent<Transform>()->GetPos();
-
-
+		pos.y += 150.0f * static_cast<float>(Time::DeltaTime());
+		pos.x += 150.0f * static_cast<float>(Time::DeltaTime());
 		tr->SetPos(pos);
 		Gameobject::Update();
 	}
@@ -59,5 +61,14 @@ namespace jk
 	void Bullet_Act1_L_DIA::Release()
 	{
 		Gameobject::Release();
+	}
+	void Bullet_Act1_L_DIA::OnCollisionEnter(Collider* other)
+	{
+	}
+	void Bullet_Act1_L_DIA::OnCollisionStay(Collider* other)
+	{
+	}
+	void Bullet_Act1_L_DIA::OnCollisionExit(Collider* other)
+	{
 	}
 }

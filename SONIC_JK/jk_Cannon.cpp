@@ -112,24 +112,41 @@ namespace jk
 
 	void Cannon::OnCollisionEnter(Collider* other)
 	{
+
+
+		//if(other->GetOwner()->GetName() == L"Sonic") → name으로 찾아서 dynamic_cast보다 빠르게 접근가능할 수있다. ★확인필요(속도차이)★
 		if (Sonic* sonic = dynamic_cast<Sonic*>(other->GetOwner()))
 		{
 			sonicState = sonic->Getsonicstate();
 
+			//switch (sonicState) // if문대시 switch문으로 
+			//{
+			//case jk::Sonic::eSonicState::Dash:
+			//case jk::Sonic::eSonicState::Jump:
+			//case jk::Sonic::eSonicState::Spin:
+			//{
+			//	mAnimator->Play(L"Canon_death2", true);
+			//	mAnimator->GetCompleteEvent(L"Canon_death2") = std::bind(&Cannon::death, this);
+			//	break;
+			//}
+			//default:
+			//	break;
+			//}
 			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
 			{
 				mAnimator->Play(L"Canon_death2", true);
-				mAnimator->GetCompleteEvent(L"Canon_death2") = std::bind(&Cannon::death, this); //Canon_death2
+				mAnimator->GetCompleteEvent(L"Canon_death2") = std::bind(&Cannon::death, this);
 			}
 		}
 	}
+
 	void Cannon::OnCollisionStay(Collider* other)
 	{
 	}
+
 	void Cannon::OnCollisionExit(Collider* other)
 	{
 	}
-
 
 	void Cannon::idle()
 	{
@@ -158,7 +175,7 @@ namespace jk
 	void Cannon::death()
 	{
 		jk::object::Destory(this);
-	
+
 		Cannon::release_animal();
 	}
 
@@ -167,9 +184,9 @@ namespace jk
 	{
 
 		Transform* tr = GetComponent<Transform>();
-		Rigidbody* bullet_rb = GetComponent<Rigidbody>();	
+		Rigidbody* bullet_rb = GetComponent<Rigidbody>();
 		Image* groundImage = check->GetGroundImage();
-		
+
 		if (mDir == -1)
 		{
 			Scene* curScene = SceneManager::GetActiveScene();
@@ -184,13 +201,13 @@ namespace jk
 			Scene* curScene = SceneManager::GetActiveScene();
 			Canon_Bullet* bullet = new Canon_Bullet(this);
 			bullet->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x, tr->GetPos().y - 25 });
-			bullet->GetComponent<Rigidbody>()->SetVelocity(Vector2{ 300.0f, -300.0f });			
+			bullet->GetComponent<Rigidbody>()->SetVelocity(Vector2{ 300.0f, -300.0f });
 			bullet->SetGroundImage(groundImage);
 			curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
 		}
-		
+
 		mDir = mDir * -1;
-		mState = eCannon::Idle;		
+		mState = eCannon::Idle;
 	}
 
 	void Cannon::release_animal()
@@ -199,8 +216,8 @@ namespace jk
 		Scene* curScene = SceneManager::GetActiveScene();
 		Animal* ani = new Animal(mOwner);
 
-			ani->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x, tr->GetPos().y  });
-			curScene->AddGameobeject(ani, jk_LayerType::Animal);	
+		ani->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x, tr->GetPos().y });
+		curScene->AddGameobeject(ani, jk_LayerType::Animal);
 
 	}
 }

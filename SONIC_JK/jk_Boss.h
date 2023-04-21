@@ -1,5 +1,6 @@
 #pragma once
 #include "jk_Gameobject.h"
+#include "jk_SONIC.h"
 #include "jk_Image.h"
 #include "jk_Time.h"
 
@@ -30,10 +31,6 @@ namespace jk
 			Attack_Side_Waiting,		
 			Attack_Dianogol_Waiting,		
 			Attack_Down_Waiting,
-
-			Hurt_Down,
-			Hurt_Side,
-			Hurt_Dianogol,
 
 			Death
 		};
@@ -72,12 +69,13 @@ namespace jk
 		void attack_side();
 		void attack_side_waiting();
 
-
 		void attack_dianogol();
 		void attack_dianogol_waition();
 
 		void attack_down();
 		void attack_down_waition();
+
+
 
 		void hurt_down();
 		void hurt_side();
@@ -101,8 +99,13 @@ namespace jk
 		Gameobject* mOwner;
 
 		float time;
+		Sonic::eSonicState sonicState;
 		int starscene;
 		int attack_motion;
-		int Dir_change; //0 = down, 1= right, left
+		int Dir_change;
+		int attack_check;
+
+		int hurt_state;
+
 	};
 }

@@ -148,6 +148,7 @@
     <ClInclude Include="Bullet_Act1_L_Side.h" />
     <ClInclude Include="Bullet_Act1_R_DIA.h" />
     <ClInclude Include="Bullet_Act1_R_Side.h" />
+    <ClInclude Include="bullet_wall.h" />
     <ClInclude Include="Commoninclude.h" />
     <ClInclude Include="Electsonic.h" />
     <ClInclude Include="EndingBlend.h" />
@@ -269,6 +270,7 @@
     <ClCompile Include="Bullet_Act1_L_Side.cpp" />
     <ClCompile Include="Bullet_Act1_R_DIA.cpp" />
     <ClCompile Include="Bullet_Act1_R_Side.cpp" />
+    <ClCompile Include="bullet_wall.cpp" />
     <ClCompile Include="Electsonic.cpp" />
     <ClCompile Include="EndingBlend.cpp" />
     <ClCompile Include="jk_Act1skyBG.cpp" />

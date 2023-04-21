@@ -11,6 +11,7 @@
 #include "jk_Blending.h"
 #include "jk_SONIC.h"
 #include "Rigidbody.h"
+#include "jk_BaseBullet.h"
 
 namespace jk
 {
@@ -76,12 +77,19 @@ namespace jk
 
 	void Last_Bridge::OnCollisionEnter(Collider* other)
 	{
-		Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner());
-		if (mSonic == nullptr)
-			return;
+		if (Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner()))
+		{
+			if (mSonic == nullptr)
+				return;
 
-		Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
-		rb->SetGround(true);
+			Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
+			rb->SetGround(true);
+		}
+
+		if (BaseBullet* basebullet = dynamic_cast<BaseBullet*>(other->GetOwner()))
+		{
+			object::Destory(this);
+		}
 
 
 	}

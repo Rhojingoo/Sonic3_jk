@@ -10,6 +10,8 @@
 #include "jk_Animator.h"
 #include "jk_Collider.h"
 #include "jk_Scene.h"
+#include "jk_Last_Bridge.h"
+#include "jk_Object.h"
 
 namespace jk
 {
@@ -23,9 +25,11 @@ namespace jk
 		mImage = Resources::Load<Image>(L"ROBOT", L"..\\Resources\\ROBOT.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"Rbullet_Down", mImage, Vector2(1367, 18), Vector2(32, 48), Vector2(8, 0), 2, 1, 2, Vector2::Zero, 0.1f);
+		mAnimator->Play(L"Rbullet_Down", true);
+
 
 		Collider* collider = AddComponent<Collider>();		
-		collider->SetSize(Vector2(96.0f, 144.0f));
+		collider->SetSize(Vector2(72.0f, 120.0f));
 		Vector2 size = collider->GetSize();
 		collider->SetCenter(Vector2{ (-0.10f) * size.x, (-0.11f) * size.y });
 		mOwner = owner;
@@ -43,23 +47,12 @@ namespace jk
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 		Sonic = mOwner->GetComponent<Transform>()->GetPos();
-		
-		//if (Sonic.x > pos.x)
-		//{
-		//	pos.x += 100.0f * static_cast<float>(Time::DeltaTime());
-		//	pos.y += 100.0f * static_cast<float>(Time::DeltaTime());
-		//	mAnimator->Play(L"Rbullet", true);
-		//}
-		//if (Sonic.x < pos.x)
-		//{
-		//	pos.x -= 100.0f * static_cast<float>(Time::DeltaTime());
-		//	pos.y += 100.0f * static_cast<float>(Time::DeltaTime());
-		//	mAnimator->Play(L"Lbullet", true);
-		//}
+		pos.y += 150.0f * static_cast<float>(Time::DeltaTime());
 		tr->SetPos(pos);	
 	
 		Gameobject::Update();
 	}
+
 	void BaseBullet::Render(HDC hdc)
 	{
 		Gameobject::Render(hdc);
@@ -68,5 +61,20 @@ namespace jk
 	void BaseBullet::Release()
 	{
 		Gameobject::Release();
+	}
+
+	void BaseBullet::OnCollisionEnter(Collider* other)
+	{
+		if (Last_Bridge* last_bridge = dynamic_cast<Last_Bridge*>(other->GetOwner()))
+		{
+		 object::Destory(this);
+		}
+	}
+	
+	void BaseBullet::OnCollisionStay(Collider* other)
+	{
+	}
+	void BaseBullet::OnCollisionExit(Collider* other)
+	{
 	}
 }

@@ -603,6 +603,9 @@
     <ClInclude Include="Bullet_Act1_R_DIA.h">
       <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
     </ClInclude>
+    <ClInclude Include="bullet_wall.h">
+      <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SONIC_JK.rc">
@@ -947,6 +950,9 @@
       <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
     </ClCompile>
     <ClCompile Include="Bullet_Act1_R_Side.cpp">
+      <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="bullet_wall.cpp">
       <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
     </ClCompile>
   </ItemGroup>

@@ -26,11 +26,10 @@ namespace jk
 		mAnimator->Play(L"Bullet_Act1_L_Side", true);
 
 
-
 		Collider* collider = AddComponent<Collider>();
-		collider->SetSize(Vector2(96.0f, 144.0f));
+		collider->SetSize(Vector2(144.0f, 72.0f));
 		Vector2 size = collider->GetSize();
-		collider->SetCenter(Vector2{ (-0.10f) * size.x, (-0.11f) * size.y });
+		collider->SetCenter(Vector2{ (-0.10f) * size.x, (-0.25f) * size.y });
 		mOwner = owner;
 	}
 
@@ -46,8 +45,7 @@ namespace jk
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 		Sonic = mOwner->GetComponent<Transform>()->GetPos();
-
-
+		pos.x += 150.0f * static_cast<float>(Time::DeltaTime());
 		tr->SetPos(pos);
 
 		Gameobject::Update();
