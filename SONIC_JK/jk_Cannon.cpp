@@ -9,7 +9,6 @@
 #include "jk_Scene.h"
 #include "jk_SONIC.h"
 #include "SonicState.h"
-#include "jk_BaseBullet.h"
 #include "jk_Canon_Bullet.h"
 #include "jk_animal.h"
 #include "jk_object.h"

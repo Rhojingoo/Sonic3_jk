@@ -14,14 +14,22 @@ namespace jk
 		{
 			Idle,
 			Move,
+			Right,
+			Left,
+			Up,
+			Down,
+
+
 			Side_Dianogol,
 			Dianogol_Down,
 			Down_Dianogol,
+			Dianogol_Side,
 			Side_Down,
 
-			Attack_Side,
-			Attack_Dianogol,
-			Attack_Down,
+		
+			Attack_Side_Waiting,		
+			Attack_Dianogol_Waiting,		
+			Attack_Down_Waiting,
 
 			Hurt_Down,
 			Hurt_Side,
@@ -49,14 +57,27 @@ namespace jk
 
 		void idle();
 		void move();
+		void right();
+		void left();
+		void up();
+		void down();
+
+
 		void side_down();
 		void side_dianogol();
+		void dianogol_side();
 		void dianogol_down();
 		void down_dianogol();		
 
 		void attack_side();
+		void attack_side_waiting();
+
+
 		void attack_dianogol();
+		void attack_dianogol_waition();
+
 		void attack_down();
+		void attack_down_waition();
 
 		void hurt_down();
 		void hurt_side();
@@ -79,7 +100,9 @@ namespace jk
 		eBossState mState;
 		Gameobject* mOwner;
 
-		int time;
+		float time;
 		int starscene;
+		int attack_motion;
+		int Dir_change; //0 = down, 1= right, left
 	};
 }
