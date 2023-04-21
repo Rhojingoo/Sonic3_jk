@@ -1,4 +1,4 @@
-#include "jk_BaseBullet.h"
+#include "Bullet_Act1_R_Side.h"
 #include "jk_Transform.h"
 #include "jk_Time.h"
 #include "jk_Boss.h"
@@ -11,9 +11,10 @@
 #include "jk_Collider.h"
 #include "jk_Scene.h"
 
+
 namespace jk
 {
-	BaseBullet::BaseBullet(Gameobject* owner)
+	Bullet_Act1_R_Side::Bullet_Act1_R_Side(Gameobject* owner)
 		: mCenterpos(Vector2(750.0f, 151.0f))
 		, mCurpos(Vector2(0.0f, 0.0f))
 		, mMonspeed(50.0f)
@@ -22,50 +23,42 @@ namespace jk
 	{
 		mImage = Resources::Load<Image>(L"ROBOT", L"..\\Resources\\ROBOT.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"Rbullet_Down", mImage, Vector2(1367, 18), Vector2(32, 48), Vector2(8, 0), 2, 1, 2, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"Bullet_Act1_R_Side", mImage, Vector2(1465, 18), Vector2(48, 32), Vector2(0, 8), 1, 2, 2, Vector2::Zero, 0.1f);
+		mAnimator->Play(L"Bullet_Act1_R_Side", true);
 
-		Collider* collider = AddComponent<Collider>();		
+
+		Collider* collider = AddComponent<Collider>();
 		collider->SetSize(Vector2(96.0f, 144.0f));
 		Vector2 size = collider->GetSize();
 		collider->SetCenter(Vector2{ (-0.10f) * size.x, (-0.11f) * size.y });
 		mOwner = owner;
 	}
-
-	BaseBullet::~BaseBullet()
+	Bullet_Act1_R_Side::~Bullet_Act1_R_Side()
 	{
 	}
-	void BaseBullet::Initialize()
-	{
 
+
+	void Bullet_Act1_R_Side::Initialize()
+	{
+		Gameobject::Initialize();
 	}
-	void BaseBullet::Update()
+	void Bullet_Act1_R_Side::Update()
 	{
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 		Sonic = mOwner->GetComponent<Transform>()->GetPos();
-		
-		//if (Sonic.x > pos.x)
-		//{
-		//	pos.x += 100.0f * static_cast<float>(Time::DeltaTime());
-		//	pos.y += 100.0f * static_cast<float>(Time::DeltaTime());
-		//	mAnimator->Play(L"Rbullet", true);
-		//}
-		//if (Sonic.x < pos.x)
-		//{
-		//	pos.x -= 100.0f * static_cast<float>(Time::DeltaTime());
-		//	pos.y += 100.0f * static_cast<float>(Time::DeltaTime());
-		//	mAnimator->Play(L"Lbullet", true);
-		//}
-		tr->SetPos(pos);	
-	
+
+
+		tr->SetPos(pos);
+
+
 		Gameobject::Update();
 	}
-	void BaseBullet::Render(HDC hdc)
+	void Bullet_Act1_R_Side::Render(HDC hdc)
 	{
 		Gameobject::Render(hdc);
 	}
-
-	void BaseBullet::Release()
+	void Bullet_Act1_R_Side::Release()
 	{
 		Gameobject::Release();
 	}

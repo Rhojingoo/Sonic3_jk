@@ -7,8 +7,14 @@
 #include "jk_Animator.h"
 #include "jk_Collider.h"
 #include "jk_Scene.h"
-#include "jk_BaseBullet.h"
 #include "jk_Object.h"
+
+#include "jk_BaseBullet.h"
+#include "Bullet_Act1_R_Side.h"
+#include "Bullet_Act1_R_DIA.h"
+#include "Bullet_Act1_L_Side.h"
+#include "Bullet_Act1_L_DIA.h"
+
 
 namespace jk
 {

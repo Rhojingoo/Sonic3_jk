@@ -77,9 +77,6 @@
     <Filter Include="Contents\Boss">
       <UniqueIdentifier>{97c0833c-17eb-4bf0-b17f-d748c1b0c738}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\BaseBullet">
-      <UniqueIdentifier>{5e4b49b8-5c20-457e-be18-73e3c1fdd376}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Component\Collider">
       <UniqueIdentifier>{334db0d7-9d2d-4760-9e63-20f2321cc9cb}</UniqueIdentifier>
     </Filter>
@@ -248,6 +245,9 @@
     <Filter Include="Contents\BG\PlayBG\Event_bg\Last_Bridge">
       <UniqueIdentifier>{d4526b4e-e174-45ec-a3d4-08543190e62e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Boss\Act1_boss\BaseBullet">
+      <UniqueIdentifier>{5e4b49b8-5c20-457e-be18-73e3c1fdd376}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -329,7 +329,7 @@
       <Filter>Contents\Scene\Minigame</Filter>
     </ClInclude>
     <ClInclude Include="jk_BaseBullet.h">
-      <Filter>Contents\BaseBullet</Filter>
+      <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
     </ClInclude>
     <ClInclude Include="jk_Collider.h">
       <Filter>Engine\Component\Collider</Filter>
@@ -591,6 +591,18 @@
     <ClInclude Include="jk_Last_Bridge.h">
       <Filter>Contents\BG\PlayBG\Event_bg\Last_Bridge</Filter>
     </ClInclude>
+    <ClInclude Include="Bullet_Act1_R_Side.h">
+      <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet_Act1_L_DIA.h">
+      <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet_Act1_L_Side.h">
+      <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet_Act1_R_DIA.h">
+      <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SONIC_JK.rc">
@@ -667,7 +679,7 @@
       <Filter>Contents\Scene\Minigame</Filter>
     </ClCompile>
     <ClCompile Include="jk_BaseBullet.cpp">
-      <Filter>Contents\BaseBullet</Filter>
+      <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
     </ClCompile>
     <ClCompile Include="jk_Collider.cpp">
       <Filter>Engine\Component\Collider</Filter>
@@ -924,6 +936,18 @@
     </ClCompile>
     <ClCompile Include="jk_Last_Bridge.cpp">
       <Filter>Contents\BG\PlayBG\Event_bg\Last_Bridge</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet_Act1_L_DIA.cpp">
+      <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet_Act1_L_Side.cpp">
+      <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet_Act1_R_DIA.cpp">
+      <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet_Act1_R_Side.cpp">
+      <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

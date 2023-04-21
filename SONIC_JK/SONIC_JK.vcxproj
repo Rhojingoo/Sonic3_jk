@@ -144,6 +144,10 @@
   <ItemGroup>
     <ClInclude Include="acr1_forest2.h" />
     <ClInclude Include="act1_forest1.h" />
+    <ClInclude Include="Bullet_Act1_L_DIA.h" />
+    <ClInclude Include="Bullet_Act1_L_Side.h" />
+    <ClInclude Include="Bullet_Act1_R_DIA.h" />
+    <ClInclude Include="Bullet_Act1_R_Side.h" />
     <ClInclude Include="Commoninclude.h" />
     <ClInclude Include="Electsonic.h" />
     <ClInclude Include="EndingBlend.h" />
@@ -261,6 +265,10 @@
   <ItemGroup>
     <ClCompile Include="acr1_forest2.cpp" />
     <ClCompile Include="act1_forest1.cpp" />
+    <ClCompile Include="Bullet_Act1_L_DIA.cpp" />
+    <ClCompile Include="Bullet_Act1_L_Side.cpp" />
+    <ClCompile Include="Bullet_Act1_R_DIA.cpp" />
+    <ClCompile Include="Bullet_Act1_R_Side.cpp" />
     <ClCompile Include="Electsonic.cpp" />
     <ClCompile Include="EndingBlend.cpp" />
     <ClCompile Include="jk_Act1skyBG.cpp" />
