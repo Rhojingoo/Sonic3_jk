@@ -13,6 +13,7 @@
 #include "mB_Rdeath.h"
 #include "mB_Ldeath.h"
 #include "Rigidbody.h"
+#include "Boss_act1_boomb.h"
 
 namespace jk
 {
@@ -34,8 +35,12 @@ namespace jk
 		mAnimator->CreateAnimation(L"L_mBoss", mImage, Vector2{ 4.f,206.f }, Vector2{ 96.f,72.f }, Vector2{ 8.f,0.f }, 3, 1, 3, Vector2::Zero, 0.1f);
 		mAnimator->CreateAnimation(L"middle_bos_cover_open", mImage, Vector2{ 4.f,25.f }, Vector2{ 96.f,79.f }, Vector2{ 8.f,0.f }, 6, 1, 6, Vector2::Zero, 0.1f);
 
+		mAnimator->CreateAnimation(L"R_mBoss_idle", mImage, Vector2{ 4.f,285.f }, Vector2{ 96.f,72.f }, Vector2{ 8.f,0.f }, 1, 1, 1, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"L_mBoss_idle", mImage, Vector2{ 4.f,206.f }, Vector2{ 96.f,72.f }, Vector2{ 8.f,0.f }, 1, 1, 1, Vector2::Zero, 0.1f);
+
+
 		mAnimator->CreateAnimation(L"L_mBDeath", mImage, Vector2{ 452.f,418.f }, Vector2{ 80.f,64.f }, Vector2{ 0.f,0.f }, 1, 1, 1, Vector2::Zero, 0.1f);
-		mAnimator->CreateAnimation(L"R_mBDeath", mImage, Vector2{ 451.f,351.f }, Vector2{ 80.f,64.f }, Vector2{ 0.f,0.f }, 1, 1, 1, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"R_mBDeath", mImage, Vector2{ 451.f,331.f }, Vector2{ 80.f,64.f }, Vector2{ 0.f,0.f }, 1, 1, 1, Vector2::Zero, 0.1f);
 
 		mAnimator->Play(L"L_mBoss", true);
 
@@ -93,7 +98,8 @@ namespace jk
 			if (time >= 5)
 			{
 				SceneManager::LoadScene(jk_SceneType::GamePlay3);
-				map_check = 1;
+				map_check = 2;
+				object::Destory(this);
 			}
 		}
 
@@ -120,37 +126,21 @@ namespace jk
 			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
 			{
 				attack_check += 1;
-
-
+			
 				Transform* tr = GetComponent<Transform>();
-				if ((attack_check>=6)&&(mDir == -1))//哭率
+				if ((attack_check>=1)&&(mDir == -1))//哭率
 				{
-
-					mAnimator->Play(L"L_mBDeath", true);
-					mState = eState::Death;
-					mRigidbody = AddComponent<Rigidbody>();
-					mRigidbody->SetGravity(Vector2{ 0.f,1.f });
-					time_check += Time::DeltaTime();
-
-					if (time_check >= 3)
-					{
-						mState = eState::Death;
-						time_check = 0;
-					}	
+					mAnimator->Play(L"L_mBoss_idle", true);
+					mState = eState::Death;		
+					attack_check = 0;
+					time = 0;
 				}
-				if ((attack_check >= 6) && (mDir == 1))//坷弗率
+				if ((attack_check >= 1) && (mDir == 1))//坷弗率
 				{
-					mAnimator->Play(L"R_mBDeath", true);					
-					mRigidbody = AddComponent<Rigidbody>();
-					mRigidbody->SetGravity(Vector2{ 0.f,1.f });
-					time_check += Time::DeltaTime();
-
-					if (time_check >= 3)
-					{
-						mState = eState::Death;
-						time_check = 0;
-					}
-
+					mAnimator->Play(L"R_mBoss_idle", true);		
+					mState = eState::Death;
+					attack_check = 0;
+					time = 0;				
 				}
 				tr->SetPos(pos);
 			}
@@ -302,8 +292,24 @@ namespace jk
 
 	void Minibos::death()
 	{
-		Death = 1;
-		object::Destory(this);
-
+		
+		if (attack_check == 0)
+		{			
+			Transform* tr = GetComponent<Transform>();
+			Boss_act1_boomb* boss_boomb = new Boss_act1_boomb(this);
+			Scene* curScene = SceneManager::GetActiveScene();
+			boss_boomb->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x , tr->GetPos().y });
+			curScene->AddGameobeject(boss_boomb, jk_LayerType::MiniBoss);
+			attack_check = 1; 
+			time = 0;			
+		}
+		time += Time::DeltaTime();
+		if ( (time >= 2) && (attack_check == 1))
+		{	
+			Death = 1;			
+			time_check = 0;
+		}
 	}
+
+	
 }

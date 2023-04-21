@@ -59,7 +59,7 @@ namespace jk
 			return nullptr;
 		}
 
-		eState GetState() { return mState;}
+ 		eState GetState() { return mState;}
 		void SetState(eState state) { mState = state; }
 
 	private:

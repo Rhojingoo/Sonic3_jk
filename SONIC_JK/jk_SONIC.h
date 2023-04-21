@@ -23,6 +23,7 @@ namespace jk
 			Push,
 			Jump,
 			Spring_Jump,
+			Cylinder_move,
 			Lookup,
 			Sit,
 			Spin,
@@ -79,6 +80,7 @@ namespace jk
 		void push();
 		void jump();
 		void spring_jump();
+		void cylinder_move();
 		void lookup();
 		void sit();
 		void spin();

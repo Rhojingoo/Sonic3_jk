@@ -43,8 +43,7 @@ namespace jk
     void Bullet_Act1_R_DIA::Update()
     {
         Transform* tr = GetComponent<Transform>();
-        Vector2 pos = tr->GetPos();
-        Sonic = mOwner->GetComponent<Transform>()->GetPos();
+        Vector2 pos = tr->GetPos();      
         pos.y += 150.0f * static_cast<float>(Time::DeltaTime());
         pos.x -= 150.0f * static_cast<float>(Time::DeltaTime());
         tr->SetPos(pos);

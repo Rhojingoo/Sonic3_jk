@@ -606,6 +606,8 @@
     <ClInclude Include="bullet_wall.h">
       <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
     </ClInclude>
+    <ClInclude Include="Boss_Run.h" />
+    <ClInclude Include="Boss_act1_boomb.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SONIC_JK.rc">
@@ -955,5 +957,7 @@
     <ClCompile Include="bullet_wall.cpp">
       <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
     </ClCompile>
+    <ClCompile Include="Boss_Run.cpp" />
+    <ClCompile Include="Boss_act1_boomb.cpp" />
   </ItemGroup>
 </Project>

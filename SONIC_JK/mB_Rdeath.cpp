@@ -15,11 +15,10 @@ namespace jk
 		mImage = Resources::Load<Image>(L"middle_bos", L"..\\Resources\\middle_bos.bmp");
 
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"R_mBDeatht", mImage, Vector2{ 451.f,351.f }, Vector2{ 80.f,64.f }, Vector2{ 0.f,0.f }, 1, 1, 1, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"R_mBDeatht", mImage, Vector2{ 451.f,418.f }, Vector2{ 80.f,64.f }, Vector2{ 0.f,0.f }, 1, 1, 1, Vector2::Zero, 0.1f);
 		mAnimator->Play(L"R_mBDeatht", false);
 
-		mRigidbody = AddComponent<Rigidbody>();
-		mRigidbody->SetGravity(Vector2{ 0.f,1.f });
+	
 
 	}
 	mB_Rdeath::~mB_Rdeath()

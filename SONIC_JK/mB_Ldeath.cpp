@@ -14,11 +14,9 @@ jk::mB_Ldeath::mB_Ldeath(Gameobject* owner)
 	mImage = Resources::Load<Image>(L"middle_bos", L"..\\Resources\\middle_bos.bmp");
 
 	mAnimator = AddComponent<Animator>();
-	mAnimator->CreateAnimation(L"L_mBDeatht", mImage, Vector2{ 452.f,418.f }, Vector2{ 80.f,64.f }, Vector2{ 0.f,0.f }, 1, 1, 1, Vector2::Zero, 0.1f);
+	mAnimator->CreateAnimation(L"L_mBDeatht", mImage, Vector2{ 451.f,331.f }, Vector2{ 80.f,64.f }, Vector2{ 0.f,0.f }, 1, 1, 1, Vector2::Zero, 0.1f);
 	mAnimator->Play(L"L_mBDeatht", false);
 
-	mRigidbody = AddComponent<Rigidbody>();
-	mRigidbody->SetGravity(Vector2{ 0.f,1.f });
 }
 
 jk::mB_Ldeath::~mB_Ldeath()

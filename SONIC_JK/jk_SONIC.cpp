@@ -65,7 +65,7 @@ namespace jk
 		//tr->SetPos(Vector2{ 19924.0f, 2625.0f });//돌3
 
 		//tr->SetPos(Vector2{ 18785.0f, 1495.0f });//상부원숭이
-		tr->SetPos(Vector2{ 16350.0f, 2847.0f });//jeepline
+		//tr->SetPos(Vector2{ 16350.0f, 2847.0f });//jeepline
 		//tr->SetPos(Vector2{ 13218.0f, 3174.0f });//캐논
 	
 		//tr->SetPos(Vector2{ 2790.0f * 3, 3200.f }); //시작
@@ -73,7 +73,7 @@ namespace jk
 		//tr->SetPos(Vector2{ 12310.0f, 3211.0f });
 		//tr->SetPos(Vector2(19718.f, 3450.f));//원돌기
 		//tr->SetPos(Vector2{ 26201.f, 3333.f });//밑에 원돌기
-		//tr->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
+		tr->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
 		//tr->SetPos(Vector2{ 29043.0f, 2499.0f });
 	}		
 
@@ -225,6 +225,11 @@ namespace jk
 			case jk::Sonic::eSonicState::Spring_Jump:spring_jump();
 				break;
 
+
+			case jk::Sonic::eSonicState::Cylinder_move:cylinder_move();
+				break;
+
+
 			case jk::Sonic::eSonicState::Sit:sit();
 				break;
 
@@ -291,7 +296,6 @@ namespace jk
 
 			case jk::Sonic::eSonicState::Circle_Lturn_7:circle_Lturn_7();
 				break;
-
 
 			default:
 				break;
@@ -513,22 +517,22 @@ namespace jk
 
 
 				//Cylinder 충돌처리
-				//if (Cylinder* cylinder = dynamic_cast<Cylinder*>(other->GetOwner()))
-				//{
-				//	if (mDir == 1)
-				//	{
-				//		mState = eSonicState::Spring_Jump;
-				//		mAnimator->Play(L"LSonic_Spring_up", true);
-				//	}
-				//	else if (mDir == -1)
-				//	{
-				//		mState = eSonicState::Spring_Jump;
-				//		mAnimator->Play(L"LSonic_Spring_up", true);
-				//	}
-				//}
+				if (Cylinder* cylinder = dynamic_cast<Cylinder*>(other->GetOwner()))
+				{
+					if (mDir == 1)
+					{
+						mState = eSonicState::Cylinder_move;
+						//mAnimator->Play(L"LSonic_Spring_up", true);
+					}
+					else if (mDir == -1)
+					{
+						mState = eSonicState::Cylinder_move;
+						//mAnimator->Play(L"LSonic_Spring_up", true);
+					}
+				}
 	
 		
-				//Rock 충돌처리(푸쉬) --락에 콜라이더 문제 있음
+				//Rock 충돌처리(푸쉬)
 				if (Rock_small* rock_small = dynamic_cast<Rock_small*>(other->GetOwner()))
 				{
 
@@ -806,19 +810,10 @@ namespace jk
 
 
 		//Cylinder 충돌처리
-		if (Cylinder* cylinder = dynamic_cast<Cylinder*>(other->GetOwner()))
-		{
-			if (mDir == 1)
-			{
-				mState = eSonicState::Spring_Jump;
-				mAnimator->Play(L"LSonic_Spring_up", true);
-			}
-			else if (mDir == -1)
-			{
-				mState = eSonicState::Spring_Jump;
-				mAnimator->Play(L"LSonic_Spring_up", true);
-			}
-		}
+		//if (Cylinder* cylinder = dynamic_cast<Cylinder*>(other->GetOwner()))
+		//{
+
+		//}
 
 
 
@@ -826,32 +821,19 @@ namespace jk
 
 		void Sonic::OnCollisionExit(Collider * other)
 	{
-			//if (Jeep_line_Handle* jeep_line = dynamic_cast<Jeep_line_Handle*>(other->GetOwner()))
-			//{				
-			//	if (!(mState == eSonicState::Jump))
-			//	{
-			//		mState == eSonicState::Idle;
-			//		mAnimator->Play(L"RSonicStand", true);
-			//	}				
-			//}
-
-			//if (Cylinder* cylinder = dynamic_cast<Cylinder*>(other->GetOwner()))
-			//{
-			//	if (mDir == 1)
-			//	{
-			//		mState = eSonicState::Idle;
-			//		mAnimator->Play(L"RSonicStand", true);
-			//	}
-			//	else if (mDir == -1)
-			//	{
-			//		mState = eSonicState::Spring_Jump;
-			//		mAnimator->Play(L"LSonicStand", true);
-			//	}
-			//}
-
-
-		//mState = eSonicState::Idle;
-		//mAnimator->Play(L"RSonicStand", true);
+			if (Cylinder* cylinder = dynamic_cast<Cylinder*>(other->GetOwner()))
+			{
+				if (mDir == 1)
+				{
+					mState = eSonicState::Idle;
+					mAnimator->Play(L"RSonicStand", true);
+				}
+				else if (mDir == -1)
+				{
+					mState = eSonicState::Spring_Jump;
+					mAnimator->Play(L"LSonicStand", true);
+				}
+			}
 	}
 
 		void Sonic::idle()
@@ -1650,6 +1632,52 @@ namespace jk
 				SonicVelocity = mRigidbody->Velocity();
 			}
 			tr->SetPos(pos);
+		}
+
+		void Sonic::cylinder_move()
+		{
+			if (mDir == 1)
+			{
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->GetPos();
+				if (Input::GetKey(eKeyCode::LEFT))
+				{
+					mAnimator->Play(L"LSonic_Spring_up", true);
+					mDir = -1;
+					mRigidbody->AddForce(Vector2(-1050.0f, 0.0f));
+					SonicVelocity = mRigidbody->Velocity();
+				}
+
+				if (Input::GetKey(eKeyCode::RIGHT))
+				{
+					mAnimator->Play(L"RSonic_Spring_up", true);
+					mDir = 1;
+					mRigidbody->AddForce(Vector2(+1050.0f, 0.0f));
+					SonicVelocity = mRigidbody->Velocity();
+				}
+				tr->SetPos(pos);
+
+			}
+			else if (mDir == -1)
+			{
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->GetPos();
+				if (Input::GetKey(eKeyCode::LEFT))
+				{
+					mAnimator->Play(L"LSonic_Spring_up", true);
+					mDir = -1;
+					mRigidbody->AddForce(Vector2(-1050.0f, 0.0f));
+					SonicVelocity = mRigidbody->Velocity();
+				}
+				if (Input::GetKey(eKeyCode::RIGHT))
+				{
+					mAnimator->Play(L"RSonic_Spring_up", true);
+					mDir = 1;
+					mRigidbody->AddForce(Vector2(+1050.0f, 0.0f));
+					SonicVelocity = mRigidbody->Velocity();
+				}
+				tr->SetPos(pos);
+			}
 		}
 
 		void Sonic::lookup()

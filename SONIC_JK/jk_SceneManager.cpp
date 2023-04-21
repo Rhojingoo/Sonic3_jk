@@ -20,17 +20,22 @@ namespace jk
 
 		mScenes[(UINT)jk_SceneType::Tittle] = new TitleScene();
 		mScenes[(UINT)jk_SceneType::Tittle]->SetName(L"Tittle");
+
 		mScenes[(UINT)jk_SceneType::CharacterChoice] = new ChatarcterChoiseSC();
 		mScenes[(UINT)jk_SceneType::CharacterChoice]->SetName(L"CharacterChoice");
+		
 		mScenes[(UINT)jk_SceneType::GamePlay] = new PlayScene();
 		mScenes[(UINT)jk_SceneType::GamePlay]->SetName(L"Act1-1");
+
 		mScenes[(UINT)jk_SceneType::GamePlay2] = new PlayScene2();
+		mScenes[(UINT)jk_SceneType::GamePlay2]->SetName(L"Act1-2");
+
 		mScenes[(UINT)jk_SceneType::GamePlay3] = new PlayScene3();
 		mScenes[(UINT)jk_SceneType::GamePlay3]->SetName(L"Act1-3");
-
-		mScenes[(UINT)jk_SceneType::GamePlay2]->SetName(L"Act1-2");
+	
 		mScenes[(UINT)jk_SceneType::MiniGameplay] = new MinigameScene();
 		mScenes[(UINT)jk_SceneType::MiniGameplay]->SetName(L"MiniGameplay");
+
 		mScenes[(UINT)jk_SceneType::Ending] = new EndingScene();
 		mScenes[(UINT)jk_SceneType::Ending]->SetName(L"Ending");
 

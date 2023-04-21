@@ -144,6 +144,8 @@
   <ItemGroup>
     <ClInclude Include="acr1_forest2.h" />
     <ClInclude Include="act1_forest1.h" />
+    <ClInclude Include="Boss_act1_boomb.h" />
+    <ClInclude Include="Boss_Run.h" />
     <ClInclude Include="Bullet_Act1_L_DIA.h" />
     <ClInclude Include="Bullet_Act1_L_Side.h" />
     <ClInclude Include="Bullet_Act1_R_DIA.h" />
@@ -266,6 +268,8 @@
   <ItemGroup>
     <ClCompile Include="acr1_forest2.cpp" />
     <ClCompile Include="act1_forest1.cpp" />
+    <ClCompile Include="Boss_act1_boomb.cpp" />
+    <ClCompile Include="Boss_Run.cpp" />
     <ClCompile Include="Bullet_Act1_L_DIA.cpp" />
     <ClCompile Include="Bullet_Act1_L_Side.cpp" />
     <ClCompile Include="Bullet_Act1_R_DIA.cpp" />

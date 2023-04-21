@@ -106,6 +106,8 @@ namespace jk
 		int attack_check;
 
 		int hurt_state;
+		int Damege_sheck;
+
 
 	};
 }

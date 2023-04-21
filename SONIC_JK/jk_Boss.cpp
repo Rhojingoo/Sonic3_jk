@@ -14,7 +14,8 @@
 #include "Bullet_Act1_R_DIA.h"
 #include "Bullet_Act1_L_Side.h"
 #include "Bullet_Act1_L_DIA.h"
-
+#include "Boss_Run.h"
+#include "Boss_act1_boomb.h"
 
 
 namespace jk
@@ -29,6 +30,7 @@ namespace jk
 		, attack_motion(0)
 		, Dir_change(0)
 		, hurt_state(0)
+		, Damege_sheck(0)
 	{
 		mImage = Resources::Load<Image>(L"ROBOT", L"..\\Resources\\ROBOT.bmp");
 		mAnimator = AddComponent<Animator>();
@@ -175,6 +177,23 @@ namespace jk
 				
 			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
 			{
+
+				Damege_sheck += 1;
+
+				if ((Damege_sheck >= 6) && (mDir == -1))//¿ÞÂÊ
+				{
+					mAnimator->Play(L"L_Boss_side", true);
+					mState = eBossState::Death;
+					attack_check = 0;
+				}
+				else if ((Damege_sheck >= 6) && (mDir == 1))//¿À¸¥ÂÊ
+				{
+					mAnimator->Play(L"R_Boss_side", true);
+					mState = eBossState::Death;		
+					attack_check = 0;
+				}
+
+
 				switch (mState)
 				{
 				case jk::Boss::eBossState::Down_Dianogol:
@@ -325,7 +344,6 @@ namespace jk
 					}
 					break;
 				}
-
 
 				default:
 					break;
@@ -919,12 +937,31 @@ namespace jk
 		hurt_state = 0;
 	}
 
-
-
-
 	void Boss::death()
-	{
-	}
+	{	
+		if (attack_check == 0)
+		{
+			Transform* tr = GetComponent<Transform>();
+			Scene* curScene = SceneManager::GetActiveScene();
+			Boss_act1_boomb* boss_boomb = new Boss_act1_boomb(this);
+			boss_boomb->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x , tr->GetPos().y });
+			curScene->AddGameobeject(boss_boomb, jk_LayerType::Bullet);
+			time += Time::DeltaTime();
+			attack_check = 1;
+		}
 
+
+		time += Time::DeltaTime();
+		if ((attack_check==1)&&(time >= 3))
+		{
+			Transform* tr = GetComponent<Transform>();
+			Scene* curScene = SceneManager::GetActiveScene();
+			Boss_Run* boss_run = new Boss_Run(this);
+			boss_run->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x , tr->GetPos().y });
+			curScene->AddGameobeject(boss_run, jk_LayerType::BOSS);
+			time = 0;
+			object::Destory(this);
+		}
+	}
 }	
 
