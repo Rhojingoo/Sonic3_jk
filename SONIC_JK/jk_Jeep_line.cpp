@@ -24,7 +24,7 @@ namespace jk
 	Jeep_line::~Jeep_line()
 	{
 
-		//		float centerX = 16689.f;
+		//	float centerX = 16689.f;
 		//float centerY = 2760.f;
 		// 밧줄: 77,  핸들사이즈 :24,  차이값 :61   , x는 61*3 = 183만큼 앞에 설치 , y는 71*3 = 213위쪽으로 설치 
 	}

@@ -28,6 +28,7 @@
 #include "jk_Rock_big.h"
 #include "jk_Jeep_line.h"
 #include "jk_Jeep_line_Handle.h"
+#include "Jeepline_play.h"
 #include "jk_Collapses_Ground.h"
 #include "jk_Collapses_GR_left.h"
 #include "jk_check1.h"
@@ -41,7 +42,6 @@
 #include "jk_ItemBigRing.h"
 
 #include "jk_Minibos.h"
-
 
 #include "jk_Monster.h"
 #include "jk_Monkey.h"
@@ -76,7 +76,9 @@ namespace jk
 		mSonic = new Sonic();
 		mSonic->SetName(L"Player");
 		AddGameobeject(mSonic, jk_LayerType::Player);
-		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 13100.f,3240.f });
+		//mSonic->GetComponent<Transform>()->SetPos(Vector2(661.f, 3033.f)); 시작위치
+		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 13100.f,3240.f }); 미니 보스
+
 		//13770.f, 2880.f
 
 		Tails* tails = new Tails(mSonic);
@@ -113,6 +115,11 @@ namespace jk
 		AddGameobeject(save, jk_LayerType::BG_props);
 		save->GetComponent<Transform>()->SetPos(Vector2(2208.f, 2818.f));
 
+		Jeepline_play* jeepline = new Jeepline_play();
+		jeepline->SetName(L"jeepline");
+		AddGameobeject(jeepline, jk_LayerType::BG_props);
+		jeepline->GetComponent<Transform>()->SetPos(Vector2(6580.f, 2940.f));
+		mSonic->GetComponent<Transform>()->SetPos(Vector2(6450.f, 2940.f));
 
 		Rock_big* rock_big[1];
 		for (int a = 0; a < 1; a++)
@@ -257,21 +264,8 @@ namespace jk
 		Snake_Tail[0]->Set_Snake_body_third(snake_mT[0]);
 
 
-
-		
-
-
-
 		//Boss* ROBOT = new Boss(mSonic);
 		//ROBOT->SetName(L"BOSS");
-
-
-
-
-
-
-
-
 
 
 		//링위치

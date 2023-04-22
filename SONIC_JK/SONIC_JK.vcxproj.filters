@@ -608,6 +608,9 @@
     </ClInclude>
     <ClInclude Include="Boss_Run.h" />
     <ClInclude Include="Boss_act1_boomb.h" />
+    <ClInclude Include="Jeepline_play.h">
+      <Filter>Contents\BG\PlayBG\Event_bg\JEEP_line</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SONIC_JK.rc">
@@ -959,5 +962,8 @@
     </ClCompile>
     <ClCompile Include="Boss_Run.cpp" />
     <ClCompile Include="Boss_act1_boomb.cpp" />
+    <ClCompile Include="Jeepline_play.cpp">
+      <Filter>Contents\BG\PlayBG\Event_bg\JEEP_line</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

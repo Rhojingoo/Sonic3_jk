@@ -29,6 +29,7 @@
 #include "jk_Move_GR.h"
 #include "jk_Cylinder.h"
 #include "jk_Last_Bridge.h"
+#include "Jeepline_play.h"
 
 
 int ringpoint = 0;
@@ -433,7 +434,7 @@ namespace jk
 					}	
 				}
 
-				//Jeep_line
+				//Jeep_line Handle 충돌처리(포물선)
 				if (Jeep_line_Handle* jeep_line = dynamic_cast<Jeep_line_Handle*>(other->GetOwner()))
 				{
 
@@ -453,6 +454,19 @@ namespace jk
 							mState = eSonicState::Jeep_line;
 							mAnimator->Play(L"LSonic_Jeep", true);
 						}			
+				}
+
+				//Jeep_line_play 충돌처리(대각선)
+				if (Jeepline_play* jeep_line = dynamic_cast<Jeepline_play*>(other->GetOwner()))
+				{
+
+					Vector2 jeep_handle = jeep_line->GetComponent<Transform>()->GetPos();
+					Transform* tr = GetComponent<Transform>();
+					Vector2 jeep_line_pos = tr->GetPos();
+								
+					mState = eSonicState::Jeep_line;
+					mAnimator->Play(L"RSonic_Jeep", true);
+		
 				}
 				   
 				//Collapses_Ground 없어지는땅

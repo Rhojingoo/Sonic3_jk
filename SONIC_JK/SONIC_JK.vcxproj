@@ -155,6 +155,7 @@
     <ClInclude Include="Electsonic.h" />
     <ClInclude Include="EndingBlend.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="Jeepline_play.h" />
     <ClInclude Include="jk_Act1skyBG.h" />
     <ClInclude Include="jk_Act1_2_BG.h" />
     <ClInclude Include="jk_Act1_3_BG.h" />
@@ -277,6 +278,7 @@
     <ClCompile Include="bullet_wall.cpp" />
     <ClCompile Include="Electsonic.cpp" />
     <ClCompile Include="EndingBlend.cpp" />
+    <ClCompile Include="Jeepline_play.cpp" />
     <ClCompile Include="jk_Act1skyBG.cpp" />
     <ClCompile Include="jk_Act1_2_BG.cpp" />
     <ClCompile Include="jk_Act1_3_BG.cpp" />
