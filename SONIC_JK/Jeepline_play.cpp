@@ -11,6 +11,7 @@
 #include "jk_Blending.h"
 #include "jk_SONIC.h"
 #include "Rigidbody.h"
+#include "jk_Clean_wall.h"
 
 float slope(Vector2 start, Vector2 final)
 {
@@ -21,7 +22,9 @@ float slope(Vector2 start, Vector2 final)
 namespace jk
 {
 	Jeepline_play::Jeepline_play()
-		:jeepline_Speed(200)
+		:jeepline_Speed(500)
+		, Start_jeepline(Vector2{0.f,0.f})
+		, Final_jeepline(Vector2{ 0.f,0.f })
 	{
 	}
 	Jeepline_play::~Jeepline_play()
@@ -34,8 +37,8 @@ namespace jk
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"Jeep_line_play", mImage, Vector2(120, 362), Vector2(24, 72), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
 
-		Start_jeepline = Vector2(6580.f, 2940.f);
-		Final_jeepline = Vector2(8715.f, 3460.f);
+		//Start_jeepline = Vector2(6580.f, 2940.f);
+		//Final_jeepline = Vector2(8715.f, 3460.f);
 
 		Collider* collider = AddComponent<Collider>();
 		collider->SetSize(Vector2(72.0f, 35.0f));
@@ -51,7 +54,7 @@ namespace jk
 	}
 	void Jeepline_play::Update()
 	{
-		//y = mx + b
+		
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 		switch (mState)
@@ -61,57 +64,83 @@ namespace jk
 			break;
 
 		case jk::Jeepline_play::eState::Move:move();
-
-		break;	default:
-		break;
+			break;	
+		
+		
+		default:
+			break;
 		}
+
+	
 
 		Gameobject::Update();
 	}
+
 	void Jeepline_play::Render(HDC hdc)
 	{
 		Gameobject::Render(hdc);
 	}
+
 	void Jeepline_play::Release()
 	{
 		Gameobject::Release();
 	}
+
+
+
 	void Jeepline_play::OnCollisionEnter(Collider* other)
 	{
-		Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner());
-		if (mSonic == nullptr)
+		if(Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner()))
+		{if (mSonic == nullptr)
 			return;
 
-		
 		Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
-		rb->SetGround(true);
+		rb->SetGround(true); 
+		}
+
+		if (Clean_wall* clean_wall = dynamic_cast<Clean_wall*>(other->GetOwner()))
+		{
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->GetPos();
+			tr->SetPos(Final_jeepline);
+			mState = eState::Idle;
+		}
 	}
+
+
 	void Jeepline_play::OnCollisionStay(Collider* other)
 	{
-		Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner());
-		Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
-		rb->SetGround(true);
-		Transform* tr = GetComponent<Transform>();
-		Vector2 pos = tr->GetPos();
-
-		Collider* mSonic_Col = mSonic->GetComponent<Collider>();
-		Vector2 mSonic_Pos = mSonic_Col->Getpos();
-		Collider* Jeep_line_Col = this->GetComponent<Collider>();
-		Vector2 Jeep_line_Pos = Jeep_line_Col->Getpos();
-		Transform* sonicTr = mSonic->GetComponent<Transform>();
-		Transform* grTr = this->GetComponent<Transform>();
-		Vector2 sonic_Pos = sonicTr->GetPos(); 
-		rb->SetVelocity(Vector2{ 0.f,0.f });
 
 		if (Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner()))
 		{
+			Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
+			rb->SetGround(true);
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->GetPos();
+
+			Collider* mSonic_Col = mSonic->GetComponent<Collider>();
+			Vector2 mSonic_Pos = mSonic_Col->Getpos();
+			Collider* Jeep_line_Col = this->GetComponent<Collider>();
+			Vector2 Jeep_line_Pos = Jeep_line_Col->Getpos();
+			Transform* sonicTr = mSonic->GetComponent<Transform>();
+			Transform* grTr = this->GetComponent<Transform>();
+			Vector2 sonic_Pos = sonicTr->GetPos();
+			rb->SetVelocity(Vector2{ 0.f,0.f });
+
 			if (!((mSonic->Getsonicstate() == Sonic::eSonicState::Jump) || (mSonic->Getsonicstate() == Sonic::eSonicState::Hurt)))
 			{
 				mState = eState::Move;
-				sonic_Pos = Jeep_line_Pos;
-				
+				sonic_Pos = Jeep_line_Pos;				
 				sonicTr->SetPos(sonic_Pos);
+
 			}
+			//else if (Clean_wall* clean_wall = dynamic_cast<Clean_wall*>(other->GetOwner()))
+			//{
+			//	Transform* tr = GetComponent<Transform>();
+			//	Vector2 pos = tr->GetPos();
+			//	tr->SetPos(Final_jeepline);
+			//	mState = eState::Idle;
+			//}
 			else
 			{
 				rb->SetGround(false);
@@ -126,6 +155,7 @@ namespace jk
 			}
 		}
 	}
+
 	void Jeepline_play::OnCollisionExit(Collider* other)
 	{
 		Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner());
@@ -134,9 +164,14 @@ namespace jk
 
 		mState = eState::Idle;
 	}
+
+
 	void Jeepline_play::idle()
 	{
+
 	}
+
+
 	void Jeepline_play::move()
 	{
 		Transform* tr = GetComponent<Transform>();
@@ -146,39 +181,19 @@ namespace jk
 
 		float newposX = pos.x + jeepline_Speed * Time::DeltaTime();
 		float newY = m * newposX + b;
-
+		
 		Vector2 newPos = Vector2(newposX, newY);
 		pos = newPos;
-		//pos.y = m * pos.x+b * Time::DeltaTime();
+		
+
+		//좌표설정 안됨
+		//if (newposX >= 8715.f)
+		//{
+		//	mState = eState::Idle;
+		//}
 
 		tr->SetPos(pos);
 	}
 }
-//void Jeepline_play::move()
-//{
-//	Transform* tr = GetComponent<Transform>();
-//	Vector2 pos = tr->GetPos();
-//
-//	float m = slope(Start_jeepline, Final_jeepline);
-//	float b = pos.y - m * pos.x;
-//
-//	float newPosX = pos.x + moveSpeed * Time::DeltaTime();
-//	float newY = m * newPosX + b;
-//
-//	Vector2 newPos = Vector2(newPosX, newY);
-//	Vector2 moveDir = newPos - pos;
-//	moveDir.Normalize();
-//
-//	// 이동할 방향으로 Raycast를 쏴서 충돌한 지점을 찾아서 이동시킴
-//	Vector2 hitPoint = Raycast(pos, moveDir);
-//	if (hitPoint != Vector2::Zero)
-//	{
-//		pos = hitPoint + (moveDir * 10.0f); // 충돌 지점에서 10만큼 이동
-//	}
-//	else
-//	{
-//		pos = newPos;
-//	}
-//
-//	tr->SetPos(pos);
-//}
+
+

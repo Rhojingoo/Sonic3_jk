@@ -176,6 +176,7 @@
     <ClInclude Include="jk_ChatarcterChoiseSC.h" />
     <ClInclude Include="jk_check1.h" />
     <ClInclude Include="jk_check2.h" />
+    <ClInclude Include="jk_check_circle.h" />
     <ClInclude Include="jk_ChoiceCC.h" />
     <ClInclude Include="jk_Choice_select.h" />
     <ClInclude Include="jk_Clean_wall.h" />
@@ -296,6 +297,7 @@
     <ClCompile Include="jk_ChatarcterChoiseSC.cpp" />
     <ClCompile Include="jk_check1.cpp" />
     <ClCompile Include="jk_check2.cpp" />
+    <ClCompile Include="jk_check_circle.cpp" />
     <ClCompile Include="jk_ChoiceCC.cpp" />
     <ClCompile Include="jk_Choice_select.cpp" />
     <ClCompile Include="jk_Clean_wall.cpp" />

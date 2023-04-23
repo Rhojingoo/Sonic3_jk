@@ -68,11 +68,11 @@ namespace jk
 		Cicle_Rturn = Resources::Load<Image>(L"Cicle_Rturn", L"..\\Resources\\Cicle_Rturn.bmp");
 		Cicle_Lturn = Resources::Load<Image>(L"Cicle_Lturn", L"..\\Resources\\Cicle_Lturn.bmp");
 		Circle1_Center = Vector2{ 20229.f,3406.f };
-
+		Circle1_Center2 = Vector2{ 9195.f, 3705.f };
 
 		Ground_Image2 = Resources::Load<Image>(L"Ground_Image2", L"..\\Resources\\Ground_Act1_2.bmp");
-		//Cicle_Rturn2 = Resources::Load<Image>(L"Cicle_Rturn", L"..\\ActBG_1_2\\Cicle_Rturn.bmp");
-		//Cicle_Lturn2 = Resources::Load<Image>(L"Cicle_Lturn", L"..\\ActBG_1_2\\Cicle_Lturn.bmp");		
+		Cicle_Rturn2 = Resources::Load<Image>(L"Cicle_Rturn2", L"..\\Resources\\ActBG_1_2\\Cicle_Rturn2.bmp");
+		Cicle_Lturn2 = Resources::Load<Image>(L"Cicle_Lturn2", L"..\\Resources\\ActBG_1_2\\Cicle_Lturn2.bmp");		
 
 		Ground_Image3 = Resources::Load<Image>(L"Ground_Image3", L"..\\Resources\\ActBG_1_3\\Ground_Act1_3.bmp");
 
@@ -88,10 +88,17 @@ namespace jk
 		Vector2 Player_Position = mPlayerTR->GetPos();
 		Vector2 Player_Tails_Poistion = mPlayer_Tails_TR->GetPos();
 	
+	/*	if (map_chek == 0)
+		{
+			Circle1_Center = Vector2{ 20229.f,3406.f };
+		}
+		if (map_chek == 1)
+		{
+			Circle1_Center = Vector2{ 9500.f, 3605.f };
+		}*/
 
-		Circle1_Center;
 		
-		
+
 
 		SonicDir = mPlayer->GetSonicDir();
 		TailsDir = mPlayer2->GetTailsDir();
@@ -212,15 +219,31 @@ namespace jk
 
 		//소닉 Circle 진입확인
 		Vector2 playerPos = mPlayerTR->GetPos();
-		COLORREF color_Right = Cicle_Lturn->GetPixel(playerPos.x + 100.f, playerPos.y + 50.f);
-		if (mRotationcheck == GROUNDCOLOR && color_Right == GROUNDBLUE_LOOPCOURSE_LEFT) // Input::GetKey(eKeyCode::RIGHT) &&
+		if (map_chek == 0)
 		{
-			mDirect = 1;
+			COLORREF color_Right = Cicle_Lturn->GetPixel(playerPos.x + 100.f, playerPos.y + 50.f);
+			if (mRotationcheck == GROUNDCOLOR && color_Right == GROUNDBLUE_LOOPCOURSE_LEFT) // Input::GetKey(eKeyCode::RIGHT) &&
+			{
+				mDirect = 1;
+			}
+			COLORREF  color_Left = Cicle_Rturn->GetPixel(playerPos.x, playerPos.y + 50.f);
+			if (mRotationcheck == GROUNDCOLOR && color_Left == GROUNDYELLO_LOOPCOURSE_RIGHT)// && Input::GetKey(eKeyCode::LEFT)
+			{
+				mDirect = -1;
+			}
 		}
-		COLORREF  color_Left = Cicle_Rturn->GetPixel(playerPos.x, playerPos.y + 50.f);
-		if (mRotationcheck == GROUNDCOLOR && color_Left == GROUNDYELLO_LOOPCOURSE_RIGHT)// && Input::GetKey(eKeyCode::LEFT)
+		if (map_chek == 1)
 		{
-			mDirect = -1;
+			COLORREF color_Right = Cicle_Rturn2->GetPixel(playerPos.x + 100.f, playerPos.y + 50.f);
+			if (mRotationcheck == GROUNDCOLOR && color_Right == GROUNDBLUE_LOOPCOURSE_LEFT) // Input::GetKey(eKeyCode::RIGHT) &&
+			{
+				mDirect = 1;
+			}
+			COLORREF  color_Left = Cicle_Rturn2->GetPixel(playerPos.x, playerPos.y + 50.f);
+			if (mRotationcheck == GROUNDCOLOR && color_Left == GROUNDYELLO_LOOPCOURSE_RIGHT)// && Input::GetKey(eKeyCode::LEFT)
+			{
+				mDirect = -1;
+			}
 		}
 
 		//테일즈 Circle 진입확인	
@@ -252,8 +275,15 @@ namespace jk
 			{
 				CheckLoopEnter_R();
 			}
-			CheckLoopStoneSecond_R();
-			CheckLoopHalfAfter_R();
+			if (mRotationcheck == LOOPENTERCOLOR)
+			{
+				CheckLoopStoneSecond_R();
+			}
+			if (mRotationcheck == LOOPAFTERHALF)
+			{
+				CheckLoopHalfAfter_R();
+			}
+
 			if (Circlecheck == -1)
 			{
 				CheckLoopStoneGround_R();
@@ -292,7 +322,7 @@ namespace jk
 		{ 
 		TransparentBlt(hdc, 0, 0, 1200, 840, Ground_Image->GetHdc(), mpos.x, mpos.y, 1200, 840, RGB(255, 255, 255));
 		}
-
+	
 		if (map_chek == 1)
 		{
 			TransparentBlt(hdc, 0, 0, 1200, 840, Ground_Image2->GetHdc(), mpos.x, mpos.y, 1200, 840, RGB(255, 255, 255));
@@ -939,8 +969,6 @@ namespace jk
 		}
 	}
 
-	
-
 
 
 
@@ -949,17 +977,33 @@ namespace jk
 		Vector2 playerPos = mPlayerTR->GetPos();
 		//COLORREF colorcheck = Cicle_Rturn->GetPixel(playerPos.x+75.f, playerPos.y + 50.f);
 		//COLORREF colorcheck = Cicle_Rturn->GetPixel(playerPos.x + 60.f, playerPos.y + 90.f);
-		COLORREF colorcheck = Cicle_Rturn->GetPixel(playerPos.x + 40.f, playerPos.y + 50.f);
-
-		if (colorcheck != STONEGREY_LOOPENTER)
-			return;
-
-		if (mRotationcheck == GROUNDCOLOR)
+		if (map_chek == 0)
 		{
-			Vector2 TempVel;
-			TempVel = mPlayerRigidBody->Getgravity();
-			mPlayerRigidBody->SetGravity(Vector2{ 1500.0f,0.0f });
-			mRotationcheck = LOOPENTERCOLOR;
+			COLORREF colorcheck = Cicle_Rturn->GetPixel(playerPos.x + 40.f, playerPos.y + 50.f);
+			if (colorcheck != STONEGREY_LOOPENTER)
+				return;
+
+			if (mRotationcheck == GROUNDCOLOR)
+			{
+				Vector2 TempVel;
+				TempVel = mPlayerRigidBody->Getgravity();
+				mPlayerRigidBody->SetGravity(Vector2{ 1500.0f,0.0f });
+				mRotationcheck = LOOPENTERCOLOR;
+			}
+		}
+		else if (map_chek == 1)
+		{
+			COLORREF colorcheck = Cicle_Rturn2->GetPixel(playerPos.x + 40.f, playerPos.y + 50.f);
+			if (colorcheck != STONEGREY_LOOPENTER)
+				return;
+
+			if (mRotationcheck == GROUNDCOLOR)
+			{  
+				Vector2 TempVel;
+				TempVel = mPlayerRigidBody->Getgravity();
+				mPlayerRigidBody->SetGravity(Vector2{ 1500.0f,0.0f });
+				mRotationcheck = LOOPENTERCOLOR;
+			}
 		}
 	}
 
@@ -970,12 +1014,11 @@ namespace jk
 
 		float Xrevice = 0.0f;
 		float Yrevice = 0.0f;
-		//Vector2 center = { 50.0f, 35.0f };
-		//float radius = 65.0f;
+		Vector2 center = { 50.0f, 35.0f };
+		float radius = 65.0f;
 
 		if (Circle_pice == 0)
 		{
-
 			Vector2 TempVel;
 			TempVel = mPlayerRigidBody->Getgravity();
 			//mPlayerRigidBody->SetGravity(Vector2{ 0.0f,500.0f });
@@ -1025,93 +1068,190 @@ namespace jk
 		}
 
 		Vector2 playerPos = mPlayerTR->GetPos();
-		COLORREF color1 = Cicle_Rturn->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
-		if (color1 == GROUNDYELLO_LOOPCOURSE_RIGHT)
+		if (map_chek == 0)
 		{
-			mPlayerRigidBody->SetGround(true);
-			while (color1 == GROUNDYELLO_LOOPCOURSE_RIGHT)
+			COLORREF color1 = Cicle_Rturn->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+			if (color1 == GROUNDYELLO_LOOPCOURSE_RIGHT)
 			{
-				playerPos.x -= 1;
-				color1 = Cicle_Rturn->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
-			}
-			mPlayerTR->SetPos(playerPos);
-		}
-		else
-		{
-			int check = 10;
-			if (mPlayer->Getsonicstate() == Sonic::eSonicState::Jump)
-				check = 2;
-			COLORREF colorDown = Cicle_Rturn->GetPixel(playerPos.x + Xrevice + check, playerPos.y + Yrevice);
-			if (colorDown == GROUNDYELLO_LOOPCOURSE_RIGHT)
-			{
-				playerPos.x += check - 1;
-				COLORREF colorUp = Cicle_Rturn->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
-				while (colorUp == GROUNDYELLO_LOOPCOURSE_RIGHT)
+				mPlayerRigidBody->SetGround(true);
+				while (color1 == GROUNDYELLO_LOOPCOURSE_RIGHT)
 				{
 					playerPos.x -= 1;
-					colorUp = Cicle_Rturn->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+					color1 = Cicle_Rturn->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
 				}
 				mPlayerTR->SetPos(playerPos);
 			}
 			else
 			{
-				mPlayerRigidBody->SetGround(false);
-			}
-		}
-
-	}
-
-	void Ground::CheckLoopStoneSecond_R()
-	{
-		if (mRotationcheck != LOOPENTERCOLOR)
-			return;
-
-		Vector2 playerPos = mPlayerTR->GetPos();
-		COLORREF colorcheck;
-		bool LoopStoneMeet = false;
-
-		for (int i = 0; i< 5; ++i)
-		{
-			for (int j = -30; j < 1; ++j)
-			{
-				colorcheck = Cicle_Rturn->GetPixel(playerPos.x + 40 + i, playerPos.y + j);
-				if (colorcheck == STONEORANGE_LOOPHALF)
+				int check = 10;
+				if (mPlayer->Getsonicstate() == Sonic::eSonicState::Jump)
+					check = 2;
+				COLORREF colorDown = Cicle_Rturn->GetPixel(playerPos.x + Xrevice + check, playerPos.y + Yrevice);
+				if (colorDown == GROUNDYELLO_LOOPCOURSE_RIGHT)
 				{
-					LoopStoneMeet = true;
-					//DEBUG_PRINT("Sonic Orange Stone Meet Pos(%3d, %3d) : (%3.2f , %3.2f)\n", i, j, playerPos.x + i, playerPos.y + j);
-					mPlayerTR->SetPos(Vector2(playerPos.x + i, playerPos.y-j ));
-					break;
+					playerPos.x += check - 1;
+					COLORREF colorUp = Cicle_Rturn->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+					while (colorUp == GROUNDYELLO_LOOPCOURSE_RIGHT)
+					{
+						playerPos.x -= 1;
+						colorUp = Cicle_Rturn->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+					}
+					mPlayerTR->SetPos(playerPos);
+				}
+				else
+				{
+					mPlayerRigidBody->SetGround(false);
 				}
 			}
 		}
 
-		if (!LoopStoneMeet)
-			return;
-		else
+		else if (map_chek ==1)
 		{
-			static int count = 0;
-			Vector2 TempVel;
-			TempVel = mPlayerRigidBody->Getgravity();
-			mPlayerRigidBody->SetGravity(Vector2{ -1500.0f,0.f });
-
-			Vector2 curVelocity = mPlayerRigidBody->GetVelocity();
-			mPlayerRigidBody->SetVelocity(Vector2(curVelocity.y * 0.25f, 0.f));
-			//mPlayerRigidBody->SetVelocity(Vector2{fabs(TempVel.y) * -1 , fabs(TempVel.y)*1.0f });
-			mPlayerRigidBody->AddForce(Vector2{ -10000.f,1000.f });
-			mRotationcheck = LOOPAFTERHALF;
-			count++;
-			//DEBUG_PRINT("Sonic Orange Stone Meet Count : %d\n", count);
-			Circlecheck = Circlecheck * -1;
+			COLORREF color1 = Cicle_Rturn2->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+			if (color1 == GROUNDYELLO_LOOPCOURSE_RIGHT)
+			{
+				mPlayerRigidBody->SetGround(true);
+				while (color1 == GROUNDYELLO_LOOPCOURSE_RIGHT)
+				{
+					playerPos.x -= 1;
+					color1 = Cicle_Rturn2->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+				}
+				mPlayerTR->SetPos(playerPos);
+			}
+			else
+			{
+				int check = 10;
+				if (mPlayer->Getsonicstate() == Sonic::eSonicState::Jump)
+					check = 2;
+				COLORREF colorDown = Cicle_Rturn2->GetPixel(playerPos.x + Xrevice + check, playerPos.y + Yrevice);
+				if (colorDown == GROUNDYELLO_LOOPCOURSE_RIGHT)
+				{
+					playerPos.x += check - 1;
+					COLORREF colorUp = Cicle_Rturn2->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+					while (colorUp == GROUNDYELLO_LOOPCOURSE_RIGHT)
+					{
+						playerPos.x -= 1;
+						colorUp = Cicle_Rturn2->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+					}
+					mPlayerTR->SetPos(playerPos);
+				}
+				else
+				{
+					mPlayerRigidBody->SetGround(false);
+				}
+			}
 		}
+	}
+	
+	void Ground::CheckLoopStoneSecond_R()
+	{
+		//if (LoopStoneMeet)
+		//{
+		//	CheckLoopHalfAfter_R();
+		//}
+		if (map_chek == 0)
+		{
+			if (mRotationcheck != LOOPENTERCOLOR)
+				return;
+
+			bool LoopStoneMeet = false;
+			Vector2 playerPos = mPlayerTR->GetPos();
+			COLORREF colorcheck;
+
+
+			for (int i = 0; i < 5; ++i)
+			{
+				for (int j = -30; j < 1; ++j)
+				{
+					colorcheck = Cicle_Rturn->GetPixel(playerPos.x + 40 + i, playerPos.y + j);
+					if (colorcheck == STONEORANGE_LOOPHALF)
+					{
+						LoopStoneMeet = true;
+						//DEBUG_PRINT("Sonic Orange Stone Meet Pos(%3d, %3d) : (%3.2f , %3.2f)\n", i, j, playerPos.x + i, playerPos.y + j);
+						mPlayerTR->SetPos(Vector2(playerPos.x + i, playerPos.y - j));
+						break;
+					}
+				}
+			}
+		
+
+			if (!LoopStoneMeet)
+				return;
+			else
+			{
+				static int count = 0;
+				Vector2 TempVel;
+				TempVel = mPlayerRigidBody->Getgravity();
+				mPlayerRigidBody->SetGravity(Vector2{ -1500.0f,0.f });
+
+				Vector2 curVelocity = mPlayerRigidBody->GetVelocity();
+				mPlayerRigidBody->SetVelocity(Vector2(curVelocity.y * 0.25f, 0.f));
+				//mPlayerRigidBody->SetVelocity(Vector2{fabs(TempVel.y) * -1 , fabs(TempVel.y)*1.0f });
+				mPlayerRigidBody->AddForce(Vector2{ -10000.f,1000.f });
+				mRotationcheck = LOOPAFTERHALF;
+				count++;
+				//DEBUG_PRINT("Sonic Orange Stone Meet Count : %d\n", count);
+				Circlecheck = Circlecheck * -1;
+			}
+		}
+	
+
+		else if (map_chek == 1)
+		{
+	/*		if (mRotationcheck != LOOPENTERCOLOR)
+				return;*/
+
+			bool LoopStoneMeet = false;
+			Vector2 playerPos = mPlayerTR->GetPos();
+			COLORREF colorcheck;
+
+
+			for (int i = 0; i < 5; ++i)
+			{
+				for (int j = -30; j < 1; ++j)
+				{
+					colorcheck = Cicle_Rturn2->GetPixel(playerPos.x + 40 + i, playerPos.y + j);
+					if (colorcheck == STONEORANGE_LOOPHALF)
+					{
+						LoopStoneMeet = true;
+						//DEBUG_PRINT("Sonic Orange Stone Meet Pos(%3d, %3d) : (%3.2f , %3.2f)\n", i, j, playerPos.x + i, playerPos.y + j);
+						mPlayerTR->SetPos(Vector2(playerPos.x + i, playerPos.y - j));
+						break;
+					}
+				}
+			}
+	
+
+			if (!LoopStoneMeet)
+				return;
+			else
+			{
+				static int count = 0;
+				Vector2 TempVel;
+				TempVel = mPlayerRigidBody->Getgravity();
+				mPlayerRigidBody->SetGravity(Vector2{ -1500.0f,0.f });
+
+				Vector2 curVelocity = mPlayerRigidBody->GetVelocity();
+				mPlayerRigidBody->SetVelocity(Vector2(curVelocity.y * 0.25f, 0.f));
+				//mPlayerRigidBody->SetVelocity(Vector2{fabs(TempVel.y) * -1 , fabs(TempVel.y)*1.0f });
+				mPlayerRigidBody->AddForce(Vector2{ -10000.f,1000.f });
+				mRotationcheck = LOOPAFTERHALF;
+				count++;
+				//DEBUG_PRINT("Sonic Orange Stone Meet Count : %d\n", count);
+				Circlecheck = Circlecheck * -1;
+			}
+		}
+
+
+
 	}
 
 	void Ground::CheckLoopHalfAfter_R()
 	{
-		if (mRotationcheck != LOOPAFTERHALF)
-			return;
+		//if (mRotationcheck != LOOPAFTERHALF)
+		//	return;
 
 		Vector2 playerPos = mPlayerTR->GetPos();
-		COLORREF rotation = Cicle_Lturn->GetPixel(playerPos.x , playerPos.y);
 
 		float Xrevice = 0.0f;
 		float Yrevice = 0.0f;
@@ -1160,38 +1300,78 @@ namespace jk
 			//Yrevice = 80.0f;
 		}
 
-
-		rotation = Cicle_Lturn->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
-		if (rotation == GROUNDBLUE_LOOPCOURSE_LEFT)
+		if (map_chek == 0)
 		{
-			mPlayerRigidBody->SetGround(true);
-			while (rotation == GROUNDBLUE_LOOPCOURSE_LEFT)
+			COLORREF rotation = Cicle_Lturn->GetPixel(playerPos.x, playerPos.y);
+			rotation = Cicle_Lturn->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+			if (rotation == GROUNDBLUE_LOOPCOURSE_LEFT)
 			{
-				playerPos.x += 1;
-				rotation = Cicle_Lturn->GetPixel(playerPos.x + Xrevice, playerPos.y+ Yrevice);
-			}
-			mPlayerTR->SetPos(playerPos);
-		}
-		else
-		{
-			int check = 50;
-			if (mPlayer->Getsonicstate() == Sonic::eSonicState::Jump)
-				check = 2;
-			COLORREF colorDown = Cicle_Lturn->GetPixel(playerPos.x + Xrevice- check, playerPos.y + Yrevice);
-			if (colorDown == GROUNDBLUE_LOOPCOURSE_LEFT)
-			{
-				playerPos.x -= check - 1;
-				COLORREF colorUp = Cicle_Lturn->GetPixel(playerPos.x +Xrevice, playerPos.y + Yrevice);
-				while (colorUp == GROUNDBLUE_LOOPCOURSE_LEFT)
+				mPlayerRigidBody->SetGround(true);
+				while (rotation == GROUNDBLUE_LOOPCOURSE_LEFT)
 				{
 					playerPos.x += 1;
-					colorUp = Cicle_Lturn->GetPixel(playerPos.x +Xrevice, playerPos.y + Yrevice);
+					rotation = Cicle_Lturn->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
 				}
 				mPlayerTR->SetPos(playerPos);
 			}
 			else
 			{
-				mPlayerRigidBody->SetGround(false);
+				int check = 50;
+				if (mPlayer->Getsonicstate() == Sonic::eSonicState::Jump)
+					check = 2;
+				COLORREF colorDown = Cicle_Lturn->GetPixel(playerPos.x + Xrevice - check, playerPos.y + Yrevice);
+				if (colorDown == GROUNDBLUE_LOOPCOURSE_LEFT)
+				{
+					playerPos.x -= check - 1;
+					COLORREF colorUp = Cicle_Lturn->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+					while (colorUp == GROUNDBLUE_LOOPCOURSE_LEFT)
+					{
+						playerPos.x += 1;
+						colorUp = Cicle_Lturn->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+					}
+					mPlayerTR->SetPos(playerPos);
+				}
+				else
+				{
+					mPlayerRigidBody->SetGround(false);
+				}
+			}
+		}
+		else if (map_chek == 1)
+		{
+			COLORREF rotation = Cicle_Rturn2->GetPixel(playerPos.x, playerPos.y);
+			rotation = Cicle_Rturn2->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+			if (rotation == GROUNDBLUE_LOOPCOURSE_LEFT)
+			{
+				mPlayerRigidBody->SetGround(true);
+				while (rotation == GROUNDBLUE_LOOPCOURSE_LEFT)
+				{
+					playerPos.x += 1;
+					rotation = Cicle_Rturn2->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+				}
+				mPlayerTR->SetPos(playerPos);
+			}
+			else
+			{
+				int check = 50;
+				if (mPlayer->Getsonicstate() == Sonic::eSonicState::Jump)
+					check = 2;
+				COLORREF colorDown = Cicle_Rturn2->GetPixel(playerPos.x + Xrevice - check, playerPos.y + Yrevice);
+				if (colorDown == GROUNDBLUE_LOOPCOURSE_LEFT)
+				{
+					playerPos.x -= check - 1;
+					COLORREF colorUp = Cicle_Rturn2->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+					while (colorUp == GROUNDBLUE_LOOPCOURSE_LEFT)
+					{
+						playerPos.x += 1;
+						colorUp = Cicle_Rturn2->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+					}
+					mPlayerTR->SetPos(playerPos);
+				}
+				else
+				{
+					mPlayerRigidBody->SetGround(false);
+				}
 			}
 		}
 	}
@@ -1200,36 +1380,72 @@ namespace jk
 	{
 		//COLORREF colorcheck = Cicle_Lturn->GetPixel(mPlayerTR->GetPos().x , mPlayerTR->GetPos().y +50);
 
-		COLORREF colorcheck = Cicle_Lturn->GetPixel(mPlayerTR->GetPos().x + 70 , mPlayerTR->GetPos().y +20);
-		if (colorcheck != STONERED_LOOPENTER)
-			return;
-
-		if (mRotationcheck == LOOPAFTERHALF)
+		if (map_chek == 0)
 		{
-			Vector2 TempVel;
-			TempVel = mPlayerRigidBody->Getgravity();
-			mPlayerRigidBody->SetGravity(Vector2{ 0.0f,500.0f });
-			mRotationcheck = GROUND;			
-		}		
+			COLORREF colorcheck = Cicle_Lturn->GetPixel(mPlayerTR->GetPos().x + 70, mPlayerTR->GetPos().y + 20);
+			if (colorcheck != STONERED_LOOPENTER)
+				return;
+
+			if (mRotationcheck == LOOPAFTERHALF)
+			{
+				Vector2 TempVel;
+				TempVel = mPlayerRigidBody->Getgravity();
+				mPlayerRigidBody->SetGravity(Vector2{ 0.0f,500.0f });
+				mRotationcheck = GROUND;
+			}
+		}
+		if (map_chek == 1)
+		{
+			COLORREF colorcheck = Cicle_Rturn2->GetPixel(mPlayerTR->GetPos().x + 40, mPlayerTR->GetPos().y + 40);
+			if (colorcheck != STONERED_LOOPENTER)
+				return;
+
+			if (mRotationcheck == LOOPAFTERHALF)
+			{
+				Vector2 TempVel;
+				TempVel = mPlayerRigidBody->Getgravity();
+				mPlayerRigidBody->SetGravity(Vector2{ 0.0f,500.0f });
+				mRotationcheck = GROUND;
+			}
+		}
+
 	}
-		
+
 
 
 
 	void Ground::CheckLoopStoneEnter_L()
 	{
 		Vector2 playerPos = mPlayerTR->GetPos();
-		COLORREF colorcheck = Cicle_Lturn->GetPixel(playerPos.x+40, playerPos.y + 50);
 
-		if (colorcheck != STONERED_LOOPENTER)
-			return;
 
-		if (mRotationcheck == GROUNDCOLOR)
+		if (map_chek == 0)
 		{
-			Vector2 TempVel;
-			TempVel = mPlayerRigidBody->Getgravity();
-			mPlayerRigidBody->SetGravity(Vector2{ -1000.0f,0.0f });
-			mRotationcheck = LOOPAFTERHALF;
+			COLORREF colorcheck = Cicle_Lturn->GetPixel(playerPos.x + 40, playerPos.y + 50);
+			if (colorcheck != STONERED_LOOPENTER)
+				return;
+
+			if (mRotationcheck == GROUNDCOLOR)
+			{
+				Vector2 TempVel;
+				TempVel = mPlayerRigidBody->Getgravity();
+				mPlayerRigidBody->SetGravity(Vector2{ -1000.0f,0.0f });
+				mRotationcheck = LOOPAFTERHALF;
+			}
+		}
+		if (map_chek == 1)
+		{
+			COLORREF colorcheck = Cicle_Lturn2->GetPixel(playerPos.x + 40, playerPos.y + 50);
+			if (colorcheck != STONERED_LOOPENTER)
+				return;
+
+			if (mRotationcheck == GROUNDCOLOR)
+			{
+				Vector2 TempVel;
+				TempVel = mPlayerRigidBody->Getgravity();
+				mPlayerRigidBody->SetGravity(Vector2{ -1000.0f,0.0f });
+				mRotationcheck = LOOPAFTERHALF;
+			}
 		}
 	}
 
@@ -1296,39 +1512,81 @@ namespace jk
 
 
 		Vector2 playerPos = mPlayerTR->GetPos();
-		COLORREF color1 = Cicle_Lturn->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice );
 
-		if (color1 == GROUNDBLUE_LOOPCOURSE_LEFT)
+		if (map_chek == 0)
 		{
-			mPlayerRigidBody->SetGround(true);
-			while (color1 == GROUNDBLUE_LOOPCOURSE_LEFT)
-			{
-				playerPos.x += 1;
-				color1 = Cicle_Lturn->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
-			}
-			mPlayerTR->SetPos(playerPos);
-		}
-		else
-		{
+			COLORREF color1 = Cicle_Lturn->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
 
-			int check = 50;
-			if(mPlayer->Getsonicstate() == Sonic::eSonicState::Jump)
-				check = 2;
-			COLORREF colorDown = Cicle_Lturn->GetPixel(playerPos.x - check, playerPos.y);
-			if (colorDown == GROUNDBLUE_LOOPCOURSE_LEFT)
+			if (color1 == GROUNDBLUE_LOOPCOURSE_LEFT)
 			{
-				playerPos.x -= check-1;
-				COLORREF colorUp = Cicle_Lturn->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice );
-				while (colorUp == GROUNDBLUE_LOOPCOURSE_LEFT)
+				mPlayerRigidBody->SetGround(true);
+				while (color1 == GROUNDBLUE_LOOPCOURSE_LEFT)
 				{
 					playerPos.x += 1;
-					colorUp = Cicle_Lturn->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice );
+					color1 = Cicle_Lturn->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
 				}
 				mPlayerTR->SetPos(playerPos);
 			}
 			else
-			{		
-			mPlayerRigidBody->SetGround(false);
+			{
+
+				int check = 50;
+				if (mPlayer->Getsonicstate() == Sonic::eSonicState::Jump)
+					check = 2;
+				COLORREF colorDown = Cicle_Lturn->GetPixel(playerPos.x - check, playerPos.y);
+				if (colorDown == GROUNDBLUE_LOOPCOURSE_LEFT)
+				{
+					playerPos.x -= check - 1;
+					COLORREF colorUp = Cicle_Lturn->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+					while (colorUp == GROUNDBLUE_LOOPCOURSE_LEFT)
+					{
+						playerPos.x += 1;
+						colorUp = Cicle_Lturn->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+					}
+					mPlayerTR->SetPos(playerPos);
+				}
+				else
+				{
+					mPlayerRigidBody->SetGround(false);
+				}
+			}
+		}
+		else if (map_chek == 1)
+		{
+			COLORREF color1 = Cicle_Lturn2->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+
+			if (color1 == GROUNDBLUE_LOOPCOURSE_LEFT)
+			{
+				mPlayerRigidBody->SetGround(true);
+				while (color1 == GROUNDBLUE_LOOPCOURSE_LEFT)
+				{
+					playerPos.x += 1;
+					color1 = Cicle_Lturn2->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+				}
+				mPlayerTR->SetPos(playerPos);
+			}
+			else
+			{
+
+				int check = 50;
+				if (mPlayer->Getsonicstate() == Sonic::eSonicState::Jump)
+					check = 2;
+				COLORREF colorDown = Cicle_Lturn2->GetPixel(playerPos.x - check, playerPos.y);
+				if (colorDown == GROUNDBLUE_LOOPCOURSE_LEFT)
+				{
+					playerPos.x -= check - 1;
+					COLORREF colorUp = Cicle_Lturn2->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+					while (colorUp == GROUNDBLUE_LOOPCOURSE_LEFT)
+					{
+						playerPos.x += 1;
+						colorUp = Cicle_Lturn2->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+					}
+					mPlayerTR->SetPos(playerPos);
+				}
+				else
+				{
+					mPlayerRigidBody->SetGround(false);
+				}
 			}
 		}
 	}
@@ -1347,13 +1605,27 @@ namespace jk
 		{
 			for (int j = -20; j < 1; ++j)
 			{
-				colorcheck = Cicle_Rturn->GetPixel(playerPos.x + 60 + i, playerPos.y + j);
-				if (colorcheck == STONEORANGE_LOOPHALF)
+				if (map_chek == 0)
 				{
-					LoopStoneMeet = true;
-					//DEBUG_PRINT("Sonic Orange Stone Meet Pos(%3d, %3d) : (%3.2f , %3.2f)\n", i, j, playerPos.x + i, playerPos.y + j);
-					mPlayerTR->SetPos(Vector2(playerPos.x + i, playerPos.y - j));
-					break;
+					colorcheck = Cicle_Rturn->GetPixel(playerPos.x + 60 + i, playerPos.y + j);
+					if (colorcheck == STONEORANGE_LOOPHALF)
+					{
+						LoopStoneMeet = true;
+						//DEBUG_PRINT("Sonic Orange Stone Meet Pos(%3d, %3d) : (%3.2f , %3.2f)\n", i, j, playerPos.x + i, playerPos.y + j);
+						mPlayerTR->SetPos(Vector2(playerPos.x + i, playerPos.y - j));
+						break;
+					}
+				}
+				if (map_chek == 1)
+				{
+					colorcheck = Cicle_Rturn2->GetPixel(playerPos.x + 60 + i, playerPos.y + j);
+					if (colorcheck == STONEORANGE_LOOPHALF)
+					{
+						LoopStoneMeet = true;
+						//DEBUG_PRINT("Sonic Orange Stone Meet Pos(%3d, %3d) : (%3.2f , %3.2f)\n", i, j, playerPos.x + i, playerPos.y + j);
+						mPlayerTR->SetPos(Vector2(playerPos.x + i, playerPos.y - j));
+						break;
+					}
 				}
 			}
 		}
@@ -1468,54 +1740,111 @@ namespace jk
 
 
 		Vector2 playerPos = mPlayerTR->GetPos();
-		COLORREF color1 = Cicle_Rturn->GetPixel(playerPos.x + Xrevice, playerPos.y+ Yrevice);
 
-		if (color1 == GROUNDYELLO_LOOPCOURSE_RIGHT)
+		if (map_chek == 0)
 		{
-			mPlayerRigidBody->SetGround(true);
-			while (color1 == GROUNDYELLO_LOOPCOURSE_RIGHT)
+			COLORREF color1 = Cicle_Rturn->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+
+			if (color1 == GROUNDYELLO_LOOPCOURSE_RIGHT)
 			{
-				playerPos.x -= 1;
-				color1 = Cicle_Rturn->GetPixel(playerPos.x + Xrevice, playerPos.y+ Yrevice);
-			}
-			mPlayerTR->SetPos(playerPos);
-		}
-		else
-		{
-			int check = 50;
-			if(mPlayer->Getsonicstate() == Sonic::eSonicState::Jump)
-				check = 2;
-			COLORREF colorDown = Cicle_Rturn->GetPixel(playerPos.x + Xrevice + check, playerPos.y+ Yrevice);
-			if (colorDown == GROUNDYELLO_LOOPCOURSE_RIGHT)
-			{
-				playerPos.x += check-1;
-				COLORREF colorUp = Cicle_Rturn->GetPixel(playerPos.x + Xrevice, playerPos.y+ Yrevice);
-				while (colorUp == GROUNDYELLO_LOOPCOURSE_RIGHT)
+				mPlayerRigidBody->SetGround(true);
+				while (color1 == GROUNDYELLO_LOOPCOURSE_RIGHT)
 				{
 					playerPos.x -= 1;
-					colorUp = Cicle_Rturn->GetPixel(playerPos.x + Xrevice, playerPos.y+ Yrevice);
+					color1 = Cicle_Rturn->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
 				}
 				mPlayerTR->SetPos(playerPos);
 			}
 			else
-			{		
-			mPlayerRigidBody->SetGround(false);
+			{
+				int check = 50;
+				if (mPlayer->Getsonicstate() == Sonic::eSonicState::Jump)
+					check = 2;
+				COLORREF colorDown = Cicle_Rturn->GetPixel(playerPos.x + Xrevice + check, playerPos.y + Yrevice);
+				if (colorDown == GROUNDYELLO_LOOPCOURSE_RIGHT)
+				{
+					playerPos.x += check - 1;
+					COLORREF colorUp = Cicle_Rturn->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+					while (colorUp == GROUNDYELLO_LOOPCOURSE_RIGHT)
+					{
+						playerPos.x -= 1;
+						colorUp = Cicle_Rturn->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+					}
+					mPlayerTR->SetPos(playerPos);
+				}
+				else
+				{
+					mPlayerRigidBody->SetGround(false);
+				}
+			}
+		}
+		if (map_chek == 1)
+		{
+			COLORREF color1 = Cicle_Rturn2->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+
+			if (color1 == GROUNDYELLO_LOOPCOURSE_RIGHT)
+			{
+				mPlayerRigidBody->SetGround(true);
+				while (color1 == GROUNDYELLO_LOOPCOURSE_RIGHT)
+				{
+					playerPos.x -= 1;
+					color1 = Cicle_Rturn2->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+				}
+				mPlayerTR->SetPos(playerPos);
+			}
+			else
+			{
+				int check = 50;
+				if (mPlayer->Getsonicstate() == Sonic::eSonicState::Jump)
+					check = 2;
+				COLORREF colorDown = Cicle_Rturn2->GetPixel(playerPos.x + Xrevice + check, playerPos.y + Yrevice);
+				if (colorDown == GROUNDYELLO_LOOPCOURSE_RIGHT)
+				{
+					playerPos.x += check - 1;
+					COLORREF colorUp = Cicle_Rturn2->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+					while (colorUp == GROUNDYELLO_LOOPCOURSE_RIGHT)
+					{
+						playerPos.x -= 1;
+						colorUp = Cicle_Rturn2->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+					}
+					mPlayerTR->SetPos(playerPos);
+				}
+				else
+				{
+					mPlayerRigidBody->SetGround(false);
+				}
 			}
 		}
 	}
 
 	void Ground::CheckLoopStoneGround_L()
 	{
-		COLORREF colorcheck = Cicle_Rturn->GetPixel(mPlayerTR->GetPos().x , mPlayerTR->GetPos().y + 100);
-		if (colorcheck != STONEGREY_LOOPENTER)
-			return;
-
-		if (mRotationcheck == LOOPENTERCOLOR)
+		if (map_chek == 0)
 		{
-			Vector2 TempVel;
-			TempVel = mPlayerRigidBody->Getgravity();
-			mPlayerRigidBody->SetGravity(Vector2{ 0.0f,500.0f });
-			mRotationcheck = GROUND;
+			COLORREF colorcheck = Cicle_Rturn->GetPixel(mPlayerTR->GetPos().x, mPlayerTR->GetPos().y + 100);
+			if (colorcheck != STONEGREY_LOOPENTER)
+				return;
+
+			if (mRotationcheck == LOOPENTERCOLOR)
+			{
+				Vector2 TempVel;
+				TempVel = mPlayerRigidBody->Getgravity();
+				mPlayerRigidBody->SetGravity(Vector2{ 0.0f,500.0f });
+				mRotationcheck = GROUND;
+			}
+		}		if (map_chek == 1)
+		{
+			COLORREF colorcheck = Cicle_Rturn2->GetPixel(mPlayerTR->GetPos().x, mPlayerTR->GetPos().y + 100);
+			if (colorcheck != STONEGREY_LOOPENTER)
+				return;
+
+			if (mRotationcheck == LOOPENTERCOLOR)
+			{
+				Vector2 TempVel;
+				TempVel = mPlayerRigidBody->Getgravity();
+				mPlayerRigidBody->SetGravity(Vector2{ 0.0f,500.0f });
+				mRotationcheck = GROUND;
+			}
 		}
 	}
 }

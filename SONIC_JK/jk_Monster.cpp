@@ -81,7 +81,7 @@ namespace jk
 		Transform* Rino_TR = GetComponent<Transform>();
 		Rigidbody* Rino_rb = GetComponent<Rigidbody>();
 		
-		check_map = check->Get_ma_check();
+		check_map = check->Get_map_check();
 
 		mGroundImage = check->GetGroundImage();
 		mGroundImage2 = check->GetGroundImage2();
@@ -91,15 +91,15 @@ namespace jk
 			if (Rino_TR && Rino_rb && mGroundImage)
 			{
 				Vector2 Rino_ps = Rino_TR->GetPos();
-				COLORREF RING_Color = mGroundImage->GetPixel(Rino_ps.x, Rino_ps.y + 75);
-				if (RING_Color == RGB(0, 0, 0))
+				COLORREF FootColor = mGroundImage->GetPixel(Rino_ps.x, Rino_ps.y + 75);
+				if (FootColor == RGB(0, 0, 0))
 				{
-					COLORREF RING_Color = mGroundImage->GetPixel(Rino_ps.x, Rino_ps.y + 75);
+					COLORREF FootColor = mGroundImage->GetPixel(Rino_ps.x, Rino_ps.y + 75);
 
-					while (RING_Color == RGB(0, 0, 0))
+					while (FootColor == RGB(0, 0, 0))
 					{
 						Rino_ps.y -= 1;
-						RING_Color = mGroundImage->GetPixel(Rino_ps.x, Rino_ps.y + 75);
+						FootColor = mGroundImage->GetPixel(Rino_ps.x, Rino_ps.y + 75);
 						Rino_TR->SetPos(Rino_ps);
 						Rino_rb->SetGround(true);
 					}
@@ -116,15 +116,15 @@ namespace jk
 			if (Rino_TR && Rino_rb && mGroundImage2)
 			{
 				Vector2 Rino_ps = Rino_TR->GetPos();
-				COLORREF RING_Color = mGroundImage2->GetPixel(Rino_ps.x, Rino_ps.y + 75);
-				if (RING_Color == RGB(0, 0, 0))
+				COLORREF FootColor = mGroundImage2->GetPixel(Rino_ps.x, Rino_ps.y + 75);
+				if (FootColor == RGB(0, 0, 0))
 				{
-					COLORREF RING_Color = mGroundImage2->GetPixel(Rino_ps.x, Rino_ps.y + 75);
+					COLORREF FootColor = mGroundImage2->GetPixel(Rino_ps.x, Rino_ps.y + 75);
 
-					while (RING_Color == RGB(0, 0, 0))
+					while (FootColor == RGB(0, 0, 0))
 					{
 						Rino_ps.y -= 1;
-						RING_Color = mGroundImage2->GetPixel(Rino_ps.x, Rino_ps.y + 75);
+						FootColor = mGroundImage2->GetPixel(Rino_ps.x, Rino_ps.y + 75);
 						Rino_TR->SetPos(Rino_ps);
 						Rino_rb->SetGround(true);
 					}

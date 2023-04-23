@@ -30,6 +30,8 @@ namespace jk
 		virtual void OnCollisionExit(class Collider* other) override;
 		
 		void Set_FinalArea(Vector2 area) { Final_jeepline = area; }
+		void Set_StartArea(Vector2 area) { Start_jeepline = area; }
+
 
 	private:
 		void idle();

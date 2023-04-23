@@ -72,7 +72,8 @@ namespace jk
 		AddGameobeject(playgr, jk_LayerType::Ground);
 		mSonic->SetCheckTargetGround(playgr);
 		tails->SetCheckTargetGround(playgr);
-
+		
+			//
 
 		//¹è°æ
 		Act1_3_BG* act1_3_BG = new Act1_3_BG();

@@ -72,7 +72,7 @@ namespace jk
 		void CheckLoopHalfAfter_L();
 
 		void Set_map_check(int chek) { map_chek = chek; }
-		int Get_ma_check() { return map_chek; }
+		int Get_map_check() { return map_chek; }
 		//void MonsterGround();
 
 	private:		
@@ -116,10 +116,11 @@ namespace jk
 		int mRotationcheck;
 		//외부에서 서클센터바꾸기
 		Vector2 Circle1_Center;
+		Vector2 Circle1_Center2;
 
 
 		int WallCheck;
-
+		bool LoopStoneMeet = false;
 		class Collider* mCollider;
 		int map_chek;
 	};

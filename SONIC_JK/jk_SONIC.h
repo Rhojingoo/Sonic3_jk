@@ -129,6 +129,7 @@ namespace jk
 		Vector2 tails_call;
 
 		int jeepline;
+		int check_map;
 	};
 
 }

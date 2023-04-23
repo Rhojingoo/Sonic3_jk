@@ -56,6 +56,7 @@ namespace jk
 		Image* mImage;
 		Image* mImage1;
 		Image* mGroundImage;
+		Image* mGroundImage2;
 		Animator* mAnimator;
 		Ground* check;
 		Rigidbody* mRigidbody;
@@ -68,5 +69,8 @@ namespace jk
 		Vector2 mSonic;
 		Sonic::eSonicState sonicState;
 		int sonicpattern;
+
+		int check_map;
+
 	};
 }

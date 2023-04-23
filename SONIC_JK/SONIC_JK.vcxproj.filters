@@ -185,9 +185,6 @@
     <Filter Include="Contents\BG\Circle_check">
       <UniqueIdentifier>{621f30a1-c21f-46f7-8d81-80e2942b04a6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\BG\Circle_check\Act1-1">
-      <UniqueIdentifier>{936d05b2-5f64-4ba0-b9cc-fdb1cec70dd5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\BG\PlayBG\Event_bg\CYLINDER">
       <UniqueIdentifier>{5c4c1457-647b-4fd2-b8d7-a150d585bd00}</UniqueIdentifier>
     </Filter>
@@ -247,6 +244,12 @@
     </Filter>
     <Filter Include="Contents\Boss\Act1_boss\BaseBullet">
       <UniqueIdentifier>{5e4b49b8-5c20-457e-be18-73e3c1fdd376}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\Circle_check\Act1-1">
+      <UniqueIdentifier>{936d05b2-5f64-4ba0-b9cc-fdb1cec70dd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\Circle_check\Act1-2">
+      <UniqueIdentifier>{b4b121c0-baae-4293-b4e8-3557f46024da}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -611,6 +614,9 @@
     <ClInclude Include="Jeepline_play.h">
       <Filter>Contents\BG\PlayBG\Event_bg\JEEP_line</Filter>
     </ClInclude>
+    <ClInclude Include="jk_check_circle.h">
+      <Filter>Contents\BG\Circle_check\Act1-2</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SONIC_JK.rc">
@@ -964,6 +970,9 @@
     <ClCompile Include="Boss_act1_boomb.cpp" />
     <ClCompile Include="Jeepline_play.cpp">
       <Filter>Contents\BG\PlayBG\Event_bg\JEEP_line</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_check_circle.cpp">
+      <Filter>Contents\BG\Circle_check\Act1-2</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

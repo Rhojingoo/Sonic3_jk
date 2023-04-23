@@ -461,7 +461,7 @@ namespace jk
 		ItemBigRing* Big_Ring = new ItemBigRing();
 		Big_Ring->SetName(L"BIGRING");
 		AddGameobeject(Big_Ring, jk_LayerType::Item);	
-
+		Big_Ring->GetComponent<Transform>()->SetPos(Vector2(15064.f, 3680.0f));
 
 		Scene::Initialize();		
 	}

@@ -16,8 +16,8 @@ namespace jk
 		: mState(eState::Idle)
 		, mDir(1)
 	{
-		Transform* tr = GetComponent<Transform>();
-		tr->SetPos(Vector2(15064.f, 3680.0f));
+		
+		
 	}
 
 	ItemBigRing::~ItemBigRing()

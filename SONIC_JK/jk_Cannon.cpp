@@ -49,7 +49,7 @@ namespace jk
 
 		mRigidbody = AddComponent<Rigidbody>();
 		mRigidbody->SetMass(1.0f);
-
+		
 		Gameobject::Initialize();
 	}
 	void Cannon::Update()
@@ -77,26 +77,61 @@ namespace jk
 
 		Transform* Canon_TR = GetComponent<Transform>();
 		Rigidbody* Canon_rb = GetComponent<Rigidbody>();
+		
+		check_map = check->Get_map_check();
+
 		mGroundImage = check->GetGroundImage();
+		mGroundImage2 = check->GetGroundImage2();
 
-		if (Canon_TR && Canon_rb && mGroundImage)
+
+		if (check_map == 0)
 		{
-			Vector2 Canon_ps = Canon_TR->GetPos();
-			COLORREF RING_Color = mGroundImage->GetPixel(Canon_ps.x, Canon_ps.y + 130);
-			if (RING_Color == RGB(0, 0, 0))
+			if (Canon_TR && Canon_rb && mGroundImage)
 			{
-				COLORREF RING_Color = mGroundImage->GetPixel(Canon_ps.x, Canon_ps.y + 130);
-
-				while (RING_Color == RGB(0, 0, 0))
+				Vector2 Canon_ps = Canon_TR->GetPos();
+				COLORREF FootColor = mGroundImage->GetPixel(Canon_ps.x, Canon_ps.y + 130);
+				if (FootColor == RGB(0, 0, 0))
 				{
-					Canon_ps.y -= 1;
-					RING_Color = mGroundImage->GetPixel(Canon_ps.x, Canon_ps.y + 130);
-					Canon_TR->SetPos(Canon_ps);
-					Canon_rb->SetGround(true);
-					check_ground_CN = 1;
+					COLORREF FootColor = mGroundImage->GetPixel(Canon_ps.x, Canon_ps.y + 130);
+
+					while (FootColor == RGB(0, 0, 0))
+					{
+						Canon_ps.y -= 1;
+						FootColor = mGroundImage->GetPixel(Canon_ps.x, Canon_ps.y + 130);
+						Canon_TR->SetPos(Canon_ps);
+						Canon_rb->SetGround(true);
+						check_ground_CN = 1;
+					}
 				}
 			}
 		}
+
+		else if (check_map == 1)
+		{
+			if (Canon_TR && Canon_rb && mGroundImage2)
+			{
+				Vector2 Canon_ps = Canon_TR->GetPos();
+				COLORREF FootColor = mGroundImage2->GetPixel(Canon_ps.x, Canon_ps.y + 130);
+				if (FootColor == RGB(0, 0, 0))
+				{
+					COLORREF FootColor = mGroundImage2->GetPixel(Canon_ps.x, Canon_ps.y + 130);
+
+					while (FootColor == RGB(0, 0, 0))
+					{
+						Canon_ps.y -= 1;
+						FootColor = mGroundImage2->GetPixel(Canon_ps.x, Canon_ps.y + 130);
+						Canon_TR->SetPos(Canon_ps);
+						Canon_rb->SetGround(true);
+					}
+				}
+				else
+				{
+					Canon_rb->SetGround(false);
+				}
+
+			}
+		}
+
 
 		Gameobject::Update();
 	}

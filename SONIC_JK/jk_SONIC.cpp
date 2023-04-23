@@ -69,12 +69,12 @@ namespace jk
 		//tr->SetPos(Vector2{ 16350.0f, 2847.0f });//jeepline
 		//tr->SetPos(Vector2{ 13218.0f, 3174.0f });//캐논
 	
-		//tr->SetPos(Vector2{ 2790.0f * 3, 3200.f }); //시작
+		tr->SetPos(Vector2{ 2790.0f * 3, 3200.f }); //시작
 		//tr->SetPos(Vector2{ 15424.0f , 2921.f });
 		//tr->SetPos(Vector2{ 12310.0f, 3211.0f });
 		//tr->SetPos(Vector2(19718.f, 3450.f));//원돌기
 		//tr->SetPos(Vector2{ 26201.f, 3333.f });//밑에 원돌기
-		tr->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
+		//tr->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
 		//tr->SetPos(Vector2{ 29043.0f, 2499.0f });
 	}		
 
@@ -226,10 +226,8 @@ namespace jk
 			case jk::Sonic::eSonicState::Spring_Jump:spring_jump();
 				break;
 
-
 			case jk::Sonic::eSonicState::Cylinder_move:cylinder_move();
 				break;
-
 
 			case jk::Sonic::eSonicState::Sit:sit();
 				break;
@@ -301,6 +299,9 @@ namespace jk
 			default:
 				break;
 			}
+
+			check_map = check->Get_map_check();
+
 
 			Gameobject::Update();
 		}
@@ -722,11 +723,9 @@ namespace jk
 							mState = eSonicState::Hurt;
 
 
-
 							Ring_Falling* ring;
 							if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
 							{
-
 								Transform* tr = GetComponent<Transform>();
 								Scene* curScene = SceneManager::GetActiveScene();
 
@@ -734,7 +733,6 @@ namespace jk
 								const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
 								const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
 								const float distance = 250.0f; // 링이 떨어지는 거리
-
 
 								for (int i = 0; i < numRings; ++i)
 								{
@@ -746,8 +744,14 @@ namespace jk
 
 									if (check)
 									{
-										Image* groundImage = check->GetGroundImage();
-										ring->SetGroundImage(groundImage);
+										if (check_map == 0)
+										{
+											ring->SetGroundImage(check->GetGroundImage());
+										}
+										else if (check_map == 1)
+										{
+											ring->SetGroundImage(check->GetGroundImage2());
+										}
 									}
 
 									Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
@@ -790,10 +794,16 @@ namespace jk
 									curScene->AddGameobeject(ring, jk_LayerType::Rings);
 									if (check)
 									{
-										Image* groundImage = check->GetGroundImage();
-
-										if (groundImage)
+										//Image* groundImage = check->GetGroundImage();
+								
+										if (check_map == 0)
+										{
 											ring->SetGroundImage(check->GetGroundImage());
+										}
+										else if (check_map == 1)
+										{
+											ring->SetGroundImage(check->GetGroundImage2());
+										}										
 									}
 									Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
 									ring->GetComponent<Transform>()->SetPos(dropPos);

@@ -30,10 +30,10 @@ namespace jk
 	
 
 		mCollider = AddComponent<Collider>();
-		mCollider->SetSize(Vector2(170.0f, 270.0f));	
-		
+		mCollider->SetSize(Vector2(48.0f, 315.0f));	
+		//2904.f, 1132.f
 		Transform* tr = GetComponent<Transform>();
-		tr->SetPos(Vector2{ 661.f, 3033.f });
+		//tr->SetPos(Vector2{ 661.f, 3033.f });
 
 		Gameobject::Initialize();
 	}
@@ -50,11 +50,8 @@ namespace jk
 		Gameobject::Release();
 	}
 	void Clean_wall::OnCollisionEnter(Collider* other)
-	{
-		if (Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner()))
-		{
-			check->Set_Circlecheck(1);
-		}
+	{	
+		
 	}
 	void Clean_wall::OnCollisionStay(Collider* other)
 	{
