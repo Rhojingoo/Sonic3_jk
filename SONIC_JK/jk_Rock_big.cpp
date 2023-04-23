@@ -134,7 +134,7 @@ namespace jk
 				Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
 
 				Rock_Pice* Rock_pice = new Rock_Pice();
-				Rock_pice->Initialize();
+				//Rock_pice->Initialize();
 				curScene->AddGameobeject(Rock_pice, jk_LayerType::BG_props);
 
 				if (check)// 돌이 땅에 닿을때 의 상황

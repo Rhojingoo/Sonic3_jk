@@ -48,7 +48,7 @@
 #include "jk_Cylinder.h"
 #include "jk_Lttle_miniboss.h"
 #include "jk_minibos_show.h"
-
+#include "jk_Act1_Water.h"
 
 
 namespace jk
@@ -108,18 +108,12 @@ namespace jk
 		AddGameobeject(bg, jk_LayerType::BG);
 		bg->SetName(L"Act1BG");		 
 		bg->Set_Owner(mSonic);
-	
-	
-	
-		
-		//Boss* ROBOT = new Boss(mSonic);
-		//ROBOT->SetName(L"BOSS");
-	    //AddGameobeject(ROBOT, jk_LayerType::BOSS);
 
-
-		//Item* items = new Item(mSonic);
-		//items->SetName(L"items");			
-		
+		Act1_Water* act1_Water = new Act1_Water();
+		AddGameobeject(act1_Water, jk_LayerType::Blend);
+		act1_Water->SetName(L"act1_Water");
+	
+			
 	
 		
 		//배경소품
@@ -522,6 +516,7 @@ namespace jk
 		CollisionManager::SetLayer(jk_LayerType::Player2, jk_LayerType::Ground, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::BG_props, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Player2, true);
+		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Blend, true);
 		
 		if (Camera_Switch == 0)
 		{

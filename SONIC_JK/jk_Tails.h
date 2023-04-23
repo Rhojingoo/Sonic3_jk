@@ -27,7 +27,7 @@ namespace jk
 			Spin,
 			Twojump,
 			Shield,
-			Fly,
+			Fly,		
 
 
 			Circle_Rturn_R,
@@ -39,7 +39,6 @@ namespace jk
 			Circle_Rturn_6,
 			Circle_Rturn_7,
 
-
 			Circle_Lturn_1,
 			Circle_Lturn_2,
 			Circle_Lturn_3,
@@ -47,8 +46,6 @@ namespace jk
 			Circle_Lturn_5,
 			Circle_Lturn_6,
 			Circle_Lturn_7,
-
-
 		};
 
 		Tails(Gameobject* owner);
@@ -83,6 +80,7 @@ namespace jk
 		void twojump();
 		void shield();
 		void fly();
+	
 
 		void circle_Rturn_1();
 		void circle_Rturn_2();
@@ -121,6 +119,7 @@ namespace jk
 		int circlecheck;
 		Ground* check;
 		int Circle_piece;		
+		int fly_check;
 	};
 
 }

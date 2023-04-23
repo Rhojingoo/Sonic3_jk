@@ -325,7 +325,7 @@ namespace jk
 	
 		if (map_chek == 1)
 		{
-			TransparentBlt(hdc, 0, 0, 1200, 840, Ground_Image2->GetHdc(), mpos.x, mpos.y, 1200, 840, RGB(255, 255, 255));
+			//TransparentBlt(hdc, 0, 0, 1200, 840, Ground_Image2->GetHdc(), mpos.x, mpos.y, 1200, 840, RGB(255, 255, 255));
 		}
 
 		if (map_chek == 2)

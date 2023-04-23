@@ -30,7 +30,8 @@
 #include "jk_Cylinder.h"
 #include "jk_Last_Bridge.h"
 #include "Jeepline_play.h"
-
+#include "jk_Act1_Water.h"
+#include "jk_Water_effect.h"
 
 int ringpoint = 0;
 int Elect = 0;
@@ -69,12 +70,13 @@ namespace jk
 		//tr->SetPos(Vector2{ 16350.0f, 2847.0f });//jeepline
 		//tr->SetPos(Vector2{ 13218.0f, 3174.0f });//캐논
 	
-		tr->SetPos(Vector2{ 2790.0f * 3, 3200.f }); //시작
+		//tr->SetPos(Vector2{ 2790.0f * 3, 3200.f }); //시작
 		//tr->SetPos(Vector2{ 15424.0f , 2921.f });
 		//tr->SetPos(Vector2{ 12310.0f, 3211.0f });
+		//tr->SetPos(Vector2(21480.f, 3450.f));//폭포
 		//tr->SetPos(Vector2(19718.f, 3450.f));//원돌기
 		//tr->SetPos(Vector2{ 26201.f, 3333.f });//밑에 원돌기
-		//tr->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
+		tr->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
 		//tr->SetPos(Vector2{ 29043.0f, 2499.0f });
 	}		
 
@@ -84,9 +86,7 @@ namespace jk
 	}
 
 		void Sonic::Initialize()
-	{
-			
-			
+	{			
 		//Transform* tr = GetComponent<Transform>();
 		//tr->SetPos(Vector2{ 2790.0f * 3, 3200.f });
 		//tr->SetPos(Vector2(19718.f, 3450.f));
@@ -320,6 +320,21 @@ namespace jk
 		{
 
 			//배경소품 충돌★
+	
+				//Act1_Water 물충돌
+				//if (Act1_Water* act1_water = dynamic_cast<Act1_Water*>(other->GetOwner()))
+				//{
+				//	Transform* tr = GetComponent<Transform>();
+				//	Vector2 pos = tr->GetPos();
+
+				//	Vector2 water_pos = act1_water->GetComponent<Transform>()->GetPos();
+				//	Scene* curScene = SceneManager::GetActiveScene();
+				//	Water_effect* water_effect = new Water_effect();
+				//	water_effect->GetComponent<Transform>()->SetPos(Vector2{ pos.x, water_pos.y-100 });
+				//	curScene->AddGameobeject(water_effect, jk_LayerType::BG_props);
+				//}
+
+
 				//Spring Up 충돌처리
 				if (Spring_Up* spring_up = dynamic_cast<Spring_Up*>(other->GetOwner()))
 				{
@@ -910,7 +925,7 @@ namespace jk
 			if (Input::GetKeyDown(eKeyCode::SPACE))
 			{
 				Vector2 velocity = mRigidbody->GetVelocity();
-				velocity.y -= 550.0f;
+				velocity.y -= 1550.0f;
 
 				mRigidbody->SetVelocity(velocity);
 				mRigidbody->SetGround(false);

@@ -182,9 +182,6 @@
     <Filter Include="Contents\BG\PlayBG\Event_bg\Collapses Ground">
       <UniqueIdentifier>{69b7be78-998f-4938-85b3-f777001d145f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\BG\Circle_check">
-      <UniqueIdentifier>{621f30a1-c21f-46f7-8d81-80e2942b04a6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\BG\PlayBG\Event_bg\CYLINDER">
       <UniqueIdentifier>{5c4c1457-647b-4fd2-b8d7-a150d585bd00}</UniqueIdentifier>
     </Filter>
@@ -245,11 +242,20 @@
     <Filter Include="Contents\Boss\Act1_boss\BaseBullet">
       <UniqueIdentifier>{5e4b49b8-5c20-457e-be18-73e3c1fdd376}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\BG\Circle_check\Act1-1">
+    <Filter Include="Contents\BG\PlayBG\Circle_check">
+      <UniqueIdentifier>{621f30a1-c21f-46f7-8d81-80e2942b04a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\PlayBG\Circle_check\Act1-1">
       <UniqueIdentifier>{936d05b2-5f64-4ba0-b9cc-fdb1cec70dd5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\BG\Circle_check\Act1-2">
+    <Filter Include="Contents\BG\PlayBG\Circle_check\Act1-2">
       <UniqueIdentifier>{b4b121c0-baae-4293-b4e8-3557f46024da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\PlayBG\Event_bg\Water-Effect">
+      <UniqueIdentifier>{119e2283-2278-4e62-8a32-f0ef13f5391a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 뒷배경">
+      <UniqueIdentifier>{3bbff1f1-72fe-4085-a86f-8e5e1cb9c250}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -528,7 +534,7 @@
       <Filter>Contents\BG\CharacterChoice BG</Filter>
     </ClInclude>
     <ClInclude Include="jk_check1.h">
-      <Filter>Contents\BG\Circle_check\Act1-1</Filter>
+      <Filter>Contents\BG\PlayBG\Circle_check\Act1-1</Filter>
     </ClInclude>
     <ClInclude Include="jk_Cylinder.h">
       <Filter>Contents\BG\PlayBG\Event_bg\CYLINDER</Filter>
@@ -540,7 +546,7 @@
       <Filter>Contents\Boss\Act1_miniboss</Filter>
     </ClInclude>
     <ClInclude Include="jk_check2.h">
-      <Filter>Contents\BG\Circle_check\Act1-1</Filter>
+      <Filter>Contents\BG\PlayBG\Circle_check\Act1-1</Filter>
     </ClInclude>
     <ClInclude Include="jk_PlayScene.h">
       <Filter>Contents\Scene\Playgame\Act1-1</Filter>
@@ -615,7 +621,28 @@
       <Filter>Contents\BG\PlayBG\Event_bg\JEEP_line</Filter>
     </ClInclude>
     <ClInclude Include="jk_check_circle.h">
-      <Filter>Contents\BG\Circle_check\Act1-2</Filter>
+      <Filter>Contents\BG\PlayBG\Circle_check\Act1-2</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Act1_Water.h">
+      <Filter>Contents\BG\PlayBG\BG_act1-1</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Water_effect.h">
+      <Filter>Contents\BG\PlayBG\Event_bg\Water-Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Act1_2_sky1.h">
+      <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 뒷배경</Filter>
+    </ClInclude>
+    <ClInclude Include="Act1_2_sky2.h">
+      <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 뒷배경</Filter>
+    </ClInclude>
+    <ClInclude Include="Act1_2_sky3.h">
+      <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 뒷배경</Filter>
+    </ClInclude>
+    <ClInclude Include="Act1_2_sky4.h">
+      <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 뒷배경</Filter>
+    </ClInclude>
+    <ClInclude Include="Act1_2_sky5.h">
+      <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 뒷배경</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -885,7 +912,7 @@
       <Filter>Contents\BG\CharacterChoice BG</Filter>
     </ClCompile>
     <ClCompile Include="jk_check1.cpp">
-      <Filter>Contents\BG\Circle_check\Act1-1</Filter>
+      <Filter>Contents\BG\PlayBG\Circle_check\Act1-1</Filter>
     </ClCompile>
     <ClCompile Include="jk_Cylinder.cpp">
       <Filter>Contents\BG\PlayBG\Event_bg\CYLINDER</Filter>
@@ -897,7 +924,7 @@
       <Filter>Contents\Boss\Act1_miniboss</Filter>
     </ClCompile>
     <ClCompile Include="jk_check2.cpp">
-      <Filter>Contents\BG\Circle_check\Act1-1</Filter>
+      <Filter>Contents\BG\PlayBG\Circle_check\Act1-1</Filter>
     </ClCompile>
     <ClCompile Include="jk_PlayScene.cpp">
       <Filter>Contents\Scene\Playgame\Act1-1</Filter>
@@ -972,7 +999,28 @@
       <Filter>Contents\BG\PlayBG\Event_bg\JEEP_line</Filter>
     </ClCompile>
     <ClCompile Include="jk_check_circle.cpp">
-      <Filter>Contents\BG\Circle_check\Act1-2</Filter>
+      <Filter>Contents\BG\PlayBG\Circle_check\Act1-2</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Act1_Water.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act1-1</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Water_effect.cpp">
+      <Filter>Contents\BG\PlayBG\Event_bg\Water-Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Act1_2_sky1.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 뒷배경</Filter>
+    </ClCompile>
+    <ClCompile Include="Act1_2_sky2.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 뒷배경</Filter>
+    </ClCompile>
+    <ClCompile Include="Act1_2_sky3.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 뒷배경</Filter>
+    </ClCompile>
+    <ClCompile Include="Act1_2_sky4.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 뒷배경</Filter>
+    </ClCompile>
+    <ClCompile Include="Act1_2_sky5.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 뒷배경</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

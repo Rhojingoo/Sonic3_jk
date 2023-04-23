@@ -131,5 +131,4 @@ namespace jk
 		int jeepline;
 		int check_map;
 	};
-
 }

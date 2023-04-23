@@ -18,6 +18,11 @@
 
 
 #include "jk_Act1_2_BG.h"
+#include "Act1_2_sky1.h"
+#include "Act1_2_sky2.h"
+#include "Act1_2_sky3.h"
+#include "Act1_2_sky4.h"
+#include "Act1_2_sky5.h"
 #include "jk_check_circle.h"
 
 
@@ -44,6 +49,7 @@
 #include "jk_ItemBigRing.h"
 
 #include "jk_Minibos.h"
+
 
 #include "jk_Monster.h"
 #include "jk_Monkey.h"
@@ -82,7 +88,9 @@ namespace jk
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 13100.f,3240.f }); //미니 보스
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2(6450.f, 2940.f)); //집라인 시작
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2(7680.0f, 3660.0f)); //rino위치
-		mSonic->GetComponent<Transform>()->SetPos(Vector2(8712.f, 3396.f)); //집라인 끝위치
+		//mSonic->GetComponent<Transform>()->SetPos(Vector2(8712.f, 3396.f)); //집라인 끝위치
+		mSonic->GetComponent<Transform>()->SetPos(Vector2(3993.f, 1775.f)); //상부배경확인
+		// 
 		//13770.f, 2880.f
 		//8712.f, 3396.f
 
@@ -114,6 +122,49 @@ namespace jk
 		Act1_2_BG* act1_2_BG = new Act1_2_BG();
 		act1_2_BG->SetName(L"act1_2_BG");
 		AddGameobeject(act1_2_BG, jk_LayerType::BG);
+
+		Act1_2_sky1* act1_2_sky1 = new Act1_2_sky1();
+		act1_2_sky1->SetName(L"act1_2_sky1");
+		AddGameobeject(act1_2_sky1, jk_LayerType::foreground);
+		act1_2_sky1->GetComponent<Transform>()->SetPos(Vector2(500.f, 1600.f));
+
+
+		Act1_2_sky1* act1_2_sky1_1 = new Act1_2_sky1();
+		act1_2_sky1_1->SetName(L"act1_2_sky1");
+		AddGameobeject(act1_2_sky1_1, jk_LayerType::foreground);
+		act1_2_sky1_1->GetComponent<Transform>()->SetPos(Vector2(500.f, 1645.f));
+
+
+
+		Act1_2_sky2* act1_2_sky2 = new Act1_2_sky2();
+		act1_2_sky2->SetName(L"act2_sky2");
+		AddGameobeject(act1_2_sky2, jk_LayerType::foreground);
+		act1_2_sky2->GetComponent<Transform>()->SetPos(Vector2(500.f, 1690.f));
+
+
+		Act1_2_sky2* act1_2_sky2_1 = new Act1_2_sky2();
+		act1_2_sky2_1->SetName(L"act2_sky2");
+		AddGameobeject(act1_2_sky2_1, jk_LayerType::foreground);
+		act1_2_sky2_1->GetComponent<Transform>()->SetPos(Vector2(500.f, 2587.f));
+
+
+		Act1_2_sky3* act1_2_sky3 = new Act1_2_sky3();
+		act1_2_sky3->SetName(L"act1_2_sky3");
+		AddGameobeject(act1_2_sky3, jk_LayerType::foreground);
+		act1_2_sky3->GetComponent<Transform>()->SetPos(Vector2(500.f, 3484.f));
+
+
+		Act1_2_sky4* act1_2_sky4 = new Act1_2_sky4();
+		act1_2_sky4->SetName(L"act1_2_sky4");
+		AddGameobeject(act1_2_sky4, jk_LayerType::foreground);
+		act1_2_sky4->GetComponent<Transform>()->SetPos(Vector2(500.f, 3724.f));
+
+
+		Act1_2_sky5* act1_2_sky5 = new Act1_2_sky5();
+		act1_2_sky5->SetName(L"act1_2_sky5");
+		AddGameobeject(act1_2_sky5, jk_LayerType::foreground);
+		act1_2_sky5->GetComponent<Transform>()->SetPos(Vector2(500.f, 4156.f));
+
 
 
 		//배경소품

@@ -143,6 +143,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="acr1_forest2.h" />
+    <ClInclude Include="Act1_2_sky1.h" />
+    <ClInclude Include="Act1_2_sky2.h" />
+    <ClInclude Include="Act1_2_sky3.h" />
+    <ClInclude Include="Act1_2_sky4.h" />
+    <ClInclude Include="Act1_2_sky5.h" />
     <ClInclude Include="act1_forest1.h" />
     <ClInclude Include="Boss_act1_boomb.h" />
     <ClInclude Include="Boss_Run.h" />
@@ -159,6 +164,7 @@
     <ClInclude Include="jk_Act1skyBG.h" />
     <ClInclude Include="jk_Act1_2_BG.h" />
     <ClInclude Include="jk_Act1_3_BG.h" />
+    <ClInclude Include="jk_Act1_Water.h" />
     <ClInclude Include="jk_Airplanetails.h" />
     <ClInclude Include="jk_Animal.h" />
     <ClInclude Include="jk_Animation.h" />
@@ -253,6 +259,7 @@
     <ClInclude Include="JK_TitleSN.h" />
     <ClInclude Include="jk_Titlesonic.h" />
     <ClInclude Include="jk_Transform.h" />
+    <ClInclude Include="jk_Water_effect.h" />
     <ClInclude Include="mBoss_Bl_L.h" />
     <ClInclude Include="mBoss_BL_R.h" />
     <ClInclude Include="mB_Ldeath.h" />
@@ -269,6 +276,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="acr1_forest2.cpp" />
+    <ClCompile Include="Act1_2_sky1.cpp" />
+    <ClCompile Include="Act1_2_sky2.cpp" />
+    <ClCompile Include="Act1_2_sky3.cpp" />
+    <ClCompile Include="Act1_2_sky4.cpp" />
+    <ClCompile Include="Act1_2_sky5.cpp" />
     <ClCompile Include="act1_forest1.cpp" />
     <ClCompile Include="Boss_act1_boomb.cpp" />
     <ClCompile Include="Boss_Run.cpp" />
@@ -283,6 +295,7 @@
     <ClCompile Include="jk_Act1skyBG.cpp" />
     <ClCompile Include="jk_Act1_2_BG.cpp" />
     <ClCompile Include="jk_Act1_3_BG.cpp" />
+    <ClCompile Include="jk_Act1_Water.cpp" />
     <ClCompile Include="jk_Airplanetails.cpp" />
     <ClCompile Include="jk_Animal.cpp" />
     <ClCompile Include="jk_Animation.cpp" />
@@ -375,6 +388,7 @@
     <ClCompile Include="JK_TitleSN.cpp" />
     <ClCompile Include="jk_Titlesonic.cpp" />
     <ClCompile Include="jk_Transform.cpp" />
+    <ClCompile Include="jk_Water_effect.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mBoss_Bl_L.cpp" />
     <ClCompile Include="mBoss_BL_R.cpp" />

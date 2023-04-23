@@ -78,56 +78,59 @@ namespace jk
 
 	void Collapses_GR_left::OnCollisionStay(Collider* other)
 	{
-		if (Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner()))
-		{
-			Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
-			rb->SetGround(true);
-			Transform* tr = GetComponent<Transform>();
-			Vector2 pos = tr->GetPos();
 
-			Collider* mSonic_Col = mSonic->GetComponent<Collider>();
-			Vector2 mSonic_Pos = mSonic_Col->Getpos();
-			Collider* groundCol = this->GetComponent<Collider>();
-			Vector2 groundPos = groundCol->Getpos();
-			Transform* sonicTr = mSonic->GetComponent<Transform>();
-			Transform* grTr = this->GetComponent<Transform>();
-			Vector2 sonic_Pos = sonicTr->GetPos();
-			
-			Vector2 velocity = rb->GetVelocity();
-			velocity.y = 0.0f;
-			rb->SetVelocity(velocity);
-	
-
-			if (!((mSonic->Getsonicstate() == Sonic::eSonicState::Jump) || (mSonic->Getsonicstate() == Sonic::eSonicState::Hurt)))
+			if (Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner()))
 			{
-				sonic_Pos.y = groundCol->Getpos().y - groundCol->GetSize().y / 2.f;
-				check_Gr2 = 1;
-				sonicTr->SetPos(sonic_Pos);
-			}
+				Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
+				rb->SetGround(true);
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->GetPos();
 
-			else
-			{
+				Collider* mSonic_Col = mSonic->GetComponent<Collider>();
+				Vector2 mSonic_Pos = mSonic_Col->Getpos();
+				Collider* groundCol = this->GetComponent<Collider>();
+				Vector2 groundPos = groundCol->Getpos();
+				Transform* sonicTr = mSonic->GetComponent<Transform>();
+				Transform* grTr = this->GetComponent<Transform>();
+				Vector2 sonic_Pos = sonicTr->GetPos();
+
+
 				Vector2 velocity = rb->GetVelocity();
-				velocity.y = -550.0f;
-
+				velocity.y = 0.0f;
 				rb->SetVelocity(velocity);
-				rb->SetGround(false);
 
-				sonic_Pos = sonicTr->GetPos();
-				//sonic_Pos = sonic_Pos + Vector2{ 350.f ,-350.f };
-				sonicTr->SetPos(sonic_Pos);
+
+				if (!((mSonic->Getsonicstate() == Sonic::eSonicState::Jump) || (mSonic->Getsonicstate() == Sonic::eSonicState::Hurt)))
+				{
+					sonic_Pos.y = groundCol->Getpos().y - groundCol->GetSize().y / 2.f;
+					check_Gr2 = 1;
+					sonicTr->SetPos(sonic_Pos);
+				}
+
+				else
+				{
+					Vector2 velocity = rb->GetVelocity();
+					velocity.y = -550.0f;
+
+					rb->SetVelocity(velocity);
+					rb->SetGround(false);
+
+					sonic_Pos = sonicTr->GetPos();
+					//sonic_Pos = sonic_Pos + Vector2{ 350.f ,-350.f };
+					sonicTr->SetPos(sonic_Pos);
+
+				}
 			}
-		}
-		if (check_Gr2 == 1)
-		{
-			time_Gr2 += Time::DeltaTime();
-			if (time_Gr2 >= 3)
+			if (check_Gr2 == 1)
 			{
-				mState = eState::Death;
-				jk::object::Destory(this);
-				return;
+				time_Gr2 += Time::DeltaTime();
+				if (time_Gr2 >= 3)
+				{
+					mState = eState::Death;
+					jk::object::Destory(this);
+					return;
+				}
 			}
-		}
 		
 	}
 
