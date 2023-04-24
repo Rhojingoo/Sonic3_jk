@@ -49,7 +49,11 @@
 #include "jk_Lttle_miniboss.h"
 #include "jk_minibos_show.h"
 #include "jk_Act1_Water.h"
-
+#include "act1_waterfall1.h"
+#include "act1_waterfall2.h"
+#include "act1_waterfall3.h"
+#include "act1_flower1.h"
+#include "act1_flower2.h"
 
 namespace jk
 {
@@ -113,9 +117,55 @@ namespace jk
 		AddGameobeject(act1_Water, jk_LayerType::Blend);
 		act1_Water->SetName(L"act1_Water");
 	
-			
+		act1_waterfall1* waterfall_1 = new act1_waterfall1();
+		AddGameobeject(waterfall_1, jk_LayerType::BG);
+		waterfall_1->SetName(L"waterfall_1");
+		waterfall_1->GetComponent<Transform>()->SetPos(Vector2{ 8825.f,1147.f });
+
+		act1_waterfall2* waterfall_2 = new act1_waterfall2();
+		AddGameobeject(waterfall_2, jk_LayerType::BG);
+		waterfall_2->SetName(L"waterfall_2");
+		waterfall_2->GetComponent<Transform>()->SetPos(Vector2{ 21748.f,1363.f });
+
+		act1_waterfall3* waterfall_3 = new act1_waterfall3();
+		AddGameobeject(waterfall_3, jk_LayerType::BG);
+		waterfall_3->SetName(L"waterfall_3");
+		waterfall_3->GetComponent<Transform>()->SetPos(Vector2{ 29153.f,986.f });//986
+
+		act1_flower1* flower1[8];
+		for (int a = 0; a < 8; a++)
+		{
+			flower1[a] = new act1_flower1();
+			flower1[a]->SetName(L"flower1");
+			AddGameobeject(flower1[a], jk_LayerType::BG);
+		}
+		flower1[0]->GetComponent<Transform>()->SetPos(Vector2{ 12315.0f, 3380.0f });
+		flower1[1]->GetComponent<Transform>()->SetPos(Vector2{ 12520.0f, 3380.0f });
+		flower1[2]->GetComponent<Transform>()->SetPos(Vector2{ 14620.0f, 3000.0f });
+		flower1[3]->GetComponent<Transform>()->SetPos(Vector2{ 14825.0f, 3000.0f });
+		flower1[4]->GetComponent<Transform>()->SetPos(Vector2{ 16920.0f, 3775.0f });
+		flower1[5]->GetComponent<Transform>()->SetPos(Vector2{ 17125.0f, 3775.0f });
+		flower1[6]->GetComponent<Transform>()->SetPos(Vector2{ 23835.0f, 3765.0f });
+		flower1[7]->GetComponent<Transform>()->SetPos(Vector2{ 24040.0f, 3765.0f });
 	
-		
+
+		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 24040.0f, 3765.0f });
+
+		act1_flower2* flower2[3];
+		for (int a = 0; a < 3; a++)
+		{
+			flower2[a] = new act1_flower2();
+			flower2[a]->SetName(L"flower2");
+			AddGameobeject(flower2[a], jk_LayerType::BG);
+		}
+		flower2[0]->GetComponent<Transform>()->SetPos(Vector2{ 13570.0f,3195.0f });
+		flower2[1]->GetComponent<Transform>()->SetPos(Vector2{ 17700.0f, 3585.0f });
+		flower2[2]->GetComponent<Transform>()->SetPos(Vector2{ 21640.0f, 3960.0f });
+
+	
+
+
+
 		//배경소품
 		Spring_Up* spring_Up[2];
 		for (int a = 0; a < 2; a++)

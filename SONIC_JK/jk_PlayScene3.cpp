@@ -18,6 +18,11 @@
 #include "jk_Gameobject.h"
 
 #include "jk_Act1_3_BG.h"
+#include "Act1_2_sky1.h"
+#include "Act1_2_sky2.h"
+#include "Act1_2_sky3.h"
+#include "Act1_2_sky4.h"
+#include "Act1_2_sky5.h"
 #include "jk_Last_Bridge.h"
 
 #include "jk_Ring.h"
@@ -80,6 +85,39 @@ namespace jk
 		Act1_3_BG* act1_3_BG = new Act1_3_BG();
 		act1_3_BG->SetName(L"act1_3_BG");
 		AddGameobeject(act1_3_BG, jk_LayerType::BG);
+
+
+		Act1_2_sky1* act1_2_sky1 = new Act1_2_sky1();
+		act1_2_sky1->SetName(L"act1_2_sky1");
+		AddGameobeject(act1_2_sky1, jk_LayerType::foreground);
+		act1_2_sky1->GetComponent<Transform>()->SetPos(Vector2(0.f, 1988.f));
+
+
+		Act1_2_sky2* act1_2_sky2 = new Act1_2_sky2();
+		act1_2_sky2->SetName(L"act2_sky2");
+		AddGameobeject(act1_2_sky2, jk_LayerType::foreground);
+		act1_2_sky2->GetComponent<Transform>()->SetPos(Vector2(0.f,2043.f));
+
+
+		Act1_2_sky3* act1_2_sky3 = new Act1_2_sky3();
+		act1_2_sky3->SetName(L"act1_2_sky3");
+		AddGameobeject(act1_2_sky3, jk_LayerType::foreground);
+		act1_2_sky3->GetComponent<Transform>()->SetPos(Vector2(500.f,2940.f));
+
+
+		Act1_2_sky4* act1_2_sky4 = new Act1_2_sky4();
+		act1_2_sky4->SetName(L"act1_2_sky4");
+		AddGameobeject(act1_2_sky4, jk_LayerType::foreground);
+		act1_2_sky4->GetComponent<Transform>()->SetPos(Vector2(500.f, 3180.f));
+
+
+		Act1_2_sky5* act1_2_sky5 = new Act1_2_sky5();
+		act1_2_sky5->SetName(L"act1_2_sky5");
+		AddGameobeject(act1_2_sky5, jk_LayerType::foreground);
+		act1_2_sky5->GetComponent<Transform>()->SetPos(Vector2(500.f, 3612.f));
+
+
+
 
 
 		//배경 소품

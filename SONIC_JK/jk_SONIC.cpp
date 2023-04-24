@@ -63,7 +63,9 @@ namespace jk
 		Transform* tr = GetComponent<Transform>();
 		
 		//tr->SetPos(Vector2{ 24132.0f, 2417.0f });//원두번쨰 전
-
+		//tr->SetPos(Vector2{ 21579.f,72.f });//두번째 폭포
+		//tr->SetPos(Vector2{ 28821.f, 1363.f });//마지막폭포
+		
 		//tr->SetPos(Vector2{ 19924.0f, 2625.0f });//돌3
 
 		//tr->SetPos(Vector2{ 18785.0f, 1495.0f });//상부원숭이
@@ -76,7 +78,7 @@ namespace jk
 		//tr->SetPos(Vector2(21480.f, 3450.f));//폭포
 		//tr->SetPos(Vector2(19718.f, 3450.f));//원돌기
 		//tr->SetPos(Vector2{ 26201.f, 3333.f });//밑에 원돌기
-		tr->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
+		//tr->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
 		//tr->SetPos(Vector2{ 29043.0f, 2499.0f });
 	}		
 

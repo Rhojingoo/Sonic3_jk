@@ -148,7 +148,12 @@
     <ClInclude Include="Act1_2_sky3.h" />
     <ClInclude Include="Act1_2_sky4.h" />
     <ClInclude Include="Act1_2_sky5.h" />
+    <ClInclude Include="act1_flower1.h" />
+    <ClInclude Include="act1_flower2.h" />
     <ClInclude Include="act1_forest1.h" />
+    <ClInclude Include="act1_waterfall1.h" />
+    <ClInclude Include="act1_waterfall2.h" />
+    <ClInclude Include="act1_waterfall3.h" />
     <ClInclude Include="Boss_act1_boomb.h" />
     <ClInclude Include="Boss_Run.h" />
     <ClInclude Include="Bullet_Act1_L_DIA.h" />
@@ -281,7 +286,12 @@
     <ClCompile Include="Act1_2_sky3.cpp" />
     <ClCompile Include="Act1_2_sky4.cpp" />
     <ClCompile Include="Act1_2_sky5.cpp" />
+    <ClCompile Include="act1_flower1.cpp" />
+    <ClCompile Include="act1_flower2.cpp" />
     <ClCompile Include="act1_forest1.cpp" />
+    <ClCompile Include="act1_waterfall1.cpp" />
+    <ClCompile Include="act1_waterfall2.cpp" />
+    <ClCompile Include="act1_waterfall3.cpp" />
     <ClCompile Include="Boss_act1_boomb.cpp" />
     <ClCompile Include="Boss_Run.cpp" />
     <ClCompile Include="Bullet_Act1_L_DIA.cpp" />

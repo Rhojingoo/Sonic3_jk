@@ -257,6 +257,15 @@
     <Filter Include="Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 뒷배경">
       <UniqueIdentifier>{3bbff1f1-72fe-4085-a86f-8e5e1cb9c250}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\BG\PlayBG\BG_act1-1\foreground">
+      <UniqueIdentifier>{3b37e9d4-cd90-4dc2-a75b-89aad564b519}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\PlayBG\BG_act1-1\water">
+      <UniqueIdentifier>{07dbca02-d806-45ab-8cd7-d089df68404b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\PlayBG\BG_act1-1\Animation_bg">
+      <UniqueIdentifier>{e4fb581a-ec1d-42ba-bc6e-971b8ac8e6fb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -452,19 +461,7 @@
     <ClInclude Include="jk_Animal.h">
       <Filter>Contents\monster\Animal</Filter>
     </ClInclude>
-    <ClInclude Include="midlesky.h">
-      <Filter>Contents\BG\PlayBG\BG_act1-1</Filter>
-    </ClInclude>
-    <ClInclude Include="acr1_forest2.h">
-      <Filter>Contents\BG\PlayBG\BG_act1-1</Filter>
-    </ClInclude>
-    <ClInclude Include="act1_forest1.h">
-      <Filter>Contents\BG\PlayBG\BG_act1-1</Filter>
-    </ClInclude>
     <ClInclude Include="jk_Act1_BG_object.h">
-      <Filter>Contents\BG\PlayBG\BG_act1-1</Filter>
-    </ClInclude>
-    <ClInclude Include="jk_Act1skyBG.h">
       <Filter>Contents\BG\PlayBG\BG_act1-1</Filter>
     </ClInclude>
     <ClInclude Include="jk_Rock_big.h">
@@ -484,9 +481,6 @@
     </ClInclude>
     <ClInclude Include="jk_Spring_Up.h">
       <Filter>Contents\BG\PlayBG\Event_bg\Spring</Filter>
-    </ClInclude>
-    <ClInclude Include="jk_Sky.h">
-      <Filter>Contents\BG\PlayBG\BG_act1-1</Filter>
     </ClInclude>
     <ClInclude Include="jk_Item.h">
       <Filter>Contents\Item\Change_SONIC</Filter>
@@ -623,9 +617,6 @@
     <ClInclude Include="jk_check_circle.h">
       <Filter>Contents\BG\PlayBG\Circle_check\Act1-2</Filter>
     </ClInclude>
-    <ClInclude Include="jk_Act1_Water.h">
-      <Filter>Contents\BG\PlayBG\BG_act1-1</Filter>
-    </ClInclude>
     <ClInclude Include="jk_Water_effect.h">
       <Filter>Contents\BG\PlayBG\Event_bg\Water-Effect</Filter>
     </ClInclude>
@@ -643,6 +634,39 @@
     </ClInclude>
     <ClInclude Include="Act1_2_sky5.h">
       <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 뒷배경</Filter>
+    </ClInclude>
+    <ClInclude Include="acr1_forest2.h">
+      <Filter>Contents\BG\PlayBG\BG_act1-1\foreground</Filter>
+    </ClInclude>
+    <ClInclude Include="act1_forest1.h">
+      <Filter>Contents\BG\PlayBG\BG_act1-1\foreground</Filter>
+    </ClInclude>
+    <ClInclude Include="midlesky.h">
+      <Filter>Contents\BG\PlayBG\BG_act1-1\foreground</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Act1skyBG.h">
+      <Filter>Contents\BG\PlayBG\BG_act1-1\foreground</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Sky.h">
+      <Filter>Contents\BG\PlayBG\BG_act1-1\foreground</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Act1_Water.h">
+      <Filter>Contents\BG\PlayBG\BG_act1-1\water</Filter>
+    </ClInclude>
+    <ClInclude Include="act1_waterfall1.h">
+      <Filter>Contents\BG\PlayBG\BG_act1-1\Animation_bg</Filter>
+    </ClInclude>
+    <ClInclude Include="act1_waterfall2.h">
+      <Filter>Contents\BG\PlayBG\BG_act1-1\Animation_bg</Filter>
+    </ClInclude>
+    <ClInclude Include="act1_waterfall3.h">
+      <Filter>Contents\BG\PlayBG\BG_act1-1\Animation_bg</Filter>
+    </ClInclude>
+    <ClInclude Include="act1_flower1.h">
+      <Filter>Contents\BG\PlayBG\BG_act1-1\Animation_bg</Filter>
+    </ClInclude>
+    <ClInclude Include="act1_flower2.h">
+      <Filter>Contents\BG\PlayBG\BG_act1-1\Animation_bg</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -830,19 +854,7 @@
     <ClCompile Include="jk_Animal.cpp">
       <Filter>Contents\monster\Animal</Filter>
     </ClCompile>
-    <ClCompile Include="acr1_forest2.cpp">
-      <Filter>Contents\BG\PlayBG\BG_act1-1</Filter>
-    </ClCompile>
-    <ClCompile Include="act1_forest1.cpp">
-      <Filter>Contents\BG\PlayBG\BG_act1-1</Filter>
-    </ClCompile>
     <ClCompile Include="jk_Act1_BG_object.cpp">
-      <Filter>Contents\BG\PlayBG\BG_act1-1</Filter>
-    </ClCompile>
-    <ClCompile Include="jk_Act1skyBG.cpp">
-      <Filter>Contents\BG\PlayBG\BG_act1-1</Filter>
-    </ClCompile>
-    <ClCompile Include="midlesky.cpp">
       <Filter>Contents\BG\PlayBG\BG_act1-1</Filter>
     </ClCompile>
     <ClCompile Include="jk_Rock_big.cpp">
@@ -862,9 +874,6 @@
     </ClCompile>
     <ClCompile Include="jk_Spring_Up.cpp">
       <Filter>Contents\BG\PlayBG\Event_bg\Spring</Filter>
-    </ClCompile>
-    <ClCompile Include="jk_Sky.cpp">
-      <Filter>Contents\BG\PlayBG\BG_act1-1</Filter>
     </ClCompile>
     <ClCompile Include="jk_Item.cpp">
       <Filter>Contents\Item\Change_SONIC</Filter>
@@ -1001,9 +1010,6 @@
     <ClCompile Include="jk_check_circle.cpp">
       <Filter>Contents\BG\PlayBG\Circle_check\Act1-2</Filter>
     </ClCompile>
-    <ClCompile Include="jk_Act1_Water.cpp">
-      <Filter>Contents\BG\PlayBG\BG_act1-1</Filter>
-    </ClCompile>
     <ClCompile Include="jk_Water_effect.cpp">
       <Filter>Contents\BG\PlayBG\Event_bg\Water-Effect</Filter>
     </ClCompile>
@@ -1021,6 +1027,39 @@
     </ClCompile>
     <ClCompile Include="Act1_2_sky5.cpp">
       <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 뒷배경</Filter>
+    </ClCompile>
+    <ClCompile Include="acr1_forest2.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act1-1\foreground</Filter>
+    </ClCompile>
+    <ClCompile Include="act1_forest1.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act1-1\foreground</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Act1skyBG.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act1-1\foreground</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Sky.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act1-1\foreground</Filter>
+    </ClCompile>
+    <ClCompile Include="midlesky.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act1-1\foreground</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Act1_Water.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act1-1\water</Filter>
+    </ClCompile>
+    <ClCompile Include="act1_waterfall1.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act1-1\Animation_bg</Filter>
+    </ClCompile>
+    <ClCompile Include="act1_waterfall2.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act1-1\Animation_bg</Filter>
+    </ClCompile>
+    <ClCompile Include="act1_waterfall3.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act1-1\Animation_bg</Filter>
+    </ClCompile>
+    <ClCompile Include="act1_flower1.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act1-1\Animation_bg</Filter>
+    </ClCompile>
+    <ClCompile Include="act1_flower2.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act1-1\Animation_bg</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
