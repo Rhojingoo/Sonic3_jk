@@ -254,9 +254,6 @@
     <Filter Include="Contents\BG\PlayBG\Event_bg\Water-Effect">
       <UniqueIdentifier>{119e2283-2278-4e62-8a32-f0ef13f5391a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 뒷배경">
-      <UniqueIdentifier>{3bbff1f1-72fe-4085-a86f-8e5e1cb9c250}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\BG\PlayBG\BG_act1-1\foreground">
       <UniqueIdentifier>{3b37e9d4-cd90-4dc2-a75b-89aad564b519}</UniqueIdentifier>
     </Filter>
@@ -265,6 +262,39 @@
     </Filter>
     <Filter Include="Contents\BG\PlayBG\BG_act1-1\Animation_bg">
       <UniqueIdentifier>{e4fb581a-ec1d-42ba-bc6e-971b8ac8e6fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 foreground">
+      <UniqueIdentifier>{3bbff1f1-72fe-4085-a86f-8e5e1cb9c250}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\PlayBG\BG_act1-2\Animation">
+      <UniqueIdentifier>{715a8c2b-baeb-416e-ba11-521a191461ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\PlayBG\BG_act1-2\Animation\Waterfall">
+      <UniqueIdentifier>{f2cf466f-495a-4d6f-8f95-db19fe9df091}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\PlayBG\BG_act1-3\Animation">
+      <UniqueIdentifier>{5e8dc6c9-4271-4f92-b4d3-700fa6d658d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\PlayBG\BG_act6">
+      <UniqueIdentifier>{68648fa6-977d-4a71-a86d-ed963ac4f41e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\Playgame\Act6">
+      <UniqueIdentifier>{451b297e-2324-4d4f-8ada-bff8222d0216}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\PlayBG\BG_act6\foreground">
+      <UniqueIdentifier>{b6084534-aeaf-4f43-826d-fe02dc8e6cf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Boss\Act6_boss_first">
+      <UniqueIdentifier>{34da5369-0cf9-48a0-9a1d-996bd1ce2d4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Boss\Act1_boss\boss_dead_effect">
+      <UniqueIdentifier>{d8225a66-b0fb-4310-8b83-4ca44776da87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Item\Fly_machine">
+      <UniqueIdentifier>{479791d2-4bc6-40b1-875a-f704a2aa5911}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Boss\Act6_ Finall_Stage">
+      <UniqueIdentifier>{4b28bdb3-8fad-4958-8b9e-4c49c1d9603d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -609,8 +639,6 @@
     <ClInclude Include="bullet_wall.h">
       <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
     </ClInclude>
-    <ClInclude Include="Boss_Run.h" />
-    <ClInclude Include="Boss_act1_boomb.h" />
     <ClInclude Include="Jeepline_play.h">
       <Filter>Contents\BG\PlayBG\Event_bg\JEEP_line</Filter>
     </ClInclude>
@@ -621,19 +649,19 @@
       <Filter>Contents\BG\PlayBG\Event_bg\Water-Effect</Filter>
     </ClInclude>
     <ClInclude Include="Act1_2_sky1.h">
-      <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 뒷배경</Filter>
+      <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 foreground</Filter>
     </ClInclude>
     <ClInclude Include="Act1_2_sky2.h">
-      <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 뒷배경</Filter>
+      <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 foreground</Filter>
     </ClInclude>
     <ClInclude Include="Act1_2_sky3.h">
-      <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 뒷배경</Filter>
+      <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 foreground</Filter>
     </ClInclude>
     <ClInclude Include="Act1_2_sky4.h">
-      <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 뒷배경</Filter>
+      <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 foreground</Filter>
     </ClInclude>
     <ClInclude Include="Act1_2_sky5.h">
-      <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 뒷배경</Filter>
+      <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 foreground</Filter>
     </ClInclude>
     <ClInclude Include="acr1_forest2.h">
       <Filter>Contents\BG\PlayBG\BG_act1-1\foreground</Filter>
@@ -667,6 +695,72 @@
     </ClInclude>
     <ClInclude Include="act1_flower2.h">
       <Filter>Contents\BG\PlayBG\BG_act1-1\Animation_bg</Filter>
+    </ClInclude>
+    <ClInclude Include="act2_waterfall1.h">
+      <Filter>Contents\BG\PlayBG\BG_act1-2\Animation\Waterfall</Filter>
+    </ClInclude>
+    <ClInclude Include="act2_waterfall_2.h">
+      <Filter>Contents\BG\PlayBG\BG_act1-2\Animation\Waterfall</Filter>
+    </ClInclude>
+    <ClInclude Include="act2_waterfall3.h">
+      <Filter>Contents\BG\PlayBG\BG_act1-2\Animation\Waterfall</Filter>
+    </ClInclude>
+    <ClInclude Include="act3_waterfall1.h">
+      <Filter>Contents\BG\PlayBG\BG_act1-3\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="act2_water.h">
+      <Filter>Contents\BG\PlayBG\BG_act1-2\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Act6_BG.h">
+      <Filter>Contents\BG\PlayBG\BG_act6</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_PlayScene4.h">
+      <Filter>Contents\Scene\Playgame\Act6</Filter>
+    </ClInclude>
+    <ClInclude Include="act6_sky1.h">
+      <Filter>Contents\BG\PlayBG\BG_act6\foreground</Filter>
+    </ClInclude>
+    <ClInclude Include="act6_sky2.h">
+      <Filter>Contents\BG\PlayBG\BG_act6\foreground</Filter>
+    </ClInclude>
+    <ClInclude Include="act6_sky3.h">
+      <Filter>Contents\BG\PlayBG\BG_act6\foreground</Filter>
+    </ClInclude>
+    <ClInclude Include="act6_sky4.h">
+      <Filter>Contents\BG\PlayBG\BG_act6\foreground</Filter>
+    </ClInclude>
+    <ClInclude Include="act6_sky6.h">
+      <Filter>Contents\BG\PlayBG\BG_act6\foreground</Filter>
+    </ClInclude>
+    <ClInclude Include="act6_sky5.h">
+      <Filter>Contents\BG\PlayBG\BG_act6\foreground</Filter>
+    </ClInclude>
+    <ClInclude Include="act6_sky7.h">
+      <Filter>Contents\BG\PlayBG\BG_act6\foreground</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss_Run.h">
+      <Filter>Contents\Boss\Act1_boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss_act1_boomb.h">
+      <Filter>Contents\Boss\Act1_boss\boss_dead_effect</Filter>
+    </ClInclude>
+    <ClInclude Include="boss_come.h">
+      <Filter>Contents\Boss\Act6_boss_first</Filter>
+    </ClInclude>
+    <ClInclude Include="boss1_body.h">
+      <Filter>Contents\Boss\Act6_boss_first</Filter>
+    </ClInclude>
+    <ClInclude Include="boss1_object.h">
+      <Filter>Contents\Boss\Act6_boss_first</Filter>
+    </ClInclude>
+    <ClInclude Include="act6_bullet1.h">
+      <Filter>Contents\Boss\Act6_boss_first</Filter>
+    </ClInclude>
+    <ClInclude Include="Robotnic_machine.h">
+      <Filter>Contents\Item\Fly_machine</Filter>
+    </ClInclude>
+    <ClInclude Include="finall_stage.h">
+      <Filter>Contents\Boss\Act6_ Finall_Stage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1002,8 +1096,6 @@
     <ClCompile Include="bullet_wall.cpp">
       <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
     </ClCompile>
-    <ClCompile Include="Boss_Run.cpp" />
-    <ClCompile Include="Boss_act1_boomb.cpp" />
     <ClCompile Include="Jeepline_play.cpp">
       <Filter>Contents\BG\PlayBG\Event_bg\JEEP_line</Filter>
     </ClCompile>
@@ -1014,19 +1106,19 @@
       <Filter>Contents\BG\PlayBG\Event_bg\Water-Effect</Filter>
     </ClCompile>
     <ClCompile Include="Act1_2_sky1.cpp">
-      <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 뒷배경</Filter>
+      <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 foreground</Filter>
     </ClCompile>
     <ClCompile Include="Act1_2_sky2.cpp">
-      <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 뒷배경</Filter>
+      <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 foreground</Filter>
     </ClCompile>
     <ClCompile Include="Act1_2_sky3.cpp">
-      <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 뒷배경</Filter>
+      <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 foreground</Filter>
     </ClCompile>
     <ClCompile Include="Act1_2_sky4.cpp">
-      <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 뒷배경</Filter>
+      <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 foreground</Filter>
     </ClCompile>
     <ClCompile Include="Act1_2_sky5.cpp">
-      <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 뒷배경</Filter>
+      <Filter>Contents\BG\PlayBG\BG_act1-2\act1-2~act1-3 foreground</Filter>
     </ClCompile>
     <ClCompile Include="acr1_forest2.cpp">
       <Filter>Contents\BG\PlayBG\BG_act1-1\foreground</Filter>
@@ -1060,6 +1152,72 @@
     </ClCompile>
     <ClCompile Include="act1_flower2.cpp">
       <Filter>Contents\BG\PlayBG\BG_act1-1\Animation_bg</Filter>
+    </ClCompile>
+    <ClCompile Include="act2_waterfall1.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act1-2\Animation\Waterfall</Filter>
+    </ClCompile>
+    <ClCompile Include="act2_waterfall_2.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act1-2\Animation\Waterfall</Filter>
+    </ClCompile>
+    <ClCompile Include="act2_waterfall3.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act1-2\Animation\Waterfall</Filter>
+    </ClCompile>
+    <ClCompile Include="act3_waterfall1.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act1-3\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="act2_water.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act1-2\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Act6_BG.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act6</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_PlayScene4.cpp">
+      <Filter>Contents\Scene\Playgame\Act6</Filter>
+    </ClCompile>
+    <ClCompile Include="act6_sky1.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act6\foreground</Filter>
+    </ClCompile>
+    <ClCompile Include="act6_sky2.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act6\foreground</Filter>
+    </ClCompile>
+    <ClCompile Include="act6_sky3.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act6\foreground</Filter>
+    </ClCompile>
+    <ClCompile Include="act6_sky4.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act6\foreground</Filter>
+    </ClCompile>
+    <ClCompile Include="act6_sky5.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act6\foreground</Filter>
+    </ClCompile>
+    <ClCompile Include="act6_sky6.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act6\foreground</Filter>
+    </ClCompile>
+    <ClCompile Include="act6_sky7.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act6\foreground</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss_Run.cpp">
+      <Filter>Contents\Boss\Act1_boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss_act1_boomb.cpp">
+      <Filter>Contents\Boss\Act1_boss\boss_dead_effect</Filter>
+    </ClCompile>
+    <ClCompile Include="boss_come.cpp">
+      <Filter>Contents\Boss\Act6_boss_first</Filter>
+    </ClCompile>
+    <ClCompile Include="boss1_body.cpp">
+      <Filter>Contents\Boss\Act6_boss_first</Filter>
+    </ClCompile>
+    <ClCompile Include="boss1_object.cpp">
+      <Filter>Contents\Boss\Act6_boss_first</Filter>
+    </ClCompile>
+    <ClCompile Include="act6_bullet1.cpp">
+      <Filter>Contents\Boss\Act6_boss_first</Filter>
+    </ClCompile>
+    <ClCompile Include="Robotnic_machine.cpp">
+      <Filter>Contents\Item\Fly_machine</Filter>
+    </ClCompile>
+    <ClCompile Include="finall_stage.cpp">
+      <Filter>Contents\Boss\Act6_ Finall_Stage</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

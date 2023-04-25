@@ -31,7 +31,7 @@ namespace jk
 	{
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();		
-		pos.y += 150.0f * static_cast<float>(Time::DeltaTime());		
+		pos.x += 150.0f * static_cast<float>(Time::DeltaTime());		
 		tr->SetPos(pos);
 		Gameobject::Update();
 	}

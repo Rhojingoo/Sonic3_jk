@@ -24,6 +24,8 @@
 #include "Act1_2_sky4.h"
 #include "Act1_2_sky5.h"
 #include "jk_Last_Bridge.h"
+#include "act3_waterfall1.h"
+#include "act1_flower1.h"
 
 #include "jk_Ring.h"
 #include "jk_Ring_Falling.h"
@@ -62,8 +64,8 @@ namespace jk
 		mSonic = new Sonic();
 		mSonic->SetName(L"Player");
 		AddGameobeject(mSonic, jk_LayerType::Player);
-		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 600.f, 3285.f });
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 18400.f, 3900.f });//¿Õ ¾Õ
+		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 600.f, 3285.f });
+		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 18400.f, 3900.f });//¿Õ ¾Õ
 		//13770.f, 2880.f
 
 		Tails* tails = new Tails(mSonic);
@@ -79,7 +81,7 @@ namespace jk
 		mSonic->SetCheckTargetGround(playgr);
 		tails->SetCheckTargetGround(playgr);
 		
-			//
+		
 
 		//¹è°æ
 		Act1_3_BG* act1_3_BG = new Act1_3_BG();
@@ -116,8 +118,26 @@ namespace jk
 		AddGameobeject(act1_2_sky5, jk_LayerType::foreground);
 		act1_2_sky5->GetComponent<Transform>()->SetPos(Vector2(500.f, 3612.f));
 
+		act3_waterfall1* waterfall_1 = new act3_waterfall1();
+		AddGameobeject(waterfall_1, jk_LayerType::BG);
+		waterfall_1->SetName(L"waterfall_1");
+		waterfall_1->GetComponent<Transform>()->SetPos(Vector2{ 19269.f, 3974.f });
 
 
+
+
+		act1_flower1* flower1[4];
+		for (int a = 0; a < 4; a++)
+		{
+			flower1[a] = new act1_flower1();
+			flower1[a]->SetName(L"flower1");
+			AddGameobeject(flower1[a], jk_LayerType::BG);
+		}
+		flower1[0]->GetComponent<Transform>()->SetPos(Vector2{ 465.0f, 3330.0f });
+		flower1[1]->GetComponent<Transform>()->SetPos(Vector2{ 700.0f, 3330.0f });
+		flower1[2]->GetComponent<Transform>()->SetPos(Vector2{ 7365.0f, 3650.0f });
+		flower1[3]->GetComponent<Transform>()->SetPos(Vector2{ 7800.0f, 3650.0f });	
+		
 
 
 		//¹è°æ ¼ÒÇ°
@@ -213,9 +233,9 @@ namespace jk
 		Scene::Update();
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
-			SceneManager::LoadScene(jk_SceneType::MiniGameplay);
+			SceneManager::LoadScene(jk_SceneType::GamePlay4);
 			//CreateBlending();
-			check_map = 0;
+			check_map = 3;
 		}
 
 	}

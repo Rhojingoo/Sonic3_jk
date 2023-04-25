@@ -8,6 +8,7 @@ enum class jk_SceneType
 	GamePlay,
 	GamePlay2,
 	GamePlay3,
+	GamePlay4,
 	//Continue,
 	MiniGameplay,
 	Ending,
@@ -33,6 +34,7 @@ enum class jk_LayerType
 	Player2,	
 	Player,
 	Player_smoke,	
+	
 	UI,	
 	Blend,
 	End,

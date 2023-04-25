@@ -65,8 +65,6 @@ namespace jk
 	void Last_Bridge::Render(HDC hdc)
 	{
 
-
-
 		Gameobject::Render(hdc);
 	}
 

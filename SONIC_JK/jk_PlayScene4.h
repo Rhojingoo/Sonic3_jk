@@ -4,13 +4,16 @@
 
 namespace jk
 {
+	class finall_stage;
+	class Robotnic_machine;
+	class boss1_body;
 	class Ground;
 	class Sonic;
-	class PlayScene3 : public Scene
+	class PlayScene4 : public Scene
 	{
 	public:
-		PlayScene3();
-		~PlayScene3();
+		PlayScene4();
+		~PlayScene4();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
@@ -20,16 +23,18 @@ namespace jk
 		virtual void OnEnter() override;
 		virtual void OnExit() override;
 
-
-
 		void CreateBlending();
-		void Create_Boss();
-
+		void Create_Boss1();
+		void Create_Boss2();
+		
 
 
 	private:
 		Ground* playgr;
 		Sonic* mSonic;
+		boss1_body* boss_first;
+		Robotnic_machine* fly_machine;
+		finall_stage* stage_final;
 		int dir;
 		int check_map;
 
@@ -38,5 +43,11 @@ namespace jk
 		int Camera_Switch;
 		int check_boss;
 		int frame_check;
+		int Boss_Death_point;
+		int map_lotation;
+
+
+
+
 	};
 }

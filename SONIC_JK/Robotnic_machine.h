@@ -8,17 +8,18 @@ namespace jk
 {
 	class Rigidbody;
 	class Animator;
-	class Last_Bridge : public Gameobject
+	class Robotnic_machine : public Gameobject
 	{
 	public:
 		enum class eState
-		{	
+		{
 			Idle,
+			Move,
 			Death,
 		};
 
-		Last_Bridge();
-		~Last_Bridge();
+		Robotnic_machine();
+		~Robotnic_machine();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
@@ -30,9 +31,10 @@ namespace jk
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
-	
-	private:	
+
+	private:
 		void idle();
+		void move();
 		void death();
 
 
@@ -40,6 +42,8 @@ namespace jk
 		Gameobject* mOwner;
 		eState mState;
 		Image* mImage;
+		float mSpeed;
+
 
 		Animator* mAnimator;
 		Vector2 pos;

@@ -32,6 +32,9 @@
 #include "Jeepline_play.h"
 #include "jk_Act1_Water.h"
 #include "jk_Water_effect.h"
+#include "Robotnic_machine.h"
+#include "finall_stage.h"
+#include "jk_Collapses_GR_left.h"
 
 int ringpoint = 0;
 int Elect = 0;
@@ -318,6 +321,8 @@ namespace jk
 		Gameobject::Release();
 	}
 
+
+
 		void Sonic::OnCollisionEnter(Collider* other)
 		{
 
@@ -507,6 +512,28 @@ namespace jk
 					}
 				}
 
+
+				//Collapses_Ground(left) 绝绢瘤绰顶
+				if (Collapses_GR_left* collapses_Ground = dynamic_cast<Collapses_GR_left*>(other->GetOwner()))
+				{
+					Vector2 Collapses_Gr = collapses_Ground->GetComponent<Transform>()->GetPos();
+					Transform* tr = GetComponent<Transform>();
+					Vector2 msonic = tr->GetPos();
+
+
+					if (mDir == 1)
+					{
+						mState = eSonicState::Idle;
+						mAnimator->Play(L"RSonicStand", true);
+					}
+					else if (mDir == -1)
+					{
+						mState = eSonicState::Idle;
+						mAnimator->Play(L"LSonicStand", true);
+					}
+				}
+
+
 				//Move_GR 面倒贸府
 				if (Move_GR* move_GR = dynamic_cast<Move_GR*>(other->GetOwner()))
 				{
@@ -527,6 +554,49 @@ namespace jk
 					}
 				}
 				
+
+				//finall_stage 面倒贸府
+				if (finall_stage* stage = dynamic_cast<finall_stage*>(other->GetOwner()))
+				{
+					Vector2 fly_machine_pos = stage->GetComponent<Transform>()->GetPos();
+					Transform* tr = GetComponent<Transform>();
+					Vector2 msonic = tr->GetPos();
+
+
+					if (mDir == 1)
+					{
+						mState = eSonicState::Idle;
+						mAnimator->Play(L"RSonicStand", true);
+					}
+					else if (mDir == -1)
+					{
+						mState = eSonicState::Idle;
+						mAnimator->Play(L"LSonicStand", true);
+					}
+				}
+
+
+				//Robotnic_machine 面倒贸府
+				if (Robotnic_machine* fly_machine = dynamic_cast<Robotnic_machine*>(other->GetOwner()))
+				{
+					Vector2 fly_machine_pos = fly_machine->GetComponent<Transform>()->GetPos();
+					Transform* tr = GetComponent<Transform>();
+					Vector2 msonic = tr->GetPos();
+
+
+					if (mDir == 1)
+					{
+						mState = eSonicState::Idle;
+						mAnimator->Play(L"RSonicStand", true);
+					}
+					else if (mDir == -1)
+					{
+						mState = eSonicState::Idle;
+						mAnimator->Play(L"LSonicStand", true);
+					}
+				}
+
+
 				//last_Bridge 面倒贸府
 				if (Last_Bridge* last_Bridge = dynamic_cast<Last_Bridge*>(other->GetOwner()))
 					{
@@ -876,6 +946,8 @@ namespace jk
 				}
 			}
 	}
+
+
 
 		void Sonic::idle()
 		{

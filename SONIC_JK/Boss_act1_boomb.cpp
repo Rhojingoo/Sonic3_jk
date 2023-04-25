@@ -14,11 +14,14 @@
 namespace jk
 {
 	Boss_act1_boomb::Boss_act1_boomb(Gameobject* owner)
+		:Death_point(0)
 	{
 		mImage = Resources::Load<Image>(L"ROBOT", L"..\\Resources\\ROBOT.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"L_Boss_run", mImage, Vector2{ 625,1118 }, Vector2{ 116,88 }, Vector2{ 4,0 }, 9, 1, 9, Vector2::Zero, 0.1f);
 		mAnimator->Play(L"L_Boss_run", true);
+		mOwner = owner;
+
 	}
 	Boss_act1_boomb::~Boss_act1_boomb()
 	{
@@ -29,6 +32,14 @@ namespace jk
 	}
 	void Boss_act1_boomb::Update()
 	{
+		Transform* tr = GetComponent<Transform>();
+		tr->SetPos(mOwner->GetComponent<Transform>()->GetPos());
+
+		//if (Death_point == 1)
+		//{
+		//	object::Destory(this);
+		//}
+
 		Gameobject::Update();
 	}
 	void Boss_act1_boomb::Render(HDC hdc)

@@ -1,48 +1,70 @@
 #pragma once
 #include "jk_Gameobject.h"
-#include "jk_Image.h"
 #include "jk_SONIC.h"
-#include "jk_Animator.h"
+#include "jk_Image.h"
+#include "jk_Time.h"
+
 
 namespace jk
 {
+	class boss1_object;
 	class Rigidbody;
 	class Animator;
-	class Last_Bridge : public Gameobject
+	class finall_stage : public Gameobject
 	{
 	public:
-		enum class eState
-		{	
+		enum class eBossState
+		{
 			Idle,
+			Move,
 			Death,
 		};
 
-		Last_Bridge();
-		~Last_Bridge();
+		finall_stage();
+		~finall_stage();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void Render(HDC hdc) override;
 		virtual void Release() override;
 
-
 		virtual void OnCollisionEnter(class Collider* other) override;
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
-	
-	private:	
+		void Set_move_stage(int check) {check_map = check;}
+
+
+	private:
 		void idle();
+		void move();
 		void death();
 
 
 	private:
-		Gameobject* mOwner;
-		eState mState;
 		Image* mImage;
-
+		Image* mGroundImage;
 		Animator* mAnimator;
+		Rigidbody* mRigidbody;
+
 		Vector2 pos;
-		Vector2 mSonic;
+		Vector2 mCenterpos;
+		float mSpeed;
+		float mMonmaxdistance;
+		float fDist;
+		int mDir;
+
+		Sonic::eSonicState sonicState;
+		eBossState mState;
+		float time;
+		int Death_point;
+		int Damege_check;
+		boss1_object* boss_ob;
+
+
+		Ground* check;
+		int check_map;
+		
+
 	};
 }

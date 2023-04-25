@@ -7,44 +7,54 @@
 
 namespace jk
 {
+	class Ground;
+	class Rigidbody;
 	class Animator;
-	class Boss_act1_boomb : public Gameobject
+	class boss_come : public Gameobject
 	{
 	public:
 		enum class eBossState
 		{
 			Move,
+			Jump,
 		};
 
-		Boss_act1_boomb(Gameobject* owner);
-		~Boss_act1_boomb();
+		boss_come(Gameobject* owner);
+		~boss_come();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void Render(HDC hdc) override;
 		virtual void Release() override;
 
-		void Set_Death_point(int point) { Death_point = point; }
+		virtual void OnCollisionEnter(class Collider* other) override;
+		virtual void OnCollisionStay(class Collider* other) override;
+		virtual void OnCollisionExit(class Collider* other) override;
+
+
+		void SetGroundImage(Image* image) { mGroundImage = image; }
+		void SetCheckTargetGround(Ground* ground) { check = ground; }
 
 	private:
 		void move();
+		void jump();
 
 	private:
 		Image* mImage;
 		Animator* mAnimator;
+		Rigidbody* mRigidbody;
 		Vector2 mCenterpos;
 		Vector2 pos;
-
-		Gameobject* mOwner;
-
 		float mMonspeed;
 		float mMonmaxdistance;
+
+		Image* mGroundImage;
+		Ground* check;
+
 		int mDir;
 		float fDist;
 		eBossState mState;
 		float time;
-
-		int Death_point;
-
+		int check_map;
 	};
 }

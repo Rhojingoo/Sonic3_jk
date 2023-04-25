@@ -56,6 +56,45 @@ namespace jk
 	}
 	void Callapses::OnCollisionEnter(Collider* other)
 	{
+		if (Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner()))
+		{
+			Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
+			rb->SetGround(true);
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->GetPos();
+
+			Collider* mSonic_Col = mSonic->GetComponent<Collider>();
+			Vector2 mSonic_Pos = mSonic_Col->Getpos();
+			Collider* groundCol = this->GetComponent<Collider>();
+			Vector2 groundPos = groundCol->Getpos();
+			Transform* sonicTr = mSonic->GetComponent<Transform>();
+			Transform* grTr = this->GetComponent<Transform>();
+			Vector2 sonic_Pos = sonicTr->GetPos();
+
+
+			Vector2 velocity = rb->GetVelocity();
+			velocity.y = 0.0f;
+			rb->SetVelocity(velocity);
+
+
+			if (!((mSonic->Getsonicstate() == Sonic::eSonicState::Jump) || (mSonic->Getsonicstate() == Sonic::eSonicState::Hurt)))
+			{
+				sonic_Pos.y = groundCol->Getpos().y - groundCol->GetSize().y / 2.f;			
+				sonicTr->SetPos(sonic_Pos);
+			}
+
+			else
+			{
+				Vector2 velocity = rb->GetVelocity();
+				velocity.y = -550.0f;
+
+				rb->SetVelocity(velocity);
+				rb->SetGround(false);
+				sonic_Pos = sonicTr->GetPos();
+			
+				sonicTr->SetPos(sonic_Pos);
+			}
+		}
 	}
 	void Callapses::OnCollisionStay(Collider* other)
 	{

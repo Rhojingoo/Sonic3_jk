@@ -76,6 +76,9 @@ namespace jk
 
 		Ground_Image3 = Resources::Load<Image>(L"Ground_Image3", L"..\\Resources\\ActBG_1_3\\Ground_Act1_3.bmp");
 
+
+		Ground_Image4 = Resources::Load<Image>(L"Ground_Image4", L"..\\Resources\\ActBG_6\\act 6-boss_ground.bmp");
+
 		Gameobject::Initialize();
 	}
 
@@ -330,8 +333,15 @@ namespace jk
 
 		if (map_chek == 2)
 		{
-			TransparentBlt(hdc, 0, 0, 1200, 840, Ground_Image3->GetHdc(), mpos.x, mpos.y, 1200, 840, RGB(255, 255, 255));
+			//TransparentBlt(hdc, 0, 0, 1200, 840, Ground_Image3->GetHdc(), mpos.x, mpos.y, 1200, 840, RGB(255, 255, 255));
 		}
+
+		if (map_chek == 3)
+		{
+			TransparentBlt(hdc, 0, 0, 1200, 840, Ground_Image4->GetHdc(), mpos.x, mpos.y, 1200, 840, RGB(255, 255, 255));
+		}
+
+
 
 	}
 
@@ -828,6 +838,131 @@ namespace jk
 			}
 		}
 
+		////////////소닉 발판 Act6//////////
+		if (map_chek == 3)
+		{
+
+			float Xrevice = 40.0f;
+			float Yrevice = 100.0f;
+			COLORREF playerFootPosColor = Ground_Image4->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+			if (playerFootPosColor == GROUNDCOLOR)
+			{
+				COLORREF colorUp = Ground_Image4->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+				mPlayerRigidBody->SetGround(true);
+				if (colorUp == GROUNDCOLOR)
+				{
+					while (colorUp == GROUNDCOLOR)
+					{
+						playerPos.y -= 1;
+						colorUp = Ground_Image4->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+					}
+
+					mPlayerTR->SetPos(playerPos);
+				}
+			}
+			else
+			{
+				int check = 30;
+
+				if ((mPlayer->Getsonicstate() == Sonic::eSonicState::Jump) || (mPlayer->Getsonicstate() == Sonic::eSonicState::Hurt) || (mPlayer->Getsonicstate() == Sonic::eSonicState::Spring_Jump))
+				{
+					check = 2;
+				}
+
+
+				COLORREF colorDown = Ground_Image4->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice + check);
+				if (colorDown == GROUNDCOLOR)
+				{
+					playerPos.y += check - 1;
+					COLORREF colorUp = Ground_Image4->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+					while (colorUp == GROUNDCOLOR)
+					{
+						playerPos.y -= 1;
+						colorUp = Ground_Image4->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+					}
+					mPlayerTR->SetPos(playerPos);
+				}
+				else
+				{
+					mPlayerRigidBody->SetGround(false);
+				}
+			}
+
+			//소닉 그라운드벽면		
+			float Xrevice_side = 0.0f;
+			float Yrevice_side = 50.0f;
+
+			//오른쪽벽 	WallCheck가 1일땐 오른쪽으로 미는 모션, -1일떈 왼쪽으로 미는 모션, 0일땐 그냥 아이들상태(소닉에서 설정필요)
+			COLORREF player_R_Side_PosColor = Ground_Image4->GetPixel(playerPos.x + 80.f, playerPos.y + Yrevice_side);
+			if (player_R_Side_PosColor == WALLCOLOR)
+			{
+				COLORREF color_Push_Right = Ground_Image4->GetPixel(playerPos.x + 80.f, playerPos.y + Yrevice_side);
+				mPlayerRigidBody->SetGround(true);
+				if (color_Push_Right == WALLCOLOR)
+				{
+					while (color_Push_Right == WALLCOLOR)
+					{
+						playerPos.x -= 1;
+						color_Push_Right = Ground_Image4->GetPixel(playerPos.x + 80.f, playerPos.y + Yrevice_side);
+						WallCheck = 1;
+					}
+					mPlayerTR->SetPos(playerPos);
+				}
+			}
+			else
+			{
+				WallCheck = 0;
+			}
+
+			//왼쪽벽
+			COLORREF player_L_Side_PosColor = Ground_Image4->GetPixel(playerPos.x + 0.f, playerPos.y + Yrevice_side);
+			if (player_L_Side_PosColor == WALLCOLOR)
+			{
+				COLORREF color_Push_Left = Ground_Image4->GetPixel(playerPos.x + 0.f, playerPos.y + Yrevice_side);
+				mPlayerRigidBody->SetGround(true);
+				if (color_Push_Left == WALLCOLOR)
+				{
+					while (color_Push_Left == WALLCOLOR)
+					{
+						playerPos.x += 1;
+						color_Push_Left = Ground_Image4->GetPixel(playerPos.x + 0.f, playerPos.y + Yrevice_side);
+						WallCheck = 1;
+					}
+					mPlayerTR->SetPos(playerPos);
+				}
+			}
+			else
+			{
+				WallCheck = 0;
+			}
+
+
+			//위쪽면
+			COLORREF player_UP_Side_PosColor = Ground_Image4->GetPixel(playerPos.x + 40.f, playerPos.y - 20.f);
+			if (player_UP_Side_PosColor == WALLCOLOR)
+			{
+				COLORREF color_Push_DOWN = Ground_Image4->GetPixel(playerPos.x + 40.f, playerPos.y - 20.f);
+				mPlayerRigidBody->SetGround(true);
+				if (color_Push_DOWN == WALLCOLOR)
+				{
+					while (color_Push_DOWN == WALLCOLOR)
+					{
+						playerPos.y += 1;
+						color_Push_DOWN = Ground_Image4->GetPixel(playerPos.x + 40.f, playerPos.y - 20.f);
+						WallCheck = 1;
+					}
+					mPlayerTR->SetPos(playerPos);
+				}
+			}
+			else
+			{
+				WallCheck = 0;
+			}
+		}
+
+
+
+
 		//Ground_Image3
 
 		///////테일즈 발판 act1-1//////////
@@ -922,7 +1057,7 @@ namespace jk
 			}
 		}
 
-		///////테일즈 발판 act1-2//////////
+		///////테일즈 발판 act1-3//////////
 		if (map_chek == 2)
 		{
 			COLORREF tailsFootPosColor = Ground_Image3->GetPixel(playerPos_Tails.x + 75.f, playerPos_Tails.y + 100.f + 1);
@@ -958,6 +1093,52 @@ namespace jk
 					{
 						playerPos_Tails.y -= 1;
 						colorUp = Ground_Image3->GetPixel(playerPos_Tails.x, playerPos_Tails.y + 100);
+					}
+					mPlayer_Tails_TR->SetPos(playerPos_Tails);
+				}
+				else
+				{
+					mRigidbody_Tails->SetGround(false);
+				}
+			}
+		}
+
+		///////테일즈 발판 act6//////////
+		if (map_chek == 3)
+		{
+			COLORREF tailsFootPosColor = Ground_Image4->GetPixel(playerPos_Tails.x + 75.f, playerPos_Tails.y + 100.f + 1);
+			if (tailsFootPosColor == GROUNDCOLOR)
+			{
+				COLORREF colorUp = Ground_Image4->GetPixel(playerPos_Tails.x + 75.f, playerPos_Tails.y + 100.f);
+				mRigidbody_Tails->SetGround(true);
+				if (colorUp == GROUNDCOLOR)
+				{
+					while (colorUp == GROUNDCOLOR)
+					{
+						playerPos_Tails.y -= 1;
+						colorUp = Ground_Image4->GetPixel(playerPos_Tails.x + 75.f, playerPos_Tails.y + 100.f);
+					}
+					mPlayer_Tails_TR->SetPos(playerPos_Tails);
+				}
+
+			}
+			else
+			{
+				int check = 30;
+				if (mPlayer2->GetTails_state() == Tails::eTailsState::Jump)
+				{
+					//mRigidbody_Tails->SetVelocity(Vector2{ 0.0f,-450.f });
+					check = 2;
+				}
+				COLORREF colorDown = Ground_Image4->GetPixel(playerPos_Tails.x, playerPos_Tails.y + 100 + check);
+				if (colorDown == RGB(0, 0, 0))
+				{
+					playerPos_Tails.y += check - 1;
+					COLORREF colorUp = Ground_Image4->GetPixel(playerPos_Tails.x, playerPos_Tails.y + 100);
+					while (colorUp == RGB(0, 0, 0))
+					{
+						playerPos_Tails.y -= 1;
+						colorUp = Ground_Image4->GetPixel(playerPos_Tails.x, playerPos_Tails.y + 100);
 					}
 					mPlayer_Tails_TR->SetPos(playerPos_Tails);
 				}

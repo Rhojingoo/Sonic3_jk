@@ -79,7 +79,7 @@ namespace jk
 		mSonic = new Sonic();
 		mSonic->SetName(L"Player");
 		AddGameobeject(mSonic, jk_LayerType::Player);
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
+		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
 
 
 		mTails = new Tails(mSonic);
@@ -147,9 +147,7 @@ namespace jk
 		flower1[5]->GetComponent<Transform>()->SetPos(Vector2{ 17125.0f, 3775.0f });
 		flower1[6]->GetComponent<Transform>()->SetPos(Vector2{ 23835.0f, 3765.0f });
 		flower1[7]->GetComponent<Transform>()->SetPos(Vector2{ 24040.0f, 3765.0f });
-	
-
-		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 24040.0f, 3765.0f });
+		
 
 		act1_flower2* flower2[3];
 		for (int a = 0; a < 3; a++)

@@ -54,6 +54,15 @@ namespace jk
 		}
 
 
+		class Image* GetGroundImage4()
+		{
+			if (!Ground_Image4)
+				return nullptr;
+
+			return Ground_Image4;
+		}
+
+
 
 
 	public:
@@ -108,6 +117,10 @@ namespace jk
 
 		//act1-3 이미지
 		class Image* Ground_Image3;
+
+
+		//act6 이미지
+		class Image* Ground_Image4;
 
 
 		int mDirect;

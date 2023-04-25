@@ -2,6 +2,7 @@
 #include "jk_PlayScene.h"
 #include "jk_PlayScene2.h"
 #include "jk_PlayScene3.h"
+#include "jk_PlayScene4.h"
 #include "jk_TitleScene.h"
 #include "jk_EndingScene.h"
 #include "jk_ChatarcterChoiseSC.h"
@@ -31,8 +32,11 @@ namespace jk
 		mScenes[(UINT)jk_SceneType::GamePlay2]->SetName(L"Act1-2");
 
 		mScenes[(UINT)jk_SceneType::GamePlay3] = new PlayScene3();
-		mScenes[(UINT)jk_SceneType::GamePlay3]->SetName(L"Act1-3");
-	
+		mScenes[(UINT)jk_SceneType::GamePlay3]->SetName(L"Act1-3");	
+
+		mScenes[(UINT)jk_SceneType::GamePlay4] = new PlayScene4();
+		mScenes[(UINT)jk_SceneType::GamePlay4]->SetName(L"Act6");
+
 		mScenes[(UINT)jk_SceneType::MiniGameplay] = new MinigameScene();
 		mScenes[(UINT)jk_SceneType::MiniGameplay]->SetName(L"MiniGameplay");
 

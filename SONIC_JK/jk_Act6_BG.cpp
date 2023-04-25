@@ -1,4 +1,4 @@
-#include "jk_Act1_3_BG.h"
+#include "jk_Act6_BG.h"
 #include "jk_Time.h"
 #include "jk_SceneManager.h"
 #include "jk_Input.h"
@@ -7,38 +7,37 @@
 #include "jk_Camera.h"
 #include "jk_SONIC.h"
 
+
 namespace jk
 {
-	Act1_3_BG::Act1_3_BG()
-		:Check_BG(0)
-		, mSonic_pos(0.f, 0.f)
+	jk_Act6_BG::jk_Act6_BG()
 	{
 	}
-	Act1_3_BG::~Act1_3_BG()
+	jk_Act6_BG::~jk_Act6_BG()
 	{
 	}
-	void Act1_3_BG::Initialize()
+	void jk_Act6_BG::Initialize()
 	{
-		mImage = Resources::Load<Image>(L"BG_Act1_3", L"..\\Resources\\ActBG_1_3\\BG_Act1_3.bmp");
-	
+		mImage = Resources::Load<Image>(L"act 6-Boss_map", L"..\\Resources\\ActBG_6\\act 6-Boss_map.bmp");
+
 		Gameobject::Initialize();
 	}
-	void Act1_3_BG::Update()
+	void jk_Act6_BG::Update()
 	{
 		Gameobject::Update();
 	}
-	void Act1_3_BG::Render(HDC hdc)
+	void jk_Act6_BG::Render(HDC hdc)
 	{
 		Transform* tr = GetComponent<Transform>();
 
 		Vector2 pos = tr->GetPos();
 		Vector2 mpos = pos - (Camera::CaluatePos(pos) - pos);
 
-		TransparentBlt(hdc, 0, 0, 1200, 840, mImage->GetHdc(), mpos.x, mpos.y, 1200, 840, RGB(4, 20, 83));
+		TransparentBlt(hdc, 0, 0, 1200, 840, mImage->GetHdc(), mpos.x, mpos.y, 1200, 840, RGB(13,72, 7));
 
 		Gameobject::Render(hdc);
 	}
-	void Act1_3_BG::Release()
+	void jk_Act6_BG::Release()
 	{
 		Gameobject::Release();
 	}

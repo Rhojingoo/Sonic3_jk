@@ -24,6 +24,12 @@
 #include "Act1_2_sky4.h"
 #include "Act1_2_sky5.h"
 #include "jk_check_circle.h"
+#include "act2_waterfall1.h"
+#include "act2_waterfall_2.h"
+#include "act2_waterfall3.h"
+#include "act1_flower1.h"
+#include "act1_flower2.h"
+#include "act2_water.h"
 
 
 #include "jk_Rock_small.h"
@@ -84,12 +90,13 @@ namespace jk
 		mSonic = new Sonic();
 		mSonic->SetName(L"Player");
 		AddGameobeject(mSonic, jk_LayerType::Player);
+		mSonic->GetComponent<Transform>()->SetPos(Vector2(7755.0f, 5070.0f));//워터시작
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2(661.f, 3033.f)); //시작위치
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 13100.f,3240.f }); //미니 보스
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2(6450.f, 2940.f)); //집라인 시작
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2(7680.0f, 3660.0f)); //rino위치
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2(8712.f, 3396.f)); //집라인 끝위치
-		mSonic->GetComponent<Transform>()->SetPos(Vector2(3993.f, 1775.f)); //상부배경확인
+		//mSonic->GetComponent<Transform>()->SetPos(Vector2(3993.f, 1775.f)); //상부배경확인
 		// 
 		//13770.f, 2880.f
 		//8712.f, 3396.f
@@ -123,10 +130,28 @@ namespace jk
 		act1_2_BG->SetName(L"act1_2_BG");
 		AddGameobeject(act1_2_BG, jk_LayerType::BG);
 
+
+		Act1_2_sky1* sky = new Act1_2_sky1();
+		sky->SetName(L"act1_2_sky1");
+		AddGameobeject(sky, jk_LayerType::foreground);
+		sky->GetComponent<Transform>()->SetPos(Vector2(100.f, 1465.f));
+
+
+		Act1_2_sky1* act1_2_sky = new Act1_2_sky1();
+		act1_2_sky->SetName(L"act1_2_sky1");
+		AddGameobeject(act1_2_sky, jk_LayerType::foreground);
+		act1_2_sky->GetComponent<Transform>()->SetPos(Vector2(200.f, 1510.f));
+
+
+		Act1_2_sky1* act1_2_sky0 = new Act1_2_sky1();
+		act1_2_sky0->SetName(L"act1_2_sky1");
+		AddGameobeject(act1_2_sky0, jk_LayerType::foreground);
+		act1_2_sky0->GetComponent<Transform>()->SetPos(Vector2(300.f, 1555.f));
+
 		Act1_2_sky1* act1_2_sky1 = new Act1_2_sky1();
 		act1_2_sky1->SetName(L"act1_2_sky1");
 		AddGameobeject(act1_2_sky1, jk_LayerType::foreground);
-		act1_2_sky1->GetComponent<Transform>()->SetPos(Vector2(500.f, 1600.f));
+		act1_2_sky1->GetComponent<Transform>()->SetPos(Vector2(400.f, 1600.f));
 
 
 		Act1_2_sky1* act1_2_sky1_1 = new Act1_2_sky1();
@@ -145,25 +170,78 @@ namespace jk
 		Act1_2_sky2* act1_2_sky2_1 = new Act1_2_sky2();
 		act1_2_sky2_1->SetName(L"act2_sky2");
 		AddGameobeject(act1_2_sky2_1, jk_LayerType::foreground);
-		act1_2_sky2_1->GetComponent<Transform>()->SetPos(Vector2(500.f, 2587.f));
+		act1_2_sky2_1->GetComponent<Transform>()->SetPos(Vector2(500.f, 2287.f));//2386.5
+
+		//448.5
+		Act1_2_sky2* act1_2_sky2_2 = new Act1_2_sky2();
+		act1_2_sky2_2->SetName(L"act2_sky2");
+		AddGameobeject(act1_2_sky2_2, jk_LayerType::foreground);
+		act1_2_sky2_2->GetComponent<Transform>()->SetPos(Vector2(500.f, 2735.f));//3236,897
 
 
 		Act1_2_sky3* act1_2_sky3 = new Act1_2_sky3();
 		act1_2_sky3->SetName(L"act1_2_sky3");
 		AddGameobeject(act1_2_sky3, jk_LayerType::foreground);
-		act1_2_sky3->GetComponent<Transform>()->SetPos(Vector2(500.f, 3484.f));
+		act1_2_sky3->GetComponent<Transform>()->SetPos(Vector2(500.f, 3632.f));//3484
+
 
 
 		Act1_2_sky4* act1_2_sky4 = new Act1_2_sky4();
 		act1_2_sky4->SetName(L"act1_2_sky4");
 		AddGameobeject(act1_2_sky4, jk_LayerType::foreground);
-		act1_2_sky4->GetComponent<Transform>()->SetPos(Vector2(500.f, 3724.f));
+		act1_2_sky4->GetComponent<Transform>()->SetPos(Vector2(500.f,3872.f));//4172.5
 
 
 		Act1_2_sky5* act1_2_sky5 = new Act1_2_sky5();
 		act1_2_sky5->SetName(L"act1_2_sky5");
 		AddGameobeject(act1_2_sky5, jk_LayerType::foreground);
-		act1_2_sky5->GetComponent<Transform>()->SetPos(Vector2(500.f, 4156.f));
+		act1_2_sky5->GetComponent<Transform>()->SetPos(Vector2(500.f, 4304.f));
+		
+
+		act2_waterfall1* waterfall_1 = new act2_waterfall1();
+		AddGameobeject(waterfall_1, jk_LayerType::BG);
+		waterfall_1->SetName(L"waterfall_1");
+		waterfall_1->GetComponent<Transform>()->SetPos(Vector2{ 304.f,2987.f });//56/968
+
+	
+		act2_waterfall_2* waterfall_2 = new act2_waterfall_2();
+		AddGameobeject(waterfall_2, jk_LayerType::BG);
+		waterfall_2->SetName(L"waterfall_2");
+		waterfall_2->GetComponent<Transform>()->SetPos(Vector2{ 4490.f,3009.f });//1432,710
+
+
+		
+
+		act2_waterfall3* waterfall_3 = new act2_waterfall3();
+		AddGameobeject(waterfall_3, jk_LayerType::BG);
+		waterfall_3->SetName(L"waterfall_3");
+		waterfall_3->GetComponent<Transform>()->SetPos(Vector2{ 6922.f,3265.f });//2200,838
+
+
+		act2_water* act2_Water = new act2_water();
+		AddGameobeject(act2_Water, jk_LayerType::Blend);
+		act2_Water->SetName(L"act2_Water");
+
+
+		act1_flower1* flower1[6];
+		for (int a = 0; a < 6; a++)
+		{
+			flower1[a] = new act1_flower1();
+			flower1[a]->SetName(L"flower1");
+			AddGameobeject(flower1[a], jk_LayerType::BG);
+		}
+		flower1[0]->GetComponent<Transform>()->SetPos(Vector2{5025.0f, 4965.0f });
+		flower1[1]->GetComponent<Transform>()->SetPos(Vector2{ 5325.0f, 4965.0f });
+		flower1[2]->GetComponent<Transform>()->SetPos(Vector2{ 7755.0f, 5070.0f });
+		flower1[3]->GetComponent<Transform>()->SetPos(Vector2{ 8055.0f, 5070.0f });
+		flower1[4]->GetComponent<Transform>()->SetPos(Vector2{ 13155.0f, 3330.0f });
+		flower1[5]->GetComponent<Transform>()->SetPos(Vector2{ 13455.0f, 3330.0f });
+
+	
+
+
+
+
 
 
 
