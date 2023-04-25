@@ -294,6 +294,8 @@
     <ClInclude Include="Rigdbody_R.h" />
     <ClInclude Include="Rigidbody.h" />
     <ClInclude Include="Robotnic_machine.h" />
+    <ClInclude Include="Second_Boss.h" />
+    <ClInclude Include="Second_boss_bullet.h" />
     <ClInclude Include="SonicState.h" />
     <ClInclude Include="SONIC_Engine.h" />
     <ClInclude Include="SONIC_JK.h" />
@@ -448,6 +450,8 @@
     <ClCompile Include="Rigdbody_R.cpp" />
     <ClCompile Include="Rigidbody.cpp" />
     <ClCompile Include="Robotnic_machine.cpp" />
+    <ClCompile Include="Second_Boss.cpp" />
+    <ClCompile Include="Second_boss_bullet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SONIC_JK.rc" />

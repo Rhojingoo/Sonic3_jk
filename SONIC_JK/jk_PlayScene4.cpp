@@ -33,6 +33,8 @@
 #include "boss1_object.h"
 #include "finall_stage.h"
 
+#include "Second_Boss.h"
+
 
 #include "jk_Ring.h"
 #include "jk_Ring_Falling.h"
@@ -228,17 +230,17 @@ namespace jk
 		}
 
 		Vector2 sonic_pos = mSonic->GetComponent<Transform>()->GetPos();
-		if ((Boss_Death_point == 0) && (sonic_pos.x >= 6050.f))
+		if ((Boss_Death_point == 0) && (sonic_pos.x >= 6050.f)) //카메라 스위치 변경하면서 보스1 출현
 		{
 			Camera_Switch = 1;
 		}
-		else if ((Boss_Death_point == 1) && (sonic_pos.x >= 6050.f))
+		else if ((Boss_Death_point == 1) && (sonic_pos.x >= 6150.f))
 		{
 			Camera_Switch = 0;		
 			boss_first->Set__BossDeath(2);
 		}
 
-		if (map_lotation == 0)
+		if (map_lotation == 0)//LAST STAGE FIRE
 		{
 			if (sonic_pos.x >= 9500.f)
 			{
@@ -247,16 +249,17 @@ namespace jk
 			}
 		}
 
-		if (map_lotation == 1)
+		if (map_lotation == 1)//SECOND BOSS START
 		{
 			if (sonic_pos.x >= 14350.f)
 			{			
 				Camera_Switch = 1;			
 				Create_Boss2();
+				map_lotation = 2;
 			}
 		}
 
-		if (Camera_Switch == 1)
+		if (Camera_Switch == 1)//보스1 출현
 		{
 			Camera::SetTarget(nullptr);
 			if (check_boss == 0)
@@ -330,7 +333,12 @@ namespace jk
 
 	void PlayScene4::Create_Boss2()
 	{
+		Second_Boss* second_boss = new Second_Boss();
+		second_boss->SetName(L"boss_run");
+		AddGameobeject(second_boss, jk_LayerType::BOSS);
+		second_boss->GetComponent<Transform>()->SetPos(Vector2{ 14750.f, 6000.f });
 
+		//(14350.f, 6670.f)
 	}
 
 }

@@ -24,6 +24,8 @@ namespace jk
 		virtual void Render(HDC hdc) override;
 		virtual void Release() override;
 
+		void Set_Dir(int dir) { mDir = dir; }
+
 	private:			
 		void move();
 

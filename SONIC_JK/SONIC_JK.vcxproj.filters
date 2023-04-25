@@ -296,6 +296,9 @@
     <Filter Include="Contents\Boss\Act6_ Finall_Stage">
       <UniqueIdentifier>{4b28bdb3-8fad-4958-8b9e-4c49c1d9603d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Boss\Act6_boss_second">
+      <UniqueIdentifier>{38ffdd1a-f48e-412d-b12c-8c40f217f6db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -762,6 +765,10 @@
     <ClInclude Include="finall_stage.h">
       <Filter>Contents\Boss\Act6_ Finall_Stage</Filter>
     </ClInclude>
+    <ClInclude Include="Second_Boss.h">
+      <Filter>Contents\Boss\Act6_boss_second</Filter>
+    </ClInclude>
+    <ClInclude Include="Second_boss_bullet.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SONIC_JK.rc">
@@ -1219,5 +1226,9 @@
     <ClCompile Include="finall_stage.cpp">
       <Filter>Contents\Boss\Act6_ Finall_Stage</Filter>
     </ClCompile>
+    <ClCompile Include="Second_Boss.cpp">
+      <Filter>Contents\Boss\Act6_boss_second</Filter>
+    </ClCompile>
+    <ClCompile Include="Second_boss_bullet.cpp" />
   </ItemGroup>
 </Project>

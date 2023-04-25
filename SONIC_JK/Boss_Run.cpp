@@ -14,6 +14,7 @@
 namespace jk
 {
 	Boss_Run::Boss_Run(Gameobject* owner)
+		:mDir(0)
 	{
 		mImage = Resources::Load<Image>(L"ROBOT", L"..\\Resources\\ROBOT.bmp");
 		mAnimator = AddComponent<Animator>();
@@ -29,10 +30,22 @@ namespace jk
 	}
 	void Boss_Run::Update()
 	{
-		Transform* tr = GetComponent<Transform>();
-		Vector2 pos = tr->GetPos();		
-		pos.x += 150.0f * static_cast<float>(Time::DeltaTime());		
-		tr->SetPos(pos);
+		if (mDir == 0)
+		{
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->GetPos();
+			pos.x += 150.0f * static_cast<float>(Time::DeltaTime());
+			tr->SetPos(pos);
+		}
+		else if (mDir == 1)
+		{
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->GetPos();
+			pos.y -= 150.0f * static_cast<float>(Time::DeltaTime());
+			tr->SetPos(pos);
+		}
+
+
 		Gameobject::Update();
 	}
 	void Boss_Run::Render(HDC hdc)
