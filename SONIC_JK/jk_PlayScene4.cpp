@@ -34,7 +34,8 @@
 #include "finall_stage.h"
 
 #include "Second_Boss.h"
-
+#include "Third_Boss.h"
+#include "Boss_Arm.h"
 
 #include "jk_Ring.h"
 #include "jk_Ring_Falling.h"
@@ -49,6 +50,7 @@ namespace jk
 	PlayScene4::PlayScene4()
 		:Boss_Death_point(0)
 		, map_lotation(0)
+		
 	{
 	}
 	PlayScene4::~PlayScene4()
@@ -277,13 +279,21 @@ namespace jk
 			Camera::SetTarget(mSonic);
 		}
 
+		
+
 		Scene::Update();
+
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
 			SceneManager::LoadScene(jk_SceneType::MiniGameplay);
 			//CreateBlending();
 			check_map = 0;
 		}
+
+
+
+
+
 
 	}
 	void PlayScene4::Render(HDC hdc)
@@ -333,7 +343,7 @@ namespace jk
 
 	void PlayScene4::Create_Boss2()
 	{
-		Second_Boss* second_boss = new Second_Boss();
+		second_boss = new Second_Boss();
 		second_boss->SetName(L"boss_run");
 		AddGameobeject(second_boss, jk_LayerType::BOSS);
 		second_boss->GetComponent<Transform>()->SetPos(Vector2{ 14750.f, 6000.f });
@@ -341,4 +351,9 @@ namespace jk
 		//(14350.f, 6670.f)
 	}
 
+
 }
+//Third_Boss
+//Boss_Arm
+
+//27,87

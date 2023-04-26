@@ -149,15 +149,12 @@ namespace jk
 		if (mSonic == nullptr)
 			return;
 
-
 		Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
 		rb->SetGround(true);
-
-
-
-
-
 	}
+
+
+
 	void Jeep_line_Handle::OnCollisionStay(Collider* other)
 	{
 		Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner());

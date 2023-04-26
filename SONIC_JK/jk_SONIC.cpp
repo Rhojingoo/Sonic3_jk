@@ -35,6 +35,8 @@
 #include "Robotnic_machine.h"
 #include "finall_stage.h"
 #include "jk_Collapses_GR_left.h"
+#include "Boss_Arm.h"
+
 
 int ringpoint = 0;
 int Elect = 0;
@@ -910,6 +912,32 @@ namespace jk
 						mRigidbody->SetVelocity(velocity);
 						mRigidbody->SetGround(false);*/
 				}
+
+
+
+				//보스충돌
+				//LASTBOSS
+				if (Boss_Arm* last_boss_arm = dynamic_cast<Boss_Arm*>(other->GetOwner()))
+				{
+
+					Vector2 boss_arm_pos = last_boss_arm->GetComponent<Transform>()->GetPos();
+					Transform* tr = GetComponent<Transform>();
+					Vector2 msonic = tr->GetPos();
+
+				
+					if (mDir == 1)
+					{
+						mState = eSonicState::Jump;
+						mAnimator->Play(L"RSonicRollandJunp", true);
+					}
+					else if (mDir == -1)
+					{
+						mState = eSonicState::Jeep_line;
+						mAnimator->Play(L"LSonicRollandJunp", true);
+					}
+				}
+
+
 	
 		}
 
@@ -1295,9 +1323,9 @@ namespace jk
 			{
 				mState = eSonicState::Dash;
 				if (Input::GetKeyDown(eKeyCode::DOWN) && mDir == 1)
-					mAnimator->Play(L"RSonicRollandJunp", false);
+					mAnimator->Play(L"RSonicRollandJunp", true);
 				else if (Input::GetKeyDown(eKeyCode::DOWN) && mDir == -1)
-					mAnimator->Play(L"LSonicRollandJunp", false);
+					mAnimator->Play(L"LSonicRollandJunp", true);
 			}
 			if (Input::GetKey(eKeyCode::LEFT))
 			{

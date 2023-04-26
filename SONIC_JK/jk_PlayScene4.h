@@ -4,7 +4,9 @@
 
 namespace jk
 {
+
 	class finall_stage;
+	class Second_Boss;
 	class Robotnic_machine;
 	class boss1_body;
 	class Ground;
@@ -26,7 +28,7 @@ namespace jk
 		void CreateBlending();
 		void Create_Boss1();
 		void Create_Boss2();
-		
+
 
 
 	private:
@@ -34,7 +36,9 @@ namespace jk
 		Sonic* mSonic;
 		boss1_body* boss_first;
 		Robotnic_machine* fly_machine;
+		Second_Boss* second_boss;
 		finall_stage* stage_final;
+
 		int dir;
 		int check_map;
 

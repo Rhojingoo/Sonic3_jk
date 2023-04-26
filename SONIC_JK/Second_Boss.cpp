@@ -2,6 +2,10 @@
 #include "Second_boss_bullet.h"
 #include "Boss_act1_boomb.h"
 #include "Boss_Run.h"
+#include "Third_Boss.h"
+#include "Boss_Arm.h"
+
+
 
 #include "jk_Time.h"
 #include "jk_SceneManager.h"
@@ -27,6 +31,7 @@ namespace jk
 		, Boss_change_point(3)
 		, time(0)
 		, Boomb_point(0)
+		, secondtime(0)
 
 	{
 		mImage = Resources::Load<Image>(L"Second_boss_R", L"..\\Resources\\ActBG_6\\BOSS\\Second_boss_R.bmp");
@@ -73,16 +78,20 @@ namespace jk
 		mAnimator->GetCompleteEvent(L"L_Boss_1th_Hurt") = std::bind(&Second_Boss::Hurt, this);
 
 
-
-
 		Collider* collider = AddComponent<Collider>();
 		collider->SetSize(Vector2(245.0f, 200.0f));
 		Vector2 size = collider->GetSize();
 		collider->SetCenter(Vector2{ (-0.2f) * size.x, (-0.5f) * size.y });
+
+		Boomb_point = 0;
 	}
+
 	Second_Boss::~Second_Boss()
 	{
+
 	}
+
+
 	void Second_Boss::Initialize()
 	{
 		Gameobject::Initialize();
@@ -94,8 +103,30 @@ namespace jk
 
 		if (Boomb_point == 2)
 		{
-			Create_RunBoss();
-			Boomb_point = 3;
+			secondtime += Time::DeltaTime();
+			if (secondtime > 2)
+			{
+				Create_RunBoss();
+				Boomb_point = 3;
+				time = 0;
+			}
+		}
+		if (Boomb_point == 3)
+		{
+			time += Time::DeltaTime();
+			if (time > 5)
+			{
+				Create_Boss3();
+				secondtime = 0;
+				Boomb_point = 4;
+				arm_lotaion = 1;
+			}
+		}
+		if (arm_lotaion == 1)
+		{
+			boss_arm->Set_mDir(last_boss->Get_mDir());
+			boss_arm->Set_Hurt(last_boss->Get_Hurt());
+			last_boss->Set_Grap(boss_arm->Get_grap());
 		}
 
 
@@ -151,66 +182,66 @@ namespace jk
 			{
 				Damege_check += 1;
 
-				if (Damege_check < 3)
-				{		
-					if (mDir == 1)
-					{
-						mAnimator->Play(L"R_Boss3_Hurt", true); 
-					}
-					else
-					{
-						mAnimator->Play(L"L_Boss3_Hurt", false);						
-					}					
-				}
+				//if (Damege_check < 3)
+				//{		
+				//	if (mDir == 1)
+				//	{
+				//		mAnimator->Play(L"R_Boss3_Hurt", true); 
+				//	}
+				//	else
+				//	{
+				//		mAnimator->Play(L"L_Boss3_Hurt", false);						
+				//	}					
+				//}
 
 	
-				else if((Damege_check >= 3)&&(Damege_check < 6))
-				{
+				//else if((Damege_check >= 3)&&(Damege_check < 6))
+				//{
 
-					if (mDir == 1)
-					{
-						mAnimator->Play(L"R_Boss_2th_Hurt", true);
-						if (Damege_check == 3)
-						{
-							Boss_change_point = 2;
-							//何加前冻绢飘府扁 棺 气惯
-						}
-					}
-					else 
-					{
-						mAnimator->Play(L"L_Boss_2th_Hurt", true);
-						if (Damege_check == 3)
-						{
-							Boss_change_point = 2;
-							//何加前冻绢飘府扁 棺 气惯
-						}
-					}
+				//	if (mDir == 1)
+				//	{
+				//		mAnimator->Play(L"R_Boss_2th_Hurt", true);
+				//		if (Damege_check == 3)
+				//		{
+				//			Boss_change_point = 2;
+				//			//何加前冻绢飘府扁 棺 气惯
+				//		}
+				//	}
+				//	else 
+				//	{
+				//		mAnimator->Play(L"L_Boss_2th_Hurt", true);
+				//		if (Damege_check == 3)
+				//		{
+				//			Boss_change_point = 2;
+				//			//何加前冻绢飘府扁 棺 气惯
+				//		}
+				//	}
 
-				}
+				//}
 
-				else if ((Damege_check >= 6) && (Damege_check < 9))			
-				{
-					if (mDir == 1)
-					{
-						mAnimator->Play(L"R_Boss_1th_Hurt", true);
-						if (Damege_check == 6)
-						{
-							Boss_change_point = 1;
-							//何加前冻绢飘府扁 棺 气惯
-						}
-					}
-					else
-					{
-						mAnimator->Play(L"L_Boss_1th_Hurt", true);
-						if (Damege_check == 6)
-						{
-							Boss_change_point = 1;
-							//何加前冻绢飘府扁 棺 气惯
-						}
-					}
-				}
+				//else if ((Damege_check >= 6) && (Damege_check < 9))			
+				//{
+				//	if (mDir == 1)
+				//	{
+				//		mAnimator->Play(L"R_Boss_1th_Hurt", true);
+				//		if (Damege_check == 6)
+				//		{
+				//			Boss_change_point = 1;
+				//			//何加前冻绢飘府扁 棺 气惯
+				//		}
+				//	}
+				//	else
+				//	{
+				//		mAnimator->Play(L"L_Boss_1th_Hurt", true);
+				//		if (Damege_check == 6)
+				//		{
+				//			Boss_change_point = 1;
+				//			//何加前冻绢飘府扁 棺 气惯
+				//		}
+				//	}
+				//}
 
-				else if (Damege_check == 9)
+				/*else*/ if (Damege_check == 1)
 				{
 					mState = eBossState::Death;
 
@@ -219,7 +250,7 @@ namespace jk
 						mAnimator->Play(L"R_Boss_Death", true);
 						if (Damege_check == 3)
 						{
-							Boss_change_point = 2;
+							Boss_change_point = 0;
 							//何加前冻绢飘府扁 棺 气惯
 						}
 					}
@@ -228,14 +259,11 @@ namespace jk
 						mAnimator->Play(L"L_Boss_Death", true);
 						if (Damege_check == 3)
 						{
-							Boss_change_point = 2;
+							Boss_change_point = 0;
 							//何加前冻绢飘府扁 棺 气惯
 						}
 					}
-
-
 				}
-
 			}
 		}
 
@@ -251,15 +279,34 @@ namespace jk
 	{
 	}
 
+
+
 	void Second_Boss::Create_RunBoss()
 	{
 		Scene* curScene = SceneManager::GetActiveScene();
-		Boss_Run* boss_run2 = new Boss_Run(this);		
+		boss_run2 = new Boss_Run(this);		
 		boss_run2->SetName(L"boss_run2");
 		pos = Vector2{ 13850.f, 6000.f };
 		boss_run2->GetComponent<Transform>()->SetPos(pos);
 		boss_run2->Set_Dir(1);
-		curScene->AddGameobeject(boss_run2, jk_LayerType::BOSS);
+		curScene->AddGameobeject(boss_run2, jk_LayerType::MiniBoss);
+	}
+
+
+	void Second_Boss::Create_Boss3()
+	{
+		Scene* curScene1 = SceneManager::GetActiveScene();
+		last_boss = new Third_Boss();
+		last_boss->SetName(L"last_boss");
+		last_boss->GetComponent<Transform>()->SetPos(Vector2{ 13550.0f,5400.f });
+		curScene1->AddGameobeject(last_boss, jk_LayerType::BOSS);
+
+
+		Scene* curScene2 = SceneManager::GetActiveScene();
+		boss_arm = new Boss_Arm(last_boss);
+		boss_arm->SetName(L"boss_arm");
+		boss_arm->GetComponent<Transform>()->SetPos(Vector2{ 13520.0f,5487.f });
+		curScene2->AddGameobeject(boss_arm, jk_LayerType::BOSS);
 	}
 
 
@@ -385,7 +432,7 @@ namespace jk
 		else if(Boomb_point == 1 )
 	 	 {
 			time += Time::DeltaTime();
-			if (time >= 1)
+			if (time >= 2)
 			{
 				mRigidbody = AddComponent<Rigidbody>();
 				mRigidbody->SetMass(1.0f);

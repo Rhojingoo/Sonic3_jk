@@ -170,6 +170,7 @@
     <ClInclude Include="boss1_body.h" />
     <ClInclude Include="boss1_object.h" />
     <ClInclude Include="Boss_act1_boomb.h" />
+    <ClInclude Include="Boss_Arm.h" />
     <ClInclude Include="boss_come.h" />
     <ClInclude Include="Boss_Run.h" />
     <ClInclude Include="Bullet_Act1_L_DIA.h" />
@@ -300,6 +301,7 @@
     <ClInclude Include="SONIC_Engine.h" />
     <ClInclude Include="SONIC_JK.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Third_Boss.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="acr1_forest2.cpp" />
@@ -330,6 +332,7 @@
     <ClCompile Include="boss1_body.cpp" />
     <ClCompile Include="boss1_object.cpp" />
     <ClCompile Include="Boss_act1_boomb.cpp" />
+    <ClCompile Include="Boss_Arm.cpp" />
     <ClCompile Include="boss_come.cpp" />
     <ClCompile Include="Boss_Run.cpp" />
     <ClCompile Include="Bullet_Act1_L_DIA.cpp" />
@@ -452,6 +455,7 @@
     <ClCompile Include="Robotnic_machine.cpp" />
     <ClCompile Include="Second_Boss.cpp" />
     <ClCompile Include="Second_boss_bullet.cpp" />
+    <ClCompile Include="Third_Boss.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SONIC_JK.rc" />

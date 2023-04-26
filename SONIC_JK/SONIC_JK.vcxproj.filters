@@ -299,6 +299,9 @@
     <Filter Include="Contents\Boss\Act6_boss_second">
       <UniqueIdentifier>{38ffdd1a-f48e-412d-b12c-8c40f217f6db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Boss\Act6_boss_third">
+      <UniqueIdentifier>{18c7ddb7-77af-4e71-a1ad-54af62d679b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -768,7 +771,15 @@
     <ClInclude Include="Second_Boss.h">
       <Filter>Contents\Boss\Act6_boss_second</Filter>
     </ClInclude>
-    <ClInclude Include="Second_boss_bullet.h" />
+    <ClInclude Include="Second_boss_bullet.h">
+      <Filter>Contents\Boss\Act6_boss_second</Filter>
+    </ClInclude>
+    <ClInclude Include="Third_Boss.h">
+      <Filter>Contents\Boss\Act6_boss_third</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss_Arm.h">
+      <Filter>Contents\Boss\Act6_boss_third</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SONIC_JK.rc">
@@ -1229,6 +1240,14 @@
     <ClCompile Include="Second_Boss.cpp">
       <Filter>Contents\Boss\Act6_boss_second</Filter>
     </ClCompile>
-    <ClCompile Include="Second_boss_bullet.cpp" />
+    <ClCompile Include="Second_boss_bullet.cpp">
+      <Filter>Contents\Boss\Act6_boss_second</Filter>
+    </ClCompile>
+    <ClCompile Include="Third_Boss.cpp">
+      <Filter>Contents\Boss\Act6_boss_third</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss_Arm.cpp">
+      <Filter>Contents\Boss\Act6_boss_third</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
