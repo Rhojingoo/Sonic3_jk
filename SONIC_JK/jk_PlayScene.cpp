@@ -80,7 +80,7 @@ namespace jk
 		mSonic->SetName(L"Player");
 		AddGameobeject(mSonic, jk_LayerType::Player);
 		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
-
+		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 28821.f, 1363.f });//끝
 
 		mTails = new Tails(mSonic);
 		mTails->SetName(L"Player2");
@@ -466,7 +466,11 @@ namespace jk
 		circle_chek->SetCheckTargetGround(playgr);
 		circle_chek2->SetCheckTargetGround(playgr);	
 
-				
+		//빅링위치
+		ItemBigRing* Big_Ring = new ItemBigRing();
+		Big_Ring->SetName(L"BIGRING");
+		AddGameobeject(Big_Ring, jk_LayerType::Item);
+		Big_Ring->GetComponent<Transform>()->SetPos(Vector2(15064.f, 3680.0f));
 
 
 		//링위치
@@ -500,10 +504,6 @@ namespace jk
 		ring[21]->GetComponent<Transform>()->SetPos(Vector2{ 20498.f, 3379.f });
 		
 
-		ItemBigRing* Big_Ring = new ItemBigRing();
-		Big_Ring->SetName(L"BIGRING");
-		AddGameobeject(Big_Ring, jk_LayerType::Item);	
-		Big_Ring->GetComponent<Transform>()->SetPos(Vector2(15064.f, 3680.0f));
 
 		Scene::Initialize();		
 	}
@@ -515,23 +515,28 @@ namespace jk
 
 		Vector2 sonic_pos = mSonic->GetComponent<Transform>()->GetPos();
 		
-		if (sonic_pos.x >= 30300.f)
+		if (sonic_pos.x >= 29720.f)
 		{
 			Camera_Switch = 1;
 		}
 		if (Camera_Switch == 1)
 		{
-			Camera::SetTarget(nullptr);
-			if (check_minibos == 0)
+			//Camera::SetTarget(nullptr);
+			Camera::SetCamera(1);
+			if (sonic_pos.x >= 30400.f)
 			{
-				if (check_minibos != 0)
-					return;
+				Camera::SetTarget(nullptr);
+				if (check_minibos == 0)
+				{
+					if (check_minibos != 0)
+						return;
 
-				Create_Miniboss_show();
-				check_minibos = 1;
+					Create_Miniboss_show();
+					check_minibos = 1;
+				}
 			}
 		}
-
+		
 		Scene::Update();		
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{

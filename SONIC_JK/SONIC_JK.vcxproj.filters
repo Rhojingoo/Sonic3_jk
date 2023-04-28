@@ -122,9 +122,6 @@
     <Filter Include="Contents\Player\Sonic\emelarld">
       <UniqueIdentifier>{cd4be9fb-4cd7-463c-90c7-3b51036c13b5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Player\Sonic\Default">
-      <UniqueIdentifier>{cd9b9e03-9e25-4d77-9713-2f936af8800a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\Player\Tails">
       <UniqueIdentifier>{5fa56f6e-94f7-43fb-8577-98738820222e}</UniqueIdentifier>
     </Filter>
@@ -287,9 +284,6 @@
     <Filter Include="Contents\Boss\Act6_boss_first">
       <UniqueIdentifier>{34da5369-0cf9-48a0-9a1d-996bd1ce2d4f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Boss\Act1_boss\boss_dead_effect">
-      <UniqueIdentifier>{d8225a66-b0fb-4310-8b83-4ca44776da87}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\Item\Fly_machine">
       <UniqueIdentifier>{479791d2-4bc6-40b1-875a-f704a2aa5911}</UniqueIdentifier>
     </Filter>
@@ -301,6 +295,12 @@
     </Filter>
     <Filter Include="Contents\Boss\Act6_boss_third">
       <UniqueIdentifier>{18c7ddb7-77af-4e71-a1ad-54af62d679b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Player\Sonic\shield">
+      <UniqueIdentifier>{cd9b9e03-9e25-4d77-9713-2f936af8800a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Boss\boss_dead_effect">
+      <UniqueIdentifier>{d8225a66-b0fb-4310-8b83-4ca44776da87}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -439,9 +439,6 @@
     <ClInclude Include="jk_EmeraldSonic.h">
       <Filter>Contents\Player\Sonic\emelarld</Filter>
     </ClInclude>
-    <ClInclude Include="jk_SONIC.h">
-      <Filter>Contents\Player\Sonic\Default</Filter>
-    </ClInclude>
     <ClInclude Include="jk_Tails.h">
       <Filter>Contents\Player\Tails</Filter>
     </ClInclude>
@@ -452,7 +449,7 @@
       <Filter>Contents\Player\Tails\Tails_tail\Default</Filter>
     </ClInclude>
     <ClInclude Include="Electsonic.h">
-      <Filter>Contents\Player\Sonic\Default</Filter>
+      <Filter>Contents\Player\Sonic\shield</Filter>
     </ClInclude>
     <ClInclude Include="SonicState.h" />
     <ClInclude Include="Rigdbody_L.h">
@@ -748,7 +745,7 @@
       <Filter>Contents\Boss\Act1_boss</Filter>
     </ClInclude>
     <ClInclude Include="Boss_act1_boomb.h">
-      <Filter>Contents\Boss\Act1_boss\boss_dead_effect</Filter>
+      <Filter>Contents\Boss\boss_dead_effect</Filter>
     </ClInclude>
     <ClInclude Include="boss_come.h">
       <Filter>Contents\Boss\Act6_boss_first</Filter>
@@ -779,6 +776,18 @@
     </ClInclude>
     <ClInclude Include="Boss_Arm.h">
       <Filter>Contents\Boss\Act6_boss_third</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_SONIC.h">
+      <Filter>Contents\Player\Sonic</Filter>
+    </ClInclude>
+    <ClInclude Include="FireSonic.h">
+      <Filter>Contents\Player\Sonic\shield</Filter>
+    </ClInclude>
+    <ClInclude Include="WaterSonic.h">
+      <Filter>Contents\Player\Sonic\shield</Filter>
+    </ClInclude>
+    <ClInclude Include="Elec_effect.h">
+      <Filter>Contents\Player\Sonic\shield</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -909,9 +918,6 @@
     <ClCompile Include="jk_EmeraldSonic.cpp">
       <Filter>Contents\Player\Sonic\emelarld</Filter>
     </ClCompile>
-    <ClCompile Include="jk_SONIC.cpp">
-      <Filter>Contents\Player\Sonic\Default</Filter>
-    </ClCompile>
     <ClCompile Include="jk_Tails.cpp">
       <Filter>Contents\Player\Tails</Filter>
     </ClCompile>
@@ -922,7 +928,7 @@
       <Filter>Contents\Player\Tails\Tails_tail\Default</Filter>
     </ClCompile>
     <ClCompile Include="Electsonic.cpp">
-      <Filter>Contents\Player\Sonic\Default</Filter>
+      <Filter>Contents\Player\Sonic\shield</Filter>
     </ClCompile>
     <ClCompile Include="Rigdbody_L.cpp">
       <Filter>Engine\Component\RigidBody\rotation</Filter>
@@ -1217,7 +1223,7 @@
       <Filter>Contents\Boss\Act1_boss</Filter>
     </ClCompile>
     <ClCompile Include="Boss_act1_boomb.cpp">
-      <Filter>Contents\Boss\Act1_boss\boss_dead_effect</Filter>
+      <Filter>Contents\Boss\boss_dead_effect</Filter>
     </ClCompile>
     <ClCompile Include="boss_come.cpp">
       <Filter>Contents\Boss\Act6_boss_first</Filter>
@@ -1248,6 +1254,18 @@
     </ClCompile>
     <ClCompile Include="Boss_Arm.cpp">
       <Filter>Contents\Boss\Act6_boss_third</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_SONIC.cpp">
+      <Filter>Contents\Player\Sonic</Filter>
+    </ClCompile>
+    <ClCompile Include="FireSonic.cpp">
+      <Filter>Contents\Player\Sonic\shield</Filter>
+    </ClCompile>
+    <ClCompile Include="WaterSonic.cpp">
+      <Filter>Contents\Player\Sonic\shield</Filter>
+    </ClCompile>
+    <ClCompile Include="Elec_effect.cpp">
+      <Filter>Contents\Player\Sonic\shield</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -5,6 +5,8 @@
 namespace jk
 {
 	class Ground;
+	class Boss;
+	class Tails;
 	class Sonic;
 	class PlayScene3 : public Scene
 	{
@@ -30,6 +32,8 @@ namespace jk
 	private:
 		Ground* playgr;
 		Sonic* mSonic;
+		Tails* tails;
+		Boss* mBoss;
 		int dir;
 		int check_map;
 
@@ -38,5 +42,6 @@ namespace jk
 		int Camera_Switch;
 		int check_boss;
 		int frame_check;
+		int boss_death;
 	};
 }

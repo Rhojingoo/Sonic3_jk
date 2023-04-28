@@ -5,20 +5,20 @@
 
 namespace jk
 {
-	class Elec_effect;
 	class Rigidbody;
 	class Animator;
-	class Electsonic : public Gameobject
+	class WaterSonic : public Gameobject
 	{
 	public:
 		enum class State
 		{
 			Idle,
-			Elect_Effect,
+			Collision_Ground,
 		};
 
-		Electsonic(Gameobject* owner);
-		~Electsonic();
+
+		WaterSonic(Gameobject* owner);
+		~WaterSonic();
 
 
 		virtual void Initialize() override;
@@ -26,10 +26,13 @@ namespace jk
 		virtual void Render(HDC hdc) override;
 		virtual void Release() override;
 
-		void idle();
-		void elect_effect();
-		void effect();
+		virtual void OnCollisionEnter(class Collider* other) override;
+		virtual void OnCollisionStay(class Collider* other) override;
+		virtual void OnCollisionExit(class Collider* other) override;
 
+		void idle();
+		void collsion_ground();
+		void water_effect();
 
 	private:
 		Animator* mAnimator;
@@ -37,16 +40,9 @@ namespace jk
 		Gameobject* mOwner;
 		int mDir;
 		int tailcheck;
-		State mState;
-		Elec_effect* elect1;
-		Elec_effect* elect2;
-
-
 		Sonic* sonic;
-		int effect_check;
-		int effect_call;
-		float time;
-
+		int shield_bounce;
+		State mState;
 	};
 
 }

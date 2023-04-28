@@ -75,61 +75,38 @@ namespace jk
 
 	void Move_GR::OnCollisionEnter(Collider* other)
 	{
-		Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner());
-		if (mSonic == nullptr)
-			return;
 
-		Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
-		rb->SetGround(true);	
 
 	}
 	void Move_GR::OnCollisionStay(Collider* other)
 	{
-		Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner());
-		if (mSonic == nullptr)
-			return;
-
-		Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
-		rb->SetGround(true);
-
-		Collider* mSonic_Col = mSonic->GetComponent<Collider>();
-		Vector2 mSonic_Pos = mSonic_Col->Getpos();
-
-		Collider* groundCol = this->GetComponent<Collider>();
-		Vector2 groundPos = groundCol->Getpos();
-
-		Transform* sonicTr = mSonic->GetComponent<Transform>();
-		Transform* grTr = this->GetComponent<Transform>();
-		Vector2 sonic_Pos = sonicTr->GetPos();
-
-		//float fLen = fabs(mSonic_Pos.y - groundPos.y);
-		//float fSize = groundCol->GetSize().y;
-
-		//sonic_Pos.y = groundPos.y - groundCol->GetSize().y ;
-		//sonicTr->SetPos(sonic_Pos);
-	
-
-	//	실험해볼것
-		float fLen = fabs(sonic_Pos.y - groundPos.y);
-		float fSize = (mSonic_Col->GetSize().y / 2.0f) + (groundCol->GetSize().y / 2.0f);
-
-		if (fLen < fSize)
+		if (Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner()))
 		{
-			sonic_Pos.y -= (fSize - fLen) - 0.5f;
-			sonicTr->SetPos(sonic_Pos);
+			if (mSonic == nullptr)
+				return;
 
-			//if ((mSonic->Getsonicstate() == Sonic::eSonicState::Jump) || (mSonic->Getsonicstate() == Sonic::eSonicState::Hurt))
-			//{
-			//	Vector2 velocity = rb->GetVelocity();
-			//	velocity.y -= 550.0f;
-			//	//velocity.x += 80.0f;
-			//	rb->SetVelocity(velocity);
-			//	rb->SetGround(false);
+			Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
+			rb->SetGround(true);
 
-			//	sonic_Pos = sonicTr->GetPos();
-			//	//sonic_Pos = sonic_Pos + Vector2{ 350.f ,-350.f };
-			//	sonicTr->SetPos(sonic_Pos);
-			//}
+			Collider* mSonic_Col = mSonic->GetComponent<Collider>();
+			Vector2 mSonic_Pos = mSonic_Col->Getpos();
+
+			Collider* groundCol = this->GetComponent<Collider>();
+			Vector2 groundPos = groundCol->Getpos();
+
+			Transform* sonicTr = mSonic->GetComponent<Transform>();
+			Transform* grTr = this->GetComponent<Transform>();
+			Vector2 sonic_Pos = sonicTr->GetPos();
+
+			//	실험해볼것
+			float fLen = fabs(sonic_Pos.y - groundPos.y);
+			float fSize = (mSonic_Col->GetSize().y / 2.0f) + (groundCol->GetSize().y / 2.0f);
+
+			if (fLen < fSize)
+			{
+				sonic_Pos.y -= (fSize - fLen) - 0.5f;
+				sonicTr->SetPos(sonic_Pos);		
+			}
 		}
 	}
 
@@ -161,7 +138,6 @@ namespace jk
 	void Move_GR::down()
 	{
 		Transform* tr = GetComponent<Transform>();
-
 
 		fDist = mCenterpos.y - pos.y - mMonmaxdistance;
 		pos.y += mMonspeed * static_cast<float>(Time::DeltaTime());

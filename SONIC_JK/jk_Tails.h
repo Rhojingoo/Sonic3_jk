@@ -1,6 +1,7 @@
 #pragma once
 #include "jk_Gameobject.h"
 #include "jk_tails_tail.h"
+#include "jk_SONIC.h"
 #include "jk_Image.h"
 
 namespace jk
@@ -15,7 +16,7 @@ namespace jk
 		enum class eTailsState
 		{
 			Idle,
-			Move,		
+			Move,
 			Run,
 			Dash,
 			Brake,
@@ -27,8 +28,10 @@ namespace jk
 			Spin,
 			Twojump,
 			Shield,
-			Fly,		
-
+			Fly,
+			Fly_Ready,
+			Fly_Pursue,
+			Fly_Waiting,
 
 			Circle_Rturn_R,
 			Circle_Rturn_1,
@@ -64,6 +67,9 @@ namespace jk
 		eTailsState GetTails_state() { return mState; }
 		int GetTailsDir() { return TailsmDir; }
 		void SetCheckTargetGround(Ground* ground) { check = ground; }
+		void Set_Pursue_boss(int pursue) { pursue_boss = pursue; }
+
+		void Set_Fly(int fly) { fly_check = fly; }
 
 	private:
 		void idle();
@@ -80,7 +86,9 @@ namespace jk
 		void twojump();
 		void shield();
 		void fly();
-	
+		void fly_Ready();
+		void fly_pursue();
+		void fly_waiting();
 
 		void circle_Rturn_1();
 		void circle_Rturn_2();
@@ -111,7 +119,7 @@ namespace jk
 		Vector2 SonicBrake;
 		Vector2 fallingcheck;
 		Sonic* mSonic;
-		
+		//Sonic::eSonicState sonicState;
 
 	private:
 		Rigidbody* mRigidbody;
@@ -120,6 +128,7 @@ namespace jk
 		Ground* check;
 		int Circle_piece;		
 		int fly_check;
+		int pursue_boss;
 	};
 
 }

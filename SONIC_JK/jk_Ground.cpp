@@ -475,7 +475,7 @@ namespace jk
 			}
 			else
 			{
-				int check = 30;
+				int check = 5;
 
 				if ((mPlayer->Getsonicstate() == Sonic::eSonicState::Jump) || (mPlayer->Getsonicstate() == Sonic::eSonicState::Hurt) || (mPlayer->Getsonicstate() == Sonic::eSonicState::Spring_Jump))
 				{
@@ -987,7 +987,7 @@ namespace jk
 			else
 			{
 				int check = 30;
-				if (mPlayer2->GetTails_state() == Tails::eTailsState::Jump)
+				if ((mPlayer2->GetTails_state() == Tails::eTailsState::Jump)&& (mPlayer2->GetTails_state() == Tails::eTailsState::Movejump))
 				{
 					//mRigidbody_Tails->SetVelocity(Vector2{ 0.0f,-450.f });
 					check = 2;
@@ -1033,7 +1033,7 @@ namespace jk
 			else
 			{
 				int check = 30;
-				if (mPlayer2->GetTails_state() == Tails::eTailsState::Jump)
+				if ((mPlayer2->GetTails_state() == Tails::eTailsState::Jump) && (mPlayer2->GetTails_state() == Tails::eTailsState::Movejump))
 				{
 					//mRigidbody_Tails->SetVelocity(Vector2{ 0.0f,-450.f });
 					check = 2;
@@ -1079,7 +1079,7 @@ namespace jk
 			else
 			{
 				int check = 30;
-				if (mPlayer2->GetTails_state() == Tails::eTailsState::Jump)
+				if ((mPlayer2->GetTails_state() == Tails::eTailsState::Jump) && (mPlayer2->GetTails_state() == Tails::eTailsState::Movejump))
 				{
 					//mRigidbody_Tails->SetVelocity(Vector2{ 0.0f,-450.f });
 					check = 2;
@@ -1125,7 +1125,7 @@ namespace jk
 			else
 			{
 				int check = 30;
-				if (mPlayer2->GetTails_state() == Tails::eTailsState::Jump)
+				if ((mPlayer2->GetTails_state() == Tails::eTailsState::Jump) && (mPlayer2->GetTails_state() == Tails::eTailsState::Movejump))
 				{
 					//mRigidbody_Tails->SetVelocity(Vector2{ 0.0f,-450.f });
 					check = 2;

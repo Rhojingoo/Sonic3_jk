@@ -1,7 +1,11 @@
 #include "jk_Sonic.h"
+#include "jk_Tails.h"
+#include "Electsonic.h"
+#include "FireSonic.h"
+#include "WaterSonic.h"
+
 #include <random>
 #include "jk_Time.h"
-#include "jk_Tails.h"
 #include "jk_SceneManager.h"
 #include "jk_Input.h"
 #include "jk_Resources.h"
@@ -10,14 +14,10 @@
 #include "jk_Collider.h"
 #include "Rigidbody.h"
 #include "jk_Scene.h"
-#include "jk_Monster.h"
-#include "jk_BaseBullet.h"
-#include "jk_Ground.h"
-#include "Electsonic.h"
-#include "jk_Item.h"
-#include "jk_Ring.h"
-#include "jk_Ring_Falling.h"
 #include "jk_Object.h"
+
+
+#include "jk_Ground.h"
 #include "jk_Spring_Up.h"
 #include "jk_Spring_Left.h"
 #include "jk_Spike_Up.h"
@@ -26,6 +26,7 @@
 #include "jk_Rock_big.h"
 #include "jk_Jeep_line_Handle.h"
 #include "jk_Collapses_Ground.h"
+#include "jk_Collapses_GR_left.h"
 #include "jk_Move_GR.h"
 #include "jk_Cylinder.h"
 #include "jk_Last_Bridge.h"
@@ -34,8 +35,20 @@
 #include "jk_Water_effect.h"
 #include "Robotnic_machine.h"
 #include "finall_stage.h"
-#include "jk_Collapses_GR_left.h"
+
+
+#include "jk_Item.h"
+#include "jk_Item_water.h"
+#include "jk_Item_Fire.h"
+#include "jk_Ring.h"
+#include "jk_Ring_Falling.h"
+
+
 #include "Boss_Arm.h"
+
+#include "jk_Monster.h"
+#include "jk_BaseBullet.h"
+
 
 
 int ringpoint = 0;
@@ -63,7 +76,12 @@ namespace jk
 		, SonicBrake(0.0f,0.0f)
 		, circlecheck(0)	
 		, Circle_piece(0)
-		, Ringcheck(0)
+		, Ringcheck(0)	
+		, water_bounce(0)
+		, fire_effect(0)
+		, elect_effect(0)
+		, fly_check(0)
+
 	{
 		Transform* tr = GetComponent<Transform>();
 		
@@ -98,7 +116,7 @@ namespace jk
 		//tr->SetPos(Vector2{ 2790.0f * 3, 3200.f });
 		//tr->SetPos(Vector2(19718.f, 3450.f));
 
-		Image* mImage = Resources::Load<Image>(L"SONIC", L"..\\Resources\\sonic.bmp");
+		Image* mImage = Resources::Load<Image>(L"SONIC", L"..\\Resources\\sonic_black.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"RSonicWalk", mImage, Vector2::RSonicWalkLTC, Vector2::RSonicWalksize, Vector2::RSonicWalkSpace, 8, 1, 8, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"RSonicStand", mImage, Vector2::RSonicStandLTC, Vector2::RSonicStandsize, Vector2::RSonicStandSpace, 9, 1, 9, Vector2::Zero, 0.3);
@@ -112,11 +130,11 @@ namespace jk
 		mAnimator->CreateAnimation(L"RSonichurt", mImage, Vector2(956, 530), Vector2(56, 48), Vector2(8, 0), 2, 1, 2, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"RSonic_Spring_up", mImage, Vector2(412, 912), Vector2(52, 50), Vector2(4, 0), 12, 1, 12, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"RSonic_Push", mImage, Vector2(736, 644), Vector2(52, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"RSonic_Jeep", mImage, Vector2(412, 1452), Vector2(52, 52), Vector2(4, 0), 3, 1, 3, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"RSonic_Jeep", mImage, Vector2(412, 1451), Vector2(52, 52), Vector2(4, 0), 3, 1, 3, Vector2::Zero, 0.1);
 
 
 
-		Image* mImage1 = Resources::Load<Image>(L"LSONIC", L"..\\Resources\\Lsonic.bmp");
+		Image* mImage1 = Resources::Load<Image>(L"LSONIC", L"..\\Resources\\Lsonic_black.bmp");
 		mAnimator->CreateAnimation(L"LSonicWalk", mImage1, Vector2::LSonicWalkLTC, Vector2::LSonicWalksize, Vector2::LSonicWalkSpace, 8, 1, 8, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"LSonicStand", mImage1, Vector2::LSonicStandLTC, Vector2::LSonicStandsize, Vector2::LSonicStandSpace, 9, 1, 9, Vector2::Zero, 0.3);
 		mAnimator->CreateAnimation(L"LSonicLookUp", mImage1, Vector2::LSonicLookUpLTC, Vector2::LSonicLookUpsize, Vector2::LSonicLookUpSpace, 1, 1, 1, Vector2::Zero, 0.1);
@@ -128,7 +146,7 @@ namespace jk
 		mAnimator->CreateAnimation(L"LSonichurt", mImage1, Vector2(956, 530), Vector2(56, 48), Vector2(8, 0), 2, 1, 2, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"LSonic_Spring_up", mImage1, Vector2(412, 912), Vector2(52, 50), Vector2(4, 0), 12, 1, 12, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"LSonic_Push", mImage1, Vector2(736, 644), Vector2(52, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"LSonic_Jeep", mImage1, Vector2(412, 1452), Vector2(52, 52), Vector2(4, 0), 3, 1, 3, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"LSonic_Jeep", mImage1, Vector2(412, 1451), Vector2(52, 52), Vector2(4, 0), 3, 1, 3, Vector2::Zero, 0.1);
 
 
 		//소닉 원회전(오른쪽)
@@ -182,7 +200,7 @@ namespace jk
 
 		mAnimator->Play(L"RSonicStand", true);
 		Gameobject::Initialize();
-	}
+	}    
 
 		void Sonic::Update()
 		{
@@ -200,8 +218,21 @@ namespace jk
 			{
 				int a = 0;
 			}
+			if (fly_check == 1)
+			{
+				mState = eSonicState::Jeep_line;
+				mAnimator->Play(L"RSonic_Jeep", true);				
+			}
 
-			switch (mState)
+
+			if (Input::GetKeyDown(eKeyCode::P))
+			{
+				object::Destory(elect);
+				Elect = 0;
+			}	
+			
+
+ 			switch (mState)
 			{
 			case jk::Sonic::eSonicState::Idle:idle();
 				break;
@@ -282,6 +313,7 @@ namespace jk
 				break;
 
 
+
 			case jk::Sonic::eSonicState::Circle_Lturn_1:circle_Lturn_1();
 				break;
 
@@ -327,6 +359,18 @@ namespace jk
 
 		void Sonic::OnCollisionEnter(Collider* other)
 		{
+			//tials 충돌
+			if (Tails* tails = dynamic_cast<Tails*>(other->GetOwner()))
+			{
+				Tails::eTailsState tailsState = tails->GetTails_state();
+				if ((tailsState == Tails::eTailsState::Fly_Waiting)|| (tailsState == Tails::eTailsState::Fly_Pursue))
+				{
+					mState = eSonicState::Jeep_line;
+					mAnimator->Play(L"RSonic_Jeep", true);
+				}
+			}
+
+
 
 			//배경소품 충돌★
 	
@@ -767,11 +811,28 @@ namespace jk
 					if (mState == eSonicState::Jump || mState == eSonicState::Spin || mState == eSonicState::Dash)
 					{
 						int itemcheck = electitem->GetItemcheck();
+						if (itemcheck != 1)
+						{
+							return;
+						}
+
 						if (itemcheck == 1)
 						{
+				
+							if (Water != 0)
+							{
+								object::Destory(water);
+								Water = 0;
+							}
+							if (Fire != 0)
+							{
+								object::Destory(fire);
+								Fire = 0;
+							}
+
 							Transform* tr = GetComponent<Transform>();
 							Scene* curScene = SceneManager::GetActiveScene();
-							Electsonic* elect = new Electsonic(this);
+							elect = new Electsonic(this);
 							elect->GetComponent<Transform>()->SetPos(tr->GetPos());
 							curScene->AddGameobeject(elect, jk_LayerType::Player_smoke);
 							Elect = 1;
@@ -782,6 +843,83 @@ namespace jk
 						}
 					}
 				}
+				if (Item_water* water_shield = dynamic_cast<Item_water*>(other->GetOwner()))
+				{
+					if (mState == eSonicState::Jump || mState == eSonicState::Spin || mState == eSonicState::Dash)
+					{
+						int itemcheck = water_shield->GetItemcheck();
+						if (itemcheck != 1)
+						{
+							return;
+						}
+
+
+						if (Elect != 0)
+						{
+							object::Destory(elect);
+							Elect = 0;
+						}
+						if (Fire != 0)
+						{
+							object::Destory(fire);
+							Fire = 0;
+						}
+
+						if (itemcheck == 1)
+						{
+			
+							Transform* tr = GetComponent<Transform>();
+							Scene* curScene = SceneManager::GetActiveScene();
+							water = new WaterSonic(this);
+							water->GetComponent<Transform>()->SetPos(tr->GetPos());
+							curScene->AddGameobeject(water, jk_LayerType::Player_smoke);
+							Water = 1;
+						}
+						else
+						{
+							return;
+						}
+					}
+				}
+				if (Item_Fire* Fire_shield = dynamic_cast<Item_Fire*>(other->GetOwner()))
+				{
+					if (mState == eSonicState::Jump || mState == eSonicState::Spin || mState == eSonicState::Dash)
+					{
+						int itemcheck = Fire_shield->GetItemcheck();
+						if (itemcheck != 1)
+						{
+							return;
+						}
+
+						if (Water != 0)
+						{
+							object::Destory(water);
+							Water = 0;
+						}							
+						if (Elect != 0)
+						{
+							object::Destory(elect);
+							Elect = 0;
+						}
+
+			
+						if (itemcheck == 1)
+						{
+							Transform* tr = GetComponent<Transform>();
+							Scene* curScene = SceneManager::GetActiveScene();
+							fire = new FireSonic(this);
+							fire->GetComponent<Transform>()->SetPos(tr->GetPos());
+							curScene->AddGameobeject(fire, jk_LayerType::Player_smoke);
+							Fire = 1;
+						}
+						else
+						{
+							return;
+						}
+					}
+				}
+
+
 
 				//RING 충돌처리
 				if (Ring* ring = dynamic_cast<Ring*>(other->GetOwner()))
@@ -1027,7 +1165,7 @@ namespace jk
 			if (Input::GetKeyDown(eKeyCode::SPACE))
 			{
 				Vector2 velocity = mRigidbody->GetVelocity();
-				velocity.y -= 1550.0f;
+				velocity.y -= 550.0f;
 
 				mRigidbody->SetVelocity(velocity);
 				mRigidbody->SetGround(false);
@@ -1702,27 +1840,38 @@ namespace jk
 				mRigidbody->AddForce(Vector2(+150.0f, 0.0f));
 				SonicVelocity = mRigidbody->Velocity();		
 			}
-
-			if ((Elect == 1)&& (Input::GetKey(eKeyCode::SPACE)))
-			{
-		
+			
+			if ((Elect == 1)&& (Input::GetKeyDown(eKeyCode::SPACE)))
+			{		
+				mState = eSonicState::Electricity_Shield;
 				Vector2 velocity = mRigidbody->GetVelocity();
+				velocity.y = -550.0f;
 				mRigidbody->SetVelocity(velocity);
-				mRigidbody->SetGround(true);
-				mState = eSonicState::Twojump;
-				if (mDir == 1)
-				{
-					velocity.y -= 550.0f;
-					velocity.x = velocity.x;
-					mDir = 1;
-				}
-				else if (mDir == -1)
-				{
-					velocity.y -= 550.0f;
-					velocity.x = velocity.x;
-					mDir = -1;
-				}
+				mRigidbody->SetGround(false);	
+				elect_effect = 1;
+			}
 
+			if ((Fire == 1) && (Input::GetKeyDown(eKeyCode::SPACE)))
+			{
+				mState = eSonicState::Fire_Shield;			
+				Vector2 velocity = mRigidbody->GetVelocity();
+				if(mDir ==1)
+				velocity.x = 550.0f;
+				else
+				velocity.x = -550.0f;
+				fire_effect = 1;
+				mRigidbody->SetVelocity(velocity);
+				mRigidbody->SetGround(false);		
+			}	
+
+			water_bounce = 0;
+			if ((Water == 1) && (Input::GetKeyDown(eKeyCode::SPACE)))
+			{				
+				mState = eSonicState::Water_Shield;
+				Vector2 velocity = mRigidbody->GetVelocity();
+				velocity.y = 550.0f;
+				mRigidbody->SetVelocity(velocity);
+				mRigidbody->SetGround(false);		
 			}
 			tr->SetPos(pos);
 		}
@@ -1972,22 +2121,40 @@ namespace jk
 
 		void Sonic::fire_Shield()
 		{
+			mState = eSonicState::Jump;
+			fire_effect = 0;
 		}
 
 		void Sonic::electricity_Shield()
 		{
+			mState = eSonicState::Jump;
+			elect_effect = 1;
 		}
 
 		void Sonic::water_Shield()
 		{
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->GetPos();
+			if (mRigidbody->GetGround())
+			{
+				water_bounce = 1;
+				mState = eSonicState::Jump;
+				Vector2 velocity = mRigidbody->GetVelocity();
+				velocity.y = -650.0f;			
+				mRigidbody->SetVelocity(velocity);
+				mRigidbody->SetGround(false);
+			}
+			tr->SetPos(pos);
 		}
 
 		void Sonic::jeep_line()
 		{
 			if (Input::GetKeyDown(eKeyCode::SPACE))
 			{
-			/*	if (jeepline == 1)
-				{*/
+					if (fly_check == 1)
+					{
+						fly_check = 0;
+					}
 					Vector2 velocity = mRigidbody->GetVelocity();
 					velocity.y -= 550.0f;
 					velocity.x += 550.0f;
@@ -1999,7 +2166,15 @@ namespace jk
 						mAnimator->Play(L"RSonicRollandJunp", true);
 						mDir = 1;
 					}
-				//}
+
+					
+
+					if (mRigidbody->GetGround())
+					{
+						mState = eSonicState::Idle();
+						mAnimator->Play(L"RSonicStand", true);
+					}
+			
 				//if (jeepline == -1)
 				//{
 				//	Vector2 velocity = mRigidbody->GetVelocity();

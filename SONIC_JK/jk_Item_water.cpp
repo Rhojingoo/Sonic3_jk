@@ -14,6 +14,8 @@
 namespace jk
 {
 	Item_water::Item_water(Gameobject* owner)
+		:mOwner(owner)
+		, Itemcheck(1)
 	{
 	}
 	Item_water::~Item_water()
@@ -34,6 +36,19 @@ namespace jk
 	}
 	void Item_water::Update()
 	{
+		switch (itemmState)
+		{
+		case Item_water::eState::Idle:
+			idle();
+			break;
+
+		case Item_water::eState::Death:
+			death();
+			break;
+
+		default:
+			break;
+		}
 		Gameobject::Update();
 	}
 	void Item_water::Render(HDC hdc)
@@ -50,10 +65,14 @@ namespace jk
 		{
 			sonicState = sonic->Getsonicstate();
 
+
 			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
 			{
+				if (itemmState == eState::Death)
+					return;
+
+				itemmState = eState::Death;
 				mAnimator->Play(L"ItemDeath", true);
-				Itemcheck = 0;
 			}
 		}
 	}
@@ -71,5 +90,6 @@ namespace jk
 	}
 	void Item_water::death()
 	{
+		Itemcheck = 2;
 	}
 }

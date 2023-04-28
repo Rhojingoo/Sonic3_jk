@@ -60,6 +60,7 @@ namespace jk
 
 	void MinigameScene::OnEnter()
 	{
+		//Camera::SetTarget(Mini_bg);
 		//CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Item, true);//링, 에메랄드 먹을때 필요
 	}
 

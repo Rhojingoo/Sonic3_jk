@@ -29,7 +29,7 @@ namespace jk
 
 	void CollisionManager::LayerCollision(Scene* scene, jk_LayerType left, jk_LayerType right)
 	{
-		std::vector<Gameobject* >  lefts = scene->GetGameobjects(left);// lefts = scene->GetGameobjects(left);-> 앞에 참조가 빠짐
+		std::vector<Gameobject*>  lefts = scene->GetGameobjects(left);// lefts = scene->GetGameobjects(left);-> 앞에 참조가 빠짐
 		std::vector<Gameobject*> rights = scene->GetGameobjects(right);// rights = scene->GetGameobjects(left);-> 앞에 참조가 빠짐
 		for (auto leftobject : lefts)
 		{

@@ -64,11 +64,13 @@ namespace jk
 		mSonic = new Sonic();
 		mSonic->SetName(L"Player");
 		AddGameobeject(mSonic, jk_LayerType::Player);
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 600.f, 3285.f });
+		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 600.f, 3285.f });//시작
+		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 7800.0f, 3650.0f });//꽃앞
 		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 18400.f, 3900.f });//왕 앞
-		//13770.f, 2880.f
+		//13770.f, 2880.f 
 
-		Tails* tails = new Tails(mSonic);
+
+		tails = new Tails(mSonic);
 		tails->SetName(L"Player2");
 		AddGameobeject(tails, jk_LayerType::Player2);
 		tails->GetComponent<Transform>()->SetPos(Vector2{ 600.f, 3285.f });
@@ -213,13 +215,27 @@ namespace jk
 		playgr->Set_map_check(check_map);
 
 		Vector2 sonic_pos = mSonic->GetComponent<Transform>()->GetPos();
+
+		if (sonic_pos.x >= 1155.f)
+		{
+			Camera::SetCamera(0);
+		}
+
+		if (sonic_pos.x >= 8700.f)
+		{
+			Camera::SetCamera(1);
+		}		
+
 		if (sonic_pos.x >= 19470.f)
 		{
 			Camera_Switch = 1;
 		}
+
 		if (Camera_Switch == 1)
 		{
+			
 			Camera::SetTarget(nullptr);
+			
 			if (check_boss == 0)
 			{
 				if (check_boss != 0)
@@ -230,6 +246,37 @@ namespace jk
 			}
 		}
 
+		if (check_boss == 1)
+		{
+			Vector2 Boss_Pos = mBoss->GetComponent<Transform>()->GetPos();
+			if (Boss_Pos.x > 19500.f)
+			{				
+				Camera::SetCamera(2);
+				Camera::SetTarget(mBoss);								
+			}
+			if (Boss_Pos.x > 19940.f)
+			{				
+				Camera::SetTarget(nullptr);
+				check_boss = 2;
+			}			
+		}
+
+		if (check_boss == 2)
+		{
+ 			boss_death = mBoss->Boss_Death();
+			if (boss_death == 3)
+			{
+				int boss_run = 1;
+				tails->Set_Pursue_boss(boss_run);
+				check_boss = 3;
+			}
+		}
+
+		if ((boss_death == 3) && (sonic_pos.x > 20885.f))
+		{
+			SceneManager::LoadScene(jk_SceneType::GamePlay4);
+		}
+
 		Scene::Update();
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
@@ -237,16 +284,18 @@ namespace jk
 			//CreateBlending();
 			check_map = 3;
 		}
-
 	}
+
 	void PlayScene3::Render(HDC hdc)
 	{
 		Scene::Render(hdc);
 	}
+
 	void PlayScene3::Release()
 	{
 		Scene::Release();
 	}
+
 	void PlayScene3::OnEnter()
 	{
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Monster, true);//충돌시 가리키는 장면
@@ -277,10 +326,10 @@ namespace jk
 	}
 
 	void PlayScene3::Create_Boss()
-	{
-		Boss* boss = new Boss(mSonic);
-		boss->SetName(L"boss");
-		AddGameobeject(boss, jk_LayerType::BOSS);
-		boss->GetComponent<Transform>()->SetPos(Vector2{ 19005.f, 3480.f });
+	{		
+		mBoss = new Boss(mSonic);
+		mBoss->SetName(L"boss");
+		AddGameobeject(mBoss, jk_LayerType::BOSS);
+		mBoss->GetComponent<Transform>()->SetPos(Vector2{ 19005.f, 3480.f });
 	}
 }

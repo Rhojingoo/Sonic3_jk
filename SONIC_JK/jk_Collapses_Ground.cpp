@@ -112,8 +112,7 @@ namespace jk
 
 				sonic_Pos = sonicTr->GetPos();
 				//sonic_Pos = sonic_Pos + Vector2{ 350.f ,-350.f };
-				sonicTr->SetPos(sonic_Pos);
-				
+				sonicTr->SetPos(sonic_Pos);				
 			}
 		}
 		if (check_Gr == 1)

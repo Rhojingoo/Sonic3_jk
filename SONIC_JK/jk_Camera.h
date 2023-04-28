@@ -26,8 +26,9 @@ namespace jk
 
 		static void SetTarget(Gameobject* target) { mTarget = target; }
 		static Vector2 CaluatePos(Vector2 pos) { return pos - mDistance; }	
+		static void SetCamera(int cam) { camera = cam; }
+	
 		
-
 
 	private:
 		static Vector2 mResolution;
@@ -40,8 +41,8 @@ namespace jk
 		static float mCuttonAlpha;
 		static float mAlphaTime;
 		static float mEndTime;
+		static int camera;
 		
-
 	};
 }
 

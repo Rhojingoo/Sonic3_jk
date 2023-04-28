@@ -7,6 +7,8 @@
 
 namespace jk
 {
+	class Boss_Run;
+	class Rigidbody;
 	class Animator;
 	class Boss : public Gameobject
 	{
@@ -32,7 +34,8 @@ namespace jk
 			Attack_Dianogol_Waiting,		
 			Attack_Down_Waiting,
 
-			Death
+			Death,
+			Death_throw
 		};
 
 
@@ -48,6 +51,7 @@ namespace jk
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
+		int Boss_Death() { return Death_check; }
 
 
 	private:
@@ -82,14 +86,17 @@ namespace jk
 		void hurt_dianogol();
 
 		void death();
-	
+		void death_throw();
 
 	private:
 		Image* mImage;
 		Animator* mAnimator;
+		Rigidbody* mRigidbody;
 		Vector2 mCenterpos;
 		Vector2 mCurpos;
 		Vector2 pos;
+		Boss_Run* boss_run;
+
 
 		float mMonspeed;
 		float mMonmaxdistance;
@@ -107,6 +114,7 @@ namespace jk
 
 		int hurt_state;
 		int Damege_sheck;
+		int Death_check;
 
 
 	};

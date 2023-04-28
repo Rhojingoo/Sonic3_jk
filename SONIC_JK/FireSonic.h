@@ -5,20 +5,19 @@
 
 namespace jk
 {
-	class Elec_effect;
 	class Rigidbody;
 	class Animator;
-	class Electsonic : public Gameobject
+	class FireSonic : public Gameobject
 	{
 	public:
 		enum class State
 		{
 			Idle,
-			Elect_Effect,
+			Fire_Attack,
 		};
 
-		Electsonic(Gameobject* owner);
-		~Electsonic();
+		FireSonic(Gameobject* owner);
+		~FireSonic();
 
 
 		virtual void Initialize() override;
@@ -27,8 +26,8 @@ namespace jk
 		virtual void Release() override;
 
 		void idle();
-		void elect_effect();
-		void effect();
+		void fire_attack();
+		void fire_effect();
 
 
 	private:
@@ -38,14 +37,10 @@ namespace jk
 		int mDir;
 		int tailcheck;
 		State mState;
-		Elec_effect* elect1;
-		Elec_effect* elect2;
-
 
 		Sonic* sonic;
 		int effect_check;
-		int effect_call;
-		float time;
+		
 
 	};
 

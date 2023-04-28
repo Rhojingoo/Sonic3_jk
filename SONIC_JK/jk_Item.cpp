@@ -15,14 +15,16 @@ namespace jk
 {
 	Item::Item(Gameobject* owner)	
 		:mOwner(owner)
-		, Itemcheck(0)
+		, Itemcheck(1)
 	{		
 		//Transform* tr = GetComponent<Transform>();
 		//tr->SetPos(Vector2(90.0f, 551.0f));
 	}
+
 	Item::~Item()
 	{
 	}
+
 	void Item::Initialize()
 	{
 		mImage = Resources::Load<Image>(L"Item", L"..\\Resources\\Item.bmp");
@@ -54,14 +56,17 @@ namespace jk
 		}
 		Gameobject::Update();
 	}
+
 	void Item::Render(HDC hdc)
 	{
 		Gameobject::Render(hdc);
 	}
+
 	void Item::Release()
 	{
 		Gameobject::Release();
 	}
+
 	void Item::OnCollisionEnter(Collider* other)
 	{
 		if (Sonic* sonic = dynamic_cast<Sonic*>(other->GetOwner()))
@@ -70,24 +75,31 @@ namespace jk
 
 			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
 			{
+				itemmState = eState::Death;
 				mAnimator->Play(L"ItemDeath", true);
-				Itemcheck = 1;
+				//Itemcheck = 1;
 			}
 		}
 	}
+
 	void Item::OnCollisionStay(Collider* other)
 	{
 	}
+
 	void Item::OnCollisionExit(Collider* other)
 	{
 	}
+
 	void Item::CreateBlending()
 	{
 	}
+
 	void Item::idle()
 	{
 	}
+
 	void Item::death()
 	{
+		Itemcheck = 2;
 	}
 }

@@ -15,6 +15,8 @@
 namespace jk
 {
 	Item_Fire::Item_Fire(Gameobject* owner)
+		:mOwner(owner)
+		, Itemcheck(1)
 	{
 	}
 	Item_Fire::~Item_Fire()
@@ -67,8 +69,8 @@ namespace jk
 
 			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
 			{
+				itemmState = eState::Death;
 				mAnimator->Play(L"ItemDeath", true);
-				Itemcheck = 0;
 			}
 		}
 	}
@@ -86,5 +88,6 @@ namespace jk
 	}
 	void Item_Fire::death()
 	{
+		Itemcheck = 2;
 	}
 }

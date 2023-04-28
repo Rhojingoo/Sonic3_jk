@@ -15,8 +15,8 @@ namespace jk
 	Vector2 Camera::mLookPosition = Vector2::Zero;
 	Vector2 Camera::mDistance = Vector2::Zero;
 	Gameobject* Camera::mTarget = nullptr;
+	int Camera::camera = 0;
 	
-
 	//Camera::eCameraEffectType Camera::mType = Camera::eCameraEffectType::None;
 	//class Image* Camera::mCutton = nullptr;
 	//float Camera::mCuttonAlpha = 1.0f;
@@ -28,7 +28,8 @@ namespace jk
 		mResolution.x = static_cast<float>(application.GetWidth());
 		mResolution.y = static_cast<float>(application.GetHeight());
 		mLookPosition = (mResolution / 2.0f);		
-		
+
+		camera = 0;
 		//mType = eCameraEffectType::FadeIn;
 		//mCutton = Image::Create(L"Cutton", mResolution.x, mResolution.y, RGB(255, 255,255));
 	}
@@ -51,14 +52,37 @@ namespace jk
 		
 		//캐릭터를 중심으로 움직이게 설정
 		
-
-		if (mTarget != nullptr)
+		if(camera == 0)
 		{
-			mLookPosition
-				= mTarget->GetComponent<Transform>()->GetPos();
+			if (mTarget != nullptr)
+			{
+				mLookPosition
+					= mTarget->GetComponent<Transform>()->GetPos();
+			}
+			mDistance.x = mLookPosition.x - (mResolution.x / 2.0f);
+			mDistance.y = mLookPosition.y - (mResolution.y/ 2.0f);
 		}
-		mDistance.x = mLookPosition.x - (mResolution.x / 2.0f);
-		mDistance.y = mLookPosition.y - (mResolution.y/ 2.0f);
+		else if (camera == 1)
+		{
+			if (mTarget != nullptr)
+			{
+				mLookPosition
+					= mTarget->GetComponent<Transform>()->GetPos();
+			}
+			mDistance.x = mLookPosition.x - (mResolution.x / 2.0f);
+			mDistance.y = mLookPosition.y - (mResolution.y * 0.80f);
+		}
+		else if (camera == 2)
+		{
+			if (mTarget != nullptr)
+			{
+				mLookPosition.x
+					= mTarget->GetComponent<Transform>()->GetPos().x;
+				
+			}
+			mDistance.x = mLookPosition.x - (mResolution.x / 2.0f);			
+		}
+
 
 		//if (mAlphaTime < mEndTime)
 		//{

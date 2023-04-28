@@ -8,6 +8,7 @@
 #include "jk_Collider.h"
 #include "jk_Scene.h"
 #include "jk_Object.h"
+#include "Rigidbody.h"
 
 #include "jk_BaseBullet.h"
 #include "Bullet_Act1_R_Side.h"
@@ -31,6 +32,8 @@ namespace jk
 		, Dir_change(0)
 		, hurt_state(0)
 		, Damege_sheck(0)
+		, attack_check(0)
+		, Death_check(0)
 	{
 		mImage = Resources::Load<Image>(L"ROBOT", L"..\\Resources\\ROBOT.bmp");
 		mAnimator = AddComponent<Animator>();
@@ -86,7 +89,10 @@ namespace jk
 		mAnimator->CreateAnimation(L"R_Boss_side_Attack1", mImage, Vector2{ 625,717 }, Vector2{ 116,88 }, Vector2{ 4,0 }, 5, 1, 5, Vector2::Zero, 0.1f);
 		mAnimator->CreateAnimation(L"R_Boss_side_Attack2", mImage, Vector2{ 1205,717 }, Vector2{ 116,88 }, Vector2{ 4,0 }, 5, 1, 5, Vector2::Zero, 0.1f);
 				
-		
+		//데스시 본체 조각
+		mAnimator->CreateAnimation(L"Body_pice", mImage, Vector2{ 388,323 }, Vector2{ 104,80 }, Vector2{ 0,0 }, 1, 1, 1, Vector2::Zero, 0.1f);
+
+
 		mAnimator->Play(L"L_Boss_side", true);
 
 		Collider* collider = AddComponent<Collider>();
@@ -105,6 +111,24 @@ namespace jk
 	{			
 		Transform* tr = GetComponent<Transform>();
 		pos = tr->GetPos();
+
+		//if (Death_check == 0)
+		//{
+		//	if (Death_check == 2)
+		//	{
+		//		if (Death_check != 2)
+		//			return;
+
+		//		Vector2 boss_pos = boss_run->GetComponent<Transform>()->GetPos();
+
+		//		if (boss_pos.x > 21845)
+		//		{
+		//			Death_check = 3;
+		//		}
+		//	}
+		//}
+
+
 
 		switch (mState)
 		{
@@ -153,6 +177,9 @@ namespace jk
 		case jk::Boss::eBossState::Death:death();
 			break;
 
+		case jk::Boss::eBossState::Death_throw:death_throw();
+			break;
+
 		default:
 			break;
 		}					
@@ -180,17 +207,17 @@ namespace jk
 
 				Damege_sheck += 1;
 
-				if ((Damege_sheck >= 6) && (mDir == -1))//왼쪽
+				if ((Damege_sheck >= 1) && (mDir == -1))//왼쪽 6대를 기본으로 함
 				{
 					mAnimator->Play(L"L_Boss_side", true);
 					mState = eBossState::Death;
-					attack_check = 0;
+					Death_check = 1;
 				}
-				else if ((Damege_sheck >= 6) && (mDir == 1))//오른쪽
+				else if ((Damege_sheck >= 1) && (mDir == 1))//오른쪽
 				{
 					mAnimator->Play(L"R_Boss_side", true);
 					mState = eBossState::Death;		
-					attack_check = 0;
+					Death_check = 1;
 				}
 
 
@@ -790,7 +817,6 @@ namespace jk
 		}
 		else if (mDir == 1)
 		{
-			//미사일 넣기
 			time += Time::DeltaTime();
 			if (time >= 3)
 			{
@@ -939,29 +965,55 @@ namespace jk
 
 	void Boss::death()
 	{	
-		if (attack_check == 0)
+		if (Death_check == 1)
 		{
 			Transform* tr = GetComponent<Transform>();
 			Scene* curScene = SceneManager::GetActiveScene();
 			Boss_act1_boomb* boss_boomb = new Boss_act1_boomb(this);
 			boss_boomb->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x , tr->GetPos().y });
-			curScene->AddGameobeject(boss_boomb, jk_LayerType::Bullet);
+			curScene->AddGameobeject(boss_boomb, jk_LayerType::Effect);
 			time += Time::DeltaTime();
-			attack_check = 1;
+			Death_check = 2;
 		}
 
 
 		time += Time::DeltaTime();
-		if ((attack_check==1)&&(time >= 3))
+		if ((Death_check ==2)&&(time >= 3))
 		{
 			Transform* tr = GetComponent<Transform>();
 			Scene* curScene = SceneManager::GetActiveScene();
-			Boss_Run* boss_run = new Boss_Run(this);
+			boss_run = new Boss_Run(this);
 			boss_run->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x , tr->GetPos().y });
 			curScene->AddGameobeject(boss_run, jk_LayerType::BOSS);
 			time = 0;
-			object::Destory(this);
+			//object::Destory(this);
+
+			mState = eBossState::Death_throw;
+			mAnimator->Play(L"Body_pice",false);
 		}
+	}
+
+	void Boss::death_throw()
+	{
+		mRigidbody = AddComponent<Rigidbody>();
+		mRigidbody->SetMass(1.f);
+		mRigidbody->SetVelocity(Vector2{ 0.f,500.f });
+
+
+		if (Death_check == 2)
+		{
+			if (Death_check != 2)
+				return;
+
+			Vector2 boss_pos = boss_run->GetComponent<Transform>()->GetPos();
+
+			if (boss_pos.x > 21845)
+			{
+				Death_check = 3;
+			}
+		}
+
+
 	}
 }	
 

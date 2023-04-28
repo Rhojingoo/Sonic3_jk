@@ -1,9 +1,13 @@
 #pragma once
 #include "jk_Gameobject.h"
+#include "jk_Tails.h"
 #include "jk_Image.h"
 
 namespace jk
 {
+	class WaterSonic;
+	class FireSonic;
+	class Electsonic;
 	class Tails;
 	class Ground;
 	class Rigidbody;
@@ -68,6 +72,15 @@ namespace jk
 		int GetSonicDir() { return mDir; }
 		int GetRingCheck() {return Ringcheck;}
 		void SetCheckTargetGround(Ground* ground) { check = ground; }
+		
+		
+		int Elect_Shield() { return elect_effect; }
+		int Water_Shield() { return water_bounce; }
+		int Fire_Shield() { return fire_effect; }
+		void Fire_Shield_End(int check) { fire_effect = check; }
+	
+		void Set_Fly(int fly) { fly_check = fly; }
+
 
 	private:
 		void idle();
@@ -107,8 +120,8 @@ namespace jk
 		void circle_Lturn_6();
 		void circle_Lturn_7();
 
-	
-
+		
+		
 	
 
 	private:
@@ -127,8 +140,16 @@ namespace jk
 		int hurtcheck;
 		Tails* Tails_call;
 		Vector2 tails_call;
-
+		Electsonic* elect;
 		int jeepline;
 		int check_map;
+		FireSonic* fire;
+		WaterSonic* water;
+		int water_bounce;
+		int fire_effect;
+		int elect_effect;
+
+		int fly_check;
+		//Tails::eTailsState* tailsState;
 	};
 }
