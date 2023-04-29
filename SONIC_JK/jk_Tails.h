@@ -1,6 +1,5 @@
 #pragma once
 #include "jk_Gameobject.h"
-#include "jk_tails_tail.h"
 #include "jk_SONIC.h"
 #include "jk_Image.h"
 
@@ -32,6 +31,9 @@ namespace jk
 			Fly_Ready,
 			Fly_Pursue,
 			Fly_Waiting,
+
+			EMDING,
+			End,
 
 			Circle_Rturn_R,
 			Circle_Rturn_1,
@@ -70,6 +72,9 @@ namespace jk
 		void Set_Pursue_boss(int pursue) { pursue_boss = pursue; }
 
 		void Set_Fly(int fly) { fly_check = fly; }
+		int Get_Fly() { return fly_check; }
+		void Set_Ending(int final) { end = final; }
+
 
 	private:
 		void idle();
@@ -89,6 +94,10 @@ namespace jk
 		void fly_Ready();
 		void fly_pursue();
 		void fly_waiting();
+		void ending();
+		void endgame();
+
+
 
 		void circle_Rturn_1();
 		void circle_Rturn_2();
@@ -129,6 +138,8 @@ namespace jk
 		int Circle_piece;		
 		int fly_check;
 		int pursue_boss;
+
+		int end;
 	};
 
 }

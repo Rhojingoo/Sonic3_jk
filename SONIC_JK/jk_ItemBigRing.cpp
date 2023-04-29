@@ -9,6 +9,7 @@
 #include "jk_Camera.h"
 #include "jk_Object.h"
 #include "jk_Blending.h"
+#include "jk_SONIC.h"
 
 namespace jk
 {
@@ -37,7 +38,13 @@ namespace jk
 		collider->SetSize(Vector2(180.0f, 200.0f));
 		Vector2 size = collider->GetSize();
 		collider->SetCenter(Vector2{ (-0.15f) * size.x, (-0.35f) * size.y });
+
+		mAnimator->GetCompleteEvent(L"EatLSpring") = std::bind(&ItemBigRing::death, this);
+		
 		Gameobject::Initialize();
+
+
+
 	}
 
 	void ItemBigRing::Update()
@@ -71,13 +78,10 @@ namespace jk
 
 	void ItemBigRing::OnCollisionEnter(Collider* other)
 	{
-		
-		mAnimator->Play(L"EatLSpring", true);
-		//mAnimator->GetCompleteEvent(L"EatLSpring");
-		object::Destory(this);
-		SceneManager::LoadScene(jk_SceneType::MiniGameplay);
-		Camera::Clear();
-			
+		if (Sonic* sonic = dynamic_cast<Sonic*>(other->GetOwner()))
+		{
+			mAnimator->Play(L"EatLSpring", true);			
+		}
 	}
 
 	void ItemBigRing::OnCollisionStay(Collider* other)
@@ -101,5 +105,11 @@ namespace jk
 	void ItemBigRing::move()
 	{
 
+	}
+	void ItemBigRing::death()
+	{
+		object::Destory(this);
+		SceneManager::LoadScene(jk_SceneType::MiniGameplay);
+		Camera::Clear();
 	}
 }

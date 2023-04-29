@@ -30,7 +30,7 @@ namespace jk
 	void CollisionManager::LayerCollision(Scene* scene, jk_LayerType left, jk_LayerType right)
 	{
 		std::vector<Gameobject*>  lefts = scene->GetGameobjects(left);// lefts = scene->GetGameobjects(left);-> 앞에 참조가 빠짐
-		std::vector<Gameobject*> rights = scene->GetGameobjects(right);// rights = scene->GetGameobjects(left);-> 앞에 참조가 빠짐
+		std::vector<Gameobject*>  rights = scene->GetGameobjects(right);// rights = scene->GetGameobjects(left);-> 앞에 참조가 빠짐
 		for (auto leftobject : lefts)
 		{
 			if (leftobject == nullptr)
@@ -56,7 +56,7 @@ namespace jk
 
 	void CollisionManager::ColliderCollision(Collider* leftCol, Collider* rightCol, jk_LayerType left, jk_LayerType right)
 	{
-		if ((int)left == 2 && (int)right == 11)
+		if ((int)left == 0 && (int)right == 19)
 			int a = 0;
 		ColliderID colliderID = {};
 		colliderID.left = (UINT)leftCol->GetID();

@@ -4,6 +4,7 @@
 
 namespace jk
 {
+	class EmeraldSonic;
 	class MinigameScene : public Scene
 	{
 	public:
@@ -22,5 +23,6 @@ namespace jk
 
 	private:
 		Image* mScenImage;
+		EmeraldSonic* emsonic;
 	};
 }

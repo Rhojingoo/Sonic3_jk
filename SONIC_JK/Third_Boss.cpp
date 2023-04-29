@@ -22,6 +22,7 @@ namespace jk
 		, Grap_pattern(0)
 		, Hur_check(0)
 		, mSpeed(250)
+		, Ending_point(0)
 	{
 
 		mAnimator = AddComponent<Animator>();
@@ -96,6 +97,9 @@ namespace jk
 		case jk::Third_Boss::eBossState::Death:death();
 			break;
 
+		case jk::Third_Boss::eBossState::Ending:ending();
+			break;
+
 		default:
 			break;
 		}
@@ -125,8 +129,21 @@ namespace jk
 				Damege_check += 1;
 				Hur_check = 1;
 
-				if (Damege_check < 6)
+				//if (Damege_check < 6)
+				//{
+				//	if (mDir == 1)
+				//	{
+				//		mAnimator->Play(L"R_Boss_third_Hurt", false);
+				//	}
+				//	else
+				//	{
+				//		mAnimator->Play(L"L_Boss_third_Hurt", false);
+				//	}
+				//}
+
+				/*else*/ if (Damege_check == 1)
 				{
+					mState = eBossState::Death;
 					if (mDir == 1)
 					{
 						mAnimator->Play(L"R_Boss_third_Hurt", false);
@@ -135,11 +152,6 @@ namespace jk
 					{
 						mAnimator->Play(L"L_Boss_third_Hurt", false);
 					}
-				}
-
-				else if (Damege_check == 6)
-				{
-					mState = eBossState::Death;
 				}			
 
 			}
@@ -163,7 +175,7 @@ namespace jk
 		{
 			mState = eBossState::Left_Cross;
 				mAnimator->Play(L"L_Boss_Third", true);
-				pos = Vector2{ 15150.f,5200.f };
+				pos = Vector2{ 15150.f,5400.f };
 				mDir = -1;
 				Boss_cross_change = 1;	
 		}
@@ -187,7 +199,7 @@ namespace jk
 			{
 				mState = eBossState::Right_Cross;
 				mAnimator->Play(L"R_Boss_Third", true);
-				pos = Vector2{ 13550.0f,5200.f };
+				pos = Vector2{ 13550.0f,5400.f };
 				mDir = 1;
 				Boss_cross_change = 1;
 			}
@@ -195,7 +207,7 @@ namespace jk
 			{
 				mState = eBossState::Right;
 				mAnimator->Play(L"R_Boss_Third", true);
-				pos = Vector2{ 13550.0f,5200.f };
+				pos = Vector2{ 13550.0f,5400.f };
 				mDir = 1;
 				Boss_cross_change = 2;
 			}
@@ -235,7 +247,7 @@ namespace jk
 			{
 				mState = eBossState::Left_Cross;
 				mAnimator->Play(L"L_Boss_Third", false);
-				pos = Vector2{ 15150.f,5200.f };
+				pos = Vector2{ 15150.f,5400.f };
 				mDir = -1;
 				Boss_cross_change = 1;
 			}
@@ -243,7 +255,7 @@ namespace jk
 			{
 				mState = eBossState::Left;
 				mAnimator->Play(L"L_Boss_Third", false);
-				pos = Vector2{ 15150.f,5200.f };
+				pos = Vector2{ 15150.f,5400.f };
 				mDir = -1;
 				Boss_cross_change = 2;
 			}
@@ -279,7 +291,7 @@ namespace jk
 			{
 				mState = eBossState::Right_Cross;
 				mAnimator->Play(L"R_Boss_Third", true);
-				pos = Vector2{ 13550.0f,5200.f };
+				pos = Vector2{ 13550.0f,5400.f };
 				mDir = 1;
 				Boss_cross_change = 0;
 			}
@@ -287,7 +299,7 @@ namespace jk
 			{
 				mState = eBossState::Grap_R;
 				mAnimator->Play(L"R_Boss_Third", true);
-				pos = Vector2{ 13550.0f,5200.f };
+				pos = Vector2{ 13550.0f,4500.f };
 				Boss_cross_change = 0;
 				mDir = 1;
 			}
@@ -306,7 +318,7 @@ namespace jk
 			{
 				mState = eBossState::Left_Cross;
 				mAnimator->Play(L"L_Boss_Third", true);
-				pos = Vector2{ 15150.f,5200.f };
+				pos = Vector2{ 15150.f,5400.f };
 				mDir = -1;
 				Boss_cross_change = 0;
 			}
@@ -367,8 +379,7 @@ namespace jk
 		else
 		{
 			mAnimator->Play(L"L_Boss_Third", true);
-			Hur_check = 0;
-			
+			Hur_check = 0;		
 		}
 
 		return;
@@ -395,5 +406,16 @@ namespace jk
 				Boomb_point = 2;
 			}
 		}
+
+		if ((Boomb_point == 2) && (pos.y > 6000))
+		{
+			Ending_point = 1;
+			Boomb_point = 3;
+		}
+	}
+	void Third_Boss::ending()
+	{
+
+
 	}
 }

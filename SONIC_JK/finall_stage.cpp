@@ -10,13 +10,14 @@
 #include "jk_Scene.h"
 #include "jk_Object.h"
 #include "jk_Ground.h"
-
+#include "jk_Tails.h"
 
 namespace jk
 {
 	finall_stage::finall_stage()
 		:check_map(0)
-		, mSpeed(50)
+		, mSpeed(30)
+		, end(0)
 	{
 	}
 	finall_stage::~finall_stage()
@@ -28,12 +29,22 @@ namespace jk
 
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"Last_stage", mImage, Vector2{ 0,0 }, Vector2{1920,640 }, Vector2{ 0,0 }, 1, 1, 1, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"Last_stage_end", mImage, Vector2{ 0,0 }, Vector2{ 1924,640 }, Vector2{ 4,0 }, 4, 2, 8, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"Last_stage_ending", mImage, Vector2{ 5772,640 }, Vector2{ 1920,640 }, Vector2{ 0,0 }, 1, 1, 1, Vector2::Zero, 0.1f);
+
+
+	
 		mAnimator->Play(L"Last_stage", true);
+		mAnimator->GetCompleteEvent(L"Last_stage_end") = std::bind(&finall_stage::Ending, this);
+
 
 		Collider* collider = AddComponent<Collider>();
 		collider->SetSize(Vector2(960.0f, 100.0f));
 		Vector2 size = collider->GetSize();
 		collider->SetCenter(Vector2{ (3.85f) * size.x, (6.0f) * size.y });
+
+
+
 
 		Gameobject::Initialize();
 
@@ -118,16 +129,64 @@ namespace jk
 
 			}
 		}
+
+		if (Tails* mTails = dynamic_cast<Tails*>(other->GetOwner()))
+		{
+			Rigidbody* rb = mTails->GetComponent<Rigidbody>();
+			rb->SetGround(true);
+
+
+			Collider* mTails_Col = mTails->GetComponent<Collider>();
+			Vector2 mTails_Pos = mTails_Col->Getpos();
+			Collider* groundCol = this->GetComponent<Collider>();
+			Vector2 groundPos = groundCol->Getpos();
+			Transform* mTailsTr = mTails->GetComponent<Transform>();
+			Transform* grTr = this->GetComponent<Transform>();
+			Vector2 Tails_Pos = mTailsTr->GetPos();
+
+
+			Vector2 velocity = rb->GetVelocity();
+			velocity.y = 0.0f;
+			rb->SetVelocity(velocity);
+		
+
+			if (!((mTails->GetTails_state() == Tails::eTailsState::Jump) || mTails->GetTails_state() == Tails::eTailsState::Movejump))
+			{
+				Tails_Pos.y = groundCol->Getpos().y - groundCol->GetSize().y;
+				mTailsTr->SetPos(Tails_Pos);
+			}
+			else
+			{
+				Vector2 velocity = rb->GetVelocity();
+				velocity.y = -550.0f;
+
+				rb->SetVelocity(velocity);
+				rb->SetGround(false);
+
+				Tails_Pos = mTailsTr->GetPos();
+				mTailsTr->SetPos(Tails_Pos);
+			}
+		}
 	}
 	void finall_stage::OnCollisionExit(Collider* other)
 	{
 	}
+
+	void finall_stage::Bomb()
+	{
+	}
+
 
 	void finall_stage::idle()
 	{
 		if (check_map == 1)
 		{
 			mState = eBossState::Move;
+		}
+		if (end == 1)
+		{
+			mState = eBossState::Death;
+			mAnimator->Play(L"Last_stage_end", false);			
 		}
 	}
 
@@ -146,10 +205,20 @@ namespace jk
 			mState = eBossState::Idle;
 		}
 
+
 		tr->SetPos(pos);
 	}
 
 	void finall_stage::death()
 	{
+		end = 2;
+		mState = eBossState::Idle;
+	}
+	void finall_stage::Ending()
+	{
+		//end = 2;
+		//mState = eBossState::Death;
+		//mAnimator->Play(L"Last_stage_ending", true);
+		//mState = eBossState::Death;
 	}
 }

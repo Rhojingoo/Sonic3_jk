@@ -5,7 +5,7 @@
 
 namespace jk
 {
-	class Gameobject;
+	class Gameobject;	
 	class Camera
 	{
 	public:
@@ -26,7 +26,17 @@ namespace jk
 
 		static void SetTarget(Gameobject* target) { mTarget = target; }
 		static Vector2 CaluatePos(Vector2 pos) { return pos - mDistance; }	
+		
+		
+		static Vector2 GetMove(Vector2 pos) { return pos - mMove; }
+
+
 		static void SetCamera(int cam) { camera = cam; }
+
+
+		//static void Move_L(float pos) { mMove.x = pos;}
+		//static float GetMove_L() { return mMove.x; }
+	
 	
 		
 
@@ -42,6 +52,9 @@ namespace jk
 		static float mAlphaTime;
 		static float mEndTime;
 		static int camera;
+
+		static Vector2 mMove;
+		static Vector2 target_pos;
 		
 	};
 }

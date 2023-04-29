@@ -6,19 +6,16 @@
 #include "jk_Animator.h"
 #include "jk_Collider.h"
 #include "jk_Scene.h"
-
 #include "jk_Input.h"
+
+#include "jk_EmeraldSonic.h"
 
 jk::MGEmerald::MGEmerald()
 	: mState(eState::Idle)
 {
 	Transform* tr = GetComponent<Transform>();
 	tr->SetPos(Vector2(595.0f, -200.0f));
-	//Collider* collider = AddComponent<Collider>();
-	//Vector2 size = collider->GetSize();
-	//Vector2 center = Vector2{ (-0.15f) * size.x, (-0.35f) * size.y };
-	//collider->SetCenter(center);
-	//collider->SetPos(tr->GetPos() + center);
+
 
 }
 
@@ -29,7 +26,7 @@ jk::MGEmerald::~MGEmerald()
 void jk::MGEmerald::Initialize()
 {
 	Transform* tr = GetComponent<Transform>();
-	tr->SetPos(Vector2(595.0f, -200.0f));
+	//tr->SetPos(Vector2(595.0f, -200.0f));
 	mImage = Resources::Load<Image>(L"Emerald", L"..\\Resources\\Mini_BG2.bmp");
 	mAnimator = AddComponent<Animator>();
 	mAnimator->CreateAnimation(L"Emerald", mImage, Vector2(24, 2653), Vector2(32, 32), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
@@ -37,7 +34,7 @@ void jk::MGEmerald::Initialize()
 	mAnimator->Play(L"Emerald", true);
 
 	Collider* collider = AddComponent<Collider>();
-	//collider->SetSize(Vector2(180.0f, 200.0f));
+	
 	Vector2 size = collider->GetSize();
 	Vector2 center = Vector2{ (-0.15f) * size.x, (-0.35f) * size.y };
 	collider->SetCenter(center);
@@ -71,7 +68,12 @@ void jk::MGEmerald::Release()
 
 void jk::MGEmerald::OnCollisionEnter(Collider* other)
 {
-	SceneManager::LoadScene(jk_SceneType::GamePlay);
+
+	if (EmeraldSonic* sonic = dynamic_cast<EmeraldSonic*>(other->GetOwner()))
+	{
+		SceneManager::LoadScene(jk_SceneType::GamePlay);
+	}
+	
 }
 
 void jk::MGEmerald::OnCollisionStay(Collider* other)

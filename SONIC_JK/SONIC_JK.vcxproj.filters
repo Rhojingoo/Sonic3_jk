@@ -125,12 +125,6 @@
     <Filter Include="Contents\Player\Tails">
       <UniqueIdentifier>{5fa56f6e-94f7-43fb-8577-98738820222e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Player\Tails\Tails_tail">
-      <UniqueIdentifier>{b9380e70-3372-4277-b276-df1400338693}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Player\Tails\Tails_tail\Default">
-      <UniqueIdentifier>{dd1976cb-2e95-4aa2-995a-5d618ab8a2a2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Component\RigidBody\rotation">
       <UniqueIdentifier>{998b4ed3-5826-49e0-bab6-90585c160d06}</UniqueIdentifier>
     </Filter>
@@ -442,12 +436,6 @@
     <ClInclude Include="jk_Tails.h">
       <Filter>Contents\Player\Tails</Filter>
     </ClInclude>
-    <ClInclude Include="jk_tail_jump.h">
-      <Filter>Contents\Player\Tails\Tails_tail\Default</Filter>
-    </ClInclude>
-    <ClInclude Include="jk_tails_tail.h">
-      <Filter>Contents\Player\Tails\Tails_tail\Default</Filter>
-    </ClInclude>
     <ClInclude Include="Electsonic.h">
       <Filter>Contents\Player\Sonic\shield</Filter>
     </ClInclude>
@@ -723,24 +711,6 @@
     <ClInclude Include="act6_sky1.h">
       <Filter>Contents\BG\PlayBG\BG_act6\foreground</Filter>
     </ClInclude>
-    <ClInclude Include="act6_sky2.h">
-      <Filter>Contents\BG\PlayBG\BG_act6\foreground</Filter>
-    </ClInclude>
-    <ClInclude Include="act6_sky3.h">
-      <Filter>Contents\BG\PlayBG\BG_act6\foreground</Filter>
-    </ClInclude>
-    <ClInclude Include="act6_sky4.h">
-      <Filter>Contents\BG\PlayBG\BG_act6\foreground</Filter>
-    </ClInclude>
-    <ClInclude Include="act6_sky6.h">
-      <Filter>Contents\BG\PlayBG\BG_act6\foreground</Filter>
-    </ClInclude>
-    <ClInclude Include="act6_sky5.h">
-      <Filter>Contents\BG\PlayBG\BG_act6\foreground</Filter>
-    </ClInclude>
-    <ClInclude Include="act6_sky7.h">
-      <Filter>Contents\BG\PlayBG\BG_act6\foreground</Filter>
-    </ClInclude>
     <ClInclude Include="Boss_Run.h">
       <Filter>Contents\Boss\Act1_boss</Filter>
     </ClInclude>
@@ -788,6 +758,15 @@
     </ClInclude>
     <ClInclude Include="Elec_effect.h">
       <Filter>Contents\Player\Sonic\shield</Filter>
+    </ClInclude>
+    <ClInclude Include="Last_Boss_bomb.h">
+      <Filter>Contents\Boss\boss_dead_effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Ending_boss.h">
+      <Filter>Contents\Boss\boss_dead_effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss_trash.h">
+      <Filter>Contents\Boss\boss_dead_effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -920,12 +899,6 @@
     </ClCompile>
     <ClCompile Include="jk_Tails.cpp">
       <Filter>Contents\Player\Tails</Filter>
-    </ClCompile>
-    <ClCompile Include="jk_tail_jump.cpp">
-      <Filter>Contents\Player\Tails\Tails_tail\Default</Filter>
-    </ClCompile>
-    <ClCompile Include="jk_tails_tail.cpp">
-      <Filter>Contents\Player\Tails\Tails_tail\Default</Filter>
     </ClCompile>
     <ClCompile Include="Electsonic.cpp">
       <Filter>Contents\Player\Sonic\shield</Filter>
@@ -1201,24 +1174,6 @@
     <ClCompile Include="act6_sky1.cpp">
       <Filter>Contents\BG\PlayBG\BG_act6\foreground</Filter>
     </ClCompile>
-    <ClCompile Include="act6_sky2.cpp">
-      <Filter>Contents\BG\PlayBG\BG_act6\foreground</Filter>
-    </ClCompile>
-    <ClCompile Include="act6_sky3.cpp">
-      <Filter>Contents\BG\PlayBG\BG_act6\foreground</Filter>
-    </ClCompile>
-    <ClCompile Include="act6_sky4.cpp">
-      <Filter>Contents\BG\PlayBG\BG_act6\foreground</Filter>
-    </ClCompile>
-    <ClCompile Include="act6_sky5.cpp">
-      <Filter>Contents\BG\PlayBG\BG_act6\foreground</Filter>
-    </ClCompile>
-    <ClCompile Include="act6_sky6.cpp">
-      <Filter>Contents\BG\PlayBG\BG_act6\foreground</Filter>
-    </ClCompile>
-    <ClCompile Include="act6_sky7.cpp">
-      <Filter>Contents\BG\PlayBG\BG_act6\foreground</Filter>
-    </ClCompile>
     <ClCompile Include="Boss_Run.cpp">
       <Filter>Contents\Boss\Act1_boss</Filter>
     </ClCompile>
@@ -1266,6 +1221,15 @@
     </ClCompile>
     <ClCompile Include="Elec_effect.cpp">
       <Filter>Contents\Player\Sonic\shield</Filter>
+    </ClCompile>
+    <ClCompile Include="Last_Boss_bomb.cpp">
+      <Filter>Contents\Boss\boss_dead_effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Ending_boss.cpp">
+      <Filter>Contents\Boss\boss_dead_effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss_trash.cpp">
+      <Filter>Contents\Boss\boss_dead_effect</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -111,23 +111,23 @@ namespace jk
 				time = 0;
 			}
 		}
-		if (Boomb_point == 3)
-		{
-			time += Time::DeltaTime();
-			if (time > 5)
-			{
-				Create_Boss3();
-				secondtime = 0;
-				Boomb_point = 4;
-				arm_lotaion = 1;
-			}
-		}
-		if (arm_lotaion == 1)
-		{
-			boss_arm->Set_mDir(last_boss->Get_mDir());
-			boss_arm->Set_Hurt(last_boss->Get_Hurt());
-			last_boss->Set_Grap(boss_arm->Get_grap());
-		}
+		//if (Boomb_point == 3)
+		//{
+		//	time += Time::DeltaTime();
+		//	if (time > 5)
+		//	{
+		//		Create_Boss3();
+		//		secondtime = 0;
+		//		Boomb_point = 4;
+		//		arm_lotaion = 1;
+		//	}
+		//}
+		//if (arm_lotaion == 1)
+		//{
+		//	boss_arm->Set_mDir(last_boss->Get_mDir());
+		//	boss_arm->Set_Hurt(last_boss->Get_Hurt());
+		//	last_boss->Set_Grap(boss_arm->Get_grap());
+		//}
 
 
 		switch (mState)

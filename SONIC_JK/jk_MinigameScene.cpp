@@ -24,7 +24,7 @@ namespace jk
 	{
 		MGEmerald* emerald = new MGEmerald();
 		emerald->SetName(L"Mg_Emerald");
-		EmeraldSonic* emsonic = new EmeraldSonic();
+		emsonic = new EmeraldSonic();
 		emsonic->SetName(L"Mg_Sonic");
 		Minigame* Mini_bg = new Minigame();
 		Mini_bg->SetName(L"Mg_BG");
@@ -60,8 +60,9 @@ namespace jk
 
 	void MinigameScene::OnEnter()
 	{
-		//Camera::SetTarget(Mini_bg);
-		//CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Item, true);//링, 에메랄드 먹을때 필요
+		Camera::SetCamera(0);
+		Camera::SetTarget(emsonic);
+		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Item, true);//링, 에메랄드 먹을때 필요
 	}
 
 	void MinigameScene::OnExit()

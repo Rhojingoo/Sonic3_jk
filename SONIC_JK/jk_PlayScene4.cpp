@@ -10,6 +10,7 @@
 #include "jk_Object.h"
 #include "jk_Transform.h"
 #include "jk_Blending.h"
+#include "Rigidbody.h"
 
 
 #include "jk_Sonic.h"
@@ -20,22 +21,24 @@
 #include "jk_Ground.h"
 #include "jk_Act6_BG.h"
 #include "act6_sky1.h"
-#include "act6_sky2.h"
-#include "act6_sky3.h"
-#include "act6_sky4.h"
-#include "act6_sky5.h"
-#include "act6_sky6.h"
-#include "act6_sky7.h"
+
 
 #include "Robotnic_machine.h"
 #include "boss1_body.h"
 #include "boss_come.h"
 #include "boss1_object.h"
 #include "finall_stage.h"
+#include "Third_Boss.h"
+#include "Boss_Arm.h"
+#include "Last_Boss_bomb.h"
+#include "Boss_trash.h"
+
 
 #include "Second_Boss.h"
 #include "Third_Boss.h"
 #include "Boss_Arm.h"
+#include "Ending_boss.h"
+
 
 #include "jk_Ring.h"
 #include "jk_Ring_Falling.h"
@@ -50,6 +53,12 @@ namespace jk
 	PlayScene4::PlayScene4()
 		:Boss_Death_point(0)
 		, map_lotation(0)
+		, BOSS3_Start(0)
+		, BOSS2_Start(0)
+		, time(0)
+		, arm_lotaion(0)
+		, Boss_end(0)
+
 		
 	{
 	}
@@ -70,20 +79,20 @@ namespace jk
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 6000.f, 5085.f });
 		mSonic->Set_Fly(1);
 
-		Tails* tails = new Tails(mSonic);
-		tails->SetName(L"Player2");
-		AddGameobeject(tails, jk_LayerType::Player2);
+		mtails = new Tails(mSonic);
+		mtails->SetName(L"Player2");
+		AddGameobeject(mtails, jk_LayerType::Player2);
 		Tails::eTailsState::Fly_Waiting;
-		tails->GetComponent<Transform>()->SetPos(Vector2{ 840.f, 4830.f });
-		tails->Set_Fly(1);
+		mtails->GetComponent<Transform>()->SetPos(Vector2{ 840.f, 4830.f });
+		mtails->Set_Fly(1);
 
 
 		playgr = new Ground();
 		playgr->SetName(L"Ground2");
-		playgr->SetPlayer(mSonic, tails);
+		playgr->SetPlayer(mSonic, mtails);
 		AddGameobeject(playgr, jk_LayerType::Ground);
 		mSonic->SetCheckTargetGround(playgr);
-		tails->SetCheckTargetGround(playgr);
+		mtails->SetCheckTargetGround(playgr);
 	
 		fly_machine = new Robotnic_machine();
 		fly_machine->SetName(L"boss_first");
@@ -105,117 +114,15 @@ namespace jk
 		stage_final->GetComponent<Transform>()->SetPos(Vector2{ 10190.0f,5650.0f });
 
 
-
-
 	//배경
 		jk_Act6_BG* act6_BG = new jk_Act6_BG();
 		act6_BG->SetName(L"act6_BG");
 		AddGameobeject(act6_BG, jk_LayerType::BG);
 
-		act6_sky1* sky1 = new act6_sky1();
+		sky1 = new act6_sky1();
 		sky1->SetName(L"act6_sky1");
 		AddGameobeject(sky1, jk_LayerType::foreground);
-		sky1->GetComponent<Transform>()->SetPos(Vector2{ 100.f, -500.f });//432
-
-		//act6_sky2* sky2 = new act6_sky2();
-		//sky2->SetName(L"act6_sky1");
-		//AddGameobeject(sky2, jk_LayerType::foreground);
-		//sky2->GetComponent<Transform>()->SetPos(Vector2{ 100.f, 432.f });//546  =  978
-
-		//act6_sky2* sky2_1 = new act6_sky2();
-		//sky2_1->SetName(L"act6_sky1");
-		//AddGameobeject(sky2_1, jk_LayerType::foreground);
-		//sky2_1->GetComponent<Transform>()->SetPos(Vector2{ 100.f, 978.f });//546  = 1524
-
-		//act6_sky2* sky2_2 = new act6_sky2();
-		//sky2_2->SetName(L"act6_sky1");
-		//AddGameobeject(sky2_2, jk_LayerType::foreground);
-		//sky2_2->GetComponent<Transform>()->SetPos(Vector2{ 100.f, 1524.f });// 546  = 2070
-
-
-		//act6_sky3* sky3 = new act6_sky3();
-		//sky3->SetName(L"act6_sky3");
-		//AddGameobeject(sky3, jk_LayerType::foreground);
-		//sky3->GetComponent<Transform>()->SetPos(Vector2{ 100.f, 2070.f });//216  = 2286
-
-
-		//act6_sky3* sky3_1 = new act6_sky3();
-		//sky3_1->SetName(L"act6_sky3");
-		//AddGameobeject(sky3_1, jk_LayerType::foreground);
-		//sky3_1->GetComponent<Transform>()->SetPos(Vector2{ 100.f, 2286.f });//216 = 2502
-
-
-		//act6_sky4* sky4 = new act6_sky4();
-		//sky4->SetName(L"act6_sky4");
-		//AddGameobeject(sky1, jk_LayerType::foreground);
-		//sky4->GetComponent<Transform>()->SetPos(Vector2{ 100.f, 2502.f });//237 = 2739
-
-
-		//act6_sky5* sky5 = new act6_sky5();
-		//sky5->SetName(L"act6_sky5");
-		//AddGameobeject(sky5, jk_LayerType::foreground);
-		//sky5->GetComponent<Transform>()->SetPos(Vector2{ 100.f, 2739.f });// 165  = 2904
-
-
-		//
-		//act6_sky3* sky3_2 = new act6_sky3();
-		//sky3_2->SetName(L"act6_sky3");
-		//AddGameobeject(sky3_2, jk_LayerType::foreground);
-		//sky3_2->GetComponent<Transform>()->SetPos(Vector2{ 100.f, 2904.f });//216 = 3120
-
-
-		//act6_sky4* sky4_1 = new act6_sky4();
-		//sky4_1->SetName(L"act6_sky4");
-		//AddGameobeject(sky4_1, jk_LayerType::foreground);
-		//sky4_1->GetComponent<Transform>()->SetPos(Vector2{ 100.f, 3120.f });//237 = 3357
-
-
-		//act6_sky5* sky5_1 = new act6_sky5();
-		//sky5_1->SetName(L"act6_sky5");
-		//AddGameobeject(sky5_1, jk_LayerType::foreground);
-		//sky5_1->GetComponent<Transform>()->SetPos(Vector2{ 100.f, 3357.f });//165 = 3522
-
-
-		//act6_sky2* sky2_3 = new act6_sky2();
-		//sky2_3->SetName(L"act6_sky1");
-		//AddGameobeject(sky2_3, jk_LayerType::foreground);
-		//sky2_3->GetComponent<Transform>()->SetPos(Vector2{ 100.f, 3522.f });//546  =4068
-
-
-		//act6_sky3* sky3_3 = new act6_sky3();
-		//sky3_3->SetName(L"act6_sky3");
-		//AddGameobeject(sky3_3, jk_LayerType::foreground);
-		//sky3_3->GetComponent<Transform>()->SetPos(Vector2{ 100.f, 4068.f }); //216 = 4284
-
-
-		//act6_sky4* sky4_2 = new act6_sky4();
-		//sky4_2->SetName(L"act6_sky4");
-		//AddGameobeject(sky4_2, jk_LayerType::foreground);
-		//sky4_2->GetComponent<Transform>()->SetPos(Vector2{ 100.f, 4284.f });//237 = 4521
-
-
-		//act6_sky5* sky5_2 = new act6_sky5();
-		//sky5_2->SetName(L"act6_sky5");
-		//AddGameobeject(sky5_1, jk_LayerType::foreground);
-		//sky5_2->GetComponent<Transform>()->SetPos(Vector2{ 100.f, 4521.f });//165  = 4686
-
-
-		//act6_sky2* sky2_4 = new act6_sky2();
-		//sky2_4->SetName(L"act6_sky1");
-		//AddGameobeject(sky2_4, jk_LayerType::foreground);
-		//sky2_4->GetComponent<Transform>()->SetPos(Vector2{ 100.f, 4500.f });//546  = 5232 독단 시작
-
-
-		//act6_sky6* sky6 = new act6_sky6();
-		//sky6->SetName(L"act6_sky6");
-		//AddGameobeject(sky6, jk_LayerType::foreground);
-		//sky6->GetComponent<Transform>()->SetPos(Vector2{ 100.f, 5046.f });// 360 = 5406
-
-
-		//act6_sky7* sky7 = new act6_sky7();
-		//sky7->SetName(L"act6_sky7");
-		//AddGameobeject(sky7, jk_LayerType::foreground);
-		//sky7->GetComponent<Transform>()->SetPos(Vector2{ 100.f, 5406.f });//288 = 5694
+		sky1->GetComponent<Transform>()->SetPos(Vector2{ 100.f, -500.f });
 
 
 		Scene::Initialize();
@@ -283,8 +190,114 @@ namespace jk
 			Camera::SetTarget(mSonic);
 			Camera::SetCamera(0);
 		}
-
+	//6840
+		if ((mtails->GetComponent<Transform>()->GetPos().x > 6840)&& (mtails->GetComponent<Transform>()->GetPos().x < 14100))
+		{
+			mtails->Set_Fly(3);
+		}
 		
+		if(mtails->Get_Fly()==3)
+		{
+			if (mtails->GetComponent<Transform>()->GetPos().x > 14100)
+			{
+				mtails->Set_Fly(4);
+			}
+		}
+		if (mtails->Get_Fly() == 4)
+		{
+			Rigidbody* rb = mtails->GetComponent<Rigidbody>();
+			rb->SetGround(true);
+			if (rb->GetGround())
+			{
+				mtails->Set_Fly(5);
+			}
+		}
+
+		if (mSonic->GetComponent<Transform>()->GetPos().x > 14000)
+		{
+			Vector2 Sky_Pos = sky1->GetComponent<Transform>()->GetPos();
+			Sky_Pos.x -= 50 * Time::DeltaTime();
+			Sky_Pos.y += 20 * Time::DeltaTime();
+			sky1->GetComponent<Transform>()->SetPos(Sky_Pos);
+		}
+
+		if(BOSS2_Start ==1)
+		{
+			BOSS3_Start = second_boss->Get_last_BOSS();
+
+			if (BOSS3_Start == 3)
+			{
+				time += Time::DeltaTime();
+				if (time > 5)
+				{
+					Create_Boss3();					
+					BOSS3_Start = 4;
+					second_boss->Set_last_BOSS(BOSS3_Start);
+					//Boomb_point = 4;
+					arm_lotaion = 1;
+				}
+			}
+		}
+		if (arm_lotaion == 1)
+		{
+			boss_arm->Set_mDir(last_boss->Get_mDir());
+			boss_arm->Set_Hurt(last_boss->Get_Hurt());
+			last_boss->Set_Grap(boss_arm->Get_grap());
+		}
+		if (BOSS3_Start == 4)
+		{
+			
+			if (last_boss->GetEnding_point() == 1)
+			{
+				time = 0;
+				Last_Stage_bomb(14300.f,4900.f);
+				Last_Stage_bomb(14100.f, 4900.f);
+				Last_Stage_bomb(13900.f, 4900.f);
+				Last_Stage_bomb(14500.f, 4900.f);
+				Last_Stage_bomb(14700.f, 4900.f);
+				Last_Stage_bomb(14300.f, 4900.f);
+				Last_Stage_bomb(14100.f, 4900.f);
+				Last_Stage_bomb(13900.f, 4900.f);
+				Last_Stage_bomb(14500.f, 4900.f);
+				Last_Stage_bomb(14700.f, 4900.f);
+				Last_Stage_bomb(14300.f, 4900.f);
+				Last_Stage_bomb(14100.f, 4900.f);
+				Last_Stage_bomb(13900.f, 4900.f);
+				Last_Stage_bomb(14500.f, 4900.f);
+				Last_Stage_bomb(14700.f, 4900.f);
+
+				last_boss->SetEnding_point(2);
+			}
+			if (last_boss->GetEnding_point() == 2)
+			{
+				int a = 1;
+				stage_final->Set_end_Stage(a);
+				last_boss->SetEnding_point(3);
+			}
+			if (stage_final->Get_end_Stage() == 2)
+			{
+				time += Time::DeltaTime();
+				if (time > 4)
+				{
+					ending_boss();
+					boss_trash();
+					int a = 3;
+					stage_final->Set_end_Stage(a);
+				}
+			}
+
+			if(Boss_end==1)
+			{ 
+				if (end_boss->GetComponent<Transform>()->GetPos().y > 5400)
+				{
+					mSonic->Set_Ending(1);
+					mtails->Set_Ending(1);
+					Boss_end = 2;
+				}
+			}
+		}
+
+
 
 		Scene::Update();
 
@@ -294,10 +307,6 @@ namespace jk
 			//CreateBlending();
 			check_map = 0;
 		}
-
-
-
-
 
 
 	}
@@ -311,6 +320,7 @@ namespace jk
 	}
 	void PlayScene4::OnEnter()
 	{
+
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Player, true);//충돌시 가리키는 장면
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Bullet, true);
 		CollisionManager::SetLayer(jk_LayerType::Player2, jk_LayerType::Monster, true);
@@ -322,6 +332,7 @@ namespace jk
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Ground, true);
 		CollisionManager::SetLayer(jk_LayerType::Player2, jk_LayerType::Ground, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::BG_props, true);
+		CollisionManager::SetLayer(jk_LayerType::Player2, jk_LayerType::BG_props, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Player2, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::MiniBoss, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::BOSS, true);
@@ -336,6 +347,7 @@ namespace jk
 	}
 	void PlayScene4::CreateBlending()
 	{
+		//object::Instantiate<EndingBlend>(jk_LayerType::Blend);
 	}
 	void PlayScene4::Create_Boss1()
 	{
@@ -352,10 +364,55 @@ namespace jk
 		second_boss->SetName(L"boss_run");
 		AddGameobeject(second_boss, jk_LayerType::BOSS);
 		second_boss->GetComponent<Transform>()->SetPos(Vector2{ 14750.f, 6000.f });
-
+		BOSS2_Start = 1;
 		//(14350.f, 6670.f)
 	}
 
+	void PlayScene4::Create_Boss3()
+	{
+		Scene* curScene1 = SceneManager::GetActiveScene();
+		last_boss = new Third_Boss();
+		last_boss->SetName(L"last_boss");
+		last_boss->GetComponent<Transform>()->SetPos(Vector2{ 13550.0f,5400.f });
+		curScene1->AddGameobeject(last_boss, jk_LayerType::BOSS);
+
+
+		Scene* curScene2 = SceneManager::GetActiveScene();
+		boss_arm = new Boss_Arm(last_boss);
+		boss_arm->SetName(L"boss_arm");
+		boss_arm->GetComponent<Transform>()->SetPos(Vector2{ 13520.0f,5487.f });
+		curScene2->AddGameobeject(boss_arm, jk_LayerType::BOSS);
+	}
+
+	void PlayScene4::Last_Stage_bomb(float a, float b)
+	{
+		Scene* curScene = SceneManager::GetActiveScene();
+		Last_Boss_bomb* last_bomb = new Last_Boss_bomb(stage_final);
+		last_bomb->SetName(L"last_boss_bomb");
+		last_bomb->GetComponent<Transform>()->SetPos(Vector2{ a,b });
+		curScene->AddGameobeject(last_bomb, jk_LayerType::Effect);
+	}
+
+	void PlayScene4::ending_boss()
+	{
+		Scene* curScene2 = SceneManager::GetActiveScene();
+		end_boss = new Ending_boss(last_boss);
+		end_boss->SetName(L"end_boss");
+		end_boss->GetComponent<Transform>()->SetPos(Vector2{ 14400,4750 });
+		curScene2->AddGameobeject(end_boss, jk_LayerType::BOSS);
+		Boss_end = 1;
+	}
+
+	void PlayScene4::boss_trash()
+	{
+		Scene* curScene2 = SceneManager::GetActiveScene();
+		trash= new Boss_trash(end_boss);
+		trash->SetName(L"trash");
+		trash->GetComponent<Transform>()->SetPos(Vector2{ 14250,4650 });
+		curScene2->AddGameobeject(trash, jk_LayerType::BOSS);
+	}
+
+	
 
 }
 //Third_Boss

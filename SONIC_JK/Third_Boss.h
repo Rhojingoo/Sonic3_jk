@@ -23,10 +23,8 @@ namespace jk
 			Grap_R,
 			Grap_L,
 
-	
-
-
-			Death
+			Death,
+			Ending
 		};
 
 		Third_Boss();
@@ -45,6 +43,9 @@ namespace jk
 		int Get_Hurt() { return Hur_check; }
 		void Set_Grap(int grap) { Grap_pattern = grap; }
 
+		int GetEnding_point() { return Ending_point; }
+		void SetEnding_point(int end) { Ending_point = end; }
+
 
 	private:
 		void start();
@@ -60,7 +61,9 @@ namespace jk
 
 		void death();
 
+		void ending();
 
+	
 	private:
 		Image* mImage;
 		Image* mImage1;
@@ -85,6 +88,7 @@ namespace jk
 		int Boomb_point;
 		int Grap_pattern;
 		int Hur_check;
+		int Ending_point;
 
 	};
 }

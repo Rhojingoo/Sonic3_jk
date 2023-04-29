@@ -15,9 +15,10 @@
 #include "jk_Monster.h"
 #include "jk_BaseBullet.h"
 #include "jk_Scene.h"
-#include "jk_tails_tail.h"
+
 #include "jk_Object.h"
 #include "jk_tail_jump.h"
+#include "finall_stage.h"
 
 namespace jk
 {
@@ -30,6 +31,7 @@ namespace jk
 		, Circle_piece(0)
 		, fly_check(0)
 		, pursue_boss(0)
+		,end(0)
 	{
 		mOwner = owner;
 	
@@ -67,6 +69,11 @@ namespace jk
 		mAnimator->CreateAnimation(L"RTailsSpin", mImage, Vector2(590, 337), Vector2(62, 48), Vector2(4, 0), 7, 1, 7, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"RTailsDash", mImage, Vector2(29, 207), Vector2(64, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"RTailsFly", mImage, Vector2(834, 87), Vector2(54, 48), Vector2(5, 0), 2, 1, 2, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"Endgind_pose", mImage, Vector2(820, 802), Vector2(52, 48), Vector2(4, 0), 2, 1, 2, Vector2::Zero, 0.1);
+
+
+
+
 
 		Image* mImage1 = Resources::Load<Image>(L"LTails", L"..\\Resources\\LTails.bmp");
 		//Animator* animator = AddComponent<Animator>();
@@ -83,6 +90,13 @@ namespace jk
 		mAnimator->CreateAnimation(L"LTailsSpin", mImage1, Vector2(590, 337), Vector2(62, 48), Vector2(4, 0), 7, 1, 7, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"LTailsDash", mImage1, Vector2(29, 207), Vector2(64, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"LTailsFly", mImage1, Vector2(834, 87), Vector2(54, 48), Vector2(4, 0), 2, 1, 2, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"LEndgind_pose", mImage1, Vector2(820, 802), Vector2(52, 48), Vector2(4, 0), 2, 1, 2, Vector2::Zero, 0.1);
+
+
+
+		Image* mImage_end = Resources::Load<Image>(L"End_tails", L"..\\Resources\\END_BG.bmp");
+		mAnimator->CreateAnimation(L"End_tails", mImage_end, Vector2(1264, 243), Vector2(94, 96), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
+
 
 
 		Collider* collider = AddComponent<Collider>();
@@ -120,6 +134,47 @@ namespace jk
 			mState = eTailsState::Fly_Waiting;
 			mAnimator->Play(L"RTailsFly", true);
 			fly_check = 2;
+		}
+		if (fly_check == 3)
+		{
+			mState = eTailsState::Fly_Ready;
+			mAnimator->Play(L"RTailsFly", true);			
+		}
+		if (fly_check == 4)
+		{
+			mState = eTailsState::Fly;
+			mAnimator->Play(L"RTailsFly", true);
+			fly_check = 2;
+		}
+		if (fly_check == 4)
+		{
+			mState = eTailsState::Fly;
+			mAnimator->Play(L"RTailsFly", true);
+		
+		}
+		if (fly_check == 5)
+		{
+			mState = eTailsState::Idle;
+			if (TailsmDir == 1)
+			{
+				mAnimator->Play(L"RTailsStand", true);
+			}
+			else if (TailsmDir == -1)
+			{
+				mAnimator->Play(L"LTailsStand", true);
+			}
+			fly_check = 0;
+		}
+
+
+		if (end == 1)
+		{
+			mState = eTailsState::EMDING;
+	 		if (TailsmDir ==  1)
+				mAnimator ->Play(L"Endgind_pose", false);//엔딩포즈
+			else
+				mAnimator->Play(L"LEndgind_pose", false);//엔딩포즈
+
 		}
 
 
@@ -175,6 +230,16 @@ namespace jk
 
 		case jk::Tails::eTailsState::Fly_Waiting:fly_waiting();
 			break;			
+
+		case jk::Tails::eTailsState::EMDING:ending();
+			break;
+
+		case jk::Tails::eTailsState::End:endgame();
+			break;
+
+
+
+
 
 		case jk::Tails::eTailsState::Circle_Rturn_1:circle_Rturn_1();
 			break;
@@ -276,6 +341,26 @@ namespace jk
 				}
 			}*/
 		}
+
+
+		if (finall_stage* stage = dynamic_cast<finall_stage*>(other->GetOwner()))
+		{
+			Vector2 fly_machine_pos = stage->GetComponent<Transform>()->GetPos();
+			Transform* tr = GetComponent<Transform>();						
+			mRigidbody->SetGround(true);
+
+			if (TailsmDir == 1)
+			{
+				mState = eTailsState::Idle;
+				mAnimator->Play(L"RTailsStand", true);
+			}
+			else if (TailsmDir == -1)
+			{
+				mState = eTailsState::Idle;
+				mAnimator->Play(L"LTailsStand", true);
+			}
+		}
+
 	}
 
 	void Tails::OnCollisionStay(Collider* other)
@@ -300,36 +385,6 @@ namespace jk
 				mState = eTailsState::Fly_Pursue;
 			}
 		}
-
-
-		/*Transform* tr = GetComponent<Transform>();
-		tr->GetPos();
-		if (Ground* playgr = dynamic_cast<Ground*>(other->GetOwner()))
-		{
-			mState = eTailsState::Idle;
-			if (TailsmDir = 1)
-			{
-				mAnimator->Play(L"RTailsStand", true);
-			}
-			else if (TailsmDir = -1)
-			{
-				mAnimator->Play(L"LTailsStand", true);
-			}
-			else if (Input::GetKeyDown(eKeyCode::RIGHT) || Input::GetKeyDown(eKeyCode::LEFT))
-			{
-				mState = eTailsState::Move;
-				if (Input::GetKeyDown(eKeyCode::RIGHT))
-				{
-					mAnimator->Play(L"RTailsWalk", true);
-					TailsmDir = 1;
-				}
-				else if (Input::GetKeyDown(eKeyCode::LEFT))
-				{
-					mAnimator->Play(L"LTailsWalk", true);
-					TailsmDir = -1;
-				}
-			}
-		}*/
 
 	}
 
@@ -1076,21 +1131,6 @@ namespace jk
 		Vector2 pos = tr->GetPos();
 		float fDist = abs(sonicV.x - pos.x);		
 
-		//if (pursue_boss == 2)
-		//{
-		//	Vector2 pos = tr->GetPos();				
-
-		//	if (mRigidbody->GetGround())
-		//	{
-		//		Vector2 velocity = mRigidbody->GetVelocity();
-		//		velocity.y -= 550.f;
-		//		mRigidbody->SetVelocity(velocity);
-		//		mRigidbody->SetGround(false);
-		//	}
-
-		//	tr->SetPos(Vector2{ sonicV.x,sonicV.y - 450.f });
-		//}
-
 	 if ((pursue_boss == 0)&& (sonicV.x < pos.x))
 		{
 			if (fDist > 80.f)
@@ -1140,6 +1180,21 @@ namespace jk
 				}
 			}
 		}
+
+	 if (mRigidbody->GetGround())
+	 {
+		 mState = eTailsState::Idle;
+		 if (TailsmDir = 1)
+		 {
+			 mAnimator->Play(L"RTailsStand", true);
+			 fly_check = 0;
+		 }
+		 else if (TailsmDir = -1)
+		 {
+			 mAnimator->Play(L"LTailsStand", true);
+			 fly_check = 0;
+		 }
+	 }
 		tr->SetPos(pos);		
 	}
 
@@ -1192,6 +1247,14 @@ namespace jk
 			mAnimator->Play(L"RTailsFly", true);
 		}
 
+	}
+
+	void Tails::ending()
+	{
+	}
+
+	void Tails::endgame()
+	{
 	}
 
 

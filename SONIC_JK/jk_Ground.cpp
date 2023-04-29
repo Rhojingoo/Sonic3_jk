@@ -86,10 +86,10 @@ namespace jk
 	{
 
 		mPlayerTR = mPlayer->GetComponent<Transform>();
-		mPlayer_Tails_TR = mPlayer2->GetComponent<Transform>();
+		//mPlayer_Tails_TR = mPlayer2->GetComponent<Transform>();
 
 		Vector2 Player_Position = mPlayerTR->GetPos();
-		Vector2 Player_Tails_Poistion = mPlayer_Tails_TR->GetPos();
+		//Vector2 Player_Tails_Poistion = mPlayer_Tails_TR->GetPos();
 	
 	/*	if (map_chek == 0)
 		{
@@ -104,7 +104,7 @@ namespace jk
 
 
 		SonicDir = mPlayer->GetSonicDir();
-		TailsDir = mPlayer2->GetTailsDir();
+		//TailsDir = mPlayer2->GetTailsDir();
 
 
 		//소닉 회전각
@@ -152,47 +152,47 @@ namespace jk
 	
 
 		//테일즈 회전각
-		Radian_Circle1_Tails = atan2(Circle1_Center.y - mPlayer_Tails_TR->GetPos().y, Circle1_Center.x - mPlayer_Tails_TR->GetPos().x);
-		Degree_Circle1_Tails = Radian_Cicle1 * (180 / PI);
-		if (Degree_Circle1_Tails <= -67.5f && Degree_Circle1_Tails > -112.5f)//중앙하부 
-		{
-			Circle_pice_Tails = 0;
-		}
+		//Radian_Circle1_Tails = atan2(Circle1_Center.y - mPlayer_Tails_TR->GetPos().y, Circle1_Center.x - mPlayer_Tails_TR->GetPos().x);
+		//Degree_Circle1_Tails = Radian_Cicle1 * (180 / PI);
+		//if (Degree_Circle1_Tails <= -67.5f && Degree_Circle1_Tails > -112.5f)//중앙하부 
+		//{
+		//	Circle_pice_Tails = 0;
+		//}
 
-		if (Degree_Circle1_Tails <= -112.5f && Degree_Circle1_Tails > -157.5f)//오른쪽하부 
-		{
-			Circle_pice_Tails = 1;
-		}
+		//if (Degree_Circle1_Tails <= -112.5f && Degree_Circle1_Tails > -157.5f)//오른쪽하부 
+		//{
+		//	Circle_pice_Tails = 1;
+		//}
 
-		if (Degree_Circle1_Tails <= -157.5f || (Degree_Circle1_Tails >= 157.5f && Degree_Circle1_Tails <= 180.f))// 오른쪽옆
-		{
-			Circle_pice_Tails = 2;
-		}
+		//if (Degree_Circle1_Tails <= -157.5f || (Degree_Circle1_Tails >= 157.5f && Degree_Circle1_Tails <= 180.f))// 오른쪽옆
+		//{
+		//	Circle_pice_Tails = 2;
+		//}
 
-		if (Degree_Circle1_Tails >= 112.5f && Degree_Circle1_Tails < 157.5f)// 오른쪽상부
-		{
-			Circle_pice_Tails = 3;
-		}
+		//if (Degree_Circle1_Tails >= 112.5f && Degree_Circle1_Tails < 157.5f)// 오른쪽상부
+		//{
+		//	Circle_pice_Tails = 3;
+		//}
 
-		if (Degree_Circle1_Tails >= 67.5f && Degree_Circle1_Tails < 112.5f)// 중앙상부
-		{
-			Circle_pice_Tails = 4;
-		}
+		//if (Degree_Circle1_Tails >= 67.5f && Degree_Circle1_Tails < 112.5f)// 중앙상부
+		//{
+		//	Circle_pice_Tails = 4;
+		//}
 
-		if (Degree_Circle1_Tails >= 22.5f && Degree_Circle1_Tails < 67.5f)// 왼쪽상부
-		{
-			Circle_pice_Tails = 5;
-		}
+		//if (Degree_Circle1_Tails >= 22.5f && Degree_Circle1_Tails < 67.5f)// 왼쪽상부
+		//{
+		//	Circle_pice_Tails = 5;
+		//}
 
-		if ((Degree_Circle1_Tails <= 0.f && Degree_Circle1_Tails > -22.5f) || (Degree_Circle1_Tails >= 0.f && Degree_Circle1_Tails < 22.5f))// 왼쪽옆
-		{
-			Circle_pice_Tails = 6;
-		}
+		//if ((Degree_Circle1_Tails <= 0.f && Degree_Circle1_Tails > -22.5f) || (Degree_Circle1_Tails >= 0.f && Degree_Circle1_Tails < 22.5f))// 왼쪽옆
+		//{
+		//	Circle_pice_Tails = 6;
+		//}
 
-		if (Degree_Circle1_Tails <= -22.5f && Degree_Circle1_Tails > -67.5f)//왼쪽하부 
-		{
-			Circle_pice_Tails = 7;
-		}
+		//if (Degree_Circle1_Tails <= -22.5f && Degree_Circle1_Tails > -67.5f)//왼쪽하부 
+		//{
+		//	Circle_pice_Tails = 7;
+		//}
 
 
 		//소닉 TR, RG설정

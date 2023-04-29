@@ -2,7 +2,6 @@
 #include "jk_Sonic.h"
 #include "jk_Transform.h"
 #include "jk_Tails.h"
-#include "jk_tails_tail.h"
 #include "jk_Act1_BG_object.h"
 #include "jk_Boss.h"
 #include "jk_Monster.h"
@@ -310,9 +309,6 @@ namespace jk
 		AddGameobeject(cylinder, jk_LayerType::BG_props);
 		cylinder->GetComponent<Transform>()->SetPos(Vector2{ 28085.0f, 2510.0f });
 
-		//StageSave* save = new StageSave;
-		//save->SetName(L"StageSave");
-
 
 
 
@@ -540,7 +536,7 @@ namespace jk
 		Scene::Update();		
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
-			SceneManager::LoadScene(jk_SceneType::GamePlay2);			
+			SceneManager::LoadScene(jk_SceneType::GamePlay2);
 			CreateBlending();
 		}
 	}  

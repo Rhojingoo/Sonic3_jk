@@ -81,6 +81,8 @@ namespace jk
 		, fire_effect(0)
 		, elect_effect(0)
 		, fly_check(0)
+		, end(0)
+		, time(0)
 
 	{
 		Transform* tr = GetComponent<Transform>();
@@ -116,7 +118,7 @@ namespace jk
 		//tr->SetPos(Vector2{ 2790.0f * 3, 3200.f });
 		//tr->SetPos(Vector2(19718.f, 3450.f));
 
-		Image* mImage = Resources::Load<Image>(L"SONIC", L"..\\Resources\\sonic_black.bmp");
+		Image* mImage = Resources::Load<Image>(L"SONIC", L"..\\Resources\\sonic.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"RSonicWalk", mImage, Vector2::RSonicWalkLTC, Vector2::RSonicWalksize, Vector2::RSonicWalkSpace, 8, 1, 8, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"RSonicStand", mImage, Vector2::RSonicStandLTC, Vector2::RSonicStandsize, Vector2::RSonicStandSpace, 9, 1, 9, Vector2::Zero, 0.3);
@@ -131,10 +133,11 @@ namespace jk
 		mAnimator->CreateAnimation(L"RSonic_Spring_up", mImage, Vector2(412, 912), Vector2(52, 50), Vector2(4, 0), 12, 1, 12, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"RSonic_Push", mImage, Vector2(736, 644), Vector2(52, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"RSonic_Jeep", mImage, Vector2(412, 1451), Vector2(52, 52), Vector2(4, 0), 3, 1, 3, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"Endgind_pose", mImage, Vector2(24, 1492), Vector2(52, 48), Vector2(4, 0), 5, 1, 5, Vector2::Zero, 0.1);
 
 
 
-		Image* mImage1 = Resources::Load<Image>(L"LSONIC", L"..\\Resources\\Lsonic_black.bmp");
+		Image* mImage1 = Resources::Load<Image>(L"LSONIC", L"..\\Resources\\Lsonic.bmp");
 		mAnimator->CreateAnimation(L"LSonicWalk", mImage1, Vector2::LSonicWalkLTC, Vector2::LSonicWalksize, Vector2::LSonicWalkSpace, 8, 1, 8, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"LSonicStand", mImage1, Vector2::LSonicStandLTC, Vector2::LSonicStandsize, Vector2::LSonicStandSpace, 9, 1, 9, Vector2::Zero, 0.3);
 		mAnimator->CreateAnimation(L"LSonicLookUp", mImage1, Vector2::LSonicLookUpLTC, Vector2::LSonicLookUpsize, Vector2::LSonicLookUpSpace, 1, 1, 1, Vector2::Zero, 0.1);
@@ -147,6 +150,14 @@ namespace jk
 		mAnimator->CreateAnimation(L"LSonic_Spring_up", mImage1, Vector2(412, 912), Vector2(52, 50), Vector2(4, 0), 12, 1, 12, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"LSonic_Push", mImage1, Vector2(736, 644), Vector2(52, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"LSonic_Jeep", mImage1, Vector2(412, 1451), Vector2(52, 52), Vector2(4, 0), 3, 1, 3, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"LEndgind_pose", mImage1, Vector2(24, 1492), Vector2(52, 48), Vector2(4, 0), 5, 1, 5, Vector2::Zero, 0.1);
+
+	
+
+		Image* mImage_end = Resources::Load<Image>(L"End_sonic", L"..\\Resources\\END_BG.bmp");
+		mAnimator->CreateAnimation(L"End_sonic", mImage_end, Vector2(1136, 243), Vector2(72, 96), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
+
+
 
 
 		//소닉 원회전(오른쪽)
@@ -224,6 +235,33 @@ namespace jk
 				mAnimator->Play(L"RSonic_Jeep", true);				
 			}
 
+			if (end == 1)
+			{
+				mState = eSonicState::EMDING;
+				if (mDir == 1)
+					mAnimator->Play(L"Endgind_pose", true);//엔딩포즈
+				else
+					mAnimator->Play(L"LEndgind_pose", true);//엔딩포즈
+
+				//Vector2 velocity = mRigidbody->GetVelocity();
+				//velocity.y = -350.0f;
+
+				//mRigidbody->SetVelocity(velocity);
+				//mRigidbody->SetGround(false);
+				//mState = eSonicState::Jump;
+				//if (mDir == 1)
+				//{
+				//	mAnimator->Play(L"RSonicRollandJunp", true);
+				//	mDir = 1;
+				//}
+				//else if (mDir == -1)
+				//{
+				//	mAnimator->Play(L"LSonicRollandJunp", true);
+				//	mDir = -1;
+				//}
+				//end = 2;
+			}
+
 
 			if (Input::GetKeyDown(eKeyCode::P))
 			{
@@ -280,6 +318,12 @@ namespace jk
 				break;
 
 			case jk::Sonic::eSonicState::Jeep_line:jeep_line();
+				break;
+
+			case jk::Sonic::eSonicState::EMDING:ending();
+				break;
+
+			case jk::Sonic::eSonicState::End:endgame();
 				break;
 
 			case jk::Sonic::eSonicState::Fire_Shield:fire_Shield();
@@ -1873,6 +1917,19 @@ namespace jk
 				mRigidbody->SetVelocity(velocity);
 				mRigidbody->SetGround(false);		
 			}
+
+			Vector2 velocity = mRigidbody->GetVelocity();
+			
+			//if ((end == 2)&& (velocity.y >= 0.0f))
+			//{
+
+			//	mState = eSonicState::End;
+			//	mAnimator->Play(L"End_sonic", true);
+			//	mRigidbody->SetGround(true);
+	
+
+			//}
+
 			tr->SetPos(pos);
 		}
 
@@ -2191,6 +2248,26 @@ namespace jk
 				//}
 			
 			}
+		}
+
+		void Sonic::ending()
+		{
+
+			//mRigidbody->SetGround(true);
+			time += Time::DeltaTime();
+			if (time > 3)
+			{			
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->GetPos();			
+				tr->SetPos(pos.x);
+
+				mState = eSonicState::End;
+				mAnimator->Play(L"End_sonic", true);
+			}
+		}
+
+		void Sonic::endgame()
+		{
 		}
 
 		void Sonic::circle_Rturn_1()

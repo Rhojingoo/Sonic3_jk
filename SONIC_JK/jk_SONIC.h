@@ -37,6 +37,9 @@ namespace jk
 			Water_Shield,
 			Jeep_line,
 
+			EMDING,
+			End,
+
 			Circle_Rturn_R,
 			Circle_Rturn_1,
 			Circle_Rturn_2,
@@ -80,7 +83,7 @@ namespace jk
 		void Fire_Shield_End(int check) { fire_effect = check; }
 	
 		void Set_Fly(int fly) { fly_check = fly; }
-
+		void Set_Ending(int final) { end = final; }
 
 	private:
 		void idle();
@@ -102,6 +105,8 @@ namespace jk
 		void electricity_Shield();
 		void water_Shield();
 		void jeep_line();
+		void ending();
+		void endgame();
 
 		void circle_Rturn_1();
 		void circle_Rturn_2();
@@ -150,6 +155,9 @@ namespace jk
 		int elect_effect;
 
 		int fly_check;
+		int end;
+
+		float time;
 		//Tails::eTailsState* tailsState;
 	};
 }

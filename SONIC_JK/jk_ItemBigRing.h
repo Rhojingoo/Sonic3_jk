@@ -31,6 +31,7 @@ namespace jk
 	private:
 		void idle();
 		void move();
+		void death();
 
 	private:
 		Image* mImage;

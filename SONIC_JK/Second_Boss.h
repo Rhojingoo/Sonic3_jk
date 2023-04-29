@@ -52,6 +52,7 @@ namespace jk
 		int Get_last_BOSS() {return Boomb_point	;}
 		void Set_last_BOSS(int check) { Boomb_point = check; }
 
+	
 
 	private:
 		void R_up();

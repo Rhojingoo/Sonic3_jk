@@ -24,9 +24,10 @@ namespace jk
 	void Minigame::Initialize()
 	{
 		mAnimator = AddComponent<Animator>();
-		Transform* tr = GetComponent<Transform>();		
-		tr->SetPos(Vector2{ 164.0f, 204.0f });
-		tr->SetScale(Vector2{ 1.3f, 1.5f });
+		Transform* tr = GetComponent<Transform>();	
+		
+		tr->SetPos(Vector2{ 160.0f, 300.0f });
+		tr->SetScale(Vector2{ 1.3f, 1.3f });
 		mImage = Resources::Load<Image>(L"Emerald_Game_BG", L"..\\Resources\\Emerald_BG.bmp");				
 		mAnimator->CreateAnimation(L"StageBegin", mImage, Vector2(24, 246), Vector2(328, 204), Vector2(8, 8), 1, 1, 1, Vector2::Zero, 0.2);
 		mAnimator->CreateAnimation(L"StageWalk", mImage, Vector2(24,246), Vector2(328, 204), Vector2(8, 8), 4, 1, 16, Vector2::Zero, 0.1);
@@ -36,7 +37,7 @@ namespace jk
 		mAnimator->CreateAnimation(L"LT_Lblack", mImage1, Vector2(24, 654), Vector2(328, 204), Vector2(8, 8), 4, 2, 7, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"RT_Lblack", mImage1, Vector2(24, 1062), Vector2(328, 204), Vector2(8, 8), 4, 2, 7, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"RT_Lwhite", mImage1, Vector2(24, 1470), Vector2(328, 204), Vector2(8, 8), 4, 2, 7, Vector2::Zero, 0.1);
-
+		mAnimator->Play(L"StageBegin", true);
 		Gameobject::Initialize();
 	}
 

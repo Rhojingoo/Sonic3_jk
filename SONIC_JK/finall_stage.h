@@ -32,13 +32,19 @@ namespace jk
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
+		void Bomb();
+
+
 		void Set_move_stage(int check) {check_map = check;}
+		void Set_end_Stage(int point) { end = point; }
+		int Get_end_Stage() {return end;};
 
 
 	private:
 		void idle();
 		void move();
 		void death();
+		void Ending();
 
 
 	private:
@@ -64,7 +70,7 @@ namespace jk
 
 		Ground* check;
 		int check_map;
-		
+		int end;
 
 	};
 }

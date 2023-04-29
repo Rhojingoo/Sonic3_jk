@@ -10,11 +10,13 @@ extern jk::Application application;
 
 namespace jk
 {
-	
+	Vector2 Camera::target_pos = Vector2::Zero;
+	Vector2 Camera::mMove = Vector2::Zero;
 	Vector2 Camera::mResolution = Vector2::Zero;
 	Vector2 Camera::mLookPosition = Vector2::Zero;
 	Vector2 Camera::mDistance = Vector2::Zero;
 	Gameobject* Camera::mTarget = nullptr;
+
 	int Camera::camera = 0;
 	
 	//Camera::eCameraEffectType Camera::mType = Camera::eCameraEffectType::None;
@@ -30,6 +32,7 @@ namespace jk
 		mLookPosition = (mResolution / 2.0f);		
 
 		camera = 0;
+	
 		//mType = eCameraEffectType::FadeIn;
 		//mCutton = Image::Create(L"Cutton", mResolution.x, mResolution.y, RGB(255, 255,255));
 	}
@@ -50,6 +53,9 @@ namespace jk
 			mLookPosition.y += 100.0f * static_cast<float>(Time::DeltaTime());
 
 		
+		
+
+
 		//캐릭터를 중심으로 움직이게 설정
 		
 		if(camera == 0)
@@ -58,10 +64,15 @@ namespace jk
 			{
 				mLookPosition
 					= mTarget->GetComponent<Transform>()->GetPos();
+				target_pos = mLookPosition;
 			}
 			mDistance.x = mLookPosition.x - (mResolution.x / 2.0f);
 			mDistance.y = mLookPosition.y - (mResolution.y/ 2.0f);
-		}
+
+			//target_pos.x += 250 * static_cast<float>(Time::DeltaTime()) ;
+			//target_pos.y += 10 * static_cast<float>(Time::DeltaTime()) ;
+			//mMove = target_pos;
+			}
 		else if (camera == 1)
 		{
 			if (mTarget != nullptr)
@@ -83,8 +94,49 @@ namespace jk
 			mDistance.x = mLookPosition.x - (mResolution.x / 2.0f);			
 		}
 
+		
+	}
 
-		//if (mAlphaTime < mEndTime)
+	void Camera::Render(HDC hdc)
+	{
+
+	}
+
+	void Camera::Clear()
+	{
+		mResolution.x = static_cast<float>(application.GetWidth());
+		mResolution.y = static_cast<float>(application.GetHeight());
+		mLookPosition = (mResolution / 2.0f);
+		mDistance = Vector2::Zero;
+		mTarget = nullptr;
+	}
+
+
+
+
+
+	
+}		
+//렌더 알파
+		//if (mAlphaTime<mEndTime && mType == eCameraEffectType::FadeIn)
+		//{
+		//	BLENDFUNCTION func = {};
+		//	func.BlendOp = AC_SRC_OVER;
+		//	func.BlendFlags = 0;
+		//	func.AlphaFormat = 0;
+		//	func.SourceConstantAlpha = (BYTE)(255.0f * mCuttonAlpha);
+
+		//	AlphaBlend(hdc, 0, 0
+		//		, mResolution.x, mResolution.y
+		//		, mCutton->GetHdc()
+		//		, 0, 0
+		//		, mCutton->GetWidth(), mCutton->GetHeight()
+		//		, func);
+		//}
+
+
+//업데이트 알파
+	//if (mAlphaTime < mEndTime)
 		//{
 		//	//255->1
 		//	mAlphaTime += Time::DeltaTime();
@@ -102,33 +154,3 @@ namespace jk
 		//	{
 		//	}
 		//}
-	}
-
-	void Camera::Render(HDC hdc)
-	{
-		//if (mAlphaTime<mEndTime && mType == eCameraEffectType::FadeIn)
-		//{
-		//	BLENDFUNCTION func = {};
-		//	func.BlendOp = AC_SRC_OVER;
-		//	func.BlendFlags = 0;
-		//	func.AlphaFormat = 0;
-		//	func.SourceConstantAlpha = (BYTE)(255.0f * mCuttonAlpha);
-
-		//	AlphaBlend(hdc, 0, 0
-		//		, mResolution.x, mResolution.y
-		//		, mCutton->GetHdc()
-		//		, 0, 0
-		//		, mCutton->GetWidth(), mCutton->GetHeight()
-		//		, func);
-		//}
-	}
-
-	void Camera::Clear()
-	{
-		mResolution.x = static_cast<float>(application.GetWidth());
-		mResolution.y = static_cast<float>(application.GetHeight());
-		mLookPosition = (mResolution / 2.0f);
-		mDistance = Vector2::Zero;
-		mTarget = nullptr;
-	}
-}
