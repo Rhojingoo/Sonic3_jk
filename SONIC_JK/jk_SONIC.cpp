@@ -83,6 +83,7 @@ namespace jk
 		, fly_check(0)
 		, end(0)
 		, time(0)
+		, Life(3)
 
 	{
 		Transform* tr = GetComponent<Transform>();
@@ -219,6 +220,7 @@ namespace jk
 			Circle_piece = check->GetCicle_piece();
 			Ringcheck;
 			ringpoint;
+			int a = 0;
 
 			Transform* tr = GetComponent<Transform>();
 			Vector2 check_sonic = tr->GetPos();
@@ -231,7 +233,7 @@ namespace jk
 			}
 			if (fly_check == 1)
 			{
-				mState = eSonicState::Jeep_line;
+				mState = eSonicState::Tails_Hanging;
 				mAnimator->Play(L"RSonic_Jeep", true);				
 			}
 
@@ -319,6 +321,16 @@ namespace jk
 
 			case jk::Sonic::eSonicState::Jeep_line:jeep_line();
 				break;
+
+
+
+			case jk::Sonic::eSonicState::Tails_Hanging:tails_hanging();
+				break;				
+
+			case jk::Sonic::eSonicState::Death:death();
+				break;
+
+
 
 			case jk::Sonic::eSonicState::EMDING:ending();
 				break;
@@ -409,12 +421,10 @@ namespace jk
 				Tails::eTailsState tailsState = tails->GetTails_state();
 				if ((tailsState == Tails::eTailsState::Fly_Waiting)|| (tailsState == Tails::eTailsState::Fly_Pursue))
 				{
-					mState = eSonicState::Jeep_line;
+					mState = eSonicState::Tails_Hanging;
 					mAnimator->Play(L"RSonic_Jeep", true);
 				}
 			}
-
-
 
 			//硅版家前 面倒≮
 	
@@ -602,7 +612,6 @@ namespace jk
 					}
 				}
 
-
 				//Collapses_Ground(left) 绝绢瘤绰顶
 				if (Collapses_GR_left* collapses_Ground = dynamic_cast<Collapses_GR_left*>(other->GetOwner()))
 				{
@@ -623,7 +632,6 @@ namespace jk
 					}
 				}
 
-
 				//Move_GR 面倒贸府
 				if (Move_GR* move_GR = dynamic_cast<Move_GR*>(other->GetOwner()))
 				{
@@ -642,8 +650,7 @@ namespace jk
 						mState = eSonicState::Idle;
 						mAnimator->Play(L"LSonicStand", true);
 					}
-				}
-				
+				}				
 
 				//finall_stage 面倒贸府
 				if (finall_stage* stage = dynamic_cast<finall_stage*>(other->GetOwner()))
@@ -665,7 +672,6 @@ namespace jk
 					}
 				}
 
-
 				//Robotnic_machine 面倒贸府
 				if (Robotnic_machine* fly_machine = dynamic_cast<Robotnic_machine*>(other->GetOwner()))
 				{
@@ -685,7 +691,6 @@ namespace jk
 						mAnimator->Play(L"LSonicStand", true);
 					}
 				}
-
 
 				//last_Bridge 面倒贸府
 				if (Last_Bridge* last_Bridge = dynamic_cast<Last_Bridge*>(other->GetOwner()))
@@ -707,7 +712,6 @@ namespace jk
 						}
 					}
 
-
 				//Cylinder 面倒贸府
 				if (Cylinder* cylinder = dynamic_cast<Cylinder*>(other->GetOwner()))
 				{
@@ -721,8 +725,7 @@ namespace jk
 						mState = eSonicState::Cylinder_move;
 						//mAnimator->Play(L"LSonic_Spring_up", true);
 					}
-				}
-	
+				}	
 		
 				//Rock 面倒贸府(仟浆)
 				if (Rock_small* rock_small = dynamic_cast<Rock_small*>(other->GetOwner()))
@@ -848,6 +851,8 @@ namespace jk
 				}
 
 
+
+
 			//酒捞袍 面倒≮
 				//ITEM(ELECT) 面倒贸府
 				if (Item* electitem = dynamic_cast<Item*>(other->GetOwner()))
@@ -963,14 +968,17 @@ namespace jk
 					}
 				}
 
-
-
 				//RING 面倒贸府
 				if (Ring* ring = dynamic_cast<Ring*>(other->GetOwner()))
 				{
 					Ringcheck += 1;
 					ringpoint += 1;
 				}
+
+
+
+
+
 
 								 
 			//阁胶磐 面倒≮
@@ -1117,10 +1125,7 @@ namespace jk
 						mState = eSonicState::Jeep_line;
 						mAnimator->Play(L"LSonicRollandJunp", true);
 					}
-				}
-
-
-	
+				}	
 		}
 
 		void Sonic::OnCollisionStay(Collider * other)
@@ -2250,6 +2255,41 @@ namespace jk
 			}
 		}
 
+		void Sonic::tails_hanging()
+		{
+			if (Input::GetKeyDown(eKeyCode::SPACE))
+			{
+				if (fly_check == 1)
+				{
+					fly_check = 0;
+				}
+
+				Vector2 velocity = mRigidbody->GetVelocity();
+				velocity.y -= 550.0f;
+				velocity.x += 550.0f;
+				mRigidbody->SetVelocity(velocity);
+				mRigidbody->SetGround(false);
+				mState = eSonicState::Jump;
+				if (mDir == 1)
+				{
+					mAnimator->Play(L"RSonicRollandJunp", true);
+					mDir = 1;
+				}
+
+				if (mRigidbody->GetGround())
+				{
+					mState = eSonicState::Idle();
+					mAnimator->Play(L"RSonicStand", true);
+				}
+
+
+			}
+		}
+
+		void Sonic::death()
+		{
+		}
+
 		void Sonic::ending()
 		{
 
@@ -2259,7 +2299,7 @@ namespace jk
 			{			
 				Transform* tr = GetComponent<Transform>();
 				Vector2 pos = tr->GetPos();			
-				tr->SetPos(pos.x);
+				tr->SetPos(pos);
 
 				mState = eSonicState::End;
 				mAnimator->Play(L"End_sonic", true);
@@ -2269,6 +2309,11 @@ namespace jk
 		void Sonic::endgame()
 		{
 		}
+
+
+
+
+
 
 		void Sonic::circle_Rturn_1()
 		{

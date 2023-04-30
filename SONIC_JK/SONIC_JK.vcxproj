@@ -282,6 +282,9 @@
     <ClInclude Include="jk_Transform.h" />
     <ClInclude Include="jk_Water_effect.h" />
     <ClInclude Include="Last_Boss_bomb.h" />
+    <ClInclude Include="Life_Manager.h" />
+    <ClInclude Include="Life_TensDigit.h" />
+    <ClInclude Include="Life_UnitsDigit.h" />
     <ClInclude Include="mBoss_Bl_L.h" />
     <ClInclude Include="mBoss_BL_R.h" />
     <ClInclude Include="mB_Ldeath.h" />
@@ -291,6 +294,10 @@
     <ClInclude Include="Rigdbody_L.h" />
     <ClInclude Include="Rigdbody_R.h" />
     <ClInclude Include="Rigidbody.h" />
+    <ClInclude Include="Ring_HundredsDgit.h" />
+    <ClInclude Include="Ring_Point_Manager.h" />
+    <ClInclude Include="Ring_TensDigit.h" />
+    <ClInclude Include="Ring_UnitsDigit.h" />
     <ClInclude Include="Robotnic_machine.h" />
     <ClInclude Include="Second_Boss.h" />
     <ClInclude Include="Second_boss_bullet.h" />
@@ -299,6 +306,10 @@
     <ClInclude Include="SONIC_JK.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Third_Boss.h" />
+    <ClInclude Include="UI_framework.h" />
+    <ClInclude Include="UI_Time.h" />
+    <ClInclude Include="UI_Time_minutes.h" />
+    <ClInclude Include="UI_Time_seconds.h" />
     <ClInclude Include="WaterSonic.h" />
   </ItemGroup>
   <ItemGroup>
@@ -438,6 +449,9 @@
     <ClCompile Include="jk_Transform.cpp" />
     <ClCompile Include="jk_Water_effect.cpp" />
     <ClCompile Include="Last_Boss_bomb.cpp" />
+    <ClCompile Include="Life_Manager.cpp" />
+    <ClCompile Include="Life_TensDigit.cpp" />
+    <ClCompile Include="Life_UnitsDigit.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mBoss_Bl_L.cpp" />
     <ClCompile Include="mBoss_BL_R.cpp" />
@@ -447,10 +461,18 @@
     <ClCompile Include="Rigdbody_L.cpp" />
     <ClCompile Include="Rigdbody_R.cpp" />
     <ClCompile Include="Rigidbody.cpp" />
+    <ClCompile Include="Ring_HundredsDgit.cpp" />
+    <ClCompile Include="Ring_Point_Manager.cpp" />
+    <ClCompile Include="Ring_TensDigit.cpp" />
+    <ClCompile Include="Ring_UnitsDigit.cpp" />
     <ClCompile Include="Robotnic_machine.cpp" />
     <ClCompile Include="Second_Boss.cpp" />
     <ClCompile Include="Second_boss_bullet.cpp" />
     <ClCompile Include="Third_Boss.cpp" />
+    <ClCompile Include="UI_framework.cpp" />
+    <ClCompile Include="UI_Time.cpp" />
+    <ClCompile Include="UI_Time_minutes.cpp" />
+    <ClCompile Include="UI_Time_seconds.cpp" />
     <ClCompile Include="WaterSonic.cpp" />
   </ItemGroup>
   <ItemGroup>

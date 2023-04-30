@@ -36,6 +36,9 @@ namespace jk
 			Electricity_Shield,
 			Water_Shield,
 			Jeep_line,
+			Tails_Hanging,
+
+			Death,
 
 			EMDING,
 			End,
@@ -85,6 +88,9 @@ namespace jk
 		void Set_Fly(int fly) { fly_check = fly; }
 		void Set_Ending(int final) { end = final; }
 
+		int Get_Ring_Point() { return Ringcheck; }
+		int Get_Life_Point() { return Life; }
+
 	private:
 		void idle();
 		void attack();
@@ -105,8 +111,14 @@ namespace jk
 		void electricity_Shield();
 		void water_Shield();
 		void jeep_line();
+		void tails_hanging();
+
+		void death();
+		
 		void ending();
 		void endgame();
+
+
 
 		void circle_Rturn_1();
 		void circle_Rturn_2();
@@ -158,6 +170,7 @@ namespace jk
 		int end;
 
 		float time;
-		//Tails::eTailsState* tailsState;
+		int Life;
+		
 	};
 }

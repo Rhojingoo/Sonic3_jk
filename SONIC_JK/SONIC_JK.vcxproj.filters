@@ -296,6 +296,18 @@
     <Filter Include="Contents\Boss\boss_dead_effect">
       <UniqueIdentifier>{d8225a66-b0fb-4310-8b83-4ca44776da87}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\BG\UI">
+      <UniqueIdentifier>{1a9f7d30-eba1-46a8-9a0e-40912fa7e8b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\UI\Time">
+      <UniqueIdentifier>{3ef38935-e538-4f9b-9589-de7684dbdddf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\UI\Ring_point">
+      <UniqueIdentifier>{ea7f47b3-2895-466c-bebc-1479be705eb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\UI\Life">
+      <UniqueIdentifier>{b89ede7c-3ff6-4582-adad-d49e1809b916}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -768,6 +780,39 @@
     <ClInclude Include="Boss_trash.h">
       <Filter>Contents\Boss\boss_dead_effect</Filter>
     </ClInclude>
+    <ClInclude Include="UI_framework.h">
+      <Filter>Contents\BG\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Time.h">
+      <Filter>Contents\BG\UI\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Time_seconds.h">
+      <Filter>Contents\BG\UI\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Time_minutes.h">
+      <Filter>Contents\BG\UI\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="Ring_UnitsDigit.h">
+      <Filter>Contents\BG\UI\Ring_point</Filter>
+    </ClInclude>
+    <ClInclude Include="Ring_Point_Manager.h">
+      <Filter>Contents\BG\UI\Ring_point</Filter>
+    </ClInclude>
+    <ClInclude Include="Ring_TensDigit.h">
+      <Filter>Contents\BG\UI\Ring_point</Filter>
+    </ClInclude>
+    <ClInclude Include="Ring_HundredsDgit.h">
+      <Filter>Contents\BG\UI\Ring_point</Filter>
+    </ClInclude>
+    <ClInclude Include="Life_Manager.h">
+      <Filter>Contents\BG\UI\Life</Filter>
+    </ClInclude>
+    <ClInclude Include="Life_UnitsDigit.h">
+      <Filter>Contents\BG\UI\Life</Filter>
+    </ClInclude>
+    <ClInclude Include="Life_TensDigit.h">
+      <Filter>Contents\BG\UI\Life</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SONIC_JK.rc">
@@ -1230,6 +1275,39 @@
     </ClCompile>
     <ClCompile Include="Boss_trash.cpp">
       <Filter>Contents\Boss\boss_dead_effect</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_framework.cpp">
+      <Filter>Contents\BG\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_Time.cpp">
+      <Filter>Contents\BG\UI\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_Time_seconds.cpp">
+      <Filter>Contents\BG\UI\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_Time_minutes.cpp">
+      <Filter>Contents\BG\UI\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="Ring_UnitsDigit.cpp">
+      <Filter>Contents\BG\UI\Ring_point</Filter>
+    </ClCompile>
+    <ClCompile Include="Ring_Point_Manager.cpp">
+      <Filter>Contents\BG\UI\Ring_point</Filter>
+    </ClCompile>
+    <ClCompile Include="Ring_TensDigit.cpp">
+      <Filter>Contents\BG\UI\Ring_point</Filter>
+    </ClCompile>
+    <ClCompile Include="Life_Manager.cpp">
+      <Filter>Contents\BG\UI\Life</Filter>
+    </ClCompile>
+    <ClCompile Include="Ring_HundredsDgit.cpp">
+      <Filter>Contents\BG\UI\Ring_point</Filter>
+    </ClCompile>
+    <ClCompile Include="Life_UnitsDigit.cpp">
+      <Filter>Contents\BG\UI\Life</Filter>
+    </ClCompile>
+    <ClCompile Include="Life_TensDigit.cpp">
+      <Filter>Contents\BG\UI\Life</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -304,16 +304,15 @@ namespace jk
 
 	void Tails::OnCollisionEnter(Collider* other)
 	{
-
 		if (Monster* rino = dynamic_cast<Monster*>(other->GetOwner()))
 		{
 			mAnimator->Play(L"RTailsDeath", true);
 		}
+
 		if (BaseBullet* bullet = dynamic_cast<BaseBullet*>(other->GetOwner()))
 		{
 			mAnimator->Play(L"RTailsDeath", true);
 		}
-
 
 		if (Ground* playgr = dynamic_cast<Ground*>(other->GetOwner()))
 		{
@@ -342,7 +341,6 @@ namespace jk
 			}*/
 		}
 
-
 		if (finall_stage* stage = dynamic_cast<finall_stage*>(other->GetOwner()))
 		{
 			Vector2 fly_machine_pos = stage->GetComponent<Transform>()->GetPos();
@@ -360,7 +358,6 @@ namespace jk
 				mAnimator->Play(L"LTailsStand", true);
 			}
 		}
-
 	}
 
 	void Tails::OnCollisionStay(Collider* other)
@@ -370,9 +367,8 @@ namespace jk
 
 		if (Sonic* sonic = dynamic_cast<Sonic*>(other->GetOwner()))
 		{		
-
 			Sonic::eSonicState sonicState = sonic->Getsonicstate();
-			if (sonicState == Sonic::eSonicState::Jeep_line) 
+			if (sonicState == Sonic::eSonicState::Tails_Hanging) 
 			{			
 				sonicV = Vector2{ tails_pos.x,tails_pos.y + 90 };	
 
@@ -385,7 +381,6 @@ namespace jk
 				mState = eTailsState::Fly_Pursue;
 			}
 		}
-
 	}
 
 	void Tails::OnCollisionExit(Collider* other)
