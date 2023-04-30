@@ -107,7 +107,7 @@ namespace jk
 			}
 
 			else
-			{
+			{				
 				Vector2 velocity = rb->GetVelocity();
 				velocity.y = -550.0f;
 
@@ -116,16 +116,15 @@ namespace jk
 
 				sonic_Pos = sonicTr->GetPos();		
 				sonicTr->SetPos(sonic_Pos);
-
 			}
 		}
 			if (check_Gr2 == 1)
 			{
 				time_Gr2 += Time::DeltaTime();
-				if (time_Gr2 >= 3)
+				if (time_Gr2 >= 1)
 				{
 					mState = eState::Death;
-					jk::object::Destory(this);
+					
 					return;
 				}
 			}
@@ -151,5 +150,7 @@ namespace jk
 		Scene* curScene = SceneManager::GetActiveScene();
 		curScene->AddGameobeject(GR_callapese, jk_LayerType::BG_props);
 		GR_callapese->GetComponent<Transform>()->SetPos(pos);		
+
+		jk::object::Destory(this);
 	}
 }

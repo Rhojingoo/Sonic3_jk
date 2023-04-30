@@ -18,7 +18,7 @@ namespace jk
 			Move,	
 			Run,
 			Turn,
-			Deth,
+			Death,
 			Release_animal,
 		};
 
@@ -47,7 +47,7 @@ namespace jk
 		void move();
 		void run();
 		void turn();
-		void deth();
+		void death();
 
 	private:	
 		Gameobject* mOwner;
@@ -67,7 +67,7 @@ namespace jk
 		eMonsterState mState;	
 		Sonic::eSonicState sonicState;		
 
-
+		int Death_Point;
 		int check_map;
 	};
 }

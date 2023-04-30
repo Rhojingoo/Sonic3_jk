@@ -36,7 +36,7 @@ namespace jk
 
 
 		Collider* collider = AddComponent<Collider>();
-		collider->SetSize(Vector2(192.0f, 120.0f));
+		collider->SetSize(Vector2(192.0f, 40.0f));
 		Vector2 size = collider->GetSize();
 		collider->SetCenter(Vector2{ (-0.15f) * size.x, (-0.35f) * size.y });		
 
@@ -75,39 +75,52 @@ namespace jk
 
 	void Move_GR::OnCollisionEnter(Collider* other)
 	{
-
+		
 
 	}
 	void Move_GR::OnCollisionStay(Collider* other)
 	{
 		if (Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner()))
 		{
-			if (mSonic == nullptr)
-				return;
-
 			Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
 			rb->SetGround(true);
-
 			Collider* mSonic_Col = mSonic->GetComponent<Collider>();
-			Vector2 mSonic_Pos = mSonic_Col->Getpos();
-
-			Collider* groundCol = this->GetComponent<Collider>();
-			Vector2 groundPos = groundCol->Getpos();
-
+			Vector2 mSonic_colPos = mSonic_Col->Getpos();
 			Transform* sonicTr = mSonic->GetComponent<Transform>();
-			Transform* grTr = this->GetComponent<Transform>();
 			Vector2 sonic_Pos = sonicTr->GetPos();
 
-			//	실험해볼것
-			float fLen = fabs(sonic_Pos.y - groundPos.y);
-			float fSize = (mSonic_Col->GetSize().y / 2.0f) + (groundCol->GetSize().y / 2.0f);
 
-			if (fLen < fSize)
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->GetPos();
+			Transform* grTr = this->GetComponent<Transform>();
+			Collider* groundCol = this->GetComponent<Collider>();
+			Vector2 ground_colPos = groundCol->Getpos();
+
+
+			Vector2 velocity = rb->GetVelocity();
+			velocity.y = 0.0f;
+			rb->SetVelocity(velocity);
+
+
+			if (!((mSonic->Getsonicstate() == Sonic::eSonicState::Jump) || (mSonic->Getsonicstate() == Sonic::eSonicState::Hurt)))
 			{
-				sonic_Pos.y -= (fSize - fLen) - 0.5f;
-				sonicTr->SetPos(sonic_Pos);		
+				sonic_Pos.y = groundCol->Getpos().y - groundCol->GetSize().y - 50;
+				sonicTr->SetPos(sonic_Pos);
+			}
+
+			else
+			{
+				Vector2 velocity = rb->GetVelocity();
+				velocity.y = -550.0f;
+
+				rb->SetVelocity(velocity);
+				rb->SetGround(false);
+
+				sonic_Pos = sonicTr->GetPos();
+				sonicTr->SetPos(sonic_Pos);
 			}
 		}
+		
 	}
 
 	void Move_GR::OnCollisionExit(Collider* other)

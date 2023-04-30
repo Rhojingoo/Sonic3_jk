@@ -70,8 +70,24 @@ namespace jk
 	}
 	void Spring_Left::OnCollisionEnter(Collider* other)
 	{
-		mAnimator->Play(L"spring_left2", false);
-		mState = eState::Up;
+		Transform* tr = GetComponent<Transform>();
+		Vector2 spike_pos = tr->GetPos();
+	
+		if (Sonic* msonic = dynamic_cast<Sonic*>(other->GetOwner()))
+		{
+			Vector2 sonic_pos = msonic->GetComponent<Transform>()->GetPos();
+			sonic_pos.y = sonic_pos.y + 120;
+
+			if (sonic_pos.y < spike_pos.y)
+			{
+
+			}
+			else
+			{
+				mAnimator->Play(L"spring_left2", false);
+				mState = eState::Up;
+			}
+		}
 	}
 	void Spring_Left::OnCollisionStay(Collider* other)
 	{

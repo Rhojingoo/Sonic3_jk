@@ -26,6 +26,7 @@ namespace jk
 		, mMonmaxdistance(300.0f)
 		, mDir(1)
 		, check_map(0)
+		, Death_Point(0)
 	{
 		//Transform* tr = GetComponent<Transform>();
 		//tr->SetPos(Vector2(15224.0f, 2921.0f));
@@ -54,10 +55,10 @@ namespace jk
 		
 
 		mImage1 = Resources::Load<Image>(L"Effect", L"..\\Resources\\Effect.bmp");
-		mAnimator->CreateAnimation(L"rino_deth", mImage1, Vector2{ 242.f,458.f }, Vector2{ 40.f,32.f }, Vector2{ 8.f,0.f }, 4, 1, 4, Vector2::Zero, 0.3f);
+		mAnimator->CreateAnimation(L"rino_death", mImage1, Vector2{ 242.f,458.f }, Vector2{ 40.f,32.f }, Vector2{ 8.f,0.f }, 4, 1, 4, Vector2::Zero, 0.3f);
 		mAnimator->CreateAnimation(L"rino_deth2", mImage1, Vector2{ 242.f,498.f }, Vector2{ 32.f,24.f }, Vector2{ 8.f,0.f }, 4, 1, 4, Vector2::Zero, 0.3f);
 
-		mAnimator->GetCompleteEvent(L"rino_deth") = std::bind(&Monster::deth, this);
+		mAnimator->GetCompleteEvent(L"rino_death") = std::bind(&Monster::release_animal, this);
 
 		mRigidbody = AddComponent<Rigidbody>();
 		mRigidbody->SetMass(1.0f);
@@ -67,6 +68,14 @@ namespace jk
 
 	void Monster::Update()
 	{
+
+		if (Death_Point == 1)
+		{
+			mState = eMonsterState::Death;
+			mAnimator->Play(L"rino_death", false);
+		}
+
+
 		switch (mState)
 		{
 		case jk::Monster::eMonsterState::Move:move();
@@ -75,6 +84,8 @@ namespace jk
 		case jk::Monster::eMonsterState::Turn:turn();
 			break;
 	
+		case jk::Monster::eMonsterState::Death:death();
+			break;
 
 		default:
 			break;
@@ -135,12 +146,8 @@ namespace jk
 				{
 					Rino_rb->SetGround(false);
 				}
-
 			}
 		}
-
-
-
 		Gameobject::Update();
 	}	
 
@@ -162,7 +169,8 @@ namespace jk
 		
 			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
 			{
-       			mAnimator->Play(L"rino_deth", false);					
+       			mAnimator->Play(L"rino_death", false);		
+				Death_Point = 1;
 			}
 		}
 	}
@@ -200,13 +208,8 @@ namespace jk
 		{
 			pos.x += mMonspeed * static_cast<float>(Time::DeltaTime()) * mDir;
 		}
-		if (mState == eMonsterState::Deth)
-		{
-			mState = eMonsterState::Deth;
-		}
 
 		tr->SetPos(pos);
-
 	}
 
 	void Monster::turn()
@@ -223,25 +226,11 @@ namespace jk
 		//	int a = 0;
 		//}
 		mState = eMonsterState::Move;
-
-		if (mState == eMonsterState::Deth)
-		{
-			mState = eMonsterState::Deth;
-		}
 	}
 
-	void Monster::deth()
+	void Monster::death()
 	{
-		Transform* tr = GetComponent<Transform>();
-		Scene* curScene = SceneManager::GetActiveScene();
-		Animal* ani = new Animal(mOwner);
-
-		ani->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x, tr->GetPos().y });
-		curScene->AddGameobeject(ani, jk_LayerType::Animal);
-
-		jk::object::Destory(this);
-
-		//Monster::release_animal();
+		Death_Point = 2;
 	}
 	
 	void Monster::release_animal()
@@ -249,9 +238,10 @@ namespace jk
 		Transform* tr = GetComponent<Transform>();
 		Scene* curScene = SceneManager::GetActiveScene();
 		Animal* ani = new Animal(this);
-
 		ani->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x, tr->GetPos().y });
 		curScene->AddGameobeject(ani, jk_LayerType::Animal);
+
+		jk::object::Destory(this);
 	}
 
 }

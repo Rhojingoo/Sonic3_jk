@@ -92,9 +92,9 @@ namespace jk
 		mSonic = new Sonic();
 		mSonic->SetName(L"Player");
 		AddGameobeject(mSonic, jk_LayerType::Player);
-		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
+		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
+		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 16100.0f, 3070.0f });//집라인쪽
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 28821.f, 1363.f });//끝
-
 		mTails = new Tails(mSonic);
 		mTails->SetName(L"Player2");
 		AddGameobeject(mTails, jk_LayerType::Player2);
@@ -285,7 +285,7 @@ namespace jk
 		rock_big[0]->GetComponent<Transform>()->SetPos(Vector2{ 15993.0f, 3628.0f });
 		rock_big[1]->GetComponent<Transform>()->SetPos(Vector2{ 19824.0f, 2625.0f });
 
-
+	
 		Collapses_Ground* collapses_Ground[1];
 		for (int a = 0; a < 1; a++)
 		{
@@ -293,7 +293,7 @@ namespace jk
 			collapses_Ground[a]->SetName(L"collapses_Ground");
 			AddGameobeject(collapses_Ground[a], jk_LayerType::BG_props);
 		}
-		collapses_Ground[0]->GetComponent<Transform>()->SetPos(Vector2{ 16350.0f, 3070.0f });
+		collapses_Ground[0]->GetComponent<Transform>()->SetPos(Vector2{ 16300.0f, 3070.0f });
 
 
 		Jeep_line_Handle* jeep_line_Handle[3];
@@ -432,7 +432,7 @@ namespace jk
 			Snake_head[a]->SetName(L"Snake_head");
 			AddGameobeject(Snake_head[a], jk_LayerType::Monster);
 		}
-		Snake_head[0]->GetComponent<Transform>()->SetPos(Vector2{ 8370.f, 3250.f });
+		Snake_head[0]->GetComponent<Transform>()->SetPos(Vector2{ 8870.f, 3250.f });
 
 		Snake_Body_Smoke* snake_Body_Smoke[1];
 		for (int a = 0; a < 1; a++)

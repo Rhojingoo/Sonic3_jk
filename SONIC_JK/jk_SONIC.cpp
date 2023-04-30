@@ -222,15 +222,20 @@ namespace jk
 			ringpoint;
 			int a = 0;
 
+			if(ringpoint ==0)
+
+
 			Transform* tr = GetComponent<Transform>();
-			Vector2 check_sonic = tr->GetPos();
-			check_sonic.x;
-			check_sonic.y;
-		
-			if (check_sonic.x > 30300.f)
-			{
-				int a = 0;
-			}
+			//Vector2 check_sonic = tr->GetPos();
+			//check_sonic.x;
+			//check_sonic.y;		
+			//if (check_sonic.x > 30300.f)
+			//{
+			//	int a = 0;
+			//}
+
+
+
 			if (fly_check == 1)
 			{
 				mState = eSonicState::Tails_Hanging;
@@ -429,17 +434,17 @@ namespace jk
 			//배경소품 충돌★
 	
 				//Act1_Water 물충돌
-				//if (Act1_Water* act1_water = dynamic_cast<Act1_Water*>(other->GetOwner()))
-				//{
-				//	Transform* tr = GetComponent<Transform>();
-				//	Vector2 pos = tr->GetPos();
+				if (Act1_Water* act1_water = dynamic_cast<Act1_Water*>(other->GetOwner()))
+				{
+					Transform* tr = GetComponent<Transform>();
+					Vector2 pos = tr->GetPos();
 
-				//	Vector2 water_pos = act1_water->GetComponent<Transform>()->GetPos();
-				//	Scene* curScene = SceneManager::GetActiveScene();
-				//	Water_effect* water_effect = new Water_effect();
-				//	water_effect->GetComponent<Transform>()->SetPos(Vector2{ pos.x, water_pos.y-100 });
-				//	curScene->AddGameobeject(water_effect, jk_LayerType::BG_props);
-				//}
+					Vector2 water_pos = act1_water->GetComponent<Transform>()->GetPos();
+					Scene* curScene = SceneManager::GetActiveScene();
+					Water_effect* water_effect = new Water_effect();
+					water_effect->GetComponent<Transform>()->SetPos(Vector2{ pos.x, water_pos.y-100 });
+					curScene->AddGameobeject(water_effect, jk_LayerType::BG_props);
+				}
 
 
 				//Spring Up 충돌처리
@@ -468,18 +473,34 @@ namespace jk
 				if (Spring_Left* spring_Left = dynamic_cast<Spring_Left*>(other->GetOwner()))
 				{
 					Transform* tr = GetComponent<Transform>();
-					Vector2 pos = tr->GetPos();
-
+					Vector2 sonic_pos = tr->GetPos();
 					Vector2 velocity = mRigidbody->GetVelocity();
-					velocity.x = 0.0f;
-					velocity.x -= 650.0f;
-					mRigidbody->SetGround(false);
-					mRigidbody->SetVelocity(velocity);
-					if (mDir == 1)
+					sonic_pos.y = sonic_pos.y + 120;
+					
+					Vector2 Spring_L = spring_Left->GetComponent<Transform>()->GetPos();
+			
+				
+					if(sonic_pos.y< Spring_L.y)
 					{
-						mAnimator->Play(L"LSonicRun", true);
+						mState = eSonicState::Idle;
+						mRigidbody->SetGround(true);
+						if (mDir == 1)
+							mAnimator->Play(L"RSonicStand", true);
+						else
+							mAnimator->Play(L"LSonicStand", true);					
 					}
-					mState = eSonicState::Run;
+					else
+					{
+						velocity.x = 0.0f;
+						velocity.x -= 1050.0f;
+						mRigidbody->SetGround(false);
+						mRigidbody->SetVelocity(velocity);
+						if (mDir == 1)
+						{
+							mAnimator->Play(L"LSonicRun", true);
+						}
+						mState = eSonicState::Run;
+					}
 				}
 
 				//Spike up 충돌처리
@@ -487,10 +508,11 @@ namespace jk
 				{
 
 					Vector2 Spike = spike_Up->GetComponent<Transform>()->GetPos();
-					Transform* tr = GetComponent<Transform>();
-					//float Sonicscale  = tr->GetScale().y;					
-					float Sonic = tr->GetPos().y+120;
-					if (Sonic < Spike.y)
+					Transform* tr = GetComponent<Transform>();								
+					Vector2 Sonic = tr->GetPos();
+					Sonic.y = Sonic.y + 120;
+
+					if (Sonic.y < Spike.y)
 					{
 						if (mDir == 1)
 						{
@@ -519,7 +541,7 @@ namespace jk
 					else
 					{
 						Transform* tr = GetComponent<Transform>();
-						Vector2 pos = tr->GetPos();
+						Vector2 sonic_Pos = tr->GetPos();
 
 						//소닉 콜라이더 및 좌표
 						Collider* mSonic_Col = this->GetComponent<Collider>();
@@ -528,13 +550,12 @@ namespace jk
 						//스파이크 콜라이더 및 좌표
 						Collider* mSpike_Col = spike_Up->GetComponent<Collider>();
 						Vector2 mSpike_Pos = mSpike_Col->Getpos();
-						Transform* grTr = this->GetComponent<Transform>();
-						Vector2 sonic_Pos = tr->GetPos();
+						Transform* grTr = this->GetComponent<Transform>();					
 
 						float fLen = fabs(mSonic_Pos.x - mSpike_Pos.x);
 						float fSize = mSpike_Col->GetSize().x;
 
-						if (mDir == 1)
+						if ((mSonic_Pos.x < mSpike_Pos.x))
 						{
 							mRigidbody->SetVelocity(Vector2{ 0.f,0.f });	
 
@@ -544,7 +565,7 @@ namespace jk
 							mState = eSonicState::Push;
 							tr->SetPos(sonic_Pos);					
 						}
-						else if (mDir == -1)
+						else if ((mSonic_Pos.x > mSpike_Pos.x))
 						{
 							mRigidbody->SetVelocity(Vector2{ 0.f,0.f });
 
@@ -598,7 +619,6 @@ namespace jk
 					Vector2 Collapses_Gr = collapses_Ground->GetComponent<Transform>()->GetPos();
 					Transform* tr = GetComponent<Transform>();
 					Vector2 msonic = tr->GetPos();
-
 
 					if (mDir == 1)
 					{
@@ -730,41 +750,52 @@ namespace jk
 				//Rock 충돌처리(푸쉬)
 				if (Rock_small* rock_small = dynamic_cast<Rock_small*>(other->GetOwner()))
 				{
-
-					Vector2 rock_small_pos = rock_small->GetComponent<Transform>()->GetPos();
 					Transform* tr = GetComponent<Transform>();
-					Vector2 pos = tr->GetPos();							
+					Vector2 sonic_pos = tr->GetPos();
+					Vector2 rock_small_pos = rock_small->GetComponent<Transform>()->GetPos();
+							
 
 					//소닉 콜라이더 및 좌표
 					Collider* mSonic_Col = this->GetComponent<Collider>();
-					Vector2 mSonic_Pos = mSonic_Col->Getpos();
-					Vector2 sonic_Pos = tr->GetPos();
-
+					Vector2 mSonic_colpos = mSonic_Col->Getpos();
 					//스몰락 콜라이더 및 좌표
 					Collider* mRockSmall_Col = rock_small->GetComponent<Collider>();
-					Vector2 mRockSmall_Pos = mRockSmall_Col->Getpos();
+					Vector2 mRockSmall_colpos = mRockSmall_Col->Getpos();
+
 
 					if (!(mState == eSonicState::Jump || mState == eSonicState::Spin || mState == eSonicState::Dash))
 					{
-						if (mDir == 1)
+						if (mSonic_colpos.x< mRockSmall_colpos.x)
 						{
 							mRigidbody->SetVelocity(Vector2{ 0.f,0.f });
 
-							sonic_Pos.x = rock_small_pos.x - mRockSmall_Col->GetSize().x;
+							sonic_pos.x = mRockSmall_colpos.x - mRockSmall_Col->GetSize().x*0.6;
 
 							mAnimator->Play(L"RSonic_Push", true);
 							mState = eSonicState::Push;
-							tr->SetPos(sonic_Pos);
+							tr->SetPos(sonic_pos);
 						}
-						else if (mDir == -1)
+						else if (mSonic_colpos.x > mRockSmall_colpos.x)
 						{
 							mRigidbody->SetVelocity(Vector2{ 0.f,0.f });
 
-							sonic_Pos.x = rock_small_pos.x + mRockSmall_Col->GetSize().x;
+							sonic_pos.x = mRockSmall_colpos.x + mRockSmall_Col->GetSize().x;
 
 							mAnimator->Play(L"LSonic_Push", true);
 							mState = eSonicState::Push;
-							tr->SetPos(sonic_Pos);
+							tr->SetPos(sonic_pos);
+						}
+					}
+					else
+					{
+						sonic_pos.y = sonic_pos.y + 120;
+						if (sonic_pos.y < rock_small_pos.y)
+						{
+							Vector2 velocity = mRigidbody->GetVelocity();
+							velocity.y = 0.0f;
+							velocity.y = -350.f;
+							mRigidbody->SetGround(false);
+							mRigidbody->SetVelocity(velocity);
 						}
 					}
 				}
@@ -774,12 +805,11 @@ namespace jk
 
 					Vector2 Spike = rock_middle->GetComponent<Transform>()->GetPos();
 					Transform* tr = GetComponent<Transform>();
-					Vector2 pos = tr->GetPos();
+					Vector2 sonic_Pos = tr->GetPos();
 
 					//소닉 콜라이더 및 좌표
 					Collider* mSonic_Col = this->GetComponent<Collider>();
-					Vector2 mSonic_Pos = mSonic_Col->Getpos();
-					Vector2 sonic_Pos = tr->GetPos();
+					Vector2 mSonic_colos = mSonic_Col->Getpos();		
 
 					//스파이크 콜라이더 및 좌표
 					Collider* mRockMiddle_Col = rock_middle->GetComponent<Collider>();
@@ -787,17 +817,17 @@ namespace jk
 
 					if (!(mState == eSonicState::Jump || mState == eSonicState::Spin || mState == eSonicState::Dash))
 					{
-						if (mDir == 1)
+						if (mSonic_colos.x < mRockMiddle_Pos.x)
 						{
 							mRigidbody->SetVelocity(Vector2{ 0.f,0.f });
 
-							sonic_Pos.x = mRockMiddle_Pos.x - mRockMiddle_Col->GetSize().x;
+							sonic_Pos.x = mRockMiddle_Pos.x - mRockMiddle_Col->GetSize().x*0.6;
 
 							mAnimator->Play(L"RSonic_Push", true);
 							mState = eSonicState::Push;
 							tr->SetPos(sonic_Pos);
 						}
-						else if (mDir == -1)
+						else if (mSonic_colos.x > mRockMiddle_Pos.x)
 						{
 							mRigidbody->SetVelocity(Vector2{ 0.f,0.f });
 
@@ -812,36 +842,36 @@ namespace jk
 
 				if (Rock_big* rock_big = dynamic_cast<Rock_big*>(other->GetOwner()))
 				{
-					Vector2 Spike = rock_big->GetComponent<Transform>()->GetPos();
+					Vector2 rock_big_pos = rock_big->GetComponent<Transform>()->GetPos();
 					Transform* tr = GetComponent<Transform>();
-					Vector2 pos = tr->GetPos();
+					Vector2 sonic_Pos = tr->GetPos();
 
 					//소닉 콜라이더 및 좌표
 					Collider* mSonic_Col = this->GetComponent<Collider>();
-					Vector2 mSonic_Pos = mSonic_Col->Getpos();
-					Vector2 sonic_Pos = tr->GetPos();
+					Vector2 mSonic_colPos = mSonic_Col->Getpos();
+			
 
 					//스파이크 콜라이더 및 좌표
 					Collider* mRockBig_Col = rock_big->GetComponent<Collider>();
-					Vector2 mRockBig_Pos = mRockBig_Col->Getpos();
+					Vector2 mRockBig_colPos = mRockBig_Col->Getpos();
 
 					if (!(mState == eSonicState::Jump || mState == eSonicState::Spin || mState == eSonicState::Dash))
 					{
-						if (mDir == 1)
+						if (mSonic_colPos.x < mRockBig_colPos.x)
 						{
 							mRigidbody->SetVelocity(Vector2{ 0.f,0.f });
 
-							sonic_Pos.x = mRockBig_Pos.x - mRockBig_Col->GetSize().x;
+							sonic_Pos.x = mRockBig_colPos.x - mRockBig_Col->GetSize().x*0.6;
 
 							mAnimator->Play(L"RSonic_Push", true);
 							mState = eSonicState::Push;
 							tr->SetPos(sonic_Pos);
 						}
-						else if (mDir == -1)
+						else if (mSonic_colPos.x > mRockBig_colPos.x)
 						{
 							mRigidbody->SetVelocity(Vector2{ 0.f,0.f });
 
-							sonic_Pos.x = mRockBig_Pos.x + mRockBig_Col->GetSize().x;
+							sonic_Pos.x = mRockBig_colPos.x + mRockBig_Col->GetSize().x;
 
 							mAnimator->Play(L"LSonic_Push", true);
 							mState = eSonicState::Push;
@@ -979,7 +1009,6 @@ namespace jk
 
 
 
-
 								 
 			//몬스터 충돌★
 				//Rino 충돌처리		
@@ -1104,7 +1133,6 @@ namespace jk
 				}
 
 
-
 				//보스충돌
 				//LASTBOSS
 				if (Boss_Arm* last_boss_arm = dynamic_cast<Boss_Arm*>(other->GetOwner()))
@@ -1130,17 +1158,8 @@ namespace jk
 
 		void Sonic::OnCollisionStay(Collider * other)
 	{
-
 		Transform* tr = GetComponent<Transform>();
 		tr->GetPos();
-
-
-		//Cylinder 충돌처리
-		//if (Cylinder* cylinder = dynamic_cast<Cylinder*>(other->GetOwner()))
-		//{
-
-		//}
-
 
 
 	}

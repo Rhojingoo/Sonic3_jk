@@ -475,13 +475,13 @@ namespace jk
 			}
 			else
 			{
-				int check = 5;
+				//mPlayerRigidBody->SetGround(false);
+				int check = 20;
 
 				if ((mPlayer->Getsonicstate() == Sonic::eSonicState::Jump) || (mPlayer->Getsonicstate() == Sonic::eSonicState::Hurt) || (mPlayer->Getsonicstate() == Sonic::eSonicState::Spring_Jump))
 				{
 					check = 2;
 				}
-
 
 				COLORREF colorDown = Ground_Image->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice + check);
 				if (colorDown == GROUNDCOLOR)

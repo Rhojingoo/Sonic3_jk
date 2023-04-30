@@ -7,7 +7,6 @@
 
 namespace jk
 {
-	class Rigidbody;
 	class Ground;
 	class Animator;
 	class Monkey : public Gameobject
@@ -22,7 +21,7 @@ namespace jk
 			L_Throw,
 			R_Throw,	
 			Turn,
-			Deth,		
+			Death,		
 		};
 
 		Monkey(Gameobject* owner);
@@ -41,8 +40,6 @@ namespace jk
 		void SetCheckTargetGround(Ground* ground) { check = ground; }
 		void SetCenterpos(Vector2 pos) { mCenterpos = pos; }
 
-		Vector2 Getmonster() { return mCurpos; }
-
 
 	private:
 		void Lmove_up();
@@ -52,10 +49,11 @@ namespace jk
 		void Lthrows();
 		void Rthrows();
 		void turn();
-		void deth();
+		void death();
 
 		void throw_CompleteEvent();
 		void release_animal();
+
 
 	private:
 		Gameobject* mOwner;
@@ -64,18 +62,21 @@ namespace jk
 		Image* mGroundImage;
 		Ground* check;
 		Animator* mAnimator;
-		Rigidbody* mRigidbody;
+	
+
+		eMonkey mState;
 		Vector2 mCenterpos;
-		Vector2 mCurpos;
 		float mMonspeed;
 		float mMonmaxdistance;
 		int mDir;
-		eMonkey mState;
 		Vector2 pos;
 		float fDist;
-		Vector2 mSonic;
+		int death_point;
+		int animal_point;
 
-		Sonic::eSonicState sonicState;
+
+		Vector2 mSonic;
 		int sonicpattern;
+		Sonic::eSonicState sonicState;
 	};
 }

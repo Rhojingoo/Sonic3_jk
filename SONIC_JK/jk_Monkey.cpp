@@ -13,8 +13,9 @@
 #include "jk_Monket_Bullet.h"
 #include "jk_Animal.h"
 #include "jk_Object.h"
-#include "Rigidbody.h"
 #include "jk_Ground.h"
+#include "Rigidbody.h"
+
 
 namespace jk
 {
@@ -25,6 +26,8 @@ namespace jk
 		, mDir(1)
 		, mOwner(owner)
 		, sonicpattern(-1)
+		, death_point(0)
+		, animal_point(0)
 	{
 
 
@@ -44,7 +47,7 @@ namespace jk
 		mAnimator->CreateAnimation(L"LMonkey_throw", mImage, Vector2{ 20.f,81.f }, Vector2{ 86.f,58.f }, Vector2{ 5.f,0.f }, 6, 1, 6, Vector2::Zero, 0.05);
 
 		mImage1 = Resources::Load<Image>(L"Effect", L"..\\Resources\\Effect.bmp");
-		mAnimator->CreateAnimation(L"deth", mImage1, Vector2{ 242.f,458.f }, Vector2{ 40.f,32.f }, Vector2{ 8.f,0.f }, 4, 1, 4, Vector2::Zero, 0.3f);
+		mAnimator->CreateAnimation(L"death", mImage1, Vector2{ 242.f,458.f }, Vector2{ 40.f,32.f }, Vector2{ 8.f,0.f }, 4, 1, 4, Vector2::Zero, 0.3f);
 		mAnimator->CreateAnimation(L"deth2", mImage1   , Vector2{ 242.f,498.f }, Vector2{ 32.f,24.f }, Vector2{ 8.f,0.f }, 4, 1, 4, Vector2::Zero, 0.3f);
 
 
@@ -53,7 +56,7 @@ namespace jk
 		collider->SetSize(Vector2(153.0f, 130.0f));
 		Vector2 size = collider->GetSize();
 		collider->SetCenter(Vector2{ (-0.12f) * size.x, (-0.2f) * size.y });
-	
+		mAnimator->GetCompleteEvent(L"death") = std::bind(&Monkey::release_animal, this);
 		mAnimator->Play(L"LMonkey", true);
 	/*	if (mDir == 1)
 			mAnimator->Play(L"RMonkey", true);
@@ -69,6 +72,12 @@ namespace jk
 		Transform* tr = GetComponent<Transform>();
 		pos = tr->GetPos();
 		
+		if (death_point == 1)
+		{
+			mState = eMonkey::Death;
+			mAnimator->Play(L"death", false);
+		}
+		
 
  		mSonic = mOwner->GetComponent<Transform>()->GetPos();
 		if (mSonic.x <= pos.x)
@@ -79,6 +88,7 @@ namespace jk
 		{
 			sonicpattern = 1;
 		}
+
  		switch (mState)
  		{
 		case jk::Monkey::eMonkey::L_Move_UP:Lmove_up();
@@ -102,8 +112,8 @@ namespace jk
 		case jk::Monkey::eMonkey::Turn:turn();
 			break;
 
-		//case jk::Monkey::eMonkey::Deth:deth();
-		//	break;	
+		case jk::Monkey::eMonkey::Death:death();
+		break;	
 
 		default:
 			break;
@@ -129,8 +139,9 @@ namespace jk
 
 			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
 			{
-				mAnimator->Play(L"deth", false);
-				mAnimator->GetCompleteEvent(L"deth") = std::bind(&Monkey::deth, this);			
+				mAnimator->Play(L"death", false);		
+				sonicpattern;
+				death_point = 1;
 			}	
 		}
 	}
@@ -156,13 +167,6 @@ namespace jk
 			mAnimator->Play(L"LMonkey_throw", false);
 			mDir *= -1;
 		}
-
-		if (mState == eMonkey::Deth)
-		{
-			mAnimator->Play(L"deth", false);
-			mAnimator->GetCompleteEvent(L"deth") = std::bind(&Monkey::deth, this);
-		}
-
 		//if (sonicpattern == 1)
 		//{
 		//	pos.x = pos.x + 170;
@@ -186,12 +190,6 @@ namespace jk
 				mAnimator->Play(L"LMonkey_throw", false);
 			mDir *= -1;
 		}
-		if (mState == eMonkey::Deth)
-		{
-			mAnimator->Play(L"deth", false);
-			mAnimator->GetCompleteEvent(L"deth") = std::bind(&Monkey::deth, this);
-		}
-
 		//if (sonicpattern == 1)
 		//{
 		//	pos.x = pos.x + 170;
@@ -265,12 +263,6 @@ namespace jk
 	void Monkey::Lthrows()
 	{
 		mAnimator->GetCompleteEvent(L"LMonkey_throw") = std::bind(&Monkey::throw_CompleteEvent, this);
-
-		if (mState == eMonkey::Deth)
-		{
-			mAnimator->Play(L"deth", false);
-			mAnimator->GetCompleteEvent(L"deth") = std::bind(&Monkey::deth, this);
-		}
 	}
 
 	void Monkey::Rthrows()
@@ -313,36 +305,31 @@ namespace jk
 		//	}
 		//}
 
-		if (mState == eMonkey::Deth)
-		{
-			mAnimator->Play(L"deth", false);
-			mAnimator->GetCompleteEvent(L"deth") = std::bind(&Monkey::deth, this);
-		}
 	}
 
 
 
-	void Monkey::deth()
-	{	
-		Transform* tr = GetComponent<Transform>();
-		Scene* curScene = SceneManager::GetActiveScene();
-		Animal* ani = new Animal(mOwner);
+	void Monkey::death()
+	{		
+		if (animal_point == 0)
+		{
+			//release_animal();
+			//animal_point = 1;
+			//jk::object::Destory(this);
+			death_point = 2;		
+		}
 
-		ani->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x, tr->GetPos().y });
-		curScene->AddGameobeject(ani, jk_LayerType::Animal);
-
-		jk::object::Destory(this);
+	
 	}
 
 	void Monkey::throw_CompleteEvent()
 	{
 		Transform* tr = GetComponent<Transform>();
-		Scene* curScene = SceneManager::GetActiveScene();
-		Monket_Bullet* bullet = new Monket_Bullet(mOwner);
-		//bullet->GetComponent<Transform>()->SetPos(tr->GetPos());	
+		Scene* curScene = SceneManager::GetActiveScene();		
 		
 		if (sonicpattern == -1)
 		{
+			Monket_Bullet* bullet = new Monket_Bullet(mOwner);
 			bullet->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos()});
 			bullet->GetComponent<Rigidbody>()->SetVelocity(Vector2{ -300.0f, -300.0f });
 			curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
@@ -350,12 +337,12 @@ namespace jk
 		}
 		else if(sonicpattern ==1)
 		{
+			Monket_Bullet* bullet = new Monket_Bullet(mOwner);
 			bullet->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos()});
 			bullet->GetComponent<Rigidbody>()->SetVelocity(Vector2{ 300.0f, -300.0f });
 			curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
 			bullet->SetGroundImage(mGroundImage);
 		}
-		
 		
 		mState = eMonkey::Turn;
 	}
@@ -365,10 +352,10 @@ namespace jk
 		Transform* tr = GetComponent<Transform>();
 		Scene* curScene = SceneManager::GetActiveScene();
 		Animal* ani = new Animal(mOwner);
-
-
 		ani->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x, tr->GetPos().y });
 		curScene->AddGameobeject(ani, jk_LayerType::Animal);
+
+		object::Destory(this);
 	}
 }
 

@@ -78,16 +78,17 @@ namespace jk
 		{
 			Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
 			rb->SetGround(true);
-			Transform* tr = GetComponent<Transform>();
-			Vector2 pos = tr->GetPos();			
-
 			Collider* mSonic_Col = mSonic->GetComponent<Collider>();
-			Vector2 mSonic_Pos = mSonic_Col->Getpos();
-			Collider* groundCol = this->GetComponent<Collider>();
-			Vector2 groundPos = groundCol->Getpos();
+			Vector2 mSonic_colPos = mSonic_Col->Getpos();		
 			Transform* sonicTr = mSonic->GetComponent<Transform>();
-			Transform* grTr = this->GetComponent<Transform>();
 			Vector2 sonic_Pos = sonicTr->GetPos();
+
+
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->GetPos();
+			Transform* grTr = this->GetComponent<Transform>();
+			Collider* groundCol = this->GetComponent<Collider>();
+			Vector2 ground_colPos = groundCol->Getpos();
 			
 
 			Vector2 velocity = rb->GetVelocity();
@@ -101,7 +102,6 @@ namespace jk
  				check_Gr = 1;
 				sonicTr->SetPos(sonic_Pos);
 			}	
-
 			else 
 			{
 				Vector2 velocity = rb->GetVelocity();
@@ -110,18 +110,16 @@ namespace jk
 				rb->SetVelocity(velocity);
 				rb->SetGround(false);
 
-				sonic_Pos = sonicTr->GetPos();
-				//sonic_Pos = sonic_Pos + Vector2{ 350.f ,-350.f };
+				sonic_Pos = sonicTr->GetPos();				
 				sonicTr->SetPos(sonic_Pos);				
 			}
 		}
 		if (check_Gr == 1)
 		{
 			time_Gr += Time::DeltaTime();
-			if (time_Gr >= 3)
+			if (time_Gr >= 1)
 			{
-				mState = eState::Death;
-				jk::object::Destory(this);
+				mState = eState::Death;				
 				return;
 			}
 		}
@@ -133,9 +131,13 @@ namespace jk
 		Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
 		rb->SetGround(false);
 	}
+
+
 	void Collapses_Ground::idle()
 	{
 	}
+
+
 	void Collapses_Ground::death()
 	{
 		Transform* tr = GetComponent<Transform>();
@@ -144,6 +146,8 @@ namespace jk
 		Scene* curScene = SceneManager::GetActiveScene();
 		curScene->AddGameobeject(GR_callapese, jk_LayerType::BG_props);		
 		GR_callapese->GetComponent<Transform>()->SetPos(pos);
+
+		jk::object::Destory(this);
 		
 	}
 }

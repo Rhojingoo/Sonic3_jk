@@ -25,25 +25,20 @@ namespace jk
 		mRigidbody = AddComponent<Rigidbody>();
 		mRigidbody->SetMass(1.0f);
 
-		//Collider* collider = AddComponent<Collider>();
-		//collider->SetSize(Vector2(180.0f, 120.0f));
-		//Vector2 size = collider->GetSize();
-		//collider->SetCenter(Vector2{ (-0.15f) * size.x, (-0.35f) * size.y });
-
 		Gameobject::Initialize();
 	}
+
+
 	Callapses::~Callapses()
 	{
 	}
+
 	void Callapses::Initialize()
 	{
 		Gameobject::Initialize();
 	}
 	void Callapses::Update()
 	{
-		Transform* tr = GetComponent<Transform>();
-		pos = tr->GetPos();
-
 		Gameobject::Update();
 	}
 	void Callapses::Render(HDC hdc)
@@ -56,45 +51,45 @@ namespace jk
 	}
 	void Callapses::OnCollisionEnter(Collider* other)
 	{
-		if (Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner()))
-		{
-			Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
-			rb->SetGround(true);
-			Transform* tr = GetComponent<Transform>();
-			Vector2 pos = tr->GetPos();
+		//if (Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner()))
+		//{
+		//	Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
+		//	rb->SetGround(true);
+		//	Transform* tr = GetComponent<Transform>();
+		//	Vector2 pos = tr->GetPos();
 
-			Collider* mSonic_Col = mSonic->GetComponent<Collider>();
-			Vector2 mSonic_Pos = mSonic_Col->Getpos();
-			Collider* groundCol = this->GetComponent<Collider>();
-			Vector2 groundPos = groundCol->Getpos();
-			Transform* sonicTr = mSonic->GetComponent<Transform>();
-			Transform* grTr = this->GetComponent<Transform>();
-			Vector2 sonic_Pos = sonicTr->GetPos();
-
-
-			Vector2 velocity = rb->GetVelocity();
-			velocity.y = 0.0f;
-			rb->SetVelocity(velocity);
+		//	Collider* mSonic_Col = mSonic->GetComponent<Collider>();
+		//	Vector2 mSonic_Pos = mSonic_Col->Getpos();
+		//	Collider* groundCol = this->GetComponent<Collider>();
+		//	Vector2 groundPos = groundCol->Getpos();
+		//	Transform* sonicTr = mSonic->GetComponent<Transform>();
+		//	Transform* grTr = this->GetComponent<Transform>();
+		//	Vector2 sonic_Pos = sonicTr->GetPos();
 
 
-			if (!((mSonic->Getsonicstate() == Sonic::eSonicState::Jump) || (mSonic->Getsonicstate() == Sonic::eSonicState::Hurt)))
-			{
-				sonic_Pos.y = groundCol->Getpos().y - groundCol->GetSize().y / 2.f;			
-				sonicTr->SetPos(sonic_Pos);
-			}
+		//	Vector2 velocity = rb->GetVelocity();
+		//	velocity.y = 0.0f;
+		//	rb->SetVelocity(velocity);
 
-			else
-			{
-				Vector2 velocity = rb->GetVelocity();
-				velocity.y = -550.0f;
 
-				rb->SetVelocity(velocity);
-				rb->SetGround(false);
-				sonic_Pos = sonicTr->GetPos();
-			
-				sonicTr->SetPos(sonic_Pos);
-			}
-		}
+		//	if (!((mSonic->Getsonicstate() == Sonic::eSonicState::Jump) || (mSonic->Getsonicstate() == Sonic::eSonicState::Hurt)))
+		//	{
+		//		sonic_Pos.y = groundCol->Getpos().y - groundCol->GetSize().y / 2.f;			
+		//		sonicTr->SetPos(sonic_Pos);
+		//	}
+
+		//	else
+		//	{
+		//		Vector2 velocity = rb->GetVelocity();
+		//		velocity.y = -550.0f;
+
+		//		rb->SetVelocity(velocity);
+		//		rb->SetGround(false);
+		//		sonic_Pos = sonicTr->GetPos();
+		//	
+		//		sonicTr->SetPos(sonic_Pos);
+		//	}
+		//}
 	}
 	void Callapses::OnCollisionStay(Collider* other)
 	{

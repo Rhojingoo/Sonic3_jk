@@ -38,7 +38,7 @@ namespace jk
 
 
 		Collider* collider = AddComponent<Collider>();
-		collider->SetSize(Vector2(130.0f, 95.0f));
+		collider->SetSize(Vector2(144.0f, 96.0f));
 		Vector2 size = collider->GetSize();
 		collider->SetCenter(Vector2{ (-0.15f) * size.x, (-0.35f) * size.y });
 
