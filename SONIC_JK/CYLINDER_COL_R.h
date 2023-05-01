@@ -1,23 +1,23 @@
 #pragma once
 #include "jk_Gameobject.h"
 #include "jk_Image.h"
-#include "jk_Time.h"
+#include "jk_SONIC.h"
+#include "jk_Animator.h"
 
 namespace jk
 {
-	class Ground;
+	class Rigidbody;
 	class Animator;
-	class boss_bomber : public Gameobject
+	class CYLINDER_COL_R : public Gameobject
 	{
 	public:
 		enum class eState
 		{
-			Move,
-			Death
+			Idle,
 		};
 
-		boss_bomber(Gameobject* owner);
-		~boss_bomber();
+		CYLINDER_COL_R(Gameobject* owner);
+		~CYLINDER_COL_R();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
@@ -28,23 +28,18 @@ namespace jk
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
-		
-
 	private:
-		void move();
-		void death();
+		void idle();	
 
 
 	private:
 		Image* mImage;
-		Animator* mAnimator;
-		eState mState;
-
-		int mDir;		
-		float mMonspeed;
-		Vector2 pos;		
-
-		float fDist;
 		Gameobject* mOwner;
+		eState mState;
+		Sonic* sonic;
+
+		class Collider* mCollider;
+		int mDir;
+		Sonic::eSonicState sonicState;		
 	};
 }

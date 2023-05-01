@@ -308,8 +308,14 @@
     <Filter Include="Contents\Boss\Act1-2_miniboss\Dead">
       <UniqueIdentifier>{a1b4122b-e00a-4d0a-adf5-66176085a536}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Boss\Act1-3_show">
+    <Filter Include="Contents\BG\PlayBG\Event_bg\CYLINDER\collision">
+      <UniqueIdentifier>{c1279775-d3a7-4e4e-9844-571e9d9230ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Boss\Act1-3_boss\Act1-3_show">
       <UniqueIdentifier>{311f89eb-753a-48c9-9463-7ba9c601a831}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Boss\Act1-3_boss\apear">
+      <UniqueIdentifier>{4f88c8aa-9ae5-4e79-8333-2523c54e8fcc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -816,12 +822,23 @@
     <ClInclude Include="Life_TensDigit.h">
       <Filter>Contents\BG\UI\Life</Filter>
     </ClInclude>
-    <ClInclude Include="Add_force.h" />
     <ClInclude Include="boss_bomber.h">
-      <Filter>Contents\Boss\Act1-3_show</Filter>
+      <Filter>Contents\Boss\Act1-3_boss\Act1-3_show</Filter>
     </ClInclude>
     <ClInclude Include="show_bomb.h">
-      <Filter>Contents\Boss\Act1-3_show</Filter>
+      <Filter>Contents\Boss\Act1-3_boss\Act1-3_show</Filter>
+    </ClInclude>
+    <ClInclude Include="CYLINDER_COL_R.h">
+      <Filter>Contents\BG\PlayBG\Event_bg\CYLINDER\collision</Filter>
+    </ClInclude>
+    <ClInclude Include="CYLINDER_COL_L.h">
+      <Filter>Contents\BG\PlayBG\Event_bg\CYLINDER\collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Add_force.h">
+      <Filter>Contents\BG\PlayBG\BG_act1-3</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss_appear.h">
+      <Filter>Contents\Boss\Act1-3_boss\apear</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1319,12 +1336,23 @@
     <ClCompile Include="Life_TensDigit.cpp">
       <Filter>Contents\BG\UI\Life</Filter>
     </ClCompile>
-    <ClCompile Include="Add_force.cpp" />
     <ClCompile Include="boss_bomber.cpp">
-      <Filter>Contents\Boss\Act1-3_show</Filter>
+      <Filter>Contents\Boss\Act1-3_boss\Act1-3_show</Filter>
     </ClCompile>
     <ClCompile Include="show_bomb.cpp">
-      <Filter>Contents\Boss\Act1-3_show</Filter>
+      <Filter>Contents\Boss\Act1-3_boss\Act1-3_show</Filter>
+    </ClCompile>
+    <ClCompile Include="CYLINDER_COL_L.cpp">
+      <Filter>Contents\BG\PlayBG\Event_bg\CYLINDER\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="CYLINDER_COL_R.cpp">
+      <Filter>Contents\BG\PlayBG\Event_bg\CYLINDER\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Add_force.cpp">
+      <Filter>Contents\BG\PlayBG\BG_act1-3</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss_appear.cpp">
+      <Filter>Contents\Boss\Act1-3_boss\apear</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

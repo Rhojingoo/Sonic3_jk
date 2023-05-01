@@ -66,6 +66,9 @@
 #include "Life_Manager.h"
 #include "Life_UnitsDigit.h"
 #include "Life_TensDigit.h"
+#include "CYLINDER_COL_R.h"
+#include "CYLINDER_COL_L.h"
+
 
 
 namespace jk
@@ -93,9 +96,10 @@ namespace jk
 		mSonic->SetName(L"Player");
 		AddGameobeject(mSonic, jk_LayerType::Player);
 		
-		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
+		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{21480.f, 3450.f });//폭포
-
+		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
+	
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 16100.0f, 3070.0f });//집라인쪽
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 28821.f, 1363.f });//끝
 		mTails = new Tails(mSonic);
@@ -375,7 +379,15 @@ namespace jk
 		AddGameobeject(cylinder, jk_LayerType::BG_props);
 		cylinder->GetComponent<Transform>()->SetPos(Vector2{ 28085.0f, 2510.0f });
 
-
+		CYLINDER_COL_R* cylinder_r_c = new CYLINDER_COL_R(mSonic);
+		cylinder_r_c->SetName(L"cylinder_r_c");
+		AddGameobeject(cylinder_r_c, jk_LayerType::BG_props);
+		cylinder_r_c->GetComponent<Transform>()->SetPos(Vector2{ 28630.0f, 2690.0f });
+		
+		CYLINDER_COL_L* cylinder_l_c = new CYLINDER_COL_L(mSonic);
+		cylinder_l_c->SetName(L"cylinder_l_c");
+		AddGameobeject(cylinder_l_c, jk_LayerType::BG_props);
+		cylinder_l_c->GetComponent<Transform>()->SetPos(Vector2{ 28000.0f, 2500.0f });
 
 
 		//몬스터

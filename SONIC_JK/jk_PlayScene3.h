@@ -28,6 +28,7 @@ namespace jk
 
 
 		void CreateBlending();
+		void Create_Boss_Apear();
 		void Create_Boss();
 		void Create_Boomber_show();
 		void Create_Boomber_bombing(float a, float b);
@@ -52,5 +53,6 @@ namespace jk
 		int boss_death;
 		int boomber;
 		int bomb_check;
+		int boss_appear;
 	};
 }

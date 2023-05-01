@@ -165,6 +165,7 @@
     <ClInclude Include="boss1_body.h" />
     <ClInclude Include="boss1_object.h" />
     <ClInclude Include="Boss_act1_boomb.h" />
+    <ClInclude Include="Boss_appear.h" />
     <ClInclude Include="Boss_Arm.h" />
     <ClInclude Include="boss_bomber.h" />
     <ClInclude Include="boss_come.h" />
@@ -176,6 +177,8 @@
     <ClInclude Include="Bullet_Act1_R_Side.h" />
     <ClInclude Include="bullet_wall.h" />
     <ClInclude Include="Commoninclude.h" />
+    <ClInclude Include="CYLINDER_COL_L.h" />
+    <ClInclude Include="CYLINDER_COL_R.h" />
     <ClInclude Include="Electsonic.h" />
     <ClInclude Include="Elec_effect.h" />
     <ClInclude Include="EndingBlend.h" />
@@ -339,6 +342,7 @@
     <ClCompile Include="boss1_body.cpp" />
     <ClCompile Include="boss1_object.cpp" />
     <ClCompile Include="Boss_act1_boomb.cpp" />
+    <ClCompile Include="Boss_appear.cpp" />
     <ClCompile Include="Boss_Arm.cpp" />
     <ClCompile Include="boss_bomber.cpp" />
     <ClCompile Include="boss_come.cpp" />
@@ -349,6 +353,8 @@
     <ClCompile Include="Bullet_Act1_R_DIA.cpp" />
     <ClCompile Include="Bullet_Act1_R_Side.cpp" />
     <ClCompile Include="bullet_wall.cpp" />
+    <ClCompile Include="CYLINDER_COL_L.cpp" />
+    <ClCompile Include="CYLINDER_COL_R.cpp" />
     <ClCompile Include="Electsonic.cpp" />
     <ClCompile Include="Elec_effect.cpp" />
     <ClCompile Include="EndingBlend.cpp" />

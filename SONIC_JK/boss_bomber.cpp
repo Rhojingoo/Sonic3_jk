@@ -21,10 +21,6 @@ namespace jk
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"Act1_3_Boomber", mImage, Vector2{ 24,198 }, Vector2{ 384,128 }, Vector2{ 0.f,0.f }, 1, 1, 1, Vector2::Zero, 0.1f);
 
-		Collider* collider = AddComponent<Collider>();
-		collider->SetSize(Vector2(1152,384));
-		Vector2 size = collider->GetSize();
-		collider->SetCenter(Vector2{ (-0.1f) * size.x, (-0.11f) * size.y });
 
 		mAnimator->Play(L"Act1_3_Boomber", true);
 	}

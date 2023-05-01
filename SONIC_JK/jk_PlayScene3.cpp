@@ -36,6 +36,7 @@
 
 #include "boss_bomber.h"
 #include "show_bomb.h"
+#include "Boss_appear.h"
 #include "jk_Boss.h"
 
 
@@ -58,6 +59,7 @@ namespace jk
 		, boomber(0)
 		, mBomber(nullptr)
 		, bomb_check(0)
+		, boss_appear(0)
 	{
 	}
 	PlayScene3::~PlayScene3()
@@ -200,7 +202,6 @@ namespace jk
 			boomber = 1;
 			}
 		}		
-	
 
 		if (boomber == 1)
 		{
@@ -232,7 +233,18 @@ namespace jk
 			}
 		}
 			
-		
+
+		if (sonic_pos.x >= 14640.f)
+		{			
+			if (boss_appear == 0)
+			{
+				Create_Boss_Apear();
+				boss_appear = 1;
+			}
+		}
+
+	
+			
 
 
 
@@ -336,6 +348,14 @@ namespace jk
 
 	void PlayScene3::CreateBlending()
 	{
+	}
+
+	void PlayScene3::Create_Boss_Apear()
+	{		
+		Boss_appear* boss_apear = new Boss_appear(mSonic);
+		boss_apear->SetName(L"boss_apear");
+		AddGameobeject(boss_apear, jk_LayerType::foreground);
+		boss_apear->GetComponent<Transform>()->SetPos(Vector2{ 14640.f, 3630.f });
 	}
 
 

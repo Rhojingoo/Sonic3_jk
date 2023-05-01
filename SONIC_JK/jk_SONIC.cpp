@@ -424,17 +424,17 @@ namespace jk
 		{
 				//tials 面倒
 				if (Tails* tails = dynamic_cast<Tails*>(other->GetOwner()))
-			{
-				Tails::eTailsState tailsState = tails->GetTails_state();
-				if ((tailsState == Tails::eTailsState::Fly_Waiting)|| (tailsState == Tails::eTailsState::Fly_Pursue))
 				{
-					mState = eSonicState::Tails_Hanging;
-					mAnimator->Play(L"RSonic_Jeep", true);
+					Tails::eTailsState tailsState = tails->GetTails_state();
+					if ((tailsState == Tails::eTailsState::Fly_Waiting)|| (tailsState == Tails::eTailsState::Fly_Pursue))
+					{
+						mState = eSonicState::Tails_Hanging;
+						mAnimator->Play(L"RSonic_Jeep", true);
+					}
 				}
-			}
 
-			//硅版家前 面倒≮
-	
+
+				//硅版家前 面倒≮	
 				//Act1_Water 拱面倒
 				if (Act1_Water* act1_water = dynamic_cast<Act1_Water*>(other->GetOwner()))
 				{
@@ -447,7 +447,6 @@ namespace jk
 					water_effect->GetComponent<Transform>()->SetPos(Vector2{ pos.x, water_pos.y-100 });
 					curScene->AddGameobeject(water_effect, jk_LayerType::BG_props);
 				}
-
 
 				//Spring Up 面倒贸府
 				if (Spring_Up* spring_up = dynamic_cast<Spring_Up*>(other->GetOwner()))
@@ -740,12 +739,12 @@ namespace jk
 					if (mDir == 1)
 					{
 						mState = eSonicState::Cylinder_move;
-						//mAnimator->Play(L"LSonic_Spring_up", true);
+						mAnimator->Play(L"LSonic_Spring_up", true);
 					}
 					else if (mDir == -1)
 					{
 						mState = eSonicState::Cylinder_move;
-						//mAnimator->Play(L"LSonic_Spring_up", true);
+						mAnimator->Play(L"LSonic_Spring_up", true);
 					}
 				}	
 		
@@ -1159,12 +1158,8 @@ namespace jk
 		}
 
 		void Sonic::OnCollisionStay(Collider * other)
-	{
-		Transform* tr = GetComponent<Transform>();
-		tr->GetPos();
-
-
-	}
+		{
+		}
 
 		void Sonic::OnCollisionExit(Collider * other)
 	{
@@ -2025,7 +2020,7 @@ namespace jk
 				Vector2 pos = tr->GetPos();
 				if (Input::GetKey(eKeyCode::LEFT))
 				{
-					mAnimator->Play(L"LSonic_Spring_up", true);
+					//mAnimator->Play(L"LSonic_Spring_up", true);
 					mDir = -1;
 					mRigidbody->AddForce(Vector2(-1050.0f, 0.0f));
 					SonicVelocity = mRigidbody->Velocity();
@@ -2033,7 +2028,7 @@ namespace jk
 
 				if (Input::GetKey(eKeyCode::RIGHT))
 				{
-					mAnimator->Play(L"RSonic_Spring_up", true);
+					//mAnimator->Play(L"RSonic_Spring_up", true);
 					mDir = 1;
 					mRigidbody->AddForce(Vector2(+1050.0f, 0.0f));
 					SonicVelocity = mRigidbody->Velocity();
@@ -2047,14 +2042,14 @@ namespace jk
 				Vector2 pos = tr->GetPos();
 				if (Input::GetKey(eKeyCode::LEFT))
 				{
-					mAnimator->Play(L"LSonic_Spring_up", true);
+					//mAnimator->Play(L"LSonic_Spring_up", true);
 					mDir = -1;
 					mRigidbody->AddForce(Vector2(-1050.0f, 0.0f));
 					SonicVelocity = mRigidbody->Velocity();
 				}
 				if (Input::GetKey(eKeyCode::RIGHT))
 				{
-					mAnimator->Play(L"RSonic_Spring_up", true);
+					//mAnimator->Play(L"RSonic_Spring_up", true);
 					mDir = 1;
 					mRigidbody->AddForce(Vector2(+1050.0f, 0.0f));
 					SonicVelocity = mRigidbody->Velocity();

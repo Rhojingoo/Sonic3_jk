@@ -7,7 +7,7 @@ namespace jk
 {
 	class Ground;
 	class Animator;
-	class boss_bomber : public Gameobject
+	class Boss_appear : public Gameobject
 	{
 	public:
 		enum class eState
@@ -16,19 +16,14 @@ namespace jk
 			Death
 		};
 
-		boss_bomber(Gameobject* owner);
-		~boss_bomber();
+		Boss_appear(Gameobject* owner);
+		~Boss_appear();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void Render(HDC hdc) override;
 		virtual void Release() override;
 
-		virtual void OnCollisionEnter(class Collider* other) override;
-		virtual void OnCollisionStay(class Collider* other) override;
-		virtual void OnCollisionExit(class Collider* other) override;
-
-		
 
 	private:
 		void move();
@@ -40,9 +35,9 @@ namespace jk
 		Animator* mAnimator;
 		eState mState;
 
-		int mDir;		
+		int mDir;
 		float mMonspeed;
-		Vector2 pos;		
+		Vector2 pos;
 
 		float fDist;
 		Gameobject* mOwner;
