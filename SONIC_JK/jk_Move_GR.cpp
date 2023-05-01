@@ -111,7 +111,7 @@ namespace jk
 			else
 			{
 				Vector2 velocity = rb->GetVelocity();
-				velocity.y = -550.0f;
+				velocity.y = -650.0f;
 
 				rb->SetVelocity(velocity);
 				rb->SetGround(false);

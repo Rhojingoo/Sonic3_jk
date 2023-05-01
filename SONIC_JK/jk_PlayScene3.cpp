@@ -16,6 +16,7 @@
 
 #include "jk_Ground.h"
 #include "jk_Gameobject.h"
+#include "Add_force.h"
 
 #include "jk_Act1_3_BG.h"
 #include "Act1_2_sky1.h"
@@ -33,7 +34,10 @@
 #include "jk_StageSave.h"
 
 
+#include "boss_bomber.h"
+#include "show_bomb.h"
 #include "jk_Boss.h"
+
 
 #include "jk_Snake.h"
 #include "jk_Snake_Body_Smoke.h"
@@ -51,6 +55,9 @@ namespace jk
 		, check_boss(0)
 		, frame_check(0)
 		, check_map(0)
+		, boomber(0)
+		, mBomber(nullptr)
+		, bomb_check(0)
 	{
 	}
 	PlayScene3::~PlayScene3()
@@ -65,8 +72,8 @@ namespace jk
 		mSonic->SetName(L"Player");
 		AddGameobeject(mSonic, jk_LayerType::Player);
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 600.f, 3285.f });//Ω√¿€
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 7800.0f, 3650.0f });//≤…æ’
-		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 18400.f, 3900.f });//ø’ æ’
+		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 7800.0f, 3650.0f });//≤…æ’
+		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 18400.f, 3900.f });//ø’ æ’
 		//13770.f, 2880.f 
 
 
@@ -83,7 +90,23 @@ namespace jk
 		mSonic->SetCheckTargetGround(playgr);
 		tails->SetCheckTargetGround(playgr);
 		
-		
+		add_force[9];
+		for (int a = 0; a < 9; a++)
+		{
+			add_force[a] = new Add_force();
+			add_force[a]->SetName(L"add_force");
+			AddGameobeject(add_force[a], jk_LayerType::BG_props);
+		}
+		add_force[0]->GetComponent<Transform>()->SetPos(Vector2{1165.f, 3340.f });
+		add_force[1]->GetComponent<Transform>()->SetPos(Vector2{1240.f, 4030.f});
+		add_force[2]->GetComponent<Transform>()->SetPos(Vector2{ 1950.f, 3940.f });
+		add_force[3]->GetComponent<Transform>()->SetPos(Vector2{ 2705.f, 3940.f });
+		add_force[4]->GetComponent<Transform>()->SetPos(Vector2{ 3480.f, 3940.f });
+		add_force[5]->GetComponent<Transform>()->SetPos(Vector2{ 4250.f, 3940.f });
+		add_force[6]->GetComponent<Transform>()->SetPos(Vector2{ 5010.f, 3940.f });
+		add_force[7]->GetComponent<Transform>()->SetPos(Vector2{ 5790.f, 3940.f });
+		add_force[8]->GetComponent<Transform>()->SetPos(Vector2{ 7200.f, 3985.f });
+		add_force[8]->SetAddforce(1);
 
 		//πË∞Ê
 		Act1_3_BG* act1_3_BG = new Act1_3_BG();
@@ -114,7 +137,7 @@ namespace jk
 		AddGameobeject(act1_2_sky4, jk_LayerType::foreground);
 		act1_2_sky4->GetComponent<Transform>()->SetPos(Vector2(500.f, 3180.f));
 
-
+	
 		Act1_2_sky5* act1_2_sky5 = new Act1_2_sky5();
 		act1_2_sky5->SetName(L"act1_2_sky5");
 		AddGameobeject(act1_2_sky5, jk_LayerType::foreground);
@@ -149,82 +172,71 @@ namespace jk
 		last_Bridge->GetComponent<Transform>()->SetPos(Vector2{ 18980.f, 3930.f });
 
 
-		//StageSave* save = new StageSave();
-		//save->SetName(L"StageSave");
-		//AddGameobeject(save, jk_LayerType::BG_props);
-		//save->GetComponent<Transform>()->SetPos(Vector2(2208.f, 2818.f));
 
-
-		//∏ÛΩ∫≈Õ
-		//Snake_Body_Smoke* snake_Body_Smoke[1];
-		//for (int a = 0; a < 1; a++)
-		//{
-		//	snake_Body_Smoke[a] = new Snake_Body_Smoke();
-		//	snake_Body_Smoke[a]->SetName(L"Snake_Body");
-		//	AddGameobeject(snake_Body_Smoke[a], jk_LayerType::Monster);
-		//}
-		//snake_Body_Smoke[0]->GetComponent<Transform>()->SetPos(Vector2{ 6270.f, 3210.f });
-		//snake_Body_Smoke[0]->Set_Snake_Body(Snake_head[0]);
-		////snake_Body_Smoke[1]->GetComponent<Transform>()->SetPos(Vector2{ 7710.f, 3756.f });
-		////snake_Body_Smoke[1]->Set_Snake_Body(Snake_head[1]);
-
-
-		//Snake_Body* snake_body[1];
-		//for (int a = 0; a < 1; a++)
-		//{
-		//	snake_body[a] = new Snake_Body();
-		//	snake_body[a]->SetName(L"Snake_Body");
-		//	AddGameobeject(snake_body[a], jk_LayerType::Monster);
-		//}
-		//snake_body[0]->GetComponent<Transform>()->SetPos(Vector2{ 6270.f, 3210.f });
-		//snake_body[0]->Set_Snake_Body(snake_Body_Smoke[0]);
-
-
-
-		//Snake_body2* snake_body_2 = new Snake_body2();
-		//snake_body_2->SetName(L"Snake_Body2");
-		//AddGameobeject(snake_body_2, jk_LayerType::Monster);
-		//snake_body_2->GetComponent<Transform>()->SetPos(Vector2{ 6270.f, 3210.f });
-		//snake_body_2->Set_Snake_body_third(snake_body[0]);
-
-
-		//Snake_mTaIl* snake_mT[1];
-		//for (int a = 0; a < 1; a++)
-		//{
-		//	snake_mT[a] = new Snake_mTaIl();
-		//	snake_mT[a]->SetName(L"Snake_Body");
-		//	AddGameobeject(snake_mT[a], jk_LayerType::Monster);
-		//}
-		//snake_mT[0]->GetComponent<Transform>()->SetPos(Vector2{ 6270.f, 3210.f });
-		//snake_mT[0]->Set_Snake_body_third(snake_body_2);
-
-		//Snake_Tail_End* Snake_Tail[1];
-		//for (int a = 0; a < 1; a++)
-		//{
-		//	Snake_Tail[a] = new Snake_Tail_End();
-		//	Snake_Tail[a]->SetName(L"Snake_Body");
-		//	AddGameobeject(Snake_Tail[a], jk_LayerType::Monster);
-		//}
-		//Snake_Tail[0]->GetComponent<Transform>()->SetPos(Vector2{ 6270.f, 3210.f });
-		//Snake_Tail[0]->Set_Snake_body_third(snake_mT[0]);
 		Scene::Initialize();
 
 	}
 	void PlayScene3::Update()
 	{
 		playgr->Set_map_check(check_map);
-
 		Vector2 sonic_pos = mSonic->GetComponent<Transform>()->GetPos();
+
+		//if (sonic_pos.x > 6900.f)
+		//{
+		//	Camera::SetCamera(0);
+		//}		
 
 		if (sonic_pos.x >= 1155.f)
 		{
 			Camera::SetCamera(0);
 		}
-
+		
 		if (sonic_pos.x >= 8700.f)
 		{
 			Camera::SetCamera(1);
+			if(boomber == 0)
+			{
+			Create_Boomber_show();
+			boomber = 1;
+			}
 		}		
+	
+
+		if (boomber == 1)
+		{
+			Vector2 mBomber_pos1;
+			Vector2 mBomber_pos2;
+			Vector2 mBomber_pos3;
+			mBomber_pos1 = mBomber->GetComponent<Transform>()->GetPos();
+			mBomber_pos2 = mBomber->GetComponent<Transform>()->GetPos();
+			mBomber_pos3 = mBomber->GetComponent<Transform>()->GetPos();
+			mBomber_pos1.x = mBomber_pos3.x + 480; //∏«æ’
+			mBomber_pos2.x = mBomber_pos3.x + 280; //¡ﬂ∞£
+			mBomber_pos3.x = mBomber_pos3.x + 120; //∏«µ⁄
+
+
+			if((bomb_check==0)&&(mBomber_pos1.x+200 >= sonic_pos.x))
+			{
+				Create_Boomber_bombing(mBomber_pos1.x, mBomber_pos1.y + 384);			
+				bomb_check = 1;
+			}
+			if((bomb_check==1)&&(mBomber_pos2.x + 200 >= sonic_pos.x))
+			{
+				Create_Boomber_bombing(mBomber_pos2.x, mBomber_pos2.y + 384);		
+				bomb_check = 2;
+			}
+			if((bomb_check==2)&&(mBomber_pos3.x+200 >= sonic_pos.x))
+			{
+				Create_Boomber_bombing(mBomber_pos3.x, mBomber_pos3.y + 384);			
+				bomb_check = 3;
+			}
+		}
+			
+		
+
+
+
+
 
 		if (sonic_pos.x >= 19470.f)
 		{
@@ -286,6 +298,7 @@ namespace jk
 		}
 	}
 
+
 	void PlayScene3::Render(HDC hdc)
 	{
 		Scene::Render(hdc);
@@ -325,11 +338,31 @@ namespace jk
 	{
 	}
 
+
 	void PlayScene3::Create_Boss()
 	{		
 		mBoss = new Boss(mSonic);
 		mBoss->SetName(L"boss");
 		AddGameobeject(mBoss, jk_LayerType::BOSS);
 		mBoss->GetComponent<Transform>()->SetPos(Vector2{ 19005.f, 3480.f });
+	}
+
+
+	void PlayScene3::Create_Boomber_show()
+	{
+		mBomber = new boss_bomber(mSonic);
+		mBomber->SetName(L"bomber");
+		AddGameobeject(mBomber, jk_LayerType::MiniBoss);
+		mBomber->GetComponent<Transform>()->SetPos(Vector2{ 7000.f, 3150.f });
+	}
+
+
+	void PlayScene3::Create_Boomber_bombing(float a, float b)
+	{
+		bomb = new show_bomb(mSonic);
+		bomb->SetName(L"act1_3_bomb");
+		AddGameobeject(bomb, jk_LayerType::Bullet);
+		bomb->GetComponent<Transform>()->SetPos(Vector2{ a, b });
+		bomb->SetCheckTargetGround(playgr);
 	}
 }

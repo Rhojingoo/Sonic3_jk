@@ -436,7 +436,7 @@ namespace jk
 		{
 			Transform* tr = GetComponent<Transform>();
 			Vector2 velocity = mRigidbody->GetVelocity();
-			velocity.y -= 550.f;
+			velocity.y -= 650.f;
 			mRigidbody->SetVelocity(velocity);
 			mRigidbody->SetGround(false);
 
@@ -556,7 +556,7 @@ namespace jk
 		if (Input::GetKeyDown(eKeyCode::SPACE))
 		{
 			Vector2 velocity = mRigidbody->GetVelocity();
-			velocity.y -= 450.0f;
+			velocity.y -= 650.0f;
 			mRigidbody->SetVelocity(velocity);
 			mRigidbody->SetGround(false);
 			mState = eTailsState::Movejump;
@@ -721,7 +721,7 @@ namespace jk
 		else if (Input::GetKeyDown(eKeyCode::SPACE))
 		{			
 			Vector2 velocity = mRigidbody->GetVelocity();
-			velocity.y -= 550.0f;
+			velocity.y -= 650.0f;
 			mRigidbody->SetVelocity(velocity);
 			mRigidbody->SetGround(false);
 			mState = eTailsState::Movejump;
@@ -794,7 +794,7 @@ namespace jk
 		else if (Input::GetKeyDown(eKeyCode::SPACE))
 		{			
 			Vector2 velocity = mRigidbody->GetVelocity();
-			velocity.y -= 450.0f;
+			velocity.y -= 650.0f;
 			mRigidbody->SetVelocity(velocity);
 			mRigidbody->SetGround(false);
 			mState = eTailsState::Movejump;
@@ -904,12 +904,14 @@ namespace jk
 		{						
 			if ((pursue_boss == 0)&&(TailsmDir == 1))
 			{
+				mRigidbody->AddForce(Vector2{ 0.f ,1000.f });
 				mState = eTailsState::Jumpfalling;
 				mAnimator->Play(L"RTailsJumpDw", true);
 				TailsmDir = 1;
 			}
 			else if ((pursue_boss == 0) && (TailsmDir == -1))
 			{
+				mRigidbody->AddForce(Vector2{ 0.f ,1000.f });
 				mState = eTailsState::Jumpfalling;
 				mAnimator->Play(L"LTailsJumpDw", true);
 				TailsmDir = -1;
@@ -935,6 +937,7 @@ namespace jk
 
 		if (velocity.y >= 0.0f)
 		{
+			mRigidbody->AddForce(Vector2{ 0.f ,1000.f });
 			mState = eTailsState::Jumpfalling;
 
 			if (TailsmDir == 1)

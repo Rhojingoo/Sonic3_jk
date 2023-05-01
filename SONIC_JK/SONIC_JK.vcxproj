@@ -161,10 +161,12 @@
     <ClInclude Include="act3_waterfall1.h" />
     <ClInclude Include="act6_bullet1.h" />
     <ClInclude Include="act6_sky1.h" />
+    <ClInclude Include="Add_force.h" />
     <ClInclude Include="boss1_body.h" />
     <ClInclude Include="boss1_object.h" />
     <ClInclude Include="Boss_act1_boomb.h" />
     <ClInclude Include="Boss_Arm.h" />
+    <ClInclude Include="boss_bomber.h" />
     <ClInclude Include="boss_come.h" />
     <ClInclude Include="Boss_Run.h" />
     <ClInclude Include="Boss_trash.h" />
@@ -301,6 +303,7 @@
     <ClInclude Include="Robotnic_machine.h" />
     <ClInclude Include="Second_Boss.h" />
     <ClInclude Include="Second_boss_bullet.h" />
+    <ClInclude Include="show_bomb.h" />
     <ClInclude Include="SonicState.h" />
     <ClInclude Include="SONIC_Engine.h" />
     <ClInclude Include="SONIC_JK.h" />
@@ -332,10 +335,12 @@
     <ClCompile Include="act3_waterfall1.cpp" />
     <ClCompile Include="act6_bullet1.cpp" />
     <ClCompile Include="act6_sky1.cpp" />
+    <ClCompile Include="Add_force.cpp" />
     <ClCompile Include="boss1_body.cpp" />
     <ClCompile Include="boss1_object.cpp" />
     <ClCompile Include="Boss_act1_boomb.cpp" />
     <ClCompile Include="Boss_Arm.cpp" />
+    <ClCompile Include="boss_bomber.cpp" />
     <ClCompile Include="boss_come.cpp" />
     <ClCompile Include="Boss_Run.cpp" />
     <ClCompile Include="Boss_trash.cpp" />
@@ -468,6 +473,7 @@
     <ClCompile Include="Robotnic_machine.cpp" />
     <ClCompile Include="Second_Boss.cpp" />
     <ClCompile Include="Second_boss_bullet.cpp" />
+    <ClCompile Include="show_bomb.cpp" />
     <ClCompile Include="Third_Boss.cpp" />
     <ClCompile Include="UI_framework.cpp" />
     <ClCompile Include="UI_Time.cpp" />

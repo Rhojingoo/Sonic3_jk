@@ -179,15 +179,6 @@
     <Filter Include="Contents\BG\PlayBG\BG_act1-1">
       <UniqueIdentifier>{13a480ef-1a77-4b8e-beab-c2d16791ebba}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Boss\Act1_boss">
-      <UniqueIdentifier>{32dee091-3d23-43e9-a720-7c7f90587c5a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Boss\Act1_minibos_show">
-      <UniqueIdentifier>{0ae8e8fc-483e-4864-af45-ea205bfb64b4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Boss\Act1_miniboss">
-      <UniqueIdentifier>{1c0b293f-19d6-4e07-af9f-b03324634968}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\BG\PlayBG\BG_act1-2">
       <UniqueIdentifier>{0d3c2548-8d21-46f1-a991-804e4029ed5f}</UniqueIdentifier>
     </Filter>
@@ -203,24 +194,6 @@
     <Filter Include="Contents\BG\PlayBG\Ground">
       <UniqueIdentifier>{9c1a1423-07ab-4243-9593-915adf8f4e16}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Boss\Act1_minibos_show\fire">
-      <UniqueIdentifier>{2f0a74b0-7796-4d3b-ac9c-4dca23294df8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Boss\Act1_minibos_show\lttle boss">
-      <UniqueIdentifier>{26bd6aa4-699e-41bc-a7be-f09aba9890bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Boss\Act1_minibos_show\bullet">
-      <UniqueIdentifier>{dbf38549-2ef7-4f5b-954d-450fe4daf549}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Boss\Act1_minibos_show\show">
-      <UniqueIdentifier>{2552fdff-9ef6-4838-a445-9118e417b140}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Boss\Act1_miniboss\Bullet">
-      <UniqueIdentifier>{2e7c2a7f-1174-417e-8373-ef5caf9db912}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Boss\Act1_miniboss\Dead">
-      <UniqueIdentifier>{a1b4122b-e00a-4d0a-adf5-66176085a536}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\BG\PlayBG\BG_act1-3">
       <UniqueIdentifier>{a1e539f3-d248-4c8f-a303-5146f603d760}</UniqueIdentifier>
     </Filter>
@@ -229,9 +202,6 @@
     </Filter>
     <Filter Include="Contents\BG\PlayBG\Event_bg\Last_Bridge">
       <UniqueIdentifier>{d4526b4e-e174-45ec-a3d4-08543190e62e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Boss\Act1_boss\BaseBullet">
-      <UniqueIdentifier>{5e4b49b8-5c20-457e-be18-73e3c1fdd376}</UniqueIdentifier>
     </Filter>
     <Filter Include="Contents\BG\PlayBG\Circle_check">
       <UniqueIdentifier>{621f30a1-c21f-46f7-8d81-80e2942b04a6}</UniqueIdentifier>
@@ -307,6 +277,39 @@
     </Filter>
     <Filter Include="Contents\BG\UI\Life">
       <UniqueIdentifier>{b89ede7c-3ff6-4582-adad-d49e1809b916}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Boss\Act1-3_boss">
+      <UniqueIdentifier>{32dee091-3d23-43e9-a720-7c7f90587c5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Boss\Act1-3_boss\BaseBullet">
+      <UniqueIdentifier>{5e4b49b8-5c20-457e-be18-73e3c1fdd376}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Boss\Act1-1_minibos_show">
+      <UniqueIdentifier>{0ae8e8fc-483e-4864-af45-ea205bfb64b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Boss\Act1-1_minibos_show\fire">
+      <UniqueIdentifier>{2f0a74b0-7796-4d3b-ac9c-4dca23294df8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Boss\Act1-1_minibos_show\lttle boss">
+      <UniqueIdentifier>{26bd6aa4-699e-41bc-a7be-f09aba9890bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Boss\Act1-1_minibos_show\bullet">
+      <UniqueIdentifier>{dbf38549-2ef7-4f5b-954d-450fe4daf549}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Boss\Act1-1_minibos_show\show">
+      <UniqueIdentifier>{2552fdff-9ef6-4838-a445-9118e417b140}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Boss\Act1-2_miniboss">
+      <UniqueIdentifier>{1c0b293f-19d6-4e07-af9f-b03324634968}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Boss\Act1-2_miniboss\Bullet">
+      <UniqueIdentifier>{2e7c2a7f-1174-417e-8373-ef5caf9db912}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Boss\Act1-2_miniboss\Dead">
+      <UniqueIdentifier>{a1b4122b-e00a-4d0a-adf5-66176085a536}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Boss\Act1-3_show">
+      <UniqueIdentifier>{311f89eb-753a-48c9-9463-7ba9c601a831}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -389,7 +392,7 @@
       <Filter>Contents\Scene\Minigame</Filter>
     </ClInclude>
     <ClInclude Include="jk_BaseBullet.h">
-      <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
+      <Filter>Contents\Boss\Act1-3_boss\BaseBullet</Filter>
     </ClInclude>
     <ClInclude Include="jk_Collider.h">
       <Filter>Engine\Component\Collider</Filter>
@@ -567,10 +570,10 @@
       <Filter>Contents\BG\PlayBG\Event_bg\CYLINDER</Filter>
     </ClInclude>
     <ClInclude Include="jk_Boss.h">
-      <Filter>Contents\Boss\Act1_boss</Filter>
+      <Filter>Contents\Boss\Act1-3_boss</Filter>
     </ClInclude>
     <ClInclude Include="jk_Minibos.h">
-      <Filter>Contents\Boss\Act1_miniboss</Filter>
+      <Filter>Contents\Boss\Act1-2_miniboss</Filter>
     </ClInclude>
     <ClInclude Include="jk_check2.h">
       <Filter>Contents\BG\PlayBG\Circle_check\Act1-1</Filter>
@@ -591,32 +594,32 @@
       <Filter>Contents\BG\PlayBG\Ground act1-2</Filter>
     </ClInclude>
     <ClInclude Include="jk_fire_show.h">
-      <Filter>Contents\Boss\Act1_minibos_show\fire</Filter>
+      <Filter>Contents\Boss\Act1-1_minibos_show\fire</Filter>
     </ClInclude>
     <ClInclude Include="jk_Lttle_miniboss.h">
-      <Filter>Contents\Boss\Act1_minibos_show\lttle boss</Filter>
+      <Filter>Contents\Boss\Act1-1_minibos_show\lttle boss</Filter>
     </ClInclude>
     <ClInclude Include="jk_midlle_boss_shoot.h">
-      <Filter>Contents\Boss\Act1_minibos_show\bullet</Filter>
+      <Filter>Contents\Boss\Act1-1_minibos_show\bullet</Filter>
     </ClInclude>
     <ClInclude Include="jk_minibos_show.h">
-      <Filter>Contents\Boss\Act1_minibos_show\show</Filter>
+      <Filter>Contents\Boss\Act1-1_minibos_show\show</Filter>
     </ClInclude>
     <ClInclude Include="jk_Clean_wall.h" />
     <ClInclude Include="jk_Collapses_GR_left.h">
       <Filter>Contents\BG\PlayBG\Event_bg\Collapses Ground</Filter>
     </ClInclude>
     <ClInclude Include="mBoss_BL_R.h">
-      <Filter>Contents\Boss\Act1_miniboss\Bullet</Filter>
+      <Filter>Contents\Boss\Act1-2_miniboss\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="mBoss_Bl_L.h">
-      <Filter>Contents\Boss\Act1_miniboss\Bullet</Filter>
+      <Filter>Contents\Boss\Act1-2_miniboss\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="mB_Ldeath.h">
-      <Filter>Contents\Boss\Act1_miniboss\Dead</Filter>
+      <Filter>Contents\Boss\Act1-2_miniboss\Dead</Filter>
     </ClInclude>
     <ClInclude Include="mB_Rdeath.h">
-      <Filter>Contents\Boss\Act1_miniboss\Dead</Filter>
+      <Filter>Contents\Boss\Act1-2_miniboss\Dead</Filter>
     </ClInclude>
     <ClInclude Include="jk_Act1_3_BG.h">
       <Filter>Contents\BG\PlayBG\BG_act1-3</Filter>
@@ -628,19 +631,19 @@
       <Filter>Contents\BG\PlayBG\Event_bg\Last_Bridge</Filter>
     </ClInclude>
     <ClInclude Include="Bullet_Act1_R_Side.h">
-      <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
+      <Filter>Contents\Boss\Act1-3_boss\BaseBullet</Filter>
     </ClInclude>
     <ClInclude Include="Bullet_Act1_L_DIA.h">
-      <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
+      <Filter>Contents\Boss\Act1-3_boss\BaseBullet</Filter>
     </ClInclude>
     <ClInclude Include="Bullet_Act1_L_Side.h">
-      <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
+      <Filter>Contents\Boss\Act1-3_boss\BaseBullet</Filter>
     </ClInclude>
     <ClInclude Include="Bullet_Act1_R_DIA.h">
-      <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
+      <Filter>Contents\Boss\Act1-3_boss\BaseBullet</Filter>
     </ClInclude>
     <ClInclude Include="bullet_wall.h">
-      <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
+      <Filter>Contents\Boss\Act1-3_boss\BaseBullet</Filter>
     </ClInclude>
     <ClInclude Include="Jeepline_play.h">
       <Filter>Contents\BG\PlayBG\Event_bg\JEEP_line</Filter>
@@ -724,7 +727,7 @@
       <Filter>Contents\BG\PlayBG\BG_act6\foreground</Filter>
     </ClInclude>
     <ClInclude Include="Boss_Run.h">
-      <Filter>Contents\Boss\Act1_boss</Filter>
+      <Filter>Contents\Boss\Act1-3_boss</Filter>
     </ClInclude>
     <ClInclude Include="Boss_act1_boomb.h">
       <Filter>Contents\Boss\boss_dead_effect</Filter>
@@ -813,6 +816,13 @@
     <ClInclude Include="Life_TensDigit.h">
       <Filter>Contents\BG\UI\Life</Filter>
     </ClInclude>
+    <ClInclude Include="Add_force.h" />
+    <ClInclude Include="boss_bomber.h">
+      <Filter>Contents\Boss\Act1-3_show</Filter>
+    </ClInclude>
+    <ClInclude Include="show_bomb.h">
+      <Filter>Contents\Boss\Act1-3_show</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SONIC_JK.rc">
@@ -889,7 +899,7 @@
       <Filter>Contents\Scene\Minigame</Filter>
     </ClCompile>
     <ClCompile Include="jk_BaseBullet.cpp">
-      <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
+      <Filter>Contents\Boss\Act1-3_boss\BaseBullet</Filter>
     </ClCompile>
     <ClCompile Include="jk_Collider.cpp">
       <Filter>Engine\Component\Collider</Filter>
@@ -1063,10 +1073,10 @@
       <Filter>Contents\BG\PlayBG\Event_bg\CYLINDER</Filter>
     </ClCompile>
     <ClCompile Include="jk_Boss.cpp">
-      <Filter>Contents\Boss\Act1_boss</Filter>
+      <Filter>Contents\Boss\Act1-3_boss</Filter>
     </ClCompile>
     <ClCompile Include="jk_Minibos.cpp">
-      <Filter>Contents\Boss\Act1_miniboss</Filter>
+      <Filter>Contents\Boss\Act1-2_miniboss</Filter>
     </ClCompile>
     <ClCompile Include="jk_check2.cpp">
       <Filter>Contents\BG\PlayBG\Circle_check\Act1-1</Filter>
@@ -1087,32 +1097,32 @@
       <Filter>Contents\BG\PlayBG\Ground act1-2</Filter>
     </ClCompile>
     <ClCompile Include="jk_fire_show.cpp">
-      <Filter>Contents\Boss\Act1_minibos_show\fire</Filter>
+      <Filter>Contents\Boss\Act1-1_minibos_show\fire</Filter>
     </ClCompile>
     <ClCompile Include="jk_Lttle_miniboss.cpp">
-      <Filter>Contents\Boss\Act1_minibos_show\lttle boss</Filter>
+      <Filter>Contents\Boss\Act1-1_minibos_show\lttle boss</Filter>
     </ClCompile>
     <ClCompile Include="jk_midlle_boss_shoot.cpp">
-      <Filter>Contents\Boss\Act1_minibos_show\bullet</Filter>
+      <Filter>Contents\Boss\Act1-1_minibos_show\bullet</Filter>
     </ClCompile>
     <ClCompile Include="jk_minibos_show.cpp">
-      <Filter>Contents\Boss\Act1_minibos_show\show</Filter>
+      <Filter>Contents\Boss\Act1-1_minibos_show\show</Filter>
     </ClCompile>
     <ClCompile Include="jk_Clean_wall.cpp" />
     <ClCompile Include="jk_Collapses_GR_left.cpp">
       <Filter>Contents\BG\PlayBG\Event_bg\Collapses Ground</Filter>
     </ClCompile>
     <ClCompile Include="mBoss_Bl_L.cpp">
-      <Filter>Contents\Boss\Act1_miniboss\Bullet</Filter>
+      <Filter>Contents\Boss\Act1-2_miniboss\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="mBoss_BL_R.cpp">
-      <Filter>Contents\Boss\Act1_miniboss\Bullet</Filter>
+      <Filter>Contents\Boss\Act1-2_miniboss\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="mB_Ldeath.cpp">
-      <Filter>Contents\Boss\Act1_miniboss\Dead</Filter>
+      <Filter>Contents\Boss\Act1-2_miniboss\Dead</Filter>
     </ClCompile>
     <ClCompile Include="mB_Rdeath.cpp">
-      <Filter>Contents\Boss\Act1_miniboss\Dead</Filter>
+      <Filter>Contents\Boss\Act1-2_miniboss\Dead</Filter>
     </ClCompile>
     <ClCompile Include="jk_Act1_3_BG.cpp">
       <Filter>Contents\BG\PlayBG\BG_act1-3</Filter>
@@ -1124,19 +1134,19 @@
       <Filter>Contents\BG\PlayBG\Event_bg\Last_Bridge</Filter>
     </ClCompile>
     <ClCompile Include="Bullet_Act1_L_DIA.cpp">
-      <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
+      <Filter>Contents\Boss\Act1-3_boss\BaseBullet</Filter>
     </ClCompile>
     <ClCompile Include="Bullet_Act1_L_Side.cpp">
-      <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
+      <Filter>Contents\Boss\Act1-3_boss\BaseBullet</Filter>
     </ClCompile>
     <ClCompile Include="Bullet_Act1_R_DIA.cpp">
-      <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
+      <Filter>Contents\Boss\Act1-3_boss\BaseBullet</Filter>
     </ClCompile>
     <ClCompile Include="Bullet_Act1_R_Side.cpp">
-      <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
+      <Filter>Contents\Boss\Act1-3_boss\BaseBullet</Filter>
     </ClCompile>
     <ClCompile Include="bullet_wall.cpp">
-      <Filter>Contents\Boss\Act1_boss\BaseBullet</Filter>
+      <Filter>Contents\Boss\Act1-3_boss\BaseBullet</Filter>
     </ClCompile>
     <ClCompile Include="Jeepline_play.cpp">
       <Filter>Contents\BG\PlayBG\Event_bg\JEEP_line</Filter>
@@ -1220,7 +1230,7 @@
       <Filter>Contents\BG\PlayBG\BG_act6\foreground</Filter>
     </ClCompile>
     <ClCompile Include="Boss_Run.cpp">
-      <Filter>Contents\Boss\Act1_boss</Filter>
+      <Filter>Contents\Boss\Act1-3_boss</Filter>
     </ClCompile>
     <ClCompile Include="Boss_act1_boomb.cpp">
       <Filter>Contents\Boss\boss_dead_effect</Filter>
@@ -1308,6 +1318,13 @@
     </ClCompile>
     <ClCompile Include="Life_TensDigit.cpp">
       <Filter>Contents\BG\UI\Life</Filter>
+    </ClCompile>
+    <ClCompile Include="Add_force.cpp" />
+    <ClCompile Include="boss_bomber.cpp">
+      <Filter>Contents\Boss\Act1-3_show</Filter>
+    </ClCompile>
+    <ClCompile Include="show_bomb.cpp">
+      <Filter>Contents\Boss\Act1-3_show</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

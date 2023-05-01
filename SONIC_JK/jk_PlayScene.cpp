@@ -92,8 +92,11 @@ namespace jk
 		mSonic = new Sonic();
 		mSonic->SetName(L"Player");
 		AddGameobeject(mSonic, jk_LayerType::Player);
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
-		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 16100.0f, 3070.0f });//집라인쪽
+		
+		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
+		//mSonic->GetComponent<Transform>()->SetPos(Vector2{21480.f, 3450.f });//폭포
+
+		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 16100.0f, 3070.0f });//집라인쪽
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 28821.f, 1363.f });//끝
 		mTails = new Tails(mSonic);
 		mTails->SetName(L"Player2");
@@ -673,6 +676,5 @@ namespace jk
 		little_miniboss[1]->SetCenterpos(Vector2{ 30552.f, 2467.f });
 		little_miniboss[2] -> GetComponent<Transform>()->SetPos(Vector2{ 30302.f, 2167.f });	
 		little_miniboss[2]->SetCenterpos(Vector2{ 30602.f, 2617.f });
-
 	}
 }

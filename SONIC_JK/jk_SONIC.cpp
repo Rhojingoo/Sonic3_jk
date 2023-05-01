@@ -85,6 +85,8 @@ namespace jk
 		, time(0)
 		, Life(3)
 
+			, angle(90)
+
 	{
 		Transform* tr = GetComponent<Transform>();
 		
@@ -420,8 +422,8 @@ namespace jk
 
 		void Sonic::OnCollisionEnter(Collider* other)
 		{
-			//tials 충돌
-			if (Tails* tails = dynamic_cast<Tails*>(other->GetOwner()))
+				//tials 충돌
+				if (Tails* tails = dynamic_cast<Tails*>(other->GetOwner()))
 			{
 				Tails::eTailsState tailsState = tails->GetTails_state();
 				if ((tailsState == Tails::eTailsState::Fly_Waiting)|| (tailsState == Tails::eTailsState::Fly_Pursue))
@@ -1187,7 +1189,7 @@ namespace jk
 		{
 			Transform* tr = GetComponent<Transform>();
 			Vector2 pos = tr->GetPos();
-
+			mRigidbody->SetFiction(100);
 
 			if (Input::GetKeyDown(eKeyCode::RIGHT)
 				|| Input::GetKeyDown(eKeyCode::LEFT))
@@ -1233,9 +1235,10 @@ namespace jk
 			if (Input::GetKeyDown(eKeyCode::SPACE))
 			{
 				Vector2 velocity = mRigidbody->GetVelocity();
-				velocity.y -= 550.0f;
+				velocity.y -= 650.0f;
 
 				mRigidbody->SetVelocity(velocity);
+				mRigidbody->AddForce( velocity);
 				mRigidbody->SetGround(false);
 				mState = eSonicState::Jump;
 				if (mDir == 1)
@@ -1249,8 +1252,6 @@ namespace jk
 					mDir = -1;
 				}
 			}
-
-
 		}
 
 		void Sonic::attack()
@@ -1261,7 +1262,7 @@ namespace jk
 		{
 			Transform* tr = GetComponent<Transform>();
 			Vector2 pos = tr->GetPos();
-			
+			mRigidbody->SetFiction(100);
 
 
 			if (mRigidbody->GetGround())
@@ -1315,6 +1316,7 @@ namespace jk
 
 		void Sonic::move()
 		{
+			mRigidbody->SetFiction(100);
 			if (Input::GetKeyUp(eKeyCode::RIGHT)
 				|| Input::GetKeyUp(eKeyCode::LEFT))
 			{
@@ -1393,9 +1395,10 @@ namespace jk
 			if (Input::GetKeyDown(eKeyCode::SPACE))
 			{
 				Vector2 velocity = mRigidbody->GetVelocity();
-				velocity.y -= 550.0f;
+				velocity.y -= 650.0f;
 
 				mRigidbody->SetVelocity(velocity);
+				mRigidbody->AddForce(velocity);
 				mRigidbody->SetGround(false);
 				mState = eSonicState::Jump;
 				if (mDir == 1)
@@ -1463,11 +1466,11 @@ namespace jk
 
 		void Sonic::run()
 		{
-
+			
 			Transform* tr = GetComponent<Transform>();
 			Vector2 pos = tr->GetPos();
 
-			if ((SonicVelocity.x <= -400) && (Input::GetKeyUp(eKeyCode::RIGHT)))
+			if ((SonicVelocity.x <= -400) && (mDir == -1) && (Input::GetKeyUp(eKeyCode::RIGHT)))
 			{
 				mRigidbody->Velocity() = Vector2{ 0.0f,0.0f };
 				mRigidbody->SetFiction(1000);
@@ -1477,7 +1480,7 @@ namespace jk
 			}
 
 
-			if ((SonicVelocity.x >= 400) && (Input::GetKeyUp(eKeyCode::LEFT)))
+			if ((SonicVelocity.x >= 400) && (mDir == 1) && (Input::GetKeyUp(eKeyCode::LEFT)))
 			{
 				mRigidbody->Velocity() = Vector2{ 0.0f,0.0f };
 				mRigidbody->SetFiction(1000);
@@ -1551,9 +1554,10 @@ namespace jk
 			if (Input::GetKeyDown(eKeyCode::SPACE))
 			{
 				Vector2 velocity = mRigidbody->GetVelocity();
-				velocity.y -= 550.0f;
+				velocity.y -= 650.0f;
 
 				mRigidbody->SetVelocity(velocity);
+				mRigidbody->AddForce(velocity);
 				mRigidbody->SetGround(false);
 				mState = eSonicState::Jump;
 				if (mDir == 1)
@@ -1671,28 +1675,25 @@ namespace jk
 				}
 			}
 
-
 			else if (Input::GetKeyDown(eKeyCode::SPACE))
 			{
 				Vector2 velocity = mRigidbody->GetVelocity();
-				mRigidbody->SetVelocity(velocity);
-				mRigidbody->SetGround(true);
 				mState = eSonicState::Jump;
 				if (mDir == 1)
 				{
-					velocity.y -= 550.0f;
+					velocity.y -= 650.0f;
 					velocity.x = velocity.x;
 					mDir = 1;
 				}
 				else if (mDir == -1)
 				{
-					velocity.y -= 550.0f;
+					velocity.y -= 650.0f;
 					velocity.x = velocity.x;
 					mDir = -1;
 				}
+				mRigidbody->SetVelocity(velocity);
+				mRigidbody->SetGround(true);
 			}
-
-
 
 			if (circlecheck == 1)
 			{
@@ -1700,7 +1701,7 @@ namespace jk
 				mRigidbody->SetMass(1.0f);
 				Vector2 TempVel;
 				TempVel = mRigidbody->GetVelocity();
-				mRigidbody->SetVelocity(Vector2{ 0.0f ,fabs(TempVel.x)*-1});
+				mRigidbody->SetVelocity(Vector2{ 0.0f ,fabs(TempVel.x) * -1 });
 				mRigidbody->AddForce(Vector2(300.0f, -1000.0f));
 				if (Circle_piece == 1)
 				{
@@ -1717,7 +1718,6 @@ namespace jk
 				}
 				mState = eSonicState::Circle_Rturn_1;
 			}
-
 
 			if (circlecheck == 2)
 			{
@@ -1741,12 +1741,13 @@ namespace jk
 					}
 				}
 				mState = eSonicState::Circle_Lturn_7;
+
+
+
+				tr->SetPos(pos);
+				mRigidbody->SetVelocity(velocity);
 			}
 
-
-
-			tr->SetPos(pos);
-			mRigidbody->SetVelocity(velocity);
 		}
 
 		void Sonic::brake()
@@ -1867,7 +1868,13 @@ namespace jk
 
 			Transform* tr = GetComponent<Transform>();
 			Vector2 pos = tr->GetPos();
-			
+			if (mRigidbody->GetVelocity().y >=0)
+			{
+				mRigidbody->AddForce(Vector2{ 0.f ,1000.f });
+			}
+
+
+
 			if (mRigidbody->GetGround())
 			{
 				mState = eSonicState::Idle;
@@ -1913,7 +1920,7 @@ namespace jk
 			{		
 				mState = eSonicState::Electricity_Shield;
 				Vector2 velocity = mRigidbody->GetVelocity();
-				velocity.y = -550.0f;
+				velocity.y = -650.0f;
 				mRigidbody->SetVelocity(velocity);
 				mRigidbody->SetGround(false);	
 				elect_effect = 1;
@@ -1961,6 +1968,11 @@ namespace jk
 		{
 			Transform* tr = GetComponent<Transform>();
 			Vector2 pos = tr->GetPos();
+
+			if (mRigidbody->GetVelocity().y >= 0)
+			{
+				mRigidbody->AddForce(Vector2{ 0.f ,1000.f });
+			}
 
 			if (mRigidbody->GetGround())
 			{
@@ -2284,7 +2296,7 @@ namespace jk
 				}
 
 				Vector2 velocity = mRigidbody->GetVelocity();
-				velocity.y -= 550.0f;
+				velocity.y -= 650.0f;
 				velocity.x += 550.0f;
 				mRigidbody->SetVelocity(velocity);
 				mRigidbody->SetGround(false);

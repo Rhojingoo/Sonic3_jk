@@ -91,14 +91,14 @@ namespace jk
 		Vector2 Player_Position = mPlayerTR->GetPos();
 		//Vector2 Player_Tails_Poistion = mPlayer_Tails_TR->GetPos();
 	
-	/*	if (map_chek == 0)
-		{
-			Circle1_Center = Vector2{ 20229.f,3406.f };
-		}
-		if (map_chek == 1)
-		{
-			Circle1_Center = Vector2{ 9500.f, 3605.f };
-		}*/
+		//if (map_chek == 0)
+		//{
+		//	Circle1_Center = Vector2{ 20229.f,3406.f };
+		//}
+		//if (map_chek == 1)
+		//{
+		//	Circle1_Center = Vector2{ 9500.f, 3605.f };
+		//}
 
 		
 
@@ -323,7 +323,7 @@ namespace jk
 	
 		if(map_chek==0)
 		{ 
-		TransparentBlt(hdc, 0, 0, 1200, 840, Ground_Image->GetHdc(), mpos.x, mpos.y, 1200, 840, RGB(255, 255, 255));
+		TransparentBlt(hdc, 0, 0, 1200, 840, Cicle_Rturn->GetHdc(), mpos.x, mpos.y, 1200, 840, RGB(255, 255, 255));
 		}
 	
 		if (map_chek == 1)
@@ -333,16 +333,13 @@ namespace jk
 
 		if (map_chek == 2)
 		{
-			//TransparentBlt(hdc, 0, 0, 1200, 840, Ground_Image3->GetHdc(), mpos.x, mpos.y, 1200, 840, RGB(255, 255, 255));
+			TransparentBlt(hdc, 0, 0, 1200, 840, Ground_Image3->GetHdc(), mpos.x, mpos.y, 1200, 840, RGB(255, 255, 255));
 		}
 
 		if (map_chek == 3)
 		{
 			TransparentBlt(hdc, 0, 0, 1200, 840, Ground_Image4->GetHdc(), mpos.x, mpos.y, 1200, 840, RGB(255, 255, 255));
 		}
-
-
-
 	}
 
 	void Ground::Realease()
@@ -469,12 +466,12 @@ namespace jk
 						playerPos.y -= 1;
 						colorUp = Ground_Image->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
 					}
-
 					mPlayerTR->SetPos(playerPos);
 				}
 			}
 			else
 			{
+			
 				//mPlayerRigidBody->SetGround(false);
 				int check = 20;
 
@@ -497,7 +494,7 @@ namespace jk
 				}
 				else
 				{
-					mPlayerRigidBody->SetGround(false);
+					mPlayerRigidBody->SetGround(false);					
 				}
 			}
 
@@ -509,7 +506,6 @@ namespace jk
 			if (player_R_Side_PosColor == WALLCOLOR)
 			{
 				COLORREF color_Push_Right = Ground_Image->GetPixel(playerPos.x + 80.f, playerPos.y + Yrevice_side);
-				mPlayerRigidBody->SetGround(true);
 				if (color_Push_Right == WALLCOLOR)
 				{
 					while (color_Push_Right == WALLCOLOR)
@@ -517,12 +513,34 @@ namespace jk
 						playerPos.x -= 1;
 						color_Push_Right = Ground_Image->GetPixel(playerPos.x + 80.f, playerPos.y + Yrevice_side);
 						WallCheck = 1;
+						mPlayerRigidBody->SetVelocity(Vector2{ 0.f,mPlayerRigidBody->GetVelocity().y });
+
 					}
 					mPlayerTR->SetPos(playerPos);
 				}
 			}
 			else
 			{
+			
+				//int check = 2;
+				//
+
+				//COLORREF colorDown = Ground_Image->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice + check);
+				//if (colorDown == GROUNDCOLOR)
+				//{
+				//	playerPos.x += check - 1;
+				//	COLORREF colorUp = Ground_Image->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+				//	while (colorUp == GROUNDCOLOR)
+				//	{
+				//		playerPos.x -= 1;
+				//		colorUp = Ground_Image->GetPixel(playerPos.x + Xrevice, playerPos.y + Yrevice);
+				//	}
+				//	mPlayerTR->SetPos(playerPos);
+				//}
+				//else
+				//{
+				//	mPlayerRigidBody->SetGround(false);
+				//}
 				WallCheck = 0;
 			}
 
@@ -540,6 +558,7 @@ namespace jk
 						playerPos.x += 1;
 						color_Push_Left = Ground_Image->GetPixel(playerPos.x + 0.f, playerPos.y + Yrevice_side);
 						WallCheck = 1;
+						mPlayerRigidBody->SetVelocity(Vector2{ 0.f,mPlayerRigidBody->GetVelocity().y });
 					}
 					mPlayerTR->SetPos(playerPos);
 				}
@@ -554,7 +573,6 @@ namespace jk
 			if (player_UP_Side_PosColor == WALLCOLOR)
 			{
 				COLORREF color_Push_DOWN = Ground_Image->GetPixel(playerPos.x + 40.f, playerPos.y - 20.f);
-				mPlayerRigidBody->SetGround(true);
 				if (color_Push_DOWN == WALLCOLOR)
 				{
 					while (color_Push_DOWN == WALLCOLOR)
@@ -562,6 +580,7 @@ namespace jk
 						playerPos.y += 1;
 						color_Push_DOWN = Ground_Image->GetPixel(playerPos.x + 40.f, playerPos.y - 20.f);
 						WallCheck = 1;
+						mPlayerRigidBody->SetVelocity(Vector2{ mPlayerRigidBody->GetVelocity().x,0.f });
 					}
 					mPlayerTR->SetPos(playerPos);
 				}
@@ -653,7 +672,6 @@ namespace jk
 			if (player_R_Side_PosColor == WALLCOLOR)
 			{
 				COLORREF color_Push_Right = Ground_Image2->GetPixel(playerPos.x + 80.f, playerPos.y + Yrevice_side);
-				mPlayerRigidBody->SetGround(true);
 				if (color_Push_Right == WALLCOLOR)
 				{
 					while (color_Push_Right == WALLCOLOR)
@@ -661,6 +679,7 @@ namespace jk
 						playerPos.x -= 1;
 						color_Push_Right = Ground_Image2->GetPixel(playerPos.x + 80.f, playerPos.y + Yrevice_side);
 						WallCheck = 1;
+						mPlayerRigidBody->SetVelocity(Vector2{ 0.f,mPlayerRigidBody->GetVelocity().y });
 					}
 					mPlayerTR->SetPos(playerPos);
 				}
@@ -675,7 +694,7 @@ namespace jk
 			if (player_L_Side_PosColor == WALLCOLOR)
 			{
 				COLORREF color_Push_Left = Ground_Image2->GetPixel(playerPos.x + 0.f, playerPos.y + Yrevice_side);
-				mPlayerRigidBody->SetGround(true);
+			
 				if (color_Push_Left == WALLCOLOR)
 				{
 					while (color_Push_Left == WALLCOLOR)
@@ -683,6 +702,7 @@ namespace jk
 						playerPos.x += 1;
 						color_Push_Left = Ground_Image2->GetPixel(playerPos.x + 0.f, playerPos.y + Yrevice_side);
 						WallCheck = 1;
+						mPlayerRigidBody->SetVelocity(Vector2{ 0.f,mPlayerRigidBody->GetVelocity().y });
 					}
 					mPlayerTR->SetPos(playerPos);
 				}
@@ -768,21 +788,21 @@ namespace jk
 
 			//소닉 그라운드벽면		
 			float Xrevice_side = 0.0f;
-			float Yrevice_side = 50.0f;
+			float Yrevice_side = 120.0f;
 
 			//오른쪽벽 	WallCheck가 1일땐 오른쪽으로 미는 모션, -1일떈 왼쪽으로 미는 모션, 0일땐 그냥 아이들상태(소닉에서 설정필요)
 			COLORREF player_R_Side_PosColor = Ground_Image3->GetPixel(playerPos.x + 80.f, playerPos.y + Yrevice_side);
 			if (player_R_Side_PosColor == WALLCOLOR)
 			{
 				COLORREF color_Push_Right = Ground_Image3->GetPixel(playerPos.x + 80.f, playerPos.y + Yrevice_side);
-				mPlayerRigidBody->SetGround(true);
 				if (color_Push_Right == WALLCOLOR)
 				{
 					while (color_Push_Right == WALLCOLOR)
 					{
-						playerPos.x -= 1;
+						playerPos.x-=1;						
 						color_Push_Right = Ground_Image3->GetPixel(playerPos.x + 80.f, playerPos.y + Yrevice_side);
 						WallCheck = 1;
+						mPlayerRigidBody->SetVelocity(Vector2{ 0.f,mPlayerRigidBody->GetVelocity().y });
 					}
 					mPlayerTR->SetPos(playerPos);
 				}
@@ -797,14 +817,15 @@ namespace jk
 			if (player_L_Side_PosColor == WALLCOLOR)
 			{
 				COLORREF color_Push_Left = Ground_Image3->GetPixel(playerPos.x + 0.f, playerPos.y + Yrevice_side);
-				mPlayerRigidBody->SetGround(true);
 				if (color_Push_Left == WALLCOLOR)
 				{
 					while (color_Push_Left == WALLCOLOR)
 					{
 						playerPos.x += 1;
+						playerPos.y += 1;
 						color_Push_Left = Ground_Image3->GetPixel(playerPos.x + 0.f, playerPos.y + Yrevice_side);
 						WallCheck = 1;
+						mPlayerRigidBody->SetVelocity(Vector2{ 0.f,mPlayerRigidBody->GetVelocity().y });
 					}
 					mPlayerTR->SetPos(playerPos);
 				}
@@ -825,7 +846,7 @@ namespace jk
 				{
 					while (color_Push_DOWN == WALLCOLOR)
 					{
-						playerPos.y += 1;
+						playerPos.y += 1;						
 						color_Push_DOWN = Ground_Image3->GetPixel(playerPos.x + 40.f, playerPos.y - 20.f);
 						WallCheck = 1;
 					}
@@ -897,7 +918,6 @@ namespace jk
 			if (player_R_Side_PosColor == WALLCOLOR)
 			{
 				COLORREF color_Push_Right = Ground_Image4->GetPixel(playerPos.x + 80.f, playerPos.y + Yrevice_side);
-				mPlayerRigidBody->SetGround(true);
 				if (color_Push_Right == WALLCOLOR)
 				{
 					while (color_Push_Right == WALLCOLOR)
@@ -905,6 +925,7 @@ namespace jk
 						playerPos.x -= 1;
 						color_Push_Right = Ground_Image4->GetPixel(playerPos.x + 80.f, playerPos.y + Yrevice_side);
 						WallCheck = 1;
+						mPlayerRigidBody->SetVelocity(Vector2{ 0.f,mPlayerRigidBody->GetVelocity().y });
 					}
 					mPlayerTR->SetPos(playerPos);
 				}
@@ -919,7 +940,6 @@ namespace jk
 			if (player_L_Side_PosColor == WALLCOLOR)
 			{
 				COLORREF color_Push_Left = Ground_Image4->GetPixel(playerPos.x + 0.f, playerPos.y + Yrevice_side);
-				mPlayerRigidBody->SetGround(true);
 				if (color_Push_Left == WALLCOLOR)
 				{
 					while (color_Push_Left == WALLCOLOR)
@@ -927,6 +947,7 @@ namespace jk
 						playerPos.x += 1;
 						color_Push_Left = Ground_Image4->GetPixel(playerPos.x + 0.f, playerPos.y + Yrevice_side);
 						WallCheck = 1;
+						mPlayerRigidBody->SetVelocity(Vector2{ 0.f,mPlayerRigidBody->GetVelocity().y });
 					}
 					mPlayerTR->SetPos(playerPos);
 				}
@@ -987,7 +1008,7 @@ namespace jk
 			else
 			{
 				int check = 30;
-				if ((mPlayer2->GetTails_state() == Tails::eTailsState::Jump)&& (mPlayer2->GetTails_state() == Tails::eTailsState::Movejump))
+				if ((mPlayer2->GetTails_state() == Tails::eTailsState::Jump)|| (mPlayer2->GetTails_state() == Tails::eTailsState::Movejump))
 				{
 					//mRigidbody_Tails->SetVelocity(Vector2{ 0.0f,-450.f });
 					check = 2;
@@ -1033,7 +1054,7 @@ namespace jk
 			else
 			{
 				int check = 30;
-				if ((mPlayer2->GetTails_state() == Tails::eTailsState::Jump) && (mPlayer2->GetTails_state() == Tails::eTailsState::Movejump))
+				if ((mPlayer2->GetTails_state() == Tails::eTailsState::Jump) || (mPlayer2->GetTails_state() == Tails::eTailsState::Movejump))
 				{
 					//mRigidbody_Tails->SetVelocity(Vector2{ 0.0f,-450.f });
 					check = 2;
@@ -1079,7 +1100,7 @@ namespace jk
 			else
 			{
 				int check = 30;
-				if ((mPlayer2->GetTails_state() == Tails::eTailsState::Jump) && (mPlayer2->GetTails_state() == Tails::eTailsState::Movejump))
+				if ((mPlayer2->GetTails_state() == Tails::eTailsState::Jump) || (mPlayer2->GetTails_state() == Tails::eTailsState::Movejump))
 				{
 					//mRigidbody_Tails->SetVelocity(Vector2{ 0.0f,-450.f });
 					check = 2;
@@ -1125,7 +1146,7 @@ namespace jk
 			else
 			{
 				int check = 30;
-				if ((mPlayer2->GetTails_state() == Tails::eTailsState::Jump) && (mPlayer2->GetTails_state() == Tails::eTailsState::Movejump))
+				if ((mPlayer2->GetTails_state() == Tails::eTailsState::Jump) || (mPlayer2->GetTails_state() == Tails::eTailsState::Movejump))
 				{
 					//mRigidbody_Tails->SetVelocity(Vector2{ 0.0f,-450.f });
 					check = 2;
@@ -1208,44 +1229,44 @@ namespace jk
 		}
 		if (Circle_pice == 1)
 		{
-			//Vector2 rotation = { radius, 0.0f };
-			//rotation = math::Rotate(rotation, 45.f);
-			//Xrevice = center.x + rotation.x;
-			//Yrevice = center.y + rotation.y;
-			Xrevice = 90.0f; 
-			Yrevice = 80.0f;
+			Vector2 rotation = { radius, 0.0f };
+			rotation = math::Rotate(rotation, 45.f);
+			Xrevice = center.x + rotation.x;
+			Yrevice = center.y + rotation.y;
+			//Xrevice = 90.0f; 
+			//Yrevice = 80.0f;
 		}
 		else if (Circle_pice == 2)
 		{
 
-			//Vector2 rotation = { radius, 0.0f };
+			Vector2 rotation = { radius, 0.0f };
 
-			//Xrevice = center.x + rotation.x;
-			//Yrevice = center.y + rotation.y;
-			Xrevice = 115.0f;
-			Yrevice = 50.0f;
+			Xrevice = center.x + rotation.x;
+			Yrevice = center.y + rotation.y;
+			//Xrevice = 115.0f;
+			//Yrevice = 50.0f;
 		}
 		else if (Circle_pice == 3)
 		{
 
-			//Vector2 rotation = { radius, 0.0f };
-			//rotation = math::Rotate(rotation, -45.f);
+			Vector2 rotation = { radius, 0.0f };
+			rotation = math::Rotate(rotation, -45.f);
 
-			//Xrevice = center.x + rotation.x;
-			//Yrevice = center.y + rotation.y;
-			Xrevice = 115.0f;
-			Yrevice = 0.0f;
+			Xrevice = center.x + rotation.x;
+			Yrevice = center.y + rotation.y;
+			//Xrevice = 115.0f;
+			//Yrevice = 0.0f;
 		}
 		else if (Circle_pice == 4)
 		{
 
-			//Vector2 rotation = { radius, 0.0f };
-			//rotation = math::Rotate(rotation, -90.f);
+			Vector2 rotation = { radius, 0.0f };
+			rotation = math::Rotate(rotation, -90.f);
 
-			//Xrevice = center.x + rotation.x;
-			//Yrevice = center.y + rotation.y - 10.0f;
-			Xrevice = 60.0f;
-			Yrevice = -35.0f;
+			Xrevice = center.x + rotation.x;
+			Yrevice = center.y + rotation.y - 10.0f;
+			//Xrevice = 60.0f;
+			//Yrevice = -35.0f;
 		}
 
 		Vector2 playerPos = mPlayerTR->GetPos();
@@ -1571,7 +1592,7 @@ namespace jk
 			{
 				Vector2 TempVel;
 				TempVel = mPlayerRigidBody->Getgravity();
-				mPlayerRigidBody->SetGravity(Vector2{ 0.0f,500.0f });
+				mPlayerRigidBody->SetGravity(Vector2{ 0.0f,1000.0f });
 				mRotationcheck = GROUND;
 			}
 		}
@@ -1585,7 +1606,7 @@ namespace jk
 			{
 				Vector2 TempVel;
 				TempVel = mPlayerRigidBody->Getgravity();
-				mPlayerRigidBody->SetGravity(Vector2{ 0.0f,500.0f });
+				mPlayerRigidBody->SetGravity(Vector2{ 0.0f,1000.0f });
 				mRotationcheck = GROUND;
 			}
 		}
@@ -2010,7 +2031,7 @@ namespace jk
 			{
 				Vector2 TempVel;
 				TempVel = mPlayerRigidBody->Getgravity();
-				mPlayerRigidBody->SetGravity(Vector2{ 0.0f,500.0f });
+				mPlayerRigidBody->SetGravity(Vector2{ 0.0f,1000.0f });
 				mRotationcheck = GROUND;
 			}
 		}		if (map_chek == 1)
@@ -2023,7 +2044,7 @@ namespace jk
 			{
 				Vector2 TempVel;
 				TempVel = mPlayerRigidBody->Getgravity();
-				mPlayerRigidBody->SetGravity(Vector2{ 0.0f,500.0f });
+				mPlayerRigidBody->SetGravity(Vector2{ 0.0f,1000.0f });
 				mRotationcheck = GROUND;
 			}
 		}

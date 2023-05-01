@@ -4,6 +4,9 @@
 
 namespace jk
 {
+	class show_bomb;
+	class boss_bomber;
+	class Add_force;
 	class Ground;
 	class Boss;
 	class Tails;
@@ -26,7 +29,8 @@ namespace jk
 
 		void CreateBlending();
 		void Create_Boss();
-
+		void Create_Boomber_show();
+		void Create_Boomber_bombing(float a, float b);
 
 
 	private:
@@ -34,6 +38,9 @@ namespace jk
 		Sonic* mSonic;
 		Tails* tails;
 		Boss* mBoss;
+		boss_bomber* mBomber;
+		show_bomb* bomb;
+		Add_force* add_force[9];
 		int dir;
 		int check_map;
 
@@ -43,5 +50,7 @@ namespace jk
 		int check_boss;
 		int frame_check;
 		int boss_death;
+		int boomber;
+		int bomb_check;
 	};
 }

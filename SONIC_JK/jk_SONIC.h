@@ -172,5 +172,8 @@ namespace jk
 		float time;
 		int Life;
 		
+
+
+		float angle;
 	};
 }
