@@ -1,6 +1,7 @@
 #pragma once
 #include "jk_Gameobject.h"
 #include "jk_Sonic.h"
+#include "jk_Tails.h"
 #include "jk_Image.h"
 #include "jk_Time.h"
 
@@ -14,10 +15,8 @@ namespace jk
 		enum class eSnake
 		{
 			Idle,
-			Right_Up,
-			Right_Down,
-			Left_Up,
-			Left_Down,		
+			Right,		
+			Left,	
 			Deth
 		};
 
@@ -35,6 +34,7 @@ namespace jk
 
 		eSnake Get_Snake_state() { return mState; }
 		virtual Vector2 GetPrevPos() override;
+
 		Vector2 Getmonster() { return mCurpos; }
 		void SetCenterpos(Vector2 pos) { mCenterpos = pos; }
 		void release_animal();
@@ -42,33 +42,32 @@ namespace jk
 	private:
 
 		void idle();
-		void right_up();
-		void right_down();
-		void left_up();
-		void left_down();
+		void right();
+		void left();
 		void deth();
 
-		void throw_CompleteEvent();
+		
 
 	private:
 		Gameobject* mOwner;
 		Image* mImage;
 		Image* mImage1;
 		Animator* mAnimator;
+
+	private:
+		eSnake mState;
 		Vector2 mCenterpos;
 		Vector2 mCurpos;
+		Vector2 prevPos;
+		Vector2 pos;
 		float mMonspeed;
 		float mMonmaxdistance_x;
 		float mMonmaxdistance_y;
 		int mDir_x;
 		int mDir_y;
-		eSnake mState;
-		Vector2 pos;
-		float fDist;
-		Vector2 prevPos;
 
-
+	private:
 		Sonic::eSonicState sonicState;
-		int sonicpattern;
+		Tails::eTailsState tailsState;
 	};
 }

@@ -8,7 +8,8 @@
 #include "jk_Collider.h"
 #include "jk_Camera.h"
 #include "jk_Water_effect.h"
-#include "jk_SONIC.h"
+#include "Rigidbody.h"
+
 
 namespace jk
 {
@@ -31,8 +32,8 @@ namespace jk
 
 		Collider* collider = AddComponent<Collider>();
 		collider->SetSize(Vector2(pos_x, pos_y));		
-		//Vector2 size = collider->GetSize();
-		//collider->SetCenter(Vector2{ (-0.0f) * size.x, (-0.f) * size.y });
+		Vector2 size = collider->GetSize();
+		collider->SetCenter(Vector2{ (-0.0f) * size.x, (-0.f) * size.y });
 
 		Gameobject::Initialize();
 	}
@@ -67,16 +68,31 @@ namespace jk
 		if (Sonic* sonic = dynamic_cast<Sonic*>(other->GetOwner()))
 		{			
 			Vector2 sonic_pos = sonic->GetComponent<Transform>()->GetPos();
-			Scene* curScene = SceneManager::GetActiveScene();			
-			Water_effect* water_effect = new Water_effect();
-			water_effect->GetComponent<Transform>()->SetPos(Vector2{ sonic_pos.x,sonic_pos.y  });
-			curScene->AddGameobeject(water_effect, jk_LayerType::BG_props);			
+			Water_Splashes(sonic_pos.x, sonic_pos.y+50);
 		}
 	}
 
 	void Act1_Water::OnCollisionStay(Collider* other)
 	{
+		if (Sonic* sonic = dynamic_cast<Sonic*>(other->GetOwner()))
+		{
+			Rigidbody* mSonic_rb = sonic->GetComponent<Rigidbody>();
+			mSonic_rb->SetGravity(Vector2{ 0.f,500.f });
+			Transform* sonicTr = sonic->GetComponent<Transform>();
+			Vector2 sonic_Pos = sonicTr->GetPos();
 
+			if ((sonic->Getsonicstate() == Sonic::eSonicState::Jump) || (sonic->Getsonicstate() == Sonic::eSonicState::Hurt))
+			{
+				Vector2 velocity = mSonic_rb->GetVelocity();
+				velocity.y = -450.0f;
+
+				mSonic_rb->SetVelocity(velocity);
+				mSonic_rb->SetGround(false);
+
+				sonic_Pos = sonicTr->GetPos();
+				sonicTr->SetPos(sonic_Pos);
+			}
+		}
 	}
 
 	void Act1_Water::OnCollisionExit(Collider* other)
@@ -84,10 +100,18 @@ namespace jk
 		if (Sonic* sonic = dynamic_cast<Sonic*>(other->GetOwner()))
 		{
 			Vector2 sonic_pos = sonic->GetComponent<Transform>()->GetPos();
-			Scene* curScene = SceneManager::GetActiveScene();
-			Water_effect* water_effect = new Water_effect();
-			water_effect->GetComponent<Transform>()->SetPos(Vector2{ sonic_pos.x,sonic_pos.y  });
-			curScene->AddGameobeject(water_effect, jk_LayerType::BG_props);
+			Water_Splashes(sonic_pos.x, sonic_pos.y+60);
+
+			Rigidbody* mSonic_rb = sonic->GetComponent<Rigidbody>();
+			mSonic_rb->SetGravity(Vector2{ 0.f,1000.f });
+			mSonic_rb->AddForce(Vector2{ 0.f,-150.f });
 		}
+	}
+	void Act1_Water::Water_Splashes(float a, float b)
+	{		
+		Scene* curScene = SceneManager::GetActiveScene();
+		Water_effect* water_effect = new Water_effect();
+		water_effect->GetComponent<Transform>()->SetPos(Vector2{ a,b });
+		curScene->AddGameobeject(water_effect, jk_LayerType::BG_props);
 	}
 }

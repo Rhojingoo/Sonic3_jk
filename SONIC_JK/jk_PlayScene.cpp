@@ -1,59 +1,19 @@
 #include "jk_PlayScene.h"
-#include "jk_Sonic.h"
-#include "jk_Transform.h"
-#include "jk_Tails.h"
-#include "jk_Act1_BG_object.h"
-#include "jk_Boss.h"
-#include "jk_Monster.h"
-#include "jk_Input.h"
 #include "jk_SceneManager.h"
-#include "jk_BaseBullet.h"
-#include "jk_ItemBigRing.h"
-#include "jk_StageSave.h"
-#include "jk_Camera.h"
 #include "jk_CollisionManager.h"
-#include "JK_Act1skyBG.h"
+
+#include "jk_Transform.h"
+#include "jk_Gameobject.h"
 #include "jk_Object.h"
-#include "jk_Item.h"
+
+#include "jk_Camera.h"
+#include "jk_Input.h"
 #include "jk_Blending.h"
 #include "jk_Ground.h"
-#include "act1_forest1.h"
-#include "acr1_forest2.h"
-#include "midlesky.h"
-#include "jk_Ring.h"
-#include "jk_Ring_Falling.h"
-#include "jk_Monkey.h"
-#include "jk_Cannon.h"
-#include "jk_Snake.h"
-#include "jk_Snake_Body_Smoke.h"
-#include "jk_Snake_Body.h"
-#include "jk_Snake_Body2.h"
-#include "jk_Snake_mTaIl.h"
-#include "jk_Snake_Tail_End.h"
-#include "jk_Sky.h"
-#include "jk_Rock_small.h"
-#include "jk_Move_GR.h""
-#include "jk_Gameobject.h"
-#include "jk_Spring_Up.h"
-#include "jk_Spring_Left.h"
-#include "jk_Spike_Up.h"
-#include "jk_Rock_middle.h"
-#include "jk_Rock_big.h"
-#include "jk_Jeep_line.h"
-#include "jk_Jeep_line_Handle.h"
-#include "jk_Collapses_Ground.h"
-#include "jk_check1.h"
-#include "jk_check2.h"
-#include "jk_Cylinder.h"
-#include "jk_Lttle_miniboss.h"
-#include "jk_minibos_show.h"
-#include "jk_Act1_Water.h"
-#include "act1_waterfall1.h"
-#include "act1_waterfall2.h"
-#include "act1_waterfall3.h"
-#include "act1_flower1.h"
-#include "act1_flower2.h"
 
+
+#include "jk_Sonic.h"
+#include "jk_Tails.h"
 
 #include "UI_framework.h"
 #include "UI_Time.h"
@@ -66,8 +26,61 @@
 #include "Life_Manager.h"
 #include "Life_UnitsDigit.h"
 #include "Life_TensDigit.h"
+
+
+#include "jk_Act1_BG_object.h"
+#include "JK_Act1skyBG.h"
+#include "act1_forest1.h"
+#include "acr1_forest2.h"
+#include "midlesky.h"
+#include "jk_Sky.h"
+#include "act1_waterfall1.h"
+#include "act1_waterfall2.h"
+#include "act1_waterfall3.h"
+#include "act1_flower1.h"
+#include "act1_flower2.h"
+#include "jk_Act1_Water.h"
+#include "jk_Cylinder.h"
 #include "CYLINDER_COL_R.h"
 #include "CYLINDER_COL_L.h"
+
+
+#include "jk_Spring_Up.h"
+#include "jk_Spring_Left.h"
+#include "jk_Spike_Up.h"
+#include "jk_Move_GR.h""
+#include "jk_Rock_small.h"
+#include "jk_Rock_middle.h"
+#include "jk_Rock_big.h"
+#include "jk_Jeep_line.h"
+#include "jk_Jeep_line_Handle.h"
+#include "jk_Collapses_Ground.h"
+#include "jk_check1.h"
+#include "jk_check2.h"
+
+
+#include "jk_Boss.h"
+#include "jk_Lttle_miniboss.h"
+#include "jk_minibos_show.h"
+#include "jk_BaseBullet.h"
+#include "jk_Monster.h"
+#include "jk_Monkey.h"
+#include "jk_Cannon.h"
+#include "jk_Snake.h"
+#include "jk_Snake_Body_Smoke.h"
+#include "jk_Snake_Body.h"
+#include "jk_Snake_Body2.h"
+#include "jk_Snake_mTaIl.h"
+#include "jk_Snake_Tail_End.h"
+
+
+#include "jk_ItemBigRing.h"
+#include "jk_StageSave.h"
+#include "jk_Item.h"
+#include "jk_Ring.h"
+#include "jk_Ring_Falling.h"
+
+
 
 
 
@@ -90,18 +103,15 @@ namespace jk
 
 	void PlayScene::Initialize()
 	{	
-
-
 		mSonic = new Sonic();
 		mSonic->SetName(L"Player");
-		AddGameobeject(mSonic, jk_LayerType::Player);
-		
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
+		AddGameobeject(mSonic, jk_LayerType::Player);		
+		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{21480.f, 3450.f });//폭포
-		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
-	
+		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 16100.0f, 3070.0f });//집라인쪽
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 28821.f, 1363.f });//끝
+
 		mTails = new Tails(mSonic);
 		mTails->SetName(L"Player2");
 		AddGameobeject(mTails, jk_LayerType::Player2);
@@ -183,7 +193,7 @@ namespace jk
 		bg->Set_Owner(mSonic);
 
 		Act1_Water* act1_Water = new Act1_Water();
-		AddGameobeject(act1_Water, jk_LayerType::Blend);
+		AddGameobeject(act1_Water, jk_LayerType::BG_props);
 		act1_Water->SetName(L"act1_Water");
 	
 		act1_waterfall1* waterfall_1 = new act1_waterfall1();
@@ -234,8 +244,8 @@ namespace jk
 
 
 		//배경소품
-		Spring_Up* spring_Up[2];
-		for (int a = 0; a < 2; a++)
+		Spring_Up* spring_Up[3];
+		for (int a = 0; a < 3; a++)
 		{
 			spring_Up[a] = new Spring_Up();
 			spring_Up[a]->SetName(L"spring_Up");
@@ -243,7 +253,7 @@ namespace jk
 		}
 		spring_Up[0]->GetComponent<Transform>()->SetPos(Vector2{ 13318.0f, 3224.0f });
 		spring_Up[1]->GetComponent<Transform>()->SetPos(Vector2{ 13169.0f, 2808.0f });
-
+		spring_Up[2]->GetComponent<Transform>()->SetPos(Vector2{ 23060.0f, 4005.0f });
 
 		Spring_Left* spring_Left[3];
 		for (int a = 0; a < 3; a++)
@@ -587,6 +597,14 @@ namespace jk
 
 		frame_check = 1;
 
+		if(Input::GetKeyDown(eKeyCode::R))
+		{	
+			
+			PlayScene::Release();
+			PlayScene::Initialize();
+		}
+
+
 		Vector2 sonic_pos = mSonic->GetComponent<Transform>()->GetPos();
 		
 		if (sonic_pos.x >= 29720.f)
@@ -631,7 +649,7 @@ namespace jk
 
 	void PlayScene::OnEnter()
 	{
-		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Monster, true);//충돌시 가리키는 장면
+		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Monster, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Bullet, true);
 		CollisionManager::SetLayer(jk_LayerType::Player2, jk_LayerType::Monster, true);
 		CollisionManager::SetLayer(jk_LayerType::Player2, jk_LayerType::Bullet, true);
@@ -643,7 +661,6 @@ namespace jk
 		CollisionManager::SetLayer(jk_LayerType::Player2, jk_LayerType::Ground, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::BG_props, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Player2, true);
-		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Blend, true);
 		
 		if (Camera_Switch == 0)
 		{
@@ -670,10 +687,6 @@ namespace jk
 		AddGameobeject(mbos_show, jk_LayerType::MiniBoss);
 		mbos_show->GetComponent<Transform>()->SetPos(Vector2{ 30792.f, 2407.f });	
 
-		//= new Lttle_miniboss();
-		//little_miniboss->SetName(L"little_miniboss");
-		//little_miniboss->GetComponent<Transform>()->SetPos(Vector2{ 30652.f, 2517.f });
-		//curScene[3]->AddGameobeject(little_miniboss, jk_LayerType::Player);
 
 		Lttle_miniboss* little_miniboss[3];
 		for (int a = 0; a < 3; a++)

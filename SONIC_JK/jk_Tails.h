@@ -22,6 +22,7 @@ namespace jk
 			Jump,
 			Movejump,
 			Jumpfalling,
+			Hurt,
 			Lookup,
 			Sit,
 			Spin,
@@ -67,7 +68,7 @@ namespace jk
 		virtual void OnCollisionExit(class Collider* other) override;
 
 		eTailsState GetTails_state() { return mState; }
-		int GetTailsDir() { return TailsmDir; }
+		int GetTailsDir() { return mDir; }
 		void SetCheckTargetGround(Ground* ground) { check = ground; }
 		void Set_Pursue_boss(int pursue) { pursue_boss = pursue; }
 
@@ -85,6 +86,7 @@ namespace jk
 		void jump();
 		void movejump();
 		void jumpfalling();
+		void hurt();
 		void lookup();
 		void sit();
 		void spin();
@@ -119,7 +121,7 @@ namespace jk
 
 
 	private:		
-		int TailsmDir;
+		int mDir;
 		eTailsState mState;
 		Animator* mAnimator;	
 		Vector2 sonicV;		
@@ -138,7 +140,7 @@ namespace jk
 		int Circle_piece;		
 		int fly_check;
 		int pursue_boss;
-
+		int hurtcheck;
 		int end;
 	};
 

@@ -4,7 +4,6 @@
 #include "jk_Image.h"
 #include "jk_Time.h"
 
-
 namespace jk
 {
 	class Animator;
@@ -42,15 +41,14 @@ namespace jk
 	
 		
 
-	private:
-		Gameobject* mOwner;
-		Image* mImage;
+	private:		
+		Gameobject* Head_ch;
 		Animator* mAnimator;
+		Image* mImage;
+
 		eSnake mState;
 		Vector2 pos;	
-		Gameobject* Head_ch;
 		Vector2 prevPos;
-
 		Snake::eSnake Snake_State;
 	};
 }

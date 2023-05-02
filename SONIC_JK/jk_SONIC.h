@@ -142,38 +142,37 @@ namespace jk
 	
 
 	private:
-		int mDir;		
 		Animator* mAnimator;
-		Rigidbody* mRigidbody;
-		Vector2 SonicVelocity;
-		Vector2 SonicBrake;
-		eSonicState mState;
 		class Image* mImage;
 		class Image* mGroundImage;
-		int circlecheck;
+		Rigidbody* mRigidbody;
 		Ground* check;
-		int Circle_piece;
-		int Ringcheck;
-		int hurtcheck;
-		Tails* Tails_call;
-		Vector2 tails_call;
+
+	private:
+		Vector2 SonicVelocity;
+		Vector2 SonicBrake;
 		Electsonic* elect;
-		int jeepline;
-		int check_map;
 		FireSonic* fire;
 		WaterSonic* water;
 		int water_bounce;
 		int fire_effect;
 		int elect_effect;
-
-		int fly_check;
-		int end;
-
-		float time;
-		int Life;
 		
-
-
+	private:
+		eSonicState mState;
+		int mDir;		
+		int check_map;
+		int circlecheck;
+		int Circle_piece;
+		int Ringcheck;
+		int hurtcheck;
+		int jeepline;
+		Tails* Tails_call;
+		Vector2 tails_call;
+		int fly_check;
+		int Life;
 		float angle;
+		int end;
+		float time;	
 	};
 }

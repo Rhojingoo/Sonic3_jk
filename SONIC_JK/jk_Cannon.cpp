@@ -1,19 +1,20 @@
 #include "jk_Cannon.h"
-#include "jk_Time.h"
-#include "jk_SceneManager.h"
-#include "jk_Input.h"
-#include "jk_Resources.h"
-#include "jk_Transform.h"
-#include "jk_Animator.h"
-#include "jk_Collider.h"
-#include "jk_Scene.h"
-#include "jk_SONIC.h"
-#include "SonicState.h"
 #include "jk_Canon_Bullet.h"
-#include "jk_animal.h"
-#include "jk_object.h"
+#include "jk_SceneManager.h"
+#include "jk_Scene.h"
+#include "jk_Transform.h"
 #include "Rigidbody.h"
+#include "jk_Collider.h"
+#include "jk_Animator.h"
+#include "jk_Resources.h"
+#include "jk_Time.h"
+#include "jk_Input.h"
+#include "jk_object.h"
 #include "jk_Ground.h"
+
+
+#include "jk_animal.h"
+
 
 int check_ground_CN = 0;
 
@@ -23,8 +24,7 @@ namespace jk
 		: mCurpos(Vector2(0.0f, 0.0f))
 		, mDir(-1)
 		, mOwner(owner)
-		, sonicpattern(0)
-		//, mCenterpos(Vector2(12280.0f, 3111.0f))
+		, sonicpattern(0)		
 	{
 	}
 	Cannon::~Cannon()
@@ -41,15 +41,20 @@ namespace jk
 		mAnimator->CreateAnimation(L"Canon_death", mImage1, Vector2{ 242.f,458.f }, Vector2{ 40.f,32.f }, Vector2{ 8.f,0.f }, 4, 1, 4, Vector2::Zero, 0.3f);
 		mAnimator->CreateAnimation(L"Canon_death2", mImage1, Vector2{ 242.f,498.f }, Vector2{ 32.f,24.f }, Vector2{ 8.f,0.f }, 4, 1, 4, Vector2::Zero, 0.3f);
 
+
+		mAnimator->Play(L"LCannon", true);
+		mAnimator->GetCompleteEvent(L"Canon_death2") = std::bind(&Cannon::death, this);
+
+
 		Collider* collider = AddComponent<Collider>();
 		collider->SetSize(Vector2(135.0f, 155.0f));
 		Vector2 size = collider->GetSize();
 		collider->SetCenter(Vector2{ (-0.12f) * size.x, (-0.2f) * size.y });
-		mAnimator->Play(L"LCannon", true);
+
 
 		mRigidbody = AddComponent<Rigidbody>();
 		mRigidbody->SetMass(1.0f);
-		
+				
 		Gameobject::Initialize();
 	}
 	void Cannon::Update()
@@ -128,7 +133,6 @@ namespace jk
 				{
 					Canon_rb->SetGround(false);
 				}
-
 			}
 		}
 
@@ -147,8 +151,6 @@ namespace jk
 
 	void Cannon::OnCollisionEnter(Collider* other)
 	{
-
-
 		//if(other->GetOwner()->GetName() == L"Sonic") → name으로 찾아서 dynamic_cast보다 빠르게 접근가능할 수있다. ★확인필요(속도차이)★
 		if (Sonic* sonic = dynamic_cast<Sonic*>(other->GetOwner()))
 		{
@@ -169,8 +171,16 @@ namespace jk
 			//}
 			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
 			{
-				mAnimator->Play(L"Canon_death2", true);
-				mAnimator->GetCompleteEvent(L"Canon_death2") = std::bind(&Cannon::death, this);
+				mAnimator->Play(L"Canon_death2", true);				
+			}
+		}
+		else if (Tails* tails = dynamic_cast<Tails*>(other->GetOwner()))
+		{
+			tailsState = tails->GetTails_state();
+
+			if (tailsState == Tails::eTailsState::Dash || tailsState == Tails::eTailsState::Jump || tailsState == Tails::eTailsState::Spin || tailsState == Tails::eTailsState::Movejump)
+			{
+				mAnimator->Play(L"death", false);
 			}
 		}
 	}

@@ -2,6 +2,7 @@
 #include "jk_Gameobject.h"
 #include "jk_Image.h"
 #include "jk_Sonic.h"
+#include "jk_Tails.h"
 #include "jk_Time.h"
 
 
@@ -40,7 +41,7 @@ namespace jk
 		void SetCheckTargetGround(Ground* ground) { check = ground; }
 		void SetCenterpos(Vector2 pos) {mCenterpos = pos;}
 
-		Vector2 Getmonster() {return mCurpos; }
+		Vector2 Getmonster_pos() {return mCurpos; }
 		void release_animal();
 
 	private:	
@@ -52,22 +53,23 @@ namespace jk
 	private:	
 		Gameobject* mOwner;
 		Rigidbody* mRigidbody;
+		Animator* mAnimator;
 		Image* mImage;
 		Image* mImage1;
 		Image* mGroundImage;
 		Image* mGroundImage2;
 		
 		Ground* check;
-		Animator* mAnimator;
 		Vector2 mCenterpos;
 		Vector2 mCurpos;
 		float mMonspeed;
 		float mMonmaxdistance;
 		int mDir;
-		eMonsterState mState;	
-		Sonic::eSonicState sonicState;		
-
 		int Death_Point;
 		int check_map;
+
+		eMonsterState mState;	
+		Sonic::eSonicState sonicState;		
+		Tails::eTailsState tailsState;
 	};
 }

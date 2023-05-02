@@ -46,7 +46,6 @@ namespace jk
 
 	void Titlesonic::Update()
 	{
-		Gameobject::Update();
 		/*switch (mState)
 		{
 		case Titlesonic::eState::Idle:
@@ -59,6 +58,7 @@ namespace jk
 		default:
 			break;
 		}*/
+		Gameobject::Update();
 	}
 
 	void Titlesonic::Render(HDC hdc)

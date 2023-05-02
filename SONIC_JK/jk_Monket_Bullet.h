@@ -5,7 +5,6 @@
 #include "jk_Animator.h"
 
 
-
 namespace jk
 {
 	class Ground;
@@ -28,19 +27,19 @@ namespace jk
 		void SetGroundImage(Image* image) { mGroundImage = image; }
 		void SetCheckTargetGround(Ground* ground) { check = ground; }
 
+		Vector2 Getmonster_pos() { return mCurpos; }
 
 	private:
+		Rigidbody* mRigidbody;
 		Image* mImage;
 		Image* mGroundImage;
-		Ground* check;
 		Animator* mAnimator;
-		Vector2 mCenterpos;
-		Vector2 mCurpos;
-		float mMonspeed;
-		float mMonmaxdistance;
-		int mDir;
-		Vector2 Sonic;
-		Gameobject* mOwner;
-		Rigidbody* mRigidbody;
+		Ground* check;
+
+
+	private:
+		Gameobject* mOwner;		
+		Vector2 mCurpos;		
+
 	};
 }

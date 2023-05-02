@@ -42,15 +42,14 @@ namespace jk
 
 
 	private:
+		Rigidbody* mRigidbody;
 		Image* mImage;
 		Image* mGroundImage;
 		Animator* mAnimator;
 		Gameobject* mOwner;
 		eState Rock_State;
 		Ground* check;
-		int mDir;
-		int Itemcheck;
-		Rigidbody* mRigidbody;
+
 	};
 
 }

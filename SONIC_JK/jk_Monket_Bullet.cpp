@@ -1,23 +1,24 @@
 #include "jk_Monket_Bullet.h"
-#include "jk_Transform.h"
-#include "jk_Time.h"
-#include "jk_Boss.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Input.h"
-#include "jk_Resources.h"
-#include "jk_Transform.h"
-#include "jk_Animator.h"
-#include "jk_Collider.h"
-#include "Rigidbody.h"
 #include "jk_Scene.h"
+#include "jk_Transform.h"
+#include "Rigidbody.h"
+#include "jk_Collider.h"
+#include "jk_Resources.h"
+#include "jk_Time.h"
+#include "jk_Input.h"
 #include "jk_Object.h"
+
+
+#include "jk_Animator.h"
 
 int check_ground_Mb = 0;
 
 namespace jk
 {
 	Monket_Bullet::Monket_Bullet(Gameobject* owner)
+		: mCurpos(0.f,0.f)
+		, mOwner(owner)
 	{
 		mImage = Resources::Load<Image>(L"Monket_Bullet", L"..\\Resources\\Monster2.bmp");
 		mAnimator = AddComponent<Animator>();
@@ -34,7 +35,7 @@ namespace jk
 		collider->SetSize(Vector2(30.0f, 35.0f));
 		Vector2 size = collider->GetSize();
 		collider->SetCenter(Vector2{ (-0.10f) * size.x, (-0.11f) * size.y });
-		mOwner = owner;
+	
 		check_ground_Mb = 0;
 	}
 	Monket_Bullet::~Monket_Bullet()
@@ -48,6 +49,7 @@ namespace jk
 	{
 		Transform* tr = GetComponent<Transform>();
 		Vector2 Bullet_ps = tr->GetPos();
+		mCurpos = Bullet_ps;
 		Rigidbody* rb = GetComponent<Rigidbody>();
 
 		if (tr && rb && mGroundImage)

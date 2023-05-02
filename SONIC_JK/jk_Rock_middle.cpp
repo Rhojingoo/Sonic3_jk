@@ -1,16 +1,17 @@
 #include "jk_Rock_middle.h"
-#include "jk_Resources.h"
-#include "jk_Transform.h"
-#include "jk_Animator.h"
-#include "jk_Collider.h"
-#include "jk_Scene.h"
-#include "jk_Camera.h"
-#include "jk_Object.h"
-#include "jk_Blending.h"
-#include "jk_SONIC.h"
 #include "jk_Rock_Pice.h"
+#include "jk_SceneManager.h"
+#include "jk_Scene.h"
+#include "jk_Transform.h"
 #include "Rigidbody.h"
+#include "jk_Collider.h"
+#include "jk_Animator.h"
+#include "jk_Resources.h"
+#include "jk_Time.h"
+#include "jk_Object.h"
+
 #include "jk_Ground.h"
+#include "jk_SONIC.h"
 
 
 float timer_Rm = 0.0f; // 타이머 변수

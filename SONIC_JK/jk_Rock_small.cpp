@@ -1,19 +1,17 @@
 #include "jk_Rock_small.h"
-#include "jk_Item.h"
-#include "jk_Time.h"
-#include "jk_SceneManager.h"
-#include "jk_Resources.h"
-#include "jk_Transform.h"
-#include "jk_Animator.h"
-#include "jk_Collider.h"
-#include "jk_Scene.h"
-#include "jk_Camera.h"
-#include "jk_Object.h"
-#include "jk_Blending.h"
-#include "jk_SONIC.h"
 #include "jk_Rock_Pice.h"
+#include "jk_SceneManager.h"
+#include "jk_Scene.h"
+#include "jk_Transform.h"
 #include "Rigidbody.h"
+#include "jk_Collider.h"
+#include "jk_Animator.h"
+#include "jk_Resources.h"
+#include "jk_Time.h"
+#include "jk_Object.h"
+
 #include "jk_Ground.h"
+#include "jk_SONIC.h"
 
 float Random_rock(float min, float max)
 {
@@ -51,8 +49,6 @@ namespace jk
 
 	void Rock_small::Initialize()
 	{
-
-
 		Gameobject::Initialize();
 	}
 
@@ -160,6 +156,7 @@ namespace jk
 	void Rock_small::OnCollisionExit(Collider* other)
 	{
 	}
+
 	void Rock_small::idle()
 	{
 	}

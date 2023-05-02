@@ -1,20 +1,18 @@
 #include "jk_Monkey.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Input.h"
-#include "jk_Resources.h"
-#include "jk_Transform.h"
-#include "jk_Animator.h"
-#include "jk_Collider.h"
 #include "jk_Scene.h"
-#include "jk_SONIC.h"
-#include "SonicState.h"
-#include "jk_BaseBullet.h"
+#include "jk_Transform.h"
+#include "jk_Collider.h"
+#include "Rigidbody.h"
+#include "jk_Resources.h"
+#include "jk_Animator.h"
+#include "jk_Object.h"
+#include "jk_Time.h"
+#include "jk_Input.h"
+#include "jk_Ground.h"
+
 #include "jk_Monket_Bullet.h"
 #include "jk_Animal.h"
-#include "jk_Object.h"
-#include "jk_Ground.h"
-#include "Rigidbody.h"
 
 
 namespace jk
@@ -28,6 +26,7 @@ namespace jk
 		, sonicpattern(-1)
 		, death_point(0)
 		, animal_point(0)
+		, pos(0.f,0.f)
 	{
 
 
@@ -144,6 +143,19 @@ namespace jk
 				death_point = 1;
 			}	
 		}
+
+		else if (Tails* tails = dynamic_cast<Tails*>(other->GetOwner()))
+		{
+			tailsState = tails->GetTails_state();
+
+			if (tailsState == Tails::eTailsState::Dash || tailsState == Tails::eTailsState::Jump || tailsState == Tails::eTailsState::Spin|| tailsState == Tails::eTailsState::Movejump)
+			{
+				mAnimator->Play(L"death", false);				
+				death_point = 1;
+			}
+		}
+
+
 	}
 	void Monkey::OnCollisionStay(Collider* other)
 	{
@@ -156,7 +168,7 @@ namespace jk
 	void Monkey::Lmove_up()
 	{
 		Transform* tr = GetComponent<Transform>();
-
+	
 		fDist = mCenterpos.y - pos.y - mMonmaxdistance;
 		pos.y -= mMonspeed * static_cast<float>(Time::DeltaTime());
 

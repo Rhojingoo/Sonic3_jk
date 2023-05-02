@@ -1,19 +1,17 @@
 #include "jk_Monster.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Input.h"
-#include "jk_Resources.h"
-#include "jk_Transform.h"
-#include "jk_Animator.h"
-#include "jk_Collider.h"
 #include "jk_Scene.h"
-#include "jk_SONIC.h"
-#include "SonicState.h"
+#include "jk_Time.h"
+#include "jk_Input.h"
+#include "jk_Transform.h"
+#include "jk_Collider.h"
 #include "Rigidbody.h"
+#include "jk_Resources.h"
+#include "jk_Animator.h"
 #include "jk_Object.h"
-#include "jk_Animal.h"
 #include "jk_Ground.h"
 
+#include "jk_Animal.h"
 
 
 
@@ -67,8 +65,7 @@ namespace jk
 	}
 
 	void Monster::Update()
-	{
-
+	{		
 		if (Death_Point == 1)
 		{
 			mState = eMonsterState::Death;
@@ -170,6 +167,16 @@ namespace jk
 			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
 			{
        			mAnimator->Play(L"rino_death", false);		
+				Death_Point = 1;
+			}
+		}
+		else if (Tails* tails = dynamic_cast<Tails*>(other->GetOwner()))
+		{
+			tailsState = tails->GetTails_state();
+
+			if (tailsState == Tails::eTailsState::Dash || tailsState == Tails::eTailsState::Jump || tailsState == Tails::eTailsState::Spin || tailsState == Tails::eTailsState::Movejump)
+			{
+				mAnimator->Play(L"rino_death", false);
 				Death_Point = 1;
 			}
 		}

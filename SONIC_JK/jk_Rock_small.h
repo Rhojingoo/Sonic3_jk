@@ -42,16 +42,15 @@ namespace jk
 
 
 	private:
+		Rigidbody* mRigidbody;
 		Image* mImage;
 		Image* mGroundImage;
 		Animator* mAnimator;
 		Gameobject* mOwner;
 		eState mState;
 		Ground* check;
-		int mDir;
 		Sonic::eSonicState sonicState;
-		int Itemcheck;
-		Rigidbody* mRigidbody;
+	
 	};
 
 }

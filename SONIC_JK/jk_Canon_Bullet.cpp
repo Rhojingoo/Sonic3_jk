@@ -1,19 +1,19 @@
 #include "jk_Canon_Bullet.h"
-#include "jk_Time.h"
-#include "jk_SceneManager.h"
-#include "jk_Input.h"
-#include "jk_Resources.h"
-#include "jk_Transform.h"
-#include "jk_Animator.h"
-#include "jk_Collider.h"
-#include "jk_Scene.h"
-#include "jk_SONIC.h"
-#include "SonicState.h"
-#include "jk_BaseBullet.h"
-#include "jk_Ground.h"
-#include "Rigidbody.h"
 #include "jk_Cannon.h"
+#include "jk_SceneManager.h"
+#include "jk_Scene.h"
+#include "jk_Transform.h"
+#include "Rigidbody.h"
+#include "jk_Collider.h"
+#include "jk_Animator.h"
+#include "jk_Resources.h"
 #include "jk_Object.h"
+#include "jk_Ground.h"
+
+#include "jk_Input.h"
+#include "jk_Time.h"
+
+#include "jk_SONIC.h"
 
 int check_ground_Cb = 0;
 
@@ -40,20 +40,19 @@ namespace jk
 		mDir = canon->GetDir();
 		check_ground_Cb = 0;
 	}
+
 	Canon_Bullet::~Canon_Bullet()
 	{
 		Cannon;
 	}
+
 	void Canon_Bullet::Initialize()
 	{
-
-		Gameobject::Initialize();
-		
+		Gameobject::Initialize();		
 	}
+
 	void Canon_Bullet::Update()
 	{		
-
-
 		Transform* rock_TR = GetComponent<Transform>();
 		Rigidbody* rock_rb = GetComponent<Rigidbody>();
 		
@@ -82,16 +81,14 @@ namespace jk
 			jk::object::Destory(this);
 			return;
 		}
-
-
-			
-
 		Gameobject::Update();
 	}
+
 	void Canon_Bullet::Render(HDC hdc)
 	{
 		Gameobject::Render(hdc);
 	}
+
 	void Canon_Bullet::Release()
 	{
 		Gameobject::Release();

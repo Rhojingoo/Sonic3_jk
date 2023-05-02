@@ -1,6 +1,7 @@
 #pragma once
 #include "jk_Gameobject.h"
 #include "jk_Sonic.h"
+#include "jk_Tails.h"
 #include "jk_Image.h"
 #include "jk_Time.h"
 
@@ -40,6 +41,7 @@ namespace jk
 		void SetCheckTargetGround(Ground* ground) { check = ground; }
 		void SetCenterpos(Vector2 pos) { mCenterpos = pos; }
 
+		Vector2 Getmonster_pos() { return pos; }
 
 	private:
 		void Lmove_up();
@@ -61,11 +63,10 @@ namespace jk
 		Image* mImage1;
 		Image* mGroundImage;
 		Ground* check;
-		Animator* mAnimator;
-	
+		Animator* mAnimator;	
 
 		eMonkey mState;
-		Vector2 mCenterpos;
+		Vector2 mCenterpos;	
 		float mMonspeed;
 		float mMonmaxdistance;
 		int mDir;
@@ -74,9 +75,9 @@ namespace jk
 		int death_point;
 		int animal_point;
 
-
 		Vector2 mSonic;
 		int sonicpattern;
 		Sonic::eSonicState sonicState;
+		Tails::eTailsState tailsState;
 	};
 }

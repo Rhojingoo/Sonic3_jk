@@ -2,6 +2,7 @@
 #include "jk_Gameobject.h"
 #include "jk_Image.h"
 #include "jk_Sonic.h"
+#include "jk_Tails.h"
 #include "jk_Time.h"
 
 
@@ -61,16 +62,19 @@ namespace jk
 		Ground* check;
 		Rigidbody* mRigidbody;
 
+	private:
 		Vector2 mCurpos;	
 		int mDir;
 		eCannon mState;
 		Vector2 pos;
 		float fDist;
 		Vector2 mSonic;
-		Sonic::eSonicState sonicState;
 		int sonicpattern;
-
 		int check_map;
+
+	private:
+		Sonic::eSonicState sonicState;
+		Tails::eTailsState tailsState;
 
 	};
 }

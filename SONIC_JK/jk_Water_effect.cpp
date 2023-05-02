@@ -20,10 +20,7 @@ namespace jk
 		mAnimator->CreateAnimation(L"Water_Effect_act1", mImage, Vector2(24, 370), Vector2(40, 32), Vector2(8, 0), 7, 1,7, Vector2::Zero, 0.1);
 		mAnimator->Play(L"Water_Effect_act1", false);
 
-		//Collider* collider = AddComponent<Collider>();
-		//collider->SetSize(Vector2(90.0f, 85.0f));
-		//Vector2 size = collider->GetSize();
-		//collider->SetCenter(Vector2{ (-0.15f) * size.x, (-0.35f) * size.y });
+		mAnimator->GetCompleteEvent(L"Water_Effect_act1") = std::bind(&Water_effect::water_splashes, this);
 	}
 	Water_effect::~Water_effect()
 	{
@@ -35,6 +32,18 @@ namespace jk
 
 	void Water_effect::Update()
 	{
+		switch (mState)
+		{
+		case Water_effect::eState::Idle:
+			idle();
+			break;
+
+		case Water_effect::eState::Death:
+			death();
+			break;
+		default:
+			break;
+		}
 
 		Gameobject::Update();
 	}
@@ -47,6 +56,20 @@ namespace jk
 	void Water_effect::Release()
 	{
 		Gameobject::Release();
+	}
+
+	void Water_effect::idle()
+	{
+	}
+
+	void Water_effect::death()
+	{
+		object::Destory(this);
+	}
+
+	void Water_effect::water_splashes()
+	{
+		mState = eState::Death;
 	}
 
 }

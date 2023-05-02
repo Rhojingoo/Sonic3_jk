@@ -1,5 +1,6 @@
 #pragma once
 #include "jk_Gameobject.h"
+#include "jk_SONIC.h"
 #include "jk_Image.h"
 
 namespace jk
@@ -20,10 +21,13 @@ namespace jk
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
+		void Water_Splashes(float a, float b);
 
 	private:
 		Image* mImage;
 		float mTime;
 		float checktime;
+
+		Sonic::eSonicState sonicState;
 	};
 }

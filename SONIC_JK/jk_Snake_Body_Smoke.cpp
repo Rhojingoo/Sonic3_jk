@@ -1,26 +1,19 @@
 #include "jk_Snake_Body_Smoke.h"
 #include "jk_Snake.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Input.h"
-#include "jk_Resources.h"
-#include "jk_Transform.h"
-#include "jk_Animator.h"
-#include "jk_Collider.h"
 #include "jk_Scene.h"
+#include "jk_Transform.h"
+#include "jk_Collider.h"
+#include "jk_Animator.h"
+#include "jk_Resources.h"
+#include "jk_Time.h"
+#include "jk_Input.h"
 #include "jk_Object.h"
 
 
 namespace jk
 {
 	Snake_Body_Smoke::Snake_Body_Smoke()
-		//: mCenterpos(Vector2(8370.f, 3250.f))
-		//, mCurpos(Vector2(0.0f, 0.0f))
-		//, mMonspeed(150.0f)
-		//, mMonmaxdistance_x(200.0f)
-		//, mMonmaxdistance_y(50.0f)
-		//, mDir_x(1)
-		//, mDir_y(1)
 	{
 	}
 	Snake_Body_Smoke::~Snake_Body_Smoke()
@@ -99,7 +92,7 @@ namespace jk
 		Snake* snake_head = dynamic_cast<Snake*>(Head_ch);
 		Snake_State = snake_head->Get_Snake_state();
 
-		if (Snake_State == Snake::eSnake::Left_Down || Snake_State == Snake::eSnake::Left_Up)
+		if (Snake_State == Snake::eSnake::Left || Snake_State == Snake::eSnake::Left)
 		{
 			mAnimator->Play(L"LSnake_body1", true);
 			mState = eSnake::Left;
@@ -120,7 +113,7 @@ namespace jk
 
 		Snake* snake_head = dynamic_cast<Snake*>(Head_ch);
 		Snake_State = snake_head->Get_Snake_state();
-		if (Snake_State == Snake::eSnake::Right_Down || Snake_State == Snake::eSnake::Right_Up)
+		if (Snake_State == Snake::eSnake::Right || Snake_State == Snake::eSnake::Right)
 		{
 			mAnimator->Play(L"RSnake_body1", true);
 			mState = eSnake::Right;
@@ -132,21 +125,9 @@ namespace jk
 		}
 
 	}
-	//void Snake_Body_Smoke::right_up()
-	//{
-	//}
-	//void Snake_Body_Smoke::right_down()
-	//{
-	//}
-	//void Snake_Body_Smoke::left_up()
-	//{
-	//}
-	//void Snake_Body_Smoke::left_down()
-	//{
-	//}
+
 	void Snake_Body_Smoke::deth()
 	{
 		jk::object::Destory(this);
 	}
-
 }
