@@ -106,8 +106,8 @@ namespace jk
 		mSonic = new Sonic();
 		mSonic->SetName(L"Player");
 		AddGameobeject(mSonic, jk_LayerType::Player);		
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
-		mSonic->GetComponent<Transform>()->SetPos(Vector2{21480.f, 3450.f });//폭포
+		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
+		//mSonic->GetComponent<Transform>()->SetPos(Vector2{21480.f, 3450.f });//폭포
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 16100.0f, 3070.0f });//집라인쪽
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 28821.f, 1363.f });//끝
@@ -248,7 +248,7 @@ namespace jk
 		{
 			spring_Up[a] = new Spring_Up();
 			spring_Up[a]->SetName(L"spring_Up");
-			AddGameobeject(spring_Up[a], jk_LayerType::Ground);
+			AddGameobeject(spring_Up[a], jk_LayerType::BG_props);
 		}
 		spring_Up[0]->GetComponent<Transform>()->SetPos(Vector2{ 13318.0f, 3224.0f });
 		spring_Up[1]->GetComponent<Transform>()->SetPos(Vector2{ 13169.0f, 2808.0f });
@@ -259,7 +259,7 @@ namespace jk
 		{
 			spring_Left[a] = new Spring_Left();
 			spring_Left[a]->SetName(L"spring_Left");
-			AddGameobeject(spring_Left[a], jk_LayerType::Ground);
+			AddGameobeject(spring_Left[a], jk_LayerType::BG_props);
 		}
 		spring_Left[0]->GetComponent<Transform>()->SetPos(Vector2{ 14080.0f, 3135.0f });
 		spring_Left[1]->GetComponent<Transform>()->SetPos(Vector2{ 17739.0f, 3615.0f });
@@ -307,7 +307,7 @@ namespace jk
 		{
 			collapses_Ground[a] = new Collapses_Ground();
 			collapses_Ground[a]->SetName(L"collapses_Ground");
-			AddGameobeject(collapses_Ground[a], jk_LayerType::Ground);
+			AddGameobeject(collapses_Ground[a], jk_LayerType::BG_props);
 		}
 		collapses_Ground[0]->GetComponent<Transform>()->SetPos(Vector2{ 16300.0f, 3070.0f });
 
@@ -355,7 +355,7 @@ namespace jk
 		{
 			gr_move[a] = new Move_GR();
 			gr_move[a]->SetName(L"gr_move");
-			AddGameobeject(gr_move[a], jk_LayerType::Ground);
+			AddGameobeject(gr_move[a], jk_LayerType::BG_props);
 		}
 		gr_move[0]->GetComponent<Transform>()->SetPos(Vector2{ 12450.0f, 2444.0f });
 		gr_move[0]->SetCenterpos(Vector2{ 12450.0f, 2444.0f });
@@ -656,6 +656,8 @@ namespace jk
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Ground, true);
 		CollisionManager::SetLayer(jk_LayerType::Player2, jk_LayerType::Ground, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::UI, true);
+		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::BG_props, true);
+
 		//CollisionManager::SetLayer(jk_LayerType::Player2, jk_LayerType::BG_props, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Player2, true);
 	

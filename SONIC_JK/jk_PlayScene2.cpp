@@ -109,7 +109,10 @@ namespace jk
 		mSonic = new Sonic();
 		mSonic->SetName(L"Player");
 		AddGameobeject(mSonic, jk_LayerType::Player);
-		mSonic->GetComponent<Transform>()->SetPos(Vector2(661.f, 3033.f)); //시작위치
+		//11700.f, 3770.f
+		//mSonic->GetComponent<Transform>()->SetPos(Vector2(661.f, 3033.f)); //시작위치
+		mSonic->GetComponent<Transform>()->SetPos(Vector2(11700.f, 3770.f)); //보스전
+
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2(7755.0f, 5070.0f));//워터시작
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 13100.f,3240.f }); //미니 보스
 
@@ -190,22 +193,22 @@ namespace jk
 		//ItemBigRing* Big_Ring = new ItemBigRing();
 		//Big_Ring->SetName(L"BIGRING");
 
-		Item* items = new Item(mSonic);
-		items->SetName(L"items");
-		AddGameobeject(items, jk_LayerType::Item);
-		items->GetComponent<Transform>()->SetPos(Vector2(800.f, 3150.f));
+		//Item* items = new Item(mSonic);
+		//items->SetName(L"items");
+		//AddGameobeject(items, jk_LayerType::Item);
+		//items->GetComponent<Transform>()->SetPos(Vector2(800.f, 3150.f));
 
 
-		Item_water* water_item = new Item_water(mSonic);
-		water_item->SetName(L"items");
-		AddGameobeject(water_item, jk_LayerType::Item);
-		water_item->GetComponent<Transform>()->SetPos(Vector2(1100.f, 3150.f));
+		//Item_water* water_item = new Item_water(mSonic);
+		//water_item->SetName(L"items");
+		//AddGameobeject(water_item, jk_LayerType::Item);
+		//water_item->GetComponent<Transform>()->SetPos(Vector2(1100.f, 3150.f));
 
 
-		Item_Fire* fire_item = new Item_Fire(mSonic);
-		fire_item->SetName(L"items");
-		AddGameobeject(fire_item, jk_LayerType::Item);
-		fire_item->GetComponent<Transform>()->SetPos(Vector2(1400.f, 3150.f));
+		//Item_Fire* fire_item = new Item_Fire(mSonic);
+		//fire_item->SetName(L"items");
+		//AddGameobeject(fire_item, jk_LayerType::Item);
+		//fire_item->GetComponent<Transform>()->SetPos(Vector2(1400.f, 3150.f));
 
 
 		//배경
@@ -385,8 +388,8 @@ namespace jk
 		collapses_GR_left[3]->GetComponent<Transform>()->SetPos(Vector2{ 11550.f, 3210.f });
 		
 
-		Spring_Up* spring_Up[5];
-		for (int a = 0; a < 5; a++)
+		Spring_Up* spring_Up[6];
+		for (int a = 0; a < 6; a++)
 		{
 			spring_Up[a] = new Spring_Up();
 			spring_Up[a]->SetName(L"spring_Up");
@@ -397,21 +400,18 @@ namespace jk
 		spring_Up[2]->GetComponent<Transform>()->SetPos(Vector2{ 5550.0f, 5000.0f });
 		spring_Up[3]->GetComponent<Transform>()->SetPos(Vector2{ 10248.0f, 4812.0f });
 		spring_Up[4]->GetComponent<Transform>()->SetPos(Vector2{ 11300.0f, 4400.0f });
-		
+		spring_Up[5]->GetComponent<Transform>()->SetPos(Vector2{ 11700.f,3770.f });
 
-		Move_GR* gr_move[2];
-		for (int a = 0; a < 2; a++)
+		Move_GR* gr_move[1];
+		for (int a = 0; a < 1; a++)
 		{
 			gr_move[a] = new Move_GR();
 			gr_move[a]->SetName(L"gr_move");
 			AddGameobeject(gr_move[a], jk_LayerType::Ground);
 		}
-		gr_move[0]->GetComponent<Transform>()->SetPos(Vector2{ 661.f, 2933.f });
-		gr_move[0]->SetCenterpos(Vector2{ 661.f,2933.f });
-		gr_move[0]->Setmaxdistance(float{ 100.f });
-		gr_move[1]->GetComponent<Transform>()->SetPos(Vector2{ 9714.f,5346.f });
-		gr_move[1]->SetCenterpos(Vector2{ 9714.f,5346.f });
-		gr_move[1]->Setmaxdistance(float{ 150.f });
+		gr_move[0]->GetComponent<Transform>()->SetPos(Vector2{ 9714.f,5346.f });
+		gr_move[0]->SetCenterpos(Vector2{ 9714.f,5346.f });
+		gr_move[0]->Setmaxdistance(float{ 150.f });
 
 
 		ItemBigRing* Big_Ring = new ItemBigRing();
