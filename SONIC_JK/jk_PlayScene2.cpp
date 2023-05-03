@@ -110,8 +110,8 @@ namespace jk
 		mSonic->SetName(L"Player");
 		AddGameobeject(mSonic, jk_LayerType::Player);
 		//11700.f, 3770.f
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2(661.f, 3033.f)); //시작위치
-		mSonic->GetComponent<Transform>()->SetPos(Vector2(11700.f, 3770.f)); //보스전
+		mSonic->GetComponent<Transform>()->SetPos(Vector2(661.f, 3033.f)); //시작위치
+		//mSonic->GetComponent<Transform>()->SetPos(Vector2(11700.f, 3770.f)); //보스전
 
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2(7755.0f, 5070.0f));//워터시작
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 13100.f,3240.f }); //미니 보스
@@ -350,15 +350,15 @@ namespace jk
 		//Check_circle->GetComponent<Transform>()->SetPos(Vector2{ 9012.f, 3500.f });
 
 		//돌댕이
-		Rock_big* rock_big[1];
-		for (int a = 0; a < 1; a++)
-		{
-			rock_big[a] = new Rock_big();
-			rock_big[a]->SetName(L"rock_big");
-			AddGameobeject(rock_big[a], jk_LayerType::BG_props);
-		}
-		rock_big[0]->GetComponent<Transform>()->SetPos(Vector2{ 2096.0f, 3363.0f });
-		rock_big[0]->SetCheckTargetGround(playgr);
+		//Rock_big* rock_big[1];
+		//for (int a = 0; a < 1; a++)
+		//{
+		//	rock_big[a] = new Rock_big();
+		//	rock_big[a]->SetName(L"rock_big");
+		//	AddGameobeject(rock_big[a], jk_LayerType::BG_props);
+		//}
+		//rock_big[0]->GetComponent<Transform>()->SetPos(Vector2{ 2096.0f, 3363.0f });
+		//rock_big[0]->SetCheckTargetGround(playgr);
 
 
 		Collapses_Ground* collapses_Ground[5];

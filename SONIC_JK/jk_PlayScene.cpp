@@ -106,8 +106,8 @@ namespace jk
 		mSonic = new Sonic();
 		mSonic->SetName(L"Player");
 		AddGameobeject(mSonic, jk_LayerType::Player);		
-		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2{21480.f, 3450.f });//폭포
+		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
+		mSonic->GetComponent<Transform>()->SetPos(Vector2{21480.f, 3450.f });//폭포
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 16100.0f, 3070.0f });//집라인쪽
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 28821.f, 1363.f });//끝
@@ -656,6 +656,7 @@ namespace jk
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Ground, true);
 		CollisionManager::SetLayer(jk_LayerType::Player2, jk_LayerType::Ground, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::UI, true);
+		CollisionManager::SetLayer(jk_LayerType::Player2, jk_LayerType::UI, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::BG_props, true);
 
 		//CollisionManager::SetLayer(jk_LayerType::Player2, jk_LayerType::BG_props, true);
