@@ -308,12 +308,12 @@ namespace jk
 			}
 
 
-			if (Input::GetKeyDown(eKeyCode::P))
-			{
-				object::Destory(elect);
-				Elect = 0;
-			}	
-			
+			//if (Input::GetKeyDown(eKeyCode::P))
+			//{
+			//	object::Destory(elect);
+			//	Elect = 0;
+			//}	
+			//
 
  			switch (mState)
 			{

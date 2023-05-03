@@ -6,6 +6,7 @@
 
 namespace jk
 {
+	int Collider::ONOFF = 0;
 	UINT Collider::ColliderNumver = 0;
 	Collider::Collider()
 		: Component(jk_ComponentType::Collider)
@@ -15,7 +16,7 @@ namespace jk
 		, mSize(100.0f,100.0f)
 		, mID(ColliderNumver++)
 		,mCollisionCount(0)
-		, ONOFF(0)
+		
 	{
 	
 	}
@@ -46,8 +47,7 @@ namespace jk
 		{
 			ONOFF = 0;
 		}
-		if (ONOFF == 0)
-		{
+	
 			HPEN pen = NULL;
 			if (mCollisionCount == 0)
 				pen = CreatePen(BS_SOLID, 2, RGB(0, 255, 0));
@@ -61,7 +61,10 @@ namespace jk
 
 			Vector2 pos = Camera::CaluatePos(mPos);
 
-			Rectangle(hdc, pos.x, pos.y, pos.x + mSize.x, pos.y + mSize.y);
+			if (ONOFF == 0)
+			{
+				Rectangle(hdc, pos.x, pos.y, pos.x + mSize.x, pos.y + mSize.y);
+			}
 			//Rectangle(hdc, pos.x - mSize.x/2, pos.y - mSize.y, pos.x + mSize.x /2, pos.y);
 
 
@@ -70,7 +73,7 @@ namespace jk
 			DeleteObject(pen);
 
 			mCollisionCount = 0;
-		}
+		
 	}
 
 	void Collider::Release()
