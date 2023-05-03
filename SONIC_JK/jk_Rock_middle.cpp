@@ -109,39 +109,41 @@ namespace jk
 	}
 	void Rock_middle::OnCollisionEnter(Collider* other)
 	{
-		Sonic* sonic = dynamic_cast<Sonic*>(other->GetOwner());
-		sonicState = sonic->Getsonicstate();
-
-		if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
+		if (Sonic* sonic = dynamic_cast<Sonic*>(other->GetOwner()))
 		{
+			sonicState = sonic->Getsonicstate();
 
-			Transform* tr = GetComponent<Transform>();
-			Scene* curScene = SceneManager::GetActiveScene();
-
-			const int numRings = 6; // 생성할 돌의 개수
-			const float minAngle = -45.0f; // 돌이 떨어지는 최소 각도
-			const float maxAngle = 45.0f; // 돌이 떨어지는 최대 각도
-			const float distance = 100.0f; // 돌이 떨어지는 거리
-
-
-			for (int i = 0; i < numRings; ++i)
+			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
 			{
-				float angle = Random_middle_rock(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
-				Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
 
-				Rock_Pice* Rock_pice = new Rock_Pice();
-				Rock_pice->Initialize();
-				curScene->AddGameobeject(Rock_pice, jk_LayerType::BG_props);
+				Transform* tr = GetComponent<Transform>();
+				Scene* curScene = SceneManager::GetActiveScene();
 
-				if (check)// 돌이 땅에 닿을때 의 상황
+				const int numRings = 6; // 생성할 돌의 개수
+				const float minAngle = -45.0f; // 돌이 떨어지는 최소 각도
+				const float maxAngle = 45.0f; // 돌이 떨어지는 최대 각도
+				const float distance = 100.0f; // 돌이 떨어지는 거리
+
+
+				for (int i = 0; i < numRings; ++i)
 				{
-					Image* groundImage = check->GetGroundImage();
-					Rock_pice->SetGroundImage(groundImage);
+					float angle = Random_middle_rock(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+					Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+					Rock_Pice* Rock_pice = new Rock_Pice();
+					Rock_pice->Initialize();
+					curScene->AddGameobeject(Rock_pice, jk_LayerType::BG_props);
+
+					if (check)// 돌이 땅에 닿을때 의 상황
+					{
+						Image* groundImage = check->GetGroundImage();
+						Rock_pice->SetGroundImage(groundImage);
+					}
+					Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+					Rock_pice->GetComponent<Transform>()->SetPos(dropPos); // 돌의 위치 설정
 				}
-				Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
-				Rock_pice->GetComponent<Transform>()->SetPos(dropPos); // 돌의 위치 설정
+				mState = eState::Death;
 			}
-			mState = eState::Death;
 		}
 	}
 	void Rock_middle::OnCollisionStay(Collider* other)

@@ -129,19 +129,19 @@ namespace jk
 				Damege_check += 1;
 				Hur_check = 1;
 
-				//if (Damege_check < 6)
-				//{
-				//	if (mDir == 1)
-				//	{
-				//		mAnimator->Play(L"R_Boss_third_Hurt", false);
-				//	}
-				//	else
-				//	{
-				//		mAnimator->Play(L"L_Boss_third_Hurt", false);
-				//	}
-				//}
+				if (Damege_check < 6)
+				{
+					if (mDir == 1)
+					{
+						mAnimator->Play(L"R_Boss_third_Hurt", false);
+					}
+					else
+					{
+						mAnimator->Play(L"L_Boss_third_Hurt", false);
+					}
+				}
 
-				/*else*/ if (Damege_check == 1)
+				else if (Damege_check == 6)
 				{
 					mState = eBossState::Death;
 					if (mDir == 1)

@@ -58,6 +58,9 @@ namespace jk
 		if ((Life_point_U >= 90) && (Life_point_U < 100))
 			Life_point_U = Life_point_U - 90;
 
+
+		if (Life_point_U == 0)
+			UnitsDigit = 0;
 		if (Life_point_U == 1)
 			UnitsDigit = 1;
 		else if (Life_point_U == 2)
@@ -81,6 +84,8 @@ namespace jk
 
 
 		//10ÀÇÀÚ¸®
+		if (Life_point_T < 10) 
+			TensDigit = 0;
 		if ((Life_point_T >= 10) && (Life_point_T < 20))
 			TensDigit = 1;
 		else if ((Life_point_T >= 20) && (Life_point_T < 30))

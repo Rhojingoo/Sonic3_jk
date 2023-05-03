@@ -39,6 +39,7 @@ namespace jk
 			Tails_Hanging,
 
 			Death,
+			GameOver,
 
 			EMDING,
 			End,
@@ -114,6 +115,7 @@ namespace jk
 		void tails_hanging();
 
 		void death();
+		void gameover();
 		
 		void ending();
 		void endgame();

@@ -44,7 +44,24 @@
 #include "jk_Ring_Falling.h"
 
 
+#include "jk_Minibos.h"
+#include "mBoss_Bl_L.h"
+#include "mBoss_BL_R.h"
+#include "jk_Boss.h"
+#include "Bullet_Act1_L_DIA.h"
+#include "Bullet_Act1_L_Side.h"
+#include "Bullet_Act1_R_DIA.h"
+#include "Bullet_Act1_R_Side.h"
+#include "jk_BaseBullet.h"
+#include "boss1_object.h"
+#include "act6_bullet1.h"
+#include "boss1_body.h"
+#include "Second_Boss.h"
+#include "Second_boss_bullet.h"
 #include "Boss_Arm.h"
+#include "Third_Boss.h"
+
+
 
 #include "jk_Monster.h"
 #include "jk_Monkey.h"
@@ -65,6 +82,7 @@ int ringpoint = 0;
 int Elect = 0;
 int Water = 0;
 int Fire = 0;
+int LIFE_Point = 0;
 
 
 float RandomFloat(float min, float max)
@@ -94,8 +112,7 @@ namespace jk
 		, end(0)
 		, time(0)
 		, Life(3)
-
-			, angle(90)
+		, angle(90)
 
 	{
 		Transform* tr = GetComponent<Transform>();
@@ -223,6 +240,9 @@ namespace jk
 		mRigidbody->SetMass(1.0f);
 
 		mAnimator->Play(L"RSonicStand", true);
+
+
+
 		Gameobject::Initialize();
 	}    
 
@@ -230,12 +250,17 @@ namespace jk
 		{
 			circlecheck = check->GetgroundCh();
 			Circle_piece = check->GetCicle_piece();
-			Ringcheck;
-			ringpoint;
-			int a = 0;
+			check_map = check->Get_map_check();
 
-			if(ringpoint ==0)
+			ringpoint = Ringcheck;
+			LIFE_Point = Life;
+			int a = 0;	
 
+			if (check_map >= 1)
+			{
+				Ringcheck = ringpoint;
+				Life = LIFE_Point;
+			}
 
 			Transform* tr = GetComponent<Transform>();
 			//Vector2 check_sonic = tr->GetPos();
@@ -347,7 +372,8 @@ namespace jk
 			case jk::Sonic::eSonicState::Death:death();
 				break;
 
-
+			case jk::Sonic::eSonicState::GameOver:gameover();
+				break;
 
 			case jk::Sonic::eSonicState::EMDING:ending();
 				break;
@@ -412,7 +438,7 @@ namespace jk
 				break;
 			}
 
-			check_map = check->Get_map_check();
+		
 
 
 			Gameobject::Update();
@@ -466,7 +492,7 @@ namespace jk
 														
 					Vector2 velocity = mRigidbody->GetVelocity();	
 					velocity.y = 0.0f;
-					velocity.y -= 1050.0f;
+					velocity.y -= 1350.0f;
 					mRigidbody->SetGround(false);
 					mRigidbody->SetVelocity(velocity);
 					if (mDir == 1)
@@ -729,17 +755,23 @@ namespace jk
 						Vector2 mlast_Bridge_pos = last_Bridge->GetComponent<Transform>()->GetPos();
 						Transform* tr = GetComponent<Transform>();
 						Vector2 msonic = tr->GetPos();
-
-
-						if (mDir == 1)
+						if (mState == eSonicState::Run)
 						{
-							mState = eSonicState::Idle;
-							mAnimator->Play(L"RSonicStand", true);
+							mState = eSonicState::Run;
+
 						}
-						else if (mDir == -1)
+						else
 						{
-							mState = eSonicState::Idle;
-							mAnimator->Play(L"LSonicStand", true);
+							if (mDir == 1)
+							{
+								mState = eSonicState::Idle;
+								mAnimator->Play(L"RSonicStand", true);
+							}
+							else if (mDir == -1)
+							{
+								mState = eSonicState::Idle;
+								mAnimator->Play(L"LSonicStand", true);
+							}
 						}
 					}
 
@@ -892,7 +924,6 @@ namespace jk
 				}
 
 
-
 			//아이템 충돌★
 				//ITEM(ELECT) 충돌처리
 				if (Item* electitem = dynamic_cast<Item*>(other->GetOwner()))
@@ -1015,6 +1046,13 @@ namespace jk
 					ringpoint += 1;
 				}
 
+				if (Ring_Falling* ring = dynamic_cast<Ring_Falling*>(other->GetOwner()))
+				{
+					Ringcheck += 1;
+					ringpoint += 1;
+				}
+
+
 
 								 
 			//Monster collision★
@@ -1024,274 +1062,26 @@ namespace jk
 					Transform* tr = GetComponent<Transform>();
 					Vector2 pos = tr->GetPos();
 					Vector2 rinopos = rino->Getmonster_pos();
+
+
 					if (!((mState == eSonicState::Spin) || (mState == eSonicState::Jump) || (mState == eSonicState::Dash) || (mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1)))
 					{
-						if (rinopos.x > pos.x)
+						if (Ringcheck == 0)
 						{
-							hurtcheck = 1;
-							mAnimator->Play(L"RSonichurt", true);
-							Vector2 velocity = mRigidbody->GetVelocity();
-							velocity = Vector2(0.0f, 0.0f);
-							velocity -= (300.0f, 500.0f);
+							mState = eSonicState::Death;
+							mAnimator->Play(L"RSonicShock", true);
+
+							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
 							mRigidbody->SetGround(false);
-							mRigidbody->SetVelocity(velocity);
-							mState = eSonicState::Hurt;
-
-
-							Ring_Falling* ring;
-							if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-							{
-
-								Transform* tr = GetComponent<Transform>();
-								Scene* curScene = SceneManager::GetActiveScene();
-
-								//const int numRings = 10; // 생성할 링의 개수
-								const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
-								const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
-								const float distance = 250.0f; // 링이 떨어지는 거리
-
-
-								for (int i = 0; i < Ringcheck; ++i)
-								{
-									float angle = RandomFloat(minAngle, maxAngle);
-									Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
-
-									Ring_Falling* ring = new Ring_Falling(this);
-									curScene->AddGameobeject(ring, jk_LayerType::Rings);
-									if (check)
-									{
-										//Image* groundImage = check->GetGroundImage();
-
-										if (check_map == 0)
-										{
-											ring->SetGroundImage(check->GetGroundImage());
-										}
-										else if (check_map == 1)
-										{
-											ring->SetGroundImage(check->GetGroundImage2());
-										}
-									}
-									Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
-									ring->GetComponent<Transform>()->SetPos(dropPos);
-								}
-							}
-							else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-							{
-								Transform* tr = GetComponent<Transform>();
-								Scene* curScene = SceneManager::GetActiveScene();
-
-								const int numRings = 10; // 생성할 링의 개수
-								const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
-								const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
-								const float distance = 250.0f; // 링이 떨어지는 거리
-
-								for (int i = 0; i < numRings; ++i)
-								{
-									float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
-									Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
-
-									Ring_Falling* ring = new Ring_Falling(this);
-									curScene->AddGameobeject(ring, jk_LayerType::Rings);
-
-									if (check)
-									{
-										if (check_map == 0)
-										{
-											ring->SetGroundImage(check->GetGroundImage());
-										}
-										else if (check_map == 1)
-										{
-											ring->SetGroundImage(check->GetGroundImage2());
-										}
-									}
-
-									Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
-									ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
-								}
-							}
-							else
-							{
-								Transform* tr = GetComponent<Transform>();
-								Scene* curScene = SceneManager::GetActiveScene();
-
-								const int numRings = 30; // 생성할 링의 개수
-								const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
-								const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
-								const float distance = 250.0f; // 링이 떨어지는 거리
-
-								for (int i = 0; i < numRings; ++i)
-								{
-									float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
-									Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
-
-									Ring_Falling* ring = new Ring_Falling(this);
-									curScene->AddGameobeject(ring, jk_LayerType::Rings);
-
-									if (check)
-									{
-										if (check_map == 0)
-										{
-											ring->SetGroundImage(check->GetGroundImage());
-										}
-										else if (check_map == 1)
-										{
-											ring->SetGroundImage(check->GetGroundImage2());
-										}
-									}
-
-									Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
-									ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
-								}
-							}
+							Life = Life - 1;
 						}
-						else if (rinopos.x < pos.x)
+						else if (Ringcheck >= 1)
 						{
-							hurtcheck = -1;
-							mAnimator->Play(L"LSonichurt", true);
-							Vector2 velocity = mRigidbody->GetVelocity();
-							velocity = Vector2(0.0f, 0.0f);
-							velocity.x += 300.0f;
-							velocity.y -= 500.0f;
-							mRigidbody->SetGround(false);
-							mRigidbody->SetVelocity(velocity);
-							mState = eSonicState::Hurt;
-
-							Ring_Falling* ring;
-							if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-							{
-
-								Transform* tr = GetComponent<Transform>();
-								Scene* curScene = SceneManager::GetActiveScene();
-
-								//const int numRings = 10; // 생성할 링의 개수
-								const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
-								const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
-								const float distance = 250.0f; // 링이 떨어지는 거리
-
-
-								for (int i = 0; i < Ringcheck; ++i)
-								{
-									float angle = RandomFloat(minAngle, maxAngle);
-									Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
-
-									Ring_Falling* ring = new Ring_Falling(this);
-									curScene->AddGameobeject(ring, jk_LayerType::Rings);
-									if (check)
-									{
-										//Image* groundImage = check->GetGroundImage();
-
-										if (check_map == 0)
-										{
-											ring->SetGroundImage(check->GetGroundImage());
-										}
-										else if (check_map == 1)
-										{
-											ring->SetGroundImage(check->GetGroundImage2());
-										}
-									}
-									Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
-									ring->GetComponent<Transform>()->SetPos(dropPos);
-								}
-							}
-							else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-							{
-
-								Transform* tr = GetComponent<Transform>();
-								Scene* curScene = SceneManager::GetActiveScene();
-
-								const int numRings = 10; // 생성할 링의 개수
-								const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
-								const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
-								const float distance = 250.0f; // 링이 떨어지는 거리
-
-
-								for (int i = 0; i < numRings; ++i)
-								{
-									float angle = RandomFloat(minAngle, maxAngle);
-									Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
-
-									Ring_Falling* ring = new Ring_Falling(this);
-									curScene->AddGameobeject(ring, jk_LayerType::Rings);
-									if (check)
-									{
-										//Image* groundImage = check->GetGroundImage();
-
-										if (check_map == 0)
-										{
-											ring->SetGroundImage(check->GetGroundImage());
-										}
-										else if (check_map == 1)
-										{
-											ring->SetGroundImage(check->GetGroundImage2());
-										}
-									}
-									Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
-									ring->GetComponent<Transform>()->SetPos(dropPos);
-								}
-							}
-							else
-							{
-								Transform* tr = GetComponent<Transform>();
-								Scene* curScene = SceneManager::GetActiveScene();
-
-								const int numRings = 30; // 생성할 링의 개수
-								const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
-								const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
-								const float distance = 250.0f; // 링이 떨어지는 거리
-
-								for (int i = 0; i < numRings; ++i)
-								{
-									float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
-									Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
-
-									Ring_Falling* ring = new Ring_Falling(this);
-									curScene->AddGameobeject(ring, jk_LayerType::Rings);
-
-									if (check)
-									{
-										if (check_map == 0)
-										{
-											ring->SetGroundImage(check->GetGroundImage());
-										}
-										else if (check_map == 1)
-										{
-											ring->SetGroundImage(check->GetGroundImage2());
-										}
-									}
-
-									Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
-									ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
-								}
-							}
-							
-						}
-					}
-					else
-					{
-						pos.y = pos.y + 120;
-						if (pos.y < rinopos.y)
-						{
-							Vector2 velocity = mRigidbody->GetVelocity();
-							velocity.y = 0.0f;
-							velocity.y = -350.f;
-							mRigidbody->SetGround(false);
-							mRigidbody->SetVelocity(velocity);
-						}
-					}
-				}			
-
-				if (Monkey* monkey = dynamic_cast<Monkey*>(other->GetOwner()))
-				{
-					Transform* tr = GetComponent<Transform>();
-						Vector2 pos = tr->GetPos();
-						Vector2 monkeypos = monkey->Getmonster_pos();
-						if (!((mState == eSonicState::Spin) || (mState == eSonicState::Jump) || (mState == eSonicState::Dash)|| (mState == eSonicState::Hurt)||(Elect == 1) || (Water == 1) || (Fire == 1)))
-						{
-							if (monkeypos.x > pos.x)
+							if (rinopos.x > pos.x)
 							{
 								hurtcheck = 1;
-									mAnimator->Play(L"RSonichurt", true);
-									Vector2 velocity = mRigidbody->GetVelocity();
+								mAnimator->Play(L"RSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
 								velocity = Vector2(0.0f, 0.0f);
 								velocity -= (300.0f, 500.0f);
 								mRigidbody->SetGround(false);
@@ -1404,7 +1194,287 @@ namespace jk
 										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
 									}
 								}
+								Ringcheck = 0;
 							}
+							else if (rinopos.x < pos.x)
+							{
+								hurtcheck = -1;
+								mAnimator->Play(L"LSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity.x += 300.0f;
+								velocity.y -= 500.0f;
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+							}
+						}
+					}
+					else
+						{
+							pos.y = pos.y + 120;
+							if (pos.y < rinopos.y)
+							{
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity.y = 0.0f;
+								velocity.y = -350.f;
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+							}
+						}
+					
+				}			
+
+				if (Monkey* monkey = dynamic_cast<Monkey*>(other->GetOwner()))
+				{
+					Transform* tr = GetComponent<Transform>();
+						Vector2 pos = tr->GetPos();
+						Vector2 monkeypos = monkey->Getmonster_pos();
+		
+			
+					if (!((mState == eSonicState::Spin) || (mState == eSonicState::Jump) || (mState == eSonicState::Dash) || (mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1)))
+					{
+						if (Ringcheck == 0)
+						{
+							mState = eSonicState::Death;
+							mAnimator->Play(L"RSonicShock", true);
+
+							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
+							mRigidbody->SetGround(false);
+							Life = Life - 1;
+						}
+						else if (Ringcheck >= 1)
+						{
+							if (monkeypos.x > pos.x)
+							{
+								hurtcheck = 1;
+								mAnimator->Play(L"RSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity -= (300.0f, 500.0f);
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+
+							}
+
 							else if (monkeypos.x < pos.x)
 							{
 								hurtcheck = -1;
@@ -1524,21 +1594,22 @@ namespace jk
 										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
 									}
 								}
-
+								Ringcheck = 0;
 							}
 						}
-						else
+					}
+					else
+					{
+						pos.y = pos.y + 120;
+						if (pos.y < monkeypos.y)
 						{
-							pos.y = pos.y + 120;
-							if (pos.y < monkeypos.y)
-							{
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity.y = 0.0f;
-								velocity.y = -350.f;
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-							}
+							Vector2 velocity = mRigidbody->GetVelocity();
+							velocity.y = 0.0f;
+							velocity.y = -350.f;
+							mRigidbody->SetGround(false);
+							mRigidbody->SetVelocity(velocity);
 						}
+					}
 				}
 
 				if (Monket_Bullet* monkey_bullet = dynamic_cast<Monket_Bullet*>(other->GetOwner()))
@@ -1546,129 +1617,140 @@ namespace jk
 					Transform* tr = GetComponent<Transform>();
 					Vector2 pos = tr->GetPos();
 					Vector2 monkeypos = monkey_bullet->Getmonster_pos();
-
-
-					if (!(mState == eSonicState::Hurt)||(Elect==1)||(Water==1)||(Fire == 1))
+								
+					if (!(mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1))
 					{
-						if (monkeypos.x > pos.x)
+						if (Ringcheck == 0)
 						{
-							hurtcheck = 1;
-							mAnimator->Play(L"RSonichurt", true);
-							Vector2 velocity = mRigidbody->GetVelocity();
-							velocity = Vector2(0.0f, 0.0f);
-							velocity -= (300.0f, 500.0f);
+							mState = eSonicState::Death;
+							mAnimator->Play(L"RSonicShock", true);
+
+							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
 							mRigidbody->SetGround(false);
-							mRigidbody->SetVelocity(velocity);
-							mState = eSonicState::Hurt;
-
-
-							Ring_Falling* ring;
-							if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-							{
-
-								Transform* tr = GetComponent<Transform>();
-								Scene* curScene = SceneManager::GetActiveScene();
-
-								//const int numRings = 10; // 생성할 링의 개수
-								const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
-								const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
-								const float distance = 250.0f; // 링이 떨어지는 거리
-
-
-								for (int i = 0; i < Ringcheck; ++i)
-								{
-									float angle = RandomFloat(minAngle, maxAngle);
-									Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
-
-									Ring_Falling* ring = new Ring_Falling(this);
-									curScene->AddGameobeject(ring, jk_LayerType::Rings);
-									if (check)
-									{
-										//Image* groundImage = check->GetGroundImage();
-
-										if (check_map == 0)
-										{
-											ring->SetGroundImage(check->GetGroundImage());
-										}
-										else if (check_map == 1)
-										{
-											ring->SetGroundImage(check->GetGroundImage2());
-										}
-									}
-									Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
-									ring->GetComponent<Transform>()->SetPos(dropPos);
-								}
-							}
-							else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-							{
-								Transform* tr = GetComponent<Transform>();
-								Scene* curScene = SceneManager::GetActiveScene();
-
-								const int numRings = 10; // 생성할 링의 개수
-								const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
-								const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
-								const float distance = 250.0f; // 링이 떨어지는 거리
-
-								for (int i = 0; i < numRings; ++i)
-								{
-									float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
-									Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
-
-									Ring_Falling* ring = new Ring_Falling(this);
-									curScene->AddGameobeject(ring, jk_LayerType::Rings);
-
-									if (check)
-									{
-										if (check_map == 0)
-										{
-											ring->SetGroundImage(check->GetGroundImage());
-										}
-										else if (check_map == 1)
-										{
-											ring->SetGroundImage(check->GetGroundImage2());
-										}
-									}
-
-									Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
-									ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
-								}
-							}
-							else
-							{
-								Transform* tr = GetComponent<Transform>();
-								Scene* curScene = SceneManager::GetActiveScene();
-
-								const int numRings = 30; // 생성할 링의 개수
-								const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
-								const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
-								const float distance = 250.0f; // 링이 떨어지는 거리
-
-								for (int i = 0; i < numRings; ++i)
-								{
-									float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
-									Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
-
-									Ring_Falling* ring = new Ring_Falling(this);
-									curScene->AddGameobeject(ring, jk_LayerType::Rings);
-
-									if (check)
-									{
-										if (check_map == 0)
-										{
-											ring->SetGroundImage(check->GetGroundImage());
-										}
-										else if (check_map == 1)
-										{
-											ring->SetGroundImage(check->GetGroundImage2());
-										}
-									}
-
-									Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
-									ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
-								}
-							}
+							Life = Life - 1;
 						}
-						else if (monkeypos.x < pos.x)
+						else if (Ringcheck >= 1)
+						{
+							if (monkeypos.x > pos.x)
+							{
+								hurtcheck = 1;
+								mAnimator->Play(L"RSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity -= (300.0f, 500.0f);
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+							}
+							else if (monkeypos.x < pos.x)
 						{
 							hurtcheck = -1;
 							mAnimator->Play(L"LSonichurt", true);
@@ -1787,9 +1869,11 @@ namespace jk
 									ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
 								}
 							}
-
+							Ringcheck = 0;
+						}
 						}
 					}
+					
 				}
 				
 				if (Cannon* cannon = dynamic_cast<Cannon*>(other->GetOwner()))
@@ -1797,239 +1881,255 @@ namespace jk
 					Transform* tr = GetComponent<Transform>();
 					Vector2 pos = tr->GetPos();
 					Vector2 cannonpos = cannon->GetComponent<Transform>()->GetPos();
+				
+
+			
 					if (!((mState == eSonicState::Spin) || (mState == eSonicState::Jump) || (mState == eSonicState::Dash) || (mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1)))
 					{
-						if (cannonpos.x > pos.x)
+						if (Ringcheck == 0)
 						{
-							hurtcheck = 1;
-							mAnimator->Play(L"RSonichurt", true);
-							Vector2 velocity = mRigidbody->GetVelocity();
-							velocity = Vector2(0.0f, 0.0f);
-							velocity -= (300.0f, 500.0f);
+							mState = eSonicState::Death;
+							mAnimator->Play(L"RSonicShock", true);
+
+							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
 							mRigidbody->SetGround(false);
-							mRigidbody->SetVelocity(velocity);
-							mState = eSonicState::Hurt;
-
-
-							Ring_Falling* ring;
-							if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-							{
-
-								Transform* tr = GetComponent<Transform>();
-								Scene* curScene = SceneManager::GetActiveScene();
-																
-								const float minAngle = -45.0f;
-								const float maxAngle = 45.0f;
-								const float distance = 250.0f; 
-
-
-								for (int i = 0; i < Ringcheck; ++i)
-								{
-									float angle = RandomFloat(minAngle, maxAngle);
-									Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
-
-									Ring_Falling* ring = new Ring_Falling(this);
-									curScene->AddGameobeject(ring, jk_LayerType::Rings);
-									if (check)
-									{										
-										if (check_map == 0)
-										{
-											ring->SetGroundImage(check->GetGroundImage());
-										}
-										else if (check_map == 1)
-										{
-											ring->SetGroundImage(check->GetGroundImage2());
-										}
-									}
-									Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
-									ring->GetComponent<Transform>()->SetPos(dropPos);
-								}
-							}
-							else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-							{
-								Transform* tr = GetComponent<Transform>();
-								Scene* curScene = SceneManager::GetActiveScene();
-
-								const int numRings = 10;
-								const float minAngle = -45.0f;
-								const float maxAngle = 45.0f; 
-								const float distance = 250.0f;
-
-								for (int i = 0; i < numRings; ++i)
-								{
-									float angle = RandomFloat(minAngle, maxAngle);					
-									Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
-
-									Ring_Falling* ring = new Ring_Falling(this);
-									curScene->AddGameobeject(ring, jk_LayerType::Rings);
-
-									if (check)
-									{
-										if (check_map == 0)
-										{
-											ring->SetGroundImage(check->GetGroundImage());
-										}
-										else if (check_map == 1)
-										{
-											ring->SetGroundImage(check->GetGroundImage2());
-										}
-									}
-
-									Vector2 dropPos = tr->GetPos() + (dropDirection * distance); 
-									ring->GetComponent<Transform>()->SetPos(dropPos);
-								}
-							}
-							else
-							{
-								Transform* tr = GetComponent<Transform>();
-								Scene* curScene = SceneManager::GetActiveScene();
-
-								const int numRings = 30;
-								const float minAngle = -45.0f;
-								const float maxAngle = 45.0f;
-								const float distance = 250.0f;
-
-								for (int i = 0; i < numRings; ++i)
-								{
-									float angle = RandomFloat(minAngle, maxAngle);						
-									Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
-
-									Ring_Falling* ring = new Ring_Falling(this);
-									curScene->AddGameobeject(ring, jk_LayerType::Rings);
-
-									if (check)
-									{
-										if (check_map == 0)
-										{
-											ring->SetGroundImage(check->GetGroundImage());
-										}
-										else if (check_map == 1)
-										{
-											ring->SetGroundImage(check->GetGroundImage2());
-										}
-									}
-
-									Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
-									ring->GetComponent<Transform>()->SetPos(dropPos);
-								}
-							}
+							Life = Life - 1;
 						}
-						else if (cannonpos.x < pos.x)
+						else if (Ringcheck >= 1)
 						{
-							hurtcheck = -1;
-							mAnimator->Play(L"LSonichurt", true);
-							Vector2 velocity = mRigidbody->GetVelocity();
-							velocity = Vector2(0.0f, 0.0f);
-							velocity.x += 300.0f;
-							velocity.y -= 500.0f;
-							mRigidbody->SetGround(false);
-							mRigidbody->SetVelocity(velocity);
-							mState = eSonicState::Hurt;
-
-							Ring_Falling* ring;
-							if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+							if (cannonpos.x > pos.x)
 							{
+								hurtcheck = 1;
+								mAnimator->Play(L"RSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity -= (300.0f, 500.0f);
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
 
-								Transform* tr = GetComponent<Transform>();
-								Scene* curScene = SceneManager::GetActiveScene();
 
-							
-								const float minAngle = -45.0f;
-								const float maxAngle = 45.0f; 
-								const float distance = 250.0f;
-
-
-								for (int i = 0; i < Ringcheck; ++i)
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
-									float angle = RandomFloat(minAngle, maxAngle);
-									Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
 
-									Ring_Falling* ring = new Ring_Falling(this);
-									curScene->AddGameobeject(ring, jk_LayerType::Rings);
-									if (check)
-									{	
-										if (check_map == 0)
-										{
-											ring->SetGroundImage(check->GetGroundImage());
-										}
-										else if (check_map == 1)
-										{
-											ring->SetGroundImage(check->GetGroundImage2());
-										}
-									}
-									Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
-									ring->GetComponent<Transform>()->SetPos(dropPos);
-								}
-							}
-							else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-							{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
 
-								Transform* tr = GetComponent<Transform>();
-								Scene* curScene = SceneManager::GetActiveScene();
-
-								const int numRings = 10; 
-								const float minAngle = -45.0f; 
-								const float maxAngle = 45.0f;
-								const float distance = 250.0f; 
+									const float minAngle = -45.0f;
+									const float maxAngle = 45.0f;
+									const float distance = 250.0f;
 
 
-								for (int i = 0; i < numRings; ++i)
-								{
-									float angle = RandomFloat(minAngle, maxAngle);
-									Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
-
-									Ring_Falling* ring = new Ring_Falling(this);
-									curScene->AddGameobeject(ring, jk_LayerType::Rings);
-									if (check)
-									{	
-										if (check_map == 0)
-										{
-											ring->SetGroundImage(check->GetGroundImage());
-										}
-										else if (check_map == 1)
-										{
-											ring->SetGroundImage(check->GetGroundImage2());
-										}
-									}
-									Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
-									ring->GetComponent<Transform>()->SetPos(dropPos);
-								}
-							}
-							else
-							{
-								Transform* tr = GetComponent<Transform>();
-								Scene* curScene = SceneManager::GetActiveScene();
-
-								const int numRings = 30; 
-								const float minAngle = -45.0f; 
-								const float maxAngle = 45.0f; 
-								const float distance = 250.0f;
-
-								for (int i = 0; i < numRings; ++i)
-								{
-									float angle = RandomFloat(minAngle, maxAngle);					
-									Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); 
-
-									Ring_Falling* ring = new Ring_Falling(this);
-									curScene->AddGameobeject(ring, jk_LayerType::Rings);
-
-									if (check)
+									for (int i = 0; i < Ringcheck; ++i)
 									{
-										if (check_map == 0)
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
 										{
-											ring->SetGroundImage(check->GetGroundImage());
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
 										}
-										else if (check_map == 1)
-										{
-											ring->SetGroundImage(check->GetGroundImage2());
-										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
 									}
-
-									Vector2 dropPos = tr->GetPos() + (dropDirection * distance); 
-									ring->GetComponent<Transform>()->SetPos(dropPos); 
 								}
-							}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
 
+									const int numRings = 10;
+									const float minAngle = -45.0f;
+									const float maxAngle = 45.0f;
+									const float distance = 250.0f;
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30;
+									const float minAngle = -45.0f;
+									const float maxAngle = 45.0f;
+									const float distance = 250.0f;
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								Ringcheck = 0;
+							}
+							else if (cannonpos.x < pos.x)
+							{
+								hurtcheck = -1;
+								mAnimator->Play(L"LSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity.x += 300.0f;
+								velocity.y -= 500.0f;
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+
+									const float minAngle = -45.0f;
+									const float maxAngle = 45.0f;
+									const float distance = 250.0f;
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10;
+									const float minAngle = -45.0f;
+									const float maxAngle = 45.0f;
+									const float distance = 250.0f;
+
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30;
+									const float minAngle = -45.0f;
+									const float maxAngle = 45.0f;
+									const float distance = 250.0f;
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								Ringcheck = 0;
+							}
 						}
 					}
 					else
@@ -2044,6 +2144,7 @@ namespace jk
 							mRigidbody->SetVelocity(velocity);
 						}
 					}
+					
 				}			
 
 				if (Canon_Bullet* cannon_bullet = dynamic_cast<Canon_Bullet*>(other->GetOwner()))
@@ -2054,6 +2155,17 @@ namespace jk
 
 					if (!(mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1))
 					{
+						if (Ringcheck == 0)
+						{
+							mState = eSonicState::Death;
+							mAnimator->Play(L"RSonicShock", true);
+
+							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
+							mRigidbody->SetGround(false);
+							Life = Life - 1;
+						}
+						else if (Ringcheck >= 1)
+						{
 						if (cannon_pos.x > pos.x)
 						{
 							hurtcheck = 1;
@@ -2171,6 +2283,8 @@ namespace jk
 									ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
 								}
 							}
+							Ringcheck = 0;
+
 						}
 						else if (cannon_pos.x < pos.x)
 						{
@@ -2291,248 +2405,265 @@ namespace jk
 									ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
 								}
 							}
+							Ringcheck = 0;
+						}
 						}
 					}
-				}
+				}	
 							
 				if (Snake* snake = dynamic_cast<Snake*>(other->GetOwner()))
 				{
 					Transform* tr = GetComponent<Transform>();
 					Vector2 pos = tr->GetPos();
 					Vector2 snake_pos = snake->GetComponent<Transform>()->GetPos();
+
+
 					if (!((mState == eSonicState::Spin) || (mState == eSonicState::Jump) || (mState == eSonicState::Dash) || (mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1)))
 					{
-						if (snake_pos.x > pos.x)
+						if (Ringcheck == 0)
 						{
-							hurtcheck = 1;
-							mAnimator->Play(L"RSonichurt", true);
-							Vector2 velocity = mRigidbody->GetVelocity();
-							velocity = Vector2(0.0f, 0.0f);
-							velocity -= (300.0f, 500.0f);
+							mState = eSonicState::Death;
+							mAnimator->Play(L"RSonicShock", true);
+
+							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
 							mRigidbody->SetGround(false);
-							mRigidbody->SetVelocity(velocity);
-							mState = eSonicState::Hurt;
-
-
-							Ring_Falling* ring;
-							if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-							{
-
-								Transform* tr = GetComponent<Transform>();
-								Scene* curScene = SceneManager::GetActiveScene();
-
-								const float minAngle = -45.0f;
-								const float maxAngle = 45.0f;
-								const float distance = 250.0f;
-
-
-								for (int i = 0; i < Ringcheck; ++i)
-								{
-									float angle = RandomFloat(minAngle, maxAngle);
-									Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
-
-									Ring_Falling* ring = new Ring_Falling(this);
-									curScene->AddGameobeject(ring, jk_LayerType::Rings);
-									if (check)
-									{
-										if (check_map == 0)
-										{
-											ring->SetGroundImage(check->GetGroundImage());
-										}
-										else if (check_map == 1)
-										{
-											ring->SetGroundImage(check->GetGroundImage2());
-										}
-									}
-									Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
-									ring->GetComponent<Transform>()->SetPos(dropPos);
-								}
-							}
-							else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-							{
-								Transform* tr = GetComponent<Transform>();
-								Scene* curScene = SceneManager::GetActiveScene();
-
-								const int numRings = 10;
-								const float minAngle = -45.0f;
-								const float maxAngle = 45.0f;
-								const float distance = 250.0f;
-
-								for (int i = 0; i < numRings; ++i)
-								{
-									float angle = RandomFloat(minAngle, maxAngle);
-									Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
-
-									Ring_Falling* ring = new Ring_Falling(this);
-									curScene->AddGameobeject(ring, jk_LayerType::Rings);
-
-									if (check)
-									{
-										if (check_map == 0)
-										{
-											ring->SetGroundImage(check->GetGroundImage());
-										}
-										else if (check_map == 1)
-										{
-											ring->SetGroundImage(check->GetGroundImage2());
-										}
-									}
-
-									Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
-									ring->GetComponent<Transform>()->SetPos(dropPos);
-								}
-							}
-							else
-							{
-								Transform* tr = GetComponent<Transform>();
-								Scene* curScene = SceneManager::GetActiveScene();
-
-								const int numRings = 30;
-								const float minAngle = -45.0f;
-								const float maxAngle = 45.0f;
-								const float distance = 250.0f;
-
-								for (int i = 0; i < numRings; ++i)
-								{
-									float angle = RandomFloat(minAngle, maxAngle);
-									Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
-
-									Ring_Falling* ring = new Ring_Falling(this);
-									curScene->AddGameobeject(ring, jk_LayerType::Rings);
-
-									if (check)
-									{
-										if (check_map == 0)
-										{
-											ring->SetGroundImage(check->GetGroundImage());
-										}
-										else if (check_map == 1)
-										{
-											ring->SetGroundImage(check->GetGroundImage2());
-										}
-									}
-
-									Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
-									ring->GetComponent<Transform>()->SetPos(dropPos);
-								}
-							}
+							Life = Life - 1;
 						}
-						else if (snake_pos.x < pos.x)
+						else
 						{
-							hurtcheck = -1;
-							mAnimator->Play(L"LSonichurt", true);
-							Vector2 velocity = mRigidbody->GetVelocity();
-							velocity = Vector2(0.0f, 0.0f);
-							velocity.x += 300.0f;
-							velocity.y -= 500.0f;
-							mRigidbody->SetGround(false);
-							mRigidbody->SetVelocity(velocity);
-							mState = eSonicState::Hurt;
-
-							Ring_Falling* ring;
-							if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+							if (snake_pos.x > pos.x)
 							{
+								hurtcheck = 1;
+								mAnimator->Play(L"RSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity -= (300.0f, 500.0f);
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
 
-								Transform* tr = GetComponent<Transform>();
-								Scene* curScene = SceneManager::GetActiveScene();
 
-
-								const float minAngle = -45.0f;
-								const float maxAngle = 45.0f;
-								const float distance = 250.0f;
-
-
-								for (int i = 0; i < Ringcheck; ++i)
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
-									float angle = RandomFloat(minAngle, maxAngle);
-									Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
 
-									Ring_Falling* ring = new Ring_Falling(this);
-									curScene->AddGameobeject(ring, jk_LayerType::Rings);
-									if (check)
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const float minAngle = -45.0f;
+									const float maxAngle = 45.0f;
+									const float distance = 250.0f;
+
+
+									for (int i = 0; i < Ringcheck; ++i)
 									{
-										if (check_map == 0)
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
 										{
-											ring->SetGroundImage(check->GetGroundImage());
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
 										}
-										else if (check_map == 1)
-										{
-											ring->SetGroundImage(check->GetGroundImage2());
-										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
 									}
-									Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
-									ring->GetComponent<Transform>()->SetPos(dropPos);
 								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10;
+									const float minAngle = -45.0f;
+									const float maxAngle = 45.0f;
+									const float distance = 250.0f;
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30;
+									const float minAngle = -45.0f;
+									const float maxAngle = 45.0f;
+									const float distance = 250.0f;
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								Ringcheck = 0;
 							}
-							else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+							else if (snake_pos.x < pos.x)
 							{
+								hurtcheck = -1;
+								mAnimator->Play(L"LSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity.x += 300.0f;
+								velocity.y -= 500.0f;
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
 
-								Transform* tr = GetComponent<Transform>();
-								Scene* curScene = SceneManager::GetActiveScene();
-
-								const int numRings = 10;
-								const float minAngle = -45.0f;
-								const float maxAngle = 45.0f;
-								const float distance = 250.0f;
-
-
-								for (int i = 0; i < numRings; ++i)
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
-									float angle = RandomFloat(minAngle, maxAngle);
-									Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
 
-									Ring_Falling* ring = new Ring_Falling(this);
-									curScene->AddGameobeject(ring, jk_LayerType::Rings);
-									if (check)
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+
+									const float minAngle = -45.0f;
+									const float maxAngle = 45.0f;
+									const float distance = 250.0f;
+
+
+									for (int i = 0; i < Ringcheck; ++i)
 									{
-										if (check_map == 0)
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
 										{
-											ring->SetGroundImage(check->GetGroundImage());
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
 										}
-										else if (check_map == 1)
-										{
-											ring->SetGroundImage(check->GetGroundImage2());
-										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
 									}
-									Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
-									ring->GetComponent<Transform>()->SetPos(dropPos);
 								}
-							}
-							else
-							{
-								Transform* tr = GetComponent<Transform>();
-								Scene* curScene = SceneManager::GetActiveScene();
-
-								const int numRings = 30;
-								const float minAngle = -45.0f;
-								const float maxAngle = 45.0f;
-								const float distance = 250.0f;
-
-								for (int i = 0; i < numRings; ++i)
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
 								{
-									float angle = RandomFloat(minAngle, maxAngle);
-									Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
 
-									Ring_Falling* ring = new Ring_Falling(this);
-									curScene->AddGameobeject(ring, jk_LayerType::Rings);
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
 
-									if (check)
+									const int numRings = 10;
+									const float minAngle = -45.0f;
+									const float maxAngle = 45.0f;
+									const float distance = 250.0f;
+
+
+									for (int i = 0; i < numRings; ++i)
 									{
-										if (check_map == 0)
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
 										{
-											ring->SetGroundImage(check->GetGroundImage());
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
 										}
-										else if (check_map == 1)
-										{
-											ring->SetGroundImage(check->GetGroundImage2());
-										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
 									}
-
-									Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
-									ring->GetComponent<Transform>()->SetPos(dropPos);
 								}
-							}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
 
+									const int numRings = 30;
+									const float minAngle = -45.0f;
+									const float maxAngle = 45.0f;
+									const float distance = 250.0f;
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								Ringcheck = 0;
+							}
 						}
 					}
 					else
@@ -2547,6 +2678,7 @@ namespace jk
 							mRigidbody->SetVelocity(velocity);
 						}
 					}
+					
 				}
 
 				if (Snake_body2* snake = dynamic_cast<Snake_body2*>(other->GetOwner()))
@@ -2558,6 +2690,17 @@ namespace jk
 
 					if (!(mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1))
 					{
+						if (Ringcheck == 0)
+						{
+							mState = eSonicState::Death;
+							mAnimator->Play(L"RSonicShock", true);
+
+							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
+							mRigidbody->SetGround(false);
+							Life = Life - 1;
+						}
+						else
+						{ 
 						if (snake_pos.x > pos.x)
 						{
 							hurtcheck = 1;
@@ -2673,6 +2816,8 @@ namespace jk
 									ring->GetComponent<Transform>()->SetPos(dropPos); 
 								}
 							}
+							Ringcheck = 0;
+
 						}
 						else if (snake_pos.x < pos.x)
 						{
@@ -2791,6 +2936,7 @@ namespace jk
 									ring->GetComponent<Transform>()->SetPos(dropPos);
 								}
 							}
+							Ringcheck = 0;}		
 						}
 					}
 				}
@@ -2801,8 +2947,20 @@ namespace jk
 					Vector2 pos = tr->GetPos();
 					Vector2 snake_pos = snake->GetComponent<Transform>()->GetPos();
 
+	
 					if (!(mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1))
 					{
+						if (Ringcheck == 0)
+						{
+							mState = eSonicState::Death;
+							mAnimator->Play(L"RSonicShock", true);
+
+							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
+							mRigidbody->SetGround(false);
+							Life = Life - 1;
+						}
+						else
+						{
 						if (snake_pos.x > pos.x)
 						{
 							hurtcheck = 1;
@@ -2916,7 +3074,9 @@ namespace jk
 									Vector2 dropPos = tr->GetPos() + (dropDirection * distance); 
 									ring->GetComponent<Transform>()->SetPos(dropPos); 
 								}
+								Ringcheck = 0;
 							}
+							Ringcheck = 0;
 						}
 						else if (snake_pos.x < pos.x)
 						{
@@ -3033,6 +3193,9 @@ namespace jk
 									ring->GetComponent<Transform>()->SetPos(dropPos); 
 								}
 							}
+							Ringcheck = 0;
+
+						}
 						}
 					}
 				}
@@ -3044,261 +3207,4204 @@ namespace jk
 					Vector2 pos = tr->GetPos();
 					Vector2 snake_pos = snake->GetComponent<Transform>()->GetPos();
 
+
 					if (!(mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1))
 					{
-						if (snake_pos.x > pos.x)
+						if (Ringcheck == 0)
 						{
-							hurtcheck = 1;
-							mAnimator->Play(L"RSonichurt", true);
-							Vector2 velocity = mRigidbody->GetVelocity();
-							velocity = Vector2(0.0f, 0.0f);
-							velocity -= (300.0f, 500.0f);
+							mState = eSonicState::Death;
+							mAnimator->Play(L"RSonicShock", true);
+
+							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
 							mRigidbody->SetGround(false);
-							mRigidbody->SetVelocity(velocity);
-							mState = eSonicState::Hurt;
-
-
-							Ring_Falling* ring;
-							if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-							{
-
-								Transform* tr = GetComponent<Transform>();
-								Scene* curScene = SceneManager::GetActiveScene();
-
-								const float minAngle = -45.0f;
-								const float maxAngle = 45.0f;
-								const float distance = 250.0f;
-
-
-								for (int i = 0; i < Ringcheck; ++i)
-								{
-									float angle = RandomFloat(minAngle, maxAngle);
-									Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
-
-									Ring_Falling* ring = new Ring_Falling(this);
-									curScene->AddGameobeject(ring, jk_LayerType::Rings);
-									if (check)
-									{
-										if (check_map == 0)
-										{
-											ring->SetGroundImage(check->GetGroundImage());
-										}
-										else if (check_map == 1)
-										{
-											ring->SetGroundImage(check->GetGroundImage2());
-										}
-									}
-									Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
-									ring->GetComponent<Transform>()->SetPos(dropPos);
-								}
-							}
-							else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-							{
-								Transform* tr = GetComponent<Transform>();
-								Scene* curScene = SceneManager::GetActiveScene();
-
-								const int numRings = 10;
-								const float minAngle = -45.0f;
-								const float maxAngle = 45.0f;
-								const float distance = 250.0f;
-
-								for (int i = 0; i < numRings; ++i)
-								{
-									float angle = RandomFloat(minAngle, maxAngle);
-									Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
-
-									Ring_Falling* ring = new Ring_Falling(this);
-									curScene->AddGameobeject(ring, jk_LayerType::Rings);
-
-									if (check)
-									{
-										if (check_map == 0)
-										{
-											ring->SetGroundImage(check->GetGroundImage());
-										}
-										else if (check_map == 1)
-										{
-											ring->SetGroundImage(check->GetGroundImage2());
-										}
-									}
-
-									Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
-									ring->GetComponent<Transform>()->SetPos(dropPos);
-								}
-							}
-							else
-							{
-								Transform* tr = GetComponent<Transform>();
-								Scene* curScene = SceneManager::GetActiveScene();
-
-								const int numRings = 30;
-								const float minAngle = -45.0f;
-								const float maxAngle = 45.0f;
-								const float distance = 250.0f;
-
-								for (int i = 0; i < numRings; ++i)
-								{
-									float angle = RandomFloat(minAngle, maxAngle);
-									Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
-
-									Ring_Falling* ring = new Ring_Falling(this);
-									curScene->AddGameobeject(ring, jk_LayerType::Rings);
-
-									if (check)
-									{
-										if (check_map == 0)
-										{
-											ring->SetGroundImage(check->GetGroundImage());
-										}
-										else if (check_map == 1)
-										{
-											ring->SetGroundImage(check->GetGroundImage2());
-										}
-									}
-
-									Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
-									ring->GetComponent<Transform>()->SetPos(dropPos);
-								}
-							}
+							Life = Life - 1;
 						}
-						else if (snake_pos.x < pos.x)
+						else
 						{
-							hurtcheck = -1;
-							mAnimator->Play(L"LSonichurt", true);
-							Vector2 velocity = mRigidbody->GetVelocity();
-							velocity = Vector2(0.0f, 0.0f);
-							velocity.x += 300.0f;
-							velocity.y -= 500.0f;
-							mRigidbody->SetGround(false);
-							mRigidbody->SetVelocity(velocity);
-							mState = eSonicState::Hurt;
-
-							Ring_Falling* ring;
-							if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+							if (snake_pos.x > pos.x)
 							{
+								hurtcheck = 1;
+								mAnimator->Play(L"RSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity -= (300.0f, 500.0f);
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
 
-								Transform* tr = GetComponent<Transform>();
-								Scene* curScene = SceneManager::GetActiveScene();
 
-								const float minAngle = -45.0f;
-								const float maxAngle = 45.0f;
-								const float distance = 250.0f;
-
-
-								for (int i = 0; i < Ringcheck; ++i)
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
-									float angle = RandomFloat(minAngle, maxAngle);
-									Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
 
-									Ring_Falling* ring = new Ring_Falling(this);
-									curScene->AddGameobeject(ring, jk_LayerType::Rings);
-									if (check)
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const float minAngle = -45.0f;
+									const float maxAngle = 45.0f;
+									const float distance = 250.0f;
+
+
+									for (int i = 0; i < Ringcheck; ++i)
 									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
 
-										if (check_map == 0)
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
 										{
-											ring->SetGroundImage(check->GetGroundImage());
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
 										}
-										else if (check_map == 1)
-										{
-											ring->SetGroundImage(check->GetGroundImage2());
-										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
 									}
-									Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
-									ring->GetComponent<Transform>()->SetPos(dropPos);
 								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10;
+									const float minAngle = -45.0f;
+									const float maxAngle = 45.0f;
+									const float distance = 250.0f;
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30;
+									const float minAngle = -45.0f;
+									const float maxAngle = 45.0f;
+									const float distance = 250.0f;
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+
+								}
+								Ringcheck = 0;
+
 							}
-							else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+							else if (snake_pos.x < pos.x)
 							{
+								hurtcheck = -1;
+								mAnimator->Play(L"LSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity.x += 300.0f;
+								velocity.y -= 500.0f;
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
 
-								Transform* tr = GetComponent<Transform>();
-								Scene* curScene = SceneManager::GetActiveScene();
-
-								const int numRings = 10;
-								const float minAngle = -45.0f;
-								const float maxAngle = 45.0f;
-								const float distance = 250.0f;
-
-
-								for (int i = 0; i < numRings; ++i)
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
-									float angle = RandomFloat(minAngle, maxAngle);
-									Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
 
-									Ring_Falling* ring = new Ring_Falling(this);
-									curScene->AddGameobeject(ring, jk_LayerType::Rings);
-									if (check)
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const float minAngle = -45.0f;
+									const float maxAngle = 45.0f;
+									const float distance = 250.0f;
+
+
+									for (int i = 0; i < Ringcheck; ++i)
 									{
-										if (check_map == 0)
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
 										{
-											ring->SetGroundImage(check->GetGroundImage());
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
 										}
-										else if (check_map == 1)
-										{
-											ring->SetGroundImage(check->GetGroundImage2());
-										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
 									}
-									Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
-									ring->GetComponent<Transform>()->SetPos(dropPos);
 								}
-							}
-							else
-							{
-								Transform* tr = GetComponent<Transform>();
-								Scene* curScene = SceneManager::GetActiveScene();
-
-								const int numRings = 30;
-								const float minAngle = -45.0f;
-								const float maxAngle = 45.0f;
-								const float distance = 250.0f;
-
-								for (int i = 0; i < numRings; ++i)
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
 								{
-									float angle = RandomFloat(minAngle, maxAngle);
-									Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
 
-									Ring_Falling* ring = new Ring_Falling(this);
-									curScene->AddGameobeject(ring, jk_LayerType::Rings);
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
 
-									if (check)
+									const int numRings = 10;
+									const float minAngle = -45.0f;
+									const float maxAngle = 45.0f;
+									const float distance = 250.0f;
+
+
+									for (int i = 0; i < numRings; ++i)
 									{
-										if (check_map == 0)
-										{
-											ring->SetGroundImage(check->GetGroundImage());
-										}
-										else if (check_map == 1)
-										{
-											ring->SetGroundImage(check->GetGroundImage2());
-										}
-									}
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
 
-									Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
-									ring->GetComponent<Transform>()->SetPos(dropPos);
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
 								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30;
+									const float minAngle = -45.0f;
+									const float maxAngle = 45.0f;
+									const float distance = 250.0f;
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								Ringcheck = 0;
+
 							}
 						}
 					}
 				}
 
 
+					
+			
+				//보스충돌
+				// MiniBoss 
+				if (Minibos* minibos = dynamic_cast<Minibos*>(other->GetOwner()))
+				{
+					Transform* tr = GetComponent<Transform>();
+					Vector2 pos = tr->GetPos();
+					Vector2 minibos_pos = minibos->GetComponent<Transform>()->GetPos();
+
+
+					if (!((mState == eSonicState::Spin) || (mState == eSonicState::Jump) || (mState == eSonicState::Dash) || (mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1)))
+					{
+						if (Ringcheck == 0)
+						{
+							mState = eSonicState::Death;
+							mAnimator->Play(L"RSonicShock", true);
+
+							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
+							mRigidbody->SetGround(false);
+							Life = Life - 1;
+						}
+						else if (Ringcheck >= 1)
+						{
+							if (minibos_pos.x > pos.x)
+							{
+								hurtcheck = 1;
+								mAnimator->Play(L"RSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity -= (300.0f, 500.0f);
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								else
+								{
+									tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+							}
+							else if (minibos_pos.x < pos.x)
+							{
+								hurtcheck = -1;
+								mAnimator->Play(L"LSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity.x += 300.0f;
+								velocity.y -= 500.0f;
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+							}
+						}
+					}
+					else
+					{
+						pos.y = pos.y + 120;
+						if (pos.y < minibos_pos.y)
+						{
+							Vector2 velocity = mRigidbody->GetVelocity();
+							velocity.y = 0.0f;
+							velocity.y = -350.f;
+							mRigidbody->SetGround(false);
+							mRigidbody->SetVelocity(velocity);
+						}
+						else if (pos.x < minibos_pos.x + minibos->GetComponent<Transform>()->GetScale().x/2)
+						{
+							Vector2 velocity = mRigidbody->GetVelocity();
+							velocity.x = 0.0f;
+							velocity.x = -100.f;
+							mRigidbody->SetGround(false);
+							mRigidbody->SetVelocity(velocity);
+						}
+						else if (pos.x > minibos_pos.x)
+						{
+							Vector2 velocity = mRigidbody->GetVelocity();
+							velocity.x = 0.0f;
+							velocity.x = 100.f;
+							mRigidbody->SetGround(false);
+							mRigidbody->SetVelocity(velocity);
+						}
+					}
+				}
+
+				if (mBoss_Bl_L* bullet = dynamic_cast<mBoss_Bl_L*>(other->GetOwner()))
+				{
+					Transform* tr = GetComponent<Transform>();
+					Vector2 pos = tr->GetPos();
+					Vector2 bullet_pos = bullet->GetComponent<Transform>()->GetPos();
+
+					if (!(mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1))
+					{
+						if (Ringcheck == 0)
+						{
+							mState = eSonicState::Death;
+							mAnimator->Play(L"RSonicShock", true);
+
+							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
+							mRigidbody->SetGround(false);
+							Life = Life - 1;
+						}
+						else if (Ringcheck >= 1)
+						{
+							if (bullet_pos.x > pos.x)
+							{
+								hurtcheck = 1;
+								mAnimator->Play(L"RSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity -= (300.0f, 500.0f);
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+
+							}
+							else if (bullet_pos.x < pos.x)
+							{
+								hurtcheck = -1;
+								mAnimator->Play(L"LSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity.x += 300.0f;
+								velocity.y -= 500.0f;
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+							}
+						}
+					}
+				}
+
+				if (mBoss_BL_R* bullet = dynamic_cast<mBoss_BL_R*>(other->GetOwner()))
+				{
+					Transform* tr = GetComponent<Transform>();
+					Vector2 pos = tr->GetPos();
+					Vector2 bullet_pos = bullet->GetComponent<Transform>()->GetPos();
+
+					if (!(mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1))
+					{
+						if (Ringcheck == 0)
+						{
+							mState = eSonicState::Death;
+							mAnimator->Play(L"RSonicShock", true);
+
+							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
+							mRigidbody->SetGround(false);
+							Life = Life - 1;
+						}
+						else if (Ringcheck >= 1)
+						{
+							if (bullet_pos.x > pos.x)
+							{
+								hurtcheck = 1;
+								mAnimator->Play(L"RSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity -= (300.0f, 500.0f);
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+
+							}
+							else if (bullet_pos.x < pos.x)
+							{
+								hurtcheck = -1;
+								mAnimator->Play(L"LSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity.x += 300.0f;
+								velocity.y -= 500.0f;
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+							}
+						}
+					}
+				}
+				
+				if (Boss* boss = dynamic_cast<Boss*>(other->GetOwner()))
+				{
+					Transform* tr = GetComponent<Transform>();
+					Vector2 pos = tr->GetPos();
+					Vector2 boss_pos = boss->GetComponent<Transform>()->GetPos();
+
+
+					if (!((mState == eSonicState::Spin) || (mState == eSonicState::Jump) || (mState == eSonicState::Dash) || (mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1)))
+					{
+						if (Ringcheck == 0)
+						{
+							mState = eSonicState::Death;
+							mAnimator->Play(L"RSonicShock", true);
+
+							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
+							mRigidbody->SetGround(false);
+							Life = Life - 1;
+						}
+						else if (Ringcheck >= 1)
+						{
+							if (boss_pos.x > pos.x)
+							{
+								hurtcheck = 1;
+								mAnimator->Play(L"RSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity -= (100.0f, 500.0f);
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								else
+								{
+									tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+							}
+							else if (boss_pos.x < pos.x)
+							{
+								hurtcheck = -1;
+								mAnimator->Play(L"LSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity.x += 100.0f;
+								velocity.y -= 500.0f;
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+							}
+						}
+					}
+					else
+					{
+						Vector2 upattack = pos;					
+						upattack.y = upattack.y + 120;
+						if (upattack.y < boss_pos.y)
+						{
+							Vector2 velocity = mRigidbody->GetVelocity();
+							velocity.y = 0.0f;
+							velocity.y = -350.f;
+							mRigidbody->SetGround(false);
+							mRigidbody->SetVelocity(velocity);
+						}
+						else if ((upattack.y < boss_pos.y)&&(pos.x < boss_pos.x))
+						{
+							Vector2 velocity = mRigidbody->GetVelocity();
+							velocity.x = 0.0f;
+							velocity.y = 0.0f;
+							velocity.y = -350.f;
+							velocity.x = -250.f;
+							mRigidbody->SetGround(false);
+							mRigidbody->SetVelocity(velocity);
+						}
+						else if ((upattack.y < boss_pos.y) && (pos.x > boss_pos.x))
+						{
+							Vector2 velocity = mRigidbody->GetVelocity();
+							velocity.x = 0.0f;
+							velocity.y = 0.0f;
+							velocity.y = -350.f;
+							velocity.x = 250.f;
+							mRigidbody->SetGround(false);
+							mRigidbody->SetVelocity(velocity);
+						}
+
+
+						else if (pos.y > boss_pos.y)
+						{
+							Vector2 velocity = mRigidbody->GetVelocity();
+							velocity.y = 0.0f;
+							velocity.y = 350.f;
+							mRigidbody->SetGround(false);
+							mRigidbody->SetVelocity(velocity);
+						}
+
+						else if (pos.y > boss_pos.y)
+						{
+							Vector2 velocity = mRigidbody->GetVelocity();
+							velocity.y = 0.0f;
+							velocity.y = 350.f;
+							mRigidbody->SetGround(false);
+							mRigidbody->SetVelocity(velocity);
+						}
 
 
 
+						//else if (pos.x < boss_pos.x + boss->GetComponent<Transform>()->GetScale().x)
+						//{
+						//	Vector2 velocity = mRigidbody->GetVelocity();
+						//	velocity.x = 0.0f;
+						//	velocity.x = -250.f;
+						//	mRigidbody->SetGround(false);
+						//	mRigidbody->SetVelocity(velocity);
+						//}
+						//else if (pos.x > boss_pos.x)
+						//{
+						//	Vector2 velocity = mRigidbody->GetVelocity();
+						//	velocity.x = 0.0f;
+						//	velocity.x = 250.f;
+						//	mRigidbody->SetGround(false);
+						//	mRigidbody->SetVelocity(velocity);
+						//}
+					}
+				}
+
+				if (Bullet_Act1_L_DIA* bullet = dynamic_cast<Bullet_Act1_L_DIA*>(other->GetOwner()))
+				{
+					Transform* tr = GetComponent<Transform>();
+					Vector2 pos = tr->GetPos();
+					Vector2 bullet_pos = bullet->GetComponent<Transform>()->GetPos();
+
+					if (!(mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1))
+					{
+						if (Ringcheck == 0)
+						{
+							mState = eSonicState::Death;
+							mAnimator->Play(L"RSonicShock", true);
+
+							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
+							mRigidbody->SetGround(false);
+							Life = Life - 1;
+						}
+						else if (Ringcheck >= 1)
+						{
+							if (bullet_pos.x > pos.x)
+							{
+								hurtcheck = 1;
+								mAnimator->Play(L"RSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity -= (100.0f, 500.0f);
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
 
 
-				//BOSS_BULLET 충돌처리
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+
+							}
+							else if (bullet_pos.x < pos.x)
+							{
+								hurtcheck = -1;
+								mAnimator->Play(L"LSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity.x += 100.0f;
+								velocity.y -= 500.0f;
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+							}
+						}
+					}
+				}
+
+				if (Bullet_Act1_L_Side* bullet = dynamic_cast<Bullet_Act1_L_Side*>(other->GetOwner()))
+				{
+					Transform* tr = GetComponent<Transform>();
+					Vector2 pos = tr->GetPos();
+					Vector2 bullet_pos = bullet->GetComponent<Transform>()->GetPos();
+
+					if (!(mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1))
+					{
+						if (Ringcheck == 0)
+						{
+							mState = eSonicState::Death;
+							mAnimator->Play(L"RSonicShock", true);
+
+							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
+							mRigidbody->SetGround(false);
+							Life = Life - 1;
+						}
+						else if (Ringcheck >= 1)
+						{
+							if (bullet_pos.x > pos.x)
+							{
+								hurtcheck = 1;
+								mAnimator->Play(L"RSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity -= (100.0f, 500.0f);
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+
+							}
+							else if (bullet_pos.x < pos.x)
+							{
+								hurtcheck = -1;
+								mAnimator->Play(L"LSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity.x += 100.0f;
+								velocity.y -= 500.0f;
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+							}
+						}
+					}
+				}
+
+				if (Bullet_Act1_R_DIA* bullet = dynamic_cast<Bullet_Act1_R_DIA*>(other->GetOwner()))
+				{
+					Transform* tr = GetComponent<Transform>();
+					Vector2 pos = tr->GetPos();
+					Vector2 bullet_pos = bullet->GetComponent<Transform>()->GetPos();
+
+					if (!(mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1))
+					{
+						if (Ringcheck == 0)
+						{
+							mState = eSonicState::Death;
+							mAnimator->Play(L"RSonicShock", true);
+
+							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
+							mRigidbody->SetGround(false);
+							Life = Life - 1;
+						}
+						else if (Ringcheck >= 1)
+						{
+							if (bullet_pos.x > pos.x)
+							{
+								hurtcheck = 1;
+								mAnimator->Play(L"RSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity -= (100.0f, 500.0f);
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+
+							}
+							else if (bullet_pos.x < pos.x)
+							{
+								hurtcheck = -1;
+								mAnimator->Play(L"LSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity.x += 100.0f;
+								velocity.y -= 500.0f;
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+							}
+						}
+					}
+				}
+
+				if (Bullet_Act1_R_Side* bullet = dynamic_cast<Bullet_Act1_R_Side*>(other->GetOwner()))
+				{
+					Transform* tr = GetComponent<Transform>();
+					Vector2 pos = tr->GetPos();
+					Vector2 bullet_pos = bullet->GetComponent<Transform>()->GetPos();
+
+					if (!(mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1))
+					{
+						if (Ringcheck == 0)
+						{
+							mState = eSonicState::Death;
+							mAnimator->Play(L"RSonicShock", true);
+
+							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
+							mRigidbody->SetGround(false);
+							Life = Life - 1;
+						}
+						else if (Ringcheck >= 1)
+						{
+							if (bullet_pos.x > pos.x)
+							{
+								hurtcheck = 1;
+								mAnimator->Play(L"RSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity -= (100.0f, 500.0f);
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+
+							}
+							else if (bullet_pos.x < pos.x)
+							{
+								hurtcheck = -1;
+								mAnimator->Play(L"LSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity.x += 100.0f;
+								velocity.y -= 500.0f;
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+							}
+						}
+					}
+				}
+
 				if (BaseBullet* bullet = dynamic_cast<BaseBullet*>(other->GetOwner()))
 				{
-					mAnimator->Play(L"RSonichurt", true);
-					/*	Vector2 velocity = mRigidbody->GetVelocity();
-						velocity = Vector2(0.0f, 0.0f);
-						velocity -= (300.0f, 300.0f);
-						mRigidbody->SetVelocity(velocity);
-						mRigidbody->SetGround(false);*/
+					Transform* tr = GetComponent<Transform>();
+					Vector2 pos = tr->GetPos();
+					Vector2 bullet_pos = bullet->GetComponent<Transform>()->GetPos();
+
+					if (!(mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1))
+					{
+						if (Ringcheck == 0)
+						{
+							mState = eSonicState::Death;
+							mAnimator->Play(L"RSonicShock", true);
+
+							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
+							mRigidbody->SetGround(false);
+							Life = Life - 1;
+						}
+						else if (Ringcheck >= 1)
+						{
+							if (bullet_pos.x > pos.x)
+							{
+								hurtcheck = 1;
+								mAnimator->Play(L"RSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity -= (100.0f, 500.0f);
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+
+							}
+							else if (bullet_pos.x < pos.x)
+							{
+								hurtcheck = -1;
+								mAnimator->Play(L"LSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity.x += 100.0f;
+								velocity.y -= 500.0f;
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+							}
+						}
+					}
+				}
+
+				if (boss1_object* object = dynamic_cast<boss1_object*>(other->GetOwner()))
+				{
+					Vector2 object_GR_pos = object->GetComponent<Transform>()->GetPos();
+					Transform* tr = GetComponent<Transform>();
+					Vector2 msonic = tr->GetPos();
+
+
+					if (mDir == 1)
+					{
+						mState = eSonicState::Idle;
+						mAnimator->Play(L"RSonicStand", true);
+					}
+					else if (mDir == -1)
+					{
+						mState = eSonicState::Idle;
+						mAnimator->Play(L"LSonicStand", true);
+					}
+				}
+
+				if (boss1_body* boss = dynamic_cast<boss1_body*>(other->GetOwner()))
+
+				{
+					Transform* tr = GetComponent<Transform>();
+					Vector2 pos = tr->GetPos();
+					Vector2 boss_pos = boss->GetComponent<Transform>()->GetPos();
+
+
+					if (!((mState == eSonicState::Spin) || (mState == eSonicState::Jump) || (mState == eSonicState::Dash) || (mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1)))
+					{
+						if (Ringcheck == 0)
+						{
+							mState = eSonicState::Death;
+							mAnimator->Play(L"RSonicShock", true);
+
+							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
+							mRigidbody->SetGround(false);
+							Life = Life - 1;
+						}
+						else if (Ringcheck >= 1)
+						{
+							if (boss_pos.x > pos.x)
+							{
+								hurtcheck = 1;
+								mAnimator->Play(L"RSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity -= (300.0f, 500.0f);
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								else
+								{
+									tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+							}
+							else if (boss_pos.x < pos.x)
+							{
+								hurtcheck = -1;
+								mAnimator->Play(L"LSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity.x += 300.0f;
+								velocity.y -= 500.0f;
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+							}
+						}
+					}
+					else
+					{
+						if (pos.x < boss_pos.x + boss->GetComponent<Transform>()->GetScale().x / 2)
+						{
+							Vector2 velocity = mRigidbody->GetVelocity();
+							velocity.x = 0.0f;
+							velocity.x = -250.f;
+							mRigidbody->SetGround(false);
+							mRigidbody->SetVelocity(velocity);
+						}
+						else if (pos.x > boss_pos.x)
+						{
+							Vector2 velocity = mRigidbody->GetVelocity();
+							velocity.x = 0.0f;
+							velocity.x = 250.f;
+							mRigidbody->SetGround(false);
+							mRigidbody->SetVelocity(velocity);
+						}
+					}
+				}
+				
+				if (act6_bullet1* bullet = dynamic_cast<act6_bullet1*>(other->GetOwner()))
+				{
+					Transform* tr = GetComponent<Transform>();
+					Vector2 pos = tr->GetPos();
+					Vector2 bullet_pos = bullet->GetComponent<Transform>()->GetPos();
+
+					if (!(mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1))
+					{
+						if (Ringcheck == 0)
+						{
+							mState = eSonicState::Death;
+							mAnimator->Play(L"RSonicShock", true);
+
+							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
+							mRigidbody->SetGround(false);
+							Life = Life - 1;
+						}
+						else if (Ringcheck >= 1)
+						{
+							if (bullet_pos.x > pos.x)
+							{
+								hurtcheck = 1;
+								mAnimator->Play(L"RSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity -= (100.0f, 300.0f);
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+
+							}
+							else if (bullet_pos.x < pos.x)
+							{
+								hurtcheck = -1;
+								mAnimator->Play(L"LSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity.x += 100.0f;
+								velocity.y -= 300.0f;
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+							}
+						}
+					}
+				}
+
+				if (Second_Boss* boss = dynamic_cast<Second_Boss*>(other->GetOwner()))
+
+				{
+					Transform* tr = GetComponent<Transform>();
+					Vector2 pos = tr->GetPos();
+					Vector2 boss_pos = boss->GetComponent<Transform>()->GetPos();
+
+
+					if (!((mState == eSonicState::Spin) || (mState == eSonicState::Jump) || (mState == eSonicState::Dash) || (mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1)))
+					{
+						if (Ringcheck == 0)
+						{
+							mState = eSonicState::Death;
+							mAnimator->Play(L"RSonicShock", true);
+
+							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
+							mRigidbody->SetGround(false);
+							Life = Life - 1;
+						}
+						else if (Ringcheck >= 1)
+						{
+							if (boss_pos.x > pos.x)
+							{
+								hurtcheck = 1;
+								mAnimator->Play(L"RSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity -= (300.0f, 500.0f);
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								else
+								{
+									tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+							}
+							else if (boss_pos.x < pos.x)
+							{
+								hurtcheck = -1;
+								mAnimator->Play(L"LSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity.x += 300.0f;
+								velocity.y -= 500.0f;
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+							}
+						}
+					}
+					else
+					{
+						Vector2 upattack = pos;
+						upattack.y = upattack.y + 120;
+						if (upattack.y < boss_pos.y)
+						{
+							Vector2 velocity = mRigidbody->GetVelocity();
+							velocity.y = 0.0f;
+							velocity.y = -350.f;
+							mRigidbody->SetGround(false);
+							mRigidbody->SetVelocity(velocity);
+						}
+						else if ((upattack.y < boss_pos.y)&& (pos.x > boss_pos.x))
+						{
+							Vector2 velocity = mRigidbody->GetVelocity();
+							velocity.y = 0.0f;
+							velocity.y = -350.f;
+							velocity.x = 0.0f;
+							velocity.x = 250.f;
+							mRigidbody->SetGround(false);
+							mRigidbody->SetVelocity(velocity);
+						}
+						else if ((upattack.y < boss_pos.y) && (pos.x < boss_pos.x))
+						{
+							Vector2 velocity = mRigidbody->GetVelocity();
+							velocity.y = 0.0f;
+							velocity.y = -350.f;
+							velocity.x = 0.0f;
+							velocity.x = -250.f;
+							mRigidbody->SetGround(false);
+							mRigidbody->SetVelocity(velocity);
+						}
+
+						else if (pos.x < boss_pos.x )
+						{
+							Vector2 velocity = mRigidbody->GetVelocity();
+							velocity.x = 0.0f;
+							velocity.x = -250.f;
+							mRigidbody->SetGround(false);
+							mRigidbody->SetVelocity(velocity);
+						}
+						else if (pos.x > boss_pos.x)
+						{
+							Vector2 velocity = mRigidbody->GetVelocity();
+							velocity.x = 0.0f;
+							velocity.x = 250.f;
+							mRigidbody->SetGround(false);
+							mRigidbody->SetVelocity(velocity);
+						}
+					}
+				}
+				
+				if (Second_boss_bullet* bullet = dynamic_cast<Second_boss_bullet*>(other->GetOwner()))
+				{
+					Transform* tr = GetComponent<Transform>();
+					Vector2 pos = tr->GetPos();
+					Vector2 bullet_pos = bullet->GetComponent<Transform>()->GetPos();
+
+					if (!(mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1))
+					{
+						if (Ringcheck == 0)
+						{
+							mState = eSonicState::Death;
+							mAnimator->Play(L"RSonicShock", true);
+
+							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
+							mRigidbody->SetGround(false);
+							Life = Life - 1;
+						}
+						else if (Ringcheck >= 1)
+						{
+							if (bullet_pos.x > pos.x)
+							{
+								hurtcheck = 1;
+								mAnimator->Play(L"RSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity -= (100.0f, 300.0f);
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+
+							}
+							else if (bullet_pos.x < pos.x)
+							{
+								hurtcheck = -1;
+								mAnimator->Play(L"LSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity.x += 100.0f;
+								velocity.y -= 300.0f;
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+							}
+						}
+					}
+				}
+
+				if (Third_Boss* boss = dynamic_cast<Third_Boss*>(other->GetOwner()))
+
+				{
+					Transform* tr = GetComponent<Transform>();
+					Vector2 pos = tr->GetPos();
+					Vector2 boss_pos = boss->GetComponent<Transform>()->GetPos();
+
+
+					if (!((mState == eSonicState::Spin) || (mState == eSonicState::Jump) || (mState == eSonicState::Dash) || (mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1)))
+					{
+						if (Ringcheck == 0)
+						{
+							mState = eSonicState::Death;
+							mAnimator->Play(L"RSonicShock", true);
+
+							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
+							mRigidbody->SetGround(false);
+							Life = Life - 1;
+						}
+						else if (Ringcheck >= 1)
+						{
+							if (boss_pos.x > pos.x)
+							{
+								hurtcheck = 1;
+								mAnimator->Play(L"RSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity -= (300.0f, 500.0f);
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								else
+								{
+									tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+							}
+							else if (boss_pos.x < pos.x)
+							{
+								hurtcheck = -1;
+								mAnimator->Play(L"LSonichurt", true);
+								Vector2 velocity = mRigidbody->GetVelocity();
+								velocity = Vector2(0.0f, 0.0f);
+								velocity.x += 300.0f;
+								velocity.y -= 500.0f;
+								mRigidbody->SetGround(false);
+								mRigidbody->SetVelocity(velocity);
+								mState = eSonicState::Hurt;
+
+								Ring_Falling* ring;
+								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									//const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < Ringcheck; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
+								{
+
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 10; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle);
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+										if (check)
+										{
+											//Image* groundImage = check->GetGroundImage();
+
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance);
+										ring->GetComponent<Transform>()->SetPos(dropPos);
+									}
+								}
+								else
+								{
+									Transform* tr = GetComponent<Transform>();
+									Scene* curScene = SceneManager::GetActiveScene();
+
+									const int numRings = 30; // 생성할 링의 개수
+									const float minAngle = -45.0f; // 링이 떨어지는 최소 각도
+									const float maxAngle = 45.0f; // 링이 떨어지는 최대 각도
+									const float distance = 250.0f; // 링이 떨어지는 거리
+
+									for (int i = 0; i < numRings; ++i)
+									{
+										float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+										Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
+
+										Ring_Falling* ring = new Ring_Falling(this);
+										curScene->AddGameobeject(ring, jk_LayerType::Rings);
+
+										if (check)
+										{
+											if (check_map == 0)
+											{
+												ring->SetGroundImage(check->GetGroundImage());
+											}
+											else if (check_map == 1)
+											{
+												ring->SetGroundImage(check->GetGroundImage2());
+											}
+										}
+
+										Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산
+										ring->GetComponent<Transform>()->SetPos(dropPos); // 링의 위치 설정
+									}
+								}
+								Ringcheck = 0;
+							}
+						}
+					}
+					else
+					{
+						Vector2 upattack = pos;
+						upattack.y = upattack.y + 120;
+						if (upattack.y < boss_pos.y)
+						{
+							Vector2 velocity = mRigidbody->GetVelocity();
+							velocity.y = 0.0f;
+							velocity.y = -350.f;
+							mRigidbody->SetGround(false);
+							mRigidbody->SetVelocity(velocity);
+						}
+						else if ((upattack.y < boss_pos.y) && (pos.x > boss_pos.x))
+						{
+							Vector2 velocity = mRigidbody->GetVelocity();
+							velocity.y = 0.0f;
+							velocity.y = -550.f;
+							velocity.x = 0.0f;
+							velocity.x = 350.f;
+							mRigidbody->SetGround(false);
+							mRigidbody->SetVelocity(velocity);
+						}
+						else if ((upattack.y < boss_pos.y) && (pos.x < boss_pos.x))
+						{
+							Vector2 velocity = mRigidbody->GetVelocity();
+							velocity.y = 0.0f;
+							velocity.y = -550.f;
+							velocity.x = 0.0f;
+							velocity.x = -350.f;
+							mRigidbody->SetGround(false);
+							mRigidbody->SetVelocity(velocity);
+						}
+
+						else if (pos.x < boss_pos.x)
+						{
+							Vector2 velocity = mRigidbody->GetVelocity();
+							velocity.x = 0.0f;
+							velocity.x = -250.f;
+							mRigidbody->SetGround(false);
+							mRigidbody->SetVelocity(velocity);
+						}
+						else if (pos.x > boss_pos.x)
+						{
+							Vector2 velocity = mRigidbody->GetVelocity();
+							velocity.x = 0.0f;
+							velocity.x = 250.f;
+							mRigidbody->SetGround(false);
+							mRigidbody->SetVelocity(velocity);
+						}
+					}
 				}
 
 
-				//보스충돌
+				
+
 				//LASTBOSS
 				if (Boss_Arm* last_boss_arm = dynamic_cast<Boss_Arm*>(other->GetOwner()))
 				{
@@ -4456,6 +8562,47 @@ namespace jk
 
 		void Sonic::death()
 		{
+			if (Life <= 0)
+			{
+				Life;
+				mState = eSonicState::GameOver;
+			}
+			else if(Life >=0)
+			{
+				if (mRigidbody->GetGround())
+				{
+					mState = eSonicState::Idle;
+					if (mDir = 1)
+					{
+						mAnimator->Play(L"RSonicStand", true);
+					}
+					else if (mDir = -1)
+					{
+						mAnimator->Play(L"LSonicStand", true);
+					}
+					else if (Input::GetKeyDown(eKeyCode::RIGHT) || Input::GetKeyDown(eKeyCode::LEFT))
+					{
+						mState = eSonicState::Move;
+						if (Input::GetKeyDown(eKeyCode::RIGHT))
+						{
+							mAnimator->Play(L"RSonicWalk", true);
+							mDir = 1;
+						}
+						else if (Input::GetKeyDown(eKeyCode::LEFT))
+						{
+							mAnimator->Play(L"LSonicWalk", true);
+							mDir = -1;
+						}
+					}
+				}
+			}
+			
+		}
+
+		void Sonic::gameover()
+		{
+			Life;
+			int  a = 0;
 		}
 
 		void Sonic::ending()

@@ -1,16 +1,21 @@
 #include "jk_Last_Bridge.h"
-#include "jk_Time.h"
+
+
 #include "jk_SceneManager.h"
-#include "jk_Resources.h"
-#include "jk_Transform.h"
-#include "jk_Animator.h"
-#include "jk_Collider.h"
 #include "jk_Scene.h"
+#include "jk_Transform.h"
+#include "Rigidbody.h"
+#include "jk_Collider.h"
+#include "jk_Animator.h"
+#include "jk_Resources.h"
 #include "jk_Camera.h"
+#include "jk_Time.h"
 #include "jk_Object.h"
 #include "jk_Blending.h"
+
 #include "jk_SONIC.h"
-#include "Rigidbody.h"
+#include "jk_Tails.h"
+
 #include "jk_BaseBullet.h"
 
 namespace jk
@@ -75,12 +80,13 @@ namespace jk
 
 	void Last_Bridge::OnCollisionEnter(Collider* other)
 	{
-		if (Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner()))
+
+		if (Tails* tails = dynamic_cast<Tails*>(other->GetOwner()))
 		{
-			if (mSonic == nullptr)
+			if (tails == nullptr)
 				return;
 
-			Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
+			Rigidbody* rb = tails->GetComponent<Rigidbody>();
 			rb->SetGround(true);
 		}
 
@@ -88,56 +94,123 @@ namespace jk
 		{
 			object::Destory(this);
 		}
-
-
 	}
 
 	void Last_Bridge::OnCollisionStay(Collider* other)
 	{
-		
-		Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner());
-		if (mSonic == nullptr)
-			return;
-
-		Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
-		rb->SetGround(true);
-
-		Collider* mSonic_Col = mSonic->GetComponent<Collider>();
-		Vector2 mSonic_Pos = mSonic_Col->Getpos();
-
-		Collider* groundCol = this->GetComponent<Collider>();
-		Vector2 groundPos = groundCol->Getpos();
-
-		Transform* sonicTr = mSonic->GetComponent<Transform>();
-		Transform* grTr = this->GetComponent<Transform>();
-		Vector2 sonic_Pos = sonicTr->GetPos();
-
-
-	//	실험해볼것
-		float fLen = fabs(sonic_Pos.y - groundPos.y);
-		float fSize = (mSonic_Col->GetSize().y / 2.0f) + (groundCol->GetSize().y / 2.0f);
-
-		if (fLen < fSize)
+		if (Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner()))
 		{
-			sonic_Pos.y -= (fSize - fLen) - 0.5f;
-			sonicTr->SetPos(sonic_Pos);
-		}
+			Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
+			rb->SetGround(true);
+			Collider* mSonic_Col = mSonic->GetComponent<Collider>();
+			Vector2 mSonic_colPos = mSonic_Col->Getpos();
+			Transform* sonicTr = mSonic->GetComponent<Transform>();
+			Vector2 sonic_Pos = sonicTr->GetPos();
 
-		if ((mSonic->Getsonicstate() == Sonic::eSonicState::Jump) || (mSonic->Getsonicstate() == Sonic::eSonicState::Hurt))
-		{	
+
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->GetPos();
+			Transform* grTr = this->GetComponent<Transform>();
+			Collider* groundCol = this->GetComponent<Collider>();
+			Vector2 ground_colPos = groundCol->Getpos();
+
+
 			Vector2 velocity = rb->GetVelocity();
-			velocity.y = -550.0f;
-
+			velocity.y = 0.0f;
 			rb->SetVelocity(velocity);
-			rb->SetGround(false);
 
-			sonic_Pos = sonicTr->GetPos();
-			//sonic_Pos = sonic_Pos + Vector2{ 350.f ,-350.f };
-			sonicTr->SetPos(sonic_Pos);
 
+			if (!((mSonic->Getsonicstate() == Sonic::eSonicState::Jump) || (mSonic->Getsonicstate() == Sonic::eSonicState::Hurt)))
+			{
+				sonic_Pos.y = groundCol->Getpos().y - groundCol->GetSize().y - 50;
+				sonicTr->SetPos(sonic_Pos);
+			}
+
+			else
+			{
+				Vector2 velocity = rb->GetVelocity();
+				velocity.y = -650.0f;
+
+				rb->SetVelocity(velocity);
+				rb->SetGround(false);
+
+				sonic_Pos = sonicTr->GetPos();
+				sonicTr->SetPos(sonic_Pos);
+			}
 		}
+		//if (Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner()))
+		//{
+		//	if (mSonic == nullptr)
+		//		return;
+		//	Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
+		//	rb->SetGround(true);
+		//	Collider* mSonic_Col = mSonic->GetComponent<Collider>();
+		//	Vector2 mSonic_Pos = mSonic_Col->Getpos();
+		//	Transform* sonicTr = mSonic->GetComponent<Transform>();
+		//	Vector2 sonic_Pos = sonicTr->GetPos();
+		//	Collider* groundCol = this->GetComponent<Collider>();
+		//	Vector2 groundPos = groundCol->Getpos();	
+		//	Transform* grTr = this->GetComponent<Transform>();
+		//	//	실험해볼것
+		//	float fLen = fabs(sonic_Pos.y - groundPos.y);
+		//	float fSize = (mSonic_Col->GetSize().y / 2.0f) + (groundCol->GetSize().y / 2.0f);
+		//	if (fLen < fSize)
+		//	{
+		//		sonic_Pos.y -= (fSize - fLen) - 0.5f;
+		//		sonicTr->SetPos(sonic_Pos);
+		//	}
+		//	if ((mSonic->Getsonicstate() == Sonic::eSonicState::Jump) || (mSonic->Getsonicstate() == Sonic::eSonicState::Hurt))
+		//	{
+		//		Vector2 velocity = rb->GetVelocity();
+		//		velocity.y = -550.0f;
+		//		rb->SetVelocity(velocity);
+		//		rb->SetGround(false);
+		//		sonic_Pos = sonicTr->GetPos();
+		//		//sonic_Pos = sonic_Pos + Vector2{ 350.f ,-350.f };
+		//		sonicTr->SetPos(sonic_Pos);
+		//	}
+		//}
+
+		if (Tails* tails = dynamic_cast<Tails*>(other->GetOwner()))
+		{
+			if (tails == nullptr)
+				return;
+
+			Rigidbody* rb = tails->GetComponent<Rigidbody>();
+			rb->SetGround(true);
+			Collider* tails_Col = tails->GetComponent<Collider>();
+			Vector2 tails_colPos = tails_Col->Getpos();
+			Transform* tailsTr = tails->GetComponent<Transform>();
+			Vector2 tails_Pos = tailsTr->GetPos();
 
 
+			Collider* groundCol = this->GetComponent<Collider>();
+			Vector2 groundPos = groundCol->Getpos();
+			Transform* grTr = this->GetComponent<Transform>();
+
+
+			//	실험해볼것
+			float fLen = fabs(tails_Pos.y - groundPos.y);
+			float fSize = (tails_Col->GetSize().y / 2.0f) + (groundCol->GetSize().y / 2.0f);
+
+			if (fLen < fSize)
+			{
+				tails_Pos.y -= (fSize - fLen) - 0.5f;
+				tailsTr->SetPos(tails_Pos);
+			}
+
+			if (!((tails->GetTails_state() == Tails::eTailsState::Jump) || (tails->GetTails_state() == Tails::eTailsState::Movejump) || (tails->GetTails_state() == Tails::eTailsState::Hurt)))
+			{
+				Vector2 velocity = rb->GetVelocity();
+				velocity.y = -550.0f;
+
+				rb->SetVelocity(velocity);
+				rb->SetGround(false);
+
+				tails_Pos = tailsTr->GetPos();
+				tailsTr->SetPos(tails_Pos);
+			}
+		}
 	}
 
 	void Last_Bridge::OnCollisionExit(Collider* other)

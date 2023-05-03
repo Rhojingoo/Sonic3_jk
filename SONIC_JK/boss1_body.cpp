@@ -40,7 +40,7 @@ namespace jk
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"Boss1_open", mImage, Vector2{ 597,120 }, Vector2{ 64,96 }, Vector2{ 0,0 }, 1, 1, 1, Vector2::Zero, 0.3f);
 		mAnimator->CreateAnimation(L"Boss1_up", mImage, Vector2{ 665,120 }, Vector2{ 68,96 }, Vector2{ 4,0 }, 4, 1, 4, Vector2::Zero, 0.3f);
-		mAnimator->CreateAnimation(L"Boss1_hurt", mImage, Vector2{ 869,226 }, Vector2{68,96}, Vector2{ 4,0 }, 3, 1, 3, Vector2::Zero, 0.5f);
+		mAnimator->CreateAnimation(L"Boss1_hurt", mImage, Vector2{ 869,226 }, Vector2{68,96}, Vector2{ 4,0 }, 3, 1, 3, Vector2::Zero, 0.2f);
 		mAnimator->CreateAnimation(L"Boss1_idle", mImage, Vector2{ 869,120 }, Vector2{ 64,96 }, Vector2{ 0,0 }, 1, 1, 1, Vector2::Zero, 0.5f);
 		mAnimator->CreateAnimation(L"Boss1_death", mImage, Vector2{ 324,378 }, Vector2{ 64,48 }, Vector2{ 0,0 }, 1, 1, 1, Vector2::Zero, 0.5f);
 		mAnimator->Play(L"Boss1_open", true);
@@ -117,7 +117,7 @@ namespace jk
 
 
 			Scene* curScene = SceneManager::GetActiveScene();
-			boss_ob = new boss1_object();
+			boss_ob = new boss1_object(this);
 			boss_ob->SetName(L"boss_ob");
 			curScene->AddGameobeject(boss_ob, jk_LayerType::BOSS);
 			boss_ob->GetComponent<Transform>()->SetPos(Vector2{ 6050.f, 5560.f });
@@ -133,11 +133,11 @@ namespace jk
 			{
 				Damege_check += 1;
 
-	/*			if (Damege_check <= 5)
-				{
-					hurt();
-					mAnimator->Play(L"Boss1_hurt", false);
-				}*/
+				//if (Damege_check <= 6)
+				//{
+				//	hurt();
+				//	mAnimator->Play(L"Boss1_hurt", false);
+				//}
 
 				if (Damege_check >= 1)
 				{
@@ -172,14 +172,9 @@ namespace jk
 
 	void boss1_body::death()
 	{
+		Collider* collider =GetComponent<Collider>();
+		collider->SetSize(Vector2(0.0f, 0.0f));
 
-
-
-		//mRigidbody = AddComponent<Rigidbody>();
-		//mRigidbody->SetGravity(Vector2{ 0,1 });
-		//mRigidbody->AddForce(Vector2(0.f, -100.f));
-		//mRigidbody->SetVelocity(Vector2{ 0.f,-350.f });
-		//mRigidbody->SetGround(false);
 		Boss_act1_boomb* boomb = new Boss_act1_boomb(this);
 		if (Death_point == 0)
 		{
@@ -188,7 +183,6 @@ namespace jk
 			boomb->SetName(L"boomb_boss1");
 			curScene1->AddGameobeject(boomb, jk_LayerType::Effect);
 			boomb->GetComponent<Transform>()->SetPos(pos);
-
 
 			Death_point = 1;
 			boss_ob->Set_Deathpoint(Death_point);
@@ -199,16 +193,14 @@ namespace jk
 			time += Time::DeltaTime();
 			if (time >= 3)
 			{
-				//object::Destory(boomb);
-				//object::Destory(this);
 				mRigidbody = AddComponent<Rigidbody>();
 				mRigidbody->SetMass(1.0f);
-				mRigidbody->SetVelocity(Vector2{ 0.f,-350.f });
+				mRigidbody->SetVelocity(Vector2{ 0.f,-1500.f });
 				mRigidbody->SetGround(false);
 				boss_ob->Set_Deathpoint(Death_point);
 			}
 		}
-
+		boss_ob->Set_Deathpoint(Death_point);
 	}
 
 	void jk::boss1_body::attack_up()

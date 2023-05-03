@@ -1008,7 +1008,7 @@ namespace jk
 			else
 			{
 				int check = 30;
-				if ((mPlayer2->GetTails_state() == Tails::eTailsState::Jump)|| (mPlayer2->GetTails_state() == Tails::eTailsState::Movejump))
+				if ((mPlayer2->GetTails_state() == Tails::eTailsState::Jump)|| (mPlayer2->GetTails_state() == Tails::eTailsState::Movejump) || (mPlayer2->GetTails_state() == Tails::eTailsState::Spring_Jump) || (mPlayer2->GetTails_state() == Tails::eTailsState::Hurt))
 				{
 					//mRigidbody_Tails->SetVelocity(Vector2{ 0.0f,-450.f });
 					check = 2;
@@ -1054,7 +1054,7 @@ namespace jk
 			else
 			{
 				int check = 30;
-				if ((mPlayer2->GetTails_state() == Tails::eTailsState::Jump) || (mPlayer2->GetTails_state() == Tails::eTailsState::Movejump))
+				if ((mPlayer2->GetTails_state() == Tails::eTailsState::Jump) || (mPlayer2->GetTails_state() == Tails::eTailsState::Movejump) || (mPlayer2->GetTails_state() == Tails::eTailsState::Spring_Jump) || (mPlayer2->GetTails_state() == Tails::eTailsState::Hurt))
 				{
 					//mRigidbody_Tails->SetVelocity(Vector2{ 0.0f,-450.f });
 					check = 2;
@@ -1100,7 +1100,7 @@ namespace jk
 			else
 			{
 				int check = 30;
-				if ((mPlayer2->GetTails_state() == Tails::eTailsState::Jump) || (mPlayer2->GetTails_state() == Tails::eTailsState::Movejump))
+				if ((mPlayer2->GetTails_state() == Tails::eTailsState::Jump) || (mPlayer2->GetTails_state() == Tails::eTailsState::Movejump) || (mPlayer2->GetTails_state() == Tails::eTailsState::Spring_Jump) || (mPlayer2->GetTails_state() == Tails::eTailsState::Hurt))
 				{
 					//mRigidbody_Tails->SetVelocity(Vector2{ 0.0f,-450.f });
 					check = 2;
@@ -1146,7 +1146,7 @@ namespace jk
 			else
 			{
 				int check = 30;
-				if ((mPlayer2->GetTails_state() == Tails::eTailsState::Jump) || (mPlayer2->GetTails_state() == Tails::eTailsState::Movejump))
+				if ((mPlayer2->GetTails_state() == Tails::eTailsState::Jump) || (mPlayer2->GetTails_state() == Tails::eTailsState::Movejump) || (mPlayer2->GetTails_state() == Tails::eTailsState::Spring_Jump) || (mPlayer2->GetTails_state() == Tails::eTailsState::Hurt))
 				{
 					//mRigidbody_Tails->SetVelocity(Vector2{ 0.0f,-450.f });
 					check = 2;
@@ -1229,44 +1229,44 @@ namespace jk
 		}
 		if (Circle_pice == 1)
 		{
-			Vector2 rotation = { radius, 0.0f };
-			rotation = math::Rotate(rotation, 45.f);
-			Xrevice = center.x + rotation.x;
-			Yrevice = center.y + rotation.y;
-			//Xrevice = 90.0f; 
-			//Yrevice = 80.0f;
+			//Vector2 rotation = { radius, 0.0f };
+			//rotation = math::Rotate(rotation, 45.f);
+			//Xrevice = center.x + rotation.x;
+			//Yrevice = center.y + rotation.y;
+			Xrevice = 90.0f; 
+			Yrevice = 80.0f;
 		}
 		else if (Circle_pice == 2)
 		{
 
-			Vector2 rotation = { radius, 0.0f };
+			//Vector2 rotation = { radius, 0.0f };
 
-			Xrevice = center.x + rotation.x;
-			Yrevice = center.y + rotation.y;
-			//Xrevice = 115.0f;
-			//Yrevice = 50.0f;
+			//Xrevice = center.x + rotation.x;
+			//Yrevice = center.y + rotation.y;
+			Xrevice = 115.0f;
+			Yrevice = 50.0f;
 		}
 		else if (Circle_pice == 3)
 		{
 
-			Vector2 rotation = { radius, 0.0f };
-			rotation = math::Rotate(rotation, -45.f);
+			//Vector2 rotation = { radius, 0.0f };
+			//rotation = math::Rotate(rotation, -45.f);
 
-			Xrevice = center.x + rotation.x;
-			Yrevice = center.y + rotation.y;
-			//Xrevice = 115.0f;
-			//Yrevice = 0.0f;
+			//Xrevice = center.x + rotation.x;
+			//Yrevice = center.y + rotation.y;
+			Xrevice = 115.0f;
+			Yrevice = 0.0f;
 		}
 		else if (Circle_pice == 4)
 		{
 
-			Vector2 rotation = { radius, 0.0f };
-			rotation = math::Rotate(rotation, -90.f);
+			//Vector2 rotation = { radius, 0.0f };
+			//rotation = math::Rotate(rotation, -90.f);
 
-			Xrevice = center.x + rotation.x;
-			Yrevice = center.y + rotation.y - 10.0f;
-			//Xrevice = 60.0f;
-			//Yrevice = -35.0f;
+			//Xrevice = center.x + rotation.x;
+			//Yrevice = center.y + rotation.y - 10.0f;
+			Xrevice = 60.0f;
+			Yrevice = -35.0f;
 		}
 
 		Vector2 playerPos = mPlayerTR->GetPos();

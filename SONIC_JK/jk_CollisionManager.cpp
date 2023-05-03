@@ -56,7 +56,7 @@ namespace jk
 
 	void CollisionManager::ColliderCollision(Collider* leftCol, Collider* rightCol, jk_LayerType left, jk_LayerType right)
 	{
-		if ((int)left == 0 && (int)right == 19)
+		if ((int)left == 0 && (int)right == 30)
 			int a = 0;
 		ColliderID colliderID = {};
 		colliderID.left = (UINT)leftCol->GetID();

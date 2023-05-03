@@ -111,7 +111,8 @@ namespace jk
 	void Rock_small::OnCollisionEnter(Collider* other)
 	{
 		
-			Sonic* sonic = dynamic_cast<Sonic*>(other->GetOwner());
+		if (Sonic* sonic = dynamic_cast<Sonic*>(other->GetOwner()))
+		{
 			sonicState = sonic->Getsonicstate();
 
 			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
@@ -145,6 +146,7 @@ namespace jk
 				}
 				mState = eState::Death;
 			}
+		}
 		
 		
 	}

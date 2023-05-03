@@ -207,13 +207,13 @@ namespace jk
 
 				Damege_sheck += 1;
 
-				if ((Damege_sheck >= 1) && (mDir == -1))//왼쪽 6대를 기본으로 함
+				if ((Damege_sheck >= 7) && (mDir == -1))//왼쪽 6대를 기본으로 함
 				{
 					mAnimator->Play(L"L_Boss_side", true);
 					mState = eBossState::Death;
 					Death_check = 1;
 				}
-				else if ((Damege_sheck >= 1) && (mDir == 1))//오른쪽
+				else if ((Damege_sheck >= 7) && (mDir == 1))//오른쪽
 				{
 					mAnimator->Play(L"R_Boss_side", true);
 					mState = eBossState::Death;		
@@ -965,6 +965,9 @@ namespace jk
 
 	void Boss::death()
 	{	
+		Collider* collider = GetComponent<Collider>();
+		collider->SetSize(Vector2(0.0f, 0.0f));
+
 		if (Death_check == 1)
 		{
 			Transform* tr = GetComponent<Transform>();

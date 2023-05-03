@@ -19,6 +19,9 @@ namespace jk
 			layer.Initialize();
 		}
 	}
+
+
+
 	void Scene::Update()
 	{
 		for (Layer& layer : mLayers)

@@ -79,7 +79,7 @@ namespace jk
 
 
 		Collider* collider = AddComponent<Collider>();
-		collider->SetSize(Vector2(245.0f, 200.0f));
+		collider->SetSize(Vector2(245.0f, 500.0f));
 		Vector2 size = collider->GetSize();
 		collider->SetCenter(Vector2{ (-0.2f) * size.x, (-0.5f) * size.y });
 
@@ -182,7 +182,7 @@ namespace jk
 			{
 				Damege_check += 1;
 
-				//if (Damege_check < 3)
+				//if (Damege_check < 4)
 				//{		
 				//	if (mDir == 1)
 				//	{
@@ -195,14 +195,16 @@ namespace jk
 				//}
 
 	
-				//else if((Damege_check >= 3)&&(Damege_check < 6))
+				//else if((Damege_check >= 4)&&(Damege_check < 6))
 				//{
 
 				//	if (mDir == 1)
 				//	{
 				//		mAnimator->Play(L"R_Boss_2th_Hurt", true);
-				//		if (Damege_check == 3)
+				//		if (Damege_check == 4)
 				//		{
+				//			Collider* collider = GetComponent<Collider>();
+				//			collider->SetSize(Vector2(245.0f, 400.0f));
 				//			Boss_change_point = 2;
 				//			//何加前冻绢飘府扁 棺 气惯
 				//		}
@@ -210,21 +212,22 @@ namespace jk
 				//	else 
 				//	{
 				//		mAnimator->Play(L"L_Boss_2th_Hurt", true);
-				//		if (Damege_check == 3)
+				//		if (Damege_check == 4)
 				//		{
+				//			Collider* collider = GetComponent<Collider>();
+				//			collider->SetSize(Vector2(245.0f, 400.0f));
 				//			Boss_change_point = 2;
 				//			//何加前冻绢飘府扁 棺 气惯
 				//		}
 				//	}
-
 				//}
 
-				//else if ((Damege_check >= 6) && (Damege_check < 9))			
+				//else if ((Damege_check >= 8) && (Damege_check < 9))			
 				//{
 				//	if (mDir == 1)
 				//	{
 				//		mAnimator->Play(L"R_Boss_1th_Hurt", true);
-				//		if (Damege_check == 6)
+				//		if (Damege_check == 8)
 				//		{
 				//			Boss_change_point = 1;
 				//			//何加前冻绢飘府扁 棺 气惯
@@ -233,7 +236,7 @@ namespace jk
 				//	else
 				//	{
 				//		mAnimator->Play(L"L_Boss_1th_Hurt", true);
-				//		if (Damege_check == 6)
+				//		if (Damege_check == 8)
 				//		{
 				//			Boss_change_point = 1;
 				//			//何加前冻绢飘府扁 棺 气惯
@@ -248,7 +251,7 @@ namespace jk
 					if (mDir == 1)
 					{
 						mAnimator->Play(L"R_Boss_Death", true);
-						if (Damege_check == 3)
+						if (Damege_check == 1)
 						{
 							Boss_change_point = 0;
 							//何加前冻绢飘府扁 棺 气惯
@@ -257,7 +260,7 @@ namespace jk
 					else
 					{
 						mAnimator->Play(L"L_Boss_Death", true);
-						if (Damege_check == 3)
+						if (Damege_check == 1)
 						{
 							Boss_change_point = 0;
 							//何加前冻绢飘府扁 棺 气惯

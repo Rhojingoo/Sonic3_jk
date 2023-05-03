@@ -48,7 +48,7 @@
 #include "jk_Spring_Up.h"
 #include "jk_Spring_Left.h"
 #include "jk_Spike_Up.h"
-#include "jk_Move_GR.h""
+#include "jk_Move_GR.h"
 #include "jk_Rock_small.h"
 #include "jk_Rock_middle.h"
 #include "jk_Rock_big.h"
@@ -106,10 +106,10 @@ namespace jk
 		mSonic = new Sonic();
 		mSonic->SetName(L"Player");
 		AddGameobeject(mSonic, jk_LayerType::Player);		
-		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
+		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{21480.f, 3450.f });//폭포
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 16100.0f, 3070.0f });//집라인쪽
+		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 16100.0f, 3070.0f });//집라인쪽
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 28821.f, 1363.f });//끝
 
 		mTails = new Tails(mSonic);
@@ -121,7 +121,6 @@ namespace jk
 		UI_framework* UI_frame = new UI_framework();
 		UI_frame->SetName(L"UI_frame");
 		AddGameobeject(UI_frame, jk_LayerType::UI);
-
 
 		UI_Time* ui_time = new UI_Time();
 		ui_time->SetName(L"ui_time");
@@ -249,7 +248,7 @@ namespace jk
 		{
 			spring_Up[a] = new Spring_Up();
 			spring_Up[a]->SetName(L"spring_Up");
-			AddGameobeject(spring_Up[a], jk_LayerType::BG_props);
+			AddGameobeject(spring_Up[a], jk_LayerType::Ground);
 		}
 		spring_Up[0]->GetComponent<Transform>()->SetPos(Vector2{ 13318.0f, 3224.0f });
 		spring_Up[1]->GetComponent<Transform>()->SetPos(Vector2{ 13169.0f, 2808.0f });
@@ -260,7 +259,7 @@ namespace jk
 		{
 			spring_Left[a] = new Spring_Left();
 			spring_Left[a]->SetName(L"spring_Left");
-			AddGameobeject(spring_Left[a], jk_LayerType::BG_props);
+			AddGameobeject(spring_Left[a], jk_LayerType::Ground);
 		}
 		spring_Left[0]->GetComponent<Transform>()->SetPos(Vector2{ 14080.0f, 3135.0f });
 		spring_Left[1]->GetComponent<Transform>()->SetPos(Vector2{ 17739.0f, 3615.0f });
@@ -308,7 +307,7 @@ namespace jk
 		{
 			collapses_Ground[a] = new Collapses_Ground();
 			collapses_Ground[a]->SetName(L"collapses_Ground");
-			AddGameobeject(collapses_Ground[a], jk_LayerType::BG_props);
+			AddGameobeject(collapses_Ground[a], jk_LayerType::Ground);
 		}
 		collapses_Ground[0]->GetComponent<Transform>()->SetPos(Vector2{ 16300.0f, 3070.0f });
 
@@ -356,7 +355,7 @@ namespace jk
 		{
 			gr_move[a] = new Move_GR();
 			gr_move[a]->SetName(L"gr_move");
-			AddGameobeject(gr_move[a], jk_LayerType::BG_props);
+			AddGameobeject(gr_move[a], jk_LayerType::Ground);
 		}
 		gr_move[0]->GetComponent<Transform>()->SetPos(Vector2{ 12450.0f, 2444.0f });
 		gr_move[0]->SetCenterpos(Vector2{ 12450.0f, 2444.0f });
@@ -450,65 +449,67 @@ namespace jk
 
 
 
-		Snake* Snake_head[1];
-		for (int a = 0; a < 1; a++)
-		{
-			Snake_head[a] = new Snake(mSonic);
-			Snake_head[a]->SetName(L"Snake_head");
-			AddGameobeject(Snake_head[a], jk_LayerType::Monster);
-		}
-		Snake_head[0]->GetComponent<Transform>()->SetPos(Vector2{ 8870.f, 3250.f });
+		//Snake* Snake_head[1];
+		//for (int a = 0; a < 1; a++)
+		//{
+		//	Snake_head[a] = new Snake(mSonic);
+		//	Snake_head[a]->SetName(L"Snake_head");
+		//	AddGameobeject(Snake_head[a], jk_LayerType::Monster);
+		//}
+		//Snake_head[0]->GetComponent<Transform>()->SetPos(Vector2{ 9070.f, 3250.f });
+		////Snake_head[0]->SetCenterpos(Vector2{ 9070.f, 3250.f });
 
-		Snake_Body_Smoke* snake_Body_Smoke[1];
-		for (int a = 0; a < 1; a++)
-		{
-			snake_Body_Smoke[a] = new Snake_Body_Smoke();
-			snake_Body_Smoke[a]->SetName(L"Snake_Body");
-			AddGameobeject(snake_Body_Smoke[a], jk_LayerType::Monster);
-		}
-		snake_Body_Smoke[0]->GetComponent<Transform>()->SetPos(Vector2{ 8370.f, 3250.f });
-		snake_Body_Smoke[0]->Set_Snake_Body(Snake_head[0]);
+
+		//Snake_Body_Smoke* snake_Body_Smoke[1];
+		//for (int a = 0; a < 1; a++)
+		//{
+		//	snake_Body_Smoke[a] = new Snake_Body_Smoke();
+		//	snake_Body_Smoke[a]->SetName(L"Snake_Body");
+		//	AddGameobeject(snake_Body_Smoke[a], jk_LayerType::Monster);
+		//}
+		////snake_Body_Smoke[0]->GetComponent<Transform>()->SetPos(Vector2{ 8370.f, 3250.f });
+		//snake_Body_Smoke[0]->Set_Snake_Body(Snake_head[0]);
 	
 
-		Snake_Body* snake_body[1];
-		for (int a = 0; a < 1; a++)
-		{
-			snake_body[a] = new Snake_Body();
-			snake_body[a]->SetName(L"Snake_Body");
-			AddGameobeject(snake_body[a], jk_LayerType::Monster);
-		}
-		snake_body[0]->GetComponent<Transform>()->SetPos(Vector2{ 8370.f, 3250.f });
-		snake_body[0]->Set_Snake_Body(snake_Body_Smoke[0]);
-				
+		//Snake_Body* snake_body[1];
+		//for (int a = 0; a < 1; a++)
+		//{
+		//	snake_body[a] = new Snake_Body();
+		//	snake_body[a]->SetName(L"Snake_Body");
+		//	AddGameobeject(snake_body[a], jk_LayerType::Monster);
+		//}
+		////snake_body[0]->GetComponent<Transform>()->SetPos(Vector2{ 8370.f, 3250.f });
+		//snake_body[0]->Set_Snake_Body(snake_Body_Smoke[0]);
+		//		
 
-		Snake_body2* snake_body_2 = new Snake_body2();
-		snake_body_2->SetName(L"Snake_Body2");
-		AddGameobeject(snake_body_2, jk_LayerType::Monster);
-		snake_body_2->GetComponent<Transform>()->SetPos(Vector2{ 8370.f, 3250.f });
-		snake_body_2->Set_Snake_body_third(snake_body[0]);	
-
-
-		Snake_mTaIl* snake_mT[1];
-		for (int a = 0; a < 1; a++)
-		{
-			snake_mT[a] = new Snake_mTaIl();
-			snake_mT[a]->SetName(L"Snake_Body");
-			AddGameobeject(snake_mT[a], jk_LayerType::Monster);
-		}
-		snake_mT[0]->GetComponent<Transform>()->SetPos(Vector2{8370.f, 3250.f});
-		snake_mT[0]->Set_Snake_body_third(snake_body_2);
+		//Snake_body2* snake_body_2 = new Snake_body2();
+		//snake_body_2->SetName(L"Snake_Body2");
+		//AddGameobeject(snake_body_2, jk_LayerType::Monster);
+		////snake_body_2->GetComponent<Transform>()->SetPos(Vector2{ 8370.f, 3250.f });
+		//snake_body_2->Set_Snake_body_third(snake_body[0]);	
 
 
+		//Snake_mTaIl* snake_mT[1];
+		//for (int a = 0; a < 1; a++)
+		//{
+		//	snake_mT[a] = new Snake_mTaIl();
+		//	snake_mT[a]->SetName(L"Snake_Body");
+		//	AddGameobeject(snake_mT[a], jk_LayerType::Monster);
+		//}
+		//snake_mT[0]->GetComponent<Transform>()->SetPos(Vector2{8370.f, 3250.f});
+		//snake_mT[0]->Set_Snake_body_third(snake_body_2);
 
-		Snake_Tail_End* Snake_Tail[1];
-		for (int a = 0; a < 1; a++)
-		{
-			Snake_Tail[a] = new Snake_Tail_End();
-			Snake_Tail[a]->SetName(L"Snake_Body");
-			AddGameobeject(Snake_Tail[a], jk_LayerType::Monster);
-		}
-		Snake_Tail[0]->GetComponent<Transform>()->SetPos(Vector2{ 8370.f, 3250.f });
-		Snake_Tail[0]->Set_Snake_body_third(snake_mT[0]);
+
+
+		//Snake_Tail_End* Snake_Tail[1];
+		//for (int a = 0; a < 1; a++)
+		//{
+		//	Snake_Tail[a] = new Snake_Tail_End();
+		//	Snake_Tail[a]->SetName(L"Snake_Body");
+		//	AddGameobeject(Snake_Tail[a], jk_LayerType::Monster);
+		//}
+		//Snake_Tail[0]->GetComponent<Transform>()->SetPos(Vector2{ 8370.f, 3250.f });
+		//Snake_Tail[0]->Set_Snake_body_third(snake_mT[0]);
 
 
 		
@@ -597,14 +598,7 @@ namespace jk
 
 		frame_check = 1;
 
-		if(Input::GetKeyDown(eKeyCode::R))
-		{	
-			
-			PlayScene::Release();
-			PlayScene::Initialize();
-		}
-
-
+		
 		Vector2 sonic_pos = mSonic->GetComponent<Transform>()->GetPos();
 		
 		if (sonic_pos.x >= 29720.f)
@@ -632,7 +626,7 @@ namespace jk
 		Scene::Update();		
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
-			SceneManager::LoadScene(jk_SceneType::GamePlay2);
+			SceneManager::LoadScene(jk_SceneType::GamePlay2);	
 			CreateBlending();
 		}
 	}  
@@ -654,13 +648,17 @@ namespace jk
 		CollisionManager::SetLayer(jk_LayerType::Player2, jk_LayerType::Monster, true);
 		CollisionManager::SetLayer(jk_LayerType::Player2, jk_LayerType::Bullet, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Item, true);
+		CollisionManager::SetLayer(jk_LayerType::Player2, jk_LayerType::Item, true);
+		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Items, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Items, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Rings, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::StageSave, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Ground, true);
 		CollisionManager::SetLayer(jk_LayerType::Player2, jk_LayerType::Ground, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::BG_props, true);
+		//CollisionManager::SetLayer(jk_LayerType::Player2, jk_LayerType::BG_props, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Player2, true);
+	
 		
 		if (Camera_Switch == 0)
 		{

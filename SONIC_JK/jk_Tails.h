@@ -21,6 +21,7 @@ namespace jk
 			Brake,
 			Jump,
 			Movejump,
+			Spring_Jump,
 			Jumpfalling,
 			Hurt,
 			Lookup,
@@ -86,6 +87,7 @@ namespace jk
 		void jump();
 		void movejump();
 		void jumpfalling();
+		void spring_jump();
 		void hurt();
 		void lookup();
 		void sit();

@@ -1,17 +1,19 @@
 #include "jk_Spring_Up.h"
-#include "jk_Time.h"
-#include "jk_SceneManager.h"
-#include "jk_Resources.h"
-#include "jk_Transform.h"
-#include "jk_Animator.h"
-#include "jk_Collider.h"
-#include "jk_Scene.h"
-#include "jk_Camera.h"
-#include "jk_Object.h"
-#include "jk_Blending.h"
-#include "jk_SONIC.h"
-#include "Rigidbody.h"
 
+#include "jk_SceneManager.h"
+#include "jk_Scene.h"
+#include "jk_Transform.h"
+#include "Rigidbody.h"
+#include "jk_Collider.h"
+#include "jk_Animator.h"
+#include "jk_Resources.h"
+#include "jk_Object.h"
+#include "jk_Camera.h"
+#include "jk_Time.h"
+#include "jk_Blending.h"
+
+#include "jk_SONIC.h"
+#include "jk_Tails.h"
 
 float timer_Sup = 0.0f; // 타이머 변수
 
@@ -72,8 +74,7 @@ namespace jk
 		Gameobject::Release();
 	}
 	void Spring_Up::OnCollisionEnter(Collider* other)
-	{
-		
+	{		
 		mAnimator->Play(L"spring_up2", false);
 		mState = eState::Up;
 	}

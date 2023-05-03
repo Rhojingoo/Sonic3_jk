@@ -296,9 +296,6 @@
     <Filter Include="Contents\Boss\Act1-1_minibos_show\bullet">
       <UniqueIdentifier>{dbf38549-2ef7-4f5b-954d-450fe4daf549}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Boss\Act1-1_minibos_show\show">
-      <UniqueIdentifier>{2552fdff-9ef6-4838-a445-9118e417b140}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\Boss\Act1-2_miniboss">
       <UniqueIdentifier>{1c0b293f-19d6-4e07-af9f-b03324634968}</UniqueIdentifier>
     </Filter>
@@ -316,6 +313,9 @@
     </Filter>
     <Filter Include="Contents\Boss\Act1-3_boss\apear">
       <UniqueIdentifier>{4f88c8aa-9ae5-4e79-8333-2523c54e8fcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Boss\Act1-3_boss\Act1-3_show\show">
+      <UniqueIdentifier>{2552fdff-9ef6-4838-a445-9118e417b140}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -609,7 +609,7 @@
       <Filter>Contents\Boss\Act1-1_minibos_show\bullet</Filter>
     </ClInclude>
     <ClInclude Include="jk_minibos_show.h">
-      <Filter>Contents\Boss\Act1-1_minibos_show\show</Filter>
+      <Filter>Contents\Boss\Act1-3_boss\Act1-3_show\show</Filter>
     </ClInclude>
     <ClInclude Include="jk_Clean_wall.h" />
     <ClInclude Include="jk_Collapses_GR_left.h">
@@ -1123,7 +1123,7 @@
       <Filter>Contents\Boss\Act1-1_minibos_show\bullet</Filter>
     </ClCompile>
     <ClCompile Include="jk_minibos_show.cpp">
-      <Filter>Contents\Boss\Act1-1_minibos_show\show</Filter>
+      <Filter>Contents\Boss\Act1-3_boss\Act1-3_show\show</Filter>
     </ClCompile>
     <ClCompile Include="jk_Clean_wall.cpp" />
     <ClCompile Include="jk_Collapses_GR_left.cpp">

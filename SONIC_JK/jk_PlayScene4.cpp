@@ -17,6 +17,18 @@
 #include "Electsonic.h"
 #include "jk_Tails.h"
 
+#include "UI_framework.h"
+#include "UI_Time.h"
+#include "UI_Time_seconds.h"
+#include "UI_Time_minutes.h"
+#include "Ring_Point_Manager.h"
+#include "Ring_UnitsDigit.h"
+#include "Ring_TensDigit.h"
+#include "Ring_HundredsDgit.h"
+#include "Life_Manager.h"
+#include "Life_UnitsDigit.h"
+#include "Life_TensDigit.h"
+
 
 #include "jk_Ground.h"
 #include "jk_Act6_BG.h"
@@ -77,6 +89,7 @@ namespace jk
 		Sonic::eSonicState::Jeep_line;
 		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 840.f, 4830.f });
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 6000.f, 5085.f });
+		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 14350.f, 5550.f });
 		mSonic->Set_Fly(1);
 
 		mtails = new Tails(mSonic);
@@ -94,6 +107,55 @@ namespace jk
 		mSonic->SetCheckTargetGround(playgr);
 		mtails->SetCheckTargetGround(playgr);
 	
+
+
+		UI_framework* UI_frame = new UI_framework();
+		UI_frame->SetName(L"UI_frame");
+		AddGameobeject(UI_frame, jk_LayerType::UI);
+
+		UI_Time* ui_time = new UI_Time();
+		ui_time->SetName(L"ui_time");
+		AddGameobeject(ui_time, jk_LayerType::UI);
+
+		UI_Time_seconds* ui_seconds = new UI_Time_seconds(ui_time);
+		ui_seconds->SetName(L"ui_seconds");
+		AddGameobeject(ui_seconds, jk_LayerType::UI);
+
+		UI_Time_minutes* ui_minutes = new UI_Time_minutes(ui_time);
+		ui_minutes->SetName(L"ui_seconds");
+		AddGameobeject(ui_minutes, jk_LayerType::UI);
+
+		Ring_Point_Manager* Ring_Point = new Ring_Point_Manager(mSonic);
+		Ring_Point->SetName(L"Ring_Point");
+		AddGameobeject(Ring_Point, jk_LayerType::UI);
+
+		Ring_UnitsDigit* Ring_Units = new Ring_UnitsDigit(Ring_Point);
+		Ring_Units->SetName(L"Ring_Point");
+		AddGameobeject(Ring_Units, jk_LayerType::UI);
+
+		Ring_TensDigit* TensDigit = new Ring_TensDigit(Ring_Point);
+		TensDigit->SetName(L"TensDigit");
+		AddGameobeject(TensDigit, jk_LayerType::UI);
+
+		Ring_HundredsDgit* HundredsDgit = new Ring_HundredsDgit(Ring_Point);
+		HundredsDgit->SetName(L"HundredsDgit");
+		AddGameobeject(HundredsDgit, jk_LayerType::UI);
+
+		Life_Manager* Life_M = new Life_Manager(mSonic);
+		Life_M->SetName(L"Life_M");
+		AddGameobeject(Life_M, jk_LayerType::UI);
+
+		Life_UnitsDigit* Life_u = new Life_UnitsDigit(Life_M);
+		Life_u->SetName(L"Life_u");
+		AddGameobeject(Life_u, jk_LayerType::UI);
+
+		Life_TensDigit* Life_t = new Life_TensDigit(Life_M);
+		Life_t->SetName(L"Life_t");
+		AddGameobeject(Life_t, jk_LayerType::UI);
+
+
+
+
 		fly_machine = new Robotnic_machine();
 		fly_machine->SetName(L"boss_first");
 		AddGameobeject(fly_machine, jk_LayerType::Player);
@@ -216,8 +278,16 @@ namespace jk
 		if (mSonic->GetComponent<Transform>()->GetPos().x > 14000)
 		{
 			Vector2 Sky_Pos = sky1->GetComponent<Transform>()->GetPos();
-			Sky_Pos.x -= 50 * Time::DeltaTime();
-			Sky_Pos.y += 20 * Time::DeltaTime();
+		
+				Sky_Pos.x -= 50 * Time::DeltaTime();
+				Sky_Pos.y += 20 * Time::DeltaTime();
+			
+			//else if (mSonic->GetComponent<Transform>()->GetPos().x >= 19400.f)
+			//{
+			//	Sky_Pos.x += 50 * Time::DeltaTime();
+			//	Sky_Pos.y += 20 * Time::DeltaTime();
+			//}
+
 			sky1->GetComponent<Transform>()->SetPos(Sky_Pos);
 		}
 

@@ -1,18 +1,19 @@
 #include "jk_Collapses_Ground.h"
-#include "jk_Time.h"
-#include "jk_SceneManager.h"
-#include "jk_Resources.h"
-#include "jk_Transform.h"
-#include "jk_Animator.h"
-#include "jk_Collider.h"
-#include "jk_Scene.h"
-#include "jk_Camera.h"
-#include "jk_Object.h"
-#include "jk_Blending.h"
-#include "jk_SONIC.h"
-#include "Rigidbody.h"
 #include "jk_Callapses.h"
+#include "jk_SceneManager.h"
+#include "jk_Scene.h"
+#include "jk_Transform.h"
+#include "Rigidbody.h"
+#include "jk_Collider.h"
+#include "jk_Animator.h"
+#include "jk_Resources.h"
+#include "jk_Time.h"
+#include "jk_Object.h"
+#include "jk_Camera.h"
+#include "jk_Blending.h"
 
+#include "jk_SONIC.h"
+#include "jk_Tails.h"
 
 float time_Gr = 0.0f; 
 int check_Gr = 0;
@@ -114,6 +115,48 @@ namespace jk
 				sonicTr->SetPos(sonic_Pos);				
 			}
 		}
+
+		if (Tails* tails = dynamic_cast<Tails*>(other->GetOwner()))
+		{
+			Rigidbody* rb = tails->GetComponent<Rigidbody>();
+			rb->SetGround(true);
+			Collider* tails_Col = tails->GetComponent<Collider>();
+			Vector2 mtails_colPos = tails_Col->Getpos();
+			Transform* tails_Tr = tails->GetComponent<Transform>();
+			Vector2 tails_Pos = tails_Tr->GetPos();
+
+
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->GetPos();
+			Transform* grTr = this->GetComponent<Transform>();
+			Collider* groundCol = this->GetComponent<Collider>();
+			Vector2 ground_colPos = groundCol->Getpos();
+
+
+			Vector2 velocity = rb->GetVelocity();
+			velocity.y = 0.0f;
+			rb->SetVelocity(velocity);
+
+
+			if (!((tails->GetTails_state() == Tails::eTailsState::Jump) || (tails->GetTails_state() == Tails::eTailsState::Movejump) || (tails->GetTails_state() == Tails::eTailsState::Hurt)))
+			{
+				tails_Pos.y = groundCol->Getpos().y - groundCol->GetSize().y / 2.f;				
+				tails_Tr->SetPos(tails_Pos);
+			}
+			else
+			{
+				Vector2 velocity = rb->GetVelocity();
+				velocity.y = -650.0f;
+
+				rb->SetVelocity(velocity);
+				rb->SetGround(false);
+
+				tails_Pos = tails_Tr->GetPos();
+				tails_Tr->SetPos(tails_Pos);
+			}
+		}
+
+
 		if (check_Gr == 1)
 		{
 			time_Gr += Time::DeltaTime();
@@ -127,9 +170,11 @@ namespace jk
 
 	void Collapses_Ground::OnCollisionExit(Collider* other)
 	{
-		Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner());
-		Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
-		rb->SetGround(false);
+		if (Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner()))
+		{
+			Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
+			rb->SetGround(false);
+		}
 	}
 
 
@@ -140,6 +185,7 @@ namespace jk
 
 	void Collapses_Ground::death()
 	{
+		time_Gr = 0;
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 		Callapses* GR_callapese = new Callapses();

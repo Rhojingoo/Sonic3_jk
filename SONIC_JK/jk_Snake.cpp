@@ -26,7 +26,7 @@ double TimeSinceStart()
 namespace jk
 {
 	Snake::Snake(Gameobject* owner)
-		: mCenterpos(Vector2(8370.f, 3250.f))
+		: mCenterpos(Vector2(0.f, 0.f))
 		, mCurpos(Vector2(0.0f, 0.0f))	
 		, mMonmaxdistance_x(200.0f)
 		, mMonmaxdistance_y(50.0f)

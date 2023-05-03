@@ -1,16 +1,18 @@
 #include "jk_Move_GR.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Resources.h"
-#include "jk_Transform.h"
-#include "jk_Animator.h"
-#include "jk_Collider.h"
 #include "jk_Scene.h"
+#include "jk_Transform.h"
+#include "Rigidbody.h"
+#include "jk_Collider.h"
+#include "jk_Animator.h"
+#include "jk_Resources.h"
 #include "jk_Camera.h"
+#include "jk_Time.h"
 #include "jk_Object.h"
 #include "jk_Blending.h"
+
 #include "jk_SONIC.h"
-#include "Rigidbody.h"
+#include "jk_Tails.h"
 
 namespace jk
 {
@@ -121,6 +123,46 @@ namespace jk
 			}
 		}
 		
+		if (Tails* tails = dynamic_cast<Tails*>(other->GetOwner()))
+		{
+			Rigidbody* rb = tails->GetComponent<Rigidbody>();
+			rb->SetGround(true);
+			Collider* tails_Col = tails->GetComponent<Collider>();
+			Vector2 tails_colPos = tails_Col->Getpos();
+			Transform* tailsTr = tails->GetComponent<Transform>();
+			Vector2 tails_Pos = tailsTr->GetPos();
+
+
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->GetPos();
+			Transform* grTr = this->GetComponent<Transform>();
+			Collider* groundCol = this->GetComponent<Collider>();
+			Vector2 ground_colPos = groundCol->Getpos();
+
+
+			Vector2 velocity = rb->GetVelocity();
+			velocity.y = 0.0f;
+			rb->SetVelocity(velocity);
+
+
+			if (!((tails->GetTails_state() == Tails::eTailsState::Jump) || (tails->GetTails_state() == Tails::eTailsState::Movejump) || (tails->GetTails_state() == Tails::eTailsState::Hurt)))
+			{
+				tails_Pos.y = groundCol->Getpos().y - groundCol->GetSize().y - 50;
+				tailsTr->SetPos(tails_Pos);
+			}
+
+			else
+			{
+				Vector2 velocity = rb->GetVelocity();
+				velocity.y = -650.0f;
+
+				rb->SetVelocity(velocity);
+				rb->SetGround(false);
+
+				tails_Pos = tailsTr->GetPos();
+				tailsTr->SetPos(tails_Pos);
+			}
+		}
 	}
 
 	void Move_GR::OnCollisionExit(Collider* other)

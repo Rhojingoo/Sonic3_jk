@@ -30,6 +30,7 @@ namespace jk
 	}
 	void Ring_Point_Manager::Initialize()
 	{
+		
 		Gameobject::Initialize();
 	}
 	void Ring_Point_Manager::Update()
@@ -60,6 +61,9 @@ namespace jk
 		if ((Ring_point_U >= 90) && (Ring_point_U < 100))
 			Ring_point_U = Ring_point_U - 90;
 	
+
+		if (Ring_point_U == 0)
+			UnitsDigit = 0;
 		if(Ring_point_U ==1)
 			UnitsDigit = 1;
 		else if (Ring_point_U == 2)
@@ -102,6 +106,9 @@ namespace jk
 		if ((Ring_point_T >= 900) && (Ring_point_U < 1000))
 			Ring_point_T = Ring_point_T - 900;
 
+
+		if (Ring_point_T < 10)
+			TensDigit = 0;
 		if ((Ring_point_T >= 10)&& (Ring_point_T < 20))
 			TensDigit = 1;
 		else if ((Ring_point_T >= 20) && (Ring_point_T < 30))
@@ -126,6 +133,8 @@ namespace jk
 		
 
 		//100ÀÇÀÚ¸®		
+		if (Ring_point < 100) 
+			HundredsDigit = 0;
 		if ((Ring_point >= 100) && (Ring_point < 200))
 			HundredsDigit = 1;
 		else if ((Ring_point >= 200) && (Ring_point < 300))

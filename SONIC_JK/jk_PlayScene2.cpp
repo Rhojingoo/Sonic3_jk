@@ -13,6 +13,19 @@
 #include "Electsonic.h"
 #include "jk_Tails.h"
 
+#include "UI_framework.h"
+#include "UI_Time.h"
+#include "UI_Time_seconds.h"
+#include "UI_Time_minutes.h"
+#include "Ring_Point_Manager.h"
+#include "Ring_UnitsDigit.h"
+#include "Ring_TensDigit.h"
+#include "Ring_HundredsDgit.h"
+#include "Life_Manager.h"
+#include "Life_UnitsDigit.h"
+#include "Life_TensDigit.h"
+
+
 #include "jk_Ground.h"
 #include "jk_Gameobject.h"
 
@@ -90,6 +103,8 @@ namespace jk
 	{
 		check_map = 1;
 		
+
+
 		//캐릭터
 		mSonic = new Sonic();
 		mSonic->SetName(L"Player");
@@ -97,6 +112,7 @@ namespace jk
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2(661.f, 3033.f)); //시작위치
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2(7755.0f, 5070.0f));//워터시작
 		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 13100.f,3240.f }); //미니 보스
+
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2(6450.f, 2940.f)); //집라인 시작
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2(7680.0f, 3660.0f)); //rino위치
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2(8712.f, 3396.f)); //집라인 끝위치
@@ -109,7 +125,7 @@ namespace jk
 		tails->SetName(L"Player2");
 		AddGameobeject(tails, jk_LayerType::Player2);
 		tails->GetComponent<Transform>()->SetPos(Vector2(661.f, 3033.f));
-	
+
 
 		playgr = new Ground();
 		playgr->SetName(L"Ground2");
@@ -117,8 +133,58 @@ namespace jk
 		AddGameobeject(playgr, jk_LayerType::Ground);
 		mSonic->SetCheckTargetGround(playgr);
 		tails->SetCheckTargetGround(playgr);
-		
+
 		playgr->Set_Circle_Center(Vector2{ 9500.f, 3605.f });
+
+
+
+		UI_framework* UI_frame = new UI_framework();
+		UI_frame->SetName(L"UI_frame");
+		AddGameobeject(UI_frame, jk_LayerType::UI);
+
+		UI_Time* ui_time = new UI_Time();
+		ui_time->SetName(L"ui_time");
+		AddGameobeject(ui_time, jk_LayerType::UI);
+
+		UI_Time_seconds* ui_seconds = new UI_Time_seconds(ui_time);
+		ui_seconds->SetName(L"ui_seconds");
+		AddGameobeject(ui_seconds, jk_LayerType::UI);
+
+		UI_Time_minutes* ui_minutes = new UI_Time_minutes(ui_time);
+		ui_minutes->SetName(L"ui_seconds");
+		AddGameobeject(ui_minutes, jk_LayerType::UI);
+
+		Ring_Point_Manager* Ring_Point = new Ring_Point_Manager(mSonic);
+		Ring_Point->SetName(L"Ring_Point");
+		AddGameobeject(Ring_Point, jk_LayerType::UI);
+
+		Ring_UnitsDigit* Ring_Units = new Ring_UnitsDigit(Ring_Point);
+		Ring_Units->SetName(L"Ring_Point");
+		AddGameobeject(Ring_Units, jk_LayerType::UI);
+
+		Ring_TensDigit* TensDigit = new Ring_TensDigit(Ring_Point);
+		TensDigit->SetName(L"TensDigit");
+		AddGameobeject(TensDigit, jk_LayerType::UI);
+
+		Ring_HundredsDgit* HundredsDgit = new Ring_HundredsDgit(Ring_Point);
+		HundredsDgit->SetName(L"HundredsDgit");
+		AddGameobeject(HundredsDgit, jk_LayerType::UI);
+
+		Life_Manager* Life_M = new Life_Manager(mSonic);
+		Life_M->SetName(L"Life_M");
+		AddGameobeject(Life_M, jk_LayerType::UI);
+
+		Life_UnitsDigit* Life_u = new Life_UnitsDigit(Life_M);
+		Life_u->SetName(L"Life_u");
+		AddGameobeject(Life_u, jk_LayerType::UI);
+
+		Life_TensDigit* Life_t = new Life_TensDigit(Life_M);
+		Life_t->SetName(L"Life_t");
+		AddGameobeject(Life_t, jk_LayerType::UI);
+
+
+
+
 
 		//아이템
 		//ItemBigRing* Big_Ring = new ItemBigRing();
@@ -297,7 +363,7 @@ namespace jk
 		{
 			collapses_Ground[a] = new Collapses_Ground();
 			collapses_Ground[a]->SetName(L"collapses_Ground");
-			AddGameobeject(collapses_Ground[a], jk_LayerType::BG_props);
+			AddGameobeject(collapses_Ground[a], jk_LayerType::Ground);
 		}
 		collapses_Ground[0]->GetComponent<Transform>()->SetPos(Vector2{ 4335.0f, 3300.0f });
 		collapses_Ground[1]->GetComponent<Transform>()->SetPos(Vector2{ 6640.f, 3410.f });
@@ -311,7 +377,7 @@ namespace jk
 		{
 			collapses_GR_left[a] = new Collapses_GR_left();
 			collapses_GR_left[a]->SetName(L"collapses_Ground_L");
-			AddGameobeject(collapses_GR_left[a], jk_LayerType::BG_props);
+			AddGameobeject(collapses_GR_left[a], jk_LayerType::Ground);
 		}
 		collapses_GR_left[0]->GetComponent<Transform>()->SetPos(Vector2{ 4825.0f, 3410.0f });
 		collapses_GR_left[1]->GetComponent<Transform>()->SetPos(Vector2{ 7125.f, 3980.f });
@@ -324,7 +390,7 @@ namespace jk
 		{
 			spring_Up[a] = new Spring_Up();
 			spring_Up[a]->SetName(L"spring_Up");
-			AddGameobeject(spring_Up[a], jk_LayerType::BG_props);
+			AddGameobeject(spring_Up[a], jk_LayerType::Ground);
 		}
 		spring_Up[0]->GetComponent<Transform>()->SetPos(Vector2{ 3624.0f, 3381.0f });
 		spring_Up[1]->GetComponent<Transform>()->SetPos(Vector2{ 1750.0f, 4558.0f });
@@ -338,7 +404,7 @@ namespace jk
 		{
 			gr_move[a] = new Move_GR();
 			gr_move[a]->SetName(L"gr_move");
-			AddGameobeject(gr_move[a], jk_LayerType::BG_props);
+			AddGameobeject(gr_move[a], jk_LayerType::Ground);
 		}
 		gr_move[0]->GetComponent<Transform>()->SetPos(Vector2{ 661.f, 2933.f });
 		gr_move[0]->SetCenterpos(Vector2{ 661.f,2933.f });

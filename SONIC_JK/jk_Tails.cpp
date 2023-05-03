@@ -14,6 +14,23 @@
 
 #include "jk_Ground.h"
 #include "finall_stage.h"
+#include "jk_Spring_Up.h"
+#include "jk_Spring_Left.h"
+#include "jk_Spike_Up.h"
+
+
+#include "jk_Collapses_Ground.h"
+#include "jk_Collapses_GR_left.h"
+#include "jk_Move_GR.h"
+#include "jk_Cylinder.h"
+#include "jk_Last_Bridge.h"
+#include "jk_Act1_Water.h"
+#include "jk_Water_effect.h"
+
+
+
+
+
 
 #include "jk_Monster.h"
 #include "jk_Monkey.h"
@@ -74,6 +91,7 @@ namespace jk
 		mAnimator->CreateAnimation(L"RTailsFly", mImage, Vector2(834, 87), Vector2(54, 48), Vector2(5, 0), 2, 1, 2, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"Endgind_pose", mImage, Vector2(820, 802), Vector2(52, 48), Vector2(4, 0), 2, 1, 2, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"RTails_Hurt", mImage, Vector2(848, 647), Vector2(52, 48), Vector2(4, 0), 2, 1, 2, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"RTails_Spring_Jump", mImage, Vector2(24, 1026), Vector2(52, 49), Vector2(4, 0), 12, 1, 12, Vector2::Zero, 0.1);
 
 
 
@@ -96,6 +114,7 @@ namespace jk
 		mAnimator->CreateAnimation(L"LTailsFly", mImage1, Vector2(834, 87), Vector2(54, 48), Vector2(4, 0), 2, 1, 2, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"LEndgind_pose", mImage1, Vector2(820, 802), Vector2(52, 48), Vector2(4, 0), 2, 1, 2, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"LTails_Hurt", mImage1, Vector2(848, 647), Vector2(52, 48), Vector2(4, 0), 2, 1, 2, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"LTails_Spring_Jump", mImage1, Vector2(24, 1026), Vector2(52, 49), Vector2(4, 0), 12, 1, 12, Vector2::Zero, 0.1);
 
 
 
@@ -208,6 +227,9 @@ namespace jk
 		case jk::Tails::eTailsState::Jumpfalling:jumpfalling();
 			break;
 
+		case jk::Tails::eTailsState::Spring_Jump:spring_jump();
+			break;
+
 		case jk::Tails::eTailsState::Hurt:hurt();
 			break;
 
@@ -311,6 +333,180 @@ namespace jk
 
 	void Tails::OnCollisionEnter(Collider* other)
 	{
+		//BG
+		if (finall_stage* stage = dynamic_cast<finall_stage*>(other->GetOwner()))
+		{
+			Vector2 fly_machine_pos = stage->GetComponent<Transform>()->GetPos();
+			Transform* tr = GetComponent<Transform>();
+			mRigidbody->SetGround(true);
+
+			if (mDir == 1)
+			{
+				mState = eTailsState::Idle;
+				mAnimator->Play(L"RTailsStand", true);
+			}
+			else if (mDir == -1)
+			{
+				mState = eTailsState::Idle;
+				mAnimator->Play(L"LTailsStand", true);
+			}
+		}
+
+		if (Spring_Up* spring_up = dynamic_cast<Spring_Up*>(other->GetOwner()))
+		{
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->GetPos();
+
+			Vector2 velocity = mRigidbody->GetVelocity();
+			velocity.y = 0.0f;
+			velocity.y -= 1350.0f;
+			mRigidbody->SetGround(false);
+			mRigidbody->SetVelocity(velocity);
+			if (mDir == 1)
+			{
+				mAnimator->Play(L"RTails_Spring_Jump", true);
+			}
+			else if (mDir == -1)
+			{
+				mAnimator->Play(L"LTails_Spring_Jump", true);
+			}
+			mState = eTailsState::Spring_Jump;
+		}
+
+		//Spring Left 충돌처리
+		if (Spring_Left* spring_Left = dynamic_cast<Spring_Left*>(other->GetOwner()))
+		{
+			Transform* tr = GetComponent<Transform>();
+			Vector2 tails_pos = tr->GetPos();
+			Vector2 velocity = mRigidbody->GetVelocity();
+			tails_pos.y = tails_pos.y + 120;
+
+			Vector2 Spring_L = spring_Left->GetComponent<Transform>()->GetPos();
+
+
+			if (tails_pos.y < Spring_L.y)
+			{
+				mState = eTailsState::Idle;
+				mRigidbody->SetGround(true);
+				if (mDir == 1)
+					mAnimator->Play(L"RTailsStand", true);
+				else
+					mAnimator->Play(L"LTailsStand", true);
+			}
+			else
+			{
+				velocity.x = 0.0f;
+				velocity.x -= 1050.0f;
+				mRigidbody->SetGround(false);
+
+				mRigidbody->SetVelocity(velocity);
+				if (mDir == 1)
+				{
+					mAnimator->Play(L"LTailsRun", true);
+				}
+				mState = eTailsState::Run;
+			}
+		}
+
+
+		//Collapses_Ground 없어지는땅
+		if (Collapses_Ground* collapses_Ground = dynamic_cast<Collapses_Ground*>(other->GetOwner()))
+		{
+			Vector2 Collapses_Gr = collapses_Ground->GetComponent<Transform>()->GetPos();
+			Transform* tr = GetComponent<Transform>();
+			Vector2 tails = tr->GetPos();
+
+			if (mDir == 1)
+			{
+				mState = eTailsState::Idle;
+				mAnimator->Play(L"RTailsStand", true);
+			}
+			else if (mDir == -1)
+			{
+				mState = eTailsState::Idle;
+				mAnimator->Play(L"LTailsStand", true);
+			}
+		}
+
+		//Collapses_Ground(left) 없어지는땅
+		if (Collapses_GR_left* collapses_Ground = dynamic_cast<Collapses_GR_left*>(other->GetOwner()))
+		{
+			Vector2 Collapses_Gr = collapses_Ground->GetComponent<Transform>()->GetPos();
+			Transform* tr = GetComponent<Transform>();
+			Vector2 msonic = tr->GetPos();
+
+
+			if (mDir == 1)
+			{
+				mState = eTailsState::Idle;
+				mAnimator->Play(L"RTailsStand", true);
+			}
+			else if (mDir == -1)
+			{
+				mState = eTailsState::Idle;
+				mAnimator->Play(L"LTailsStand", true);
+			}
+		}
+	
+		//Move_GR 충돌처리
+		if (Move_GR* move_GR = dynamic_cast<Move_GR*>(other->GetOwner()))
+		{
+			Vector2 move_GR_pos = move_GR->GetComponent<Transform>()->GetPos();
+			Transform* tr = GetComponent<Transform>();
+			Vector2 msonic = tr->GetPos();
+
+			if (mDir == 1)
+			{
+				mState = eTailsState::Idle;
+				mAnimator->Play(L"RTailsStand", true);
+			}
+			else if (mDir == -1)
+			{
+				mState = eTailsState::Idle;
+				mAnimator->Play(L"LTailsStand", true);
+			}
+		}
+
+		//last_Bridge 충돌처리
+		if (Last_Bridge* last_Bridge = dynamic_cast<Last_Bridge*>(other->GetOwner()))
+		{
+			Vector2 mlast_Bridge_pos = last_Bridge->GetComponent<Transform>()->GetPos();
+			Transform* tr = GetComponent<Transform>();
+			Vector2 msonic = tr->GetPos();
+
+
+			if (mDir == 1)
+			{
+				mState = eTailsState::Idle;
+				mAnimator->Play(L"RTailsStand", true);
+			}
+			else if (mDir == -1)
+			{
+				mState = eTailsState::Idle;
+				mAnimator->Play(L"LTailsStand", true);
+			}
+		}
+
+
+		if (Act1_Water* act1_water = dynamic_cast<Act1_Water*>(other->GetOwner()))
+		{
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->GetPos();
+
+			mState = eTailsState::Idle;
+			if (mDir == 1)
+				mAnimator->Play(L"RTailsStand", true);
+			else
+				mAnimator->Play(L"LTailsStand", true);
+		}
+
+
+
+
+
+
+
+
 		//monster collision
 		if (Monster* rino = dynamic_cast<Monster*>(other->GetOwner()))
 		{
@@ -693,23 +889,7 @@ namespace jk
 			}*/
 		}
 
-		if (finall_stage* stage = dynamic_cast<finall_stage*>(other->GetOwner()))
-		{
-			Vector2 fly_machine_pos = stage->GetComponent<Transform>()->GetPos();
-			Transform* tr = GetComponent<Transform>();						
-			mRigidbody->SetGround(true);
-
-			if (mDir == 1)
-			{
-				mState = eTailsState::Idle;
-				mAnimator->Play(L"RTailsStand", true);
-			}
-			else if (mDir == -1)
-			{
-				mState = eTailsState::Idle;
-				mAnimator->Play(L"LTailsStand", true);
-			}
-		}
+	
 	}
 
 	void Tails::OnCollisionStay(Collider* other)
@@ -855,7 +1035,7 @@ namespace jk
 			tr->SetPos(pos);
 		}
 	}
-
+	
 
 	void Tails::move()
 	{
@@ -1334,6 +1514,77 @@ namespace jk
 			//	}
 			//}
 		}
+	}
+
+	void Tails::spring_jump()
+	{
+
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->GetPos();
+		float fDist = abs(sonicV.x - pos.x);
+
+		if (sonicV.x < pos.x)
+		{
+			if (fDist > 80.f)
+			{
+				mRigidbody->AddForce(Vector2(-500.0f, 0.0f));
+				TailsVelocity = mRigidbody->Velocity();
+				mDir = -1;
+			}
+			else if (mRigidbody->GetGround())
+			{
+				mState = eTailsState::Idle;
+				if (mDir = 1)
+				{
+					mAnimator->Play(L"RTailsStand", true);
+				}
+				else if (mDir = -1)
+				{
+					mAnimator->Play(L"LTailsStand", true);
+				}
+
+			}
+			else if (sonicV.x > pos.x)
+			{
+				if (fDist > 80.f)
+				{
+					mRigidbody->AddForce(Vector2(+500.0f, 0.0f));
+					TailsVelocity = mRigidbody->Velocity();
+					mDir = 1;
+				}
+				else if (mRigidbody->GetGround())
+				{
+					mState = eTailsState::Idle;
+					if (mDir = 1)
+					{
+						mAnimator->Play(L"RTailsStand", true);
+					}
+					else if (mDir = -1)
+					{
+						mAnimator->Play(L"LTailsStand", true);
+					}
+				}
+			}
+
+			float fDistX = abs(sonicV.x - pos.x);
+			float fDistY = abs(sonicV.y - pos.y);
+			if ((fDistX > 2000.f) || (fDistY > 2000.f))
+			{
+				pos.x = sonicV.x;
+				pos.y = sonicV.y - 550.f;
+				mState = eTailsState::Fly;
+
+				if (mDir == 1)
+				{
+					mAnimator->Play(L"RTailsFly", true);
+				}
+				else if (mDir == -1)
+				{
+					mAnimator->Play(L"LTailsFly", true);
+				}
+			}			
+		}
+		tr->SetPos(pos);
 	}
 
 	void Tails::hurt()

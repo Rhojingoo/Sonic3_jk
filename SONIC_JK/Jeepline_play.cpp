@@ -145,12 +145,12 @@ namespace jk
 			{
 				rb->SetGround(false);
 				Vector2 velocity = rb->GetVelocity();
-				velocity.x += 20.f;
-				velocity.y -= 30.f;
+				velocity.x += 250.f;
+				velocity.y -= 250.f;
 				rb->SetVelocity(velocity);
 				rb->SetGround(false);
 				sonic_Pos = sonicTr->GetPos();
-				sonic_Pos = sonic_Pos + Vector2{ 10.f ,-15.f };
+				sonic_Pos = sonic_Pos + Vector2{ 55.f ,-55.f };
 				sonicTr->SetPos(sonic_Pos);
 			}
 		}

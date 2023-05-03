@@ -1,16 +1,18 @@
 #include "jk_Spring_Left.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Resources.h"
-#include "jk_Transform.h"
-#include "jk_Animator.h"
-#include "jk_Collider.h"
 #include "jk_Scene.h"
+#include "jk_Transform.h"
+#include "Rigidbody.h"
+#include "jk_Collider.h"
+#include "jk_Animator.h"
+#include "jk_Resources.h"
+#include "jk_Time.h"
 #include "jk_Camera.h"
 #include "jk_Object.h"
 #include "jk_Blending.h"
+
 #include "jk_SONIC.h"
-#include "Rigidbody.h"
+#include "jk_Tails.h"
 
 namespace jk
 {
@@ -80,7 +82,6 @@ namespace jk
 
 			if (sonic_pos.y < spike_pos.y)
 			{
-
 			}
 			else
 			{
@@ -88,6 +89,24 @@ namespace jk
 				mState = eState::Up;
 			}
 		}
+
+		if (Tails* tails = dynamic_cast<Tails*>(other->GetOwner()))
+		{
+			Vector2 tails_pos = tails->GetComponent<Transform>()->GetPos();
+			tails_pos.y = tails_pos.y + 120;
+
+			if (tails_pos.y < spike_pos.y)
+			{
+			}
+			else
+			{
+				mAnimator->Play(L"spring_left2", false);
+				mState = eState::Up;
+			}
+		}
+
+
+
 	}
 	void Spring_Left::OnCollisionStay(Collider* other)
 	{

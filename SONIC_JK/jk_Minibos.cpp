@@ -128,19 +128,24 @@ namespace jk
 				attack_check += 1;
 			
 				Transform* tr = GetComponent<Transform>();
-				if ((attack_check>=1)&&(mDir == -1))//哭率
+				if ((attack_check>=6)&&(mDir == -1))//哭率
 				{
 					mAnimator->Play(L"L_mBoss_idle", true);
 					mState = eState::Death;		
 					attack_check = 0;
 					time = 0;
+
+					Collider* collider = GetComponent<Collider>();
+					collider->SetSize(Vector2(.0f, 0.0f));
 				}
-				if ((attack_check >= 1) && (mDir == 1))//坷弗率
+				if ((attack_check >= 6) && (mDir == 1))//坷弗率
 				{
 					mAnimator->Play(L"R_mBoss_idle", true);		
 					mState = eState::Death;
 					attack_check = 0;
-					time = 0;				
+					time = 0;			
+					Collider* collider = GetComponent<Collider>();
+					collider->SetSize(Vector2(.0f, 0.0f));
 				}
 				tr->SetPos(pos);
 			}
@@ -304,7 +309,7 @@ namespace jk
 			time = 0;			
 		}
 		time += Time::DeltaTime();
-		if ( (time >= 2) && (attack_check == 1))
+		if ( (time >= 2) && (attack_check >=1))
 		{	
 			Death = 1;			
 			time_check = 0;

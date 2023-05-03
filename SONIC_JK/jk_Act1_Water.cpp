@@ -1,14 +1,15 @@
 #include "jk_Act1_Water.h"
-#include "jk_Time.h"
-#include "jk_SceneManager.h"
-#include "jk_Input.h"
-#include "jk_Resources.h"
-#include "jk_Transform.h"
-#include "jk_Object.h"
-#include "jk_Collider.h"
-#include "jk_Camera.h"
 #include "jk_Water_effect.h"
+
+#include "jk_SceneManager.h"
+#include "jk_Transform.h"
 #include "Rigidbody.h"
+#include "jk_Collider.h"
+#include "jk_Resources.h"
+#include "jk_Time.h"
+#include "jk_Input.h"
+#include "jk_Object.h"
+#include "jk_Camera.h"
 
 
 namespace jk
@@ -70,6 +71,12 @@ namespace jk
 			Vector2 sonic_pos = sonic->GetComponent<Transform>()->GetPos();
 			Water_Splashes(sonic_pos.x, sonic_pos.y+50);
 		}
+
+		if (Tails* tails = dynamic_cast<Tails*>(other->GetOwner()))
+		{
+			Vector2 tails_pos = tails->GetComponent<Transform>()->GetPos();
+			Water_Splashes(tails_pos.x, tails_pos.y + 40);
+		}
 	}
 
 	void Act1_Water::OnCollisionStay(Collider* other)
@@ -93,6 +100,29 @@ namespace jk
 				sonicTr->SetPos(sonic_Pos);
 			}
 		}
+		
+		if (Tails* tails = dynamic_cast<Tails*>(other->GetOwner()))
+		{
+			Rigidbody* tails_rb = tails->GetComponent<Rigidbody>();
+			tails_rb->SetGravity(Vector2{ 0.f,500.f });
+			Transform* tailsTr = tails->GetComponent<Transform>();
+			Vector2 tails_Pos = tailsTr->GetPos();
+
+			if ((tails->GetTails_state() == Tails::eTailsState::Jump) || (tails->GetTails_state() == Tails::eTailsState::Movejump) || (tails->GetTails_state() == Tails::eTailsState::Hurt))
+			{
+				Vector2 velocity = tails_rb->GetVelocity();
+				velocity.y = -450.0f;
+
+				tails_rb->SetVelocity(velocity);
+				tails_rb->SetGround(false);
+
+				tails_Pos = tailsTr->GetPos();
+				tailsTr->SetPos(tails_Pos);
+			}
+		}
+
+
+		//tails_State
 	}
 
 	void Act1_Water::OnCollisionExit(Collider* other)
@@ -106,7 +136,21 @@ namespace jk
 			mSonic_rb->SetGravity(Vector2{ 0.f,1000.f });
 			mSonic_rb->AddForce(Vector2{ 0.f,-150.f });
 		}
+
+
+		if (Tails* tails = dynamic_cast<Tails*>(other->GetOwner()))
+		{
+			Vector2 tails_pos = tails->GetComponent<Transform>()->GetPos();
+			Water_Splashes(tails_pos.x, tails_pos.y + 50);
+
+			Rigidbody* tails_rb = tails->GetComponent<Rigidbody>();
+			tails_rb->SetGravity(Vector2{ 0.f,1000.f });
+			tails_rb->AddForce(Vector2{ 0.f,-150.f });
+		}
+
 	}
+
+
 	void Act1_Water::Water_Splashes(float a, float b)
 	{		
 		Scene* curScene = SceneManager::GetActiveScene();

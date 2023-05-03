@@ -8,7 +8,7 @@
 namespace jk
 {
 	class Ground;
-	class boss1_object;
+	class boss1_body;
 	class Animator;
 	class boss1_object : public Gameobject
 	{
@@ -20,7 +20,7 @@ namespace jk
 			Down,			
 		};
 
-		boss1_object();
+		boss1_object(Gameobject* onwer);
 		~boss1_object();
 
 		virtual void Initialize() override;
@@ -50,6 +50,7 @@ namespace jk
 		Rigidbody* mRigidbody;
 		Vector2 pos;	
 
+		boss1_body* boss;
 		int mDir;
 		int attack_check;
 		eBossState mState;

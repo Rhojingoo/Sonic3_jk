@@ -16,11 +16,14 @@ namespace jk
 		virtual void Destory();
 		virtual void Release();
 
+
 		virtual void OnEnter();
 		virtual void OnExit();
 
 		void AddGameobeject(Gameobject* obj, jk_LayerType layer);
 		std::vector<Gameobject*>& GetGameobjects(jk_LayerType layer);		
+
+
 
 		
 	private:

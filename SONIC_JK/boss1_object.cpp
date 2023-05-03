@@ -20,7 +20,7 @@
 
 namespace jk
 {
-	boss1_object::boss1_object()
+	boss1_object::boss1_object(Gameobject* owner)
 		:mDir(1)
 		, attack_check(1)
 		, time(0)
@@ -29,6 +29,8 @@ namespace jk
 		, pos(0.f,0.f)
 		, bullet_check(0)
 	{
+		boss = dynamic_cast<boss1_body*>(owner);
+
 		mImage = Resources::Load<Image>(L"First_boss", L"..\\Resources\\ActBG_6\\BOSS\\First_boss.bmp");
 
 		mAnimator = AddComponent<Animator>();
@@ -54,6 +56,8 @@ namespace jk
 
 		Transform* tr = GetComponent<Transform>();
 		pos = tr->GetPos();		
+
+		Death_point = boss->Get_BossDeath();
 
 
 		if (Death_point == 1)
@@ -126,10 +130,10 @@ namespace jk
 
 			if (!((mSonic->Getsonicstate() == Sonic::eSonicState::Jump) || (mSonic->Getsonicstate() == Sonic::eSonicState::Hurt)))
 			{
-				sonic_Pos.y = groundCol->Getpos().y ;				
+				sonic_Pos.y = groundCol->Getpos().y - groundCol->GetSize().y - 50;
 				sonicTr->SetPos(sonic_Pos);
 			}
-
+			
 			else
 			{
 				Vector2 velocity = rb->GetVelocity();
@@ -230,7 +234,7 @@ namespace jk
 			curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
 
 			//bullet->GetComponent<Rigidbody>()->AddForce(Vector2{ -50.f,-50.f });
-			bullet->GetComponent<Rigidbody>()->SetVelocity(Vector2{ -550.f,-80.f });
+			bullet->GetComponent<Rigidbody>()->SetVelocity(Vector2{ -550.f,-150.f });
 			bullet->GetComponent<Rigidbody>()->SetGround(false);
 	
 			bullet_check = 1;
@@ -246,7 +250,7 @@ namespace jk
 	}
 
 	void boss1_object::attack_down()
-	{
+	{		
 		if (bullet_check == 0)
 		{
 			Scene* curScene = SceneManager::GetActiveScene();
