@@ -323,22 +323,22 @@ namespace jk
 	
 		if(map_chek==0)
 		{ 
-		TransparentBlt(hdc, 0, 0, 1200, 840, Cicle_Rturn->GetHdc(), mpos.x, mpos.y, 1200, 840, RGB(255, 255, 255));
+		//TransparentBlt(hdc, 0, 0, 1200, 840, Cicle_Rturn->GetHdc(), mpos.x, mpos.y, 1200, 840, RGB(255, 255, 255));
 		}
 	
 		if (map_chek == 1)
 		{
-			TransparentBlt(hdc, 0, 0, 1200, 840, Ground_Image2->GetHdc(), mpos.x, mpos.y, 1200, 840, RGB(255, 255, 255));
+			//TransparentBlt(hdc, 0, 0, 1200, 840, Ground_Image2->GetHdc(), mpos.x, mpos.y, 1200, 840, RGB(255, 255, 255));
 		}
 
 		if (map_chek == 2)
 		{
-			TransparentBlt(hdc, 0, 0, 1200, 840, Ground_Image3->GetHdc(), mpos.x, mpos.y, 1200, 840, RGB(255, 255, 255));
+			//TransparentBlt(hdc, 0, 0, 1200, 840, Ground_Image3->GetHdc(), mpos.x, mpos.y, 1200, 840, RGB(255, 255, 255));
 		}
 
 		if (map_chek == 3)
 		{
-			TransparentBlt(hdc, 0, 0, 1200, 840, Ground_Image4->GetHdc(), mpos.x, mpos.y, 1200, 840, RGB(255, 255, 255));
+			//TransparentBlt(hdc, 0, 0, 1200, 840, Ground_Image4->GetHdc(), mpos.x, mpos.y, 1200, 840, RGB(255, 255, 255));
 		}
 	}
 

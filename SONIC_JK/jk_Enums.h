@@ -33,8 +33,7 @@ enum class jk_LayerType
 	StageSave,	
 	Player2,	
 	Player,
-	Player_smoke,	
-	
+	Player_smoke,		
 	UI,	
 	Blend,
 	End,

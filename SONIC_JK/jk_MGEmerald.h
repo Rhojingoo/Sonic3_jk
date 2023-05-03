@@ -35,6 +35,8 @@ namespace jk
 		Animator* mAnimator;
 		eState mState;
 		bool b = false;
+		bool isLoad;
+		bool isCanLoad;
 	};
 
 }

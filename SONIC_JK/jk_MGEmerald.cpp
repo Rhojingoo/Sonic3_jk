@@ -45,6 +45,10 @@ void jk::MGEmerald::Initialize()
 
 void jk::MGEmerald::Update()
 {
+	if (isLoad == true)
+	{
+		SceneManager::LoadScene(jk_SceneType::GamePlay);
+	}
 	if (Input::GetKeyDown(eKeyCode::UP)) b = true;
 	if(b)
 	{
@@ -54,6 +58,7 @@ void jk::MGEmerald::Update()
 		tr->SetPos(pos);
 		Gameobject::Update();
 	}
+
 }
 
 void jk::MGEmerald::Render(HDC hdc)
@@ -71,7 +76,11 @@ void jk::MGEmerald::OnCollisionEnter(Collider* other)
 
 	if (EmeraldSonic* sonic = dynamic_cast<EmeraldSonic*>(other->GetOwner()))
 	{
-		SceneManager::LoadScene(jk_SceneType::GamePlay);
+		if (isLoad == false)
+		{
+			isLoad = true;
+			/*SceneManager::LoadScene(jk_SceneType::GamePlay);*/
+		}
 	}
 	
 }

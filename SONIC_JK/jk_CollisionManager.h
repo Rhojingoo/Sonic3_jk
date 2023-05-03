@@ -28,7 +28,7 @@ namespace jk
 		static void Clear();
 
 	private:
-		static WORD mMatrix[(UINT)jk_LayerType::End];
+		static UINT mMatrix[(UINT)jk_LayerType::End];
 		static std::map<UINT64, bool> mCollisionMap;
 		
 	};

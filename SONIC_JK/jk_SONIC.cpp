@@ -35,7 +35,8 @@
 #include "jk_Water_effect.h"
 #include "Robotnic_machine.h"
 #include "finall_stage.h"
-
+#include "Dead_line.h"
+#include "Deatht_line_act6.h"
 
 #include "jk_Item.h"
 #include "jk_Item_water.h"
@@ -921,6 +922,27 @@ namespace jk
 							tr->SetPos(sonic_Pos);
 						}
 					}
+				}
+
+
+
+				if (Dead_line* dead_line = dynamic_cast<Dead_line*>(other->GetOwner()))
+				{
+					Transform* tr = GetComponent<Transform>();
+					Vector2 sonic_pos = tr->GetPos();
+
+					sonic_pos = Vector2{ 19920.f, 3756.f };
+					tr->SetPos(sonic_pos);					
+				}
+				
+
+				if (Deatht_line_act6* dead_line = dynamic_cast<Deatht_line_act6*>(other->GetOwner()))
+				{
+					Transform* tr = GetComponent<Transform>();
+					Vector2 sonic_pos = tr->GetPos();
+
+					sonic_pos = Vector2{ 14250.f,5550.f };
+					tr->SetPos(sonic_pos);
 				}
 
 
@@ -7401,6 +7423,7 @@ namespace jk
 						}
 					}
 				}
+
 
 
 				

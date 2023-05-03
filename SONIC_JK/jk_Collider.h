@@ -37,6 +37,8 @@ namespace jk
 		Vector2 mSize;
 		Vector2 mScale;		
 		Vector2 mPos;
+
+		int ONOFF;
 	};
 
 }

@@ -107,9 +107,9 @@ namespace jk
 		mSonic->SetName(L"Player");
 		AddGameobeject(mSonic, jk_LayerType::Player);		
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2{21480.f, 3450.f });//폭포
+		mSonic->GetComponent<Transform>()->SetPos(Vector2{21480.f, 3450.f });//폭포
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
-		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 16100.0f, 3070.0f });//집라인쪽
+		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 16100.0f, 3070.0f });//집라인쪽
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 28821.f, 1363.f });//끝
 
 		mTails = new Tails(mSonic);
@@ -192,7 +192,7 @@ namespace jk
 		bg->Set_Owner(mSonic);
 
 		Act1_Water* act1_Water = new Act1_Water();
-		AddGameobeject(act1_Water, jk_LayerType::BG_props);
+		AddGameobeject(act1_Water, jk_LayerType::UI);
 		act1_Water->SetName(L"act1_Water");
 	
 		act1_waterfall1* waterfall_1 = new act1_waterfall1();
@@ -655,7 +655,7 @@ namespace jk
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::StageSave, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Ground, true);
 		CollisionManager::SetLayer(jk_LayerType::Player2, jk_LayerType::Ground, true);
-		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::BG_props, true);
+		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::UI, true);
 		//CollisionManager::SetLayer(jk_LayerType::Player2, jk_LayerType::BG_props, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Player2, true);
 	

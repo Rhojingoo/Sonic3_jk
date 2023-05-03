@@ -9,7 +9,7 @@ int frame_check = 0;
 
 namespace jk
 {	
-	WORD CollisionManager::mMatrix[(UINT)jk_LayerType::End] = {};	
+	UINT CollisionManager::mMatrix[(UINT)jk_LayerType::End] = {};	
 	std::map<UINT64, bool>CollisionManager::mCollisionMap;
 
 	void CollisionManager::Update()

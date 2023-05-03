@@ -44,7 +44,8 @@ namespace jk
 
 		mAnimator->Play(L"LCannon", true);
 		mAnimator->GetCompleteEvent(L"Canon_death2") = std::bind(&Cannon::death, this);
-
+		mAnimator->GetCompleteEvent(L"LCannon") = std::bind(&Cannon::throw_CompleteEvent, this);
+		mAnimator->GetCompleteEvent(L"RCannon") = std::bind(&Cannon::throw_CompleteEvent, this);
 
 		Collider* collider = AddComponent<Collider>();
 		collider->SetSize(Vector2(135.0f, 155.0f));
@@ -180,7 +181,7 @@ namespace jk
 
 			if (tailsState == Tails::eTailsState::Dash || tailsState == Tails::eTailsState::Jump || tailsState == Tails::eTailsState::Spin || tailsState == Tails::eTailsState::Movejump)
 			{
-				mAnimator->Play(L"death", false);
+				mAnimator->Play(L"Canon_death2", false);
 			}
 		}
 	}
@@ -208,12 +209,12 @@ namespace jk
 	}
 	void Cannon::right()
 	{
-		mAnimator->GetCompleteEvent(L"RCannon") = std::bind(&Cannon::throw_CompleteEvent, this);
+		//mAnimator->GetCompleteEvent(L"RCannon") = std::bind(&Cannon::throw_CompleteEvent, this);
 		mDir = 1;
 	}
 	void Cannon::left()
 	{
-		mAnimator->GetCompleteEvent(L"LCannon") = std::bind(&Cannon::throw_CompleteEvent, this);
+		//mAnimator->GetCompleteEvent(L"LCannon") = std::bind(&Cannon::throw_CompleteEvent, this);
 		mDir = -1;
 	}
 

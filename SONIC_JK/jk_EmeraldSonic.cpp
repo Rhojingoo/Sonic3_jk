@@ -71,6 +71,18 @@ namespace jk
 		Gameobject::Release();
 	}
 
+	void EmeraldSonic::OnCollisionEnter(Collider* other)
+	{
+	}
+
+	void EmeraldSonic::OnCollisionStay(Collider* other)
+	{
+	}
+
+	void EmeraldSonic::OnCollisionExit(Collider* other)
+	{
+	}
+
 	void EmeraldSonic::idle()
 	{
 		mAnimator->Play(L"sonicidle", true);

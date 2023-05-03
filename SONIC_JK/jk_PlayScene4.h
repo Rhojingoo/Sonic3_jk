@@ -4,7 +4,7 @@
 
 namespace jk
 {
-
+	class Deatht_line_act6;
 	class Ending_boss;
 	class Boss_trash;
 	class act6_sky1;
@@ -39,6 +39,8 @@ namespace jk
 		void ending_boss();
 		void boss_trash();
 
+		void Create_Deathtline(float x, float y);
+
 
 
 	private:
@@ -54,7 +56,7 @@ namespace jk
 		act6_sky1* sky1;
 		Boss_trash* trash;
 		Ending_boss* end_boss;
-	
+		Deatht_line_act6* death_line;
 		int dir;
 		int check_map;
 

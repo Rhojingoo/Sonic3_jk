@@ -587,9 +587,6 @@
     <ClInclude Include="jk_PlayScene.h">
       <Filter>Contents\Scene\Playgame\Act1-1</Filter>
     </ClInclude>
-    <ClInclude Include="jk_PlayScene2.h">
-      <Filter>Contents\Scene\Playgame\Act1-2</Filter>
-    </ClInclude>
     <ClInclude Include="jk_Act1_2_BG.h">
       <Filter>Contents\BG\PlayBG\BG_act1-2</Filter>
     </ClInclude>
@@ -839,6 +836,15 @@
     </ClInclude>
     <ClInclude Include="Boss_appear.h">
       <Filter>Contents\Boss\Act1-3_boss\apear</Filter>
+    </ClInclude>
+    <ClInclude Include="Dead_line.h">
+      <Filter>Contents\Boss\Act1-3_boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Deatht_line_act6.h">
+      <Filter>Contents\Boss\Act6_boss_second</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_PlayScene2.h">
+      <Filter>Contents\Scene\Playgame\Act1-2</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1353,6 +1359,12 @@
     </ClCompile>
     <ClCompile Include="Boss_appear.cpp">
       <Filter>Contents\Boss\Act1-3_boss\apear</Filter>
+    </ClCompile>
+    <ClCompile Include="Dead_line.cpp">
+      <Filter>Contents\Boss\Act1-3_boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Deatht_line_act6.cpp">
+      <Filter>Contents\Boss\Act6_boss_second</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

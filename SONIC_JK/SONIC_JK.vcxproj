@@ -179,6 +179,8 @@
     <ClInclude Include="Commoninclude.h" />
     <ClInclude Include="CYLINDER_COL_L.h" />
     <ClInclude Include="CYLINDER_COL_R.h" />
+    <ClInclude Include="Dead_line.h" />
+    <ClInclude Include="Deatht_line_act6.h" />
     <ClInclude Include="Electsonic.h" />
     <ClInclude Include="Elec_effect.h" />
     <ClInclude Include="EndingBlend.h" />
@@ -355,6 +357,8 @@
     <ClCompile Include="bullet_wall.cpp" />
     <ClCompile Include="CYLINDER_COL_L.cpp" />
     <ClCompile Include="CYLINDER_COL_R.cpp" />
+    <ClCompile Include="Dead_line.cpp" />
+    <ClCompile Include="Deatht_line_act6.cpp" />
     <ClCompile Include="Electsonic.cpp" />
     <ClCompile Include="Elec_effect.cpp" />
     <ClCompile Include="EndingBlend.cpp" />

@@ -1,6 +1,7 @@
 #include "jk_Collider.h"
 #include "jk_Transform.h"
 #include "jk_GameObject.h"
+#include "jk_Input.h"
 #include "jk_Camera.h"
 
 namespace jk
@@ -14,6 +15,7 @@ namespace jk
 		, mSize(100.0f,100.0f)
 		, mID(ColliderNumver++)
 		,mCollisionCount(0)
+		, ONOFF(0)
 	{
 	
 	}
@@ -35,27 +37,40 @@ namespace jk
 
 	void Collider::Render(HDC hdc)
 	{
-		HPEN pen = NULL;
-		if (mCollisionCount == 0)
-			pen = CreatePen(BS_SOLID, 2, RGB(0, 255, 0));
-		else
-			pen = CreatePen(BS_SOLID, 2, RGB(255, 0, 0));
+
+		if (Input::GetKeyDown(eKeyCode::P))
+		{
+			ONOFF = 1;
+		}
+		if (Input::GetKeyDown(eKeyCode::O))
+		{
+			ONOFF = 0;
+		}
+		if (ONOFF == 0)
+		{
+			HPEN pen = NULL;
+			if (mCollisionCount == 0)
+				pen = CreatePen(BS_SOLID, 2, RGB(0, 255, 0));
+			else
+				pen = CreatePen(BS_SOLID, 2, RGB(255, 0, 0));
 
 
-		HPEN oldPen = (HPEN)SelectObject(hdc, pen);
-		HBRUSH brush = (HBRUSH)GetStockObject(NULL_BRUSH);
-		HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, brush);		
-	
-		Vector2 pos = Camera::CaluatePos(mPos);
-		Rectangle(hdc, pos.x, pos.y, pos.x + mSize.x, pos.y + mSize.y);
-		//Rectangle(hdc, pos.x - mSize.x/2, pos.y - mSize.y, pos.x + mSize.x /2, pos.y);
-		
-		
-		(HPEN)SelectObject(hdc, oldPen);
-		(HBRUSH)SelectObject(hdc, oldBrush);
-		DeleteObject(pen);
+			HPEN oldPen = (HPEN)SelectObject(hdc, pen);
+			HBRUSH brush = (HBRUSH)GetStockObject(NULL_BRUSH);
+			HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, brush);
 
-		mCollisionCount = 0;
+			Vector2 pos = Camera::CaluatePos(mPos);
+
+			Rectangle(hdc, pos.x, pos.y, pos.x + mSize.x, pos.y + mSize.y);
+			//Rectangle(hdc, pos.x - mSize.x/2, pos.y - mSize.y, pos.x + mSize.x /2, pos.y);
+
+
+			(HPEN)SelectObject(hdc, oldPen);
+			(HBRUSH)SelectObject(hdc, oldBrush);
+			DeleteObject(pen);
+
+			mCollisionCount = 0;
+		}
 	}
 
 	void Collider::Release()

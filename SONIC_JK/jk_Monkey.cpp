@@ -48,7 +48,7 @@ namespace jk
 		mImage1 = Resources::Load<Image>(L"Effect", L"..\\Resources\\Effect.bmp");
 		mAnimator->CreateAnimation(L"death", mImage1, Vector2{ 242.f,458.f }, Vector2{ 40.f,32.f }, Vector2{ 8.f,0.f }, 4, 1, 4, Vector2::Zero, 0.3f);
 		mAnimator->CreateAnimation(L"deth2", mImage1   , Vector2{ 242.f,498.f }, Vector2{ 32.f,24.f }, Vector2{ 8.f,0.f }, 4, 1, 4, Vector2::Zero, 0.3f);
-
+		mAnimator->GetCompleteEvent(L"LMonkey_throw") = std::bind(&Monkey::throw_CompleteEvent, this);
 
 
 		Collider* collider = AddComponent<Collider>();
@@ -274,7 +274,7 @@ namespace jk
 
 	void Monkey::Lthrows()
 	{
-		mAnimator->GetCompleteEvent(L"LMonkey_throw") = std::bind(&Monkey::throw_CompleteEvent, this);
+		//mAnimator->GetCompleteEvent(L"LMonkey_throw") = std::bind(&Monkey::throw_CompleteEvent, this);
 	}
 
 	void Monkey::Rthrows()

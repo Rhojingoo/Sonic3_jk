@@ -133,13 +133,13 @@ namespace jk
 			{
 				Damege_check += 1;
 
-				//if (Damege_check <= 6)
-				//{
-				//	hurt();
-				//	mAnimator->Play(L"Boss1_hurt", false);
-				//}
+				if (Damege_check <= 6)
+				{
+					hurt();
+					mAnimator->Play(L"Boss1_hurt", false);
+				}
 
-				if (Damege_check >= 1)
+				if (Damege_check >= 7)
 				{
 					mAnimator->Play(L"Boss1_death", true);
 					mState = eBossState::Death;					

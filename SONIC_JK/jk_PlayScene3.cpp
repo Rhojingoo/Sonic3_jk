@@ -30,6 +30,8 @@
 #include "jk_Ground.h"
 #include "jk_Gameobject.h"
 #include "Add_force.h"
+#include "Dead_line.h"
+
 
 #include "jk_Act1_3_BG.h"
 #include "Act1_2_sky1.h"
@@ -86,9 +88,9 @@ namespace jk
 		mSonic = new Sonic();
 		mSonic->SetName(L"Player");
 		AddGameobeject(mSonic, jk_LayerType::Player);
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 600.f, 3285.f });//½ÃÀÛ
+		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 600.f, 3285.f });//½ÃÀÛ
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 7800.0f, 3650.0f });//²É¾Õ
-		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 18400.f, 3900.f });//¿Õ ¾Õ
+		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 18400.f, 3900.f });//¿Õ ¾Õ
 		//13770.f, 2880.f 
 
 
@@ -149,6 +151,12 @@ namespace jk
 		Life_TensDigit* Life_t = new Life_TensDigit(Life_M);
 		Life_t->SetName(L"Life_t");
 		AddGameobeject(Life_t, jk_LayerType::UI);
+
+
+		deathline = new Dead_line();
+		deathline->SetName(L"deathline");
+		AddGameobeject(deathline, jk_LayerType::BOSS);
+		deathline->GetComponent<Transform>()->SetPos(Vector2{ 19000.f, 4030.f });
 
 
 
@@ -298,12 +306,10 @@ namespace jk
 		{			
 			if (boss_appear == 0)
 			{
-				Create_Boss_Apear();
+				Create_Boss_Apear();			
 				boss_appear = 1;
 			}
 		}
-
-	
 			
 
 
@@ -324,7 +330,7 @@ namespace jk
 			{
 				if (check_boss != 0)
 					return;
-
+				Create_Deathtline();
 				Create_Boss();
 				check_boss = 1;
 			}
@@ -425,6 +431,11 @@ namespace jk
 		mBoss->SetName(L"boss");
 		AddGameobeject(mBoss, jk_LayerType::BOSS);
 		mBoss->GetComponent<Transform>()->SetPos(Vector2{ 19005.f, 3480.f });
+	}
+
+	void PlayScene3::Create_Deathtline()
+	{
+
 	}
 
 

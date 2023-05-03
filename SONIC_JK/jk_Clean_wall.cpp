@@ -27,8 +27,6 @@ namespace jk
 	}
 	void Clean_wall::Initialize()
 	{
-	
-
 		mCollider = AddComponent<Collider>();
 		mCollider->SetSize(Vector2(48.0f, 315.0f));	
 		//2904.f, 1132.f

@@ -33,7 +33,7 @@
 #include "jk_Ground.h"
 #include "jk_Act6_BG.h"
 #include "act6_sky1.h"
-
+#include "Deatht_line_act6.h"
 
 #include "Robotnic_machine.h"
 #include "boss1_body.h"
@@ -153,9 +153,12 @@ namespace jk
 		Life_t->SetName(L"Life_t");
 		AddGameobeject(Life_t, jk_LayerType::UI);
 
+		death_line = new Deatht_line_act6();
+		death_line->SetName(L"death_line");
+		AddGameobeject(death_line, jk_LayerType::BOSS);
+		death_line->GetComponent<Transform>()->SetPos(Vector2{ 13500.f,  5900.f });
 
-
-
+		
 		fly_machine = new Robotnic_machine();
 		fly_machine->SetName(L"boss_first");
 		AddGameobeject(fly_machine, jk_LayerType::Player);
@@ -220,6 +223,8 @@ namespace jk
 			{
 				map_lotation = 1;
 				stage_final->Set_move_stage(map_lotation);
+				Vector2 stagepos = stage_final->GetComponent<Transform>()->GetPos();
+				Create_Deathtline(stagepos.x, stagepos.y);
 			}
 		}
 
@@ -378,16 +383,18 @@ namespace jk
 			check_map = 0;
 		}
 
-
 	}
+
 	void PlayScene4::Render(HDC hdc)
 	{
 		Scene::Render(hdc);
 	}
+
 	void PlayScene4::Release()
 	{
 		Scene::Release();
 	}
+
 	void PlayScene4::OnEnter()
 	{
 
@@ -412,13 +419,16 @@ namespace jk
 
 		Camera::SetTarget(mSonic);
 	}
+
 	void PlayScene4::OnExit()
 	{
 	}
+
 	void PlayScene4::CreateBlending()
 	{
 		//object::Instantiate<EndingBlend>(jk_LayerType::Blend);
 	}
+
 	void PlayScene4::Create_Boss1()
 	{
 		boss_come* boss_run = new boss_come(mSonic);
@@ -445,7 +455,6 @@ namespace jk
 		last_boss->SetName(L"last_boss");
 		last_boss->GetComponent<Transform>()->SetPos(Vector2{ 13550.0f,5400.f });
 		curScene1->AddGameobeject(last_boss, jk_LayerType::BOSS);
-
 
 		Scene* curScene2 = SceneManager::GetActiveScene();
 		boss_arm = new Boss_Arm(last_boss);
@@ -482,10 +491,11 @@ namespace jk
 		curScene2->AddGameobeject(trash, jk_LayerType::BOSS);
 	}
 
-	
-
+	void PlayScene4::Create_Deathtline(float x, float y)
+	{
+		//death_line = new Deatht_line_act6();
+		//death_line->SetName(L"death_line");
+		//AddGameobeject(death_line, jk_LayerType::BOSS);
+		//death_line->GetComponent<Transform>()->SetPos(Vector2{ x,  y+300 });
+	}
 }
-//Third_Boss
-//Boss_Arm
-
-//27,87

@@ -4,6 +4,7 @@
 
 namespace jk
 {
+	class Dead_line;
 	class show_bomb;
 	class boss_bomber;
 	class Add_force;
@@ -30,6 +31,7 @@ namespace jk
 		void CreateBlending();
 		void Create_Boss_Apear();
 		void Create_Boss();
+		void Create_Deathtline();
 		void Create_Boomber_show();
 		void Create_Boomber_bombing(float a, float b);
 
@@ -42,6 +44,7 @@ namespace jk
 		boss_bomber* mBomber;
 		show_bomb* bomb;
 		Add_force* add_force[9];
+		Dead_line* deathline;
 		int dir;
 		int check_map;
 
