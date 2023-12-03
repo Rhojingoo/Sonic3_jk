@@ -24,8 +24,5 @@ namespace jk
 	private:
 		Image* mImage;
 		Animator* mAnimator;
-		float mTime;
-		float checktime;
-		eState mState;
 	};
 }

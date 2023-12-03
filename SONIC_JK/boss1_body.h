@@ -1,7 +1,7 @@
 #pragma once
 #include "jk_Gameobject.h"
-#include "jk_SONIC.h"
 #include "jk_Image.h"
+#include "jk_Sound.h"
 #include "jk_Time.h"
 
 
@@ -42,7 +42,6 @@ namespace jk
 		void SetCheckTargetGround(Ground* ground) { check = ground; }
 
 
-
 	private:
 		void idle();
 		void move();
@@ -53,24 +52,27 @@ namespace jk
 
 	private:
 		Image* mImage;
+		Image* mGroundImage;
 		Animator* mAnimator;
 		Rigidbody* mRigidbody;
-		Vector2 mCenterpos;
-		Vector2 pos;
-		float mMonspeed;
-		float mMonmaxdistance;
-		Sonic::eSonicState sonicState;
-	
-		int mDir;
-		float fDist;
+
+	private:
+		Sound* Boss_Hit;
+		Sound* Boss_Bomb;
+		Sound* Boss_Start;
+		Sound* Act6_music;
+
+	private:
 		eBossState mState;
+		Sonic::eSonicState sonicState;
+		boss1_object* boss_ob;
+		Ground* check;
+
+	private:
+		Vector2 pos;	
 		float time;
 		int Death_point;
 		int Damege_check;
-		boss1_object* boss_ob;
-
-		Image* mGroundImage;
-		Ground* check;
 		int check_map;
 	};
 }

@@ -21,17 +21,31 @@ int check_ground_CN = 0;
 namespace jk
 {
 	Cannon::Cannon(Gameobject* owner)
-		: mCurpos(Vector2(0.0f, 0.0f))
+		: pos(0.f,0.f)
 		, mDir(-1)
+		, check_map(0)
+		, sonicState()
+		, tailsState()
+		, mState(eCannon::Idle)
 		, mOwner(owner)
-		, sonicpattern(0)		
+		, check(nullptr)
+		, mGroundImage(nullptr)
+		, mGroundImage2(nullptr)
+		, Death(nullptr)
+		, mImage(nullptr)
+		, mImage1(nullptr)
+		, mAnimator(nullptr)
+		, mRigidbody(nullptr)
+
 	{
 	}
 	Cannon::~Cannon()
 	{
-	}//4150,748
+	}
 	void Cannon::Initialize()
 	{
+		Death = Resources::Load<Sound>(L"Monster_Death", L"..\\Resources\\Sound\\Sonic\\Monster_Death.wav");
+
 		mImage = Resources::Load<Image>(L"CANON", L"..\\Resources\\Monster2.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"RCannon", mImage, Vector2{ 24.f,353.f }, Vector2{ 52.f,63.f }, Vector2{ 4.f,0.f }, 5, 1, 5, Vector2::Zero, 0.5f);
@@ -157,21 +171,9 @@ namespace jk
 		{
 			sonicState = sonic->Getsonicstate();
 
-			//switch (sonicState) // if문대시 switch문으로 
-			//{
-			//case jk::Sonic::eSonicState::Dash:
-			//case jk::Sonic::eSonicState::Jump:
-			//case jk::Sonic::eSonicState::Spin:
-			//{
-			//	mAnimator->Play(L"Canon_death2", true);
-			//	mAnimator->GetCompleteEvent(L"Canon_death2") = std::bind(&Cannon::death, this);
-			//	break;
-			//}
-			//default:
-			//	break;
-			//}
 			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
-			{
+			{				
+				Death->Play(false);
 				mAnimator->Play(L"Canon_death2", true);				
 			}
 		}
@@ -181,6 +183,7 @@ namespace jk
 
 			if (tailsState == Tails::eTailsState::Dash || tailsState == Tails::eTailsState::Jump || tailsState == Tails::eTailsState::Spin || tailsState == Tails::eTailsState::Movejump)
 			{
+				Death->Play(false);
 				mAnimator->Play(L"Canon_death2", false);
 			}
 		}
@@ -207,11 +210,13 @@ namespace jk
 			mAnimator->Play(L"RCannon", false);
 		}
 	}
+
 	void Cannon::right()
 	{
 		//mAnimator->GetCompleteEvent(L"RCannon") = std::bind(&Cannon::throw_CompleteEvent, this);
 		mDir = 1;
 	}
+
 	void Cannon::left()
 	{
 		//mAnimator->GetCompleteEvent(L"LCannon") = std::bind(&Cannon::throw_CompleteEvent, this);

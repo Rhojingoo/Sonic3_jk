@@ -80,9 +80,6 @@
     <Filter Include="Engine\Component\Collider">
       <UniqueIdentifier>{334db0d7-9d2d-4760-9e63-20f2321cc9cb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\StageSave">
-      <UniqueIdentifier>{bd31b8d1-50b6-412c-b415-96d018b8193f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Camera">
       <UniqueIdentifier>{1c46ed71-ec27-4be3-a4a1-ed7f19402ad7}</UniqueIdentifier>
     </Filter>
@@ -115,9 +112,6 @@
     </Filter>
     <Filter Include="Contents\Player\Sonic">
       <UniqueIdentifier>{059bb951-2922-4fe9-8bf6-4ac3893441af}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Player\Sonic\minigame">
-      <UniqueIdentifier>{261e9c6f-e816-4cbf-a841-8288247ac61a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Contents\Player\Sonic\emelarld">
       <UniqueIdentifier>{cd4be9fb-4cd7-463c-90c7-3b51036c13b5}</UniqueIdentifier>
@@ -187,9 +181,6 @@
     </Filter>
     <Filter Include="Contents\Scene\Playgame\Act1-2">
       <UniqueIdentifier>{0da14897-cf50-45b8-b589-0256b793029a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\BG\PlayBG\Ground act1-2">
-      <UniqueIdentifier>{92797704-beb1-4317-88ab-059972d715b6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Contents\BG\PlayBG\Ground">
       <UniqueIdentifier>{9c1a1423-07ab-4243-9593-915adf8f4e16}</UniqueIdentifier>
@@ -314,8 +305,14 @@
     <Filter Include="Contents\Boss\Act1-3_boss\apear">
       <UniqueIdentifier>{4f88c8aa-9ae5-4e79-8333-2523c54e8fcc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Boss\Act1-3_boss\Act1-3_show\show">
+    <Filter Include="Contents\Boss\Act1-1_minibos_show\show">
       <UniqueIdentifier>{2552fdff-9ef6-4838-a445-9118e417b140}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\PlayBG\StageSave">
+      <UniqueIdentifier>{bd31b8d1-50b6-412c-b415-96d018b8193f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Sound">
+      <UniqueIdentifier>{1fa1449b-4932-4ade-a8b4-56424a379eca}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -410,7 +407,7 @@
       <Filter>Engine\Component\Collider</Filter>
     </ClInclude>
     <ClInclude Include="jk_StageSave.h">
-      <Filter>Contents\StageSave</Filter>
+      <Filter>Contents\BG\PlayBG\StageSave</Filter>
     </ClInclude>
     <ClInclude Include="jk_Camera.h">
       <Filter>Engine\Camera</Filter>
@@ -460,7 +457,6 @@
     <ClInclude Include="Electsonic.h">
       <Filter>Contents\Player\Sonic\shield</Filter>
     </ClInclude>
-    <ClInclude Include="SonicState.h" />
     <ClInclude Include="Rigdbody_L.h">
       <Filter>Engine\Component\RigidBody\rotation</Filter>
     </ClInclude>
@@ -578,9 +574,6 @@
     <ClInclude Include="jk_Boss.h">
       <Filter>Contents\Boss\Act1-3_boss</Filter>
     </ClInclude>
-    <ClInclude Include="jk_Minibos.h">
-      <Filter>Contents\Boss\Act1-2_miniboss</Filter>
-    </ClInclude>
     <ClInclude Include="jk_check2.h">
       <Filter>Contents\BG\PlayBG\Circle_check\Act1-1</Filter>
     </ClInclude>
@@ -593,9 +586,6 @@
     <ClInclude Include="jk_Ground.h">
       <Filter>Contents\BG\PlayBG\Ground</Filter>
     </ClInclude>
-    <ClInclude Include="jk_Ground_act1_2.h">
-      <Filter>Contents\BG\PlayBG\Ground act1-2</Filter>
-    </ClInclude>
     <ClInclude Include="jk_fire_show.h">
       <Filter>Contents\Boss\Act1-1_minibos_show\fire</Filter>
     </ClInclude>
@@ -606,7 +596,7 @@
       <Filter>Contents\Boss\Act1-1_minibos_show\bullet</Filter>
     </ClInclude>
     <ClInclude Include="jk_minibos_show.h">
-      <Filter>Contents\Boss\Act1-3_boss\Act1-3_show\show</Filter>
+      <Filter>Contents\Boss\Act1-1_minibos_show\show</Filter>
     </ClInclude>
     <ClInclude Include="jk_Clean_wall.h" />
     <ClInclude Include="jk_Collapses_GR_left.h">
@@ -643,9 +633,6 @@
       <Filter>Contents\Boss\Act1-3_boss\BaseBullet</Filter>
     </ClInclude>
     <ClInclude Include="Bullet_Act1_R_DIA.h">
-      <Filter>Contents\Boss\Act1-3_boss\BaseBullet</Filter>
-    </ClInclude>
-    <ClInclude Include="bullet_wall.h">
       <Filter>Contents\Boss\Act1-3_boss\BaseBullet</Filter>
     </ClInclude>
     <ClInclude Include="Jeepline_play.h">
@@ -846,6 +833,16 @@
     <ClInclude Include="jk_PlayScene2.h">
       <Filter>Contents\Scene\Playgame\Act1-2</Filter>
     </ClInclude>
+    <ClInclude Include="Act1_2_Boss_wall.h" />
+    <ClInclude Include="jk_Minibos.h">
+      <Filter>Contents\Boss\Act1-2_miniboss</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>Engine\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Sound.h">
+      <Filter>Engine\Sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SONIC_JK.rc">
@@ -934,7 +931,7 @@
       <Filter>Engine\Component\Collider</Filter>
     </ClCompile>
     <ClCompile Include="jk_StageSave.cpp">
-      <Filter>Contents\StageSave</Filter>
+      <Filter>Contents\BG\PlayBG\StageSave</Filter>
     </ClCompile>
     <ClCompile Include="jk_Camera.cpp">
       <Filter>Engine\Camera</Filter>
@@ -1116,9 +1113,6 @@
     <ClCompile Include="jk_Ground.cpp">
       <Filter>Contents\BG\PlayBG\Ground</Filter>
     </ClCompile>
-    <ClCompile Include="jk_Ground_act1_2.cpp">
-      <Filter>Contents\BG\PlayBG\Ground act1-2</Filter>
-    </ClCompile>
     <ClCompile Include="jk_fire_show.cpp">
       <Filter>Contents\Boss\Act1-1_minibos_show\fire</Filter>
     </ClCompile>
@@ -1129,7 +1123,7 @@
       <Filter>Contents\Boss\Act1-1_minibos_show\bullet</Filter>
     </ClCompile>
     <ClCompile Include="jk_minibos_show.cpp">
-      <Filter>Contents\Boss\Act1-3_boss\Act1-3_show\show</Filter>
+      <Filter>Contents\Boss\Act1-1_minibos_show\show</Filter>
     </ClCompile>
     <ClCompile Include="jk_Clean_wall.cpp" />
     <ClCompile Include="jk_Collapses_GR_left.cpp">
@@ -1166,9 +1160,6 @@
       <Filter>Contents\Boss\Act1-3_boss\BaseBullet</Filter>
     </ClCompile>
     <ClCompile Include="Bullet_Act1_R_Side.cpp">
-      <Filter>Contents\Boss\Act1-3_boss\BaseBullet</Filter>
-    </ClCompile>
-    <ClCompile Include="bullet_wall.cpp">
       <Filter>Contents\Boss\Act1-3_boss\BaseBullet</Filter>
     </ClCompile>
     <ClCompile Include="Jeepline_play.cpp">
@@ -1365,6 +1356,13 @@
     </ClCompile>
     <ClCompile Include="Deatht_line_act6.cpp">
       <Filter>Contents\Boss\Act6_boss_second</Filter>
+    </ClCompile>
+    <ClCompile Include="Act1_2_Boss_wall.cpp" />
+    <ClCompile Include="jk_Sound.cpp">
+      <Filter>Engine\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>Engine\Sound</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -11,11 +11,11 @@
 namespace jk
 {
 	Ring_TensDigit::Ring_TensDigit(Gameobject* owner)
-		:TensDigit(0)
+		:TensDigit(0)	
 		, Units(nullptr)
-		, mOwner(nullptr)
-	{
-		mOwner = owner;
+		, mOwner(owner)
+		, mImage(nullptr)
+	{	
 		Units = dynamic_cast<Ring_Point_Manager*>(owner);
 	}
 	Ring_TensDigit::~Ring_TensDigit()

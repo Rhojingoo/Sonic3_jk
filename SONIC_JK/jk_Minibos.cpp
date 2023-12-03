@@ -1,32 +1,52 @@
 #include "jk_Minibos.h"
-#include "jk_Time.h"
-#include "jk_SceneManager.h"
-#include "jk_Input.h"
-#include "jk_Resources.h"
-#include "jk_Transform.h"
-#include "jk_Animator.h"
-#include "jk_Collider.h"
-#include "jk_Scene.h"
-#include "jk_Object.h"
+#include "mB_Rdeath.h"
 #include "mBoss_Bl_L.h"
 #include "mBoss_BL_R.h"
-#include "mB_Rdeath.h"
 #include "mB_Ldeath.h"
-#include "Rigidbody.h"
 #include "Boss_act1_boomb.h"
+
+
+#include "jk_SceneManager.h"
+#include "jk_Scene.h"
+#include "jk_Transform.h"
+#include "Rigidbody.h"
+#include "jk_Animator.h"
+#include "jk_Collider.h"
+#include "jk_Resources.h"
+#include "jk_Object.h"
+#include "jk_Time.h"
+#include "jk_Input.h"
+
+
+
+
+
 
 namespace jk
 {
 	Minibos::Minibos(Gameobject* owner)
-		:mCenterpos(13545.f, 2880.f)
+		: mOwner(owner)
+		, mCenterpos(13545.f, 2880.f)
+		, pos(0.f,0.f)
 		, mMonspeed(100.0f)
 		, mMonmaxdistance(100.0f)
+		, fDist(0.f)
+		, time_check(0.f)
+		, time(0.f)
 		, mDir(-1)
-		,attack_check(0)
-		, fDist(0)
 		, attack(0)
-		,time(0)
+		, attack_check(0)
 		, Death(0)
+		, map_check(0)
+		, sonicState()
+		, mState()
+		, mImage(nullptr)
+		, mAnimator(nullptr)
+		, mRigidbody(nullptr)
+		, Miniboss2(nullptr)
+		, Boss_hit(nullptr)
+		, Minboss_death(nullptr)
+		, Act2_music(nullptr)
 	{
 		mImage = Resources::Load<Image>(L"middle_bos", L"..\\Resources\\middle_bos.bmp");
 
@@ -34,15 +54,17 @@ namespace jk
 		mAnimator->CreateAnimation(L"R_mBoss", mImage, Vector2{ 4.f,285.f }, Vector2{ 96.f,72.f }, Vector2{ 8.f,0.f }, 3, 1, 3, Vector2::Zero, 0.1f);
 		mAnimator->CreateAnimation(L"L_mBoss", mImage, Vector2{ 4.f,206.f }, Vector2{ 96.f,72.f }, Vector2{ 8.f,0.f }, 3, 1, 3, Vector2::Zero, 0.1f);
 		mAnimator->CreateAnimation(L"middle_bos_cover_open", mImage, Vector2{ 4.f,25.f }, Vector2{ 96.f,79.f }, Vector2{ 8.f,0.f }, 6, 1, 6, Vector2::Zero, 0.1f);
-
 		mAnimator->CreateAnimation(L"R_mBoss_idle", mImage, Vector2{ 4.f,285.f }, Vector2{ 96.f,72.f }, Vector2{ 8.f,0.f }, 1, 1, 1, Vector2::Zero, 0.1f);
 		mAnimator->CreateAnimation(L"L_mBoss_idle", mImage, Vector2{ 4.f,206.f }, Vector2{ 96.f,72.f }, Vector2{ 8.f,0.f }, 1, 1, 1, Vector2::Zero, 0.1f);
-
-
 		mAnimator->CreateAnimation(L"L_mBDeath", mImage, Vector2{ 452.f,418.f }, Vector2{ 80.f,64.f }, Vector2{ 0.f,0.f }, 1, 1, 1, Vector2::Zero, 0.1f);
 		mAnimator->CreateAnimation(L"R_mBDeath", mImage, Vector2{ 451.f,331.f }, Vector2{ 80.f,64.f }, Vector2{ 0.f,0.f }, 1, 1, 1, Vector2::Zero, 0.1f);
-
 		mAnimator->Play(L"L_mBoss", true);
+
+		Minboss_death = Resources::Load<Sound>(L"Boss_death", L"..\\Resources\\Sound\\Boss_death.wav");
+		Miniboss2 = Resources::Load<Sound>(L"Miniboss2", L"..\\Resources\\Sound\\Miniboss2.wav");
+		Boss_hit = Resources::Load<Sound>(L"Boss_hit", L"..\\Resources\\Sound\\Boss_hit.wav");
+		Act2_music = Resources::Load<Sound>(L"Act2_bg", L"..\\Resources\\Sound\\Act2_bg.wav");
+
 
 		Collider* collider = AddComponent<Collider>();
 		collider->SetSize(Vector2(245.0f, 200.0f));
@@ -97,12 +119,12 @@ namespace jk
 			time += Time::DeltaTime();
 			if (time >= 5)
 			{
+				Act2_music->Play(true);
 				SceneManager::LoadScene(jk_SceneType::GamePlay3);
 				map_check = 2;
 				object::Destory(this);
 			}
 		}
-
 
 		Gameobject::Update();
 	}
@@ -122,6 +144,7 @@ namespace jk
 		if (Sonic* sonic = dynamic_cast<Sonic*>(other->GetOwner()))
 		{
 			sonicState = sonic->Getsonicstate();
+			Boss_hit->Play(false);
 
 			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
 			{
@@ -130,6 +153,8 @@ namespace jk
 				Transform* tr = GetComponent<Transform>();
 				if ((attack_check>=6)&&(mDir == -1))//¿ÞÂÊ
 				{
+					
+
 					mAnimator->Play(L"L_mBoss_idle", true);
 					mState = eState::Death;		
 					attack_check = 0;
@@ -140,6 +165,7 @@ namespace jk
 				}
 				if ((attack_check >= 6) && (mDir == 1))//¿À¸¥ÂÊ
 				{
+					
 					mAnimator->Play(L"R_mBoss_idle", true);		
 					mState = eState::Death;
 					attack_check = 0;
@@ -170,9 +196,7 @@ namespace jk
 
 		if (fDist <= -485.0f)
 		{
-			mState = eState::Atack;
-			
-			//mAnimator->Play(L"middle_bos_cover_open", false);
+			mState = eState::Atack;			
 		}
 		tr->SetPos(pos);
 	}
@@ -186,8 +210,7 @@ namespace jk
 
 
 		if (fDist >= -35.0f)
-		{
-					
+		{					
 			if (mDir == -1)//¿ÞÂÊ
 			{
 				mState = eState::Left;				
@@ -300,6 +323,9 @@ namespace jk
 		
 		if (attack_check == 0)
 		{			
+			Miniboss2->Stop(true);
+			Minboss_death->Play(false);
+
 			Transform* tr = GetComponent<Transform>();
 			Boss_act1_boomb* boss_boomb = new Boss_act1_boomb(this);
 			Scene* curScene = SceneManager::GetActiveScene();

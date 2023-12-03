@@ -2,6 +2,7 @@
 #include "jk_Gameobject.h"
 #include "jk_Image.h"
 #include "jk_Time.h"
+#include "jk_Sound.h"
 
 
 namespace jk
@@ -41,18 +42,23 @@ namespace jk
 	private:
 		Image* mImage;
 		Animator* mAnimator;
+		Sound* Act1_music;
+		Sound* Miniboss1;
+		Sound* Fire_show;
+		Sound* Act2_music;
 
-		float fDist;
+
+	private:
 		Vector2 pos;
 		Vector2 mCenterpos;	
+		float fDist;
 		float mMonspeed;
 		float mMonmaxdistance;
 		float time;	
-
 		int mDir;
 		eState mState;
-		Gameobject* mOwner;
 	
+	private:
 		int shoot;	
 		int map_check;
 	};

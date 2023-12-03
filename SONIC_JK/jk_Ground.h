@@ -27,6 +27,7 @@ namespace jk
 		void Set_Circlecheck(int cir_check) { Circlecheck = cir_check; }
 		void SetPlayer(class Sonic* player, class Tails* player2) { mPlayer = player, mPlayer2 = player2; }
 		
+		void SetLotation(int rotaion) {	mRotationcheck = rotaion;}
 
 		class Image* GetGroundImage() 
 		{ 
@@ -44,7 +45,6 @@ namespace jk
 			return Ground_Image2;
 		}
 
-
 		class Image* GetGroundImage3()
 		{
 			if (!Ground_Image3)
@@ -53,7 +53,6 @@ namespace jk
 			return Ground_Image3;
 		}
 
-
 		class Image* GetGroundImage4()
 		{
 			if (!Ground_Image4)
@@ -61,9 +60,6 @@ namespace jk
 
 			return Ground_Image4;
 		}
-
-
-
 
 	public:
 		void CheckGround();
@@ -82,59 +78,49 @@ namespace jk
 
 		void Set_map_check(int chek) { map_chek = chek; }
 		int Get_map_check() { return map_chek; }
-		//void MonsterGround();
+	
 
 	private:		
 		class Sonic* mPlayer;
 		class Tails* mPlayer2;
-		class Monster* mRino0;
-		class Ring_Falling* mRing;
-
 		class Transform* mPlayerTR;
 		class Transform* mPlayer_Tails_TR;
-		class Transform* mRino0_TR;
-		class Transform* ring_TR;
-
 		Rigidbody* mPlayerRigidBody;
 		Rigidbody* mRigidbody_Tails;
-		Rigidbody* mRigidbody_Rino0;
-		Rigidbody* ring_rb;
-
 		int SonicDir;
 		int TailsDir;
-
-
+		
+	private:
+		int GROUND;		
+		int LOOPENTERCOLOR;	
+		int LOOPAFTERHALF;	
 		int Circlecheck;
+
+	private:
 		//act1-1 이미지
 		class Image* Ground_Image;
 		class Image* Cicle_Rturn;
-		class Image* Cicle_Lturn;
-		
+		class Image* Cicle_Lturn;		
 		//act1-2 이미지
 		class Image* Ground_Image2;
 		class Image* Cicle_Rturn2;
 		class Image* Cicle_Lturn2;
-
 		//act1-3 이미지
 		class Image* Ground_Image3;
-
-
 		//act6 이미지
 		class Image* Ground_Image4;
 
-
+	private:
 		int mDirect;
-		int Circle_pice;
-		int Circle_pice_Tails;
-		int mRotationcheck;
-		//외부에서 서클센터바꾸기
-		Vector2 Circle1_Center;
-		Vector2 Circle1_Center2;
-
-
+		int Circle_pice;	
+		int mRotationcheck;		
 		int WallCheck;
 		bool LoopStoneMeet = false;
 		class Collider* mCollider;
 		int map_chek;
+
+	private://외부에서 서클센터바꾸기		
+		Vector2 Circle1_Center;
+		Vector2 Circle1_Center2;
 	};
 }

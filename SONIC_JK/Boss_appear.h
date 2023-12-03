@@ -9,12 +9,7 @@ namespace jk
 	class Animator;
 	class Boss_appear : public Gameobject
 	{
-	public:
-		enum class eState
-		{
-			Move,
-			Death
-		};
+	public:	
 
 		Boss_appear(Gameobject* owner);
 		~Boss_appear();
@@ -25,21 +20,13 @@ namespace jk
 		virtual void Release() override;
 
 
-	private:
-		void move();
-		void death();
-
 
 	private:
 		Image* mImage;
 		Animator* mAnimator;
-		eState mState;
 
-		int mDir;
 		float mMonspeed;
 		Vector2 pos;
-
-		float fDist;
 		Gameobject* mOwner;
 	};
 }

@@ -40,14 +40,13 @@ namespace jk
 		Image* mImage;
 		Animator* mAnimator;
 
-		float fDist;
 		Vector2 pos;
 		Vector2 mCenterpos;
+		int mDir;
+		float fDist;
 		float mMonspeed;
 		float mMonmaxdistance;
-
-		int mDir;
-		eState mState;
-		Gameobject* mOwner;
+	
+		eState mState;		
 	};
 }

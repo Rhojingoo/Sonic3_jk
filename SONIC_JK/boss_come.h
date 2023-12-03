@@ -1,6 +1,5 @@
 #pragma once
 #include "jk_Gameobject.h"
-#include "jk_SONIC.h"
 #include "jk_Image.h"
 #include "jk_Time.h"
 
@@ -41,20 +40,15 @@ namespace jk
 
 	private:
 		Image* mImage;
+		Image* mGroundImage;
 		Animator* mAnimator;
 		Rigidbody* mRigidbody;
-		Vector2 mCenterpos;
-		Vector2 pos;
-		float mMonspeed;
-		float mMonmaxdistance;
 
-		Image* mGroundImage;
-		Ground* check;
-
-		int mDir;
-		float fDist;
+	private:
 		eBossState mState;
-		float time;
+		Ground* check;
+		Vector2 pos;
 		int check_map;
+		int mDir;	
 	};
 }

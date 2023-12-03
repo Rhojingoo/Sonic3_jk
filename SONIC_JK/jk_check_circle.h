@@ -23,11 +23,7 @@ namespace jk
 		virtual void OnCollisionExit(class Collider* other);
 
 	private:
-		Image* mImage;
-		float mTime;
-		float checktime;
 		class Collider* mCollider;
 		Ground* mGround;
-		int checkcheck;
 	};
 }

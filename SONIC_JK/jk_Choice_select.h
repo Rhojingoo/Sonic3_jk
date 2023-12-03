@@ -19,11 +19,7 @@ namespace jk
 
 	private:
 		Image* mImage;
-		Animator* mAnimator;
-		float mTime;
-	
-		int Select_state;
-		int Box_space;
-		
+		Animator* mAnimator;	
+		int Select_state;		
 	};
 }

@@ -102,43 +102,41 @@ namespace jk
 		void endgame();
 
 
+		//void circle_Rturn_1();
+		//void circle_Rturn_2();
+		//void circle_Rturn_3();
+		//void circle_Rturn_4();
+		//void circle_Rturn_5();
+		//void circle_Rturn_6();
+		//void circle_Rturn_7();
 
-		void circle_Rturn_1();
-		void circle_Rturn_2();
-		void circle_Rturn_3();
-		void circle_Rturn_4();
-		void circle_Rturn_5();
-		void circle_Rturn_6();
-		void circle_Rturn_7();
 
-
-		void circle_Lturn_1();
-		void circle_Lturn_2();
-		void circle_Lturn_3();
-		void circle_Lturn_4();
-		void circle_Lturn_5();
-		void circle_Lturn_6();
-		void circle_Lturn_7();
+		//void circle_Lturn_1();
+		//void circle_Lturn_2();
+		//void circle_Lturn_3();
+		//void circle_Lturn_4();
+		//void circle_Lturn_5();
+		//void circle_Lturn_6();
+		//void circle_Lturn_7();
 
 
 
 	private:		
-		int mDir;
+		Gameobject* mOwner;
+		Sonic* mSonic;
+		Ground* check;
 		eTailsState mState;
 		Animator* mAnimator;	
+		Rigidbody* mRigidbody;
 		Vector2 sonicV;		
-		Gameobject* mOwner;
 		Vector2 TailsVelocity;
-		Vector2 SonicBrake;
 		Vector2 fallingcheck;
-		Sonic* mSonic;
-		//Sonic::eSonicState sonicState;
+		
 
 	private:
-		Rigidbody* mRigidbody;
+		int mDir;
 		int falling;
 		int circlecheck;
-		Ground* check;
 		int Circle_piece;		
 		int fly_check;
 		int pursue_boss;

@@ -2,6 +2,7 @@
 #include "jk_Gameobject.h"
 #include "jk_SONIC.h"
 #include "jk_Image.h"
+#include "jk_Sound.h"
 #include "jk_Time.h"
 
 
@@ -90,32 +91,35 @@ namespace jk
 
 	private:
 		Image* mImage;
+		Sound* Boss_Hit;
+		Sound* Boss_Bomb;
+		Sound* Boss_Start;
+		Sound* Act2_music;
 		Animator* mAnimator;
 		Rigidbody* mRigidbody;
 		Vector2 mCenterpos;
-		Vector2 mCurpos;
+
+	private:
 		Vector2 pos;
-		Boss_Run* boss_run;
-
-
 		float mMonspeed;
 		float mMonmaxdistance;
-		int mDir;
 		float fDist;
+		float time;
+		int mDir;
+
+	private:
+		Boss_Run* boss_run;
 		eBossState mState;
 		Gameobject* mOwner;
-
-		float time;
 		Sonic::eSonicState sonicState;
+
+	private:
 		int starscene;
 		int attack_motion;
 		int Dir_change;
 		int attack_check;
-
 		int hurt_state;
 		int Damege_sheck;
 		int Death_check;
-
-
 	};
 }

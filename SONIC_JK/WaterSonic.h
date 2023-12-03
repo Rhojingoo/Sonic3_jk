@@ -5,7 +5,6 @@
 
 namespace jk
 {
-	class Rigidbody;
 	class Animator;
 	class WaterSonic : public Gameobject
 	{
@@ -35,14 +34,14 @@ namespace jk
 		void water_effect();
 
 	private:
+		Gameobject* mOwner;
+		Sonic* sonic;
 		Animator* mAnimator;
 		Vector2 mSonic;
-		Gameobject* mOwner;
-		int mDir;
-		int tailcheck;
-		Sonic* sonic;
-		int shield_bounce;
 		State mState;
+
+		int mDir;
+		int shield_bounce;
 	};
 
 }

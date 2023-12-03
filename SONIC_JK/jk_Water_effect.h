@@ -5,7 +5,6 @@
 
 namespace jk
 {
-	class Rigidbody;
 	class Animator;
 	class Water_effect : public Gameobject
 	{
@@ -30,13 +29,7 @@ namespace jk
 
 	private:
 		Image* mImage;
-		Image* mGroundImage;
 		Animator* mAnimator;
-		Gameobject* mOwner;
 		eState mState;
-
-		int mDir;
-		int Itemcheck;
-		Rigidbody* mRigidbody;
 	};
 }

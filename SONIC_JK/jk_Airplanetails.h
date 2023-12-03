@@ -9,11 +9,6 @@ namespace jk
 	
 	{
 	public:
-		enum class eState
-		{		
-			Move,
-		};
-
 		Airplanetails();
 		~Airplanetails();
 
@@ -24,18 +19,14 @@ namespace jk
 
 		Animator* GetmAnimator() { return mAnimator; }
 
-	private:		
-		void move();
+	private:
+		Image* mImage;
+		Animator* mAnimator;	
 
 	private:
-		int mDir;
-		Image* mImage;
-		eState mState;
-		Animator* mAnimator;	
 		Vector2 mCenterpos;
-		Vector2 mCurpos;
+		int mDir;
 		float mspeed;
 		float maxdistance;
 	};
-
 }

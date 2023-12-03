@@ -1,11 +1,9 @@
 #pragma once
 #include "jk_Gameobject.h"
-#include "jk_SONIC.h"
 #include "jk_Image.h"
 
 namespace jk
 {
-	class Rigidbody;
 	class Animator;
 	class Ring : public Gameobject
 	{
@@ -44,10 +42,6 @@ namespace jk
 		Animator* mAnimator;
 		Gameobject* mOwner;
 		eState Ring_State;
-		int mDir;
-		Sonic::eSonicState sonicState;
 		int Ringcheck;
-		Rigidbody* mRigidbody;
-
 	};
 }

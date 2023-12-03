@@ -11,13 +11,6 @@ namespace jk
 	class Rock_Pice : public Gameobject
 	{
 	public:
-		enum class eState
-		{
-			Idle,
-			Up,
-			Down,
-		};
-
 		Rock_Pice();
 		~Rock_Pice();
 
@@ -26,30 +19,21 @@ namespace jk
 		virtual void Render(HDC hdc) override;
 		virtual void Release() override;
 
-
-		virtual void OnCollisionEnter(class Collider* other) override;
-		virtual void OnCollisionStay(class Collider* other) override;
-		virtual void OnCollisionExit(class Collider* other) override;
-
-
 		void SetGroundImage(Image* image) { mGroundImage = image; }
 		void SetCheckTargetGround(Ground* ground) { check = ground; }
 
-	private:
-		void idle();
-		void up();
-		void down();
-
 
 	private:
-		Rigidbody* mRigidbody;
 		Image* mImage;
 		Image* mGroundImage;
 		Animator* mAnimator;
-		Gameobject* mOwner;
-		eState Rock_State;
+		Rigidbody* mRigidbody;
 		Ground* check;
 
-	};
 
+	private:
+		float timer_rock = 0.0f; 
+		float bounce_Force = 300.0f;
+		int check_gr = 0;
+	};
 }

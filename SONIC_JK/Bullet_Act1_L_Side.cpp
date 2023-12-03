@@ -1,24 +1,19 @@
 #include "Bullet_Act1_L_Side.h"
-#include "jk_Transform.h"
-#include "jk_Time.h"
-#include "jk_Boss.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Input.h"
+#include "jk_Scene.h"
+#include "jk_Transform.h"
 #include "jk_Resources.h"
 #include "jk_Transform.h"
 #include "jk_Animator.h"
 #include "jk_Collider.h"
-#include "jk_Scene.h"
+#include "jk_Time.h"
 
 namespace jk
 {
 	Bullet_Act1_L_Side::Bullet_Act1_L_Side(Gameobject* owner)
-		: mCenterpos(Vector2(750.0f, 151.0f))
-		, mCurpos(Vector2(0.0f, 0.0f))
-		, mMonspeed(50.0f)
-		, mMonmaxdistance(800.0f)
-		, mDir(-1)
+		: mOwner(owner)
+		, mAnimator(nullptr)
+		, mImage(nullptr)
 	{
 		mImage = Resources::Load<Image>(L"ROBOT", L"..\\Resources\\ROBOT.bmp");
 		mAnimator = AddComponent<Animator>();

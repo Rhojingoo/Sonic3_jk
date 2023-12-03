@@ -37,8 +37,6 @@ namespace jk
 		Image* mImage;
 		Animator* mAnimator;
 		eState mState;
-		int mDir;
-
 	};
 
 }

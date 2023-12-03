@@ -17,8 +17,5 @@ namespace jk
 
 	private:
 		Image* mImage;
-		bool check;
-
 	};
-
 }

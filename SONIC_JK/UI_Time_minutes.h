@@ -21,7 +21,6 @@ namespace jk
 		Gameobject* mOwner;
 		UI_Time* minutes;
 		Image* mImage;
-
 		float time_M;
 	};
 }

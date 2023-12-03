@@ -10,12 +10,6 @@ namespace jk
 	class boss_bomber : public Gameobject
 	{
 	public:
-		enum class eState
-		{
-			Move,
-			Death
-		};
-
 		boss_bomber(Gameobject* owner);
 		~boss_bomber();
 
@@ -26,25 +20,14 @@ namespace jk
 
 		virtual void OnCollisionEnter(class Collider* other) override;
 		virtual void OnCollisionStay(class Collider* other) override;
-		virtual void OnCollisionExit(class Collider* other) override;
+		virtual void OnCollisionExit(class Collider* other) override;		
 
-		
-
-	private:
-		void move();
-		void death();
 
 
 	private:
 		Image* mImage;
-		Animator* mAnimator;
-		eState mState;
-
-		int mDir;		
+		Animator* mAnimator;	
+		Vector2 pos;	
 		float mMonspeed;
-		Vector2 pos;		
-
-		float fDist;
-		Gameobject* mOwner;
 	};
 }

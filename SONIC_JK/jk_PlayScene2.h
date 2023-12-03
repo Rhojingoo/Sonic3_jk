@@ -4,6 +4,7 @@
 
 namespace jk
 {
+	class Sound;
 	class Ground;
 	class Sonic;
 	class PlayScene2 : public Scene
@@ -30,6 +31,8 @@ namespace jk
 	private:
 		Ground* playgr;
 		Sonic* mSonic;		
+		Sound* Act2_music;
+		Sound* Miniboss2;
 		int dir;
 		int check_map;
 
@@ -38,8 +41,6 @@ namespace jk
 		int Camera_Switch;
 		int check_minibos;
 		int frame_check;
-
-
 
 	};
 }

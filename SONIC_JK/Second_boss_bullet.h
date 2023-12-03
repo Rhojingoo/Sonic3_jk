@@ -30,8 +30,7 @@ namespace jk
 
 	private:
 		Image* mImage;
-		Animator* mAnimator;		
-		Vector2 pos;
+		Animator* mAnimator;			
 		int mDir;
 		float mSpeed;
 	

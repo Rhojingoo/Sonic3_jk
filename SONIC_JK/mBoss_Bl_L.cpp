@@ -1,21 +1,22 @@
 #include "mBoss_Bl_L.h"
-#include "jk_Time.h"
-#include "jk_Resources.h"
+#include "jk_Scene.h"
 #include "jk_Transform.h"
+#include "jk_Resources.h"
 #include "jk_Animator.h"
 #include "jk_Collider.h"
-#include "jk_Scene.h"
 #include "jk_Object.h"
+
 
 namespace jk
 {
 	mBoss_Bl_L::mBoss_Bl_L(Gameobject* owner)
+		: mImage(nullptr)
+		, mAnimator(nullptr)
+		, mOwner(owner)
 	{
 		mImage = Resources::Load<Image>(L"mBoss_shot", L"..\\Resources\\ActBG_1_2\\mBoss_shot.bmp");
-
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"L_MB_sh", mImage, Vector2{ 440.f,0.f }, Vector2{142.f,36.f }, Vector2{ 0.f,4.f }, 1, 9, 9, Vector2::Zero, 0.05f);
-
 		mAnimator->Play(L"L_MB_sh", false);
 		mAnimator->GetCompleteEvent(L"L_MB_sh") = std::bind(&mBoss_Bl_L::death, this);
 

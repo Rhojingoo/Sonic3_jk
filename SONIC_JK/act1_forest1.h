@@ -17,7 +17,5 @@ namespace jk
 
 	private:
 		Image* mImage;
-
 	};
-
 }

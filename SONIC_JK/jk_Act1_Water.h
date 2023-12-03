@@ -26,10 +26,9 @@ namespace jk
 
 	private:
 		Image* mImage;
-		float mTime;
 		float checktime;
 
-		Sonic::eSonicState sonicState;
-		Tails::eTailsState tails_State;
+		//Sonic::eSonicState sonicState;
+		//Tails::eTailsState tails_State;
 	};
 }

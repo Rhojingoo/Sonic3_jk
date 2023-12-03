@@ -1,6 +1,5 @@
 #pragma once
 #include "jk_Gameobject.h"
-#include "jk_SONIC.h"
 #include "jk_Image.h"
 #include "jk_Time.h"
 
@@ -12,13 +11,6 @@ namespace jk
 	class Boss_Arm : public Gameobject
 	{
 	public:
-		enum class eBossState
-		{
-			Idle,
-			Grap,
-			//Hurt,
-			Death
-		};
 
 		Boss_Arm(Gameobject* owner);
 		~Boss_Arm();
@@ -36,11 +28,8 @@ namespace jk
 		void Set_Hurt(int hurt) { Damege_check= hurt; }
 		int Get_grap() { return grap; }
 
-	private:
-		void Idle();
-		void Grap();
 		void Hurt();
-		void Death();
+	
 
 	private:
 		Image* mImage;
@@ -49,18 +38,12 @@ namespace jk
 		Rigidbody* mRigidbody;
 		Gameobject* mOwner;
 
+	private:
 		Vector2 pos;
 		Vector2 Boss_pos;
-		float mSpeed;
 		int mDir;
-
-		Sonic::eSonicState sonicState;
-		eBossState mState;
-
-		int moving_lotation;
-		float time;
-		int Boss_cross_change;
-		int Damege_check;
 		int grap;
+		int moving_lotation;
+		int Damege_check;
 	};
 }

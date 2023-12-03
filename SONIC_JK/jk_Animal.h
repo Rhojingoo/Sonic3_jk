@@ -21,12 +21,6 @@ namespace jk
 	private:
 		Image* mImage;
 		Animator* mAnimator;
-		Vector2 mCenterpos;
-		Vector2 mCurpos;
-		float mMonspeed;
-		float mMonmaxdistance;
-		int mDir;
-		Vector2 Sonic;
 		Gameobject* mOwner;
 	};
 }

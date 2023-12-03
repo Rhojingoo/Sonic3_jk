@@ -1,5 +1,6 @@
 #include "jk_Rock_small.h"
 #include "jk_Rock_Pice.h"
+
 #include "jk_SceneManager.h"
 #include "jk_Scene.h"
 #include "jk_Transform.h"
@@ -7,11 +8,14 @@
 #include "jk_Collider.h"
 #include "jk_Animator.h"
 #include "jk_Resources.h"
+
 #include "jk_Time.h"
 #include "jk_Object.h"
-
 #include "jk_Ground.h"
+
 #include "jk_SONIC.h"
+
+
 
 float Random_rock(float min, float max)
 {
@@ -20,15 +24,26 @@ float Random_rock(float min, float max)
 	std::uniform_real_distribution<float> dis(min, max);
 	return dis(gen);
 }
-float timer_RS = 0.0f; // 타이머 변수
-float RS_DisappearTime = 20.0f; // 링이 사라지는 시간 (초)
-float bounceForce_RS = 500.0f;
-int check_ground_SR = 0;
+
 
 namespace jk
 {
 	Rock_small::Rock_small()
+		: Crash(nullptr)
+		, mImage(nullptr)
+		, mGroundImage(nullptr)
+		, mAnimator(nullptr)
+		, mRigidbody(nullptr)
+		, mState(eState::Idle)
+		, check(nullptr)
+		, sonicState()
+		, timer_RS(0.f)// 타이머 변수
+		, RS_DisappearTime(20.f)// 돌이 사라지는 시간 (초)
+		, bounceForce_RS(500.f)
+		, check_ground_SR(0)
 	{
+		Crash = Resources::Load<Sound>(L"Crash", L"..\\Resources\\Sound\\Sonic\\Crash.wav");
+
 		mImage = Resources::Load<Image>(L"Rock_Platform", L"..\\Resources\\Rock_Platform.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"small_Rock", mImage, Vector2(164, 578), Vector2(48, 32), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
@@ -117,6 +132,7 @@ namespace jk
 
 			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
 			{
+				Crash->Play(false);
 
 				Transform* tr = GetComponent<Transform>();
 				Scene* curScene = SceneManager::GetActiveScene();

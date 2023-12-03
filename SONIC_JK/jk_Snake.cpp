@@ -5,8 +5,6 @@
 #include "jk_Collider.h"
 #include "jk_Animator.h"
 #include "jk_Resources.h"
-#include "jk_Input.h"
-#include "jk_Time.h"
 #include "jk_Object.h"
 
 #include "jk_Animal.h"
@@ -26,33 +24,44 @@ double TimeSinceStart()
 namespace jk
 {
 	Snake::Snake(Gameobject* owner)
-		: mCenterpos(Vector2(0.f, 0.f))
-		, mCurpos(Vector2(0.0f, 0.0f))	
+		: mCenterpos(0.f, 0.f)
+		, mCurpos(Vector2(0.f, 0.f))	
+		, prevPos(0.f,0.f)
 		, mMonmaxdistance_x(200.0f)
 		, mMonmaxdistance_y(50.0f)
 		, mDir_x(1)
 		, mDir_y(1)
+		, mState(eSnake::Idle)
+
+		, sonicState()
+		, tailsState()
+
+		, mOwner(owner)
+		, Death(nullptr)
+		, mImage(nullptr)
+		, mImage1(nullptr)
+		, mAnimator(nullptr)
 	{
 	}
-	//3000
+	
 	Snake::~Snake()
 	{
 	}
 
 	void Snake::Initialize()
 	{
+		Death = Resources::Load<Sound>(L"Monster_Death", L"..\\Resources\\Sound\\Sonic\\Monster_Death.wav");
+		Death->Play(false);
+
 		mImage = Resources::Load<Image>(L"Snake_head", L"..\\Resources\\Monster2.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"RSnake_head", mImage, Vector2{ 158.f,443.f }, Vector2{ 16.f,16.f }, Vector2{ 0.f,0.f }, 1, 1, 1, Vector2::Zero, 0.5f);
 		mAnimator->CreateAnimation(L"LSnake_head", mImage, Vector2{ 24.f,443.f }, Vector2{ 16.f,16.f }, Vector2{ 0.f,0.f }, 1, 1, 1, Vector2::Zero, 0.5f);
 
-
 		mImage1 = Resources::Load<Image>(L"Effect", L"..\\Resources\\Effect.bmp");
 		mAnimator->CreateAnimation(L"snake_deth", mImage1, Vector2{ 242.f,458.f }, Vector2{ 40.f,32.f }, Vector2{ 8.f,0.f }, 4, 1, 4, Vector2::Zero, 0.3f);
 		mAnimator->CreateAnimation(L"deth2", mImage1, Vector2{ 242.f,498.f }, Vector2{ 32.f,24.f }, Vector2{ 8.f,0.f }, 4, 1, 4, Vector2::Zero, 0.3f);
-
-
-		
+				
 		mAnimator->Play(L"RSnake_head", true);
 		mAnimator->GetCompleteEvent(L"snake_deth") = std::bind(&Snake::deth, this); //Canon_death2
 
@@ -68,8 +77,8 @@ namespace jk
 	void Snake::Update()
 	{
 		Transform* tr = GetComponent<Transform>();
-		pos = tr->GetPos( );
-
+		Vector2 pos = tr->GetPos( );
+		mCurpos = pos;
 			
  		switch (mState)
 		{
@@ -113,7 +122,8 @@ namespace jk
 
 			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
 			{
-				mAnimator->Play(L"snake_deth", true);				
+				mAnimator->Play(L"snake_deth", true);			
+				Death->Play(false);
 			}
 		}
 		else if (Tails* tails = dynamic_cast<Tails*>(other->GetOwner()))
@@ -122,7 +132,8 @@ namespace jk
 
 			if (tailsState == Tails::eTailsState::Dash || tailsState == Tails::eTailsState::Jump || tailsState == Tails::eTailsState::Spin || tailsState == Tails::eTailsState::Movejump)
 			{
-				mAnimator->Play(L"death", false);				
+				mAnimator->Play(L"snake_deth", false);		
+				Death->Play(false);
 			}
 		}
 		

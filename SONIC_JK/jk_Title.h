@@ -9,12 +9,6 @@ namespace jk
 	{
 	
 	public:
-		enum class eState
-		{
-			Idle,
-			
-		};
-
 		Title();
 		~Title();
 
@@ -22,21 +16,9 @@ namespace jk
 		virtual void Update() override;
 		virtual void Render(HDC hdc) override;
 		virtual void Release() override;
-
+		
 	private:
-		void idle();
-		void move();
-	
-
-	private:
-		int mDir;
-		Image* mImage;
-		eState mState;
+		Image* mImage;	
 		Animator* mAnimator;
-		Animator* mAnimator1;
-		Gameobject* mOwner;
-		bool bTurn;
-		float time;
-		int turnindex;
 	};
 }

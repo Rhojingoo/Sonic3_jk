@@ -10,6 +10,7 @@
 #include "jk_Object.h"
 #include "Rigidbody.h"
 
+
 #include "jk_BaseBullet.h"
 #include "Bullet_Act1_R_Side.h"
 #include "Bullet_Act1_R_DIA.h"
@@ -19,31 +20,53 @@
 #include "Boss_act1_boomb.h"
 
 
+
+
 namespace jk
 {
 	Boss::Boss(Gameobject* owner)
-		: mCenterpos(Vector2(19860.f, 3480.f))		
+		: mCenterpos(Vector2(19860.f, 3480.f))	
+		, pos(0.f,0.f)
 		, mMonspeed(200.0f)
 		, mMonmaxdistance(100.0f)
+		, fDist(0.f)
 		, mDir(-1)
 		, time(0)
+		, attack_check(0)
 		, starscene(0)
 		, attack_motion(0)
 		, Dir_change(0)
 		, hurt_state(0)
 		, Damege_sheck(0)
-		, attack_check(0)
 		, Death_check(0)
+		, sonicState()
+		, mOwner(owner)
+		, mState()
+		, boss_run(nullptr)
+		, mImage(nullptr)
+		, mAnimator(nullptr)
+		, Boss_Hit(nullptr)
+		, Boss_Bomb(nullptr)
+		, Boss_Start(nullptr)
+		, Act2_music(nullptr)
+		, mRigidbody(nullptr)
+
 	{
 		mImage = Resources::Load<Image>(L"ROBOT", L"..\\Resources\\ROBOT.bmp");
 		mAnimator = AddComponent<Animator>();
 
+		Boss_Hit = Resources::Load<Sound>(L"Boss_hit", L"..\\Resources\\Sound\\Boss_hit.wav");
+		Boss_Bomb = Resources::Load<Sound>(L"Boss_death", L"..\\Resources\\Sound\\Boss_death.wav");
+		Boss_Start = Resources::Load<Sound>(L"Boss_start", L"..\\Resources\\Sound\\Boss_start.wav");
+		Act2_music = Resources::Load<Sound>(L"Act2_bg", L"..\\Resources\\Sound\\Act2_bg.wav");
+
+
+
+
 		////////왼쪽 애니메이션//////////
-		//왼쪽 상태변환//1.5f 듀레이션이 천천히 됨 
 		mAnimator->CreateAnimation(L"L_Boss_side", mImage, Vector2{ 22,13 }, Vector2{ 116,88 }, Vector2{ 4,0 }, 1, 1,1, Vector2::Zero, 0.1f);
 		mAnimator->CreateAnimation(L"L_Boss_Down", mImage, Vector2{ 624,13 }, Vector2{ 116,88 }, Vector2{ 4,0 }, 1, 1, 1, Vector2::Zero, 0.1f);
 		mAnimator->CreateAnimation(L"L_Boss_dianogol", mImage, Vector2{ 1004,13 }, Vector2{ 116,88 }, Vector2{ 4,0 }, 1, 1, 1, Vector2::Zero, 0.1f);
-
 
 		mAnimator->CreateAnimation(L"L_Boss_side_dianogol", mImage, Vector2{22,13}, Vector2{ 116,88 }, Vector2{ 4,0 }, 3, 1, 3, Vector2::Zero, 0.1f);
 		mAnimator->CreateAnimation(L"L_Boss_dianogol_down", mImage, Vector2{ 254,13 }, Vector2{ 116,88 }, Vector2{ 4,0 }, 3, 1, 3, Vector2::Zero, 0.1f);
@@ -91,8 +114,6 @@ namespace jk
 				
 		//데스시 본체 조각
 		mAnimator->CreateAnimation(L"Body_pice", mImage, Vector2{ 388,323 }, Vector2{ 104,80 }, Vector2{ 0,0 }, 1, 1, 1, Vector2::Zero, 0.1f);
-
-
 		mAnimator->Play(L"L_Boss_side", true);
 
 		Collider* collider = AddComponent<Collider>();
@@ -111,24 +132,6 @@ namespace jk
 	{			
 		Transform* tr = GetComponent<Transform>();
 		pos = tr->GetPos();
-
-		//if (Death_check == 0)
-		//{
-		//	if (Death_check == 2)
-		//	{
-		//		if (Death_check != 2)
-		//			return;
-
-		//		Vector2 boss_pos = boss_run->GetComponent<Transform>()->GetPos();
-
-		//		if (boss_pos.x > 21845)
-		//		{
-		//			Death_check = 3;
-		//		}
-		//	}
-		//}
-
-
 
 		switch (mState)
 		{
@@ -206,6 +209,7 @@ namespace jk
 			{
 
 				Damege_sheck += 1;
+				Boss_Hit->Play(false);
 
 				if ((Damege_sheck >= 7) && (mDir == -1))//왼쪽 6대를 기본으로 함
 				{
@@ -965,8 +969,13 @@ namespace jk
 
 	void Boss::death()
 	{	
+		Boss_Bomb->Play(false);
+		Boss_Start->Stop(true);
+		Act2_music->Play(true);
+
 		Collider* collider = GetComponent<Collider>();
 		collider->SetSize(Vector2(0.0f, 0.0f));
+
 
 		if (Death_check == 1)
 		{

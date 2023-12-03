@@ -28,10 +28,6 @@
 #include "jk_Water_effect.h"
 
 
-
-
-
-
 #include "jk_Monster.h"
 #include "jk_Monkey.h"
 #include "jk_Monket_Bullet.h"
@@ -48,9 +44,17 @@
 namespace jk
 {
 	Tails::Tails(Gameobject* owner)
-		: mDir(1)
+		: mOwner(owner)
+		, mSonic(nullptr)
+		, check(nullptr)
+		, mState(eTailsState::Idle)
+		, mAnimator(nullptr)
+		, mRigidbody(nullptr)
+		, sonicV(0.f,0.f)
 		, TailsVelocity(0.f, 0.f)
 		, fallingcheck(0.f, 0.f)
+
+		, mDir(1)
 		, falling(0)
 		, circlecheck(0)
 		, Circle_piece(0)
@@ -59,10 +63,7 @@ namespace jk
 		, hurtcheck(0)
 		, end(0)
 	{
-		mOwner = owner;
-	
-		Transform* tr = GetComponent<Transform>();		
-			
+		
 	}
 
 	Tails::~Tails()
@@ -98,23 +99,22 @@ namespace jk
 
 
 		Image* mImage1 = Resources::Load<Image>(L"LTails", L"..\\Resources\\LTails.bmp");
-		//Animator* animator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"LTailsWalk", mImage1, Vector2(24, 647), Vector2(58, 48), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"LTailsStand", mImage1, Vector2(25, 24), Vector2(54, 48), Vector2(5, 0), 20, 1, 20, Vector2::Zero, 0.3);
-		mAnimator->CreateAnimation(L"LTailsSit", mImage1, Vector2(294, 87), Vector2(54, 48), Vector2(5, 0), 5, 1, 5, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"LTailsLookUp", mImage1, Vector2(25, 87), Vector2(54, 48), Vector2(5, 0), 5, 1, 5, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"LTailsBrake", mImage1, Vector2(403, 144), Vector2(54, 48), Vector2(5, 0), 4, 1, 4, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"LTailsRun", mImage1, Vector2(504, 647), Vector2(52, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"LTailsJump", mImage1, Vector2(35, 341), Vector2(64, 60), Vector2(17, 0), 4, 1, 4, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"LTailsJumpDw", mImage1, Vector2(35, 267), Vector2(64, 60), Vector2(17, 0), 4, 1, 4, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"LTailsMJ", mImage1, Vector2(35, 424), Vector2(58, 56), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"LTailsMJDW", mImage1, Vector2(35, 496), Vector2(58, 56), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"LTailsSpin", mImage1, Vector2(590, 337), Vector2(62, 48), Vector2(4, 0), 7, 1, 7, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"LTailsDash", mImage1, Vector2(29, 207), Vector2(64, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"LTailsFly", mImage1, Vector2(834, 87), Vector2(54, 48), Vector2(4, 0), 2, 1, 2, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"LEndgind_pose", mImage1, Vector2(820, 802), Vector2(52, 48), Vector2(4, 0), 2, 1, 2, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"LTails_Hurt", mImage1, Vector2(848, 647), Vector2(52, 48), Vector2(4, 0), 2, 1, 2, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"LTails_Spring_Jump", mImage1, Vector2(24, 1026), Vector2(52, 49), Vector2(4, 0), 12, 1, 12, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"LTailsWalk", mImage1, Vector2(24, 647), Vector2(58, 48), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"LTailsStand", mImage1, Vector2(25, 24), Vector2(54, 48), Vector2(5, 0), 20, 1, 20, Vector2::Zero, 0.3f);
+		mAnimator->CreateAnimation(L"LTailsSit", mImage1, Vector2(294, 87), Vector2(54, 48), Vector2(5, 0), 5, 1, 5, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"LTailsLookUp", mImage1, Vector2(25, 87), Vector2(54, 48), Vector2(5, 0), 5, 1, 5, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"LTailsBrake", mImage1, Vector2(403, 144), Vector2(54, 48), Vector2(5, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"LTailsRun", mImage1, Vector2(504, 647), Vector2(52, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"LTailsJump", mImage1, Vector2(35, 341), Vector2(64, 60), Vector2(17, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"LTailsJumpDw", mImage1, Vector2(35, 267), Vector2(64, 60), Vector2(17, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"LTailsMJ", mImage1, Vector2(35, 424), Vector2(58, 56), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"LTailsMJDW", mImage1, Vector2(35, 496), Vector2(58, 56), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"LTailsSpin", mImage1, Vector2(590, 337), Vector2(62, 48), Vector2(4, 0), 7, 1, 7, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"LTailsDash", mImage1, Vector2(29, 207), Vector2(64, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"LTailsFly", mImage1, Vector2(834, 87), Vector2(54, 48), Vector2(4, 0), 2, 1, 2, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"LEndgind_pose", mImage1, Vector2(820, 802), Vector2(52, 48), Vector2(4, 0), 2, 1, 2, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"LTails_Hurt", mImage1, Vector2(848, 647), Vector2(52, 48), Vector2(4, 0), 2, 1, 2, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"LTails_Spring_Jump", mImage1, Vector2(24, 1026), Vector2(52, 49), Vector2(4, 0), 12, 1, 12, Vector2::Zero, 0.1f);
 
 
 
@@ -266,53 +266,6 @@ namespace jk
 		case jk::Tails::eTailsState::End:endgame();
 			break;
 
-
-
-
-
-		case jk::Tails::eTailsState::Circle_Rturn_1:circle_Rturn_1();
-			break;
-
-		case jk::Tails::eTailsState::Circle_Rturn_2:circle_Rturn_2();
-			break;
-
-		case jk::Tails::eTailsState::Circle_Rturn_3:circle_Rturn_3();
-			break;
-
-		case jk::Tails::eTailsState::Circle_Rturn_4:circle_Rturn_4();
-			break;
-
-		case jk::Tails::eTailsState::Circle_Rturn_5:circle_Rturn_5();
-			break;
-
-		case jk::Tails::eTailsState::Circle_Rturn_6:circle_Rturn_6();
-			break;
-
-		case jk::Tails::eTailsState::Circle_Rturn_7:circle_Rturn_7();
-			break;
-
-		case jk::Tails::eTailsState::Circle_Lturn_1:circle_Lturn_1();
-			break;
-
-		case jk::Tails::eTailsState::Circle_Lturn_2:circle_Lturn_2();
-			break;
-
-		case jk::Tails::eTailsState::Circle_Lturn_3:circle_Lturn_3();
-			break;
-
-		case jk::Tails::eTailsState::Circle_Lturn_4:circle_Lturn_4();
-			break;
-
-		case jk::Tails::eTailsState::Circle_Lturn_5:circle_Lturn_5();
-			break;
-
-		case jk::Tails::eTailsState::Circle_Lturn_6:circle_Lturn_6();
-			break;
-
-		case jk::Tails::eTailsState::Circle_Lturn_7:circle_Lturn_7();
-			break;
-		
-
 		default:
 			break;
 		}
@@ -332,8 +285,7 @@ namespace jk
 	}
 
 	void Tails::OnCollisionEnter(Collider* other)
-	{
-		//BG
+	{	
 		if (finall_stage* stage = dynamic_cast<finall_stage*>(other->GetOwner()))
 		{
 			Vector2 fly_machine_pos = stage->GetComponent<Transform>()->GetPos();
@@ -408,8 +360,7 @@ namespace jk
 			}
 		}
 
-
-		//Collapses_Ground 없어지는땅
+		
 		if (Collapses_Ground* collapses_Ground = dynamic_cast<Collapses_Ground*>(other->GetOwner()))
 		{
 			Vector2 Collapses_Gr = collapses_Ground->GetComponent<Transform>()->GetPos();
@@ -428,7 +379,7 @@ namespace jk
 			}
 		}
 
-		//Collapses_Ground(left) 없어지는땅
+		
 		if (Collapses_GR_left* collapses_Ground = dynamic_cast<Collapses_GR_left*>(other->GetOwner()))
 		{
 			Vector2 Collapses_Gr = collapses_Ground->GetComponent<Transform>()->GetPos();
@@ -448,7 +399,7 @@ namespace jk
 			}
 		}
 	
-		//Move_GR 충돌처리
+	
 		if (Move_GR* move_GR = dynamic_cast<Move_GR*>(other->GetOwner()))
 		{
 			Vector2 move_GR_pos = move_GR->GetComponent<Transform>()->GetPos();
@@ -467,7 +418,7 @@ namespace jk
 			}
 		}
 
-		//last_Bridge 충돌처리
+
 		if (Last_Bridge* last_Bridge = dynamic_cast<Last_Bridge*>(other->GetOwner()))
 		{
 			Vector2 mlast_Bridge_pos = last_Bridge->GetComponent<Transform>()->GetPos();
@@ -502,12 +453,6 @@ namespace jk
 
 
 
-
-
-
-
-
-		//monster collision
 		if (Monster* rino = dynamic_cast<Monster*>(other->GetOwner()))
 		{
 			Transform* tr = GetComponent<Transform>();
@@ -856,7 +801,6 @@ namespace jk
 
 
 
-
 		if (BaseBullet* bullet = dynamic_cast<BaseBullet*>(other->GetOwner()))
 		{
 			mAnimator->Play(L"RTailsDeath", true);
@@ -873,20 +817,6 @@ namespace jk
 			{
 				mAnimator->Play(L"LTailsStand", true);
 			}
-			/*else if (Input::GetKeyDown(eKeyCode::RIGHT) || Input::GetKeyDown(eKeyCode::LEFT))
-			{
-				mState = eTailsState::Move;
-				if (Input::GetKeyDown(eKeyCode::RIGHT))
-				{
-					mAnimator->Play(L"RTailsWalk", true);
-					TailsmDir = 1;
-				}
-				else if (Input::GetKeyDown(eKeyCode::LEFT))
-				{
-					mAnimator->Play(L"LTailsWalk", true);
-					TailsmDir = -1;
-				}
-			}*/
 		}
 
 	
@@ -921,9 +851,7 @@ namespace jk
 		{
 			if (sonic->Getsonicstate() == Sonic::eSonicState::Idle)
 			{
-				//fly_check = -1;
-				//mState = eTailsState::Fly;
-				//mAnimator->Play(L"RTailsFly", true);
+
 			}
 		}		
 	}
@@ -1034,8 +962,7 @@ namespace jk
 			}
 			tr->SetPos(pos);
 		}
-	}
-	
+	}	
 
 	void Tails::move()
 	{
@@ -1877,51 +1804,4 @@ namespace jk
 	{
 	}
 
-
-
-
-	void Tails::circle_Rturn_1()
-	{
-	}
-	void Tails::circle_Rturn_2()
-	{
-	}
-	void Tails::circle_Rturn_3()
-	{
-	}
-	void Tails::circle_Rturn_4()
-	{
-	}
-	void Tails::circle_Rturn_5()
-	{
-	}
-	void Tails::circle_Rturn_6()
-	{
-	}
-	void Tails::circle_Rturn_7()
-	{
-	}
-
-
-	void Tails::circle_Lturn_1()
-	{
-	}
-	void Tails::circle_Lturn_2()
-	{
-	}
-	void Tails::circle_Lturn_3()
-	{
-	}
-	void Tails::circle_Lturn_4()
-	{
-	}
-	void Tails::circle_Lturn_5()
-	{
-	}
-	void Tails::circle_Lturn_6()
-	{
-	}
-	void Tails::circle_Lturn_7()
-	{
-	}
 }

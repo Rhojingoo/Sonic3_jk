@@ -1,19 +1,24 @@
 #include "jk_Snake_Tail_End.h"
 #include "jk_Snake_body2.h"
 #include "jk_Snake.h"
-#include "jk_Time.h"
+
 #include "jk_SceneManager.h"
-#include "jk_Input.h"
-#include "jk_Resources.h"
+#include "jk_Scene.h"
 #include "jk_Transform.h"
 #include "jk_Animator.h"
 #include "jk_Collider.h"
-#include "jk_Scene.h"
+#include "jk_Resources.h"
 #include "jk_Object.h"
 
 namespace jk
 {
 	Snake_Tail_End::Snake_Tail_End()
+		: mImage(nullptr)
+		, mAnimator(nullptr)
+		, mState(eSnake::Right)
+		, Tail_state()
+		, snake_body(nullptr)
+		, prevPos(0.f, 0.f)
 	{
 	}
 	Snake_Tail_End::~Snake_Tail_End()

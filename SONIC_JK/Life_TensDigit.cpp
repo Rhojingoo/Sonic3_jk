@@ -1,7 +1,5 @@
 #include "Life_TensDigit.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Input.h"
 #include "jk_Resources.h"
 #include "jk_Transform.h"
 #include "jk_Animator.h"

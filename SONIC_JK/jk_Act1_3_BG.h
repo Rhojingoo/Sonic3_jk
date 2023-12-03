@@ -16,15 +16,7 @@ namespace jk
 		virtual void Render(HDC hdc) override;
 		virtual void Release() override;
 
-		void Set_Owner(Gameobject* s_body) { mOwner = s_body; }
-
-
 	private:
 		Image* mImage;
-		Sonic* mSonic;
-		int Check_BG;
-		Gameobject* mOwner;
-		Vector2 mSonic_pos;
 	};
-
 }

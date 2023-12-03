@@ -401,3 +401,4 @@ FodyWeavers.xsd
 
 # Image Resource files
 *.bmp
+*.wav

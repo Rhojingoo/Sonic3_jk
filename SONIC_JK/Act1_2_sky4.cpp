@@ -1,7 +1,5 @@
 #include "Act1_2_sky4.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Input.h"
 #include "jk_Resources.h"
 #include "jk_Transform.h"
 #include "jk_Camera.h"
@@ -10,6 +8,7 @@
 namespace jk
 {
 	Act1_2_sky4::Act1_2_sky4()
+		:mImage(nullptr)
 	{
 	}
 	Act1_2_sky4::~Act1_2_sky4()

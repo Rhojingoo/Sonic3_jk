@@ -41,14 +41,11 @@ namespace jk
 		void deth();
 
 	private:
-		Gameobject* mOwner;
 		Image* mImage;
 		Animator* mAnimator;
 		eSnake mState;
-		Vector2 pos;
 		Gameobject* snake_body;
-		Vector2 prevPos;
-
 		Snake_body2::eSnake bodyend_state;
+		Vector2 prevPos;
 	};
 }

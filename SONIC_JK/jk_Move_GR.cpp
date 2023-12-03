@@ -1,4 +1,5 @@
 #include "jk_Move_GR.h"
+
 #include "jk_SceneManager.h"
 #include "jk_Scene.h"
 #include "jk_Transform.h"
@@ -17,13 +18,15 @@
 namespace jk
 {
 	Move_GR::Move_GR()
-		: mCenterpos(Vector2(0.0f, 0.0f))
-	
-		, mCurpos(Vector2(0.0f, 0.0f))
+		: mCenterpos(Vector2(0.0f, 0.0f))	
+		, pos(Vector2(0.0f, 0.0f))
 		, mMonspeed(100.0f)
 		, mMonmaxdistance(200.0f)
-		, mDir(1)
-		, sonicpattern(0)
+		, fDist(0.f)
+		, mDir(1)	
+		, mImage(nullptr)
+		, mAnimator(nullptr)
+		, mState()
 	{
 	}
 	Move_GR::~Move_GR()
@@ -48,7 +51,6 @@ namespace jk
 	{
 		Transform* tr = GetComponent<Transform>();
 		pos = tr->GetPos();
-		mCurpos = pos;
 
 
 		switch (mState)
@@ -164,7 +166,6 @@ namespace jk
 			}
 		}
 	}
-
 	void Move_GR::OnCollisionExit(Collider* other)
 	{
 		Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner());

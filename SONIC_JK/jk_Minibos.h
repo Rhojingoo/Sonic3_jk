@@ -2,11 +2,12 @@
 #include "jk_Gameobject.h"
 #include "jk_Sonic.h"
 #include "jk_Image.h"
+#include "jk_Sound.h"
 #include "jk_Time.h"
 
 
 namespace jk
-{
+{	
 	class Rigidbody;
 	class Animator;
 	class Minibos : public Gameobject
@@ -52,6 +53,11 @@ namespace jk
 		Animator* mAnimator;
 		eState mState;
 		Rigidbody* mRigidbody;
+		Sound* Miniboss2;
+		Sound* Boss_hit;
+		Sound* Minboss_death;
+		Sound* Act2_music;
+
 
 		Gameobject* mOwner;
 		Vector2 mCenterpos;

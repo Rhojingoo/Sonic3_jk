@@ -1,13 +1,11 @@
 #include "UI_Time.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Input.h"
+#include "jk_Scene.h"
 #include "jk_Resources.h"
 #include "jk_Transform.h"
 #include "jk_Animator.h"
-#include "jk_Collider.h"
-#include "jk_Scene.h"
-#include "jk_Titlesonic.h"
+#include "jk_Time.h"
+
 
 namespace jk
 {
@@ -16,6 +14,7 @@ namespace jk
 		,mTime(0)
 		,time_S(0)
 		,time_M(0)
+		,mImage(nullptr)
 	{
 	}
 	UI_Time::~UI_Time()

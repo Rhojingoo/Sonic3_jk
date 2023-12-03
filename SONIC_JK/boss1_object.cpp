@@ -3,9 +3,7 @@
 #include "boss1_body.h"
 #include "act6_bullet1.h"
 
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Input.h"
 #include "jk_Resources.h"
 #include "jk_Transform.h"
 #include "jk_Animator.h"
@@ -16,23 +14,33 @@
 #include "jk_Ground.h"
 
 
+#include "jk_Time.h"
 
 
 namespace jk
 {
 	boss1_object::boss1_object(Gameobject* owner)
-		:mDir(1)
-		, attack_check(1)
+		: mDir(1)
 		, time(0)
 		, attack_lotation(0)
+		, attack_check(1)
 		, Death_point(0)
-		, pos(0.f,0.f)
 		, bullet_check(0)
+		, pos(0.f,0.f)
+		, mState(eBossState::Idle)
+		, boss(nullptr)
+		, Bullet1(nullptr)
+		, mImage(nullptr)
+		, mGroundImage(nullptr)
+		, mAnimator(nullptr)
+		, mRigidbody(nullptr)
+		
 	{
 		boss = dynamic_cast<boss1_body*>(owner);
 
-		mImage = Resources::Load<Image>(L"First_boss", L"..\\Resources\\ActBG_6\\BOSS\\First_boss.bmp");
+		Bullet1 = Resources::Load<Sound>(L"Bullet1", L"..\\Resources\\Sound\\Bullet1.wav");
 
+		mImage = Resources::Load<Image>(L"First_boss", L"..\\Resources\\ActBG_6\\BOSS\\First_boss.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"boss1_idle_ob", mImage, Vector2{ 665,509 }, Vector2{ 52,48 }, Vector2{ 4,0 }, 1, 1, 1, Vector2::Zero, 0.3f);
 		mAnimator->CreateAnimation(L"Boss1_OPEN", mImage, Vector2{ 665,509 }, Vector2{ 52,48 }, Vector2{ 4,0 }, 4, 1, 4, Vector2::Zero, 0.3f);
@@ -53,10 +61,8 @@ namespace jk
 
 	void boss1_object::Update()
 	{
-
 		Transform* tr = GetComponent<Transform>();
 		pos = tr->GetPos();		
-
 		Death_point = boss->Get_BossDeath();
 
 
@@ -111,8 +117,7 @@ namespace jk
 		if (Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner()))
 		{
 			Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
-			rb->SetGround(true);	
-	
+			rb->SetGround(true);		
 
 			Collider* mSonic_Col = mSonic->GetComponent<Collider>();
 			Vector2 mSonic_Pos = mSonic_Col->Getpos();
@@ -127,13 +132,11 @@ namespace jk
 			velocity.y = 0.0f;
 			rb->SetVelocity(velocity);
 
-
 			if (!((mSonic->Getsonicstate() == Sonic::eSonicState::Jump) || (mSonic->Getsonicstate() == Sonic::eSonicState::Hurt)))
 			{
 				sonic_Pos.y = groundCol->Getpos().y - groundCol->GetSize().y - 50;
 				sonicTr->SetPos(sonic_Pos);
-			}
-			
+			}			
 			else
 			{
 				Vector2 velocity = rb->GetVelocity();
@@ -177,7 +180,7 @@ namespace jk
 			collider->SetSize(Vector2(0.f, 0.0f));			
 		}
 	}
-
+	
 
 	void boss1_object::up()
 	{
@@ -185,26 +188,19 @@ namespace jk
 		{
 			if (attack_check == 1)
 			{
-
 				mAnimator->GetCompleteEvent(L"Boss1_OPEN") = std::bind(&boss1_object::attack_up, this);
 				attack_check = -1;
 				mDir = 0;
-				
-
 			}
 
 			else if (attack_check == -1)
-			{
-			
-					mAnimator->GetCompleteEvent(L"Boss1_OPEN") = std::bind(&boss1_object::attack_down, this);
-					attack_check = 1;
-					mDir = 0;
-					
+			{		
+				mAnimator->GetCompleteEvent(L"Boss1_OPEN") = std::bind(&boss1_object::attack_down, this);
+				attack_check = 1;
+				mDir = 0;					
 			}
-
 			attack_lotation = 1;
-		}
-		
+		}	
 	}
 
 
@@ -213,7 +209,6 @@ namespace jk
 		time += Time::DeltaTime();
 		if (time >= 3)
 		{
-
 			mState = eBossState::Idle;		
 			time = 0;
 			mDir = 1;		
@@ -225,6 +220,8 @@ namespace jk
 	{
 		if (bullet_check == 0)
 		{
+			Bullet1->Play(false);
+
 			Scene* curScene = SceneManager::GetActiveScene();
 			act6_bullet1* bullet = new act6_bullet1();
 			bullet->SetName(L"bullet_boss1");
@@ -233,7 +230,6 @@ namespace jk
 
 			curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
 
-			//bullet->GetComponent<Rigidbody>()->AddForce(Vector2{ -50.f,-50.f });
 			bullet->GetComponent<Rigidbody>()->SetVelocity(Vector2{ -550.f,-150.f });
 			bullet->GetComponent<Rigidbody>()->SetGround(false);
 	
@@ -253,6 +249,8 @@ namespace jk
 	{		
 		if (bullet_check == 0)
 		{
+			Bullet1->Play(false);
+
 			Scene* curScene = SceneManager::GetActiveScene();
 			act6_bullet1* bullet = new act6_bullet1();
 			bullet->SetName(L"bullet_boss1");
@@ -260,7 +258,6 @@ namespace jk
 			bullet->SetGroundImage(mGroundImage);
 			curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
 
-			//bullet->GetComponent<Rigidbody>()->AddForce(Vector2{ -50.f,0.f });
 			bullet->GetComponent<Rigidbody>()->SetVelocity(Vector2{ -550.f,0.f });
 			bullet->GetComponent<Rigidbody>()->SetGround(false);
 

@@ -1,23 +1,30 @@
 #include "finall_stage.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Input.h"
+#include "jk_Scene.h"
+#include "Rigidbody.h"
 #include "jk_Resources.h"
 #include "jk_Transform.h"
 #include "jk_Animator.h"
 #include "jk_Collider.h"
-#include "Rigidbody.h"
-#include "jk_Scene.h"
-#include "jk_Object.h"
-#include "jk_Ground.h"
+
+#include "jk_Time.h"
 #include "jk_Tails.h"
+
+
+
 
 namespace jk
 {
 	finall_stage::finall_stage()
 		:check_map(0)
 		, mSpeed(30)
+		, pos(0.f,0.f)
 		, end(0)
+		, mImage(nullptr)
+		, mAnimator(nullptr)
+		, mRigidbody(nullptr)
+		, Rocket_Start(nullptr)
+		, mState()
 	{
 	}
 	finall_stage::~finall_stage()
@@ -25,15 +32,13 @@ namespace jk
 	}
 	void finall_stage::Initialize()
 	{
-		mImage = Resources::Load<Image>(L"Last_stage", L"..\\Resources\\ActBG_6\\last_stage.bmp");
+		Rocket_Start = Resources::Load<Sound>(L"Rocket_Start", L"..\\Resources\\Sound\\Rocket_Start.wav");
 
+		mImage = Resources::Load<Image>(L"Last_stage", L"..\\Resources\\ActBG_6\\last_stage.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"Last_stage", mImage, Vector2{ 0,0 }, Vector2{1920,640 }, Vector2{ 0,0 }, 1, 1, 1, Vector2::Zero, 0.1f);
 		mAnimator->CreateAnimation(L"Last_stage_end", mImage, Vector2{ 0,0 }, Vector2{ 1924,640 }, Vector2{ 4,0 }, 4, 2, 8, Vector2::Zero, 0.1f);
 		mAnimator->CreateAnimation(L"Last_stage_ending", mImage, Vector2{ 5772,640 }, Vector2{ 1920,640 }, Vector2{ 0,0 }, 1, 1, 1, Vector2::Zero, 0.1f);
-
-
-	
 		mAnimator->Play(L"Last_stage", true);
 		mAnimator->GetCompleteEvent(L"Last_stage_end") = std::bind(&finall_stage::Ending, this);
 
@@ -43,18 +48,12 @@ namespace jk
 		Vector2 size = collider->GetSize();
 		collider->SetCenter(Vector2{ (3.85f) * size.x, (6.0f) * size.y });
 
-
-
-
 		Gameobject::Initialize();
-
 	}
 	void finall_stage::Update()
 	{
 		Transform* tr = GetComponent<Transform>();
-		pos = tr->GetPos();
-
-		
+		pos = tr->GetPos();		
 
 		switch (mState)
 		{
@@ -195,16 +194,15 @@ namespace jk
 	{
 		Transform* tr = GetComponent<Transform>();
 
-		//fDist = mCenterpos.y - pos.y - mMonmaxdistance;
 		pos.y -= mSpeed * static_cast<float>(Time::DeltaTime());
-		//pos.x += mSpeed/2 * static_cast<float>(Time::DeltaTime());
+		Rocket_Start->Play(true);
 
 		if (pos.y <= 4950.0f)
 		{
 			check_map = 2;
 			mState = eBossState::Idle;
+			Rocket_Start->Stop(false);
 		}
-
 
 		tr->SetPos(pos);
 	}
@@ -216,9 +214,5 @@ namespace jk
 	}
 	void finall_stage::Ending()
 	{
-		//end = 2;
-		//mState = eBossState::Death;
-		//mAnimator->Play(L"Last_stage_ending", true);
-		//mState = eBossState::Death;
 	}
 }

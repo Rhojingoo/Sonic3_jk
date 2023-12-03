@@ -1,20 +1,19 @@
 #include "Boss_Run.h"
-#include "jk_Boss.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Input.h"
+#include "jk_Scene.h"
 #include "jk_Resources.h"
 #include "jk_Transform.h"
 #include "jk_Animator.h"
 #include "jk_Collider.h"
-#include "jk_Scene.h"
-#include "jk_Object.h"
+
 
 
 namespace jk
 {
 	Boss_Run::Boss_Run(Gameobject* owner)
-		:mDir(0)
+		: mDir(0)
+		, mImage(nullptr)
+		, mAnimator(nullptr)
 	{
 		mImage = Resources::Load<Image>(L"ROBOT", L"..\\Resources\\ROBOT.bmp");
 		mAnimator = AddComponent<Animator>();
@@ -44,8 +43,6 @@ namespace jk
 			pos.y -= 300.0f * static_cast<float>(Time::DeltaTime());
 			tr->SetPos(pos);
 		}
-
-
 		Gameobject::Update();
 	}
 	void Boss_Run::Render(HDC hdc)
@@ -55,8 +52,5 @@ namespace jk
 	void Boss_Run::Release()
 	{
 		Gameobject::Release();
-	}
-	void Boss_Run::move()
-	{
 	}
 }

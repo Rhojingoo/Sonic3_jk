@@ -29,10 +29,10 @@ namespace jk
 		
 
 		//델타타임 디버그
-		#ifdef _debug
-				if (mdeltatime > (1. / 60.))
-					mdeltatime = (1. / 60.);
-		#endif
+		//#ifdef _debug
+		//		if (mdeltatime > (1. / 60.))
+		//			mdeltatime = (1. / 60.);
+		//#endif
 
 		mDeltaTime = differnceFrequency / mCpuFrequency.QuadPart;
 		mPrevFrequency.QuadPart = mCurFrequency.QuadPart;

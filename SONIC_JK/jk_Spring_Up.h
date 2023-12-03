@@ -1,8 +1,8 @@
 #pragma once
 #include "jk_Gameobject.h"
 #include "jk_Image.h"
-#include "jk_SONIC.h"
 #include "jk_Animator.h"
+#include "jk_Sound.h"
 
 namespace jk
 {
@@ -37,25 +37,9 @@ namespace jk
 
 
 	private:
-		Gameobject* mOwner;
+		Sound* Spring_mc;
 		eState mState;
 		Image* mImage;
-		Image* mImage1;
-		Image* mGroundImage;
-		Ground* check;
 		Animator* mAnimator;
-		Vector2 mCenterpos;
-		Vector2 mCurpos;
-		float mMonspeed;
-		float mMonmaxdistance;
-		int mDir;
-		Vector2 pos;
-		float fDist;
-		Vector2 mSonic;
-
-		Sonic::eSonicState sonicState;
-		int sonicpattern;
-
 	};
-
 }

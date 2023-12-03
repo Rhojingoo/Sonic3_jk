@@ -1,20 +1,12 @@
 #pragma once
 #include "jk_Gameobject.h"
 #include "jk_Image.h"
-#include "jk_SONIC.h"
-#include "jk_Animator.h"
 
 namespace jk
 {
-	class Rigidbody;
-	class Animator;
 	class CYLINDER_COL_L : public Gameobject
 	{
 	public:
-		enum class eState
-		{
-			Idle,
-		};
 
 		CYLINDER_COL_L(Gameobject* owner);
 		~CYLINDER_COL_L ();
@@ -33,13 +25,7 @@ namespace jk
 
 
 	private:
-		Image* mImage;
 		Gameobject* mOwner;
-		eState mState;
-		Sonic* sonic;
-
 		class Collider* mCollider;
-		int mDir;
-		Sonic::eSonicState sonicState;
 	};
 }

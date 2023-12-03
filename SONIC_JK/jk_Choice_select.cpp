@@ -1,17 +1,18 @@
 #include "jk_Choice_select.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Input.h"
-#include "jk_Resources.h"
 #include "jk_Transform.h"
+#include "jk_Resources.h"
 #include "jk_Animator.h"
+#include "jk_Input.h"
 
 
 namespace jk
 {
 	Choice_select::Choice_select()
 		:Select_state(1)
-		, Box_space(0)
+		, mAnimator(nullptr)
+		, mImage(nullptr)
+
 	{
 	}
 	Choice_select::~Choice_select()

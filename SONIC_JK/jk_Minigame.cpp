@@ -1,12 +1,14 @@
 #include "jk_Minigame.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Input.h"
-#include "jk_Resources.h"
-#include "jk_Transform.h"
-#include "jk_Animator.h"
-#include "jk_Collider.h"
 #include "jk_Scene.h"
+#include "jk_Transform.h"
+#include "jk_Resources.h"
+#include "jk_Collider.h"
+#include "jk_Animator.h"
+
+
+#include "jk_Time.h"
+#include "jk_Input.h"
 
 
 namespace jk
@@ -14,9 +16,11 @@ namespace jk
 	Minigame::Minigame()
 		: mDir(0)
 		, mState(eState::Idle)
-		, bTurn(false)
+		, mImage(nullptr)
+		, mAnimator(nullptr)
 		, turnindex(0)
-	{
+	{	
+
 	}
 	Minigame::~Minigame()
 	{
@@ -152,9 +156,6 @@ namespace jk
 				activeAnim->Setspriteindex(8);
 			}
 		}
-		//Transform* tr = GetComponent<Transform>();
-		//Vector2 pos = tr->GetPos();
-		//tr->SetPos(pos);
 	}
 }
 

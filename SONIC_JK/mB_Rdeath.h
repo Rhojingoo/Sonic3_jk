@@ -1,17 +1,13 @@
 #pragma once
 #include "jk_Gameobject.h"
 #include "jk_Image.h"
-#include "jk_Time.h"
 
 namespace jk
 {
-	class Rigidbody;
 	class Animator;
 	class mB_Rdeath : public Gameobject
 	{
 	public:
-
-
 		mB_Rdeath(Gameobject* owner);
 		~mB_Rdeath();
 
@@ -29,6 +25,6 @@ namespace jk
 	private:
 		Image* mImage;
 		Animator* mAnimator;
-		Rigidbody* mRigidbody;
+		Gameobject* mOwner;
 	};
 }

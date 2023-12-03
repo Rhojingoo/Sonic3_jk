@@ -8,7 +8,7 @@
 #include "jk_Object.h"
 #include "jk_Transform.h"
 #include "jk_Blending.h"
-
+#include "jk_Resources.h"
 
 #include "jk_Sonic.h"
 #include "Electsonic.h"
@@ -66,13 +66,28 @@ namespace jk
 {
 	PlayScene3::PlayScene3()
 		: mSonic(nullptr)
+		, tails(nullptr)
+		, mBoss(nullptr)
+		, mBomber(nullptr)
+		, bomb(nullptr)
+		, add_force()
+		, deathline(nullptr)
+		, playgr(nullptr)
+
+
+		, Act2_music(nullptr)
+		, Act6_music(nullptr)
+		, Bomber(nullptr)
+		, Boss_start(nullptr)
+
+
 		, dir(1)
+		, check_map(0)
 		, Camera_Switch(0)
 		, check_boss(0)
 		, frame_check(0)
-		, check_map(0)
 		, boomber(0)
-		, mBomber(nullptr)
+		, boss_death(0)
 		, bomb_check(0)
 		, boss_appear(0)
 	{
@@ -83,6 +98,12 @@ namespace jk
 	void PlayScene3::Initialize()
 	{
 		check_map = 2;
+
+		Act2_music = Resources::Load<Sound>(L"Act2_bg", L"..\\Resources\\Sound\\Act2_bg.wav");
+		Bomber = Resources::Load<Sound>(L"Bommber_start", L"..\\Resources\\Sound\\Bommber_start.wav");
+		Boss_start = Resources::Load<Sound>(L"Boss_start", L"..\\Resources\\Sound\\Boss_start.wav");
+		Act6_music = Resources::Load<Sound>(L"Act6_bg", L"..\\Resources\\Sound\\Act6_bg.wav");
+
 
 		//Ä³¸¯ÅÍ
 		mSonic = new Sonic();
@@ -199,19 +220,19 @@ namespace jk
 		Act1_2_sky3* act1_2_sky3 = new Act1_2_sky3();
 		act1_2_sky3->SetName(L"act1_2_sky3");
 		AddGameobeject(act1_2_sky3, jk_LayerType::foreground);
-		act1_2_sky3->GetComponent<Transform>()->SetPos(Vector2(500.f,2940.f));
+		act1_2_sky3->GetComponent<Transform>()->SetPos(Vector2(-200.f,2940.f));
 
 
 		Act1_2_sky4* act1_2_sky4 = new Act1_2_sky4();
 		act1_2_sky4->SetName(L"act1_2_sky4");
 		AddGameobeject(act1_2_sky4, jk_LayerType::foreground);
-		act1_2_sky4->GetComponent<Transform>()->SetPos(Vector2(500.f, 3180.f));
+		act1_2_sky4->GetComponent<Transform>()->SetPos(Vector2(-300.f, 3180.f));
 
 	
 		Act1_2_sky5* act1_2_sky5 = new Act1_2_sky5();
 		act1_2_sky5->SetName(L"act1_2_sky5");
 		AddGameobeject(act1_2_sky5, jk_LayerType::foreground);
-		act1_2_sky5->GetComponent<Transform>()->SetPos(Vector2(500.f, 3612.f));
+		act1_2_sky5->GetComponent<Transform>()->SetPos(Vector2(-100.f, 3612.f));
 
 		act3_waterfall1* waterfall_1 = new act3_waterfall1();
 		AddGameobeject(waterfall_1, jk_LayerType::BG);
@@ -261,18 +282,22 @@ namespace jk
 			Camera::SetCamera(0);
 		}
 		
+
+
+		float sonic_bomber = 0;
 		if (sonic_pos.x >= 8700.f)
 		{
 			Camera::SetCamera(1);
 			if(boomber == 0)
 			{
-			Create_Boomber_show();
+			Create_Boomber_show();			
 			boomber = 1;
 			}
 		}		
 
 		if (boomber == 1)
 		{
+			sonic_bomber = mBomber->GetComponent<Transform>()->GetPos().x - sonic_pos.x;
 			Vector2 mBomber_pos1;
 			Vector2 mBomber_pos2;
 			Vector2 mBomber_pos3;
@@ -300,7 +325,11 @@ namespace jk
 				bomb_check = 3;
 			}
 		}
-			
+
+		if (sonic_bomber >= 800.f)
+		{
+			Bomber->Stop(true);
+		}
 
 		if (sonic_pos.x >= 14640.f)
 		{			
@@ -310,11 +339,6 @@ namespace jk
 				boss_appear = 1;
 			}
 		}
-			
-
-
-
-
 
 		if (sonic_pos.x >= 19470.f)
 		{
@@ -364,12 +388,16 @@ namespace jk
 
 		if ((boss_death == 3) && (sonic_pos.x > 20885.f))
 		{
+			Act2_music->Stop(true);
+			Act6_music->Play(true);
 			SceneManager::LoadScene(jk_SceneType::GamePlay4);
 		}
 
 		Scene::Update();
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
+			Act2_music->Stop(true);
+			Act6_music->Play(true);
 			SceneManager::LoadScene(jk_SceneType::GamePlay4);
 			//CreateBlending();
 			check_map = 3;
@@ -426,7 +454,11 @@ namespace jk
 
 
 	void PlayScene3::Create_Boss()
-	{		
+	{	
+		Act2_music->Stop(true);
+		Boss_start->Play(true);
+
+
 		mBoss = new Boss(mSonic);
 		mBoss->SetName(L"boss");
 		AddGameobeject(mBoss, jk_LayerType::BOSS);
@@ -441,6 +473,7 @@ namespace jk
 
 	void PlayScene3::Create_Boomber_show()
 	{
+		Bomber->Play(true);
 		mBomber = new boss_bomber(mSonic);
 		mBomber->SetName(L"bomber");
 		AddGameobeject(mBomber, jk_LayerType::MiniBoss);

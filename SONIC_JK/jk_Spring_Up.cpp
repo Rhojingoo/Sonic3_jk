@@ -7,19 +7,18 @@
 #include "jk_Collider.h"
 #include "jk_Animator.h"
 #include "jk_Resources.h"
-#include "jk_Object.h"
-#include "jk_Camera.h"
-#include "jk_Time.h"
-#include "jk_Blending.h"
 
 #include "jk_SONIC.h"
 #include "jk_Tails.h"
 
-float timer_Sup = 0.0f; // 타이머 변수
 
 namespace jk 
 {
 	Spring_Up::Spring_Up()
+		: Spring_mc(nullptr)
+		, mImage(nullptr)
+		, mAnimator(nullptr)
+		, mState(eState::Down)
 	{
 	}
 	Spring_Up::~Spring_Up()
@@ -27,6 +26,8 @@ namespace jk
 	}
 	void Spring_Up::Initialize()
 	{
+		Spring_mc = Resources::Load<Sound>(L"Spring", L"..\\Resources\\Sound\\Sonic\\Spring.wav");
+
 		mImage = Resources::Load<Image>(L"spring_up", L"..\\Resources\\Effect.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"spring_up", mImage, Vector2(504, 497), Vector2(32, 40), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
@@ -43,14 +44,8 @@ namespace jk
 	}
 	void Spring_Up::Update()
 	{
-		Transform* tr = GetComponent<Transform>();
-		pos = tr->GetPos();
-		mCurpos = pos;
-
-
 		switch (mState)
 		{
-
 		case Spring_Up::eState::Down:
 			down();
 			break;
@@ -77,6 +72,7 @@ namespace jk
 	{		
 		mAnimator->Play(L"spring_up2", false);
 		mState = eState::Up;
+		Spring_mc->Play(false);
 	}
 	void Spring_Up::OnCollisionStay(Collider* other)
 	{
@@ -86,12 +82,9 @@ namespace jk
 	}
 	void Spring_Up::up()
 	{
-
 		mAnimator->Play(L"spring_up", false);
 		mState = eState::Down;
-		return;
-	
-		
+		return;		
 	}
 	void Spring_Up::down()
 	{

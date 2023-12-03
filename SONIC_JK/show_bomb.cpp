@@ -1,22 +1,30 @@
 #include "show_bomb.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Input.h"
-#include "jk_Resources.h"
+#include "jk_Scene.h"
 #include "jk_Transform.h"
 #include "jk_Animator.h"
+#include "jk_Resources.h"
 #include "jk_Collider.h"
-#include "jk_Scene.h"
-#include "jk_Ground.h"
 #include "jk_Object.h"
+#include "jk_Ground.h"
+
+#include "jk_Time.h"
+#include "jk_Input.h"
+
+
 
 
 namespace jk
 {
 	show_bomb::show_bomb(Gameobject* owner)
 		: mMonspeed(3000.0f)
+		, Bomber_shot(nullptr)
+		, mImage(nullptr)
+		, mAnimator(nullptr)
+		, mGroundImage(nullptr)
+		, check(nullptr)
+		, mState()
 		, mOwner(owner)
-		, mDir(1)
 		, pos(0.f, 0.f)
 		, Player_pos(0.f,0.f)
 		, check_ground(0)
@@ -25,9 +33,10 @@ namespace jk
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"Act1_3_Boomb", mImage, Vector2{ 16,403 }, Vector2{ 32,32}, Vector2{ 0.f,0.f }, 1, 1, 1, Vector2::Zero, 0.1f);
 		mAnimator->CreateAnimation(L"bombing", mImage, Vector2{ 16,403 }, Vector2{ 40,32 }, Vector2{ 8.f,0.f }, 6, 1, 6, Vector2::Zero, 0.1f);
-
 		mAnimator->GetCompleteEvent(L"bombing") = std::bind(&show_bomb::bomb, this);
 		mAnimator->Play(L"Act1_3_Boomb", true);
+
+		Bomber_shot = Resources::Load<Sound>(L"Bomber_shot", L"..\\Resources\\Sound\\Bomber_shot.wav");
 	}
 	show_bomb::~show_bomb()
 	{
@@ -53,7 +62,6 @@ namespace jk
 		default:
 			break;
 		}		
-
 
 		if (mGroundImage)
 		{			
@@ -103,6 +111,7 @@ namespace jk
 
 		if (check_ground == 1)
 		{
+			Bomber_shot->Play(false);
 			mState = eState::Death;
 			mAnimator->Play(L"bombing", false);
 		}

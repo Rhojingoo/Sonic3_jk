@@ -39,24 +39,17 @@ namespace jk
 
 
 	private:
-		Gameobject* mOwner;
-		eState mState;
 		Image* mImage;
-		Image* mImage1;
-		Image* mGroundImage;
-		Ground* check;
 		Animator* mAnimator;
+		eState mState;
+
 		Vector2 mCenterpos;
-		Vector2 mCurpos;
+		Vector2 pos;
 		float mMonspeed;
 		float mMonmaxdistance;
-		int mDir;
-		Vector2 pos;
 		float fDist;
-		Vector2 mSonic;
+		int mDir;
 
-		Sonic::eSonicState sonicState;
-		int sonicpattern;
 
 	};
 

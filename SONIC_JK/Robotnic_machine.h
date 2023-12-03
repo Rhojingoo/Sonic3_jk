@@ -39,14 +39,11 @@ namespace jk
 
 
 	private:
-		Gameobject* mOwner;
 		eState mState;
 		Image* mImage;
-		float mSpeed;
-
-
 		Animator* mAnimator;
+
+		float mSpeed;
 		Vector2 pos;
-		Vector2 mSonic;
 	};
 }

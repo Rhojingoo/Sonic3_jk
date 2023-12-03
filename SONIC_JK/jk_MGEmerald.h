@@ -8,10 +8,6 @@ namespace jk
 	class MGEmerald : public Gameobject
 	{
 	public:
-		enum class eState
-		{
-			Idle,
-		};
 
 		MGEmerald();
 		~MGEmerald();
@@ -28,15 +24,11 @@ namespace jk
 
 
 	private:
-		void idle();
-
-	private:
 		Image* mImage;
 		Animator* mAnimator;
-		eState mState;
 		bool b = false;
 		bool isLoad;
-		bool isCanLoad;
+	
 	};
 
 }

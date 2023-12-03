@@ -2,6 +2,7 @@
 #include "jk_Gameobject.h"
 #include "jk_Image.h"
 
+
 namespace jk
 {
 	class Animator;
@@ -18,9 +19,6 @@ namespace jk
 
 
 	private:
-		Image* mImage;
-		float mTime;
-		int mIdx;
-		int mIdy;
+		Image* mImage;	
 	};
 }

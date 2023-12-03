@@ -1,21 +1,21 @@
 #include "Second_boss_bullet.h"
-#include "jk_Transform.h"
-#include "jk_Time.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Input.h"
-#include "jk_Resources.h"
-#include "jk_Transform.h"
-#include "jk_Animator.h"
-#include "jk_Collider.h"
 #include "jk_Scene.h"
+#include "jk_Transform.h"
+#include "jk_Collider.h"
+#include "jk_Animator.h"
+#include "jk_Resources.h"
 
+#include "jk_Input.h"
+#include "jk_Time.h"
 
 namespace jk
 {
 	Second_boss_bullet::Second_boss_bullet()
-		:mDir(1)
-		, mSpeed(250.f)
+		: mDir(1)
+		, mSpeed(150.f)
+		, mImage(nullptr)
+		, mAnimator(nullptr)
 	{
 		mImage = Resources::Load<Image>(L"Second_boss_R", L"..\\Resources\\ActBG_6\\BOSS\\Second_boss_R.bmp");
 		mAnimator = AddComponent<Animator>();
@@ -46,7 +46,7 @@ namespace jk
 		{
 			Transform* tr = GetComponent<Transform>();
 			Vector2 pos = tr->GetPos();
-			pos.x += 150.0f * static_cast<float>(Time::DeltaTime());
+			pos.x += mSpeed * static_cast<float>(Time::DeltaTime());
 			tr->SetPos(pos);
 			
 		}
@@ -54,11 +54,9 @@ namespace jk
 		{
 			Transform* tr = GetComponent<Transform>();
 			Vector2 pos = tr->GetPos();
-			pos.x -= 150.0f * static_cast<float>(Time::DeltaTime());
+			pos.x -= mSpeed * static_cast<float>(Time::DeltaTime());
 			tr->SetPos(pos);			
 		}
-
-	
 
 		Gameobject::Update();
 	}

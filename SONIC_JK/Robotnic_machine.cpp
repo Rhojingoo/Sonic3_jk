@@ -1,23 +1,28 @@
 #include "Robotnic_machine.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Resources.h"
+#include "jk_Scene.h"
 #include "jk_Transform.h"
+#include "Rigidbody.h"
 #include "jk_Animator.h"
 #include "jk_Collider.h"
-#include "jk_Scene.h"
-#include "jk_Camera.h"
+#include "jk_Resources.h"
 #include "jk_Object.h"
-#include "jk_Blending.h"
-#include "jk_SONIC.h"
-#include "Rigidbody.h"
 
+#include "jk_SONIC.h"
+
+#include "jk_Blending.h"
+#include "jk_Time.h"
+#include "jk_Camera.h"
 
 
 namespace jk
 {
 	Robotnic_machine::Robotnic_machine()
 		:mSpeed(250)
+		, pos(0.f,0.f)
+		, mImage()
+		, mAnimator()
+		, mState()
 	{
 	}
 	Robotnic_machine::~Robotnic_machine()
@@ -125,7 +130,6 @@ namespace jk
 			{
 				sonic_Pos.y -= (fSize - fLen) - 0.5f;
 				sonicTr->SetPos(Vector2{ groundPos.x + groundCol->GetSize().y / 2.0f ,groundPos.y- groundCol->GetSize().y});
-				//sonicTr->SetPos(sonic_Pos);
 			}
 
 			if ((mSonic->Getsonicstate() == Sonic::eSonicState::Jump) || (mSonic->Getsonicstate() == Sonic::eSonicState::Hurt))

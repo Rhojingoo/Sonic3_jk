@@ -1,21 +1,21 @@
 #include "jk_ItemBigRing.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
+#include "jk_Scene.h"
 #include "jk_Resources.h"
 #include "jk_Transform.h"
 #include "jk_Animator.h"
 #include "jk_Collider.h"
-#include "jk_Scene.h"
-#include "jk_Camera.h"
-#include "jk_Object.h"
 #include "jk_Blending.h"
+#include "jk_Object.h"
+#include "jk_Camera.h"
 #include "jk_SONIC.h"
 
 namespace jk
 {
 	ItemBigRing::ItemBigRing()
 		: mState(eState::Idle)
-		, mDir(1)
+		, mImage(nullptr)
+		, mAnimator(nullptr)
 	{
 		
 		
@@ -27,24 +27,20 @@ namespace jk
 
 	void ItemBigRing::Initialize()
 	{
-		//Transform* tr = GetComponent<Transform>();
-		//tr->SetPos(Vector2(90.0f,471.0f));
 		mImage = Resources::Load<Image>(L"sring", L"..\\Resources\\SpRing.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"Spring", mImage, Vector2(24, 546), Vector2(66, 66), Vector2(2, 2), 4, 3, 12, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"EatLSpring", mImage, Vector2(24, 744), Vector2(66, 66), Vector2(2, 2), 4, 2, 7, Vector2::Zero, 0.1);
 		mAnimator->Play(L"Spring", true);
+		mAnimator->GetCompleteEvent(L"EatLSpring") = std::bind(&ItemBigRing::death, this);
+		
+		
 		Collider* collider = AddComponent<Collider>();
 		collider->SetSize(Vector2(180.0f, 200.0f));
 		Vector2 size = collider->GetSize();
 		collider->SetCenter(Vector2{ (-0.15f) * size.x, (-0.35f) * size.y });
-
-		mAnimator->GetCompleteEvent(L"EatLSpring") = std::bind(&ItemBigRing::death, this);
 		
 		Gameobject::Initialize();
-
-
-
 	}
 
 	void ItemBigRing::Update()

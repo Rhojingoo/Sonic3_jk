@@ -28,5 +28,6 @@ namespace jk
 	private:
 		Image* mImage;
 		Animator* mAnimator;
+		Gameobject* mOwner;
 	};
 }

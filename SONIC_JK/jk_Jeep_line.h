@@ -14,7 +14,6 @@ namespace jk
 	public:
 		enum class eState
 		{
-			Idle,
 			Jeep_Line9,
 			Jeep_Line8,
 			Jeep_Line7,
@@ -43,7 +42,6 @@ namespace jk
 		void SetCheck_JeepLine(Jeep_line_Handle* handle) { JL_Handle = handle; }
 
 	private:
-		void idle();
 		void Jeep_line9();
 		void Jeep_line8();
 		void Jeep_line7();
@@ -52,31 +50,17 @@ namespace jk
 		void Jeep_line4();
 		void Jeep_line3();
 		void Jeep_line2();
-		void Jeep_line1();
-
-	
+		void Jeep_line1();	
 
 
 	private:
 		Gameobject* mOwner;
-		eState mState;
 		Image* mImage;
-
 		Animator* mAnimator;
-		Vector2 mCenterpos;
-		Vector2 mCurpos;
-		float mMonspeed;
-		float mMonmaxdistance;
-		int mDir;
-		Vector2 pos;
 
-		float fDist;
-		Vector2 mSonic;
-		float rotationDegree;
-		Sonic::eSonicState sonicState;
-		int sonicpattern;	
-		int JL_State;
+		eState mState;
 		Jeep_line_Handle* JL_Handle;
+		int JL_State;
 	};
 
 }

@@ -1,7 +1,6 @@
 #pragma once
 #include "jk_Gameobject.h"
 #include "jk_Image.h"
-#include "jk_SONIC.h"
 #include "jk_Animator.h"
 
 namespace jk
@@ -39,20 +38,13 @@ namespace jk
 
 
 	private:
-		Gameobject* mOwner;
 		eState mState;
 		Image* mImage;
 		Animator* mAnimator;
 
-		int mDir;
 		float jeepline_Speed;
-		Vector2 pos;	
 		Vector2 Start_jeepline;
-		Vector2 Final_jeepline;
-
-		Sonic::eSonicState sonicState;
-		int sonicpattern;
-		
+		Vector2 Final_jeepline;		
 	};
 
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "jk_Scene.h"
 #include "jk_Image.h"
+#include "jk_Sound.h"
 
 namespace jk
 {
@@ -23,5 +24,8 @@ namespace jk
 
 	private:
 		Image* mScenImage;
+		Sound* choice_music;
+		Sound* Act1_music;
+		Sound* Selec;
 	};
 }

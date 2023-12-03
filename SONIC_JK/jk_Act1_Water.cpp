@@ -15,6 +15,8 @@
 namespace jk
 {
 	Act1_Water::Act1_Water()
+		: mImage(nullptr)
+		, checktime(0.f)
 	{
 	}
 	Act1_Water::~Act1_Water()
@@ -120,9 +122,6 @@ namespace jk
 				tailsTr->SetPos(tails_Pos);
 			}
 		}
-
-
-		//tails_State
 	}
 
 	void Act1_Water::OnCollisionExit(Collider* other)
@@ -147,7 +146,6 @@ namespace jk
 			tails_rb->SetGravity(Vector2{ 0.f,1000.f });
 			tails_rb->AddForce(Vector2{ 0.f,-150.f });
 		}
-
 	}
 
 

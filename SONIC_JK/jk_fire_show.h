@@ -42,15 +42,13 @@ namespace jk
 	private:
 		Image* mImage;
 		Animator* mAnimator;
+		eState mState;
 
-		float fDist;
+	private:
 		Vector2 pos;
 		Vector2 mCenterpos;
 		float mMonspeed;
 		float mMonmaxdistance;
-
-		int mDir;
-		eState mState;
-		Gameobject* mOwner;
+		float fDist;
 	};
 }

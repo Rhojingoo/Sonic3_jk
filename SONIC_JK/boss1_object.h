@@ -2,6 +2,7 @@
 #include "jk_Gameobject.h"
 #include "jk_SONIC.h"
 #include "jk_Image.h"
+#include "jk_Sound.h"
 #include "jk_Time.h"
 
 
@@ -34,7 +35,6 @@ namespace jk
 
 		void Set_Deathpoint(int point) { Death_point = point; }
 		void SetGroundImage(Image* image) { mGroundImage = image; }
-		void SetCheckTargetGround(Ground* ground) { check = ground; }
 		int Get_Deathpoint(){ return Death_point; }
 
 	private:
@@ -46,22 +46,20 @@ namespace jk
 
 	private:
 		Image* mImage;
+		Image* mGroundImage;
 		Animator* mAnimator;
 		Rigidbody* mRigidbody;
-		Vector2 pos;	
+		Sound* Bullet1;
 
+	private:	
 		boss1_body* boss;
-		int mDir;
-		int attack_check;
 		eBossState mState;
+		Vector2 pos;	
+		int mDir;
 		float time;	
+		int attack_check;
 		int attack_lotation;
 		int Death_point;
-
-
-		Image* mGroundImage;
-		Ground* check;
-		int check_map;
 		int bullet_check;
 	};
 }

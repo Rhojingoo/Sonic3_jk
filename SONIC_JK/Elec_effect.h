@@ -22,12 +22,6 @@ namespace jk
 
 	private:
 		Animator* mAnimator;
-		Vector2 mSonic;
 		Gameobject* mOwner;
-		int mDir;
-		int tailcheck;
-
-
 	};
-
 }

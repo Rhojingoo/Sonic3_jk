@@ -19,10 +19,5 @@ namespace jk
 
 	private:
 		Image* mImage;
-		Sonic* mSonic;
-		int Check_BG;
-		Gameobject* mOwner;
-		Vector2 mSonic_pos;
 	};
-
 }

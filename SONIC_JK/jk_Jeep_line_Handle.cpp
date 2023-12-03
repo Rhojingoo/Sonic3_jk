@@ -1,24 +1,27 @@
 #include "jk_Jeep_line_Handle.h"
-#include "jk_Time.h"
+
 #include "jk_SceneManager.h"
+#include "jk_Scene.h"
 #include "jk_Resources.h"
 #include "jk_Transform.h"
+#include "Rigidbody.h"
 #include "jk_Animator.h"
 #include "jk_Collider.h"
-#include "jk_Scene.h"
-#include "jk_Camera.h"
 #include "jk_Object.h"
-#include "jk_Blending.h"
+#include "jk_Time.h"
+
 #include "jk_SONIC.h"
-#include "Rigidbody.h"
 
 namespace jk
 {
 	Jeep_line_Handle::Jeep_line_Handle()
 		: mCenterpos(Vector2(0.f, 0.f))
+		, Jeepline_state()
 		, mDir_x(1)
 		, angle(45)
-	{
+		, mImage(nullptr)
+		, mAnimator(nullptr)
+	{	
 	}
 	Jeep_line_Handle::~Jeep_line_Handle()
 	{
@@ -47,11 +50,6 @@ namespace jk
 		float centerX = mCenterpos.x;
 		float centerY = mCenterpos.y;
 		float radius = 210.0;
-
-		//float centerX = 16689.f;
-		//float centerY = 3360.f;
-
-
 
 		if (mDir_x == 1)
 		{
@@ -153,8 +151,6 @@ namespace jk
 		rb->SetGround(true);
 	}
 
-
-
 	void Jeep_line_Handle::OnCollisionStay(Collider* other)
 	{
 		Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner());
@@ -182,8 +178,6 @@ namespace jk
 			}
 			else
 			{
-				//OnCollisionExit(mSonic_Col);
-
 				rb->SetGround(false);
 				Vector2 velocity = rb->GetVelocity();				
 				velocity.x += 20.f;
@@ -195,16 +189,9 @@ namespace jk
 				sonicTr->SetPos(sonic_Pos);
 			}		
 		}	
-
-
 	}
 	void Jeep_line_Handle::OnCollisionExit(Collider* other)
 	{
-	}
-
-	void Jeep_line_Handle::idle()
-	{
-		 
-	  }	  
+	}  
 }		   
     

@@ -13,7 +13,10 @@
 namespace jk
 {
 	Last_Boss_bomb::Last_Boss_bomb(Gameobject* owner)
-		:Death_point(0)
+		: mOwner(owner)
+		, mImage(nullptr)
+		, mAnimator(nullptr)
+		, mState(eBossState::Move)
 	{
 		mImage = Resources::Load<Image>(L"last_bomb", L"..\\Resources\\ROBOT.bmp");
 		mAnimator = AddComponent<Animator>();
@@ -33,13 +36,11 @@ namespace jk
 	void Last_Boss_bomb::Update()
 	{
 		Transform* tr = GetComponent<Transform>();
-		//tr->SetPos(mOwner->GetComponent<Transform>()->GetPos());
 
 		switch (mState)
 		{
 		case jk::Last_Boss_bomb::eBossState::Move:move();
 			break;
-
 
 		case jk::Last_Boss_bomb::eBossState::Death:death();
 			break;
@@ -62,8 +63,7 @@ namespace jk
 	{
 	}
 	void Last_Boss_bomb::death()
-	{
-	
+	{	
 		object::Destory(this);
 	}
 	void Last_Boss_bomb::complete_bomb()

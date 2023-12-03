@@ -1,18 +1,19 @@
 #include "jk_Cylinder.h"
 #include "jk_Resources.h"
+#include "jk_Scene.h"
 #include "jk_Transform.h"
 #include "jk_Animator.h"
 #include "jk_Collider.h"
-#include "jk_Scene.h"
 #include "jk_Camera.h"
-#include "jk_Object.h"
-#include "jk_Blending.h"
 #include "jk_SONIC.h"
-#include "jk_Ground.h"
 
 namespace jk
 {
 	Cylinder::Cylinder()
+		: mImage(nullptr)
+		, mAnimator(nullptr)
+		, mState(eState::Idle)
+		, mRigidbody(nullptr)
 	{
 	}
 	Cylinder::~Cylinder()

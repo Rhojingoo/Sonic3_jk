@@ -21,6 +21,9 @@
 namespace jk
 {
 	Last_Bridge::Last_Bridge()
+		: mImage(nullptr)
+		, mAnimator(nullptr)
+		, mState(eState::Idle)
 	{
 	}
 	Last_Bridge::~Last_Bridge()
@@ -34,8 +37,6 @@ namespace jk
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"bridge_last", mImage, Vector2(622, 91), Vector2(192, 16), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
 		mAnimator->Play(L"bridge_last", true);
-
-
 		Collider* collider = AddComponent<Collider>();
 		collider->SetSize(Vector2(576.0f, 48.0f));
 		Vector2 size = collider->GetSize();
@@ -47,10 +48,6 @@ namespace jk
 
 	void Last_Bridge::Update()
 	{
-		Transform* tr = GetComponent<Transform>();
-		pos = tr->GetPos();
-	
-
 		switch (mState)
 		{
 		case Last_Bridge::eState::Idle:
@@ -138,38 +135,6 @@ namespace jk
 				sonicTr->SetPos(sonic_Pos);
 			}
 		}
-		//if (Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner()))
-		//{
-		//	if (mSonic == nullptr)
-		//		return;
-		//	Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
-		//	rb->SetGround(true);
-		//	Collider* mSonic_Col = mSonic->GetComponent<Collider>();
-		//	Vector2 mSonic_Pos = mSonic_Col->Getpos();
-		//	Transform* sonicTr = mSonic->GetComponent<Transform>();
-		//	Vector2 sonic_Pos = sonicTr->GetPos();
-		//	Collider* groundCol = this->GetComponent<Collider>();
-		//	Vector2 groundPos = groundCol->Getpos();	
-		//	Transform* grTr = this->GetComponent<Transform>();
-		//	//	실험해볼것
-		//	float fLen = fabs(sonic_Pos.y - groundPos.y);
-		//	float fSize = (mSonic_Col->GetSize().y / 2.0f) + (groundCol->GetSize().y / 2.0f);
-		//	if (fLen < fSize)
-		//	{
-		//		sonic_Pos.y -= (fSize - fLen) - 0.5f;
-		//		sonicTr->SetPos(sonic_Pos);
-		//	}
-		//	if ((mSonic->Getsonicstate() == Sonic::eSonicState::Jump) || (mSonic->Getsonicstate() == Sonic::eSonicState::Hurt))
-		//	{
-		//		Vector2 velocity = rb->GetVelocity();
-		//		velocity.y = -550.0f;
-		//		rb->SetVelocity(velocity);
-		//		rb->SetGround(false);
-		//		sonic_Pos = sonicTr->GetPos();
-		//		//sonic_Pos = sonic_Pos + Vector2{ 350.f ,-350.f };
-		//		sonicTr->SetPos(sonic_Pos);
-		//	}
-		//}
 
 		if (Tails* tails = dynamic_cast<Tails*>(other->GetOwner()))
 		{
@@ -189,7 +154,6 @@ namespace jk
 			Transform* grTr = this->GetComponent<Transform>();
 
 
-			//	실험해볼것
 			float fLen = fabs(tails_Pos.y - groundPos.y);
 			float fSize = (tails_Col->GetSize().y / 2.0f) + (groundCol->GetSize().y / 2.0f);
 

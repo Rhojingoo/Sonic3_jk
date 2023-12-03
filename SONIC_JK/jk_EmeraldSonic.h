@@ -1,6 +1,4 @@
 #pragma once
-
-#pragma once
 #include "jk_Gameobject.h"
 #include "jk_Image.h"
 

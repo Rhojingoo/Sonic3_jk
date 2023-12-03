@@ -1,22 +1,23 @@
 #include "jk_Ring.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Resources.h"
-#include "jk_Transform.h"
-#include "jk_Animator.h"
-#include "jk_Collider.h"
 #include "jk_Scene.h"
-#include "jk_Camera.h"
+#include "jk_Transform.h"
+#include "jk_Collider.h"
+#include "jk_Animator.h"
+#include "jk_Resources.h"
+
 #include "jk_Object.h"
-#include "jk_Blending.h"
 #include "jk_SONIC.h"
 
 
 namespace jk
 {
 	Ring::Ring(Gameobject* owner)
-		:Ringcheck(0)
+		: Ringcheck(0)
 		, mOwner(owner)
+		, mImage(nullptr)
+		, mAnimator(nullptr)
+		, Ring_State(eState::Idle)
 	{
 
 	}

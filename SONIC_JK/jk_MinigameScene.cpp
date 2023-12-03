@@ -1,10 +1,11 @@
 #include "jk_MinigameScene.h"
 #include "jk_Minigame.h"
-#include "jk_Input.h"
 #include "jk_SceneManager.h"
 #include "jk_EmeraldSonic.h"
 #include "jk_CollisionManager.h"
 #include "jk_MGEmerald.h"
+
+#include "jk_Input.h"
 #include "jk_Camera.h"
 #include "jk_Blending.h"
 #include "jk_Object.h"
@@ -13,6 +14,7 @@
 namespace jk
 {
 	MinigameScene::MinigameScene()
+		:emsonic(nullptr)
 	{
 	}
 
@@ -28,7 +30,6 @@ namespace jk
 		emsonic->SetName(L"Mg_Sonic");
 		Minigame* Mini_bg = new Minigame();
 		Mini_bg->SetName(L"Mg_BG");
-		//Camera::SetTarget(emsonic);
 		AddGameobeject(emsonic, jk_LayerType::Player);
 		AddGameobeject(Mini_bg, jk_LayerType::BG);
 		AddGameobeject(emerald, jk_LayerType::Item);
@@ -62,7 +63,7 @@ namespace jk
 	{
 		Camera::SetCamera(0);
 		Camera::SetTarget(emsonic);
-		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Item, true);//¸µ, ¿¡¸Þ¶öµå ¸ÔÀ»¶§ ÇÊ¿ä
+		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Item, true);
 	}
 
 	void MinigameScene::OnExit()

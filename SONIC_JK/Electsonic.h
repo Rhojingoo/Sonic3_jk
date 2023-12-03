@@ -33,20 +33,14 @@ namespace jk
 
 	private:
 		Animator* mAnimator;
-		Vector2 mSonic;
 		Gameobject* mOwner;
-		int mDir;
-		int tailcheck;
+		Vector2 mSonic;
 		State mState;
+		Sonic* sonic;
 		Elec_effect* elect1;
 		Elec_effect* elect2;
-
-
-		Sonic* sonic;
 		int effect_check;
 		int effect_call;
 		float time;
-
 	};
-
 }

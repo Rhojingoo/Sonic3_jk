@@ -69,17 +69,7 @@ namespace jk
 				, (int)(mSpriteSheet[mSpriteIndex].leftTop.x), (int)(mSpriteSheet[mSpriteIndex].leftTop.y)
 				, (int)(mSpriteSheet[mSpriteIndex].size.x), (int)(mSpriteSheet[mSpriteIndex].size.y),
 				RGB(13, 72, 7));
-	
-			//¾ËÆÄºí·»µù
-			//BLENDFUNCTION func = {};
-			//func.BlendOp = AC_SRC_OVER;
-			//func.BlendFlags = 0;
-			//func.AlphaFormat = AC_SRC_ALPHA;
-			//func.SourceConstantAlpha = 255; 
 
-			//AlphaBlend(hdc, pos.x, pos.y, mSpriteSheet[mSpriteIndex].size.x, mSpriteSheet[mSpriteIndex].size.y, mSheetImage->GetHdc(),
-			//	mSpriteSheet[mSpriteIndex].leftTop.x, mSpriteSheet[mSpriteIndex].leftTop.y,
-			//	mSpriteSheet[mSpriteIndex].size.x, mSpriteSheet[mSpriteIndex].size.y, func);
 	}
 
 
@@ -87,7 +77,6 @@ namespace jk
 	void Animation::Create(Image* sheet, Vector2 leftTop, Vector2 ChaSize, Vector2 ChaSpace, UINT coulmn, UINT row, UINT spriteLength, Vector2 offset, float duration)
 	{
 		mSheetImage = sheet;
-		//UINT coulmn = mSheetImage->GetWidth() / size.x;
 		Vector2 size = Vector2::One;
 		size.x = ChaSize.x;
 		size.y =ChaSize.y;
@@ -95,8 +84,7 @@ namespace jk
 		int y = 0;
 		for (size_t i = 0; i < spriteLength; i++)
 		{
-			Sprite spriteInfo;			
-		
+			Sprite spriteInfo;				
 			if (x ==coulmn)
 			{
 				x = 0;

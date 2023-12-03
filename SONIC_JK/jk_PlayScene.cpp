@@ -5,6 +5,7 @@
 #include "jk_Transform.h"
 #include "jk_Gameobject.h"
 #include "jk_Object.h"
+#include "jk_Resources.h"
 
 #include "jk_Camera.h"
 #include "jk_Input.h"
@@ -88,6 +89,10 @@ namespace jk
 {
 	PlayScene::PlayScene()
 		: mSonic(nullptr)
+		, mTails(nullptr)
+		, Act1_music(nullptr)
+		, Miniboss1(nullptr)
+		, Act2_music(nullptr)
 		, dir(1)
 		, Camera_Switch(0)
 		, check_minibos(0)
@@ -103,14 +108,29 @@ namespace jk
 
 	void PlayScene::Initialize()
 	{	
+		Act1_music = Resources::Load<Sound>(L"Act1_bg", L"..\\Resources\\Sound\\Act1_bg.wav");
+		Miniboss1 = Resources::Load<Sound>(L"Miniboss1", L"..\\Resources\\Sound\\Miniboss1.wav");
+		Act2_music = Resources::Load<Sound>(L"Act2_bg", L"..\\Resources\\Sound\\Act2_bg.wav");
+
+
+
 		mSonic = new Sonic();
 		mSonic->SetName(L"Player");
 		AddGameobeject(mSonic, jk_LayerType::Player);		
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
-		mSonic->GetComponent<Transform>()->SetPos(Vector2{21480.f, 3450.f });//폭포
+		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
+		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 19718.f, 3450.f });
+		//mSonic->GetComponent<Transform>()->SetPos(Vector2{21480.f, 3450.f });//폭포
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 16100.0f, 3070.0f });//집라인쪽
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 28821.f, 1363.f });//끝
+		//tr->SetPos(Vector2{ 24132.0f, 2417.0f });//원두번쨰 전
+		//tr->SetPos(Vector2{ 21579.f,72.f });//두번째 폭포
+		//tr->SetPos(Vector2{ 28821.f, 1363.f });//마지막폭포
+		//tr->SetPos(Vector2{ 19924.0f, 2625.0f });//돌3	
+		//tr->SetPos(Vector2{ 13218.0f, 3174.0f });//캐논
+		//tr->SetPos(Vector2(19718.f, 3450.f));//원돌기
+		//tr->SetPos(Vector2{ 26201.f, 3333.f });//밑에 원돌기
+
 
 		mTails = new Tails(mSonic);
 		mTails->SetName(L"Player2");
@@ -164,8 +184,6 @@ namespace jk
 
 
 
-
-
 	   //뒷배경
 		Act1skyBG*  act1sky = new Act1skyBG();
 		act1sky->SetName(L"SkyBG");
@@ -188,8 +206,7 @@ namespace jk
 
 		Act1_BG_object* bg = new Act1_BG_object();
 		AddGameobeject(bg, jk_LayerType::BG);
-		bg->SetName(L"Act1BG");		 
-		bg->Set_Owner(mSonic);
+		bg->SetName(L"Act1BG");		 	
 
 		Act1_Water* act1_Water = new Act1_Water();
 		AddGameobeject(act1_Water, jk_LayerType::UI);
@@ -237,7 +254,6 @@ namespace jk
 		flower2[0]->GetComponent<Transform>()->SetPos(Vector2{ 13570.0f,3195.0f });
 		flower2[1]->GetComponent<Transform>()->SetPos(Vector2{ 17700.0f, 3585.0f });
 		flower2[2]->GetComponent<Transform>()->SetPos(Vector2{ 21640.0f, 3960.0f });
-
 	
 
 
@@ -278,7 +294,7 @@ namespace jk
 		s_rock[1]->GetComponent<Transform>()->SetPos(Vector2{ 19398.0f, 2766.0f });
 		s_rock[1]->GetComponent<Collider>()->SetPos(Vector2{ 19398.0f, 2766.0f });
 		s_rock[2]->GetComponent<Transform>()->SetPos(Vector2{ 25000.0f, 3340.0f });
-		s_rock[1]->GetComponent<Collider>()->SetPos(Vector2{ 25000.0f, 3340.0f });
+		s_rock[2]->GetComponent<Collider>()->SetPos(Vector2{ 25000.0f, 3340.0f });
 
 
 		Rock_middle* rock_middle[1];
@@ -448,70 +464,6 @@ namespace jk
 		cannon[2]->GetComponent<Transform>()->SetPos(Vector2{ 20928.0f, 2680.0f });
 
 
-
-		//Snake* Snake_head[1];
-		//for (int a = 0; a < 1; a++)
-		//{
-		//	Snake_head[a] = new Snake(mSonic);
-		//	Snake_head[a]->SetName(L"Snake_head");
-		//	AddGameobeject(Snake_head[a], jk_LayerType::Monster);
-		//}
-		//Snake_head[0]->GetComponent<Transform>()->SetPos(Vector2{ 9070.f, 3250.f });
-		////Snake_head[0]->SetCenterpos(Vector2{ 9070.f, 3250.f });
-
-
-		//Snake_Body_Smoke* snake_Body_Smoke[1];
-		//for (int a = 0; a < 1; a++)
-		//{
-		//	snake_Body_Smoke[a] = new Snake_Body_Smoke();
-		//	snake_Body_Smoke[a]->SetName(L"Snake_Body");
-		//	AddGameobeject(snake_Body_Smoke[a], jk_LayerType::Monster);
-		//}
-		////snake_Body_Smoke[0]->GetComponent<Transform>()->SetPos(Vector2{ 8370.f, 3250.f });
-		//snake_Body_Smoke[0]->Set_Snake_Body(Snake_head[0]);
-	
-
-		//Snake_Body* snake_body[1];
-		//for (int a = 0; a < 1; a++)
-		//{
-		//	snake_body[a] = new Snake_Body();
-		//	snake_body[a]->SetName(L"Snake_Body");
-		//	AddGameobeject(snake_body[a], jk_LayerType::Monster);
-		//}
-		////snake_body[0]->GetComponent<Transform>()->SetPos(Vector2{ 8370.f, 3250.f });
-		//snake_body[0]->Set_Snake_Body(snake_Body_Smoke[0]);
-		//		
-
-		//Snake_body2* snake_body_2 = new Snake_body2();
-		//snake_body_2->SetName(L"Snake_Body2");
-		//AddGameobeject(snake_body_2, jk_LayerType::Monster);
-		////snake_body_2->GetComponent<Transform>()->SetPos(Vector2{ 8370.f, 3250.f });
-		//snake_body_2->Set_Snake_body_third(snake_body[0]);	
-
-
-		//Snake_mTaIl* snake_mT[1];
-		//for (int a = 0; a < 1; a++)
-		//{
-		//	snake_mT[a] = new Snake_mTaIl();
-		//	snake_mT[a]->SetName(L"Snake_Body");
-		//	AddGameobeject(snake_mT[a], jk_LayerType::Monster);
-		//}
-		//snake_mT[0]->GetComponent<Transform>()->SetPos(Vector2{8370.f, 3250.f});
-		//snake_mT[0]->Set_Snake_body_third(snake_body_2);
-
-
-
-		//Snake_Tail_End* Snake_Tail[1];
-		//for (int a = 0; a < 1; a++)
-		//{
-		//	Snake_Tail[a] = new Snake_Tail_End();
-		//	Snake_Tail[a]->SetName(L"Snake_Body");
-		//	AddGameobeject(Snake_Tail[a], jk_LayerType::Monster);
-		//}
-		//Snake_Tail[0]->GetComponent<Transform>()->SetPos(Vector2{ 8370.f, 3250.f });
-		//Snake_Tail[0]->Set_Snake_body_third(snake_mT[0]);
-
-
 		
 		//원체크
 		check1* circle_chek = new check1();
@@ -617,6 +569,8 @@ namespace jk
 					if (check_minibos != 0)
 						return;
 
+					Act1_music->Stop(true);
+					Miniboss1->Play(true);
 					Create_Miniboss_show();
 					check_minibos = 1;
 				}
@@ -626,6 +580,9 @@ namespace jk
 		Scene::Update();		
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
+			Act1_music->Stop(true);
+			Miniboss1->Stop(true);
+			Act2_music->Play(true);
 			SceneManager::LoadScene(jk_SceneType::GamePlay2);	
 			CreateBlending();
 		}

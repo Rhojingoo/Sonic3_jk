@@ -18,7 +18,6 @@ namespace jk
 
 	private:
 		Image* mImage;
-		float mTime;
 		float checktime;
 	};
 }

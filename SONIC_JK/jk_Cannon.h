@@ -6,6 +6,7 @@
 #include "jk_Time.h"
 
 
+
 namespace jk
 {
 	class Ground;
@@ -38,7 +39,7 @@ namespace jk
 		void SetCheckTargetGround(Ground* ground) { check = ground; }
 
 
-		Vector2 Getmonster() { return mCurpos; }
+		Vector2 Getmonster() { return pos; }
 		int GetDir() {	return mDir	;}
 
 
@@ -53,6 +54,7 @@ namespace jk
 		void release_animal();
 
 	private:
+		Sound* Death;
 		Gameobject* mOwner;
 		Image* mImage;
 		Image* mImage1;
@@ -62,19 +64,15 @@ namespace jk
 		Ground* check;
 		Rigidbody* mRigidbody;
 
+
 	private:
-		Vector2 mCurpos;	
-		int mDir;
 		eCannon mState;
 		Vector2 pos;
-		float fDist;
-		Vector2 mSonic;
-		int sonicpattern;
+		int mDir;
 		int check_map;
 
 	private:
 		Sonic::eSonicState sonicState;
 		Tails::eTailsState tailsState;
-
-	};
+	}; 
 }

@@ -41,16 +41,23 @@ namespace jk
 		void death();
 
 
+
 	private:
-		Rigidbody* mRigidbody;
+		Sound* Crash;
 		Image* mImage;
 		Image* mGroundImage;
 		Animator* mAnimator;
-		Gameobject* mOwner;
+		Rigidbody* mRigidbody;
+
 		eState mState;
 		Ground* check;
 		Sonic::eSonicState sonicState;
 	
+	private:
+		float timer_RS ;
+		float RS_DisappearTime;
+		float bounceForce_RS;
+		int check_ground_SR;
 	};
 
 }

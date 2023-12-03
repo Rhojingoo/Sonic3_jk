@@ -5,7 +5,6 @@
 
 namespace jk
 {
-	class Rigidbody;
 	class Animator;
 	class FireSonic : public Gameobject
 	{
@@ -31,16 +30,13 @@ namespace jk
 
 
 	private:
-		Animator* mAnimator;
-		Vector2 mSonic;
 		Gameobject* mOwner;
-		int mDir;
-		int tailcheck;
-		State mState;
-
 		Sonic* sonic;
+		Animator* mAnimator;
+		State mState;
+		Vector2 mSonic;
+		int mDir;
 		int effect_check;
-		
 
 	};
 

@@ -41,8 +41,6 @@ namespace jk
 		Animator* mAnimator;
 		Gameobject* mOwner;
 		eState itemmState;
-		
-		int mDir;
 		Sonic::eSonicState sonicState;
 		int Itemcheck;
 	};

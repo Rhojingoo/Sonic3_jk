@@ -30,7 +30,6 @@ namespace jk
 		virtual void OnCollisionExit(class Collider* other) override;
 
 		void CreateBlending();
-		int GetItemcheck() { return Ringcheck; }
 		void SetGroundImage(Image* image) { mGroundImage = image; }
 
 
@@ -43,12 +42,15 @@ namespace jk
 		Image* mImage;
 		Image* mGroundImage;
 		Animator* mAnimator;
+		Rigidbody* mRigidbody;
 		Gameobject* mOwner;
 		eState Ring_State;
-		int mDir;
-		Sonic::eSonicState sonicState;
-		int Ringcheck;
-		Rigidbody* mRigidbody;
+
+
+	private:
+		float timer; 
+		float bounceForce;
+		int check_ground;
 
 	};
 }

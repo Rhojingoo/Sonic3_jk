@@ -26,11 +26,7 @@ namespace jk
 
 
 	private:
-		Image* mImage;
-		float mTime;
-		float checktime;
 		class Collider* mCollider;
 		Ground* mGround;
-		int checkcheck;
-	};
+	}; 
 }

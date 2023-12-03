@@ -25,8 +25,6 @@ namespace jk
 		virtual void OnCollisionExit(class Collider* other) override;
 
 		void SetGroundImage(Image* image) { mGroundImage = image; }
-		void SetCheckTargetGround(Ground* ground) { check = ground; }
-
 		Vector2 Getmonster_pos() { return mCurpos; }
 
 	private:
@@ -34,12 +32,8 @@ namespace jk
 		Image* mImage;
 		Image* mGroundImage;
 		Animator* mAnimator;
-		Ground* check;
-
-
-	private:
 		Gameobject* mOwner;		
-		Vector2 mCurpos;		
-
+		Vector2 mCurpos;	
+		int check_ground_Mb;
 	};
 }

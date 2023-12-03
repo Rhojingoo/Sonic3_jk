@@ -1,5 +1,6 @@
 #include "jk_Rock_middle.h"
 #include "jk_Rock_Pice.h"
+
 #include "jk_SceneManager.h"
 #include "jk_Scene.h"
 #include "jk_Transform.h"
@@ -7,17 +8,14 @@
 #include "jk_Collider.h"
 #include "jk_Animator.h"
 #include "jk_Resources.h"
+
 #include "jk_Time.h"
 #include "jk_Object.h"
-
 #include "jk_Ground.h"
+
 #include "jk_SONIC.h"
 
 
-float timer_Rm = 0.0f; // 타이머 변수
-float Rm_DisappearTime = 20.0f; // 링이 사라지는 시간 (초)
-float bounceForce_Rm = 500.0f;
-int check_ground_mR = 0;
 
 float Random_middle_rock(float min, float max)
 {
@@ -31,6 +29,19 @@ float Random_middle_rock(float min, float max)
 namespace jk
 {
 	Rock_middle::Rock_middle()
+		: Crash(nullptr)
+		, mImage(nullptr)
+		, mGroundImage(nullptr)
+		, mAnimator(nullptr)
+		, mRigidbody(nullptr)
+		, mState(eState::Idle)
+		, check(nullptr)
+		, sonicState()
+		, timer_Rm(0.f)
+		, Rm_DisappearTime(20.f)
+		, bounceForce_Rm(500.f)
+		, check_ground_mR(0)
+
 	{
 	}
 	Rock_middle::~Rock_middle()
@@ -38,6 +49,8 @@ namespace jk
 	}
 	void Rock_middle::Initialize()
 	{
+		Crash = Resources::Load<Sound>(L"Crash", L"..\\Resources\\Sound\\Sonic\\Crash.wav");
+
 		mImage = Resources::Load<Image>(L"Rock_Platform", L"..\\Resources\\Rock_Platform.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"Middle_Rock", mImage, Vector2(220, 578), Vector2(48, 48), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
@@ -115,6 +128,7 @@ namespace jk
 
 			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
 			{
+				Crash->Play(false);
 
 				Transform* tr = GetComponent<Transform>();
 				Scene* curScene = SceneManager::GetActiveScene();

@@ -15,9 +15,8 @@
 namespace jk
 {
 	check2::check2()
-		:checktime(0.f)
-		, mImage(nullptr)
-		, mTime(0.0f)
+		: mCollider(nullptr)
+		, mGround(nullptr)
 	{
 	}
 	check2::~check2()
@@ -45,14 +44,11 @@ namespace jk
 		Gameobject::Release();
 	}
 	void check2::OnCollisionEnter(Collider* other)
-	{
-		
+	{		
 		if (Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner()))
-		{
-	
+		{	
 			mGround->Set_Circle_Center(Vector2{26823.f,2637.f});		
-			mGround->CheckLoopEnter_R();
-		
+			mGround->CheckLoopEnter_R();		
 		}
 	}
 	void check2::OnCollisionStay(Collider* other)

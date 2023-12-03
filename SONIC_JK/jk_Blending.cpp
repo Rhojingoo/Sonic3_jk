@@ -1,15 +1,15 @@
 #include "jk_Blending.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Input.h"
 #include "jk_Resources.h"
-#include "jk_Transform.h"
+#include "jk_Time.h"
 #include "jk_Object.h"
 
 namespace jk
 {
 	Blending::Blending()
 		:checktime(255.f)
+		, mImage(nullptr)	
+
 	{
 	}
 	Blending::~Blending()
@@ -45,8 +45,4 @@ namespace jk
 	{
 		Gameobject::Release();
 	}
-
-
-
-
 }

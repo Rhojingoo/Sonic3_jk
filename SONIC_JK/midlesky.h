@@ -5,7 +5,6 @@
 
 namespace jk
 {
-	class Animator;
 	class midlesky : public Gameobject
 	{
 	public:
@@ -19,7 +18,6 @@ namespace jk
 
 	private:
 		Image* mImage;
-		Animator* mAnimator;
 	};
 
 }

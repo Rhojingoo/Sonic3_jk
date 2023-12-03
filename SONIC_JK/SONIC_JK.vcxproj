@@ -144,6 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="acr1_forest2.h" />
+    <ClInclude Include="Act1_2_Boss_wall.h" />
     <ClInclude Include="Act1_2_sky1.h" />
     <ClInclude Include="Act1_2_sky2.h" />
     <ClInclude Include="Act1_2_sky3.h" />
@@ -176,7 +177,6 @@
     <ClInclude Include="Bullet_Act1_L_Side.h" />
     <ClInclude Include="Bullet_Act1_R_DIA.h" />
     <ClInclude Include="Bullet_Act1_R_Side.h" />
-    <ClInclude Include="bullet_wall.h" />
     <ClInclude Include="Commoninclude.h" />
     <ClInclude Include="CYLINDER_COL_L.h" />
     <ClInclude Include="CYLINDER_COL_R.h" />
@@ -230,7 +230,6 @@
     <ClInclude Include="jk_fire_show.h" />
     <ClInclude Include="jk_Gameobject.h" />
     <ClInclude Include="jk_Ground.h" />
-    <ClInclude Include="jk_Ground_act1_2.h" />
     <ClInclude Include="jk_Image.h" />
     <ClInclude Include="jk_Input.h" />
     <ClInclude Include="jk_Item.h" />
@@ -271,6 +270,7 @@
     <ClInclude Include="jk_Snake_Body_Smoke.h" />
     <ClInclude Include="jk_Snake_mTaIl.h" />
     <ClInclude Include="jk_Snake_Tail_End.h" />
+    <ClInclude Include="jk_Sound.h" />
     <ClInclude Include="jk_Spike_Up.h" />
     <ClInclude Include="jk_Spring_Left.h" />
     <ClInclude Include="jk_Spring_Up.h" />
@@ -310,9 +310,9 @@
     <ClInclude Include="Second_Boss.h" />
     <ClInclude Include="Second_boss_bullet.h" />
     <ClInclude Include="show_bomb.h" />
-    <ClInclude Include="SonicState.h" />
     <ClInclude Include="SONIC_Engine.h" />
     <ClInclude Include="SONIC_JK.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Third_Boss.h" />
     <ClInclude Include="UI_framework.h" />
@@ -323,6 +323,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="acr1_forest2.cpp" />
+    <ClCompile Include="Act1_2_Boss_wall.cpp" />
     <ClCompile Include="Act1_2_sky1.cpp" />
     <ClCompile Include="Act1_2_sky2.cpp" />
     <ClCompile Include="Act1_2_sky3.cpp" />
@@ -355,7 +356,6 @@
     <ClCompile Include="Bullet_Act1_L_Side.cpp" />
     <ClCompile Include="Bullet_Act1_R_DIA.cpp" />
     <ClCompile Include="Bullet_Act1_R_Side.cpp" />
-    <ClCompile Include="bullet_wall.cpp" />
     <ClCompile Include="CYLINDER_COL_L.cpp" />
     <ClCompile Include="CYLINDER_COL_R.cpp" />
     <ClCompile Include="Dead_line.cpp" />
@@ -406,7 +406,6 @@
     <ClCompile Include="jk_fire_show.cpp" />
     <ClCompile Include="jk_Gameobject.cpp" />
     <ClCompile Include="jk_Ground.cpp" />
-    <ClCompile Include="jk_Ground_act1_2.cpp" />
     <ClCompile Include="jk_Image.cpp" />
     <ClCompile Include="jk_Input.cpp" />
     <ClCompile Include="jk_Item.cpp" />
@@ -446,6 +445,7 @@
     <ClCompile Include="jk_Snake_Body_Smoke.cpp" />
     <ClCompile Include="jk_Snake_mTaIl.cpp" />
     <ClCompile Include="jk_Snake_Tail_End.cpp" />
+    <ClCompile Include="jk_Sound.cpp" />
     <ClCompile Include="jk_Spike_Up.cpp" />
     <ClCompile Include="jk_Spring_Left.cpp" />
     <ClCompile Include="jk_Spring_Up.cpp" />
@@ -485,6 +485,7 @@
     <ClCompile Include="Second_Boss.cpp" />
     <ClCompile Include="Second_boss_bullet.cpp" />
     <ClCompile Include="show_bomb.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Third_Boss.cpp" />
     <ClCompile Include="UI_framework.cpp" />
     <ClCompile Include="UI_Time.cpp" />

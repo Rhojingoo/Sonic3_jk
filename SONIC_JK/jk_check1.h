@@ -5,7 +5,6 @@
 namespace jk
 {
 	class Ground;
-	class Animator;
 	class check1 : public Gameobject
 	{
 	public:
@@ -26,9 +25,6 @@ namespace jk
 
 
 	private:
-		Image* mImage;
-		float mTime;
-		float checktime;
 		class Collider* mCollider;
 		Ground* mGround;
 	};

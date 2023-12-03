@@ -1,54 +1,58 @@
 #include "jk_minibos_show.h"
-#include "jk_Time.h"
+#include "jk_fire_show.h"
+#include "jk_midlle_boss_shoot.h"
+#include "jk_Lttle_miniboss.h"
+
 #include "jk_SceneManager.h"
-#include "jk_Input.h"
-#include "jk_Resources.h"
+#include "jk_Scene.h"
+
 #include "jk_Transform.h"
 #include "jk_Animator.h"
 #include "jk_Collider.h"
-#include "jk_Scene.h"
-#include "jk_fire_show.h"
-#include "jk_midlle_boss_shoot.h"
+#include "jk_Resources.h"
+
+#include "jk_Time.h"
+#include "jk_Input.h"
 #include "jk_Object.h"
-#include "jk_Lttle_miniboss.h"
 
 namespace jk
 {
 	minibos_show::minibos_show()
-		:mCenterpos(30792.f, 2407.f)
-		, mMonspeed(20.0f)
-		, mMonmaxdistance(100.0f)
-		, mDir(1)
-		, shoot(0)
+		: mCenterpos(30792.f, 2407.f)
+		, pos(0.f,0.f)
+		, fDist(0.f)
+		, mMonspeed(20.f)
+		, mMonmaxdistance(100.f)
 		, time(0.f)
+		, mDir(1)
+		, mState()
+		, shoot(0)
 		, map_check(0)
+		, mImage(nullptr)
+		, mAnimator(nullptr)
+		, Act1_music(nullptr)
+		, Miniboss1(nullptr)
+		, Fire_show(nullptr)
+		, Act2_music(nullptr)
+
 	{
 		mImage = Resources::Load<Image>(L"middle_bos", L"..\\Resources\\middle_bos.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"middle_bos_show_idle", mImage, Vector2{ 388.f,116.f }, Vector2{ 96.f,78.f }, Vector2{ 8.f,0.f }, 2, 1, 2, Vector2::Zero, 0.1f);
 		mAnimator->CreateAnimation(L"middle_bos_cover_open", mImage, Vector2{ 4.f,25.f }, Vector2{ 96.f,79.f }, Vector2{ 8.f,0.f }, 6, 1, 6, Vector2::Zero, 0.1f);
 		mAnimator->CreateAnimation(L"middle_bos_cover_close", mImage, Vector2{ 4.f,115.f }, Vector2{ 96.f,79.f }, Vector2{ 8.f,0.f }, 6, 1, 6, Vector2::Zero, 0.1f);
-
-
 		mAnimator->Play(L"middle_bos_show_idle", true);		
+
+		Act1_music = Resources::Load<Sound>(L"Act1_bg", L"..\\Resources\\Sound\\Act1_bg.wav");
+		Miniboss1 = Resources::Load<Sound>(L"Miniboss1", L"..\\Resources\\Sound\\Miniboss1.wav");
+		Fire_show =	Resources::Load<Sound>(L"Fire_show", L"..\\Resources\\Sound\\Fire_show.wav");
+		Act2_music = Resources::Load<Sound>(L"Act2_bg", L"..\\Resources\\Sound\\Act2_bg.wav");
 	}
 	minibos_show::~minibos_show()
 	{
 	}
 	void minibos_show::Initialize()
 	{
-
-		//mImage = Resources::Load<Image>(L"middle_bos", L"..\\Resources\\middle_bos.bmp");
-		//mAnimator = AddComponent<Animator>();
-		//mAnimator->CreateAnimation(L"middle_bos_show_idle", mImage, Vector2{ 388.f,117.f }, Vector2{ 96.f,79.f }, Vector2{ 8.f,0.f }, 2, 1, 2, Vector2::Zero, 0.1f);
-		//mAnimator->CreateAnimation(L"middle_bos_cover_open", mImage, Vector2{ 4.f,25.f }, Vector2{ 96.f,79.f }, Vector2{ 8.f,0.f }, 8, 1, 8, Vector2::Zero, 0.1f);
-		//mAnimator->CreateAnimation(L"middle_bos_cover_close", mImage, Vector2{ 4.f,115.f }, Vector2{ 96.f,79.f }, Vector2{ 8.f,0.f }, 8, 1, 8, Vector2::Zero, 0.1f);
-
-		//mAnimator->Play(L"middle_bos_show_idle", true);
-		//mImage = Resources::Load<Image>(L"middle_bos", L"..\\Resources\\middle_bos.bmp");
-		//mAnimator->GetCompleteEvent(L"middle_bos_cover_open") = std::bind(&minibos_show::attack, this);
-
-
 		Gameobject::Initialize();
 	}
 
@@ -78,13 +82,14 @@ namespace jk
 			time += Time::DeltaTime();
 			if (time >= 5)
 			{		
+				Fire_show->Stop(true);
+				Act2_music->Play(true);
 				SceneManager::LoadScene(jk_SceneType::GamePlay2);
 				map_check = 1;
 			}
 		}
 		Gameobject::Update();
 	}
-
 
 	void minibos_show::Render(HDC hdc)
 	{
@@ -117,14 +122,12 @@ namespace jk
 		fDist = mCenterpos.y - pos.y - mMonmaxdistance;
 		pos.y += mMonspeed * static_cast<float>(Time::DeltaTime());
 
-
 		if (fDist <= -300.0f)
 		{
 			mState = eState::Attack;
 			mAnimator->Play(L"middle_bos_cover_open", false);	
 		}
 		tr->SetPos(pos);
-
 	}
 
 	void minibos_show::attack()
@@ -175,6 +178,8 @@ namespace jk
 	{
 		if (shoot == 2)
 		{
+			Miniboss1->Stop(true);
+			Fire_show->Play(true);
 			Scene* curScene = new Scene();
 			curScene = SceneManager::GetActiveScene();
 			fire_show* fire = new fire_show();

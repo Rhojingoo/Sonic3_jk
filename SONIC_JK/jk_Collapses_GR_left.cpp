@@ -1,5 +1,6 @@
 #include "jk_Collapses_GR_left.h"
 #include "jk_Callapses.h"
+
 #include "jk_SceneManager.h"
 #include "jk_Scene.h"
 #include "jk_Transform.h"
@@ -7,20 +8,23 @@
 #include "jk_Collider.h"
 #include "jk_Animator.h"
 #include "jk_Resources.h"
-#include "jk_Camera.h"
+
 #include "jk_Time.h"
 #include "jk_Object.h"
-#include "jk_Blending.h"
 
 #include "jk_SONIC.h"
 #include "jk_Tails.h"
 
-float time_Gr2 = 0.0f;
-int check_Gr2 = 0;
 
 namespace jk
 {
 	Collapses_GR_left::Collapses_GR_left()
+		: Crash(nullptr)
+		, mImage(nullptr)
+		, mAnimator(nullptr)
+		, mState(eState::Idle)
+		, time_Gr2(0.f)
+		, check_Gr2(0)
 	{
 	}
 	Collapses_GR_left::~Collapses_GR_left()
@@ -29,6 +33,8 @@ namespace jk
 
 	void Collapses_GR_left::Initialize()
 	{
+		Crash = Resources::Load<Sound>(L"Crash", L"..\\Resources\\Sound\\Sonic\\Crash.wav");
+
 		mImage = Resources::Load<Image>(L"Ground_collapses", L"..\\Resources\\Rock_Platform.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"Ground_collapses_left", mImage, Vector2(540, 285), Vector2(96, 64), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
@@ -47,7 +53,6 @@ namespace jk
 	{
 		switch (mState)
 		{
-
 		case Collapses_GR_left::eState::Idle:
 			idle();
 			break;
@@ -161,25 +166,15 @@ namespace jk
 			}
 		}
 
-
-
-
-
-
-
-
-
 			if (check_Gr2 == 1)
 			{
 				time_Gr2 += Time::DeltaTime();
 				if (time_Gr2 >= 1)
 				{
-					mState = eState::Death;
-					
+					mState = eState::Death;					
 					return;
 				}
-			}
-		
+			}		
 	}
 
 	void Collapses_GR_left::OnCollisionExit(Collider* other)
@@ -197,6 +192,7 @@ namespace jk
 
 	void Collapses_GR_left::death()
 	{		
+		Crash->Play(false);
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 		Callapses* GR_callapese = new Callapses();

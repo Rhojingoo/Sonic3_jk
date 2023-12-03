@@ -1,4 +1,5 @@
 #include "jk_Rock_Pice.h"
+
 #include "jk_SceneManager.h"
 #include "jk_Scene.h"
 #include "jk_Transform.h"
@@ -11,36 +12,35 @@
 #include "jk_Object.h"
 #include "jk_SONIC.h"
 
-float timer_rock = 0.0f; // 타이머 변수
-float rock_DisappearTime = 20.0f; // 링이 사라지는 시간 (초)
-float bounce_Force = 300.0f;
-int check_gr = 0;
 
 namespace jk
 {
 		Rock_Pice::Rock_Pice()
-	{
-
-	
+			: mImage(nullptr)
+			, mGroundImage(nullptr)
+			, mAnimator(nullptr)
+			, mRigidbody(nullptr)
+			, check(nullptr)
+			, timer_rock(0.f)
+			, bounce_Force(300.f)
+			, check_gr(0)
+		{
 			mImage = Resources::Load<Image>(L"Rock_Pice", L"..\\Resources\\Rock_Platform.bmp");
 			mAnimator = AddComponent<Animator>();
 			mAnimator->CreateAnimation(L"Rock_Pice1", mImage, Vector2(211, 634), Vector2(24, 24), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
 			mAnimator->CreateAnimation(L"Rock_Pice2", mImage, Vector2(244, 634), Vector2(24, 24), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
-
 			mAnimator->Play(L"Rock_Pice1", true);
-			//mAnimator->Play(L"Rock_Pice2", true);
 
 			Collider* collider = AddComponent<Collider>();
 			collider->SetSize(Vector2(90.0f, 85.0f));
 			Vector2 size = collider->GetSize();
 			collider->SetCenter(Vector2{ (-0.15f) * size.x, (-0.35f) * size.y });
 
-
 			mRigidbody = AddComponent<Rigidbody>();
 			mRigidbody->SetMass(1.0f);
 
 			timer_rock = 0;
-	}
+		}
 	
 		Rock_Pice::~Rock_Pice()
 		{
@@ -52,25 +52,6 @@ namespace jk
 		}
 		void Rock_Pice::Update()
 		{
-			switch (Rock_State)
-			{
-			case Rock_Pice::eState::Idle:
-				idle();
-				break;
-
-			case Rock_Pice::eState::Up:
-				up();
-				break;
-
-			case Rock_Pice::eState::Down:
-				down();
-				break;
-
-			default:
-				break;
-			}
-
-
 		Transform* rock_TR = GetComponent<Transform>();
 		Rigidbody* rock_rb = GetComponent<Rigidbody>();
 
@@ -118,23 +99,5 @@ namespace jk
 		void Rock_Pice::Release()
 	{
 		Gameobject::Release();
-	}
-		void Rock_Pice::OnCollisionEnter(Collider* other)
-	{
-	}
-		void Rock_Pice::OnCollisionStay(Collider* other)
-	{
-	}
-		void Rock_Pice::OnCollisionExit(Collider* other)
-	{
-	}
-		void Rock_Pice::idle()
-	{
-	}
-		void Rock_Pice::up()
-	{
-	}
-		void Rock_Pice::down()
-	{
 	}
 }

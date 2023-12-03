@@ -11,10 +11,6 @@ namespace jk
 	class Boss_Run : public Gameobject
 	{
 	public:
-		enum class eBossState
-		{	
-			Move,
-		};
 
 		Boss_Run(Gameobject* owner);
 		~Boss_Run();
@@ -26,22 +22,12 @@ namespace jk
 
 		void Set_Dir(int dir) { mDir = dir; }
 
-	private:			
-		void move();
+
 
 	private:
 		Image* mImage;
-		Animator* mAnimator;
-		Vector2 mCenterpos;		
-		Vector2 pos;
-
-		float mMonspeed;
-		float mMonmaxdistance;
+		Animator* mAnimator;		
 		int mDir;
-		float fDist;
-		eBossState mState;	
-		float time;		
-
 	};
 }
 

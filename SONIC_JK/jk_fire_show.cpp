@@ -1,26 +1,30 @@
 #include "jk_fire_show.h"
-#include "jk_Time.h"
+
 #include "jk_SceneManager.h"
-#include "jk_Input.h"
-#include "jk_Resources.h"
+#include "jk_Scene.h"
 #include "jk_Transform.h"
 #include "jk_Animator.h"
+#include "jk_Resources.h"
 #include "jk_Collider.h"
-#include "jk_Scene.h"
 #include "jk_Object.h"
+
+#include "jk_Time.h"
+#include "jk_Input.h"
+
 
 namespace jk
 {
 	fire_show::fire_show()
-		:mCenterpos(30792.f, 2407.f)
+		: mCenterpos(30792.f, 2407.f)
+		, pos(0.f,0.f)
 		, mMonspeed(350.0f)
 		, mMonmaxdistance(1000000.0f)
-		, mDir(1)
+		, fDist(0.f)
+		, mState()
 	{
 		mImage = Resources::Load<Image>(L"middle_bos", L"..\\Resources\\middle_bos.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"fire_show_ending", mImage, Vector2{ 24.f,610.f }, Vector2{ 512.f,768.f }, Vector2{ 0.f,0.f }, 1, 1, 1, Vector2::Zero, 0.1f);
-
 		mAnimator->Play(L"fire_show_ending", true);
 	}
 	fire_show::~fire_show()
@@ -73,10 +77,8 @@ namespace jk
 	void fire_show::move()
 	{
 		Transform* tr = GetComponent<Transform>();
-
 		fDist = mCenterpos.y - pos.y - mMonmaxdistance;
-		pos.y -= mMonspeed * static_cast<float>(Time::DeltaTime());		
-		
+		pos.y -= mMonspeed * static_cast<float>(Time::DeltaTime());				
 		tr->SetPos(pos);
 
 	}

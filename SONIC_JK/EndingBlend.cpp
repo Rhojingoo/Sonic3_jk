@@ -1,9 +1,7 @@
 #include "EndingBlend.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Input.h"
+#include "jk_Time.h"
 #include "jk_Resources.h"
-#include "jk_Transform.h"
 #include "jk_Object.h"
 
 namespace jk
@@ -12,7 +10,6 @@ namespace jk
 	EndingBlend::EndingBlend()
 		:checktime(0.f)
 		, mImage(nullptr)
-		, mTime(0.0f)
 	{
 
 	}
@@ -34,7 +31,6 @@ namespace jk
 
 	void EndingBlend::Render(HDC hdc)
 	{
-
 		checktime += (float)Time::DeltaTime() * 255.0f * 0.7f;
 		BLENDFUNCTION func = {};
 		func.BlendOp = AC_SRC_OVER;
@@ -54,5 +50,4 @@ namespace jk
 	{
 		Gameobject::Release();
 	}
-
 }

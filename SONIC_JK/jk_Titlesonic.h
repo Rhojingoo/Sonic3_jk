@@ -8,12 +8,6 @@ namespace jk
 	class Titlesonic : public Gameobject
 	{
 	public:
-		//enum class eState
-		//{
-		//	Idle,	
-		//	Move,
-		//};
-
 		Titlesonic();
 		~Titlesonic();
 
@@ -23,28 +17,12 @@ namespace jk
 		virtual void Render(HDC hdc) override;
 		virtual void Release() override;
 
-
 		Animator* GetmAnimator() { return mAnimator; }
 
-		void startscene();
-
-
-	//private:
-	//	void idle();
-	//	void move();
-
-		
+		void startscene();		
 
 	private:
-		int mDir;
 		Image* mImage;
-		eState mState;
 		Animator* mAnimator;
-		Animator* mAnimator1;
-		Gameobject* mOwner;
-		bool bTurn;
-		float time;
-		int turnindex;
 	};
-
 }

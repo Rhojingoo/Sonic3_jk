@@ -1,11 +1,11 @@
 #include "jk_Canon_Bullet.h"
 #include "jk_Cannon.h"
+
 #include "jk_SceneManager.h"
 #include "jk_Scene.h"
 #include "jk_Transform.h"
 #include "Rigidbody.h"
 #include "jk_Collider.h"
-#include "jk_Animator.h"
 #include "jk_Resources.h"
 #include "jk_Object.h"
 #include "jk_Ground.h"
@@ -15,12 +15,19 @@
 
 #include "jk_SONIC.h"
 
-int check_ground_Cb = 0;
+
 
 namespace jk 
 {
 	Canon_Bullet::Canon_Bullet(Gameobject* owner)
-		:mDir(-1)
+		: mImage(nullptr)
+		, mGroundImage(nullptr)
+		, mAnimator(nullptr)
+		, mRigidbody(nullptr)
+		, mOwner(owner)
+		, mDir(-1)
+		, check_ground_Cb(0)
+
 	{
 		mImage = Resources::Load<Image>(L"Canon_B", L"..\\Resources\\Monster2.bmp");
 		mAnimator = AddComponent<Animator>();
@@ -34,11 +41,10 @@ namespace jk
 
 		mRigidbody = AddComponent<Rigidbody>();
 		mRigidbody->SetMass(1.0f);
-	
-		mOwner = owner;
-		Cannon* canon = new Cannon(this);	
-		mDir = canon->GetDir();
-		check_ground_Cb = 0;
+
+
+		Cannon* canon = dynamic_cast<Cannon*>(owner);
+		mDir = canon->GetDir();	
 	}
 
 	Canon_Bullet::~Canon_Bullet()

@@ -54,8 +54,7 @@ namespace jk
 		static int camera;
 
 		static Vector2 mMove;
-		static Vector2 target_pos;
-		
+		static Vector2 target_pos;		
 	};
 }
 

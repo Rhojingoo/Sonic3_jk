@@ -20,7 +20,6 @@ namespace jk
 
 		void CreateBlending();
 
-	private:
-		Image* mScenImage;
+	private:		
 	};
 }

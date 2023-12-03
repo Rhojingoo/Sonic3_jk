@@ -1,7 +1,5 @@
 #include "Act1_2_sky3.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Input.h"
 #include "jk_Resources.h"
 #include "jk_Transform.h"
 #include "jk_Camera.h"
@@ -9,6 +7,7 @@
 namespace jk
 {
 	Act1_2_sky3::Act1_2_sky3()
+		:mImage(nullptr)
 	{
 	}
 	Act1_2_sky3::~Act1_2_sky3()
@@ -26,11 +25,9 @@ namespace jk
 	}
 	void Act1_2_sky3::Render(HDC hdc)
 	{
-	
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 		tr->SetPos(pos);
-
 		Vector2 mpos = Camera::CaluatePos(pos);
 		TransparentBlt(hdc, mpos.x / 3.3f, mpos.y, 14064, 240, mImage->GetHdc(), 0, 0, 14064, 240, RGB(13, 72, 7));
 

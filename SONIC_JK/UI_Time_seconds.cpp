@@ -1,21 +1,22 @@
 #include "UI_Time_seconds.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Input.h"
+#include "jk_Scene.h"
 #include "jk_Resources.h"
 #include "jk_Transform.h"
 #include "jk_Animator.h"
 #include "jk_Collider.h"
-#include "jk_Scene.h"
-#include "jk_Titlesonic.h"
 
+
+float time_S;
 
 namespace jk
 {
 	UI_Time_seconds::UI_Time_seconds(Gameobject* owner)
-		:mOwner(nullptr)
+		: mOwner(owner)
+		, seconds(nullptr)
+		, mImage(nullptr)
+		, time_S(0.f)
 	{		
-		mOwner = owner;
 		seconds = dynamic_cast<UI_Time*>(owner);
 	}
 	UI_Time_seconds::~UI_Time_seconds()

@@ -3,6 +3,7 @@
 #include "jk_Image.h"
 #include "jk_Sonic.h"
 #include "jk_Tails.h"
+#include "jk_Sound.h"
 #include "jk_Time.h"
 
 
@@ -51,7 +52,7 @@ namespace jk
 		void death();
 
 	private:	
-		Gameobject* mOwner;
+		Sound* Death;
 		Rigidbody* mRigidbody;
 		Animator* mAnimator;
 		Image* mImage;
@@ -59,6 +60,7 @@ namespace jk
 		Image* mGroundImage;
 		Image* mGroundImage2;
 		
+	private:
 		Ground* check;
 		Vector2 mCenterpos;
 		Vector2 mCurpos;
@@ -68,6 +70,7 @@ namespace jk
 		int Death_Point;
 		int check_map;
 
+	private:
 		eMonsterState mState;	
 		Sonic::eSonicState sonicState;		
 		Tails::eTailsState tailsState;

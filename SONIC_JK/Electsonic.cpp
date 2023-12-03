@@ -1,39 +1,43 @@
 #include "Electsonic.h"
 #include "Elec_effect.h"
-#include "jk_Sonic.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Input.h"
-#include "jk_Resources.h"
+#include "jk_Scene.h"
 #include "jk_Transform.h"
 #include "jk_Animator.h"
-#include "jk_Collider.h"
-#include "jk_Scene.h"
-#include "jk_Ground.h"
-#include "Rigidbody.h"
+#include "jk_Resources.h"
+
+#include "jk_Time.h"
+#include "jk_Input.h"
 #include "jk_Object.h"
+
 
 namespace jk
 {
 	Electsonic::Electsonic(Gameobject* owner)
-	:mOwner(nullptr)
+		: mOwner(owner)
+		, sonic(nullptr)
+		, elect1(nullptr)
+		, elect2(nullptr)
+		, mAnimator(nullptr)
+		, mState(State::Idle)
+
 		, mSonic(0.0f,0.0f)
 		, effect_check(0)
-		, time(0.f)
 		, effect_call(0)
-	{
-		mOwner = owner;
+		, time(0.f)
+
+	{		 
 		sonic = dynamic_cast<Sonic*>(owner);
 		Image* mImage = Resources::Load<Image>(L"shield", L"..\\Resources\\Shield.bmp");
 		mAnimator = AddComponent<Animator>();
-
 		mAnimator->CreateAnimation(L"Elect", mImage, Vector2(372, 472), Vector2(56, 56), Vector2(8, 8), 3, 4, 12, Vector2::Zero, 0.05f);
+		mAnimator->Play(L"Elect", true);
+
 
 		mSonic = mOwner->GetComponent<Transform>()->GetPos();
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 		pos = mSonic;
-		mAnimator->Play(L"Elect", true);
 		
 	}
 	Electsonic::~Electsonic()
@@ -46,34 +50,16 @@ namespace jk
 	void Electsonic::Update()
 	{
 		mSonic = mOwner->GetComponent<Transform>()->GetPos();
-		effect_check =sonic->Elect_Shield();		
-		
-		
-		//Transform* tr = GetComponent<Transform>();
-		//Vector2 pos = tr->GetPos();
-		//tr->SetPos(mSonic);
-
-
-
+		effect_check =sonic->Elect_Shield();
 
 		switch (mState)
 		{
 		case jk::Electsonic::State::Idle:idle();
 			break;
 
-		//case jk::Electsonic::State::Elect_Effect:elect_effect();
-		//	break;
-
 		default:
 			break;
 		}
-
-
-
-
-		//if (Input::GetKeyDown(eKeyCode::RIGHT)
-		//	|| Input::GetKeyDown(eKeyCode::LEFT))
-		//	object::Destory(this);
 
 		Gameobject::Update();
 	}
@@ -113,8 +99,10 @@ namespace jk
 
 	}
 	void Electsonic::elect_effect()
-	{		mState = State::Idle;
+	{	
+		mState = State::Idle;
 	}
+
 	void Electsonic::effect()
 	{
 		mSonic = mOwner->GetComponent<Transform>()->GetPos();
@@ -132,6 +120,5 @@ namespace jk
 		elect2->SetName(L"mboss");
 		curScene->AddGameobeject(elect2, jk_LayerType::Effect);
 		elect2->GetComponent<Transform>()->SetPos(Vector2{ pos.x + 45, pos.y });
-
 	}
 }

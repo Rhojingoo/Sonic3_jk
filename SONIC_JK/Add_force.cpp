@@ -1,8 +1,8 @@
 #include "Add_force.h"
 #include "jk_SceneManager.h"
+#include "jk_Scene.h"
 #include "jk_Transform.h"
 #include "jk_Collider.h"
-#include "jk_Scene.h"
 #include "jk_SONIC.h"
 #include "Rigidbody.h"
 
@@ -10,6 +10,9 @@
 namespace jk
 {
 	Add_force::Add_force()
+		: mCollider(nullptr)
+		, mRigidbody(nullptr)
+		, up_add(0)
 	{
 	}
 	Add_force::~Add_force()
@@ -20,8 +23,6 @@ namespace jk
 		mCollider = AddComponent<Collider>();
 		mCollider->SetSize(Vector2(50.0f, 250.f));		
 		Transform* tr = GetComponent<Transform>();
-		
-
 		Gameobject::Initialize();
 	}
 	void Add_force::Update()

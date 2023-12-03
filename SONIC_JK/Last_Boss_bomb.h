@@ -25,8 +25,6 @@ namespace jk
 		virtual void Render(HDC hdc) override;
 		virtual void Release() override;
 
-		void Set_Death_point(int point) { Death_point = point; }
-
 	private:
 		void move();
 		void death();
@@ -36,12 +34,7 @@ namespace jk
 		Image* mImage;
 		Animator* mAnimator;
 		eBossState mState;
-		Vector2 mCenterpos;
 		Vector2 pos;
-
 		Gameobject* mOwner;
-
-		int Death_point;
-
 	};
 }

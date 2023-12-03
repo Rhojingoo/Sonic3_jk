@@ -1,6 +1,7 @@
 #pragma once
 #include "jk_Gameobject.h"
 #include "jk_Image.h"
+#include "jk_Sound.h"
 #include "jk_Time.h"
 
 namespace jk
@@ -37,6 +38,7 @@ namespace jk
 
 
 	private:
+		Sound* Bomber_shot;
 		Image* mImage;
 		Image* mGroundImage;
 		Animator* mAnimator;
@@ -44,12 +46,9 @@ namespace jk
 		Ground* check;
 		Gameobject* mOwner;
 
-		int mDir;
-		float mMonspeed;
 		Vector2 pos;
 		Vector2 Player_pos;
-
-		float fDist;
+		float mMonspeed;
 		int check_ground;
 	};
 }

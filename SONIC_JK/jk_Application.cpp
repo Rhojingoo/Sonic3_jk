@@ -4,6 +4,7 @@
 #include "jk_Input.h"
 #include "jk_CollisionManager.h"
 #include "jk_Camera.h"
+#include "SoundManager.h"
 
 namespace jk
 {
@@ -53,8 +54,9 @@ namespace jk
 
 		Time::Initiailize();
 		Input::Initialize();
+		SoundManager::Initialize();
 		SceneManager::Initialize();
-		//CollisionManager
+
 		Camera::Initialize();
 		
 	}

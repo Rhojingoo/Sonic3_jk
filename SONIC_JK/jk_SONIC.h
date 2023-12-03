@@ -1,6 +1,7 @@
 #pragma once
 #include "jk_Gameobject.h"
 #include "jk_Tails.h"
+#include "jk_Sound.h"
 #include "jk_Image.h"
 
 namespace jk
@@ -37,10 +38,8 @@ namespace jk
 			Water_Shield,
 			Jeep_line,
 			Tails_Hanging,
-
 			Death,
 			GameOver,
-
 			EMDING,
 			End,
 
@@ -52,7 +51,6 @@ namespace jk
 			Circle_Rturn_5,
 			Circle_Rturn_6,
 			Circle_Rturn_7,
-
 
 			Circle_Lturn_1,
 			Circle_Lturn_2,
@@ -113,14 +111,10 @@ namespace jk
 		void water_Shield();
 		void jeep_line();
 		void tails_hanging();
-
 		void death();
-		void gameover();
-		
+		void gameover();		
 		void ending();
 		void endgame();
-
-
 
 		void circle_Rturn_1();
 		void circle_Rturn_2();
@@ -128,8 +122,7 @@ namespace jk
 		void circle_Rturn_4();
 		void circle_Rturn_5();
 		void circle_Rturn_6();
-		void circle_Rturn_7();
-	
+		void circle_Rturn_7();	
 
 		void circle_Lturn_1();
 		void circle_Lturn_2();
@@ -138,10 +131,21 @@ namespace jk
 		void circle_Lturn_5();
 		void circle_Lturn_6();
 		void circle_Lturn_7();
+		
+		void ring_drop_Small();
+		void ring_drop_Midium();
+		void ring_drop_Large();
 
-		
-		
-	
+
+	private:
+		Sound* Ending_song;
+		Sound* Sonic_Jump;
+		Sound* Ring_Have;
+		Sound* Ring_Lose;
+		Sound* Brake;
+		Sound* Spin;
+		Sound* Last_Boss_f;
+		Sound* Spike_mc;
 
 	private:
 		Animator* mAnimator;
@@ -162,6 +166,8 @@ namespace jk
 		
 	private:
 		eSonicState mState;
+		Tails* Tails_call;
+		Vector2 tails_call;
 		int mDir;		
 		int check_map;
 		int circlecheck;
@@ -169,12 +175,10 @@ namespace jk
 		int Ringcheck;
 		int hurtcheck;
 		int jeepline;
-		Tails* Tails_call;
-		Vector2 tails_call;
 		int fly_check;
 		int Life;
-		float angle;
 		int end;
+		float angle;
 		float time;	
 	};
 }

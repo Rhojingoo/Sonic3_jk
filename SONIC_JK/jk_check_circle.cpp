@@ -1,22 +1,17 @@
 #include "jk_check_circle.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Input.h"
 #include "jk_Resources.h"
 #include "jk_Transform.h"
 #include "jk_Collider.h"
-#include "jk_Object.h"
 #include "jk_Ground.h"
 #include "jk_SONIC.h"
-#include "Rigidbody.h"
 
 
 namespace jk
 {
 	check_circle::check_circle()
-		:checktime(0.f)
-		, mImage(nullptr)
-		, mTime(0.0f)
+		: mCollider(nullptr)
+		, mGround(nullptr)
 	{
 	}
 	check_circle::~check_circle()

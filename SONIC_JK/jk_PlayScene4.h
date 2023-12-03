@@ -1,5 +1,6 @@
 #pragma once
 #include "jk_Scene.h"
+#include "jk_Sound.h"
 #include "jk_Image.h"
 
 namespace jk
@@ -39,7 +40,7 @@ namespace jk
 		void ending_boss();
 		void boss_trash();
 
-		void Create_Deathtline(float x, float y);
+	
 
 
 
@@ -57,8 +58,15 @@ namespace jk
 		Boss_trash* trash;
 		Ending_boss* end_boss;
 		Deatht_line_act6* death_line;
-		int dir;
-		int check_map;
+
+
+	private:
+		Sound* Boss_start;
+		Sound* Act6_music;
+		Sound* Rocket_Start;
+		Sound* Last_Boss_f;
+		Sound* Stage_bomb;
+		Sound* Ending;
 
 
 		//ø’√‚«ˆ
@@ -70,8 +78,9 @@ namespace jk
 		int BOSS2_Start;
 		int BOSS3_Start;
 		int Boss_end;
-		float time;
 		int arm_lotaion;
-	
+		int dir;
+		int check_map;
+		float time;
 	};
 }

@@ -1,21 +1,19 @@
 #include "UI_Time_minutes.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Input.h"
+#include "jk_Scene.h"
 #include "jk_Resources.h"
 #include "jk_Transform.h"
 #include "jk_Animator.h"
-#include "jk_Scene.h"
-
-
 
 
 namespace jk
 {
 	UI_Time_minutes::UI_Time_minutes(Gameobject* owner)
-		:mOwner(nullptr)
+		: mOwner(owner)
+		, mImage(nullptr)
+		, minutes(nullptr)
+		, time_M(0.f)
 	{
-		mOwner = owner;
 		minutes = dynamic_cast<UI_Time*>(owner);
 	}
 	UI_Time_minutes::~UI_Time_minutes()

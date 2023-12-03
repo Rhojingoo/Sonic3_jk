@@ -6,17 +6,9 @@
 
 namespace jk
 {
-	class Ground;
-	class Rigidbody;
-	class Animator;
 	class Deatht_line_act6 : public Gameobject
 	{
 	public:
-		enum class eState
-		{
-			Idle,
-			Death,
-		};
 
 		Deatht_line_act6();
 		~Deatht_line_act6();
@@ -26,29 +18,13 @@ namespace jk
 		virtual void Render(HDC hdc) override;
 		virtual void Release() override;
 
-
 		virtual void OnCollisionEnter(class Collider* other) override;
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
-
-
 	private:
-		void idle();
-		void death();
-
-
-	private:
-		Image* mImage;
-		Image* mGroundImage;
-		Animator* mAnimator;
-		Gameobject* mOwner;
-		eState mState;
-		Ground* check;
-
 		class Collider* mCollider;
-		int mDir;
-		Sonic::eSonicState sonicState;
+
 	};
 
 }

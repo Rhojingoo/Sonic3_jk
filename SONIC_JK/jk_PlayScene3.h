@@ -4,6 +4,7 @@
 
 namespace jk
 {
+	class Sound;
 	class Dead_line;
 	class show_bomb;
 	class boss_bomber;
@@ -45,10 +46,16 @@ namespace jk
 		show_bomb* bomb;
 		Add_force* add_force[9];
 		Dead_line* deathline;
+
+	private:
+		Sound* Act2_music;
+		Sound* Act6_music;
+		Sound* Bomber;
+		Sound* Boss_start;
+
+	private:
 		int dir;
 		int check_map;
-
-
 		//ø’√‚«ˆ
 		int Camera_Switch;
 		int check_boss;

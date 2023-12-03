@@ -45,9 +45,7 @@ namespace jk
 		Gameobject* Head_ch;
 		Animator* mAnimator;
 		Image* mImage;
-
 		eSnake mState;
-		Vector2 pos;	
 		Vector2 prevPos;
 		Snake::eSnake Snake_State;
 	};

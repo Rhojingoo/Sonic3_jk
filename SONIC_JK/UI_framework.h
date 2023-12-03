@@ -17,15 +17,8 @@ namespace jk
 		virtual void Release() override;
 
 	private:
-		Image* mImage;
-		Image* mImage_time;
-		
-		
+		Image* mImage;		
 		float mTime;
-		float checktime;
-
 		float time;
-
-
 	};
 }

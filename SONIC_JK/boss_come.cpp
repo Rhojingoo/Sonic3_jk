@@ -1,47 +1,54 @@
 #include "boss_come.h"
 #include "boss1_body.h"
 #include "jk_Time.h"
-#include "jk_SceneManager.h"
 #include "jk_Input.h"
-#include "jk_Resources.h"
+
+#include "jk_SceneManager.h"
+#include "jk_Scene.h"
 #include "jk_Transform.h"
+#include "Rigidbody.h"
+#include "jk_Resources.h"
 #include "jk_Animator.h"
 #include "jk_Collider.h"
-#include "jk_Scene.h"
 #include "jk_Object.h"
 #include "jk_Ground.h"
-#include "Rigidbody.h"
 
 
 namespace jk
 {
 	boss_come::boss_come(Gameobject* owner)
+		: mImage(nullptr)
+		, mGroundImage(nullptr)
+		, mAnimator(nullptr)
+		, mRigidbody(nullptr)
+		, check(nullptr)
+		, mState(eBossState::Move)
+		, pos(0.f,0.f)
+		, check_map(0)
+		, mDir(0)
+
 	{
 		mImage = Resources::Load<Image>(L"First_boss", L"..\\Resources\\ActBG_6\\BOSS\\First_boss.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"First_boss_run", mImage, Vector2{ 597,0 }, Vector2{ 68,56 }, Vector2{ 4,0 }, 3, 1, 3, Vector2::Zero, 0.1f);
 		mAnimator->CreateAnimation(L"First_boss_jump", mImage, Vector2{ 597,64 }, Vector2{ 46,45 }, Vector2{ 0,0 }, 1, 1, 1, Vector2::Zero, 0.1f);
-
-
+		mAnimator->Play(L"First_boss_run", true);		
 		
-		mAnimator->Play(L"First_boss_run", true);
-
-
-		mRigidbody = AddComponent<Rigidbody>();
+		mRigidbody = AddComponent<Rigidbody>();		
 		mRigidbody->SetMass(1.0f);
-
 	}
 
 	boss_come::~boss_come()
 	{
 	}
+
 	void boss_come::Initialize()
 	{
 		Gameobject::Initialize();
 	}
+
 	void boss_come::Update()
 	{
-
 		Transform* tr = GetComponent<Transform>();
 		pos = tr->GetPos();
 
@@ -56,7 +63,6 @@ namespace jk
 		default:
 			break;
 		}
-
 
 		Transform* Boss_TR = GetComponent<Transform>();
 		Rigidbody* Boss_rb = GetComponent<Rigidbody>();
@@ -86,19 +92,18 @@ namespace jk
 				Boss_rb->SetGround(false);
 			}
 		}
-
-
 		Gameobject::Update();
 	}
+
 	void boss_come::Render(HDC hdc)
 	{
 		Gameobject::Render(hdc);
 	}
+
 	void boss_come::Release()
 	{
 		Gameobject::Release();
 	}
-
 
 	void boss_come::OnCollisionEnter(Collider* other)
 	{
@@ -107,21 +112,17 @@ namespace jk
 			object::Destory(this);
 		}
 	}
+
 	void boss_come::OnCollisionStay(Collider* other)
 	{
 	}
+
 	void boss_come::OnCollisionExit(Collider* other)
 	{
 	}
 
-
 	void boss_come::move()
 	{
-		//Transform* tr = GetComponent<Transform>();
-		//Vector2 pos = tr->GetPos();
-		//pos.x -= 150.0f * static_cast<float>(Time::DeltaTime());
-		//tr->SetPos(pos);
-
 		mDir = -1;		
 		mRigidbody->SetVelocity(Vector2{ -300.0f, mRigidbody->GetVelocity().y });
 		
@@ -142,11 +143,5 @@ namespace jk
 
 	void boss_come::jump()
 	{
-		//리지드바디 필요
-		//Transform* tr = GetComponent<Transform>();
-		//Vector2 pos = tr->GetPos();
-		//pos.x -= 150.0f * static_cast<float>(Time::DeltaTime());
-		//tr->SetPos(pos);
-
 	}
 }

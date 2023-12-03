@@ -20,6 +20,7 @@ namespace jk
 		, HundredsDigit(0)
 		, Ring_point_U(0)
 		, Ring_point_T(0)	
+		, Ring_point_H(0)
 	{
 		mOwner = owner;
 		mSonic = dynamic_cast<Sonic*>(owner);

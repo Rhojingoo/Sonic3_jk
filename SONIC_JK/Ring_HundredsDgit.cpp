@@ -12,8 +12,10 @@ namespace jk
 {
 	Ring_HundredsDgit::Ring_HundredsDgit(Gameobject* owner)
 		:HundredsDigit(0)
-	{
-		mOwner = owner;
+		, Units(nullptr)
+		, mOwner(owner)
+		, mImage(nullptr)
+	{	
 		Units = dynamic_cast<Ring_Point_Manager*>(owner);
 	}
 	Ring_HundredsDgit::~Ring_HundredsDgit()

@@ -1,5 +1,6 @@
 #include "jk_Collapses_Ground.h"
 #include "jk_Callapses.h"
+
 #include "jk_SceneManager.h"
 #include "jk_Scene.h"
 #include "jk_Transform.h"
@@ -7,20 +8,23 @@
 #include "jk_Collider.h"
 #include "jk_Animator.h"
 #include "jk_Resources.h"
+
 #include "jk_Time.h"
 #include "jk_Object.h"
-#include "jk_Camera.h"
-#include "jk_Blending.h"
 
 #include "jk_SONIC.h"
 #include "jk_Tails.h"
 
-float time_Gr = 0.0f; 
-int check_Gr = 0;
 
 namespace jk
 {
 	Collapses_Ground::Collapses_Ground()
+		: Crash(nullptr)
+		, mImage(nullptr)
+		, mAnimator(nullptr)
+		, mState(eState::Idle)
+		, time_Gr(0.f)
+		, check_Gr(0)
 	{
 	}
 	Collapses_Ground::~Collapses_Ground()
@@ -28,6 +32,8 @@ namespace jk
 	}
 	void Collapses_Ground::Initialize()
 	{
+		Crash = Resources::Load<Sound>(L"Crash", L"..\\Resources\\Sound\\Sonic\\Crash.wav");
+
 		mImage = Resources::Load<Image>(L"Ground_collapses", L"..\\Resources\\Rock_Platform.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"Ground_collapses", mImage, Vector2(500, 562), Vector2(96, 64), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
@@ -185,6 +191,7 @@ namespace jk
 
 	void Collapses_Ground::death()
 	{
+		Crash->Play(false);
 		time_Gr = 0;
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
@@ -193,7 +200,6 @@ namespace jk
 		curScene->AddGameobeject(GR_callapese, jk_LayerType::BG_props);		
 		GR_callapese->GetComponent<Transform>()->SetPos(pos);
 
-		jk::object::Destory(this);
-		
+		jk::object::Destory(this);		
 	}
 }

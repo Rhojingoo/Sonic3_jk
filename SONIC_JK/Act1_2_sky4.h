@@ -1,4 +1,3 @@
-
 #pragma once
 #include "jk_Gameobject.h"
 #include "jk_Image.h"
@@ -19,5 +18,4 @@ namespace jk
 	private:
 		Image* mImage;
 	};
-
 }

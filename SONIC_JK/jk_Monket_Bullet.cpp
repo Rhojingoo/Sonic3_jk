@@ -1,24 +1,29 @@
 #include "jk_Monket_Bullet.h"
+
 #include "jk_SceneManager.h"
 #include "jk_Scene.h"
 #include "jk_Transform.h"
 #include "Rigidbody.h"
 #include "jk_Collider.h"
 #include "jk_Resources.h"
+
 #include "jk_Time.h"
 #include "jk_Input.h"
 #include "jk_Object.h"
 
 
-#include "jk_Animator.h"
 
-int check_ground_Mb = 0;
 
 namespace jk
 {
 	Monket_Bullet::Monket_Bullet(Gameobject* owner)
 		: mCurpos(0.f,0.f)
 		, mOwner(owner)
+		, mRigidbody(nullptr)
+		, mImage(nullptr)
+		, mGroundImage(nullptr)
+		, mAnimator(nullptr)
+		, check_ground_Mb(0)
 	{
 		mImage = Resources::Load<Image>(L"Monket_Bullet", L"..\\Resources\\Monster2.bmp");
 		mAnimator = AddComponent<Animator>();

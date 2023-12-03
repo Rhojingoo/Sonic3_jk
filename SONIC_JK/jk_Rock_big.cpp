@@ -1,5 +1,6 @@
 #include "jk_Rock_big.h"
 #include "jk_Rock_Pice.h"
+
 #include "jk_SceneManager.h"
 #include "jk_Scene.h"
 #include "jk_Transform.h"
@@ -7,16 +8,14 @@
 #include "jk_Collider.h"
 #include "jk_Animator.h"
 #include "jk_Resources.h"
+
 #include "jk_Time.h"
 #include "jk_Object.h"
-
 #include "jk_Ground.h"
+
 #include "jk_SONIC.h"
 
-float timer_RB = 0.0f; // 타이머 변수
-float Rb_DisappearTime = 20.0f; // 링이 사라지는 시간 (초)
-float bounceForce_Rb = 500.0f;
-int check_ground_BR = 0;
+
 
 float Random_big_rock(float min, float max)
 {
@@ -26,10 +25,21 @@ float Random_big_rock(float min, float max)
 	return dis(gen);
 }
 
-
 namespace jk
 {
 	Rock_big::Rock_big()
+		: Crash(nullptr)
+		, mImage(nullptr)
+		, mGroundImage(nullptr)
+		, mAnimator(nullptr)
+		, mRigidbody(nullptr)
+		, mState(eState::Idle)
+		, check(nullptr)
+		, sonicState()
+		, timer_RB(0.f)// 타이머 변수
+		, Rb_DisappearTime(20.f)// 돌이 사라지는 시간 (초)
+		, bounceForce_Rb(500.f)
+		, check_ground_BR(0)
 	{
 	}
 
@@ -39,6 +49,8 @@ namespace jk
 
 	void Rock_big::Initialize()
 	{
+		Crash = Resources::Load<Sound>(L"Crash", L"..\\Resources\\Sound\\Sonic\\Crash.wav");
+
 		mImage = Resources::Load<Image>(L"Rock_Platform", L"..\\Resources\\Rock_Platform.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"Big_Rock", mImage, Vector2(276, 578), Vector2(48, 80), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
@@ -120,14 +132,15 @@ namespace jk
 
 			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
 			{
+				Crash->Play(false);
 
 				Transform* tr = GetComponent<Transform>();
 				Scene* curScene = SceneManager::GetActiveScene();
 
-				const int numRings = 8; // 생성할 돌의 개수
-				const float minAngle = -45.0f; // 돌이 떨어지는 최소 각도
-				const float maxAngle = 45.0f; // 돌이 떨어지는 최대 각도
-				const float distance = 100.0f; // 돌이 떨어지는 거리
+				int numRings = 8; // 생성할 돌의 개수
+				float minAngle = -45.0f; // 돌이 떨어지는 최소 각도
+				float maxAngle = 45.0f; // 돌이 떨어지는 최대 각도
+				float distance = 100.0f; // 돌이 떨어지는 거리
 
 
 				for (int i = 0; i < numRings; ++i)
@@ -136,7 +149,6 @@ namespace jk
 					Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
 
 					Rock_Pice* Rock_pice = new Rock_Pice();
-					//Rock_pice->Initialize();
 					curScene->AddGameobeject(Rock_pice, jk_LayerType::BG_props);
 
 					if (check)// 돌이 땅에 닿을때 의 상황

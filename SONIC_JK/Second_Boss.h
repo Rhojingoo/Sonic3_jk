@@ -2,6 +2,7 @@
 #include "jk_Gameobject.h"
 #include "jk_SONIC.h"
 #include "jk_Image.h"
+#include "jk_Sound.h"
 #include "jk_Time.h"
 
 
@@ -40,14 +41,7 @@ namespace jk
 		virtual void OnCollisionExit(class Collider* other) override;
 
 
-
-
-		//int Get_BossDeath() { return  Death_point; }
-		//void Set__BossDeath(int point) { Death_point = point; }
 		void Create_RunBoss();
-
-
-		void Create_Boss3();
 
 		int Get_last_BOSS() {return Boomb_point	;}
 		void Set_last_BOSS(int check) { Boomb_point = check; }
@@ -59,8 +53,6 @@ namespace jk
 		void R_down();
 		void L_down();
 		void L_up();
-		void wating_L();
-		void wating_R();
 		void death();
 
 		void Hurt();
@@ -69,31 +61,32 @@ namespace jk
 
 
 	private:
+		Sound* Boss_Hit;
+		Sound* Boss_Bomb;
+		Sound* Boss_Start;
+		Sound* Act6_music;
+
+	private:
 		Image* mImage;
 		Image* mImage1;
 		Animator* mAnimator;
 		Rigidbody* mRigidbody;
 		Boss_Run* boss_run2;
-		Boss_Arm* boss_arm;
-		Third_Boss* last_boss;
 		
+	private:
 		Vector2 mCenterpos;
 		Vector2 pos;
 		float mSpeed;
-		int mDir;
 		float Up_Down;
-
-
-
+		int mDir;
 		Sonic::eSonicState sonicState;
 		eBossState mState;
 
+	private:
 		float time;
 		float secondtime;
 		int Boss_change_point;
 		int Damege_check;
-		int Boomb_point;
-		int arm_lotaion;
-	
+		int Boomb_point;	
 	};
 }

@@ -1,24 +1,20 @@
 #include "jk_Ground.h"
-#include "jk_Collider.h"
-#include "jk_Sonic.h"
-#include "jk_Tails.h"
-#include "Rigidbody.h"
+
 #include "jk_Transform.h"
+#include "Rigidbody.h"
+#include "jk_Collider.h"
 #include "jk_Resources.h"
-#include "jk_Input.h"
-#include "jk_SONIC.h"
-#include "jk_Tails.h"
+
 #include "jk_Input.h"
 #include "jk_Camera.h"
-#include "jk_Monster.h"
-#include "jk_Ring_Falling.h"
-#include "jk_minibos_show.h"
 
+#include "jk_SONIC.h"
+#include "jk_Tails.h"
 
 // 땅, 원 진입(300도 ~ 89도), 원의 중간 이후(90도 ~ 약240도) 
-#define GROUND			0
-#define LOOPENTERCOLOR	1
-#define LOOPAFTERHALF	2
+//#define GROUND			0
+//#define LOOPENTERCOLOR	1
+//#define LOOPAFTERHALF		2
 
 #define GROUNDCOLOR						RGB(0, 0, 0)
 #define WALLCOLOR						RGB(0, 12, 123)
@@ -43,19 +39,46 @@ namespace jk
 	float Degree_Circle1_Tails = 0.0f;
 
 	Ground::Ground()
-		: mRotationcheck(0)
-		, Circlecheck(1)
-		, mDirect(1)
-		, Circle_pice(0)
-		, Circle_pice_Tails(0)
+		: mPlayer(nullptr)
+		, mPlayer2(nullptr)
+		, mPlayerTR(nullptr)
+		, mPlayer_Tails_TR(nullptr)
+		, mPlayerRigidBody(nullptr)
+		, mRigidbody_Tails(nullptr)
 		, SonicDir(0)
 		, TailsDir(0)
-		, WallCheck(0)
-		, map_chek(0)
-	{
+
+		, GROUND(0)
+		, LOOPENTERCOLOR(1)
+		, LOOPAFTERHALF(2)
+
+		, Circlecheck(1)
+		//act1-1
+		, Ground_Image(nullptr)
+		, Cicle_Rturn(nullptr)
+		, Cicle_Lturn(nullptr)
+		//act1-2
+		, Ground_Image2(nullptr)
+		, Cicle_Rturn2(nullptr)
+		, Cicle_Lturn2(nullptr)
+		//act1-3
+		, Ground_Image3(nullptr)
+		//act6
+		, Ground_Image4(nullptr)
+
+		, mDirect(1)
+		, Circle_pice(0)
+		, mRotationcheck(0)
+		
+		, Circle1_Center(0.f,0.f)
+		, Circle1_Center2(0.f, 0.f)
 	
+		, WallCheck(0)
+		,LoopStoneMeet(false)
+		, map_chek(0)
+		, mCollider(nullptr)
 
-
+	{
 	}
 
 	Ground::~Ground()
@@ -76,7 +99,6 @@ namespace jk
 
 		Ground_Image3 = Resources::Load<Image>(L"Ground_Image3", L"..\\Resources\\ActBG_1_3\\Ground_Act1_3.bmp");
 
-
 		Ground_Image4 = Resources::Load<Image>(L"Ground_Image4", L"..\\Resources\\ActBG_6\\act 6-boss_ground.bmp");
 
 		Gameobject::Initialize();
@@ -90,18 +112,6 @@ namespace jk
 
 		Vector2 Player_Position = mPlayerTR->GetPos();
 		//Vector2 Player_Tails_Poistion = mPlayer_Tails_TR->GetPos();
-	
-		//if (map_chek == 0)
-		//{
-		//	Circle1_Center = Vector2{ 20229.f,3406.f };
-		//}
-		//if (map_chek == 1)
-		//{
-		//	Circle1_Center = Vector2{ 9500.f, 3605.f };
-		//}
-
-		
-
 
 		SonicDir = mPlayer->GetSonicDir();
 		//TailsDir = mPlayer2->GetTailsDir();
@@ -151,49 +161,6 @@ namespace jk
 		}
 	
 
-		//테일즈 회전각
-		//Radian_Circle1_Tails = atan2(Circle1_Center.y - mPlayer_Tails_TR->GetPos().y, Circle1_Center.x - mPlayer_Tails_TR->GetPos().x);
-		//Degree_Circle1_Tails = Radian_Cicle1 * (180 / PI);
-		//if (Degree_Circle1_Tails <= -67.5f && Degree_Circle1_Tails > -112.5f)//중앙하부 
-		//{
-		//	Circle_pice_Tails = 0;
-		//}
-
-		//if (Degree_Circle1_Tails <= -112.5f && Degree_Circle1_Tails > -157.5f)//오른쪽하부 
-		//{
-		//	Circle_pice_Tails = 1;
-		//}
-
-		//if (Degree_Circle1_Tails <= -157.5f || (Degree_Circle1_Tails >= 157.5f && Degree_Circle1_Tails <= 180.f))// 오른쪽옆
-		//{
-		//	Circle_pice_Tails = 2;
-		//}
-
-		//if (Degree_Circle1_Tails >= 112.5f && Degree_Circle1_Tails < 157.5f)// 오른쪽상부
-		//{
-		//	Circle_pice_Tails = 3;
-		//}
-
-		//if (Degree_Circle1_Tails >= 67.5f && Degree_Circle1_Tails < 112.5f)// 중앙상부
-		//{
-		//	Circle_pice_Tails = 4;
-		//}
-
-		//if (Degree_Circle1_Tails >= 22.5f && Degree_Circle1_Tails < 67.5f)// 왼쪽상부
-		//{
-		//	Circle_pice_Tails = 5;
-		//}
-
-		//if ((Degree_Circle1_Tails <= 0.f && Degree_Circle1_Tails > -22.5f) || (Degree_Circle1_Tails >= 0.f && Degree_Circle1_Tails < 22.5f))// 왼쪽옆
-		//{
-		//	Circle_pice_Tails = 6;
-		//}
-
-		//if (Degree_Circle1_Tails <= -22.5f && Degree_Circle1_Tails > -67.5f)//왼쪽하부 
-		//{
-		//	Circle_pice_Tails = 7;
-		//}
-
 
 		//소닉 TR, RG설정
 		if ((nullptr == mPlayerTR) || (nullptr == mPlayerRigidBody))
@@ -215,9 +182,6 @@ namespace jk
 			mPlayer_Tails_TR = mPlayer2->GetComponent<Transform>();
 			mRigidbody_Tails = mPlayer2->GetComponent<Rigidbody>();
 		}
-
-
-
 	
 
 		//소닉 Circle 진입확인
@@ -247,22 +211,6 @@ namespace jk
 			{
 				mDirect = -1;
 			}
-		}
-
-		//테일즈 Circle 진입확인	
-		//COLORREF color_Right_Tails = Cicle_Lturn->GetPixel(Player_Tails_Poistion.x + 100.f, Player_Tails_Poistion.y + 50.f);
-		//if (mRotationcheck == GROUNDCOLOR && color_Right == GROUNDBLUE_LOOPCOURSE_LEFT) // Input::GetKey(eKeyCode::RIGHT) &&
-		//{
-		//	mDirect = 1;
-		//}
-		//COLORREF  color_Left_color_Right_Tails = Cicle_Rturn->GetPixel(Player_Tails_Poistion.x, Player_Tails_Poistion.y + 50.f);
-		//if (mRotationcheck == GROUNDCOLOR && color_Left == GROUNDYELLO_LOOPCOURSE_RIGHT)// && Input::GetKey(eKeyCode::LEFT)
-		//{
-		//	mDirect = -1;
-		//}
-		if (mPlayerRigidBody->Getgravity() == Vector2{ 0.0f,500.f })
-		{
-			int a = 0;
 		}
 
 		CheckGround();
@@ -307,8 +255,7 @@ namespace jk
 			{
 				CheckLoopStoneGround_L();
 			}
-		}
-	
+		}	
 
 		Gameobject::Update();
 	}
@@ -323,7 +270,14 @@ namespace jk
 	
 		if(map_chek==0)
 		{ 
-		//TransparentBlt(hdc, 0, 0, 1200, 840, Cicle_Rturn->GetHdc(), mpos.x, mpos.y, 1200, 840, RGB(255, 255, 255));
+			if(Input::GetKey(eKeyCode::Q))
+			{
+				TransparentBlt(hdc, 0, 0, 1200, 840, Ground_Image->GetHdc(), mpos.x, mpos.y, 1200, 840, RGB(255, 255, 255));
+			}
+			if (Input::GetKey(eKeyCode::W))
+			{
+				TransparentBlt(hdc, 0, 0, 1200, 840, Cicle_Rturn->GetHdc(), mpos.x, mpos.y, 1200, 840, RGB(255, 255, 255));
+			}
 		}
 	
 		if (map_chek == 1)

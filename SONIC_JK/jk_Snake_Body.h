@@ -44,11 +44,9 @@ namespace jk
 	private:	
 		Image* mImage;
 		Animator* mAnimator;		
-		Vector2 pos;
 		Gameobject* Body_smoke;
 		Vector2 prevPos;		
 		eSnake mState;
-
 		Snake_Body_Smoke::eSnake Snake_State;
 		
 	};

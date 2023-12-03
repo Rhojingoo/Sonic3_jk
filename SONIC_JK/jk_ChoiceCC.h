@@ -8,12 +8,6 @@ namespace jk
 	class ChoiceCC : public Gameobject
 	{
 	public:
-		enum class eState
-		{
-			Idle,
-			Move,
-		};
-
 		ChoiceCC();
 		~ChoiceCC();
 
@@ -23,24 +17,12 @@ namespace jk
 		virtual void Render(HDC hdc) override;
 		virtual void Release() override;
 
-	private:
-		void idle();
-		void move();
 
 
 
-
-	private:
-		int mDir;
-		Image* mImage1;
-		Image* mImage2;
-		Image* mImage3;
-		eState mState;
-		Animator* mAnimator;
-		Gameobject* mOwner;
-		bool bTurn;
-		float time;
-		int turnindex;
+	private:	
+		Image* mImage1;	
+		Animator* mAnimator;		
 	};
 
 }

@@ -1,16 +1,15 @@
 #include "CYLINDER_COL_R.h"
 #include "jk_SceneManager.h"
-#include "jk_Transform.h"
-#include "jk_Collider.h"
 #include "jk_Scene.h"
-#include "jk_SONIC.h"
+#include "jk_Transform.h"
 #include "Rigidbody.h"
+#include "jk_Collider.h"
+#include "jk_SONIC.h"
 
 jk::CYLINDER_COL_R::CYLINDER_COL_R(Gameobject* owner)
-	:mOwner(owner)
+	: mOwner(owner)
+	, mCollider(nullptr)
 {
-	mOwner = owner;
-	sonic = dynamic_cast<Sonic*>(owner);
 }
 
 jk::CYLINDER_COL_R::~CYLINDER_COL_R()
@@ -22,8 +21,6 @@ void jk::CYLINDER_COL_R::Initialize()
 	mCollider = AddComponent<Collider>();
 	mCollider->SetSize(Vector2(30.0f, 780.f));
 	Transform* tr = GetComponent<Transform>();
-
-
 	Gameobject::Initialize();
 }
 
@@ -66,6 +63,3 @@ void jk::CYLINDER_COL_R::OnCollisionExit(Collider* other)
 {
 }
 
-void jk::CYLINDER_COL_R::idle()
-{
-}

@@ -1,21 +1,19 @@
 #include "jk_Item_water.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Resources.h"
-#include "jk_Transform.h"
+#include "jk_Scene.h"
 #include "jk_Animator.h"
 #include "jk_Collider.h"
-#include "jk_Scene.h"
-#include "jk_Camera.h"
-#include "jk_Object.h"
-#include "jk_Blending.h"
-#include "jk_SONIC.h"
+#include "jk_Resources.h"
 
 namespace jk
 {
 	Item_water::Item_water(Gameobject* owner)
-		:mOwner(owner)
+		: mOwner(owner)
 		, Itemcheck(1)
+		, mImage(nullptr)
+		, mAnimator(nullptr)
+		, itemmState(eState::Idle)
+		, sonicState()
 	{
 	}
 	Item_water::~Item_water()

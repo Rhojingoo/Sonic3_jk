@@ -3,6 +3,7 @@
 #include "jk_Image.h"
 #include "jk_SONIC.h"
 #include "jk_Animator.h"
+#include "jk_Sound.h"
 
 namespace jk
 {
@@ -42,15 +43,22 @@ namespace jk
 
 
 	private:
-		Rigidbody* mRigidbody;
+		Sound* Crash;
 		Image* mImage;
 		Image* mGroundImage;
 		Animator* mAnimator;
-		Gameobject* mOwner;
+		Rigidbody* mRigidbody;
+
+	private:
 		eState mState;
 		Ground* check;	
 		Sonic::eSonicState sonicState;
 
+	private:
+		float timer_Rm; 
+		float Rm_DisappearTime; 
+		float bounceForce_Rm;
+		int check_ground_mR;
 	};
 
 }

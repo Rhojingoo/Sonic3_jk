@@ -32,13 +32,10 @@ namespace jk
 
 
 	private:	
-		int mDir;
 		Image* mImage;
-		eState mState;
 		Animator* mAnimator;
-		Gameobject* mOwner;	
-		bool bTurn;
-		float time;
+		eState mState;
+		int mDir;
 		int turnindex;
 	};
 

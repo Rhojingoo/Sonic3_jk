@@ -1,21 +1,25 @@
 #include "jk_midlle_boss_shoot.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Input.h"
+#include "jk_Scene.h"
 #include "jk_Resources.h"
 #include "jk_Transform.h"
 #include "jk_Animator.h"
 #include "jk_Collider.h"
-#include "jk_Scene.h"
+
+
 
 
 namespace jk
 {
 		midlle_boss_shoot::midlle_boss_shoot()
-			:mCenterpos(30792.f, 2407.f)
+			: mCenterpos(30792.f, 2407.f)
+			, pos(0.f,0.f)
 			, mMonspeed(120.0f)
 			, mMonmaxdistance(100.0f)
-			, mDir(1)
+			, fDist(0.f)
+			, mImage(nullptr)
+			, mAnimator(nullptr)
+			, mState()
 			
 		{
 			mImage = Resources::Load<Image>(L"middle_bos", L"..\\Resources\\middle_bos.bmp");

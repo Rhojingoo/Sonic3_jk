@@ -7,7 +7,7 @@
 #include "jk_Object.h"
 #include "jk_Transform.h"
 #include "jk_Blending.h"
-
+#include "Rigidbody.h"
 
 #include "jk_Sonic.h"
 #include "Electsonic.h"
@@ -28,6 +28,9 @@
 
 #include "jk_Ground.h"
 #include "jk_Gameobject.h"
+#include "jk_Resources.h"
+#include "Act1_2_Boss_wall.h"
+
 
 
 #include "jk_Act1_2_BG.h"
@@ -89,11 +92,14 @@ namespace jk
 {
 	PlayScene2::PlayScene2()
 		: mSonic(nullptr)
+		, playgr(nullptr)
+		, Act2_music(nullptr)
+		, Miniboss2(nullptr)
 		, dir(1)
+		, check_map(0)
 		, Camera_Switch(0)
 		, check_minibos(0)
 		, frame_check(0)
-		, check_map(0)
 	{
 	}
 	PlayScene2::~PlayScene2()
@@ -102,14 +108,15 @@ namespace jk
 	void PlayScene2::Initialize()
 	{
 		check_map = 1;
-		
+		Act2_music = Resources::Load<Sound>(L"Act2_bg", L"..\\Resources\\Sound\\Act2_bg.wav");
+		Miniboss2 = Resources::Load<Sound>(L"Miniboss2", L"..\\Resources\\Sound\\Miniboss2.wav");
 
 
 		//캐릭터
 		mSonic = new Sonic();
 		mSonic->SetName(L"Player");
 		AddGameobeject(mSonic, jk_LayerType::Player);
-		//11700.f, 3770.f
+		
 		mSonic->GetComponent<Transform>()->SetPos(Vector2(661.f, 3033.f)); //시작위치
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2(11700.f, 3770.f)); //보스전
 
@@ -136,9 +143,7 @@ namespace jk
 		AddGameobeject(playgr, jk_LayerType::Ground);
 		mSonic->SetCheckTargetGround(playgr);
 		tails->SetCheckTargetGround(playgr);
-
 		playgr->Set_Circle_Center(Vector2{ 9500.f, 3605.f });
-
 
 
 		UI_framework* UI_frame = new UI_framework();
@@ -326,6 +331,9 @@ namespace jk
 		save->SetName(L"StageSave");
 		AddGameobeject(save, jk_LayerType::BG_props);
 		save->GetComponent<Transform>()->SetPos(Vector2(2208.f, 2818.f));
+
+
+
 
 
 		//집라인 
@@ -582,6 +590,18 @@ namespace jk
 		playgr->Set_Circle_Center(Vector2{ 9600.f, 3705.f });
 
 
+		if (Input::GetKeyDown(eKeyCode::M))
+		{
+			mSonic->GetComponent<Transform>()->SetPos(Vector2(8712.f, 3396.f));
+			mSonic->GetComponent<Rigidbody>()->SetGravity(Vector2{ 0.f,1000.f });
+			mSonic->GetComponent<Rigidbody>()->SetFiction(100.f);
+			playgr->SetLotation(0);
+			Sonic::eSonicState::Idle;
+		}
+
+
+
+
 		Vector2 sonic_pos = mSonic->GetComponent<Transform>()->GetPos();
 
 		if (sonic_pos.x >= 2160.f)
@@ -601,6 +621,8 @@ namespace jk
 			{
 				if (check_minibos != 0)
 					return;
+				Act2_music->Stop(true);
+				Miniboss2->Play(true);
 
 				Create_Miniboss();
 				check_minibos = 1;

@@ -1,12 +1,12 @@
 #include "jk_Water_effect.h"
-#include "jk_Time.h"
+
 #include "jk_SceneManager.h"
+#include "jk_Scene.h"
 #include "jk_Resources.h"
 #include "jk_Transform.h"
 #include "jk_Animator.h"
 #include "jk_Collider.h"
-#include "jk_Scene.h"
-#include "jk_Camera.h"
+
 #include "jk_Object.h"
 #include "jk_SONIC.h"
 
@@ -14,12 +14,14 @@
 namespace jk
 {
 	Water_effect::Water_effect()
+		: mImage(nullptr)
+		, mAnimator(nullptr)
+		, mState(eState::Idle)
 	{
 		mImage = Resources::Load<Image>(L"Effect", L"..\\Resources\\Effect.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"Water_Effect_act1", mImage, Vector2(24, 370), Vector2(40, 32), Vector2(8, 0), 7, 1,7, Vector2::Zero, 0.1);
 		mAnimator->Play(L"Water_Effect_act1", false);
-
 		mAnimator->GetCompleteEvent(L"Water_Effect_act1") = std::bind(&Water_effect::water_splashes, this);
 	}
 	Water_effect::~Water_effect()
@@ -44,7 +46,6 @@ namespace jk
 		default:
 			break;
 		}
-
 		Gameobject::Update();
 	}
 
@@ -71,5 +72,4 @@ namespace jk
 	{
 		mState = eState::Death;
 	}
-
 }

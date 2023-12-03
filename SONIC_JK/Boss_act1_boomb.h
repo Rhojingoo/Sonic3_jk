@@ -32,19 +32,7 @@ namespace jk
 	private:
 		Image* mImage;
 		Animator* mAnimator;
-		Vector2 mCenterpos;
-		Vector2 pos;
-
 		Gameobject* mOwner;
-
-		float mMonspeed;
-		float mMonmaxdistance;
-		int mDir;
-		float fDist;
-		eBossState mState;
-		float time;
-
 		int Death_point;
-
 	};
 }

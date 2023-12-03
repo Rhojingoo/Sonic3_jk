@@ -2,15 +2,15 @@
 #include "jk_SceneManager.h"
 #include "jk_Scene.h"
 #include "jk_Transform.h"
-#include "jk_Collider.h"
 #include "Rigidbody.h"
+#include "jk_Collider.h"
 #include "jk_Resources.h"
 #include "jk_Animator.h"
+
 #include "jk_Object.h"
 #include "jk_Time.h"
 #include "jk_Input.h"
 #include "jk_Ground.h"
-
 #include "jk_Monket_Bullet.h"
 #include "jk_Animal.h"
 
@@ -18,15 +18,27 @@
 namespace jk
 {
 	Monkey::Monkey(Gameobject* owner)
-		: mCenterpos(Vector2(12280.0f, 3111.0f))
+		: mState()
+		, mCenterpos(Vector2(12280.0f, 3111.0f))
+		, pos(0.f,0.f)
+		, mSonic(0.f,0.f)
 		, mMonspeed(50.0f)
 		, mMonmaxdistance(70.0f)
+		, fDist(0.f)
 		, mDir(1)
-		, mOwner(owner)
-		, sonicpattern(-1)
 		, death_point(0)
 		, animal_point(0)
-		, pos(0.f,0.f)
+		, sonicpattern(-1)
+		, sonicState()
+		, tailsState()
+		, mOwner(owner)
+		, check(nullptr)
+		, Death(nullptr)
+		, mImage(nullptr)
+		, mImage1(nullptr)
+		, mGroundImage(nullptr)
+		, mAnimator(nullptr)
+		
 	{
 
 
@@ -36,31 +48,31 @@ namespace jk
 	}
 	void Monkey::Initialize()
 	{
-		//Transform* tr = GetComponent<Transform>();
-		//tr->SetPos(Vector2(750.0f, 531.0f));		
+		Death = Resources::Load<Sound>(L"Monster_Death", L"..\\Resources\\Sound\\Sonic\\Monster_Death.wav");
+	
+
 		mImage = Resources::Load<Image>(L"MONKEY", L"..\\Resources\\Monster2.bmp");
+		mImage1 = Resources::Load<Image>(L"Effect", L"..\\Resources\\Effect.bmp");
+		
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"RMonkey", mImage, Vector2{ 20.f,150.f }, Vector2{ 86.f,58.f }, Vector2{ 5.f,0.f }, 6, 1, 6, Vector2::Zero, 0.1f);
 		mAnimator->CreateAnimation(L"LMonkey", mImage, Vector2{ 20.f,18.f }, Vector2{ 86.f,58.f }, Vector2{ 5.f,0.f }, 6, 1, 6, Vector2::Zero, 0.1f);
 		mAnimator->CreateAnimation(L"RMonkey_throw", mImage, Vector2{ 20.f,213.f }, Vector2{ 86.f,58.f }, Vector2{ 5.f,0.f }, 6, 1, 6, Vector2::Zero, 0.05);
 		mAnimator->CreateAnimation(L"LMonkey_throw", mImage, Vector2{ 20.f,81.f }, Vector2{ 86.f,58.f }, Vector2{ 5.f,0.f }, 6, 1, 6, Vector2::Zero, 0.05);
-
-		mImage1 = Resources::Load<Image>(L"Effect", L"..\\Resources\\Effect.bmp");
+		
 		mAnimator->CreateAnimation(L"death", mImage1, Vector2{ 242.f,458.f }, Vector2{ 40.f,32.f }, Vector2{ 8.f,0.f }, 4, 1, 4, Vector2::Zero, 0.3f);
 		mAnimator->CreateAnimation(L"deth2", mImage1   , Vector2{ 242.f,498.f }, Vector2{ 32.f,24.f }, Vector2{ 8.f,0.f }, 4, 1, 4, Vector2::Zero, 0.3f);
+		
 		mAnimator->GetCompleteEvent(L"LMonkey_throw") = std::bind(&Monkey::throw_CompleteEvent, this);
-
+		mAnimator->GetCompleteEvent(L"death") = std::bind(&Monkey::release_animal, this);
+		
+		mAnimator->Play(L"LMonkey", true);
 
 		Collider* collider = AddComponent<Collider>();
 		collider->SetSize(Vector2(153.0f, 130.0f));
 		Vector2 size = collider->GetSize();
 		collider->SetCenter(Vector2{ (-0.12f) * size.x, (-0.2f) * size.y });
-		mAnimator->GetCompleteEvent(L"death") = std::bind(&Monkey::release_animal, this);
-		mAnimator->Play(L"LMonkey", true);
-	/*	if (mDir == 1)
-			mAnimator->Play(L"RMonkey", true);
-		else
-			mAnimator->Play(L"LMonster", true);*/
+
 
 		Gameobject::Initialize();
 	}
@@ -140,7 +152,8 @@ namespace jk
 			{
 				mAnimator->Play(L"death", false);		
 				sonicpattern;
-				death_point = 1;
+				death_point = 1;				
+				Death->Play(false);
 			}	
 		}
 
@@ -149,7 +162,8 @@ namespace jk
 			tailsState = tails->GetTails_state();
 
 			if (tailsState == Tails::eTailsState::Dash || tailsState == Tails::eTailsState::Jump || tailsState == Tails::eTailsState::Spin|| tailsState == Tails::eTailsState::Movejump)
-			{
+			{				
+				Death->Play(false);
 				mAnimator->Play(L"death", false);				
 				death_point = 1;
 			}

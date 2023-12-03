@@ -11,7 +11,7 @@
 #include "jk_Transform.h"
 #include "jk_Blending.h"
 #include "Rigidbody.h"
-
+#include "jk_Resources.h"
 
 #include "jk_Sonic.h"
 #include "Electsonic.h"
@@ -63,15 +63,41 @@
 namespace jk
 {
 	PlayScene4::PlayScene4()
-		:Boss_Death_point(0)
-		, map_lotation(0)
-		, BOSS3_Start(0)
-		, BOSS2_Start(0)
-		, time(0)
-		, arm_lotaion(0)
-		, Boss_end(0)
+		: playgr(nullptr)
+		, mSonic(nullptr)
+		, mtails(nullptr)
+		, boss_first(nullptr)
+		, fly_machine(nullptr)
+		, second_boss(nullptr)
+		, stage_final(nullptr)
+		, boss_arm(nullptr)
+		, last_boss(nullptr)
+		, sky1(nullptr)
+		, trash(nullptr)
+		, end_boss(nullptr)
+		, death_line(nullptr)
 
-		
+
+		, Boss_start(nullptr)
+		, Act6_music(nullptr)
+		, Rocket_Start(nullptr)
+		, Last_Boss_f(nullptr)
+		, Stage_bomb(nullptr)
+		, Ending(nullptr)
+
+
+		, Camera_Switch(0)
+		, check_boss(0)
+		, frame_check(0)
+		, Boss_Death_point(0)
+		, map_lotation(0)
+		, BOSS2_Start(0)
+		, BOSS3_Start(0)
+		, Boss_end(0)
+		, arm_lotaion(0)
+		, dir(0)
+		, check_map(0)
+		, time(0.f)
 	{
 	}
 	PlayScene4::~PlayScene4()
@@ -80,6 +106,14 @@ namespace jk
 	void PlayScene4::Initialize()
 	{
 		check_map = 3;
+
+		Act6_music = Resources::Load<Sound>(L"Act6_bg", L"..\\Resources\\Sound\\Act6_bg.wav");
+		Boss_start = Resources::Load<Sound>(L"Boss_start", L"..\\Resources\\Sound\\Boss_start.wav");
+		Rocket_Start = Resources::Load<Sound>(L"Rocket_Start", L"..\\Resources\\Sound\\Rocket_Start.wav");
+		Last_Boss_f = Resources::Load<Sound>(L"Last_Boss_f", L"..\\Resources\\Sound\\Last_Boss_f.wav");
+		Stage_bomb = Resources::Load<Sound>(L"Stage_bomb", L"..\\Resources\\Sound\\Stage_bomb.wav");
+
+
 
 		//Ä³¸¯ÅÍ
 		mSonic = new Sonic();
@@ -215,6 +249,7 @@ namespace jk
 		{
 			Camera_Switch = 0;		
 			boss_first->Set__BossDeath(2);
+			Act6_music->Play(true);
 		}
 
 		if (map_lotation == 0)//LAST STAGE FIRE
@@ -224,17 +259,7 @@ namespace jk
 				map_lotation = 1;
 				stage_final->Set_move_stage(map_lotation);
 				Vector2 stagepos = stage_final->GetComponent<Transform>()->GetPos();
-				Create_Deathtline(stagepos.x, stagepos.y);
-			}
-		}
-
-		if (map_lotation == 1)//SECOND BOSS START
-		{
-			if (sonic_pos.x >= 14350.f)
-			{			
-				Camera_Switch = 1;			
-				Create_Boss2();
-				map_lotation = 2;
+				
 			}
 		}
 
@@ -249,6 +274,16 @@ namespace jk
 				
 				Create_Boss1();
 				check_boss = 1;
+			}
+		}
+
+		if (map_lotation == 1)//SECOND BOSS START
+		{
+			if (sonic_pos.x >= 14350.f)
+			{			
+				Camera_Switch = 1;			
+				Create_Boss2();
+				map_lotation = 2;
 			}
 		}
 
@@ -431,6 +466,8 @@ namespace jk
 
 	void PlayScene4::Create_Boss1()
 	{
+		Act6_music->Stop(true);
+		Boss_start->Play(true);
 		boss_come* boss_run = new boss_come(mSonic);
 		boss_run->SetName(L"boss_run");
 		AddGameobeject(boss_run, jk_LayerType::BOSS);
@@ -439,7 +476,7 @@ namespace jk
 	}
 
 	void PlayScene4::Create_Boss2()
-	{
+	{	
 		second_boss = new Second_Boss();
 		second_boss->SetName(L"boss_run");
 		AddGameobeject(second_boss, jk_LayerType::BOSS);
@@ -450,6 +487,9 @@ namespace jk
 
 	void PlayScene4::Create_Boss3()
 	{
+		//Act6_music->Stop(true);
+		Last_Boss_f->Play(true);
+
 		Scene* curScene1 = SceneManager::GetActiveScene();
 		last_boss = new Third_Boss();
 		last_boss->SetName(L"last_boss");
@@ -465,6 +505,7 @@ namespace jk
 
 	void PlayScene4::Last_Stage_bomb(float a, float b)
 	{
+		Stage_bomb->Play(false);
 		Scene* curScene = SceneManager::GetActiveScene();
 		Last_Boss_bomb* last_bomb = new Last_Boss_bomb(stage_final);
 		last_bomb->SetName(L"last_boss_bomb");
@@ -489,13 +530,5 @@ namespace jk
 		trash->SetName(L"trash");
 		trash->GetComponent<Transform>()->SetPos(Vector2{ 14250,4650 });
 		curScene2->AddGameobeject(trash, jk_LayerType::BOSS);
-	}
-
-	void PlayScene4::Create_Deathtline(float x, float y)
-	{
-		//death_line = new Deatht_line_act6();
-		//death_line->SetName(L"death_line");
-		//AddGameobeject(death_line, jk_LayerType::BOSS);
-		//death_line->GetComponent<Transform>()->SetPos(Vector2{ x,  y+300 });
 	}
 }

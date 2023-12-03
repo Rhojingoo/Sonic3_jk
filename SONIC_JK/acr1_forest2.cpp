@@ -1,7 +1,5 @@
 #include "acr1_forest2.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Input.h"
 #include "jk_Resources.h"
 #include "jk_Transform.h"
 #include "jk_Camera.h"
@@ -9,6 +7,7 @@
 namespace jk
 {
 	acr1_forest2::acr1_forest2()
+		:mImage(nullptr)
 	{
 	}
 	acr1_forest2::~acr1_forest2()
@@ -29,13 +28,12 @@ namespace jk
 	void acr1_forest2::Render(HDC hdc)
 	{
 		Gameobject::Render(hdc);
-
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 		tr->SetPos(pos);
-		Vector2 imagepos = Vector2(11515, 1026);
+		Vector2 imagepos = Vector2(11515.f, 1026.f);
 		Vector2 mpos = Camera::CaluatePos(pos);
-		TransparentBlt(hdc, mpos.x / 3.f, mpos.y, 11590, 87, mImage->GetHdc(), 7, 1, 11590, 87, RGB(13, 72, 7));
+		TransparentBlt(hdc, mpos.x / 3.f, mpos.y, 11590.f, 87.f, mImage->GetHdc(), 7.f, 1.f, 11590.f, 87.f, RGB(13, 72, 7));
 	}
 
 	void acr1_forest2::Release()

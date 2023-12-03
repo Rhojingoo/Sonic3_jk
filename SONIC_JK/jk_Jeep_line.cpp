@@ -1,9 +1,9 @@
 #include "jk_Jeep_line.h"
 #include "jk_Jeep_line_Handle.h"
-#include "jk_Time.h"
+
 #include "jk_SceneManager.h"
-#include "jk_Resources.h"
 #include "jk_Transform.h"
+#include "jk_Resources.h"
 #include "jk_Animator.h"
 #include "jk_Collider.h"
 #include "jk_Scene.h"
@@ -18,15 +18,15 @@ namespace jk
 {
 	Jeep_line::Jeep_line(Gameobject* owner)
 		:JL_State(5)
+		, JL_Handle(nullptr)
 		, mOwner(owner)
+		, mState(eState::Jeep_Line5)
+		, mImage(nullptr)
+		, mAnimator(nullptr)
 	{
 	}
 	Jeep_line::~Jeep_line()
 	{
-
-		//	float centerX = 16689.f;
-		//float centerY = 2760.f;
-		// 밧줄: 77,  핸들사이즈 :24,  차이값 :61   , x는 61*3 = 183만큼 앞에 설치 , y는 71*3 = 213위쪽으로 설치 
 	}
 	void Jeep_line::Initialize()
 	{
@@ -50,16 +50,10 @@ namespace jk
 		mAnimator->CreateAnimation(L"Jeep_line2", mImage, Vector2(632, 276), Vector2(135, 76), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
 		//125도
 		mAnimator->CreateAnimation(L"Jeep_line1", mImage, Vector2(775, 276), Vector2(135, 76), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
-
-		mState = eState::Jeep_Line5;
-		mAnimator->Play(L"Jeep_line5", false);
-
+	
+		mAnimator->Play(L"Jeep_line5", false);	
 		
-		
-	/*	Collider* collider = AddComponent<Collider>();
-		collider->SetSize(Vector2(72.0f, 216.0f));
-		Vector2 size = collider->GetSize();
-		collider->SetCenter(Vector2{ (-0.1f) * size.x, (-0.35f) * size.y });*/
+
 		Gameobject::Initialize();
 	}
 
@@ -68,13 +62,9 @@ namespace jk
 	void Jeep_line::Update()
 	{
 		JL_State = JL_Handle->Getjeepline_state();
-		Transform* tr = GetComponent<Transform>();
 
 		switch (mState)
 		{
-		//case jk::Jeep_line::eState::Idle:idle();
-		//	break;
-
 		case jk::Jeep_line::eState::Jeep_Line9:
 			Jeep_line9();
 			break;
@@ -119,7 +109,6 @@ namespace jk
 	}
 
 
-
 	void Jeep_line::Render(HDC hdc)
 	{
 		Gameobject::Render(hdc);
@@ -137,55 +126,6 @@ namespace jk
 	void Jeep_line::OnCollisionExit(Collider* other)
 	{
 	}
-
-	//void Jeep_line::idle()
-	//{
-	//	if (JL_State == 9)
-	//	{
-	//		mState = eState::Jeep_Line9;
-	//			mAnimator->Play(L"Jeep_line9", true);
-	//	}
-	//	if (JL_State == 8)
-	//	{
-	//		mState = eState::Jeep_Line8;
-	//		mAnimator->Play(L"Jeep_line8", true);
-	//	}
-	//	if (JL_State == 7)
-	//	{
-	//		mState = eState::Jeep_Line7;
-	//		mAnimator->Play(L"Jeep_line7", true);
-	//	}
-	//	if (JL_State == 6)
-	//	{
-	//		mState = eState::Jeep_Line6;
-	//		mAnimator->Play(L"Jeep_line6", true);
-	//	}
-	//	if (JL_State == 5)
-	//	{
-	//		mState = eState::Jeep_Line5;
-	//		mAnimator->Play(L"Jeep_line5", true);
-	//	}
-	//	if (JL_State == 4)
-	//	{
-	//		mState = eState::Jeep_Line4;
-	//		mAnimator->Play(L"Jeep_line4", true);
-	//	}
-	//	if (JL_State == 3)
-	//	{
-	//		mState = eState::Jeep_Line3;
-	//		mAnimator->Play(L"Jeep_line3", true);
-	//	}
-	//	if (JL_State == 2)
-	//	{
-	//		mState = eState::Jeep_Line2;
-	//		mAnimator->Play(L"Jeep_line2", true);
-	//	}
-	//	if (JL_State == 1)
-	//	{
-	//		mState = eState::Jeep_Line1;
-	//		mAnimator->Play(L"Jeep_line1", true);
-	//	}
-	//}
 
 	void Jeep_line::Jeep_line9()
 	{

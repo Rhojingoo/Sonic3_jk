@@ -1,7 +1,5 @@
 #include "act1_forest1.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Input.h"
 #include "jk_Resources.h"
 #include "jk_Transform.h"
 #include "jk_Camera.h"
@@ -10,6 +8,7 @@
 namespace jk
 {
 	act1_forest1::act1_forest1()
+		:mImage(nullptr)
 	{
 	}
 	act1_forest1::~act1_forest1()
@@ -32,7 +31,6 @@ namespace jk
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 		tr->SetPos(pos);
-
 		Vector2 mpos = Camera::CaluatePos(pos);
 		TransparentBlt(hdc, mpos.x/4.1f, mpos.y, 12515, 340, mImage->GetHdc(), 21, 14, 12515, 340, RGB(13, 72, 7));
 	}

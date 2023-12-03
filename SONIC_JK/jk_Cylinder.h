@@ -31,24 +31,16 @@ namespace jk
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
-		void SetGroundImage(Image* image) { mGroundImage = image; }
-		void SetCheckTargetGround(Ground* ground) { check = ground; }
+
 
 	private:
 		void idle();		
 		void death();
 
-
 	private:
 		Image* mImage;
-		Image* mGroundImage;
 		Animator* mAnimator;
-		Gameobject* mOwner;
 		eState mState;
-		Ground* check;
-		int mDir;
-		Sonic::eSonicState sonicState;
-		int Itemcheck;
 		Rigidbody* mRigidbody;
 	};
 

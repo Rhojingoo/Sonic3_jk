@@ -17,8 +17,6 @@ namespace jk
 			Death
 		};
 
-
-
 		midlle_boss_shoot();
 		~midlle_boss_shoot();
 
@@ -43,15 +41,13 @@ namespace jk
 	private:
 		Image* mImage;
 		Animator* mAnimator;
+		eState mState;
 
+	private:
 		float fDist;
 		Vector2 pos;
 		Vector2 mCenterpos;
 		float mMonspeed;
 		float mMonmaxdistance;
-
-		int mDir;
-		eState mState;
-		Gameobject* mOwner;
 	};
 }

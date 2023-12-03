@@ -1,12 +1,6 @@
 #pragma once
-class Jeep_line_Handle
-{
-};
-
-#pragma once
 #include "jk_Gameobject.h"
 #include "jk_Image.h"
-#include "jk_SONIC.h"
 #include "jk_Animator.h"
 
 namespace jk
@@ -16,10 +10,6 @@ namespace jk
 	class Jeep_line_Handle : public Gameobject
 	{
 	public:
-		enum class eState
-		{		
-			Idle,		
-		};
 
 		Jeep_line_Handle();
 		~Jeep_line_Handle();
@@ -40,25 +30,17 @@ namespace jk
 		int Getjeepline_state() { return Jeepline_state; }
 
 		int GetDir() {	return mDir_x;}
-
-	private:	
-		void idle();
-
-	
+			
 
 	private:
-		Gameobject* mOwner;
-		eState mState;
 		Image* mImage;
 		Animator* mAnimator;
+
+	private:
 		Vector2 mCenterpos;
 		int mDir_x;
-		Vector2 pos;
-
-	
-		Sonic::eSonicState sonicState;
-		float angle;
 		int Jeepline_state;
+		float angle;
 	};
 
 }

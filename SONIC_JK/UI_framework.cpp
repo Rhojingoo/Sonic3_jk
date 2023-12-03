@@ -1,20 +1,20 @@
 #include "UI_framework.h"
-#include "jk_Time.h"
 #include "jk_SceneManager.h"
-#include "jk_Input.h"
+#include "jk_Scene.h"
 #include "jk_Resources.h"
 #include "jk_Transform.h"
 #include "jk_Animator.h"
 #include "jk_Collider.h"
-#include "jk_Scene.h"
-#include "jk_Titlesonic.h"
 
+#include "jk_Time.h"
+#include "jk_Input.h"
 
 namespace jk
 {
 	UI_framework::UI_framework()
 		:mTime(0)
 		,time(0)
+		,mImage(nullptr)
 	{
 	}
 
@@ -25,14 +25,6 @@ namespace jk
 	void UI_framework::Initialize()
 	{
 		mImage = Resources::Load<Image>(L"UI_Framework", L"..\\Resources\\UI\\UI_Framework.bmp");
-
-
-
-
-
-		//Transform* tr = GetComponent<Transform>();
-		//tr->SetPos(Vector2{ 2790.0f * 3, (940.0f * 3 + 300) });
-	
 		Gameobject::Initialize();
 	}
 

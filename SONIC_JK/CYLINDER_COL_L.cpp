@@ -9,10 +9,9 @@
 namespace jk
 {
 	CYLINDER_COL_L::CYLINDER_COL_L(Gameobject* owner)
-		:mOwner(owner)
-	{
-		mOwner = owner;
-		sonic = dynamic_cast<Sonic*>(owner);
+		: mOwner(owner)
+		, mCollider(nullptr)
+	{		
 	}
 	CYLINDER_COL_L::~CYLINDER_COL_L()
 	{
@@ -22,8 +21,6 @@ namespace jk
 		mCollider = AddComponent<Collider>();
 		mCollider->SetSize(Vector2(30.0f, 1250.f));
 		Transform* tr = GetComponent<Transform>();
-
-
 		Gameobject::Initialize();
 	}
 	void CYLINDER_COL_L::Update()
@@ -48,7 +45,6 @@ namespace jk
 		{
 			sonic->Getsonicstate();
 			Vector2 Sonic_Velocity(0.f, 0.f);
-
 
 			Rigidbody* mSonic_rb = sonic->GetComponent<Rigidbody>();
 			Sonic_Velocity = mSonic_rb->GetVelocity();

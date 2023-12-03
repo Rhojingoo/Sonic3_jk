@@ -4,7 +4,7 @@
 #include "jk_Tails.h"
 #include "jk_Image.h"
 #include "jk_Time.h"
-
+#include "jk_Sound.h"
 
 namespace jk
 {
@@ -49,6 +49,7 @@ namespace jk
 		
 
 	private:
+		Sound* Death;
 		Gameobject* mOwner;
 		Image* mImage;
 		Image* mImage1;
@@ -59,8 +60,6 @@ namespace jk
 		Vector2 mCenterpos;
 		Vector2 mCurpos;
 		Vector2 prevPos;
-		Vector2 pos;
-		float mMonspeed;
 		float mMonmaxdistance_x;
 		float mMonmaxdistance_y;
 		int mDir_x;
