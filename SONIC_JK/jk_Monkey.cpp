@@ -11,7 +11,7 @@
 #include "jk_Time.h"
 #include "jk_Input.h"
 #include "jk_Ground.h"
-#include "jk_Monket_Bullet.h"
+
 #include "jk_Animal.h"
 
 
@@ -38,6 +38,10 @@ namespace jk
 		, mImage1(nullptr)
 		, mGroundImage(nullptr)
 		, mAnimator(nullptr)
+		, tr(nullptr)
+		, bullet(nullptr)
+		, bullet_tr(nullptr)
+		, bullet_rb(nullptr)
 		
 	{
 
@@ -68,11 +72,20 @@ namespace jk
 		
 		mAnimator->Play(L"LMonkey", true);
 
+		tr = GetComponent<Transform>();
+
 		Collider* collider = AddComponent<Collider>();
 		collider->SetSize(Vector2(153.0f, 130.0f));
 		Vector2 size = collider->GetSize();
 		collider->SetCenter(Vector2{ (-0.12f) * size.x, (-0.2f) * size.y });
 
+
+		bullet = new Monkey_Bullet(mOwner);		
+		bullet_tr = bullet->GetComponent<Transform>();
+		bullet_rb = bullet->GetComponent<Rigidbody>();
+		Scene* curScene = SceneManager::GetActiveScene();
+		curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
+		bullet->SetState(eState::Pause);
 
 		Gameobject::Initialize();
 	}
@@ -106,12 +119,6 @@ namespace jk
 			break;
 
 		case jk::Monkey::eMonkey::L_Move_DOWN:Lmove_down();
-			break;
-
-		case jk::Monkey::eMonkey::R_Move_UP:Rmove_up();
-			break;
-
-		case jk::Monkey::eMonkey::R_Move_DOWN:Rmove_down();
 			break;
 
 		case jk::Monkey::eMonkey::L_Throw:Lthrows();
@@ -193,12 +200,6 @@ namespace jk
 			mAnimator->Play(L"LMonkey_throw", false);
 			mDir *= -1;
 		}
-		//if (sonicpattern == 1)
-		//{
-		//	pos.x = pos.x + 170;
-		//	mAnimator->Play(L"RMonkey", true);
-		//	mState = eMonkey::R_Move_UP;
-		//}
 
 		tr->SetPos(pos);
 	}
@@ -216,157 +217,57 @@ namespace jk
 				mAnimator->Play(L"LMonkey_throw", false);
 			mDir *= -1;
 		}
-		//if (sonicpattern == 1)
-		//{
-		//	pos.x = pos.x + 170;
-		//	mAnimator->Play(L"RMonkey", true);
-		//	mState = eMonkey::R_Move_DOWN;
-		//}
 
 		tr->SetPos(pos);
-	}
-
-	void Monkey::Rmove_up()
-	{
-		//Transform* tr = GetComponent<Transform>();
-
-		//fDist = mCenterpos.y - pos.y - mMonmaxdistance;
-		//pos.y -= mMonspeed * static_cast<float>(Time::DeltaTime());
-
-
-		//if (fDist >= 30.0f)
-		//{
-		//	mState = eMonkey::R_Throw;
-		//		mAnimator->Play(L"RMonkey_throw", false);
-		//	mDir *= -1;
-		//}
-
-		//if (mState == eMonkey::Deth)
-		//{
-		//	mAnimator->Play(L"deth", false);
-		//	mAnimator->GetCompleteEvent(L"deth") = std::bind(&Monkey::deth, this);
-		//}
-
-		//if (sonicpattern == -1)
-		//{
-		//	pos.x = pos.x - 170;
-		//	mAnimator->Play(L"RMonkey", true);
-		//	mState = eMonkey::L_Move_UP;
-		//}
-
-		//tr->SetPos(pos);
-	}
-
-	void Monkey::Rmove_down()
-	{
-		//Transform* tr = GetComponent<Transform>();
-
-		//fDist = mCenterpos.y - pos.y - mMonmaxdistance;
-		//pos.y += mMonspeed * static_cast<float>(Time::DeltaTime());
-
-		//if (fDist <= -100.0f)
-		//{
-		//	mState = eMonkey::R_Throw;
-		//	mAnimator->Play(L"RMonkey_throw", false);
-		//	mDir *= -1;
-		//}
-		//if (mState == eMonkey::Deth)
-		//{
-		//	mAnimator->Play(L"deth", false);
-		//	mAnimator->GetCompleteEvent(L"deth") = std::bind(&Monkey::deth, this);
-		//}
-		//if (sonicpattern == -1)
-		//{
-		//	pos.x = pos.x - 170;
-		//	mAnimator->Play(L"LMonkey", true);
-		//	mState = eMonkey::L_Move_UP;
-		//}
-
-		//tr->SetPos(pos);
-	}
-
+	}	
 
 	void Monkey::Lthrows()
 	{
-		//mAnimator->GetCompleteEvent(L"LMonkey_throw") = std::bind(&Monkey::throw_CompleteEvent, this);
 	}
 
 	void Monkey::Rthrows()
 	{
-		//mAnimator->GetCompleteEvent(L"RMonkey_throw") = std::bind(&Monkey::throw_CompleteEvent, this);
-
-		//if (mState == eMonkey::Deth)
-		//{
-		//	mAnimator->Play(L"deth", false);
-		//	mAnimator->GetCompleteEvent(L"deth") = std::bind(&Monkey::deth, this);
-		//}
 	}
 
 	void Monkey::turn()
 	{
-	/*	if (sonicpattern == -1)
-		{*/
-			if (mDir == -1)
-			{
-				mState = eMonkey::L_Move_UP;
-				mAnimator->Play(L"LMonkey", true);
-			}
-			if (mDir == 1)
-			{
-				mState = eMonkey::L_Move_DOWN;
-				mAnimator->Play(L"LMonkey", true);
-			}
-		//}
-		//if (sonicpattern == 1)
-		//{
-		//	if (mDir == -1)
-		//	{
-		//		mState = eMonkey::R_Move_UP;
-		//		mAnimator->Play(L"RMonkey", true);
-		//	}
-		//	if (mDir == 1)
-		//	{
-		//		mState = eMonkey::R_Move_DOWN;
-		//		mAnimator->Play(L"RMonkey", true);
-		//	}
-		//}
-
+		if (mDir == -1)
+		{
+			mState = eMonkey::L_Move_UP;
+			mAnimator->Play(L"LMonkey", true);
+		}
+		if (mDir == 1)
+		{
+			mState = eMonkey::L_Move_DOWN;
+			mAnimator->Play(L"LMonkey", true);
+		}
 	}
-
 
 
 	void Monkey::death()
 	{		
 		if (animal_point == 0)
 		{
-			//release_animal();
-			//animal_point = 1;
-			//jk::object::Destory(this);
 			death_point = 2;		
-		}
-
-	
+		}	
 	}
 
 	void Monkey::throw_CompleteEvent()
-	{
-		Transform* tr = GetComponent<Transform>();
-		Scene* curScene = SceneManager::GetActiveScene();		
-		
+	{				
 		if (sonicpattern == -1)
 		{
-			Monket_Bullet* bullet = new Monket_Bullet(mOwner);
-			bullet->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos()});
-			bullet->GetComponent<Rigidbody>()->SetVelocity(Vector2{ -300.0f, -300.0f });
-			curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
+			bullet->SetState(eState::Active);
+			bullet_tr->SetPos(Vector2{ tr->GetPos()});
+			bullet_rb->SetVelocity(Vector2{ 0.f, 0.f });
+			bullet_rb->SetVelocity(Vector2{ -300.0f, -300.0f });
 			bullet->SetGroundImage(mGroundImage);
 		}
 		else if(sonicpattern ==1)
 		{
-			Monket_Bullet* bullet = new Monket_Bullet(mOwner);
-			bullet->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos()});
-			bullet->GetComponent<Rigidbody>()->SetVelocity(Vector2{ 300.0f, -300.0f });
-			curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
+			bullet->SetState(eState::Active);
+			bullet_tr->SetPos(Vector2{ tr->GetPos()});
+			bullet_rb->SetVelocity(Vector2{ 0.f, 0.f });
+			bullet_rb->SetVelocity(Vector2{ 300.0f, -300.0f });
 			bullet->SetGroundImage(mGroundImage);
 		}
 		

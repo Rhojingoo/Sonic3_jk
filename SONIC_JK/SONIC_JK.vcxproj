@@ -204,6 +204,7 @@
     <ClInclude Include="jk_Blending.h" />
     <ClInclude Include="jk_Boss.h" />
     <ClInclude Include="jk_BaseBullet.h" />
+    <ClInclude Include="jk_Bullet.h" />
     <ClInclude Include="jk_Callapses.h" />
     <ClInclude Include="jk_Camera.h" />
     <ClInclude Include="jk_Cannon.h" />
@@ -249,7 +250,7 @@
     <ClInclude Include="jk_minibos_show.h" />
     <ClInclude Include="jk_Minigame.h" />
     <ClInclude Include="jk_MinigameScene.h" />
-    <ClInclude Include="jk_Monket_Bullet.h" />
+    <ClInclude Include="jk_Monkey_Bullet.h" />
     <ClInclude Include="jk_Monkey.h" />
     <ClInclude Include="jk_Monster.h" />
     <ClInclude Include="jk_Move_GR.h" />
@@ -379,6 +380,7 @@
     <ClCompile Include="jk_Blending.cpp" />
     <ClCompile Include="jk_Boss.cpp" />
     <ClCompile Include="jk_BaseBullet.cpp" />
+    <ClCompile Include="jk_Bullet.cpp" />
     <ClCompile Include="jk_Callapses.cpp" />
     <ClCompile Include="jk_Camera.cpp" />
     <ClCompile Include="jk_Cannon.cpp" />
@@ -425,7 +427,7 @@
     <ClCompile Include="jk_minibos_show.cpp" />
     <ClCompile Include="jk_Minigame.cpp" />
     <ClCompile Include="jk_MinigameScene.cpp" />
-    <ClCompile Include="jk_Monket_Bullet.cpp" />
+    <ClCompile Include="jk_Monkey_Bullet.cpp" />
     <ClCompile Include="jk_Monkey.cpp" />
     <ClCompile Include="jk_Monster.cpp" />
     <ClCompile Include="jk_Move_GR.cpp" />

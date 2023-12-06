@@ -1,5 +1,4 @@
 #include "jk_Cannon.h"
-#include "jk_Canon_Bullet.h"
 #include "jk_SceneManager.h"
 #include "jk_Scene.h"
 #include "jk_Transform.h"
@@ -36,6 +35,10 @@ namespace jk
 		, mImage1(nullptr)
 		, mAnimator(nullptr)
 		, mRigidbody(nullptr)
+		, _death(false)
+		, bullet(nullptr)
+		, bullet_tr(nullptr)
+		, bullet_rb(nullptr)
 
 	{
 	}
@@ -67,15 +70,24 @@ namespace jk
 		collider->SetCenter(Vector2{ (-0.12f) * size.x, (-0.2f) * size.y });
 
 
+		bullet = new Canon_Bullet(this);
+		Scene* curScene = SceneManager::GetActiveScene();
+		bullet_tr = bullet->GetComponent<Transform>();
+		bullet_rb = bullet->GetComponent<Rigidbody>();
+		curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
+		bullet->SetState(eState::Pause);
+
 		mRigidbody = AddComponent<Rigidbody>();
 		mRigidbody->SetMass(1.0f);
 				
 		Gameobject::Initialize();
 	}
+
 	void Cannon::Update()
 	{
 		Transform* tr = GetComponent<Transform>();
 		pos = tr->GetPos();
+		Ground_check();
 
 		switch (mState)
 		{
@@ -93,64 +105,7 @@ namespace jk
 
 		default:
 			break;
-		}
-
-		Transform* Canon_TR = GetComponent<Transform>();
-		Rigidbody* Canon_rb = GetComponent<Rigidbody>();
-		
-		check_map = check->Get_map_check();
-
-		mGroundImage = check->GetGroundImage();
-		mGroundImage2 = check->GetGroundImage2();
-
-
-		if (check_map == 0)
-		{
-			if (Canon_TR && Canon_rb && mGroundImage)
-			{
-				Vector2 Canon_ps = Canon_TR->GetPos();
-				COLORREF FootColor = mGroundImage->GetPixel(Canon_ps.x, Canon_ps.y + 130);
-				if (FootColor == RGB(0, 0, 0))
-				{
-					COLORREF FootColor = mGroundImage->GetPixel(Canon_ps.x, Canon_ps.y + 130);
-
-					while (FootColor == RGB(0, 0, 0))
-					{
-						Canon_ps.y -= 1;
-						FootColor = mGroundImage->GetPixel(Canon_ps.x, Canon_ps.y + 130);
-						Canon_TR->SetPos(Canon_ps);
-						Canon_rb->SetGround(true);
-						check_ground_CN = 1;
-					}
-				}
-			}
-		}
-
-		else if (check_map == 1)
-		{
-			if (Canon_TR && Canon_rb && mGroundImage2)
-			{
-				Vector2 Canon_ps = Canon_TR->GetPos();
-				COLORREF FootColor = mGroundImage2->GetPixel(Canon_ps.x, Canon_ps.y + 130);
-				if (FootColor == RGB(0, 0, 0))
-				{
-					COLORREF FootColor = mGroundImage2->GetPixel(Canon_ps.x, Canon_ps.y + 130);
-
-					while (FootColor == RGB(0, 0, 0))
-					{
-						Canon_ps.y -= 1;
-						FootColor = mGroundImage2->GetPixel(Canon_ps.x, Canon_ps.y + 130);
-						Canon_TR->SetPos(Canon_ps);
-						Canon_rb->SetGround(true);
-					}
-				}
-				else
-				{
-					Canon_rb->SetGround(false);
-				}
-			}
-		}
-
+		}	
 
 		Gameobject::Update();
 	}
@@ -184,7 +139,7 @@ namespace jk
 			if (tailsState == Tails::eTailsState::Dash || tailsState == Tails::eTailsState::Jump || tailsState == Tails::eTailsState::Spin || tailsState == Tails::eTailsState::Movejump)
 			{
 				Death->Play(false);
-				mAnimator->Play(L"Canon_death2", false);
+				mAnimator->Play(L"Canon_death2", true);
 			}
 		}
 	}
@@ -213,13 +168,11 @@ namespace jk
 
 	void Cannon::right()
 	{
-		//mAnimator->GetCompleteEvent(L"RCannon") = std::bind(&Cannon::throw_CompleteEvent, this);
 		mDir = 1;
 	}
 
 	void Cannon::left()
 	{
-		//mAnimator->GetCompleteEvent(L"LCannon") = std::bind(&Cannon::throw_CompleteEvent, this);
 		mDir = -1;
 	}
 
@@ -235,26 +188,20 @@ namespace jk
 	{
 
 		Transform* tr = GetComponent<Transform>();
-		Rigidbody* bullet_rb = GetComponent<Rigidbody>();
-		Image* groundImage = check->GetGroundImage();
 
 		if (mDir == -1)
 		{
-			Scene* curScene = SceneManager::GetActiveScene();
-			Canon_Bullet* bullet = new Canon_Bullet(this);
-			bullet->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x, tr->GetPos().y - 25 });
-			bullet->GetComponent<Rigidbody>()->SetVelocity(Vector2{ -300.0f, -300.0f });
-			bullet->SetGroundImage(groundImage);
-			curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
+			bullet->SetState(eState::Active);
+			bullet_tr->SetPos(Vector2{ tr->GetPos().x, tr->GetPos().y - 25 });
+			bullet_rb->SetVelocity(Vector2{ 0.f, 0.f });
+			bullet_rb->SetVelocity(Vector2{ -300.0f, -300.0f });
 		}
 		else
 		{
-			Scene* curScene = SceneManager::GetActiveScene();
-			Canon_Bullet* bullet = new Canon_Bullet(this);
-			bullet->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x, tr->GetPos().y - 25 });
-			bullet->GetComponent<Rigidbody>()->SetVelocity(Vector2{ 300.0f, -300.0f });
-			bullet->SetGroundImage(groundImage);
-			curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
+			bullet->SetState(eState::Active);
+			bullet_tr->SetPos(Vector2{ tr->GetPos().x, tr->GetPos().y - 25 });
+			bullet_rb->SetVelocity(Vector2{ 0.f, 0.f });
+			bullet_rb->SetVelocity(Vector2{ 300.0f, -300.0f });
 		}
 
 		mDir = mDir * -1;
@@ -269,6 +216,65 @@ namespace jk
 
 		ani->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x, tr->GetPos().y });
 		curScene->AddGameobeject(ani, jk_LayerType::Animal);
+	}
+	void Cannon::Ground_check()
+	{
+		Transform* Canon_TR = GetComponent<Transform>();
+		Rigidbody* Canon_rb = GetComponent<Rigidbody>();
 
+		check_map = check->Get_map_check();
+
+		mGroundImage = check->GetGroundImage();
+		mGroundImage2 = check->GetGroundImage2();
+
+
+		if (check_map == 0)
+		{
+			if (Canon_TR && Canon_rb && mGroundImage)
+			{
+				Vector2 Canon_ps = Canon_TR->GetPos();
+				COLORREF FootColor = mGroundImage->GetPixel(Canon_ps.x, Canon_ps.y + 130);
+				if (FootColor == RGB(0, 0, 0))
+				{
+					COLORREF FootColor = mGroundImage->GetPixel(Canon_ps.x, Canon_ps.y + 130);
+
+					while (FootColor == RGB(0, 0, 0))
+					{
+						Canon_ps.y -= 1;
+						FootColor = mGroundImage->GetPixel(Canon_ps.x, Canon_ps.y + 130);
+						Canon_TR->SetPos(Canon_ps);
+						Canon_rb->SetGround(true);
+						check_ground_CN = 1;
+					}
+				}
+			}
+			bullet->SetGroundImage(mGroundImage);
+		}
+
+		else if (check_map == 1)
+		{
+			if (Canon_TR && Canon_rb && mGroundImage2)
+			{
+				Vector2 Canon_ps = Canon_TR->GetPos();
+				COLORREF FootColor = mGroundImage2->GetPixel(Canon_ps.x, Canon_ps.y + 130);
+				if (FootColor == RGB(0, 0, 0))
+				{
+					COLORREF FootColor = mGroundImage2->GetPixel(Canon_ps.x, Canon_ps.y + 130);
+
+					while (FootColor == RGB(0, 0, 0))
+					{
+						Canon_ps.y -= 1;
+						FootColor = mGroundImage2->GetPixel(Canon_ps.x, Canon_ps.y + 130);
+						Canon_TR->SetPos(Canon_ps);
+						Canon_rb->SetGround(true);
+					}
+				}
+				else
+				{
+					Canon_rb->SetGround(false);
+				}
+			}
+			bullet->SetGroundImage(mGroundImage2);
+		}
 	}
 }

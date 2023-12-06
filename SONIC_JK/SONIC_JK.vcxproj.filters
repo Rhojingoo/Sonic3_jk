@@ -314,6 +314,9 @@
     <Filter Include="Engine\Sound">
       <UniqueIdentifier>{1fa1449b-4932-4ade-a8b4-56424a379eca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Bullet">
+      <UniqueIdentifier>{54932890-0cd5-4094-b579-f2003f80b350}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -490,7 +493,7 @@
     <ClInclude Include="jk_Monster.h">
       <Filter>Contents\monster\Rino-완료-</Filter>
     </ClInclude>
-    <ClInclude Include="jk_Monket_Bullet.h">
+    <ClInclude Include="jk_Monkey_Bullet.h">
       <Filter>Contents\monster\Monkey</Filter>
     </ClInclude>
     <ClInclude Include="jk_Canon_Bullet.h">
@@ -843,6 +846,9 @@
     <ClInclude Include="jk_Sound.h">
       <Filter>Engine\Sound</Filter>
     </ClInclude>
+    <ClInclude Include="jk_Bullet.h">
+      <Filter>Contents\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SONIC_JK.rc">
@@ -1011,7 +1017,7 @@
     <ClCompile Include="jk_Monster.cpp">
       <Filter>Contents\monster\Rino-완료-</Filter>
     </ClCompile>
-    <ClCompile Include="jk_Monket_Bullet.cpp">
+    <ClCompile Include="jk_Monkey_Bullet.cpp">
       <Filter>Contents\monster\Monkey</Filter>
     </ClCompile>
     <ClCompile Include="jk_Canon_Bullet.cpp">
@@ -1363,6 +1369,9 @@
     </ClCompile>
     <ClCompile Include="SoundManager.cpp">
       <Filter>Engine\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Bullet.cpp">
+      <Filter>Contents\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -67,7 +67,7 @@
 
 #include "jk_Monster.h"
 #include "jk_Monkey.h"
-#include "jk_Monket_Bullet.h"
+#include "jk_Monkey_Bullet.h"
 #include "jk_Cannon.h"
 #include "jk_Canon_Bullet.h"
 #include "jk_Snake.h"
@@ -1233,7 +1233,7 @@ namespace jk
 					}
 				}
 
-				if (Monket_Bullet* monkey_bullet = dynamic_cast<Monket_Bullet*>(other->GetOwner()))
+				if (Monkey_Bullet* monkey_bullet = dynamic_cast<Monkey_Bullet*>(other->GetOwner()))
 				{
 					Transform* tr = GetComponent<Transform>();
 					Vector2 pos = tr->GetPos();

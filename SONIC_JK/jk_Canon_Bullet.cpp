@@ -42,7 +42,6 @@ namespace jk
 		mRigidbody = AddComponent<Rigidbody>();
 		mRigidbody->SetMass(1.0f);
 
-
 		Cannon* canon = dynamic_cast<Cannon*>(owner);
 		mDir = canon->GetDir();	
 	}
@@ -58,35 +57,7 @@ namespace jk
 	}
 
 	void Canon_Bullet::Update()
-	{		
-		Transform* rock_TR = GetComponent<Transform>();
-		Rigidbody* rock_rb = GetComponent<Rigidbody>();
-		
-
-		if (rock_TR && rock_rb && mGroundImage)
-		{
-			Vector2 Ring_ps = rock_TR->GetPos();
-			COLORREF RING_Color = mGroundImage->GetPixel(Ring_ps.x, Ring_ps.y + 30);
-			if (RING_Color == RGB(0, 0, 0))
-			{
-				COLORREF RING_Color = mGroundImage->GetPixel(Ring_ps.x, Ring_ps.y+30);
-
-				while (RING_Color == RGB(0, 0, 0))
-				{
-					Ring_ps.y -= 1;
-					RING_Color = mGroundImage->GetPixel(Ring_ps.x, Ring_ps.y +30);
-					rock_TR->SetPos(Ring_ps);
-					rock_rb->SetGround(true);
-					check_ground_Cb = 1;
-				}
-			}	
-		}
-
-		if (check_ground_Cb > 0)
-		{
-			jk::object::Destory(this);
-			return;
-		}
+	{	
 		Gameobject::Update();
 	}
 

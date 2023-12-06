@@ -4,7 +4,7 @@
 #include "jk_Sonic.h"
 #include "jk_Tails.h"
 #include "jk_Time.h"
-
+#include "jk_Canon_Bullet.h"
 
 
 namespace jk
@@ -52,6 +52,7 @@ namespace jk
 
 		void throw_CompleteEvent();
 		void release_animal();
+		void Ground_check();
 
 	private:
 		Sound* Death;
@@ -63,16 +64,21 @@ namespace jk
 		Animator* mAnimator;
 		Ground* check;
 		Rigidbody* mRigidbody;
-
+		Image* bullet_groundImage;
 
 	private:
 		eCannon mState;
 		Vector2 pos;
 		int mDir;
 		int check_map;
+		bool _death;
 
 	private:
 		Sonic::eSonicState sonicState;
 		Tails::eTailsState tailsState;
+		Canon_Bullet* bullet; 
+		Transform* bullet_tr;
+		Rigidbody* bullet_rb;
+
 	}; 
 }

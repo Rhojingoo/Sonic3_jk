@@ -1,5 +1,6 @@
 #pragma once
 #include "jk_Gameobject.h"
+#include "jk_Monkey_Bullet.h"
 #include "jk_Sonic.h"
 #include "jk_Tails.h"
 #include "jk_Image.h"
@@ -17,8 +18,6 @@ namespace jk
 		{
 			L_Move_UP,
 			L_Move_DOWN,
-			R_Move_UP,
-			R_Move_DOWN,
 			L_Throw,
 			R_Throw,	
 			Turn,
@@ -46,8 +45,6 @@ namespace jk
 	private:
 		void Lmove_up();
 		void Lmove_down();
-		void Rmove_up();
-		void Rmove_down();
 		void Lthrows();
 		void Rthrows();
 		void turn();
@@ -65,6 +62,7 @@ namespace jk
 		Image* mImage1;
 		Image* mGroundImage;
 		Animator* mAnimator;	
+		Transform* tr;
 
 		eMonkey mState;
 		Vector2 mCenterpos;	
@@ -80,5 +78,9 @@ namespace jk
 		int sonicpattern;
 		Sonic::eSonicState sonicState;
 		Tails::eTailsState tailsState;
+
+		Monkey_Bullet* bullet;
+		Transform* bullet_tr;
+		Rigidbody* bullet_rb;
 	};
 }

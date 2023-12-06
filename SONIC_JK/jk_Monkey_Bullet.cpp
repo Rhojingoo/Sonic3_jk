@@ -1,4 +1,4 @@
-#include "jk_Monket_Bullet.h"
+#include "jk_Monkey_Bullet.h"
 
 #include "jk_SceneManager.h"
 #include "jk_Scene.h"
@@ -16,7 +16,7 @@
 
 namespace jk
 {
-	Monket_Bullet::Monket_Bullet(Gameobject* owner)
+	Monkey_Bullet::Monkey_Bullet(Gameobject* owner)
 		: mCurpos(0.f,0.f)
 		, mOwner(owner)
 		, mRigidbody(nullptr)
@@ -43,62 +43,32 @@ namespace jk
 	
 		check_ground_Mb = 0;
 	}
-	Monket_Bullet::~Monket_Bullet()
+	Monkey_Bullet::~Monkey_Bullet()
 	{
 	}
-	void Monket_Bullet::Initialize()
+	void Monkey_Bullet::Initialize()
 	{
 		Gameobject::Initialize();
 	}
-	void Monket_Bullet::Update()
+	void Monkey_Bullet::Update()
 	{
-		Transform* tr = GetComponent<Transform>();
-		Vector2 Bullet_ps = tr->GetPos();
-		mCurpos = Bullet_ps;
-		Rigidbody* rb = GetComponent<Rigidbody>();
-
-		if (tr && rb && mGroundImage)
-		{			
-			COLORREF RING_Color = mGroundImage->GetPixel(Bullet_ps.x, Bullet_ps.y + 16);
-			if (RING_Color == RGB(0, 0, 0))
-			{
-				COLORREF RING_Color = mGroundImage->GetPixel(Bullet_ps.x, Bullet_ps.y + 16);
-
-				while (RING_Color == RGB(0, 0, 0))
-				{
-					Bullet_ps.y -= 1;
-					RING_Color = mGroundImage->GetPixel(Bullet_ps.x, Bullet_ps.y + 16);
-					tr->SetPos(Bullet_ps);
-					rb->SetGround(true);
-					check_ground_Mb = 1;
-				}
-			}
-		}
-		if (check_ground_Mb > 0)
-		{
-			jk::object::Destory(this);
-			return;
-		}
-
-		tr->SetPos(Bullet_ps);
-
 		Gameobject::Update();
 	}
-	void Monket_Bullet::Render(HDC hdc)
+	void Monkey_Bullet::Render(HDC hdc)
 	{
 		Gameobject::Render(hdc);
 	}
-	void Monket_Bullet::Release()
+	void Monkey_Bullet::Release()
 	{
 		Gameobject::Release();
 	}
-	void Monket_Bullet::OnCollisionEnter(Collider* other)
+	void Monkey_Bullet::OnCollisionEnter(Collider* other)
 	{
 	}
-	void Monket_Bullet::OnCollisionStay(Collider* other)
+	void Monkey_Bullet::OnCollisionStay(Collider* other)
 	{
 	}
-	void Monket_Bullet::OnCollisionExit(Collider* other)
+	void Monkey_Bullet::OnCollisionExit(Collider* other)
 	{
 	}
 }                          
