@@ -1,5 +1,6 @@
 #pragma once
 #include "jk_Gameobject.h"
+#include "jk_Boss.h"
 #include "jk_Image.h"
 #include "jk_Time.h"
 
@@ -8,7 +9,7 @@ namespace jk
 {
 	class Rigidbody;
 	class Animator;
-	class Boss_Arm : public Gameobject
+	class Boss_Arm : public Boss
 	{
 	public:
 

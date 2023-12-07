@@ -1,5 +1,6 @@
 #pragma once
 #include "jk_Gameobject.h"
+#include "jk_BackGround.h"
 #include "jk_Image.h"
 #include "jk_Animator.h"
 #include "jk_Sound.h"
@@ -8,7 +9,7 @@ namespace jk
 {
 	class Rigidbody;
 	class Animator;
-	class Spring_Up : public Gameobject
+	class Spring_Up : public BackGround
 	{
 	public:
 		enum class eState

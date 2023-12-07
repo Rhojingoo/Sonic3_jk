@@ -1,11 +1,12 @@
 #pragma once
 #include "jk_Gameobject.h"
+#include "Item.h"
 #include "jk_Image.h"
 
 namespace jk
 {
 	class Animator;
-	class MGEmerald : public Gameobject
+	class MGEmerald : public Item
 	{
 	public:
 

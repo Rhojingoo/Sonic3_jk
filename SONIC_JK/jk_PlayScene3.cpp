@@ -45,14 +45,14 @@
 
 #include "jk_Ring.h"
 #include "jk_Ring_Falling.h"
-#include "jk_Item.h"
+#include "jk_Item_Elect.h"
 #include "jk_StageSave.h"
 
 
 #include "boss_bomber.h"
 #include "show_bomb.h"
 #include "Boss_appear.h"
-#include "jk_Boss.h"
+#include "Act1_Boss.h"
 
 
 #include "jk_Snake.h"
@@ -459,7 +459,7 @@ namespace jk
 		Boss_start->Play(true);
 
 
-		mBoss = new Boss(mSonic);
+		mBoss = new Act1_Boss(mSonic);
 		mBoss->SetName(L"boss");
 		AddGameobeject(mBoss, jk_LayerType::BOSS);
 		mBoss->GetComponent<Transform>()->SetPos(Vector2{ 19005.f, 3480.f });

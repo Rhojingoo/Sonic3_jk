@@ -206,7 +206,7 @@ namespace jk
 
 	void boss1_object::down()
 	{
-		time += Time::DeltaTime();
+		time += static_cast<int>(Time::DeltaTime());
 		if (time >= 3)
 		{
 			mState = eBossState::Idle;		
@@ -235,7 +235,7 @@ namespace jk
 	
 			bullet_check = 1;
 		}
-		time += Time::DeltaTime();
+		time += static_cast<int>(Time::DeltaTime());
 		if (time >= 3)
 		{
 			mState = eBossState::Idle;
@@ -265,7 +265,7 @@ namespace jk
 		}
 
 
-		time += Time::DeltaTime();
+		time += static_cast<int>(Time::DeltaTime());
 		if (time >= 3)
 		{
 			mState = eBossState::Idle;

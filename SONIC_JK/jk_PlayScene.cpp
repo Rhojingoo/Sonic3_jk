@@ -64,7 +64,7 @@
 #include "jk_Lttle_miniboss.h"
 #include "jk_minibos_show.h"
 #include "jk_BaseBullet.h"
-#include "jk_Monster.h"
+#include "jk_Rino.h"
 #include "jk_Monkey.h"
 #include "jk_Cannon.h"
 #include "jk_Snake.h"
@@ -77,7 +77,7 @@
 
 #include "jk_ItemBigRing.h"
 #include "jk_StageSave.h"
-#include "jk_Item.h"
+#include "jk_Item_Elect.h"
 #include "jk_Ring.h"
 #include "jk_Ring_Falling.h"
 
@@ -416,10 +416,10 @@ namespace jk
 
 
 		//∏ÛΩ∫≈Õ
-		Monster* mRino[3];
+		Rino* mRino[3];
 		for (int a = 0; a <3; a++)
 		{
-			mRino[a] = new Monster();
+			mRino[a] = new Rino();
 			mRino[a]->SetName(L"RinoMonster");
 			AddGameobeject(mRino[a], jk_LayerType::Monster);
 		}

@@ -1,10 +1,11 @@
 #pragma once
 #include "jk_Gameobject.h"
+#include "jk_BackGround.h"
 #include "jk_Image.h"
 
 namespace jk
 {
-	class CYLINDER_COL_R : public Gameobject
+	class CYLINDER_COL_R : public BackGround
 	{
 	public:
 

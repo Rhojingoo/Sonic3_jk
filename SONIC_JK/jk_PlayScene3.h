@@ -10,7 +10,7 @@ namespace jk
 	class boss_bomber;
 	class Add_force;
 	class Ground;
-	class Boss;
+	class Act1_Boss;
 	class Tails;
 	class Sonic;
 	class PlayScene3 : public Scene
@@ -41,7 +41,7 @@ namespace jk
 		Ground* playgr;
 		Sonic* mSonic;
 		Tails* tails;
-		Boss* mBoss;
+		Act1_Boss* mBoss;
 		boss_bomber* mBomber;
 		show_bomb* bomb;
 		Add_force* add_force[9];

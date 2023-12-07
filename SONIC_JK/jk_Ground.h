@@ -1,10 +1,11 @@
 #pragma once
 #include "jk_Gameobject.h"
+#include "jk_BackGround.h"
 
 namespace jk
 {
 	class Rigidbody;
-	class Ground : public Gameobject
+	class Ground : public BackGround
 	{
 	public:
 		Ground();

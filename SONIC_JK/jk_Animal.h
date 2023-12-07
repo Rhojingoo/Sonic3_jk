@@ -1,5 +1,6 @@
 #pragma once
 #include "jk_Gameobject.h"
+#include "jk_Monster.h"
 #include "jk_Image.h"
 #include "jk_Time.h"
 #include "jk_Animator.h"
@@ -7,7 +8,7 @@
 
 namespace jk
 {
-	class Animal : public Gameobject
+	class Animal : public Monster
 	{
 	public:
 		Animal(Gameobject* owner);

@@ -1,11 +1,12 @@
 #pragma once
 #include "jk_Gameobject.h"
+#include "jk_BackGround.h"
 #include "jk_Image.h"
 
 namespace jk
 {
 	class Animator;
-	class Choice_select : public Gameobject
+	class Choice_select : public BackGround
 	{
 	public:
 		Choice_select();

@@ -1,5 +1,6 @@
 #pragma once
 #include "jk_Gameobject.h"
+#include "jk_BackGround.h"
 #include "jk_SONIC.h"
 #include "jk_Tails.h"
 #include "jk_Image.h"
@@ -7,7 +8,7 @@
 namespace jk
 {
 	class Animator;
-	class Act1_Water : public Gameobject
+	class Act1_Water : public BackGround
 	{
 	public:
 		Act1_Water();

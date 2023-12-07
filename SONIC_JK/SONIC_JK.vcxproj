@@ -182,6 +182,8 @@
     <ClInclude Include="CYLINDER_COL_R.h" />
     <ClInclude Include="Dead_line.h" />
     <ClInclude Include="Deatht_line_act6.h" />
+    <ClInclude Include="jk_Boss.h" />
+    <ClInclude Include="jk_Effect.h" />
     <ClInclude Include="Electsonic.h" />
     <ClInclude Include="Elec_effect.h" />
     <ClInclude Include="EndingBlend.h" />
@@ -189,6 +191,7 @@
     <ClInclude Include="finall_stage.h" />
     <ClInclude Include="FireSonic.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="Jeepline_play.h" />
     <ClInclude Include="jk_Act1skyBG.h" />
     <ClInclude Include="jk_Act1_2_BG.h" />
@@ -201,8 +204,9 @@
     <ClInclude Include="jk_Animator.h" />
     <ClInclude Include="jk_Application.h" />
     <ClInclude Include="jk_Act1_BG_object.h" />
+    <ClInclude Include="jk_BackGround.h" />
     <ClInclude Include="jk_Blending.h" />
-    <ClInclude Include="jk_Boss.h" />
+    <ClInclude Include="Act1_Boss.h" />
     <ClInclude Include="jk_BaseBullet.h" />
     <ClInclude Include="jk_Bullet.h" />
     <ClInclude Include="jk_Callapses.h" />
@@ -233,7 +237,7 @@
     <ClInclude Include="jk_Ground.h" />
     <ClInclude Include="jk_Image.h" />
     <ClInclude Include="jk_Input.h" />
-    <ClInclude Include="jk_Item.h" />
+    <ClInclude Include="jk_Item_Elect.h" />
     <ClInclude Include="jk_ItemBigRing.h" />
     <ClInclude Include="jk_Item_Fire.h" />
     <ClInclude Include="jk_Item_super.h" />
@@ -252,7 +256,7 @@
     <ClInclude Include="jk_MinigameScene.h" />
     <ClInclude Include="jk_Monkey_Bullet.h" />
     <ClInclude Include="jk_Monkey.h" />
-    <ClInclude Include="jk_Monster.h" />
+    <ClInclude Include="jk_Rino.h" />
     <ClInclude Include="jk_Move_GR.h" />
     <ClInclude Include="jk_Object.h" />
     <ClInclude Include="jk_PlayScene2.h" />
@@ -299,6 +303,7 @@
     <ClInclude Include="mB_Ldeath.h" />
     <ClInclude Include="mB_Rdeath.h" />
     <ClInclude Include="midlesky.h" />
+    <ClInclude Include="jk_Monster.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Rigdbody_L.h" />
     <ClInclude Include="Rigdbody_R.h" />
@@ -361,12 +366,15 @@
     <ClCompile Include="CYLINDER_COL_R.cpp" />
     <ClCompile Include="Dead_line.cpp" />
     <ClCompile Include="Deatht_line_act6.cpp" />
+    <ClCompile Include="jk_Boss.cpp" />
+    <ClCompile Include="jk_Effect.cpp" />
     <ClCompile Include="Electsonic.cpp" />
     <ClCompile Include="Elec_effect.cpp" />
     <ClCompile Include="EndingBlend.cpp" />
     <ClCompile Include="Ending_boss.cpp" />
     <ClCompile Include="finall_stage.cpp" />
     <ClCompile Include="FireSonic.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="Jeepline_play.cpp" />
     <ClCompile Include="jk_Act1skyBG.cpp" />
     <ClCompile Include="jk_Act1_2_BG.cpp" />
@@ -377,8 +385,9 @@
     <ClCompile Include="jk_Animal.cpp" />
     <ClCompile Include="jk_Animation.cpp" />
     <ClCompile Include="jk_Animator.cpp" />
+    <ClCompile Include="jk_BackGround.cpp" />
     <ClCompile Include="jk_Blending.cpp" />
-    <ClCompile Include="jk_Boss.cpp" />
+    <ClCompile Include="Act1_Boss.cpp" />
     <ClCompile Include="jk_BaseBullet.cpp" />
     <ClCompile Include="jk_Bullet.cpp" />
     <ClCompile Include="jk_Callapses.cpp" />
@@ -410,7 +419,7 @@
     <ClCompile Include="jk_Ground.cpp" />
     <ClCompile Include="jk_Image.cpp" />
     <ClCompile Include="jk_Input.cpp" />
-    <ClCompile Include="jk_Item.cpp" />
+    <ClCompile Include="jk_Item_Elect.cpp" />
     <ClCompile Include="jk_ItemBigRing.cpp" />
     <ClCompile Include="jk_Item_Fire.cpp" />
     <ClCompile Include="jk_Item_super.cpp" />
@@ -429,7 +438,7 @@
     <ClCompile Include="jk_MinigameScene.cpp" />
     <ClCompile Include="jk_Monkey_Bullet.cpp" />
     <ClCompile Include="jk_Monkey.cpp" />
-    <ClCompile Include="jk_Monster.cpp" />
+    <ClCompile Include="jk_Rino.cpp" />
     <ClCompile Include="jk_Move_GR.cpp" />
     <ClCompile Include="jk_PlayScene2.cpp" />
     <ClCompile Include="jk_PlayScene3.cpp" />
@@ -476,6 +485,7 @@
     <ClCompile Include="mB_Ldeath.cpp" />
     <ClCompile Include="mB_Rdeath.cpp" />
     <ClCompile Include="midlesky.cpp" />
+    <ClCompile Include="jk_Monster.cpp" />
     <ClCompile Include="Rigdbody_L.cpp" />
     <ClCompile Include="Rigdbody_R.cpp" />
     <ClCompile Include="Rigidbody.cpp" />

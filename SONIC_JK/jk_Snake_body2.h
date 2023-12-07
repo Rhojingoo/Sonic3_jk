@@ -1,5 +1,6 @@
 #pragma once
 #include "jk_Gameobject.h"
+#include "jk_Monster.h"
 #include "jk_Snake_Body.h"
 #include "jk_Image.h"
 #include "jk_Time.h"
@@ -8,7 +9,7 @@
 namespace jk
 {	
 	class Animator;
-	class Snake_body2 : public Gameobject
+	class Snake_body2 : public Monster
 	{
 	public:
 		enum class eSnake

@@ -1,11 +1,12 @@
 #pragma once
 #include "jk_Gameobject.h"
+#include "Item.h"
 #include "jk_Image.h"
 
 namespace jk
 {
 	class Animator;
-	class ItemBigRing : public Gameobject
+	class ItemBigRing : public Item
 	{
 	public:
 		enum class eState

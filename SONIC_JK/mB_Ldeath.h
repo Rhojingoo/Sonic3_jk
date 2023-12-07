@@ -1,11 +1,12 @@
 #pragma once
 #include "jk_Gameobject.h"
+#include "jk_Effect.h"
 #include "jk_Image.h"
 
 namespace jk
 {
 	class Animator;
-	class mB_Ldeath : public Gameobject
+	class mB_Ldeath : public Effect
 	{
 	public:
 		mB_Ldeath(Gameobject* owner);

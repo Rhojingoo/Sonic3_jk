@@ -74,15 +74,15 @@ namespace jk
 		if (Boss_TR && Boss_rb && mGroundImage)
 		{
 			Vector2 Boss_ps = Boss_TR->GetPos();
-			COLORREF FootColor = mGroundImage->GetPixel(Boss_ps.x, Boss_ps.y + 100);
-			if (FootColor == RGB(0, 0, 0))
+			COLORREF FootColor = static_cast<int>( mGroundImage->GetPixel(static_cast<int>(Boss_ps.x), static_cast<int>(Boss_ps.y + 100.f)));
+			if (FootColor == RGB(0.f, 0.f, 0.f))
 			{
-				COLORREF FootColor = mGroundImage->GetPixel(Boss_ps.x, Boss_ps.y + 100);
+				COLORREF FootColor = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(Boss_ps.x), static_cast<int>(Boss_ps.y + 100.f)));
 
-				while (FootColor == RGB(0, 0, 0))
+				while (FootColor == RGB(0.f, 0.f, 0.f))
 				{
 					Boss_ps.y -= 1;
-					FootColor = mGroundImage->GetPixel(Boss_ps.x, Boss_ps.y + 100);
+					FootColor = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(Boss_ps.x), static_cast<int>(Boss_ps.y + 100.f)));
 					Boss_TR->SetPos(Boss_ps);
 					Boss_rb->SetGround(true);
 				}
@@ -124,17 +124,17 @@ namespace jk
 	void boss_come::move()
 	{
 		mDir = -1;		
-		mRigidbody->SetVelocity(Vector2{ -300.0f, mRigidbody->GetVelocity().y });
+		mRigidbody->SetVelocity(Vector2{ -300.f, mRigidbody->GetVelocity().y });
 		
 		if (pos.x <= 6470)
 		{
 			mState = eBossState::Jump;
-			mRigidbody->SetVelocity(Vector2(-250.0f, -450.0f));
+			mRigidbody->SetVelocity(Vector2(-250.f, -450.f));
 			mRigidbody->SetGround(false);
 			mAnimator->Play(L"First_boss_jump", true);
 
 			Collider* collider = AddComponent<Collider>();
-			collider->SetSize(Vector2(138.0f, 135.0f));
+			collider->SetSize(Vector2(138.f, 135.f));
 			Vector2 size = collider->GetSize();
 			collider->SetCenter(Vector2{ (-0.12f) * size.x, (-0.2f) * size.y });
 		}

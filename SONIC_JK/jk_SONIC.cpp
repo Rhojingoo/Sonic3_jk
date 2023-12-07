@@ -39,7 +39,7 @@
 #include "Deatht_line_act6.h"
 
 
-#include "jk_Item.h"
+#include "jk_Item_Elect.h"
 #include "jk_Item_water.h"
 #include "jk_Item_Fire.h"
 #include "jk_Ring.h"
@@ -65,7 +65,7 @@
 #include "Third_Boss.h"
 
 
-#include "jk_Monster.h"
+#include "jk_Rino.h"
 #include "jk_Monkey.h"
 #include "jk_Monkey_Bullet.h"
 #include "jk_Cannon.h"
@@ -915,7 +915,7 @@ namespace jk
 
 			//아이템 충돌★
 				//ITEM(ELECT) 충돌처리
-				if (Item* electitem = dynamic_cast<Item*>(other->GetOwner()))
+				if (Item_Elect* electitem = dynamic_cast<Item_Elect*>(other->GetOwner()))
 				{
 					if (mState == eSonicState::Jump || mState == eSonicState::Spin || mState == eSonicState::Dash)
 					{
@@ -1048,9 +1048,9 @@ namespace jk
 
 				
 								 
-			//Monster collision★
+			//Rino collision★
 						
-				if (Monster* rino = dynamic_cast<Monster*>(other->GetOwner()))
+				if (Rino* rino = dynamic_cast<Rino*>(other->GetOwner()))
 				{
 					Transform* tr = GetComponent<Transform>();
 					Vector2 pos = tr->GetPos();

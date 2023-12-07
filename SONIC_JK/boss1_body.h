@@ -1,5 +1,6 @@
 #pragma once
 #include "jk_Gameobject.h"
+#include "jk_Boss.h"
 #include "jk_Image.h"
 #include "jk_Sound.h"
 #include "jk_Time.h"
@@ -10,7 +11,7 @@ namespace jk
 	class boss1_object;
 	class Rigidbody;
 	class Animator;
-	class boss1_body : public Gameobject
+	class boss1_body : public Boss
 	{
 	public:
 		enum class eBossState

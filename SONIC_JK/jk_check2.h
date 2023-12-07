@@ -1,12 +1,13 @@
 #pragma once
 #include "jk_Gameobject.h"
+#include "jk_BackGround.h"
 #include "jk_Image.h"
 
 namespace jk
 {
 	class Ground;
 	class Animator;
-	class check2 : public Gameobject
+	class check2 : public BackGround
 	{
 	public:
 		check2();

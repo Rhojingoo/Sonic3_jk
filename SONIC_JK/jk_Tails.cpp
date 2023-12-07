@@ -28,7 +28,7 @@
 #include "jk_Water_effect.h"
 
 
-#include "jk_Monster.h"
+#include "jk_Rino.h"
 #include "jk_Monkey.h"
 #include "jk_Monkey_Bullet.h"
 #include "jk_Cannon.h"
@@ -453,7 +453,7 @@ namespace jk
 
 
 
-		if (Monster* rino = dynamic_cast<Monster*>(other->GetOwner()))
+		if (Rino* rino = dynamic_cast<Rino*>(other->GetOwner()))
 		{
 			Transform* tr = GetComponent<Transform>();
 			Vector2 pos = tr->GetPos();

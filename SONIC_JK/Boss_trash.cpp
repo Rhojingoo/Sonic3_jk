@@ -36,7 +36,7 @@ namespace jk
 	{
 		Transform* tr = GetComponent<Transform>();
 		pos = tr->GetPos();
-		pos.y += 150 * Time::DeltaTime();
+		pos.y += 150 * static_cast<int>(Time::DeltaTime());
 		tr->SetPos(pos);
 
 		Gameobject::Update();

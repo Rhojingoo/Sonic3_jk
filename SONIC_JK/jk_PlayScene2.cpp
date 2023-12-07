@@ -67,7 +67,7 @@
 
 #include "jk_Ring.h"
 #include "jk_Ring_Falling.h"
-#include "jk_Item.h"
+#include "jk_Item_Elect.h"
 #include "jk_Item_water.h"
 #include "jk_Item_Fire.h"
 #include "jk_StageSave.h"
@@ -77,7 +77,7 @@
 #include "jk_Minibos.h"
 
 
-#include "jk_Monster.h"
+#include "jk_Rino.h"
 #include "jk_Monkey.h"
 #include "jk_Cannon.h"
 #include "jk_Snake.h"
@@ -198,21 +198,21 @@ namespace jk
 		//ItemBigRing* Big_Ring = new ItemBigRing();
 		//Big_Ring->SetName(L"BIGRING");
 
-		//Item* items = new Item(mSonic);
+		//jk_Item_Elect* items = new jk_Item_Elect(mSonic);
 		//items->SetName(L"items");
-		//AddGameobeject(items, jk_LayerType::Item);
+		//AddGameobeject(items, jk_LayerType::jk_Item_Elect);
 		//items->GetComponent<Transform>()->SetPos(Vector2(800.f, 3150.f));
 
 
 		//Item_water* water_item = new Item_water(mSonic);
 		//water_item->SetName(L"items");
-		//AddGameobeject(water_item, jk_LayerType::Item);
+		//AddGameobeject(water_item, jk_LayerType::jk_Item_Elect);
 		//water_item->GetComponent<Transform>()->SetPos(Vector2(1100.f, 3150.f));
 
 
 		//Item_Fire* fire_item = new Item_Fire(mSonic);
 		//fire_item->SetName(L"items");
-		//AddGameobeject(fire_item, jk_LayerType::Item);
+		//AddGameobeject(fire_item, jk_LayerType::jk_Item_Elect);
 		//fire_item->GetComponent<Transform>()->SetPos(Vector2(1400.f, 3150.f));
 
 
@@ -429,7 +429,7 @@ namespace jk
 
 
 		//몬스터 및 보스
-		Monster* mRino = new Monster();
+		Rino* mRino = new Rino();
 		mRino->SetName(L"RinoMonster2");
 		AddGameobeject(mRino, jk_LayerType::Monster);
 		mRino->GetComponent<Transform>()->SetPos(Vector2{6450.0f,4350.0f });
@@ -437,7 +437,7 @@ namespace jk
 		mRino->SetCheckTargetGround(playgr);
 
 
-		Monster* mRino1 = new Monster();
+		Rino* mRino1 = new Rino();
 		mRino1->SetName(L"RinoMonster2-1");
 		AddGameobeject(mRino1, jk_LayerType::Monster);
 		mRino1->GetComponent<Transform>()->SetPos(Vector2{ 7680.0f, 3660.0f });

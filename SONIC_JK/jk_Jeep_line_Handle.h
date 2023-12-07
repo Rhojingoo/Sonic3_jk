@@ -1,5 +1,6 @@
 #pragma once
 #include "jk_Gameobject.h"
+#include "jk_BackGround.h"
 #include "jk_Image.h"
 #include "jk_Animator.h"
 
@@ -7,7 +8,7 @@ namespace jk
 {
 	class Rigidbody;
 	class Animator;
-	class Jeep_line_Handle : public Gameobject
+	class Jeep_line_Handle : public BackGround
 	{
 	public:
 

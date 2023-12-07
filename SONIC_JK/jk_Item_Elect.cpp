@@ -1,4 +1,4 @@
-#include "jk_Item.h"
+#include "jk_Item_Elect.h"
 #include "jk_SceneManager.h"
 #include "jk_Scene.h"
 #include "jk_Animator.h"
@@ -8,7 +8,7 @@
 
 namespace jk
 {
-	Item::Item(Gameobject* owner)	
+	Item_Elect::Item_Elect(Gameobject* owner)
 		: mOwner(owner)
 		, Itemcheck(1)
 		, mImage(nullptr)
@@ -19,11 +19,11 @@ namespace jk
 
 	}
 
-	Item::~Item()
+	Item_Elect::~Item_Elect()
 	{
 	}
 
-	void Item::Initialize()
+	void Item_Elect::Initialize()
 	{
 		mImage = Resources::Load<Image>(L"Item", L"..\\Resources\\Item.bmp");
 		mAnimator = AddComponent<Animator>();
@@ -38,15 +38,15 @@ namespace jk
 		Gameobject::Initialize();
 
 	}
-	void Item::Update()
+	void Item_Elect::Update()
 	{
 		switch (itemmState)
 		{
-		case Item::eState::Idle:
+		case Item_Elect::eState::Idle:
 			idle();
 			break;
 
-		case Item::eState::Death:
+		case Item_Elect::eState::Death:
 			death();
 			break;
 
@@ -56,17 +56,17 @@ namespace jk
 		Gameobject::Update();
 	}
 
-	void Item::Render(HDC hdc)
+	void Item_Elect::Render(HDC hdc)
 	{
 		Gameobject::Render(hdc);
 	}
 
-	void Item::Release()
+	void Item_Elect::Release()
 	{
 		Gameobject::Release();
 	}
 
-	void Item::OnCollisionEnter(Collider* other)
+	void Item_Elect::OnCollisionEnter(Collider* other)
 	{
 		if (Sonic* sonic = dynamic_cast<Sonic*>(other->GetOwner()))
 		{			
@@ -80,23 +80,23 @@ namespace jk
 		}
 	}
 
-	void Item::OnCollisionStay(Collider* other)
+	void Item_Elect::OnCollisionStay(Collider* other)
 	{
 	}
 
-	void Item::OnCollisionExit(Collider* other)
+	void Item_Elect::OnCollisionExit(Collider* other)
 	{
 	}
 
-	void Item::CreateBlending()
+	void Item_Elect::CreateBlending()
 	{
 	}
 
-	void Item::idle()
+	void Item_Elect::idle()
 	{
 	}
 
-	void Item::death()
+	void Item_Elect::death()
 	{
 		Itemcheck = 2;
 	}
