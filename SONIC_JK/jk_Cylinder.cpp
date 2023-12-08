@@ -24,8 +24,8 @@ namespace jk
 	{
 		mImage = Resources::Load<Image>(L"Cylinder", L"..\\Resources\\Cylinder.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"Cylinder_on", mImage, Vector2(11, 43), Vector2(256, 512), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"Cylinder_off", mImage, Vector2(275, 43), Vector2(256, 512), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"Cylinder_on", mImage, Vector2(11, 43), Vector2(256, 512), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"Cylinder_off", mImage, Vector2(275, 43), Vector2(256, 512), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
 		mAnimator->Play(L"Cylinder_on", true);
 
 

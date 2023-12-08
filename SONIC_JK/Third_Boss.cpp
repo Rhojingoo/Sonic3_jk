@@ -390,7 +390,7 @@ namespace jk
 		}
 		else if (Boomb_point == 1)
 		{
-			time += Time::DeltaTime();
+			time += static_cast<float>(Time::DeltaTime());
 			if (time >= 1)
 			{
 				mRigidbody = AddComponent<Rigidbody>();

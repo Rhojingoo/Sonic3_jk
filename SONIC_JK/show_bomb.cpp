@@ -65,15 +65,15 @@ namespace jk
 
 		if (mGroundImage)
 		{			
-			COLORREF FootColor = mGroundImage->GetPixel(pos.x, pos.y + 75);
+			COLORREF FootColor = static_cast<int>( mGroundImage->GetPixel(static_cast<int>(pos.x), static_cast<int>(pos.y) + 75));
 			if (FootColor == RGB(0, 0, 0))
 			{
-				COLORREF FootColor = mGroundImage->GetPixel(pos.x, pos.y + 75);
+				COLORREF FootColor = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(pos.x), static_cast<int>(pos.y) + 75));
 
 				while (FootColor == RGB(0, 0, 0))
 				{
 					pos.y -= 1;
-					FootColor = mGroundImage->GetPixel(pos.x, pos.y + 75);
+					COLORREF FootColor = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(pos.x), static_cast<int>(pos.y) + 75));
 					tr->SetPos(pos);	
 					check_ground = 1;
 				}

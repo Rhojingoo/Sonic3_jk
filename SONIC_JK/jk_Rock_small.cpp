@@ -46,7 +46,7 @@ namespace jk
 
 		mImage = Resources::Load<Image>(L"Rock_Platform", L"..\\Resources\\Rock_Platform.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"small_Rock", mImage, Vector2(164, 578), Vector2(48, 32), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"small_Rock", mImage, Vector2(164, 578), Vector2(48, 32), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
 		mAnimator->Play(L"small_Rock", true);
 
 
@@ -94,15 +94,15 @@ namespace jk
 		if (ROCK_TR && ROCK_rb && mGroundImage)
 		{
 			Vector2 ROCK_ps = ROCK_TR->GetPos();
-			COLORREF RING_Color = mGroundImage->GetPixel(ROCK_ps.x, ROCK_ps.y+55);
+			COLORREF RING_Color = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(ROCK_ps.x), static_cast<int>(ROCK_ps.y)+55));
 			if (RING_Color == RGB(0, 0, 0))
 			{
-				COLORREF RING_Color = mGroundImage->GetPixel(ROCK_ps.x, ROCK_ps.y+55);
+				COLORREF RING_Color = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(ROCK_ps.x), static_cast<int>(ROCK_ps.y) + 55));
 
 				while (RING_Color == RGB(0, 0, 0))
 				{
 					ROCK_ps.y -= 1;
-					RING_Color = mGroundImage->GetPixel(ROCK_ps.x, ROCK_ps.y+55);
+					COLORREF RING_Color = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(ROCK_ps.x), static_cast<int>(ROCK_ps.y) + 55));
 					ROCK_TR->SetPos(ROCK_ps);
 					ROCK_rb->SetGround(true);
 					check_ground_SR = 1;

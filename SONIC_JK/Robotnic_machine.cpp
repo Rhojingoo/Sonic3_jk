@@ -32,8 +32,8 @@ namespace jk
 	{
 		mImage = Resources::Load<Image>(L"fly_event", L"..\\Resources\\ActBG_6\\fly_event.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"fly_event_idle", mImage, Vector2(0, 0), Vector2(68, 64), Vector2(4, 0), 1, 1, 1, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"fly_event", mImage, Vector2(0, 0), Vector2(68, 64), Vector2(4, 0), 2, 1, 2, Vector2::Zero, 0.3);
+		mAnimator->CreateAnimation(L"fly_event_idle", mImage, Vector2(0, 0), Vector2(68, 64), Vector2(4, 0), 1, 1, 1, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"fly_event", mImage, Vector2(0, 0), Vector2(68, 64), Vector2(4, 0), 2, 1, 2, Vector2::Zero, 0.3f);
 
 		mAnimator->Play(L"fly_event_idle", true);
 

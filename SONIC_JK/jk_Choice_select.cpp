@@ -23,7 +23,7 @@ namespace jk
 		Transform* tr1 = GetComponent<Transform>();
 		mImage = Resources::Load<Image>(L"CC_BG1", L"..\\Resources\\Ch_BG1.bmp");
 	 	mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"Red_box", mImage, Vector2(526, 499), Vector2(78, 170), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"Red_box", mImage, Vector2(526, 499), Vector2(78, 170), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
 		mAnimator->Play(L"Red_box", true);
 		tr1->SetPos(Vector2{ 335.f,210.f });
 

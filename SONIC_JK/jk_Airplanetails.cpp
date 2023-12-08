@@ -37,9 +37,9 @@ namespace jk
 		Transform* tr = GetComponent<Transform>();
 		tr->SetPos(Vector2{ 600.0f, 232.0f });
 		mImage = Resources::Load<Image>(L"plane_BG", L"..\\Resources\\Title\\OPEN_BG2.bmp");
-		mAnimator->CreateAnimation(L"Titleplane", mImage, Vector2(340, 787), Vector2(48, 30), Vector2(2, 0), 2, 1, 2, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"Titleplane", mImage, Vector2(340, 787), Vector2(48, 30), Vector2(2, 0), 2, 1, 2, Vector2::Zero, 0.1f);
 		mImage = Resources::Load<Image>(L"plane_BG", L"..\\Resources\\Title\\OPEN_BG2.bmp");
-		mAnimator->CreateAnimation(L"LTitleplane", mImage, Vector2(448, 787), Vector2(48, 30), Vector2(2, 0), 2, 1, 2, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"LTitleplane", mImage, Vector2(448, 787), Vector2(48, 30), Vector2(2, 0), 2, 1, 2, Vector2::Zero, 0.1f);
 	}
 
 	void Airplanetails::Update()

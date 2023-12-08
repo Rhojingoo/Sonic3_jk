@@ -49,7 +49,7 @@
 
 
 #include "jk_Rock_small.h"
-#include "jk_Move_GR.h""
+#include "jk_Move_GR.h"
 #include "jk_Spring_Up.h"
 #include "jk_Spring_Left.h"
 #include "jk_Spike_Up.h"
@@ -74,7 +74,7 @@
 #include "jk_ItemBigRing.h"
 
 
-#include "jk_Minibos.h"
+#include "jk_Miniboss.h"
 
 
 #include "jk_Rino.h"

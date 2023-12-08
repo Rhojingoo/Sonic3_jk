@@ -1,4 +1,4 @@
-#include "jk_Minibos.h"
+#include "jk_Miniboss.h"
 #include "mB_Rdeath.h"
 #include "mBoss_Bl_L.h"
 #include "mBoss_BL_R.h"
@@ -116,7 +116,7 @@ namespace jk
 
 		if (Death == 1)
 		{
-			time += Time::DeltaTime();
+			time += static_cast<float>(Time::DeltaTime());
 			if (time >= 5)
 			{
 				Act2_music->Play(true);
@@ -260,7 +260,7 @@ namespace jk
 
 	void Minibos::waiting()
 	{
-		time_check += Time::DeltaTime();
+		time_check += static_cast<float>(Time::DeltaTime());
 		if (time_check > 3)//´Ù¿î
 		{
 			if (attack == 0)
@@ -281,7 +281,7 @@ namespace jk
 
 	void Minibos::atack()
 	{
-		time_check += Time::DeltaTime();
+		time_check += static_cast<float>(Time::DeltaTime());
 		Transform* tr = GetComponent<Transform>();
 	
 			if (mDir == -1)//¿ÞÂÊ
@@ -334,7 +334,7 @@ namespace jk
 			attack_check = 1; 
 			time = 0;			
 		}
-		time += Time::DeltaTime();
+		time += static_cast<float>(Time::DeltaTime());
 		if ( (time >= 2) && (attack_check >=1))
 		{	
 			Death = 1;			

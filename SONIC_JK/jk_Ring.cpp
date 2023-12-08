@@ -30,8 +30,8 @@ namespace jk
 	{
 		mImage = Resources::Load<Image>(L"Ring", L"..\\Resources\\Ring.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"Ring_turn", mImage, Vector2(128, 303), Vector2(20, 16), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"Ring_Eat", mImage, Vector2(128, 323), Vector2(20, 16), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"Ring_turn", mImage, Vector2(128, 303), Vector2(20, 16), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"Ring_Eat", mImage, Vector2(128, 323), Vector2(20, 16), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1f);
 		mAnimator->Play(L"Ring_turn", true);
 		Collider* collider = AddComponent<Collider>();
 		collider->SetSize(Vector2(65.0f, 60.0f));

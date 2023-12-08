@@ -27,8 +27,8 @@ namespace jk
 		{
 			mImage = Resources::Load<Image>(L"Rock_Pice", L"..\\Resources\\Rock_Platform.bmp");
 			mAnimator = AddComponent<Animator>();
-			mAnimator->CreateAnimation(L"Rock_Pice1", mImage, Vector2(211, 634), Vector2(24, 24), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"Rock_Pice2", mImage, Vector2(244, 634), Vector2(24, 24), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
+			mAnimator->CreateAnimation(L"Rock_Pice1", mImage, Vector2(211, 634), Vector2(24, 24), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"Rock_Pice2", mImage, Vector2(244, 634), Vector2(24, 24), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
 			mAnimator->Play(L"Rock_Pice1", true);
 
 			Collider* collider = AddComponent<Collider>();
@@ -58,15 +58,15 @@ namespace jk
 			if (rock_TR && rock_rb && mGroundImage)
 			{
 				Vector2 Ring_ps = rock_TR->GetPos();
-				COLORREF RING_Color = mGroundImage->GetPixel(Ring_ps.x, Ring_ps.y+24);
+				COLORREF RING_Color = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(Ring_ps.x), static_cast<int>(Ring_ps.y + 24)));
 				if (RING_Color == RGB(0, 0, 0))
 				{
-					COLORREF RING_Color = mGroundImage->GetPixel(Ring_ps.x, Ring_ps.y+24);
+					RING_Color = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(Ring_ps.x), static_cast<int>(Ring_ps.y + 24)));
 
 					while (RING_Color == RGB(0, 0, 0))
 					{
 						Ring_ps.y -= 1;
-						RING_Color = mGroundImage->GetPixel(Ring_ps.x, Ring_ps.y+24);
+						RING_Color = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(Ring_ps.x), static_cast<int>(Ring_ps.y+24)));
 						rock_TR->SetPos(Ring_ps);
 						rock_rb->SetGround(true);
 						check_gr = 1;
@@ -82,7 +82,7 @@ namespace jk
 
 				if (check_gr > 0)
 				{
-					timer_rock += Time::DeltaTime();
+					timer_rock += static_cast<float>(Time::DeltaTime());
 					if (timer_rock >= 15)
 					{
 						jk::object::Destory(this); 

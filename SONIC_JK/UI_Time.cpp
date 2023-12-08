@@ -28,7 +28,7 @@ namespace jk
 	}
 	void UI_Time::Update()
 	{
-		time += Time::DeltaTime();
+		time += static_cast<float>(Time::DeltaTime());
 
 		if ((time >= 1.f) && (time < 2.f))
 		{

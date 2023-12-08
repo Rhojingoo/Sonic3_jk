@@ -30,8 +30,8 @@ namespace jk
 
 		mImage = Resources::Load<Image>(L"spring_up", L"..\\Resources\\Effect.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"spring_up", mImage, Vector2(504, 497), Vector2(32, 40), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"spring_up2", mImage, Vector2(544, 497), Vector2(32, 40), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"spring_up", mImage, Vector2(504, 497), Vector2(32, 40), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"spring_up2", mImage, Vector2(544, 497), Vector2(32, 40), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
 
 		mAnimator->Play(L"spring_up", false);
 

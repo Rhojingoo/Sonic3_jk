@@ -26,7 +26,7 @@ namespace jk
         tr->SetPos(Vector2{ 160.0f, 232.0f });
         tr->SetScale(Vector2{ 1.3f, 1.2f });
         Image* mImage1 = Resources::Load<Image>(L"TitleST", L"..\\Resources\\Title\\OPEN_BG2.bmp");
-        mAnimator->CreateAnimation(L"TitleST", mImage1, Vector2(8, 8), Vector2(328, 232), Vector2(8, 8), 4, 2, 8, Vector2::Zero, 0.08);
+        mAnimator->CreateAnimation(L"TitleST", mImage1, Vector2(8, 8), Vector2(328, 232), Vector2(8, 8), 4, 2, 8, Vector2::Zero, 0.08f);
         mAnimator->Play(L"TitleST", false);  
 
         Gameobject::Initialize();

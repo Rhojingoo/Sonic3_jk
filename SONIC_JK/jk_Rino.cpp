@@ -51,8 +51,8 @@ namespace jk
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"RMonster", mImage, Vector2::RmonsterLTC, Vector2::Rmonstersize, Vector2::RmonsterSpace, 1, 1, 1, Vector2::Zero, 0.1f);
 		mAnimator->CreateAnimation(L"LMonster", mImage, Vector2::LmonsterLTC, Vector2::Lmonstersize, Vector2::LmonsterSpace, 1, 1, 1, Vector2::Zero, 0.1f);
-		mAnimator->CreateAnimation(L"RMonster_turn", mImage, Vector2::RmonsterLTC, Vector2::Rmonstersize, Vector2::RmonsterSpace, 9, 1, 9, Vector2::Zero, 0.05);
-		mAnimator->CreateAnimation(L"LMonster_turn", mImage, Vector2::LmonsterLTC, Vector2::Lmonstersize, Vector2::LmonsterSpace, 9, 1, 9, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"RMonster_turn", mImage, Vector2::RmonsterLTC, Vector2::Rmonstersize, Vector2::RmonsterSpace, 9, 1, 9, Vector2::Zero, 0.05f);
+		mAnimator->CreateAnimation(L"LMonster_turn", mImage, Vector2::LmonsterLTC, Vector2::Lmonstersize, Vector2::LmonsterSpace, 9, 1, 9, Vector2::Zero, 0.05f);
 				
 
 		mImage1 = Resources::Load<Image>(L"Effect", L"..\\Resources\\Effect.bmp");
@@ -109,15 +109,15 @@ namespace jk
 			if (Rino_TR && Rino_rb && mGroundImage)
 			{
 				Vector2 Rino_ps = Rino_TR->GetPos();
-				COLORREF FootColor = mGroundImage->GetPixel(Rino_ps.x, Rino_ps.y + 75);
+				COLORREF FootColor = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(Rino_ps.x), static_cast<int>(Rino_ps.y) + 75));
 				if (FootColor == RGB(0, 0, 0))
 				{
-					COLORREF FootColor = mGroundImage->GetPixel(Rino_ps.x, Rino_ps.y + 75);
+					FootColor = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(Rino_ps.x), static_cast<int>(Rino_ps.y) + 75));
 
 					while (FootColor == RGB(0, 0, 0))
 					{
 						Rino_ps.y -= 1;
-						FootColor = mGroundImage->GetPixel(Rino_ps.x, Rino_ps.y + 75);
+						FootColor = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(Rino_ps.x), static_cast<int>(Rino_ps.y) + 75));
 						Rino_TR->SetPos(Rino_ps);
 						Rino_rb->SetGround(true);
 					}
@@ -134,15 +134,15 @@ namespace jk
 			if (Rino_TR && Rino_rb && mGroundImage2)
 			{
 				Vector2 Rino_ps = Rino_TR->GetPos();
-				COLORREF FootColor = mGroundImage2->GetPixel(Rino_ps.x, Rino_ps.y + 75);
+				COLORREF FootColor = static_cast<int>(mGroundImage2->GetPixel(static_cast<int>(Rino_ps.x), static_cast<int>(Rino_ps.y) + 75));
 				if (FootColor == RGB(0, 0, 0))
 				{
-					COLORREF FootColor = mGroundImage2->GetPixel(Rino_ps.x, Rino_ps.y + 75);
+					FootColor = static_cast<int>(mGroundImage2->GetPixel(static_cast<int>(Rino_ps.x), static_cast<int>(Rino_ps.y) + 75));
 
 					while (FootColor == RGB(0, 0, 0))
 					{
 						Rino_ps.y -= 1;
-						FootColor = mGroundImage2->GetPixel(Rino_ps.x, Rino_ps.y + 75);
+						FootColor = static_cast<int>(mGroundImage2->GetPixel(static_cast<int>(Rino_ps.x), static_cast<int>(Rino_ps.y) + 75));
 						Rino_TR->SetPos(Rino_ps);
 						Rino_rb->SetGround(true);
 					}

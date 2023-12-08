@@ -29,8 +29,8 @@ namespace jk
 	{
 		mImage = Resources::Load<Image>(L"sring", L"..\\Resources\\SpRing.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"Spring", mImage, Vector2(24, 546), Vector2(66, 66), Vector2(2, 2), 4, 3, 12, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"EatLSpring", mImage, Vector2(24, 744), Vector2(66, 66), Vector2(2, 2), 4, 2, 7, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"Spring", mImage, Vector2(24, 546), Vector2(66, 66), Vector2(2, 2), 4, 3, 12, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"EatLSpring", mImage, Vector2(24, 744), Vector2(66, 66), Vector2(2, 2), 4, 2, 7, Vector2::Zero, 0.1f);
 		mAnimator->Play(L"Spring", true);
 		mAnimator->GetCompleteEvent(L"EatLSpring") = std::bind(&ItemBigRing::death, this);
 		

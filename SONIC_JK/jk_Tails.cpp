@@ -76,23 +76,23 @@ namespace jk
 
 		Image* mImage = Resources::Load<Image>(L"RTails", L"..\\Resources\\RTails.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"RTailsWalk", mImage, Vector2(24, 647), Vector2(58, 48), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"RTailsStand", mImage, Vector2(25, 24), Vector2(54, 48), Vector2(5, 0), 20, 1, 20, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"RTailsSit", mImage, Vector2(294, 87), Vector2(54, 48), Vector2(5, 0), 5, 1, 5, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"RTailsLookUp", mImage, Vector2(25, 87), Vector2(54, 48), Vector2(5, 0), 1, 1, 1, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"RTailsDeath", mImage, Vector2(968, 647), Vector2(52, 48), Vector2(4, 0), 1, 1, 1, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"RTailsBrake", mImage, Vector2(403, 144), Vector2(54, 48), Vector2(5, 0), 4, 1, 4, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"RTailsRun", mImage, Vector2(504, 647), Vector2(52, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"RTailsJump", mImage, Vector2(35, 341), Vector2(64, 60), Vector2(17, 0), 4, 1, 4, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"RTailsJumpDw", mImage, Vector2(35, 267), Vector2(64, 60), Vector2(17, 0), 4, 1, 4, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"RTailsMJ", mImage, Vector2(35, 424), Vector2(58, 56), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"RTailsMJDW", mImage, Vector2(35, 496), Vector2(58, 56), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"RTailsSpin", mImage, Vector2(590, 337), Vector2(62, 48), Vector2(4, 0), 7, 1, 7, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"RTailsDash", mImage, Vector2(29, 207), Vector2(64, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"RTailsFly", mImage, Vector2(834, 87), Vector2(54, 48), Vector2(5, 0), 2, 1, 2, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"Endgind_pose", mImage, Vector2(820, 802), Vector2(52, 48), Vector2(4, 0), 2, 1, 2, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"RTails_Hurt", mImage, Vector2(848, 647), Vector2(52, 48), Vector2(4, 0), 2, 1, 2, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"RTails_Spring_Jump", mImage, Vector2(24, 1026), Vector2(52, 49), Vector2(4, 0), 12, 1, 12, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"RTailsWalk", mImage, Vector2(24, 647), Vector2(58, 48), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"RTailsStand", mImage, Vector2(25, 24), Vector2(54, 48), Vector2(5, 0), 20, 1, 20, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"RTailsSit", mImage, Vector2(294, 87), Vector2(54, 48), Vector2(5, 0), 5, 1, 5, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"RTailsLookUp", mImage, Vector2(25, 87), Vector2(54, 48), Vector2(5, 0), 1, 1, 1, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"RTailsDeath", mImage, Vector2(968, 647), Vector2(52, 48), Vector2(4, 0), 1, 1, 1, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"RTailsBrake", mImage, Vector2(403, 144), Vector2(54, 48), Vector2(5, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"RTailsRun", mImage, Vector2(504, 647), Vector2(52, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"RTailsJump", mImage, Vector2(35, 341), Vector2(64, 60), Vector2(17, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"RTailsJumpDw", mImage, Vector2(35, 267), Vector2(64, 60), Vector2(17, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"RTailsMJ", mImage, Vector2(35, 424), Vector2(58, 56), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"RTailsMJDW", mImage, Vector2(35, 496), Vector2(58, 56), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"RTailsSpin", mImage, Vector2(590, 337), Vector2(62, 48), Vector2(4, 0), 7, 1, 7, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"RTailsDash", mImage, Vector2(29, 207), Vector2(64, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"RTailsFly", mImage, Vector2(834, 87), Vector2(54, 48), Vector2(5, 0), 2, 1, 2, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"Endgind_pose", mImage, Vector2(820, 802), Vector2(52, 48), Vector2(4, 0), 2, 1, 2, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"RTails_Hurt", mImage, Vector2(848, 647), Vector2(52, 48), Vector2(4, 0), 2, 1, 2, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"RTails_Spring_Jump", mImage, Vector2(24, 1026), Vector2(52, 49), Vector2(4, 0), 12, 1, 12, Vector2::Zero, 0.1f);
 
 
 
@@ -119,7 +119,7 @@ namespace jk
 
 
 		Image* mImage_end = Resources::Load<Image>(L"End_tails", L"..\\Resources\\END_BG.bmp");
-		mAnimator->CreateAnimation(L"End_tails", mImage_end, Vector2(1264, 243), Vector2(94, 96), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"End_tails", mImage_end, Vector2(1264, 243), Vector2(94, 96), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
 
 
 
@@ -1759,7 +1759,7 @@ namespace jk
 	{
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
-		pos.x += 250 * Time::DeltaTime();
+		pos.x += 250 * static_cast<float>(Time::DeltaTime());
 		mRigidbody->SetGround(true);
 		tr->SetPos(pos);
 

@@ -33,23 +33,23 @@ namespace jk
 		mImage = Resources::Load<Image>(L"Jeep_line", L"..\\Resources\\JEEP_LINE.bmp");
 		mAnimator = AddComponent<Animator>();
 		//45도
-		mAnimator->CreateAnimation(L"Jeep_line9", mImage, Vector2(775, 358), Vector2(135, 76), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"Jeep_line9", mImage, Vector2(775, 358), Vector2(135, 76), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
 		//55도
-		mAnimator->CreateAnimation(L"Jeep_line8", mImage, Vector2(632, 358), Vector2(135, 76), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"Jeep_line8", mImage, Vector2(632, 358), Vector2(135, 76), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
 		//65도
-		mAnimator->CreateAnimation(L"Jeep_line7", mImage, Vector2(489, 358), Vector2(135, 76), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"Jeep_line7", mImage, Vector2(489, 358), Vector2(135, 76), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
 		//75도
-		mAnimator->CreateAnimation(L"Jeep_line6", mImage, Vector2(346, 358), Vector2(135, 76), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"Jeep_line6", mImage, Vector2(346, 358), Vector2(135, 76), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
 		//85도
-		mAnimator->CreateAnimation(L"Jeep_line5", mImage, Vector2(203, 276), Vector2(135, 76), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"Jeep_line5", mImage, Vector2(203, 276), Vector2(135, 76), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
 		//95도
-		mAnimator->CreateAnimation(L"Jeep_line4", mImage, Vector2(346, 276), Vector2(135, 76), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"Jeep_line4", mImage, Vector2(346, 276), Vector2(135, 76), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
 		//105도
-		mAnimator->CreateAnimation(L"Jeep_line3", mImage, Vector2(489, 276), Vector2(135, 76), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"Jeep_line3", mImage, Vector2(489, 276), Vector2(135, 76), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
 		//115도
-		mAnimator->CreateAnimation(L"Jeep_line2", mImage, Vector2(632, 276), Vector2(135, 76), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"Jeep_line2", mImage, Vector2(632, 276), Vector2(135, 76), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
 		//125도
-		mAnimator->CreateAnimation(L"Jeep_line1", mImage, Vector2(775, 276), Vector2(135, 76), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"Jeep_line1", mImage, Vector2(775, 276), Vector2(135, 76), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
 	
 		mAnimator->Play(L"Jeep_line5", false);	
 		

@@ -823,7 +823,7 @@
     <ClInclude Include="jk_PlayScene2.h">
       <Filter>Contents\Scene\Playgame\Act1-2</Filter>
     </ClInclude>
-    <ClInclude Include="jk_Minibos.h">
+    <ClInclude Include="jk_Miniboss.h">
       <Filter>Contents\Boss\Act1_miniboss</Filter>
     </ClInclude>
     <ClInclude Include="SoundManager.h">
@@ -1126,7 +1126,7 @@
     <ClCompile Include="Act1_Boss.cpp">
       <Filter>Contents\Boss\Act1_boss</Filter>
     </ClCompile>
-    <ClCompile Include="jk_Minibos.cpp">
+    <ClCompile Include="jk_Miniboss.cpp">
       <Filter>Contents\Boss\Act1_miniboss</Filter>
     </ClCompile>
     <ClCompile Include="jk_check2.cpp">

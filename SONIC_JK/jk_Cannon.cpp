@@ -233,15 +233,15 @@ namespace jk
 			if (Canon_TR && Canon_rb && mGroundImage)
 			{
 				Vector2 Canon_ps = Canon_TR->GetPos();
-				COLORREF FootColor = mGroundImage->GetPixel(Canon_ps.x, Canon_ps.y + 130);
+				COLORREF FootColor = mGroundImage->GetPixel(static_cast<int>(Canon_ps.x), static_cast<int>(Canon_ps.y) + 130);
 				if (FootColor == RGB(0, 0, 0))
 				{
-					COLORREF FootColor = mGroundImage->GetPixel(Canon_ps.x, Canon_ps.y + 130);
+					COLORREF FootColor = mGroundImage->GetPixel(static_cast<int>(Canon_ps.x), static_cast<int>(Canon_ps.y) + 130);
 
 					while (FootColor == RGB(0, 0, 0))
 					{
 						Canon_ps.y -= 1;
-						FootColor = mGroundImage->GetPixel(Canon_ps.x, Canon_ps.y + 130);
+						FootColor = mGroundImage->GetPixel(static_cast<int>(Canon_ps.x), static_cast<int>(Canon_ps.y) + 130);
 						Canon_TR->SetPos(Canon_ps);
 						Canon_rb->SetGround(true);
 						check_ground_CN = 1;
@@ -256,15 +256,15 @@ namespace jk
 			if (Canon_TR && Canon_rb && mGroundImage2)
 			{
 				Vector2 Canon_ps = Canon_TR->GetPos();
-				COLORREF FootColor = mGroundImage2->GetPixel(Canon_ps.x, Canon_ps.y + 130);
+				COLORREF FootColor = mGroundImage2->GetPixel(static_cast<int>(Canon_ps.x), static_cast<int>(Canon_ps.y) + 130);
 				if (FootColor == RGB(0, 0, 0))
 				{
-					COLORREF FootColor = mGroundImage2->GetPixel(Canon_ps.x, Canon_ps.y + 130);
+					COLORREF FootColor = mGroundImage2->GetPixel(static_cast<int>(Canon_ps.x), static_cast<int>(Canon_ps.y) + 130);
 
 					while (FootColor == RGB(0, 0, 0))
 					{
 						Canon_ps.y -= 1;
-						FootColor = mGroundImage2->GetPixel(Canon_ps.x, Canon_ps.y + 130);
+						FootColor = mGroundImage2->GetPixel(static_cast<int>(Canon_ps.x), static_cast<int>(Canon_ps.y) + 130);
 						Canon_TR->SetPos(Canon_ps);
 						Canon_rb->SetGround(true);
 					}

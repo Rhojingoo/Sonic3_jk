@@ -29,7 +29,8 @@ namespace jk
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();		
 		Vector2 mpos = Camera::CaluatePos(Vector2{ pos.x ,pos.y });
-		TransparentBlt(hdc, mpos.x, mpos.y , 21000, 10080, mImage->GetHdc(), 0, 0, 21000, 10080, RGB(13, 72, 7));
+		TransparentBlt(hdc, static_cast<int>(mpos.x), static_cast<int>(mpos.y) , 21000, 10080,
+			mImage->GetHdc(), 0, 0, 21000, 10080, RGB(13, 72, 7));
 		Gameobject::Render(hdc);
 	}
 	void act6_sky1::Release()

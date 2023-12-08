@@ -56,6 +56,7 @@ namespace jk
 		Image* mGroundImage;
 		Animator* mAnimator;
 		Rigidbody* mRigidbody;
+		Collider* mCollider;
 
 	private:
 		Sound* Boss_Hit;

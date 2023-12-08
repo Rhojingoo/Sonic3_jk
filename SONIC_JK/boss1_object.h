@@ -1,6 +1,10 @@
 #pragma once
 #include "jk_Gameobject.h"
+#include "jk_BackGround.h"
 #include "jk_Boss.h"
+#include "boss_come.h"
+#include "boss1_body.h"
+#include "act6_bullet1.h"
 #include "jk_SONIC.h"
 #include "jk_Image.h"
 #include "jk_Sound.h"
@@ -12,7 +16,7 @@ namespace jk
 	class Ground;
 	class boss1_body;
 	class Animator;
-	class boss1_object : public Boss
+	class boss1_object : public BackGround
 	{
 	public:
 		enum class eBossState
@@ -50,10 +54,12 @@ namespace jk
 		Image* mGroundImage;
 		Animator* mAnimator;
 		Rigidbody* mRigidbody;
+		Collider* mCollider;
 		Sound* Bullet1;
 
 	private:	
 		boss1_body* boss;
+		act6_bullet1* bullet;
 		eBossState mState;
 		Vector2 pos;	
 		int mDir;

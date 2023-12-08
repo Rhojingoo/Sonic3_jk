@@ -250,7 +250,7 @@
     <ClInclude Include="jk_Math.h" />
     <ClInclude Include="jk_MGEmerald.h" />
     <ClInclude Include="jk_midlle_boss_shoot.h" />
-    <ClInclude Include="jk_Minibos.h" />
+    <ClInclude Include="jk_Miniboss.h" />
     <ClInclude Include="jk_minibos_show.h" />
     <ClInclude Include="jk_Minigame.h" />
     <ClInclude Include="jk_MinigameScene.h" />
@@ -432,7 +432,7 @@
     <ClCompile Include="jk_Math.cpp" />
     <ClCompile Include="jk_MGEmerald.cpp" />
     <ClCompile Include="jk_midlle_boss_shoot.cpp" />
-    <ClCompile Include="jk_Minibos.cpp" />
+    <ClCompile Include="jk_Miniboss.cpp" />
     <ClCompile Include="jk_minibos_show.cpp" />
     <ClCompile Include="jk_Minigame.cpp" />
     <ClCompile Include="jk_MinigameScene.cpp" />

@@ -22,6 +22,6 @@ namespace jk
 		Life_Manager* Units;
 		Image* mImage;
 
-		float UnitsDigit;
+		int UnitsDigit;
 	};
 }

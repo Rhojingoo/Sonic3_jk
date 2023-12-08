@@ -46,7 +46,7 @@
 #include "jk_Ring_Falling.h"
 
 
-#include "jk_Minibos.h"
+#include "jk_Miniboss.h"
 #include "mBoss_Bl_L.h"
 #include "mBoss_BL_R.h"
 #include "jk_Boss.h"
@@ -155,79 +155,79 @@ namespace jk
 
 			Image* mImage = Resources::Load<Image>(L"SONIC", L"..\\Resources\\sonic.bmp");
 			mAnimator = AddComponent<Animator>();
-			mAnimator->CreateAnimation(L"RSonicWalk", mImage, Vector2::RSonicWalkLTC, Vector2::RSonicWalksize, Vector2::RSonicWalkSpace, 8, 1, 8, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"RSonicStand", mImage, Vector2::RSonicStandLTC, Vector2::RSonicStandsize, Vector2::RSonicStandSpace, 9, 1, 9, Vector2::Zero, 0.3);
-			mAnimator->CreateAnimation(L"RSonicLookUp", mImage, Vector2::RSonicLookUpLTC, Vector2::RSonicLookUpsize, Vector2::RSonicLookUpSpace, 1, 1, 1, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"RSonicSit", mImage, Vector2::RSonicSitLTC, Vector2::RSonicSitsize, Vector2::RSonicSitSpace, 2, 1, 2, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"RSonicShock", mImage, Vector2(740,750), Vector2(52,52), Vector2(4,4), 1, 1, 1, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"RSonicRun", mImage, Vector2(24, 397), Vector2(52, 52), Vector2(4, 4), 4, 1, 4, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"RSonicRollandJunp", mImage, Vector2(248, 397), Vector2(52, 52), Vector2(4, 4), 5, 1, 5, Vector2::Zero, 0.05);
-			mAnimator->CreateAnimation(L"RSonicBrake", mImage, Vector2(412, 478), Vector2(52, 52), Vector2(4, 4), 3, 1, 3, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"RSonicSpin", mImage, Vector2(24, 534), Vector2(62, 52), Vector2(4, 4), 6, 2, 12, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"RSonichurt", mImage, Vector2(956, 530), Vector2(56, 48), Vector2(8, 0), 2, 1, 2, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"RSonic_Spring_up", mImage, Vector2(412, 912), Vector2(52, 50), Vector2(4, 0), 12, 1, 12, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"RSonic_Push", mImage, Vector2(736, 644), Vector2(52, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"RSonic_Jeep", mImage, Vector2(412, 1451), Vector2(52, 52), Vector2(4, 0), 3, 1, 3, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"Endgind_pose", mImage, Vector2(24, 1492), Vector2(52, 48), Vector2(4, 0), 5, 1, 5, Vector2::Zero, 0.1);
+			mAnimator->CreateAnimation(L"RSonicWalk", mImage, Vector2::RSonicWalkLTC, Vector2::RSonicWalksize, Vector2::RSonicWalkSpace, 8, 1, 8, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"RSonicStand", mImage, Vector2::RSonicStandLTC, Vector2::RSonicStandsize, Vector2::RSonicStandSpace, 9, 1, 9, Vector2::Zero, 0.3f);
+			mAnimator->CreateAnimation(L"RSonicLookUp", mImage, Vector2::RSonicLookUpLTC, Vector2::RSonicLookUpsize, Vector2::RSonicLookUpSpace, 1, 1, 1, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"RSonicSit", mImage, Vector2::RSonicSitLTC, Vector2::RSonicSitsize, Vector2::RSonicSitSpace, 2, 1, 2, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"RSonicShock", mImage, Vector2(740,750), Vector2(52,52), Vector2(4,4), 1, 1, 1, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"RSonicRun", mImage, Vector2(24, 397), Vector2(52, 52), Vector2(4, 4), 4, 1, 4, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"RSonicRollandJunp", mImage, Vector2(248, 397), Vector2(52, 52), Vector2(4, 4), 5, 1, 5, Vector2::Zero, 0.05f);
+			mAnimator->CreateAnimation(L"RSonicBrake", mImage, Vector2(412, 478), Vector2(52, 52), Vector2(4, 4), 3, 1, 3, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"RSonicSpin", mImage, Vector2(24, 534), Vector2(62, 52), Vector2(4, 4), 6, 2, 12, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"RSonichurt", mImage, Vector2(956, 530), Vector2(56, 48), Vector2(8, 0), 2, 1, 2, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"RSonic_Spring_up", mImage, Vector2(412, 912), Vector2(52, 50), Vector2(4, 0), 12, 1, 12, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"RSonic_Push", mImage, Vector2(736, 644), Vector2(52, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"RSonic_Jeep", mImage, Vector2(412, 1451), Vector2(52, 52), Vector2(4, 0), 3, 1, 3, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"Endgind_pose", mImage, Vector2(24, 1492), Vector2(52, 48), Vector2(4, 0), 5, 1, 5, Vector2::Zero, 0.1f);
 
 
 
 			Image* mImage1 = Resources::Load<Image>(L"LSONIC", L"..\\Resources\\Lsonic.bmp");
-			mAnimator->CreateAnimation(L"LSonicWalk", mImage1, Vector2::LSonicWalkLTC, Vector2::LSonicWalksize, Vector2::LSonicWalkSpace, 8, 1, 8, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"LSonicStand", mImage1, Vector2::LSonicStandLTC, Vector2::LSonicStandsize, Vector2::LSonicStandSpace, 9, 1, 9, Vector2::Zero, 0.3);
-			mAnimator->CreateAnimation(L"LSonicLookUp", mImage1, Vector2::LSonicLookUpLTC, Vector2::LSonicLookUpsize, Vector2::LSonicLookUpSpace, 1, 1, 1, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"LSonicSit", mImage1, Vector2::LSonicSitLTC, Vector2::LSonicSitsize, Vector2::LSonicSitSpace, 2, 1, 2, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"LSonicRun", mImage1, Vector2(24, 397), Vector2(52, 52), Vector2(4, 4), 4, 1, 4, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"LSonicRollandJunp", mImage1, Vector2(248, 397), Vector2(52, 52), Vector2(4, 4), 5, 1, 5, Vector2::Zero, 0.05);
-			mAnimator->CreateAnimation(L"LSonicBrake", mImage1, Vector2(412, 478), Vector2(52, 52), Vector2(4, 4), 3, 1, 3, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"LSonicSpin", mImage1, Vector2(24, 534), Vector2(62, 52), Vector2(4, 4), 6, 2, 12, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"LSonichurt", mImage1, Vector2(956, 530), Vector2(56, 48), Vector2(8, 0), 2, 1, 2, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"LSonic_Spring_up", mImage1, Vector2(412, 912), Vector2(52, 50), Vector2(4, 0), 12, 1, 12, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"LSonic_Push", mImage1, Vector2(736, 644), Vector2(52, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"LSonic_Jeep", mImage1, Vector2(412, 1451), Vector2(52, 52), Vector2(4, 0), 3, 1, 3, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"LEndgind_pose", mImage1, Vector2(24, 1492), Vector2(52, 48), Vector2(4, 0), 5, 1, 5, Vector2::Zero, 0.1);
+			mAnimator->CreateAnimation(L"LSonicWalk", mImage1, Vector2::LSonicWalkLTC, Vector2::LSonicWalksize, Vector2::LSonicWalkSpace, 8, 1, 8, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"LSonicStand", mImage1, Vector2::LSonicStandLTC, Vector2::LSonicStandsize, Vector2::LSonicStandSpace, 9, 1, 9, Vector2::Zero, 0.3f);
+			mAnimator->CreateAnimation(L"LSonicLookUp", mImage1, Vector2::LSonicLookUpLTC, Vector2::LSonicLookUpsize, Vector2::LSonicLookUpSpace, 1, 1, 1, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"LSonicSit", mImage1, Vector2::LSonicSitLTC, Vector2::LSonicSitsize, Vector2::LSonicSitSpace, 2, 1, 2, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"LSonicRun", mImage1, Vector2(24, 397), Vector2(52, 52), Vector2(4, 4), 4, 1, 4, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"LSonicRollandJunp", mImage1, Vector2(248, 397), Vector2(52, 52), Vector2(4, 4), 5, 1, 5, Vector2::Zero, 0.05f);
+			mAnimator->CreateAnimation(L"LSonicBrake", mImage1, Vector2(412, 478), Vector2(52, 52), Vector2(4, 4), 3, 1, 3, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"LSonicSpin", mImage1, Vector2(24, 534), Vector2(62, 52), Vector2(4, 4), 6, 2, 12, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"LSonichurt", mImage1, Vector2(956, 530), Vector2(56, 48), Vector2(8, 0), 2, 1, 2, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"LSonic_Spring_up", mImage1, Vector2(412, 912), Vector2(52, 50), Vector2(4, 0), 12, 1, 12, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"LSonic_Push", mImage1, Vector2(736, 644), Vector2(52, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"LSonic_Jeep", mImage1, Vector2(412, 1451), Vector2(52, 52), Vector2(4, 0), 3, 1, 3, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"LEndgind_pose", mImage1, Vector2(24, 1492), Vector2(52, 48), Vector2(4, 0), 5, 1, 5, Vector2::Zero, 0.1f);
 
 			Image* mImage_end = Resources::Load<Image>(L"End_sonic", L"..\\Resources\\END_BG.bmp");
-			mAnimator->CreateAnimation(L"End_sonic", mImage_end, Vector2(1136, 243), Vector2(72, 96), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
+			mAnimator->CreateAnimation(L"End_sonic", mImage_end, Vector2(1136, 243), Vector2(72, 96), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
 
 
 			//소닉 원회전(오른쪽)
 			Image* mImage_RSN = Resources::Load<Image>(L"Rsonic_circle", L"..\\Resources\\Rsonic_circle.bmp");
 			//회전달리기
-			mAnimator->CreateAnimation(L"RSN_RT1", mImage_RSN, Vector2(262, 175), Vector2(52, 51), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"RSN_RT2", mImage_RSN, Vector2(473, 174), Vector2(52, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"RSN_RT3", mImage_RSN, Vector2(681, 174), Vector2(55, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"RSN_RT4", mImage_RSN, Vector2(50, 244), Vector2(52, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"RSN_RT5", mImage_RSN, Vector2(262, 240), Vector2(52, 51), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"RSN_RT6", mImage_RSN, Vector2(474, 240), Vector2(52, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"RSN_RT7", mImage_RSN, Vector2(682, 240), Vector2(55, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
+			mAnimator->CreateAnimation(L"RSN_RT1", mImage_RSN, Vector2(262, 175), Vector2(52, 51), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"RSN_RT2", mImage_RSN, Vector2(473, 174), Vector2(52, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"RSN_RT3", mImage_RSN, Vector2(681, 174), Vector2(55, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"RSN_RT4", mImage_RSN, Vector2(50, 244), Vector2(52, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"RSN_RT5", mImage_RSN, Vector2(262, 240), Vector2(52, 51), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"RSN_RT6", mImage_RSN, Vector2(474, 240), Vector2(52, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"RSN_RT7", mImage_RSN, Vector2(682, 240), Vector2(55, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1f);
 			//회전걷기
-			mAnimator->CreateAnimation(L"RSN_WT1", mImage_RSN, Vector2(466, 298), Vector2(53, 55), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"RSN_WT2", mImage_RSN, Vector2(50, 362), Vector2(52, 48), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"RSN_WT3", mImage_RSN, Vector2(466, 362), Vector2(59, 49), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"RSN_WT4", mImage_RSN, Vector2(49,  423), Vector2(52, 48), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"RSN_WT5", mImage_RSN, Vector2(466, 422), Vector2(53, 55), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"RSN_WT6", mImage_RSN, Vector2(50, 486), Vector2(52, 48), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"RSN_WT7", mImage_RSN, Vector2(466, 486), Vector2(59, 49), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1);
+			mAnimator->CreateAnimation(L"RSN_WT1", mImage_RSN, Vector2(466, 298), Vector2(53, 55), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"RSN_WT2", mImage_RSN, Vector2(50, 362), Vector2(52, 48), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"RSN_WT3", mImage_RSN, Vector2(466, 362), Vector2(59, 49), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"RSN_WT4", mImage_RSN, Vector2(49,  423), Vector2(52, 48), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"RSN_WT5", mImage_RSN, Vector2(466, 422), Vector2(53, 55), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"RSN_WT6", mImage_RSN, Vector2(50, 486), Vector2(52, 48), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"RSN_WT7", mImage_RSN, Vector2(466, 486), Vector2(59, 49), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1f);
 
 			//소닉 원회전(왼쪽)
 			Image* mImage_LSN = Resources::Load<Image>(L"Lsonic_circle", L"..\\Resources\\Lsonic_circle.bmp");
 			//회전달리기
-			mAnimator->CreateAnimation(L"LSN_RT7", mImage_LSN, Vector2(262, 175), Vector2(52, 51), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"LSN_RT6", mImage_LSN, Vector2(473, 174), Vector2(52, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"LSN_RT5", mImage_LSN, Vector2(681, 174), Vector2(55, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"LSN_RT4", mImage_LSN, Vector2(50, 244), Vector2(52, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"LSN_RT3", mImage_LSN, Vector2(262, 240), Vector2(52, 51), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"LSN_RT2", mImage_LSN, Vector2(474, 240), Vector2(52, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"LSN_RT1", mImage_LSN, Vector2(682, 240), Vector2(55, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
+			mAnimator->CreateAnimation(L"LSN_RT7", mImage_LSN, Vector2(262, 175), Vector2(52, 51), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"LSN_RT6", mImage_LSN, Vector2(473, 174), Vector2(52, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"LSN_RT5", mImage_LSN, Vector2(681, 174), Vector2(55, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"LSN_RT4", mImage_LSN, Vector2(50, 244), Vector2(52, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"LSN_RT3", mImage_LSN, Vector2(262, 240), Vector2(52, 51), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"LSN_RT2", mImage_LSN, Vector2(474, 240), Vector2(52, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"LSN_RT1", mImage_LSN, Vector2(682, 240), Vector2(55, 48), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1f);
 			//회전걷기							
-			mAnimator->CreateAnimation(L"LSN_WT7", mImage_LSN, Vector2(466, 298), Vector2(53, 55), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"LSN_WT6", mImage_LSN, Vector2(50, 362), Vector2(52, 48), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"LSN_WT5", mImage_LSN, Vector2(466, 362), Vector2(59, 49), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"LSN_WT4", mImage_LSN, Vector2(49, 423), Vector2(52, 48), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"LSN_WT3", mImage_LSN, Vector2(466, 422), Vector2(53, 55), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"LSN_WT2", mImage_LSN, Vector2(50, 486), Vector2(52, 48), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1);
-			mAnimator->CreateAnimation(L"LSN_WT1", mImage_LSN, Vector2(466, 486), Vector2(59, 49), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1);
+			mAnimator->CreateAnimation(L"LSN_WT7", mImage_LSN, Vector2(466, 298), Vector2(53, 55), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"LSN_WT6", mImage_LSN, Vector2(50, 362), Vector2(52, 48), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"LSN_WT5", mImage_LSN, Vector2(466, 362), Vector2(59, 49), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"LSN_WT4", mImage_LSN, Vector2(49, 423), Vector2(52, 48), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"LSN_WT3", mImage_LSN, Vector2(466, 422), Vector2(53, 55), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"LSN_WT2", mImage_LSN, Vector2(50, 486), Vector2(52, 48), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1f);
+			mAnimator->CreateAnimation(L"LSN_WT1", mImage_LSN, Vector2(466, 486), Vector2(59, 49), Vector2(4, 0), 8, 1, 8, Vector2::Zero, 0.1f);
 
 			mAnimator->Play(L"RSonicStand", true);
 
@@ -783,7 +783,7 @@ namespace jk
 						{
 							mRigidbody->SetVelocity(Vector2{ 0.f,0.f });
 
-							sonic_pos.x = mRockSmall_colpos.x - mRockSmall_Col->GetSize().x*0.6;
+							sonic_pos.x = mRockSmall_colpos.x - mRockSmall_Col->GetSize().x*0.6f;
 
 							mAnimator->Play(L"RSonic_Push", true);
 							mState = eSonicState::Push;
@@ -835,7 +835,7 @@ namespace jk
 						{
 							mRigidbody->SetVelocity(Vector2{ 0.f,0.f });
 
-							sonic_Pos.x = mRockMiddle_Pos.x - mRockMiddle_Col->GetSize().x*0.6;
+							sonic_Pos.x = mRockMiddle_Pos.x - mRockMiddle_Col->GetSize().x*0.6f;
 
 							mAnimator->Play(L"RSonic_Push", true);
 							mState = eSonicState::Push;
@@ -875,7 +875,7 @@ namespace jk
 						{
 							mRigidbody->SetVelocity(Vector2{ 0.f,0.f });
 
-							sonic_Pos.x = mRockBig_colPos.x - mRockBig_Col->GetSize().x*0.6;
+							sonic_Pos.x = mRockBig_colPos.x - mRockBig_Col->GetSize().x*0.6f;
 
 							mAnimator->Play(L"RSonic_Push", true);
 							mState = eSonicState::Push;
@@ -1083,7 +1083,6 @@ namespace jk
 								mState = eSonicState::Hurt;
 
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -1110,7 +1109,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -1174,7 +1172,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -1202,7 +1199,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -1264,7 +1260,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -1291,7 +1286,6 @@ namespace jk
 							mRigidbody->SetVelocity(velocity);
 							mState = eSonicState::Hurt;
 
-							Ring_Falling* ring;
 							if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 							{
 								ring_drop_Small();
@@ -1343,7 +1337,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -1370,7 +1363,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -1433,8 +1425,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -1462,7 +1452,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -1515,7 +1504,6 @@ namespace jk
 								mState = eSonicState::Hurt;
 
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -1542,7 +1530,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -1608,7 +1595,6 @@ namespace jk
 								mState = eSonicState::Hurt;
 
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -1636,7 +1622,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -1688,7 +1673,6 @@ namespace jk
 								mState = eSonicState::Hurt;
 
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -1716,7 +1700,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -1770,7 +1753,6 @@ namespace jk
 								mState = eSonicState::Hurt;
 
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -1798,7 +1780,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -1855,8 +1836,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -1883,7 +1862,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -1961,7 +1939,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -1989,7 +1966,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -2039,8 +2015,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -2068,7 +2042,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -2120,7 +2093,6 @@ namespace jk
 								mState = eSonicState::Hurt;
 
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -2146,7 +2118,7 @@ namespace jk
 								mRigidbody->SetGround(false);
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
-								Ring_Falling* ring;
+
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -2214,25 +2186,6 @@ namespace jk
 							mRigidbody->SetGround(false);
 							mRigidbody->SetVelocity(velocity);
 						}
-
-
-
-						//else if (pos.x < boss_pos.x + boss->GetComponent<Transform>()->GetScale().x)
-						//{
-						//	Vector2 velocity = mRigidbody->GetVelocity();
-						//	velocity.x = 0.0f;
-						//	velocity.x = -250.f;
-						//	mRigidbody->SetGround(false);
-						//	mRigidbody->SetVelocity(velocity);
-						//}
-						//else if (pos.x > boss_pos.x)
-						//{
-						//	Vector2 velocity = mRigidbody->GetVelocity();
-						//	velocity.x = 0.0f;
-						//	velocity.x = 250.f;
-						//	mRigidbody->SetGround(false);
-						//	mRigidbody->SetVelocity(velocity);
-						//}
 					}
 				}
 
@@ -2267,8 +2220,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -2296,7 +2247,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -2346,8 +2296,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -2375,7 +2323,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -2425,7 +2372,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -2453,7 +2399,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -2503,8 +2448,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -2532,7 +2475,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -2582,8 +2524,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -2610,7 +2550,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -2681,7 +2620,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -2708,7 +2646,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -2777,8 +2714,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -2806,7 +2741,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -2858,8 +2792,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -2886,7 +2818,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -2987,7 +2918,6 @@ namespace jk
 								mState = eSonicState::Hurt;
 
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -3015,7 +2945,6 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-								Ring_Falling* ring;
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -3066,8 +2995,7 @@ namespace jk
 								mRigidbody->SetGround(false);
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
-
-								Ring_Falling* ring;
+																
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -3094,7 +3022,7 @@ namespace jk
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
 
-								Ring_Falling* ring;
+								
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
 									ring_drop_Small();
@@ -4266,12 +4194,11 @@ namespace jk
 						mAnimator->Play(L"RSonicRollandJunp", true);
 						mDir = 1;
 					}
-
-					
+										
 
 					if (mRigidbody->GetGround())
 					{
-						mState = eSonicState::Idle();
+						mState = eSonicState::Idle;
 						mAnimator->Play(L"RSonicStand", true);
 					}
 			
@@ -4316,7 +4243,7 @@ namespace jk
 
 				if (mRigidbody->GetGround())
 				{
-					mState = eSonicState::Idle();
+					mState = eSonicState::Idle;
 					mAnimator->Play(L"RSonicStand", true);
 				}
 			}
@@ -4373,7 +4300,7 @@ namespace jk
 			Ending_song->Play(true);
 
 			//mRigidbody->SetGround(true);
-			time += Time::DeltaTime();
+			time += static_cast<int>(Time::DeltaTime());
 			if (time > 3)
 			{			
 				Transform* tr = GetComponent<Transform>();

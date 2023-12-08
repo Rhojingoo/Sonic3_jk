@@ -21,6 +21,6 @@ namespace jk
 		Gameobject* mOwner;
 		Ring_Point_Manager* Units;
 		Image* mImage;
-		float HundredsDigit;
+		int HundredsDigit;
 	};
 }
