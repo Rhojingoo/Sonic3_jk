@@ -135,26 +135,19 @@ namespace jk
 		Transform* tr = GetComponent<Transform>();
 		if(shoot==0)
 		{
-			Scene* curScene[3];
-			curScene[0] = new Scene();
-			curScene[0] = SceneManager::GetActiveScene();
+			Scene* curScene = SceneManager::GetActiveScene();
 			midlle_boss_shoot* mboss_show_shot[3];
 			mboss_show_shot [0] = new midlle_boss_shoot();
 			mboss_show_shot[0]->GetComponent<Transform>()->SetPos(Vector2{pos.x + 50.f, pos.y-50});
-			curScene[0]->AddGameobeject(mboss_show_shot[0], jk_LayerType::Bullet);
+			curScene->AddGameobeject(mboss_show_shot[0], jk_LayerType::Bullet);
 
-			curScene[1] = new Scene();
-			curScene[1] = SceneManager::GetActiveScene();
 			mboss_show_shot[1] = new midlle_boss_shoot();
 			mboss_show_shot[1]->GetComponent<Transform>()->SetPos(Vector2{ pos.x + 100.f, pos.y-50 });
-			curScene[1]->AddGameobeject(mboss_show_shot[1], jk_LayerType::Bullet);
+			curScene->AddGameobeject(mboss_show_shot[1], jk_LayerType::Bullet);
 
-
-			curScene[2] = new Scene();
-			curScene[2] = SceneManager::GetActiveScene();
 			mboss_show_shot[2] = new midlle_boss_shoot();
 			mboss_show_shot[2]->GetComponent<Transform>()->SetPos(Vector2{ pos.x + 150.f, pos.y-50 });
-			curScene[2]->AddGameobeject(mboss_show_shot[2], jk_LayerType::Bullet);
+			curScene->AddGameobeject(mboss_show_shot[2], jk_LayerType::Bullet);
 
 			shoot = 1;
 			float distance = 0;
@@ -180,8 +173,7 @@ namespace jk
 		{
 			Miniboss1->Stop(true);
 			Fire_show->Play(true);
-			Scene* curScene = new Scene();
-			curScene = SceneManager::GetActiveScene();
+			Scene* curScene = SceneManager::GetActiveScene();
 			fire_show* fire = new fire_show();
 			fire->GetComponent<Transform>()->SetPos(Vector2{ pos.x - 1000.f, pos.y + 500 });
 			curScene->AddGameobeject(fire, jk_LayerType::UI);

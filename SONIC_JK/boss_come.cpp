@@ -23,7 +23,7 @@ namespace jk
 		, mRigidbody(nullptr)
 		, check(nullptr)
 		, mState(eBossState::Move)
-		, pos(0.f,0.f)
+		, pos(0.f, 0.f)
 		, check_map(0)
 		, mDir(0)
 
@@ -32,9 +32,9 @@ namespace jk
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"First_boss_run", mImage, Vector2{ 597,0 }, Vector2{ 68,56 }, Vector2{ 4,0 }, 3, 1, 3, Vector2::Zero, 0.1f);
 		mAnimator->CreateAnimation(L"First_boss_jump", mImage, Vector2{ 597,64 }, Vector2{ 46,45 }, Vector2{ 0,0 }, 1, 1, 1, Vector2::Zero, 0.1f);
-		mAnimator->Play(L"First_boss_run", true);		
-		
-		mRigidbody = AddComponent<Rigidbody>();		
+		mAnimator->Play(L"First_boss_run", true);
+
+		mRigidbody = AddComponent<Rigidbody>();
 		mRigidbody->SetMass(1.0f);
 	}
 
@@ -74,7 +74,7 @@ namespace jk
 		if (Boss_TR && Boss_rb && mGroundImage)
 		{
 			Vector2 Boss_ps = Boss_TR->GetPos();
-			COLORREF FootColor = static_cast<int>( mGroundImage->GetPixel(static_cast<int>(Boss_ps.x), static_cast<int>(Boss_ps.y + 100.f)));
+			COLORREF FootColor = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(Boss_ps.x), static_cast<int>(Boss_ps.y + 100.f)));
 			if (FootColor == RGB(0.f, 0.f, 0.f))
 			{
 				COLORREF FootColor = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(Boss_ps.x), static_cast<int>(Boss_ps.y + 100.f)));
@@ -123,9 +123,9 @@ namespace jk
 
 	void boss_come::move()
 	{
-		mDir = -1;		
+		mDir = -1;
 		mRigidbody->SetVelocity(Vector2{ -300.f, mRigidbody->GetVelocity().y });
-		
+
 		if (pos.x <= 6470)
 		{
 			mState = eBossState::Jump;

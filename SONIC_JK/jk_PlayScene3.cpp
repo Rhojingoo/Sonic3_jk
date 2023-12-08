@@ -109,9 +109,9 @@ namespace jk
 		mSonic = new Sonic();
 		mSonic->SetName(L"Player");
 		AddGameobeject(mSonic, jk_LayerType::Player);
-		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 600.f, 3285.f });//½ÃÀÛ
+		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 600.f, 3285.f });//½ÃÀÛ
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 7800.0f, 3650.0f });//²É¾Õ
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 18400.f, 3900.f });//¿Õ ¾Õ
+		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 18400.f, 3900.f });//¿Õ ¾Õ
 		//13770.f, 2880.f 
 
 
@@ -238,8 +238,6 @@ namespace jk
 		AddGameobeject(waterfall_1, jk_LayerType::BG);
 		waterfall_1->SetName(L"waterfall_1");
 		waterfall_1->GetComponent<Transform>()->SetPos(Vector2{ 19269.f, 3974.f });
-
-
 
 
 		act1_flower1* flower1[4];

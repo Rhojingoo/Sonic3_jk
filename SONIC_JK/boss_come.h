@@ -50,6 +50,6 @@ namespace jk
 		Ground* check;
 		Vector2 pos;
 		int check_map;
-		int mDir;	
+		int mDir;
 	};
 }

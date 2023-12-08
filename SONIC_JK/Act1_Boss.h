@@ -7,6 +7,13 @@
 #include "jk_Time.h"
 
 
+#include "jk_BaseBullet.h"
+#include "Bullet_Act1_R_Side.h"
+#include "Bullet_Act1_R_DIA.h"
+#include "Bullet_Act1_L_Side.h"
+#include "Bullet_Act1_L_DIA.h"
+
+
 namespace jk
 {
 	class Boss_Run;
@@ -31,9 +38,9 @@ namespace jk
 			Dianogol_Side,
 			Side_Down,
 
-		
-			Attack_Side_Waiting,		
-			Attack_Dianogol_Waiting,		
+
+			Attack_Side_Waiting,
+			Attack_Dianogol_Waiting,
 			Attack_Down_Waiting,
 
 			Death,
@@ -70,7 +77,7 @@ namespace jk
 		void side_dianogol();
 		void dianogol_side();
 		void dianogol_down();
-		void down_dianogol();		
+		void down_dianogol();
 
 		void attack_side();
 		void attack_side_waiting();
@@ -113,6 +120,13 @@ namespace jk
 		eBossState mState;
 		Gameobject* mOwner;
 		Sonic::eSonicState sonicState;
+
+	private:
+		BaseBullet* _Down_bullet[2] = {};
+		Bullet_Act1_R_Side* _R_side_bullet[2] = {};
+		Bullet_Act1_R_DIA* _R_dia_bullet[2] = {};
+		Bullet_Act1_L_Side* _L_side_bullet[2] = {};
+		Bullet_Act1_L_DIA* _L_dia_bullet[2] = {};
 
 	private:
 		int starscene;

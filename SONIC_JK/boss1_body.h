@@ -21,7 +21,7 @@ namespace jk
 			Hurt,
 			Death,
 			Attack_Up,
-			Attack_Down,			
+			Attack_Down,
 		};
 
 		boss1_body();
@@ -38,7 +38,7 @@ namespace jk
 
 		int Get_BossDeath() { return  Death_point; }
 		void Set__BossDeath(int point) { Death_point = point; }
-	
+
 		void SetGroundImage(Image* image) { mGroundImage = image; }
 		void SetCheckTargetGround(Ground* ground) { check = ground; }
 
@@ -56,6 +56,7 @@ namespace jk
 		Image* mGroundImage;
 		Animator* mAnimator;
 		Rigidbody* mRigidbody;
+		Collider* mCollider;
 
 	private:
 		Sound* Boss_Hit;
@@ -70,7 +71,7 @@ namespace jk
 		Ground* check;
 
 	private:
-		Vector2 pos;	
+		Vector2 pos;
 		float time;
 		int Death_point;
 		int Damege_check;

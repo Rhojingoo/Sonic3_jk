@@ -1,6 +1,10 @@
 #pragma once
 #include "jk_Gameobject.h"
+#include "jk_BackGround.h"
 #include "jk_Boss.h"
+#include "boss_come.h"
+#include "boss1_body.h"
+#include "act6_bullet1.h"
 #include "jk_SONIC.h"
 #include "jk_Image.h"
 #include "jk_Sound.h"
@@ -12,14 +16,14 @@ namespace jk
 	class Ground;
 	class boss1_body;
 	class Animator;
-	class boss1_object : public Boss
+	class boss1_object : public BackGround
 	{
 	public:
 		enum class eBossState
 		{
 			Idle,
 			Up,
-			Down,			
+			Down,
 		};
 
 		boss1_object(Gameobject* onwer);
@@ -36,7 +40,7 @@ namespace jk
 
 		void Set_Deathpoint(int point) { Death_point = point; }
 		void SetGroundImage(Image* image) { mGroundImage = image; }
-		int Get_Deathpoint(){ return Death_point; }
+		int Get_Deathpoint() { return Death_point; }
 
 	private:
 		void idle();
@@ -50,14 +54,16 @@ namespace jk
 		Image* mGroundImage;
 		Animator* mAnimator;
 		Rigidbody* mRigidbody;
+		Collider* mCollider;
 		Sound* Bullet1;
 
-	private:	
+	private:
 		boss1_body* boss;
+		act6_bullet1* bullet;
 		eBossState mState;
-		Vector2 pos;	
+		Vector2 pos;
 		int mDir;
-		float time;	
+		float time;
 		int attack_check;
 		int attack_lotation;
 		int Death_point;

@@ -28,7 +28,7 @@ namespace jk
 		, mAnimator(nullptr)
 		, boss_ob(nullptr)
 
-		, pos(0.f,0.f)
+		, pos(0.f, 0.f)
 		, sonicState()
 		, mState(eBossState::Idle)
 		, Damege_check(0)
@@ -53,25 +53,27 @@ namespace jk
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"Boss1_open", mImage, Vector2{ 597,120 }, Vector2{ 64,96 }, Vector2{ 0,0 }, 1, 1, 1, Vector2::Zero, 0.3f);
 		mAnimator->CreateAnimation(L"Boss1_up", mImage, Vector2{ 665,120 }, Vector2{ 68,96 }, Vector2{ 4,0 }, 4, 1, 4, Vector2::Zero, 0.3f);
-		mAnimator->CreateAnimation(L"Boss1_hurt", mImage, Vector2{ 869,226 }, Vector2{68,96}, Vector2{ 4,0 }, 3, 1, 3, Vector2::Zero, 0.2f);
+		mAnimator->CreateAnimation(L"Boss1_hurt", mImage, Vector2{ 869,226 }, Vector2{ 68,96 }, Vector2{ 4,0 }, 3, 1, 3, Vector2::Zero, 0.2f);
 		mAnimator->CreateAnimation(L"Boss1_idle", mImage, Vector2{ 869,120 }, Vector2{ 64,96 }, Vector2{ 0,0 }, 1, 1, 1, Vector2::Zero, 0.5f);
 		mAnimator->CreateAnimation(L"Boss1_death", mImage, Vector2{ 324,378 }, Vector2{ 64,48 }, Vector2{ 0,0 }, 1, 1, 1, Vector2::Zero, 0.5f);
 		mAnimator->Play(L"Boss1_open", true);
 
-
 		mAnimator->GetCompleteEvent(L"Boss1_up") = std::bind(&boss1_body::idle, this);
 		mAnimator->GetCompleteEvent(L"Boss1_hurt") = std::bind(&boss1_body::idle, this);
 
+		mRigidbody = AddComponent<Rigidbody>();
+		mRigidbody->SetMass(1.0f);
+		mRigidbody->SetGround(true);
 
-		Collider* collider = AddComponent<Collider>();
-		collider->SetSize(Vector2(180.0f, 60.0f));
-		Vector2 size = collider->GetSize();
-		collider->SetCenter(Vector2{ (-0.1f) * size.x, (2.3f) * size.y });
-	
+		mCollider = AddComponent<Collider>();
+		mCollider->SetSize(Vector2(180.0f, 60.0f));
+		Vector2 size = mCollider->GetSize();
+		mCollider->SetCenter(Vector2{ (-0.1f) * size.x, (2.3f) * size.y });
+
 
 		Gameobject::Initialize();
 	}
-	
+
 
 	void jk::boss1_body::Update()
 	{
@@ -147,19 +149,19 @@ namespace jk
 			{
 				Damege_check += 1;
 				Boss_Hit->Play(false);
-				
 
-				if (Damege_check <= 6)
+
+				if (Damege_check <= 5)
 				{
 					hurt();
 					mAnimator->Play(L"Boss1_hurt", false);
 				}
 
-				if (Damege_check >= 7)
+				if (Damege_check >= 6)
 				{
 					mAnimator->Play(L"Boss1_death", true);
-					mState = eBossState::Death;					
-				}	
+					mState = eBossState::Death;
+				}
 			}
 		}
 	}
@@ -188,13 +190,12 @@ namespace jk
 
 	void boss1_body::death()
 	{
-		Collider* collider =GetComponent<Collider>();
-		collider->SetSize(Vector2(0.0f, 0.0f));
+		mCollider = GetComponent<Collider>();
+		mCollider->SetSize(Vector2(0.0f, 0.0f));
 
-		Boss_Start->Stop(true);		
+		Boss_Start->Stop(true);
 		Boss_Bomb->Play(false);
 
-		Boss_act1_boomb* boomb = new Boss_act1_boomb(this);
 		if (Death_point == 0)
 		{
 			Scene* curScene1 = SceneManager::GetActiveScene();
@@ -209,13 +210,11 @@ namespace jk
 
 		else if (Death_point == 1)
 		{
-			time += Time::DeltaTime();
+			time += static_cast<float>(Time::DeltaTime());
 			if (time >= 3)
 			{
-				mRigidbody = AddComponent<Rigidbody>();
-				mRigidbody->SetMass(1.0f);
-				mRigidbody->SetVelocity(Vector2{ 0.f,-1500.f });
 				mRigidbody->SetGround(false);
+				mRigidbody->SetVelocity(Vector2{ 0.f,-1500.f });
 				boss_ob->Set_Deathpoint(Death_point);
 			}
 		}

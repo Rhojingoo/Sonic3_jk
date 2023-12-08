@@ -140,7 +140,7 @@ namespace jk
 		AddGameobeject(playgr, jk_LayerType::Ground);
 		mSonic->SetCheckTargetGround(playgr);
 		mtails->SetCheckTargetGround(playgr);
-	
+
 
 
 		UI_framework* UI_frame = new UI_framework();
@@ -192,7 +192,7 @@ namespace jk
 		AddGameobeject(death_line, jk_LayerType::BOSS);
 		death_line->GetComponent<Transform>()->SetPos(Vector2{ 13500.f,  5900.f });
 
-		
+
 		fly_machine = new Robotnic_machine();
 		fly_machine->SetName(L"boss_first");
 		AddGameobeject(fly_machine, jk_LayerType::Player);
@@ -213,7 +213,7 @@ namespace jk
 		stage_final->GetComponent<Transform>()->SetPos(Vector2{ 10190.0f,5650.0f });
 
 
-	//배경
+		//배경
 		jk_Act6_BG* act6_BG = new jk_Act6_BG();
 		act6_BG->SetName(L"act6_BG");
 		AddGameobeject(act6_BG, jk_LayerType::BG);
@@ -231,13 +231,13 @@ namespace jk
 	{
 		playgr->Set_map_check(check_map);;
 
-		
+
 		Boss_Death_point = boss_first->Get_BossDeath();
-		
-		
+
+
 		if (Boss_Death_point == 1)
 		{
-			Camera_Switch = 0;			
+			Camera_Switch = 0;
 		}
 
 		Vector2 sonic_pos = mSonic->GetComponent<Transform>()->GetPos();
@@ -247,7 +247,7 @@ namespace jk
 		}
 		else if ((Boss_Death_point == 1) && (sonic_pos.x >= 6150.f))
 		{
-			Camera_Switch = 0;		
+			Camera_Switch = 0;
 			boss_first->Set__BossDeath(2);
 			Act6_music->Play(true);
 		}
@@ -259,7 +259,7 @@ namespace jk
 				map_lotation = 1;
 				stage_final->Set_move_stage(map_lotation);
 				Vector2 stagepos = stage_final->GetComponent<Transform>()->GetPos();
-				
+
 			}
 		}
 
@@ -271,7 +271,7 @@ namespace jk
 			{
 				if (check_boss != 0)
 					return;
-				
+
 				Create_Boss1();
 				check_boss = 1;
 			}
@@ -280,8 +280,8 @@ namespace jk
 		if (map_lotation == 1)//SECOND BOSS START
 		{
 			if (sonic_pos.x >= 14350.f)
-			{			
-				Camera_Switch = 1;			
+			{
+				Camera_Switch = 1;
 				Create_Boss2();
 				map_lotation = 2;
 			}
@@ -292,13 +292,13 @@ namespace jk
 			Camera::SetTarget(mSonic);
 			Camera::SetCamera(0);
 		}
-	//6840
-		if ((mtails->GetComponent<Transform>()->GetPos().x > 6840)&& (mtails->GetComponent<Transform>()->GetPos().x < 14100))
+		//6840
+		if ((mtails->GetComponent<Transform>()->GetPos().x > 6840) && (mtails->GetComponent<Transform>()->GetPos().x < 14100))
 		{
 			mtails->Set_Fly(3);
 		}
-		
-		if(mtails->Get_Fly()==3)
+
+		if (mtails->Get_Fly() == 3)
 		{
 			if (mtails->GetComponent<Transform>()->GetPos().x > 14100)
 			{
@@ -318,29 +318,23 @@ namespace jk
 		if (mSonic->GetComponent<Transform>()->GetPos().x > 14000)
 		{
 			Vector2 Sky_Pos = sky1->GetComponent<Transform>()->GetPos();
-		
-				Sky_Pos.x -= 50 * Time::DeltaTime();
-				Sky_Pos.y += 20 * Time::DeltaTime();
-			
-			//else if (mSonic->GetComponent<Transform>()->GetPos().x >= 19400.f)
-			//{
-			//	Sky_Pos.x += 50 * Time::DeltaTime();
-			//	Sky_Pos.y += 20 * Time::DeltaTime();
-			//}
+
+			Sky_Pos.x -= 50 * static_cast<float>(Time::DeltaTime());
+			Sky_Pos.y += 20 * static_cast<float>(Time::DeltaTime());
 
 			sky1->GetComponent<Transform>()->SetPos(Sky_Pos);
 		}
 
-		if(BOSS2_Start ==1)
+		if (BOSS2_Start == 1)
 		{
 			BOSS3_Start = second_boss->Get_last_BOSS();
 
 			if (BOSS3_Start == 3)
 			{
-				time += Time::DeltaTime();
+				time += static_cast<float>(Time::DeltaTime());
 				if (time > 5)
 				{
-					Create_Boss3();					
+					Create_Boss3();
 					BOSS3_Start = 4;
 					second_boss->Set_last_BOSS(BOSS3_Start);
 					//Boomb_point = 4;
@@ -356,11 +350,11 @@ namespace jk
 		}
 		if (BOSS3_Start == 4)
 		{
-			
+
 			if (last_boss->GetEnding_point() == 1)
 			{
 				time = 0;
-				Last_Stage_bomb(14300.f,4900.f);
+				Last_Stage_bomb(14300.f, 4900.f);
 				Last_Stage_bomb(14100.f, 4900.f);
 				Last_Stage_bomb(13900.f, 4900.f);
 				Last_Stage_bomb(14500.f, 4900.f);
@@ -386,7 +380,7 @@ namespace jk
 			}
 			if (stage_final->Get_end_Stage() == 2)
 			{
-				time += Time::DeltaTime();
+				time += static_cast<float>(Time::DeltaTime());
 				if (time > 4)
 				{
 					ending_boss();
@@ -396,8 +390,8 @@ namespace jk
 				}
 			}
 
-			if(Boss_end==1)
-			{ 
+			if (Boss_end == 1)
+			{
 				if (end_boss->GetComponent<Transform>()->GetPos().y > 5400)
 				{
 					mSonic->Set_Ending(1);
@@ -448,7 +442,7 @@ namespace jk
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Player2, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::MiniBoss, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::BOSS, true);
-		CollisionManager::SetLayer(jk_LayerType::BOSS, jk_LayerType::BOSS, true);
+		CollisionManager::SetLayer(jk_LayerType::MiniBoss, jk_LayerType::BOSS, true);
 
 
 
@@ -470,13 +464,13 @@ namespace jk
 		Boss_start->Play(true);
 		boss_come* boss_run = new boss_come(mSonic);
 		boss_run->SetName(L"boss_run");
-		AddGameobeject(boss_run, jk_LayerType::BOSS);
+		AddGameobeject(boss_run, jk_LayerType::MiniBoss);
 		boss_run->GetComponent<Transform>()->SetPos(Vector2{ 6607.f, 5265.f });
 		boss_run->SetCheckTargetGround(playgr);
 	}
 
 	void PlayScene4::Create_Boss2()
-	{	
+	{
 		second_boss = new Second_Boss();
 		second_boss->SetName(L"boss_run");
 		AddGameobeject(second_boss, jk_LayerType::BOSS);
@@ -526,7 +520,7 @@ namespace jk
 	void PlayScene4::boss_trash()
 	{
 		Scene* curScene2 = SceneManager::GetActiveScene();
-		trash= new Boss_trash(end_boss);
+		trash = new Boss_trash(end_boss);
 		trash->SetName(L"trash");
 		trash->GetComponent<Transform>()->SetPos(Vector2{ 14250,4650 });
 		curScene2->AddGameobeject(trash, jk_LayerType::BOSS);
