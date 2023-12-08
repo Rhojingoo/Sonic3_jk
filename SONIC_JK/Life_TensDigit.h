@@ -21,6 +21,6 @@ namespace jk
 		Gameobject* mOwner;
 		Life_Manager* Units;
 		Image* mImage;
-		int TensDigit;
+		float TensDigit;
 	};
 }

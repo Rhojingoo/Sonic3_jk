@@ -36,7 +36,7 @@ namespace jk
 	
 		mImage = Resources::Load<Image>(L"Jeep_line", L"..\\Resources\\JEEP_LINE.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"Jeep_line_play", mImage, Vector2(120, 362), Vector2(24, 72), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"Jeep_line_play", mImage, Vector2(120, 362), Vector2(24, 72), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
 		mAnimator->Play(L"Jeep_line_play", false);
 
 		Collider* collider = AddComponent<Collider>();
@@ -152,7 +152,7 @@ namespace jk
 		float m = slope(Start_jeepline, Final_jeepline);
 		float b = pos.y - m * pos.x;	
 
-		float newposX = pos.x + jeepline_Speed * static_cast<float>(Time::DeltaTime());
+		float newposX = pos.x + jeepline_Speed * Time::DeltaTime();
 		float newY = m * newposX + b;
 		
 		Vector2 newPos = Vector2(newposX, newY);

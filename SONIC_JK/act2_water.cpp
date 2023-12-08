@@ -23,8 +23,8 @@ namespace jk
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 		tr->SetPos(Vector2{ 4665.f,  4755.f });
-		float pos_y = mImage->GetHeight() * 3.5f;
-		float pos_x = mImage->GetWidth() * 3.f;
+		float pos_y = mImage->GetHeight() * 3.5;
+		float pos_x = mImage->GetWidth() * 3;
 
 		Collider* collider = AddComponent<Collider>();
 		collider->SetSize(Vector2(pos_x, pos_y));
@@ -48,8 +48,7 @@ namespace jk
 		func.SourceConstantAlpha = (BYTE)checktime;
 		Vector2 mpos = Camera::CaluatePos(pos);
 
-		AlphaBlend(hdc, static_cast<int>(mpos.x), static_cast<int>(mpos.y), mImage->GetWidth() * 10, mImage->GetHeight() * 15,
-			mImage->GetHdc(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), func);
+		AlphaBlend(hdc, mpos.x, mpos.y, mImage->GetWidth() * 10, mImage->GetHeight() * 15, mImage->GetHdc(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), func);
 
 		Gameobject::Render(hdc);
 	}

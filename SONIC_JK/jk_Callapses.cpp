@@ -14,7 +14,7 @@ namespace jk
 	{
 		mImage = Resources::Load<Image>(L"Rock_Platform2", L"..\\Resources\\Rock_Platform.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"Gr_collapses", mImage, Vector2(499, 634), Vector2(136, 88), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"Gr_collapses", mImage, Vector2(499, 634), Vector2(136, 88), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
 		mAnimator->Play(L"Gr_collapses", true);
 
 		mRigidbody = AddComponent<Rigidbody>();

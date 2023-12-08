@@ -31,7 +31,7 @@ namespace jk
 		mHeight = 840;//GetSystemMetrics(SM_CYSCREEN); 
 
 		//비트맵 해상도를 설정하기 위한 실제 윈도우 크기를 계산해준다.
-		RECT rect = { 0, 0, static_cast<LONG>(mWidth) , static_cast<LONG>(mHeight) }; //RECT(메모클라스자료형) rect 사각형의 범위를 지정하는 함수
+		RECT rect = { 0, 0, mWidth , mHeight }; //RECT(메모클라스자료형) rect 사각형의 범위를 지정하는 함수
 		AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);  // 조정하다
 
 		// 윈도우 크기 변경및 출력 설정

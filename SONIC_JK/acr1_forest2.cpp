@@ -33,8 +33,7 @@ namespace jk
 		tr->SetPos(pos);
 		Vector2 imagepos = Vector2(11515.f, 1026.f);
 		Vector2 mpos = Camera::CaluatePos(pos);
-		TransparentBlt(hdc, static_cast<int>(mpos.x / 3.f), static_cast<int>(mpos.y), static_cast<int>(11590.f), static_cast<int>(87.f)
-			, mImage->GetHdc(), static_cast<int>(7.f), static_cast<int>(1.f), static_cast<int>(11590.f), static_cast<int>(87.f), RGB(13, 72, 7));
+		TransparentBlt(hdc, mpos.x / 3.f, mpos.y, 11590.f, 87.f, mImage->GetHdc(), 7.f, 1.f, 11590.f, 87.f, RGB(13, 72, 7));
 	}
 
 	void acr1_forest2::Release()

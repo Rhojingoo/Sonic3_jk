@@ -11,6 +11,11 @@
 #include "Rigidbody.h"
 
 
+#include "jk_BaseBullet.h"
+#include "Bullet_Act1_R_Side.h"
+#include "Bullet_Act1_R_DIA.h"
+#include "Bullet_Act1_L_Side.h"
+#include "Bullet_Act1_L_DIA.h"
 #include "Boss_Run.h"
 #include "Boss_act1_boomb.h"
 
@@ -53,9 +58,8 @@ namespace jk
 		Boss_Start = Resources::Load<Sound>(L"Boss_start", L"..\\Resources\\Sound\\Boss_start.wav");
 		Act2_music = Resources::Load<Sound>(L"Act2_bg", L"..\\Resources\\Sound\\Act2_bg.wav");
 
-		mRigidbody = AddComponent<Rigidbody>();
-		mRigidbody->SetMass(1.f);
-		mRigidbody->SetGround(true);
+
+
 
 		////////왼쪽 애니메이션//////////
 		mAnimator->CreateAnimation(L"L_Boss_side", mImage, Vector2{ 22,13 }, Vector2{ 116,88 }, Vector2{ 4,0 }, 1, 1,1, Vector2::Zero, 0.1f);
@@ -110,67 +114,10 @@ namespace jk
 		mAnimator->CreateAnimation(L"Body_pice", mImage, Vector2{ 388,323 }, Vector2{ 104,80 }, Vector2{ 0,0 }, 1, 1, 1, Vector2::Zero, 0.1f);
 		mAnimator->Play(L"L_Boss_side", true);
 
-
-		mAnimator->GetCompleteEvent(L"L_Boss_down_Attack") = std::bind(&Act1_Boss::attack_down, this);
-		mAnimator->GetCompleteEvent(L"R_Boss_down_Attack") = std::bind(&Act1_Boss::attack_down, this);
-		mAnimator->GetCompleteEvent(L"L_Boss_dianogol_Attack1") = std::bind(&Act1_Boss::attack_dianogol, this);
-		mAnimator->GetCompleteEvent(L"L_Boss_dianogol_Attack2") = std::bind(&Act1_Boss::attack_dianogol, this);
-		mAnimator->GetCompleteEvent(L"R_Boss_dianogol_Attack1") = std::bind(&Act1_Boss::attack_dianogol, this);
-		mAnimator->GetCompleteEvent(L"R_Boss_dianogol_Attack2") = std::bind(&Act1_Boss::attack_dianogol, this);
-		mAnimator->GetCompleteEvent(L"L_Boss_side_Attack1") = std::bind(&Act1_Boss::attack_side, this);
-		mAnimator->GetCompleteEvent(L"L_Boss_side_Attack2") = std::bind(&Act1_Boss::attack_side, this);
-		mAnimator->GetCompleteEvent(L"R_Boss_side_Attack1") = std::bind(&Act1_Boss::attack_side, this);
-		mAnimator->GetCompleteEvent(L"R_Boss_side_Attack2") = std::bind(&Act1_Boss::attack_side, this);
-
 		Collider* collider = AddComponent<Collider>();
 		collider->SetSize(Vector2(261.0f, 250.0f));
 		Vector2 size = collider->GetSize();
 		collider->SetCenter(Vector2{ (-0.05f) * size.x, (-0.3f) * size.y });
-
-
-		Transform* tr = GetComponent<Transform>();
-		Scene* curScene = SceneManager::GetActiveScene();
-	
-		for (int i = 0; i < 2; i++)
-		{
-			_Down_bullet[i] = new BaseBullet(this);
-			_Down_bullet[i]->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x + 60, tr->GetPos().y + 110 });
-			curScene->AddGameobeject(_Down_bullet[i], jk_LayerType::Bullet);
-			_Down_bullet[i]->SetState(eState::Pause);
-		}
-
-		for (int i = 0; i < 2; i++)
-		{
-			_R_dia_bullet[i] = new Bullet_Act1_R_DIA(this);
-			_R_dia_bullet[i]->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x - 80, tr->GetPos().y + 90 });
-			curScene->AddGameobeject(_R_dia_bullet[i], jk_LayerType::Bullet);
-			_R_dia_bullet[i]->SetState(eState::Pause);
-		}
-
-		for (int i = 0; i < 2; i++)
-		{
-			_L_dia_bullet[i] = new Bullet_Act1_L_DIA(this);
-			_L_dia_bullet[i]->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x + 200, tr->GetPos().y + 90 });
-			curScene->AddGameobeject(_L_dia_bullet[i], jk_LayerType::Bullet);
-			_L_dia_bullet[i]->SetState(eState::Pause);
-		}
-
-
-		for (int i = 0; i < 2; i++)
-		{
-			_L_side_bullet[i] = new Bullet_Act1_L_Side(this);
-			_L_side_bullet[i]->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x + 200, tr->GetPos().y + 50 });
-			curScene->AddGameobeject(_L_side_bullet[i], jk_LayerType::Bullet);
-			_L_side_bullet[i]->SetState(eState::Pause);
-		}
-
-		for (int i = 0; i < 2; i++)
-		{
-			_R_side_bullet[i] = new Bullet_Act1_R_Side(this);
-			_R_side_bullet[i]->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x + 200, tr->GetPos().y + 50 });
-			curScene->AddGameobeject(_R_side_bullet[i], jk_LayerType::Bullet);
-			_R_side_bullet[i]->SetState(eState::Pause);
-		}
 	}
 
 	Act1_Boss::~Act1_Boss()
@@ -265,13 +212,13 @@ namespace jk
 				Damege_sheck += 1;
 				Boss_Hit->Play(false);
 
-				if ((Damege_sheck >= 6) && (mDir == -1))//왼쪽 6대를 기본으로 함
+				if ((Damege_sheck >= 7) && (mDir == -1))//왼쪽 6대를 기본으로 함
 				{
 					mAnimator->Play(L"L_Boss_side", true);
 					mState = eBossState::Death;
 					Death_check = 1;
 				}
-				else if ((Damege_sheck >= 6) && (mDir == 1))//오른쪽
+				else if ((Damege_sheck >= 7) && (mDir == 1))//오른쪽
 				{
 					mAnimator->Play(L"R_Boss_side", true);
 					mState = eBossState::Death;		
@@ -448,7 +395,7 @@ namespace jk
 
 	void Act1_Boss::idle()
 	{
-		time += static_cast<float>(Time::DeltaTime());
+		time += Time::DeltaTime();
 		if (time >= 1)
 		{
 			mState = eBossState::Side_Down;
@@ -625,21 +572,26 @@ namespace jk
 	{
 		if (mDir == -1)
 		{
-			Transform* tr = GetComponent<Transform>();
 			if (attack_check == 0)
 			{
-				_L_side_bullet[0]->SetState(eState::Active);
-				_L_side_bullet[0]->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x + 200, tr->GetPos().y + 50 });
+				Transform* tr = GetComponent<Transform>();
+				Scene* curScene = SceneManager::GetActiveScene();
+				Bullet_Act1_L_Side* bullet = new Bullet_Act1_L_Side(this);
+				bullet->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x + 200, tr->GetPos().y + 50 });
+				curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
 				attack_check = 1;
 			}
 			else if (attack_check == 2)
 			{
-				_L_side_bullet[1]->SetState(eState::Active);
-				_L_side_bullet[1]->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x + 90, tr->GetPos().y + 50 });
+				Transform* tr = GetComponent<Transform>();
+				Scene* curScene = SceneManager::GetActiveScene();
+				Bullet_Act1_L_Side* bullet = new Bullet_Act1_L_Side(this);
+				bullet->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x + 90, tr->GetPos().y + 50 });
+				curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
 				attack_check = 3;
 			}
 		
-			time += static_cast<float>(Time::DeltaTime());
+			time += Time::DeltaTime();
 			if (time >= 2)
 			{
 				if (attack_motion == 0)
@@ -663,20 +615,25 @@ namespace jk
 		}
 		else if (mDir == 1)
 		{
-			Transform* tr = GetComponent<Transform>();
 			if (attack_check == 0)
 			{
-				_R_side_bullet[0]->SetState(eState::Active);
-				_R_side_bullet[0]->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x - 100, tr->GetPos().y + 50 });
+				Transform* tr = GetComponent<Transform>();
+				Scene* curScene = SceneManager::GetActiveScene();
+				Bullet_Act1_R_Side* bullet = new Bullet_Act1_R_Side(this);
+				bullet->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x - 100, tr->GetPos().y + 50 });
+				curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
 				attack_check = 1;
 			}
 			else if (attack_check == 2)
 			{
-				_R_side_bullet[1]->SetState(eState::Active);
-				_R_side_bullet[1]->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x + 30, tr->GetPos().y + 50 });
+				Transform* tr = GetComponent<Transform>();
+				Scene* curScene = SceneManager::GetActiveScene();
+				Bullet_Act1_R_Side* bullet = new Bullet_Act1_R_Side(this);
+				bullet->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x + 30, tr->GetPos().y + 50 });
+				curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
 				attack_check = 3;
 			}
-			time += static_cast<float>(Time::DeltaTime());
+			time += Time::DeltaTime();
 			if (time >= 2)
 			{
 				if (attack_motion == 0)
@@ -702,32 +659,35 @@ namespace jk
 
 	void Act1_Boss::attack_side_waiting()
 	{
- 	//	mAnimator->GetCompleteEvent(L"L_Boss_side_Attack1") = std::bind(&Act1_Boss::attack_side, this);
-		//mAnimator->GetCompleteEvent(L"L_Boss_side_Attack2") = std::bind(&Act1_Boss::attack_side, this);
-		//mAnimator->GetCompleteEvent(L"R_Boss_side_Attack1") = std::bind(&Act1_Boss::attack_side, this);
-		//mAnimator->GetCompleteEvent(L"R_Boss_side_Attack2") = std::bind(&Act1_Boss::attack_side, this);
+ 		mAnimator->GetCompleteEvent(L"L_Boss_side_Attack1") = std::bind(&Act1_Boss::attack_side, this);
+		mAnimator->GetCompleteEvent(L"L_Boss_side_Attack2") = std::bind(&Act1_Boss::attack_side, this);
+		mAnimator->GetCompleteEvent(L"R_Boss_side_Attack1") = std::bind(&Act1_Boss::attack_side, this);
+		mAnimator->GetCompleteEvent(L"R_Boss_side_Attack2") = std::bind(&Act1_Boss::attack_side, this);
 	}
 
 	void Act1_Boss::attack_dianogol()
 	{
 		if(mDir == -1)
 		{
-			Transform* tr = GetComponent<Transform>();
 			if (attack_check == 0)
 			{
-				_L_dia_bullet[0]->SetState(eState::Active);
-				_L_dia_bullet[0]->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x + 200, tr->GetPos().y + 90 });
+				Transform* tr = GetComponent<Transform>();
+				Scene* curScene = SceneManager::GetActiveScene();
+				Bullet_Act1_L_DIA* bullet = new Bullet_Act1_L_DIA(this);
+				bullet->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x + 200, tr->GetPos().y + 90 });
+				curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
 				attack_check = 1;
 			}
 			else if (attack_check == 2)
 			{
-				_L_dia_bullet[1]->SetState(eState::Active);
-				_L_dia_bullet[1]->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x + 90, tr->GetPos().y + 90 });
+				Transform* tr = GetComponent<Transform>();
+				Scene* curScene = SceneManager::GetActiveScene();
+				Bullet_Act1_L_DIA* bullet = new Bullet_Act1_L_DIA(this);
+				bullet->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x + 90, tr->GetPos().y + 90 });
+				curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
 				attack_check = 3;
 			}
-
-
-			time += static_cast<float>(Time::DeltaTime());
+			time += Time::DeltaTime();
 			if (time >= 2)
 			{
 				if (attack_motion == 0)
@@ -762,21 +722,26 @@ namespace jk
 		}
 		else if(mDir == 1)
 		{
-			Transform* tr = GetComponent<Transform>();		
 			if (attack_check == 0)
-			{				
-				_R_dia_bullet[0]->SetState(eState::Active);
-				_R_dia_bullet[0]->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x -80, tr->GetPos().y + 90 });
+			{
+				Transform* tr = GetComponent<Transform>();
+				Scene* curScene = SceneManager::GetActiveScene();
+				Bullet_Act1_R_DIA* bullet = new Bullet_Act1_R_DIA(this);
+				bullet->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x -80, tr->GetPos().y + 90 });
+				curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
 				attack_check = 1;
 			}
 			if (attack_check == 2)
 			{
-				_R_dia_bullet[1]->SetState(eState::Active);
-				_R_dia_bullet[1]->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x +70, tr->GetPos().y + 90 });
+				Transform* tr = GetComponent<Transform>();
+				Scene* curScene = SceneManager::GetActiveScene();
+				Bullet_Act1_R_DIA* bullet = new Bullet_Act1_R_DIA(this);
+				bullet->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x +70, tr->GetPos().y + 90 });
+				curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
 				attack_check = 3;
 			}
 
-			time += static_cast<float>(Time::DeltaTime());
+			time += Time::DeltaTime();
 			if (time >= 2)
 			{
 				if (attack_motion == 0)
@@ -813,27 +778,32 @@ namespace jk
 
 	void Act1_Boss::attack_dianogol_waition()
 	{		
-		//mAnimator->GetCompleteEvent(L"L_Boss_dianogol_Attack1") = std::bind(&Act1_Boss::attack_dianogol, this);
-		//mAnimator->GetCompleteEvent(L"L_Boss_dianogol_Attack2") = std::bind(&Act1_Boss::attack_dianogol, this);
-		//mAnimator->GetCompleteEvent(L"R_Boss_dianogol_Attack1") = std::bind(&Act1_Boss::attack_dianogol, this);
-		//mAnimator->GetCompleteEvent(L"R_Boss_dianogol_Attack2") = std::bind(&Act1_Boss::attack_dianogol, this);
+		mAnimator->GetCompleteEvent(L"L_Boss_dianogol_Attack1") = std::bind(&Act1_Boss::attack_dianogol, this);
+		mAnimator->GetCompleteEvent(L"L_Boss_dianogol_Attack2") = std::bind(&Act1_Boss::attack_dianogol, this);
+		mAnimator->GetCompleteEvent(L"R_Boss_dianogol_Attack1") = std::bind(&Act1_Boss::attack_dianogol, this);
+		mAnimator->GetCompleteEvent(L"R_Boss_dianogol_Attack2") = std::bind(&Act1_Boss::attack_dianogol, this);
 	}
 
 	void Act1_Boss::attack_down()
 	{
 		if (mDir == -1)
 		{
-			Transform* tr = GetComponent<Transform>();
+			//미사일 넣기
 			if(attack_check == 0)
-			{			
-				_Down_bullet[0]->SetState(eState::Active);
-				_Down_bullet[0]->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x + 60, tr->GetPos().y + 110 });
+			{
+				Transform* tr = GetComponent<Transform>();
+				Scene* curScene = SceneManager::GetActiveScene();
+				BaseBullet* bullet[2];
+				bullet[0] = new BaseBullet(this);
+				bullet[0]->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x + 60, tr->GetPos().y + 110 });
+				curScene->AddGameobeject(bullet[0], jk_LayerType::Bullet);
 
-				_Down_bullet[1]->SetState(eState::Active);
-				_Down_bullet[1]->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x + 200, tr->GetPos().y + 110 });
+				bullet[1] = new BaseBullet(this);
+				bullet[1]->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x + 200, tr->GetPos().y + 110 });
+				curScene->AddGameobeject(bullet[1], jk_LayerType::Bullet);
 				attack_check = 1;
 			}			
-			time += static_cast<float>(Time::DeltaTime());
+			time += Time::DeltaTime();
 			if (time >= 2)
 			{
 				mState = eBossState::Move;
@@ -844,7 +814,7 @@ namespace jk
 		}
 		else if (mDir == 1)
 		{
-			time += static_cast<float>(Time::DeltaTime());;
+			time += Time::DeltaTime();
 			if (time >= 3)
 			{
 				mState = eBossState::Side_Down;
@@ -861,8 +831,8 @@ namespace jk
 
 	void Act1_Boss::attack_down_waition()
 	{
-		//mAnimator->GetCompleteEvent(L"L_Boss_down_Attack") = std::bind(&Act1_Boss::attack_down, this);
-		//mAnimator->GetCompleteEvent(L"R_Boss_down_Attack") = std::bind(&Act1_Boss::attack_down, this);
+		mAnimator->GetCompleteEvent(L"L_Boss_down_Attack") = std::bind(&Act1_Boss::attack_down, this);
+		mAnimator->GetCompleteEvent(L"R_Boss_down_Attack") = std::bind(&Act1_Boss::attack_down, this);
 	}
 
 	void Act1_Boss::hurt_down()
@@ -997,25 +967,29 @@ namespace jk
 		Collider* collider = GetComponent<Collider>();
 		collider->SetSize(Vector2(0.0f, 0.0f));
 
-		Transform* tr = GetComponent<Transform>();
-		Scene* curScene = SceneManager::GetActiveScene();
+
 		if (Death_check == 1)
-		{						
+		{
+			Transform* tr = GetComponent<Transform>();
+			Scene* curScene = SceneManager::GetActiveScene();
 			Boss_act1_boomb* boss_boomb = new Boss_act1_boomb(this);
 			boss_boomb->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x , tr->GetPos().y });
 			curScene->AddGameobeject(boss_boomb, jk_LayerType::Effect);
-			time += static_cast<float>(Time::DeltaTime());
+			time += Time::DeltaTime();
 			Death_check = 2;
 		}
 
 
-		time += static_cast<float>(Time::DeltaTime());
+		time += Time::DeltaTime();
 		if ((Death_check ==2)&&(time >= 3))
 		{
+			Transform* tr = GetComponent<Transform>();
+			Scene* curScene = SceneManager::GetActiveScene();
 			boss_run = new Boss_Run(this);
 			boss_run->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x , tr->GetPos().y });
 			curScene->AddGameobeject(boss_run, jk_LayerType::BOSS);
 			time = 0;
+			//object::Destory(this);
 
 			mState = eBossState::Death_throw;
 			mAnimator->Play(L"Body_pice",false);
@@ -1024,7 +998,8 @@ namespace jk
 
 	void Act1_Boss::death_throw()
 	{
-		mRigidbody->SetGround(false);
+		mRigidbody = AddComponent<Rigidbody>();
+		mRigidbody->SetMass(1.f);
 		mRigidbody->SetVelocity(Vector2{ 0.f,500.f });
 
 

@@ -319,8 +319,14 @@ namespace jk
 		{
 			Vector2 Sky_Pos = sky1->GetComponent<Transform>()->GetPos();
 		
-				Sky_Pos.x -= 50 * static_cast<float>(Time::DeltaTime());
-				Sky_Pos.y += 20 * static_cast<float>(Time::DeltaTime());
+				Sky_Pos.x -= 50 * Time::DeltaTime();
+				Sky_Pos.y += 20 * Time::DeltaTime();
+			
+			//else if (mSonic->GetComponent<Transform>()->GetPos().x >= 19400.f)
+			//{
+			//	Sky_Pos.x += 50 * Time::DeltaTime();
+			//	Sky_Pos.y += 20 * Time::DeltaTime();
+			//}
 
 			sky1->GetComponent<Transform>()->SetPos(Sky_Pos);
 		}
@@ -331,7 +337,7 @@ namespace jk
 
 			if (BOSS3_Start == 3)
 			{
-				time += static_cast<float>(Time::DeltaTime());
+				time += Time::DeltaTime();
 				if (time > 5)
 				{
 					Create_Boss3();					
@@ -380,7 +386,7 @@ namespace jk
 			}
 			if (stage_final->Get_end_Stage() == 2)
 			{
-				time += static_cast<float>(Time::DeltaTime());
+				time += Time::DeltaTime();
 				if (time > 4)
 				{
 					ending_boss();
@@ -442,7 +448,7 @@ namespace jk
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Player2, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::MiniBoss, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::BOSS, true);
-		CollisionManager::SetLayer(jk_LayerType::MiniBoss, jk_LayerType::BOSS, true);
+		CollisionManager::SetLayer(jk_LayerType::BOSS, jk_LayerType::BOSS, true);
 
 
 
@@ -464,7 +470,7 @@ namespace jk
 		Boss_start->Play(true);
 		boss_come* boss_run = new boss_come(mSonic);
 		boss_run->SetName(L"boss_run");
-		AddGameobeject(boss_run, jk_LayerType::MiniBoss);
+		AddGameobeject(boss_run, jk_LayerType::BOSS);
 		boss_run->GetComponent<Transform>()->SetPos(Vector2{ 6607.f, 5265.f });
 		boss_run->SetCheckTargetGround(playgr);
 	}

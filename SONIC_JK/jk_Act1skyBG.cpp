@@ -36,8 +36,7 @@ namespace jk
 		Vector2 pos = tr->GetPos();		
 		tr->SetPos(pos);	
 		Vector2 mpos = Camera::CaluatePos(pos);
-		TransparentBlt(hdc, static_cast<int>(mpos.x /3.f), static_cast<int>(mpos.y), 11515, 1026,
-			mImage->GetHdc(), 33,15 , 11515, 1026, RGB(13, 72, 7));
+		TransparentBlt(hdc, mpos.x /3.f,  mpos.y, 11515, 1026, mImage->GetHdc(), 33,15 , 11515, 1026, RGB(13, 72, 7));
 	}
 	void Act1skyBG::Release()
 	{

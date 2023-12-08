@@ -30,8 +30,8 @@ namespace jk
 	{
 		mImage = Resources::Load<Image>(L"Ring_fall", L"..\\Resources\\Ring.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"Ring_turn", mImage, Vector2(128, 303), Vector2(20, 16), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1f);
-		mAnimator->CreateAnimation(L"Ring_Eat", mImage, Vector2(128, 323), Vector2(20, 16), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"Ring_turn", mImage, Vector2(128, 303), Vector2(20, 16), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"Ring_Eat", mImage, Vector2(128, 323), Vector2(20, 16), Vector2(4, 0), 4, 1, 4, Vector2::Zero, 0.1);
 		mAnimator->Play(L"Ring_turn", true);
 		
 		
@@ -78,15 +78,15 @@ namespace jk
 		if (ring_TR && ring_rb && mGroundImage)
 		{
 			Vector2 Ring_ps = ring_TR->GetPos();
-			COLORREF RING_Color = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(Ring_ps.x), static_cast<int>(Ring_ps.y)));
+			COLORREF RING_Color = mGroundImage->GetPixel(Ring_ps.x, Ring_ps.y);
 			if (RING_Color == RGB(0, 0, 0))
 			{
-				RING_Color = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(Ring_ps.x), static_cast<int>(Ring_ps.y)));
+				COLORREF RING_Color = mGroundImage->GetPixel(Ring_ps.x, Ring_ps.y);
 
 				while (RING_Color == RGB(0, 0, 0))
 				{
 					Ring_ps.y -= 1;
-					RING_Color = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(Ring_ps.x), static_cast<int>(Ring_ps.y)));
+					RING_Color = mGroundImage->GetPixel(Ring_ps.x, Ring_ps.y);
 					ring_TR->SetPos(Ring_ps);
 					ring_rb->SetGround(true);
 					check_ground = 1;
@@ -102,7 +102,7 @@ namespace jk
 		
 			if (check_ground > 0)
 			{
-				timer += static_cast<float>(Time::DeltaTime());
+				timer += Time::DeltaTime();
 				if (timer >= 30)
 				{
 					jk::object::Destory(this); 

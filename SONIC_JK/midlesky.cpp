@@ -32,7 +32,7 @@ namespace jk
 			tr->SetPos(pos);
 			Vector2 mpos = Camera::CaluatePos(pos);
 		
-			TransparentBlt(hdc, static_cast<int>(mpos.x / 3.f), static_cast<int>(mpos.y), 15166, 48,
+			TransparentBlt(hdc, mpos.x / 3.f, mpos.y, 15166, 48,
 				mImage->GetHdc(), 0, 34, 15166, 48, RGB(13, 72, 7));
 	}
 	void midlesky::Release()

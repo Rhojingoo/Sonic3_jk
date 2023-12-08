@@ -1,5 +1,7 @@
 #include "boss1_object.h"
-
+#include "boss_come.h"
+#include "boss1_body.h"
+#include "act6_bullet1.h"
 
 #include "jk_SceneManager.h"
 #include "jk_Resources.h"
@@ -32,8 +34,6 @@ namespace jk
 		, mGroundImage(nullptr)
 		, mAnimator(nullptr)
 		, mRigidbody(nullptr)
-		, mCollider(nullptr)
-		, bullet(nullptr)
 		
 	{
 		boss = dynamic_cast<boss1_body*>(owner);
@@ -43,27 +43,9 @@ namespace jk
 		mImage = Resources::Load<Image>(L"First_boss", L"..\\Resources\\ActBG_6\\BOSS\\First_boss.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"boss1_idle_ob", mImage, Vector2{ 665,509 }, Vector2{ 52,48 }, Vector2{ 4,0 }, 1, 1, 1, Vector2::Zero, 0.3f);
-		mAnimator->CreateAnimation(L"Boss1_OPEN_Up", mImage, Vector2{ 665,509 }, Vector2{ 52,48 }, Vector2{ 4,0 }, 4, 1, 4, Vector2::Zero, 0.3f);
-		mAnimator->CreateAnimation(L"Boss1_OPEN_Down", mImage, Vector2{ 665,509 }, Vector2{ 52,48 }, Vector2{ 4,0 }, 4, 1, 4, Vector2::Zero, 0.3f);
-				mAnimator->CreateAnimation(L"Boss1_CLOSE", mImage, Vector2{ 665,453 }, Vector2{ 52,48 }, Vector2{ 4,0 }, 4, 1, 4, Vector2::Zero, 0.3f);
+		mAnimator->CreateAnimation(L"Boss1_OPEN", mImage, Vector2{ 665,509 }, Vector2{ 52,48 }, Vector2{ 4,0 }, 4, 1, 4, Vector2::Zero, 0.3f);
+		mAnimator->CreateAnimation(L"Boss1_CLOSE", mImage, Vector2{ 665,453 }, Vector2{ 52,48 }, Vector2{ 4,0 }, 4, 1, 4, Vector2::Zero, 0.3f);
 
-		mAnimator->GetCompleteEvent(L"Boss1_OPEN_Up") = std::bind(&boss1_object::attack_up, this);
-		mAnimator->GetCompleteEvent(L"Boss1_OPEN_Down") = std::bind(&boss1_object::attack_down, this);
-
-		mCollider = AddComponent<Collider>();
-		mCollider->SetSize(Vector2(0.0f, 0.0f));
-		Vector2 size = mCollider->GetSize();
-		mCollider->SetCenter(Vector2{ (-0.18f) * size.x, (-0.85f) * size.y });
-
-
-		Scene* curScene = SceneManager::GetActiveScene();
-		bullet = new act6_bullet1();
-		bullet->SetName(L"bullet_boss1");
-		bullet->SetState(eState::Active);
-		//bullet->GetComponent<Transform>()->SetPos(Vector2{ pos.x + 52.f, pos.y + 50 });
-		bullet->SetGroundImage(mGroundImage);
-		curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
-		bullet->SetState(eState::Pause);
 	}
 
 	boss1_object::~boss1_object()
@@ -139,8 +121,8 @@ namespace jk
 
 			Collider* mSonic_Col = mSonic->GetComponent<Collider>();
 			Vector2 mSonic_Pos = mSonic_Col->Getpos();
-		
-			Vector2 groundPos = mCollider->Getpos();
+			Collider* groundCol = this->GetComponent<Collider>();
+			Vector2 groundPos = groundCol->Getpos();
 			Transform* sonicTr = mSonic->GetComponent<Transform>();
 			Transform* grTr = this->GetComponent<Transform>();
 			Vector2 sonic_Pos = sonicTr->GetPos();
@@ -152,7 +134,7 @@ namespace jk
 
 			if (!((mSonic->Getsonicstate() == Sonic::eSonicState::Jump) || (mSonic->Getsonicstate() == Sonic::eSonicState::Hurt)))
 			{
-				sonic_Pos.y = mCollider->Getpos().y - mCollider->GetSize().y - 50;
+				sonic_Pos.y = groundCol->Getpos().y - groundCol->GetSize().y - 50;
 				sonicTr->SetPos(sonic_Pos);
 			}			
 			else
@@ -182,29 +164,20 @@ namespace jk
 		if (mDir == 1)
 		{
 			mState = eBossState::Up;
-			if (attack_check == 1)
-			{
-				mAnimator->Play(L"Boss1_OPEN_Up", false);
-				attack_check = -1;				
-			}
+			mAnimator->Play(L"Boss1_OPEN", false);
 
-			else if (attack_check == -1)
-			{
-				mAnimator->Play(L"Boss1_OPEN_Down", false);
-				attack_check = 1;			
-			}	
-
-			mCollider->SetSize(Vector2(144.0f, 60.0f));
-			Vector2 size = mCollider->GetSize();
-			mCollider->SetCenter(Vector2{ (-0.18f) * size.x, (-0.85f) * size.y });
+			Collider* collider = AddComponent<Collider>();
+			collider->SetSize(Vector2(144.0f, 60.0f));
+			Vector2 size = collider->GetSize();
+			collider->SetCenter(Vector2{ (-0.18f) * size.x, (-0.85f) * size.y });
 		}
 		else if(mDir ==0)
 		{
 			mState = eBossState::Down;
 			mAnimator->Play(L"Boss1_CLOSE", false);
 
-			mCollider = GetComponent<Collider>();
-			mCollider->SetSize(Vector2(0.f, 0.0f));
+			Collider* collider = GetComponent<Collider>();
+			collider->SetSize(Vector2(0.f, 0.0f));			
 		}
 	}
 	
@@ -213,23 +186,27 @@ namespace jk
 	{
 		if (attack_lotation == 0)
 		{
-			attack_lotation = 1;
-		}	
-		if (bullet_check >= 1)
-		{
-			time += static_cast<float>(Time::DeltaTime());
-			if (time >= 3)
+			if (attack_check == 1)
 			{
-				mState = eBossState::Idle;
-				time = 0;
-				bullet_check = 0;
+				mAnimator->GetCompleteEvent(L"Boss1_OPEN") = std::bind(&boss1_object::attack_up, this);
+				attack_check = -1;
 				mDir = 0;
 			}
-		}
+
+			else if (attack_check == -1)
+			{		
+				mAnimator->GetCompleteEvent(L"Boss1_OPEN") = std::bind(&boss1_object::attack_down, this);
+				attack_check = 1;
+				mDir = 0;					
+			}
+			attack_lotation = 1;
+		}	
 	}
+
+
 	void boss1_object::down()
 	{
-		time += static_cast<float>(Time::DeltaTime());
+		time += static_cast<int>(Time::DeltaTime());
 		if (time >= 3)
 		{
 			mState = eBossState::Idle;		
@@ -244,13 +221,27 @@ namespace jk
 		if (bullet_check == 0)
 		{
 			Bullet1->Play(false);
-			bullet->SetState(eState::Active);
+
+			Scene* curScene = SceneManager::GetActiveScene();
+			act6_bullet1* bullet = new act6_bullet1();
+			bullet->SetName(L"bullet_boss1");
 			bullet->GetComponent<Transform>()->SetPos(Vector2{ pos.x + 52.f, pos.y - 100.f });
 			bullet->SetGroundImage(mGroundImage);
+
+			curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
+
 			bullet->GetComponent<Rigidbody>()->SetVelocity(Vector2{ -550.f,-150.f });
 			bullet->GetComponent<Rigidbody>()->SetGround(false);
 	
-			bullet_check = 1;			
+			bullet_check = 1;
+		}
+		time += static_cast<int>(Time::DeltaTime());
+		if (time >= 3)
+		{
+			mState = eBossState::Idle;
+			time = 0;
+			bullet_check = 0;
+
 		}
 	}
 
@@ -259,8 +250,14 @@ namespace jk
 		if (bullet_check == 0)
 		{
 			Bullet1->Play(false);
-			bullet->SetState(eState::Active);
+
+			Scene* curScene = SceneManager::GetActiveScene();
+			act6_bullet1* bullet = new act6_bullet1();
+			bullet->SetName(L"bullet_boss1");
 			bullet->GetComponent<Transform>()->SetPos(Vector2{ pos.x + 52.f, pos.y + 50 });
+			bullet->SetGroundImage(mGroundImage);
+			curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
+
 			bullet->GetComponent<Rigidbody>()->SetVelocity(Vector2{ -550.f,0.f });
 			bullet->GetComponent<Rigidbody>()->SetGround(false);
 
@@ -274,7 +271,6 @@ namespace jk
 			mState = eBossState::Idle;
 			time = 0;
 			bullet_check = 0;
-			mDir = 0;
 		}
 	}
 }

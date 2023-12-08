@@ -36,7 +36,7 @@ namespace jk
 	{
 		mImage = Resources::Load<Image>(L"Rock_Platform2", L"..\\Resources\\Rock_Platform.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"small_gr", mImage, Vector2(660, 682), Vector2(64, 40), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"small_gr", mImage, Vector2(660, 682), Vector2(64, 40), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
 		mAnimator->Play(L"small_gr", true);
 
 

@@ -30,9 +30,9 @@ namespace jk
 	{
 		mAnimator = AddComponent<Animator>();
 		mImage = Resources::Load<Image>(L"Opening_BG", L"..\\Resources\\Title\\OPEN_BG.bmp");
-		mAnimator->CreateAnimation(L"TitleBegin", mImage, Vector2(8, 472), Vector2(328, 232), Vector2(8, 8), 4, 4, 16, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"TitleBegin", mImage, Vector2(8, 472), Vector2(328, 232), Vector2(8, 8), 4, 4, 16, Vector2::Zero, 0.1);
 		mImage = Resources::Load<Image>(L"Titlesonic_BG", L"..\\Resources\\Title\\OPEN_BG2.bmp");
-		mAnimator->CreateAnimation(L"TitleSonic", mImage, Vector2(8, 936), Vector2(328, 232), Vector2(8, 8), 4, 2, 8, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"TitleSonic", mImage, Vector2(8, 936), Vector2(328, 232), Vector2(8, 8), 4, 2, 8, Vector2::Zero, 0.1);
 		mAnimator->Play(L"TitleBegin", false);				
 		mAnimator->GetCompleteEvent(L"TitleBegin") = std::bind(&Titlesonic::startscene, this);
 

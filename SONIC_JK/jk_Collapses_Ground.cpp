@@ -36,7 +36,7 @@ namespace jk
 
 		mImage = Resources::Load<Image>(L"Ground_collapses", L"..\\Resources\\Rock_Platform.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"Ground_collapses", mImage, Vector2(500, 562), Vector2(96, 64), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"Ground_collapses", mImage, Vector2(500, 562), Vector2(96, 64), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
 		mAnimator->Play(L"Ground_collapses", true);
 
 
@@ -165,7 +165,7 @@ namespace jk
 
 		if (check_Gr == 1)
 		{
-			time_Gr += static_cast<float>(Time::DeltaTime());
+			time_Gr += Time::DeltaTime();
 			if (time_Gr >= 1)
 			{
 				mState = eState::Death;				

@@ -180,7 +180,7 @@ namespace jk
 		if (fDist_x >= 300.0f)
 		{
 			mState = eSnake::Left;
-			mDir_x = mDir_x * -1;
+			mDir_x * -1;
 			mAnimator->Play(L"LSnake_head", true);
 		}
 
@@ -210,7 +210,7 @@ namespace jk
 		if (fDist_x <= -100.0f)
 		{
 			mState = eSnake::Right;
-			mDir_x = mDir_x * -1;
+			mDir_x * -1;
 			mAnimator->Play(L"RSnake_head", true);
 		}
 		tr->SetPos(pos);

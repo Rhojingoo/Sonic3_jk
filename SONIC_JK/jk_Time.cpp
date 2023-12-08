@@ -23,7 +23,7 @@ namespace jk
 	{
 		QueryPerformanceCounter(&mCurFrequency);
 
-		double differnceFrequency = static_cast<double>(mCurFrequency.QuadPart - mPrevFrequency.QuadPart);
+		double differnceFrequency = mCurFrequency.QuadPart - mPrevFrequency.QuadPart;
 
 	
 		

@@ -21,7 +21,7 @@ namespace jk
 	{
 		mAnimator = AddComponent<Animator>();
 		mImage = Resources::Load<Image>(L"act1_flower2", L"..\\Resources\\act1_flower.bmp");
-		mAnimator->CreateAnimation(L"act1_flower2", mImage, Vector2(26, 113), Vector2(24, 24), Vector2(8, 0), 5, 1, 5, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"act1_flower2", mImage, Vector2(26, 113), Vector2(24, 24), Vector2(8, 0), 5, 1, 5, Vector2::Zero, 0.1);
 		mAnimator->Play(L"act1_flower2", true);
 		Gameobject::Initialize();
 	}

@@ -27,8 +27,8 @@ namespace jk
 	{
 		mImage = Resources::Load<Image>(L"Item", L"..\\Resources\\Item.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"Fire_Item", mImage, Vector2(528, 131), Vector2(32, 32), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
-		mAnimator->CreateAnimation(L"ItemDeath", mImage, Vector2(460, 216), Vector2(32, 16), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"Fire_Item", mImage, Vector2(528, 131), Vector2(32, 32), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"ItemDeath", mImage, Vector2(460, 216), Vector2(32, 16), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
 		mAnimator->Play(L"Fire_Item", true);
 		Collider* collider = AddComponent<Collider>();
 		collider->SetSize(Vector2(90.0f, 85.0f));

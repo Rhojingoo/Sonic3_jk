@@ -114,7 +114,7 @@ namespace jk
 
 		if (Boomb_point == 2)
 		{
-			secondtime += static_cast<float>(Time::DeltaTime());
+			secondtime += Time::DeltaTime();
 			if (secondtime > 2)
 			{
 				Create_RunBoss();
@@ -392,7 +392,7 @@ namespace jk
 		}
 		else if(Boomb_point == 1 )
 	 	 {		
-			time += static_cast<float>(Time::DeltaTime());
+			time += Time::DeltaTime();
 			if (time >= 2)
 			{
 				mRigidbody = AddComponent<Rigidbody>();

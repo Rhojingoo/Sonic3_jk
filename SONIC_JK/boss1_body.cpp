@@ -58,17 +58,15 @@ namespace jk
 		mAnimator->CreateAnimation(L"Boss1_death", mImage, Vector2{ 324,378 }, Vector2{ 64,48 }, Vector2{ 0,0 }, 1, 1, 1, Vector2::Zero, 0.5f);
 		mAnimator->Play(L"Boss1_open", true);
 
+
 		mAnimator->GetCompleteEvent(L"Boss1_up") = std::bind(&boss1_body::idle, this);
 		mAnimator->GetCompleteEvent(L"Boss1_hurt") = std::bind(&boss1_body::idle, this);
 
-		mRigidbody = AddComponent<Rigidbody>();
-		mRigidbody->SetMass(1.0f);
-		mRigidbody->SetGround(true);
 
-		mCollider = AddComponent<Collider>();
-		mCollider->SetSize(Vector2(180.0f, 60.0f));
-		Vector2 size = mCollider->GetSize();
-		mCollider->SetCenter(Vector2{ (-0.1f) * size.x, (2.3f) * size.y });
+		Collider* collider = AddComponent<Collider>();
+		collider->SetSize(Vector2(180.0f, 60.0f));
+		Vector2 size = collider->GetSize();
+		collider->SetCenter(Vector2{ (-0.1f) * size.x, (2.3f) * size.y });
 	
 
 		Gameobject::Initialize();
@@ -151,13 +149,13 @@ namespace jk
 				Boss_Hit->Play(false);
 				
 
-				if (Damege_check <= 5)
+				if (Damege_check <= 6)
 				{
 					hurt();
 					mAnimator->Play(L"Boss1_hurt", false);
 				}
 
-				if (Damege_check >= 6)
+				if (Damege_check >= 7)
 				{
 					mAnimator->Play(L"Boss1_death", true);
 					mState = eBossState::Death;					
@@ -190,12 +188,13 @@ namespace jk
 
 	void boss1_body::death()
 	{
-		mCollider =GetComponent<Collider>();
-		mCollider->SetSize(Vector2(0.0f, 0.0f));
+		Collider* collider =GetComponent<Collider>();
+		collider->SetSize(Vector2(0.0f, 0.0f));
 
 		Boss_Start->Stop(true);		
 		Boss_Bomb->Play(false);
-				
+
+		Boss_act1_boomb* boomb = new Boss_act1_boomb(this);
 		if (Death_point == 0)
 		{
 			Scene* curScene1 = SceneManager::GetActiveScene();
@@ -210,11 +209,13 @@ namespace jk
 
 		else if (Death_point == 1)
 		{
-			time += static_cast<float>(Time::DeltaTime());
+			time += Time::DeltaTime();
 			if (time >= 3)
 			{
-				mRigidbody->SetGround(false);
+				mRigidbody = AddComponent<Rigidbody>();
+				mRigidbody->SetMass(1.0f);
 				mRigidbody->SetVelocity(Vector2{ 0.f,-1500.f });
+				mRigidbody->SetGround(false);
 				boss_ob->Set_Deathpoint(Death_point);
 			}
 		}

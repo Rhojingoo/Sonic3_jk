@@ -28,8 +28,7 @@ namespace jk
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();	
 		Vector2 mpos = Camera::CaluatePos(pos);
-		TransparentBlt(hdc, static_cast<int>(mpos.x / 3.f), static_cast<int>(mpos.y), static_cast<int>(14064.f), static_cast<int>(45.f),
-			mImage->GetHdc(), static_cast<int>(0.f), static_cast<int>(0.f), static_cast<int>(14064.f), static_cast<int>(45.f), RGB(13, 72, 7));
+		TransparentBlt(hdc, mpos.x / 3.f, mpos.y, 14064.f, 45.f, mImage->GetHdc(), 0.f, 0.f, 14064.f, 45.f, RGB(13, 72, 7));
 
 		Gameobject::Render(hdc);
 	}

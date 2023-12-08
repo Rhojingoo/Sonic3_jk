@@ -48,6 +48,7 @@ namespace jk
 
 	Canon_Bullet::~Canon_Bullet()
 	{
+		Cannon;
 	}
 
 	void Canon_Bullet::Initialize()

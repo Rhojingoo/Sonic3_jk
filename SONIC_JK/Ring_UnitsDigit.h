@@ -22,6 +22,6 @@ namespace jk
 		Ring_Point_Manager* Units;
 		Image* mImage;
 
-		int UnitsDigit;
+		float UnitsDigit;
 	};
 }

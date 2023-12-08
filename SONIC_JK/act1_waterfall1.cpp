@@ -19,7 +19,7 @@ namespace jk
 	{
 		mAnimator = AddComponent<Animator>();
 		mImage = Resources::Load<Image>(L"act1_waterfall_1", L"..\\Resources\\act1_waterfall_1.bmp");
-		mAnimator->CreateAnimation(L"act1_waterfall_1", mImage, Vector2(0, 0), Vector2(713, 1072), Vector2(8, 0), 4, 1, 4, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"act1_waterfall_1", mImage, Vector2(0, 0), Vector2(713, 1072), Vector2(8, 0), 4, 1, 4, Vector2::Zero, 0.1);
 		mAnimator->Play(L"act1_waterfall_1", true);
 		Gameobject::Initialize();
 
