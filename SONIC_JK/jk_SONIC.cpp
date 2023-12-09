@@ -4207,7 +4207,7 @@ namespace jk
 
 					if (mRigidbody->GetGround())
 					{
-						mState = eSonicState::Idle();
+						mState = eSonicState::Idle;
 						mAnimator->Play(L"RSonicStand", true);
 					}
 			
@@ -4252,7 +4252,7 @@ namespace jk
 
 				if (mRigidbody->GetGround())
 				{
-					mState = eSonicState::Idle();
+					mState = eSonicState::Idle;
 					mAnimator->Play(L"RSonicStand", true);
 				}
 			}
