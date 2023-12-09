@@ -21,7 +21,7 @@ namespace jk
 		, angle(45)
 		, mImage(nullptr)
 		, mAnimator(nullptr)
-	{	
+	{
 	}
 	Jeep_line_Handle::~Jeep_line_Handle()
 	{
@@ -30,7 +30,7 @@ namespace jk
 	{
 		mImage = Resources::Load<Image>(L"Jeep_line_Head", L"..\\Resources\\Rock_Platform.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"Jeep_line_Head", mImage, Vector2(73, 562), Vector2(24, 8), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"Jeep_line_Head", mImage, Vector2(73, 562), Vector2(24, 8), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
 
 		mAnimator->Play(L"Jeep_line_Head", false);
 
@@ -53,7 +53,7 @@ namespace jk
 
 		if (mDir_x == 1)
 		{
-			angle += 10 * Time::DeltaTime() * 10;
+			angle += 10 * static_cast<float>(Time::DeltaTime()) * 10.f;
 			if (angle > 135)
 			{
 				mDir_x = -1;
@@ -61,14 +61,14 @@ namespace jk
 		}
 		else if (mDir_x == -1)
 		{
-			angle -= 10 * Time::DeltaTime() * 10;
+			angle -= 10 * static_cast<float>(Time::DeltaTime()) * 10.f;
 			if (angle < 45)
 			{
 				mDir_x = 1;
 			}
 		}
 
-		float radian = angle * 3.14f / 180.0;
+		float radian = angle * 3.14f / 180.0f;
 
 		float x = centerX + radius * cos(radian);
 		float y = centerY + radius * sin(radian);
@@ -122,7 +122,7 @@ namespace jk
 		{
 			Jeepline_state = 1;
 		}
-		
+
 
 		tr->SetPos(pos);
 
@@ -174,24 +174,23 @@ namespace jk
 			if (!((mSonic->Getsonicstate() == Sonic::eSonicState::Jump) || (mSonic->Getsonicstate() == Sonic::eSonicState::Hurt)))
 			{
 				sonic_Pos = pos;
-				sonicTr->SetPos(sonic_Pos);				
+				sonicTr->SetPos(sonic_Pos);
 			}
 			else
 			{
 				rb->SetGround(false);
-				Vector2 velocity = rb->GetVelocity();				
+				Vector2 velocity = rb->GetVelocity();
 				velocity.x += 20.f;
 				velocity.y -= 30.f;
 				rb->SetVelocity(velocity);
 				rb->SetGround(false);
 				sonic_Pos = sonicTr->GetPos();
-				sonic_Pos = sonic_Pos + Vector2{ 10.f ,-15.f } ;
+				sonic_Pos = sonic_Pos + Vector2{ 10.f ,-15.f };
 				sonicTr->SetPos(sonic_Pos);
-			}		
-		}	
+			}
+		}
 	}
 	void Jeep_line_Handle::OnCollisionExit(Collider* other)
 	{
-	}  
-}		   
-    
+	}
+}

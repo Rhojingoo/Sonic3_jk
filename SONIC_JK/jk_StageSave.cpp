@@ -24,8 +24,8 @@ namespace jk
 	{
 		mImage = Resources::Load<Image>(L"save", L"..\\Resources\\Stagesave.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"saveidle", mImage, Vector2(24, 196), Vector2(48, 72), Vector2(8, 8), 1, 1, 1, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"save", mImage, Vector2(24, 196), Vector2(48, 72), Vector2(8, 8), 4, 4, 12, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"saveidle", mImage, Vector2(24, 196), Vector2(48, 72), Vector2(8, 8), 1, 1, 1, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"save", mImage, Vector2(24, 196), Vector2(48, 72), Vector2(8, 8), 4, 4, 12, Vector2::Zero, 0.1f);
 		mAnimator->Play(L"saveidle", true);
 
 		Collider* collider = AddComponent<Collider>();
@@ -52,7 +52,7 @@ namespace jk
 	}
 
 	void StageSave::OnCollisionEnter(Collider* other)
-	{		
+	{
 		mAnimator->Play(L"save", true);
 	}
 
@@ -61,7 +61,7 @@ namespace jk
 	}
 
 	void StageSave::OnCollisionExit(Collider* other)
-	{		
+	{
 		mAnimator->Play(L"saveidle", true);
 	}
 }

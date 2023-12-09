@@ -16,7 +16,7 @@ namespace jk
 	void Act1_3_BG::Initialize()
 	{
 		mImage = Resources::Load<Image>(L"BG_Act1_3", L"..\\Resources\\ActBG_1_3\\BG_Act1_3.bmp");
-	
+
 		Gameobject::Initialize();
 	}
 	void Act1_3_BG::Update()
@@ -28,7 +28,8 @@ namespace jk
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 		Vector2 mpos = pos - (Camera::CaluatePos(pos) - pos);
-		TransparentBlt(hdc, 0, 0, 1200, 840, mImage->GetHdc(), mpos.x, mpos.y, 1200, 840, RGB(4, 20, 83));
+		TransparentBlt(hdc, 0, 0, 1200, 840, mImage->GetHdc(),
+			static_cast<int>(mpos.x), static_cast<int>(mpos.y), 1200, 840, RGB(4, 20, 83));
 
 		Gameobject::Render(hdc);
 	}

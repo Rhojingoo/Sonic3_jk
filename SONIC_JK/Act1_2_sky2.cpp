@@ -27,11 +27,12 @@ namespace jk
 	}
 
 	void Act1_2_sky2::Render(HDC hdc)
-	{		
+	{
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 		Vector2 mpos = Camera::CaluatePos(pos);
-		TransparentBlt(hdc, mpos.x, mpos.y, 14064, 897, mImage->GetHdc(), 0, 0, 14064, 897, RGB(0, 0, 0));
+		TransparentBlt(hdc, static_cast<int>(mpos.x), static_cast<int>(mpos.y), 14064, 897,
+			mImage->GetHdc(), 0, 0, 14064, 897, RGB(0, 0, 0));
 		Gameobject::Render(hdc);
 	}
 

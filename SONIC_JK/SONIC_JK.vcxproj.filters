@@ -823,7 +823,7 @@
     <ClInclude Include="jk_PlayScene2.h">
       <Filter>Contents\Scene\Playgame\Act1-2</Filter>
     </ClInclude>
-    <ClInclude Include="jk_Minibos.h">
+    <ClInclude Include="jk_Miniboss.h">
       <Filter>Contents\Boss\Act1_miniboss</Filter>
     </ClInclude>
     <ClInclude Include="SoundManager.h">
@@ -859,9 +859,6 @@
     <ClInclude Include="jk_Monkey_Bullet.h">
       <Filter>Contents\Bullet\Monster</Filter>
     </ClInclude>
-    <ClInclude Include="jk_Canon_Bullet.h">
-      <Filter>Contents\Bullet\Monster</Filter>
-    </ClInclude>
     <ClInclude Include="Item.h">
       <Filter>Contents\Item</Filter>
     </ClInclude>
@@ -882,6 +879,9 @@
     </ClInclude>
     <ClInclude Include="Boss_Run.h">
       <Filter>Contents\Boss\Run</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Canon_Bullet.h">
+      <Filter>Contents\Bullet\Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1126,7 +1126,7 @@
     <ClCompile Include="Act1_Boss.cpp">
       <Filter>Contents\Boss\Act1_boss</Filter>
     </ClCompile>
-    <ClCompile Include="jk_Minibos.cpp">
+    <ClCompile Include="jk_Miniboss.cpp">
       <Filter>Contents\Boss\Act1_miniboss</Filter>
     </ClCompile>
     <ClCompile Include="jk_check2.cpp">
@@ -1399,9 +1399,6 @@
     <ClCompile Include="Second_boss_bullet.cpp">
       <Filter>Contents\Bullet\Act6 Boss</Filter>
     </ClCompile>
-    <ClCompile Include="jk_Canon_Bullet.cpp">
-      <Filter>Contents\Bullet\Monster</Filter>
-    </ClCompile>
     <ClCompile Include="jk_Monkey_Bullet.cpp">
       <Filter>Contents\Bullet\Monster</Filter>
     </ClCompile>
@@ -1425,6 +1422,9 @@
     </ClCompile>
     <ClCompile Include="Boss_Run.cpp">
       <Filter>Contents\Boss\Run</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Canon_Bullet.cpp">
+      <Filter>Contents\Bullet\Monster</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

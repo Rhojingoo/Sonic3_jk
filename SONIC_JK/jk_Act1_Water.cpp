@@ -30,11 +30,11 @@ namespace jk
 		Vector2 pos = tr->GetPos();
 		tr->SetPos(Vector2{ 21240.f,  3936.f });
 
-		float pos_y = mImage->GetHeight() * 3.5;
-		float pos_x = mImage->GetWidth() * 3;
+		float pos_y = mImage->GetHeight() * 3.5f;
+		float pos_x = mImage->GetWidth() * 3.f;
 
 		Collider* collider = AddComponent<Collider>();
-		collider->SetSize(Vector2(pos_x, pos_y));		
+		collider->SetSize(Vector2(pos_x, pos_y));
 		Vector2 size = collider->GetSize();
 		collider->SetCenter(Vector2{ (-0.0f) * size.x, (-0.f) * size.y });
 
@@ -56,9 +56,10 @@ namespace jk
 		func.AlphaFormat = AC_SRC_ALPHA;
 		func.SourceConstantAlpha = (BYTE)checktime;
 		Vector2 mpos = Camera::CaluatePos(pos);
-		
-		AlphaBlend(hdc,  mpos.x, mpos.y, mImage->GetWidth()*3, mImage->GetHeight()*3.5, mImage->GetHdc(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), func);
-	
+
+		AlphaBlend(hdc, static_cast<int>(mpos.x), static_cast<int>(mpos.y), mImage->GetWidth() * 3, mImage->GetHeight() * static_cast<int>(3.5f),
+			mImage->GetHdc(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), func);
+
 		Gameobject::Render(hdc);
 	}
 	void Act1_Water::Release()
@@ -69,9 +70,9 @@ namespace jk
 	void Act1_Water::OnCollisionEnter(Collider* other)
 	{
 		if (Sonic* sonic = dynamic_cast<Sonic*>(other->GetOwner()))
-		{			
+		{
 			Vector2 sonic_pos = sonic->GetComponent<Transform>()->GetPos();
-			Water_Splashes(sonic_pos.x, sonic_pos.y+50);
+			Water_Splashes(sonic_pos.x, sonic_pos.y + 50);
 		}
 
 		if (Tails* tails = dynamic_cast<Tails*>(other->GetOwner()))
@@ -102,7 +103,7 @@ namespace jk
 				sonicTr->SetPos(sonic_Pos);
 			}
 		}
-		
+
 		if (Tails* tails = dynamic_cast<Tails*>(other->GetOwner()))
 		{
 			Rigidbody* tails_rb = tails->GetComponent<Rigidbody>();
@@ -129,7 +130,7 @@ namespace jk
 		if (Sonic* sonic = dynamic_cast<Sonic*>(other->GetOwner()))
 		{
 			Vector2 sonic_pos = sonic->GetComponent<Transform>()->GetPos();
-			Water_Splashes(sonic_pos.x, sonic_pos.y+60);
+			Water_Splashes(sonic_pos.x, sonic_pos.y + 60);
 
 			Rigidbody* mSonic_rb = sonic->GetComponent<Rigidbody>();
 			mSonic_rb->SetGravity(Vector2{ 0.f,1000.f });
@@ -150,7 +151,7 @@ namespace jk
 
 
 	void Act1_Water::Water_Splashes(float a, float b)
-	{		
+	{
 		Scene* curScene = SceneManager::GetActiveScene();
 		Water_effect* water_effect = new Water_effect();
 		water_effect->GetComponent<Transform>()->SetPos(Vector2{ a,b });

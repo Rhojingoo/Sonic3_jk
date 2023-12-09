@@ -29,8 +29,8 @@ namespace jk
 
 		mImage = Resources::Load<Image>(L"spring_Left", L"..\\Resources\\Effect.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"spring_left", mImage, Vector2(414, 545), Vector2(32, 32), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"spring_left2", mImage, Vector2(454, 545), Vector2(32, 32), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"spring_left", mImage, Vector2(414, 545), Vector2(32, 32), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"spring_left2", mImage, Vector2(454, 545), Vector2(32, 32), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
 		mAnimator->Play(L"spring_left", false);
 
 		Collider* collider = AddComponent<Collider>();
@@ -71,7 +71,7 @@ namespace jk
 	{
 		Transform* tr = GetComponent<Transform>();
 		Vector2 spike_pos = tr->GetPos();
-	
+
 		if (Sonic* msonic = dynamic_cast<Sonic*>(other->GetOwner()))
 		{
 			Vector2 sonic_pos = msonic->GetComponent<Transform>()->GetPos();

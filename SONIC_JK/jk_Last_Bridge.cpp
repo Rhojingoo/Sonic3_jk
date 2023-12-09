@@ -35,7 +35,7 @@ namespace jk
 	{
 		mImage = Resources::Load<Image>(L"bridge_last", L"..\\Resources\\last_bridge.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"bridge_last", mImage, Vector2(622, 91), Vector2(192, 16), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"bridge_last", mImage, Vector2(622, 91), Vector2(192, 16), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
 		mAnimator->Play(L"bridge_last", true);
 		Collider* collider = AddComponent<Collider>();
 		collider->SetSize(Vector2(576.0f, 48.0f));

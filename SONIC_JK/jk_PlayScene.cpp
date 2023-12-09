@@ -98,7 +98,7 @@ namespace jk
 		, check_minibos(0)
 		, frame_check(0)
 	{
-	
+
 	}
 
 	PlayScene::~PlayScene()
@@ -107,7 +107,7 @@ namespace jk
 	}
 
 	void PlayScene::Initialize()
-	{	
+	{
 		Act1_music = Resources::Load<Sound>(L"Act1_bg", L"..\\Resources\\Sound\\Act1_bg.wav");
 		Miniboss1 = Resources::Load<Sound>(L"Miniboss1", L"..\\Resources\\Sound\\Miniboss1.wav");
 		Act2_music = Resources::Load<Sound>(L"Act2_bg", L"..\\Resources\\Sound\\Act2_bg.wav");
@@ -116,11 +116,11 @@ namespace jk
 
 		mSonic = new Sonic();
 		mSonic->SetName(L"Player");
-		AddGameobeject(mSonic, jk_LayerType::Player);		
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
+		AddGameobeject(mSonic, jk_LayerType::Player);
+		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 19718.f, 3450.f });
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{21480.f, 3450.f });//폭포
-		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
+		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 16100.0f, 3070.0f });//집라인쪽
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 28821.f, 1363.f });//끝
 		//tr->SetPos(Vector2{ 24132.0f, 2417.0f });//원두번쨰 전
@@ -135,7 +135,7 @@ namespace jk
 		mTails = new Tails(mSonic);
 		mTails->SetName(L"Player2");
 		AddGameobeject(mTails, jk_LayerType::Player2);
-		mTails->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });		
+		mTails->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
 
 
 		UI_framework* UI_frame = new UI_framework();
@@ -155,13 +155,13 @@ namespace jk
 		AddGameobeject(ui_minutes, jk_LayerType::UI);
 
 		Ring_Point_Manager* Ring_Point = new Ring_Point_Manager(mSonic);
-		Ring_Point -> SetName(L"Ring_Point");
+		Ring_Point->SetName(L"Ring_Point");
 		AddGameobeject(Ring_Point, jk_LayerType::UI);
 
 		Ring_UnitsDigit* Ring_Units = new Ring_UnitsDigit(Ring_Point);
 		Ring_Units->SetName(L"Ring_Point");
 		AddGameobeject(Ring_Units, jk_LayerType::UI);
-				
+
 		Ring_TensDigit* TensDigit = new Ring_TensDigit(Ring_Point);
 		TensDigit->SetName(L"TensDigit");
 		AddGameobeject(TensDigit, jk_LayerType::UI);
@@ -169,7 +169,7 @@ namespace jk
 		Ring_HundredsDgit* HundredsDgit = new Ring_HundredsDgit(Ring_Point);
 		HundredsDgit->SetName(L"HundredsDgit");
 		AddGameobeject(HundredsDgit, jk_LayerType::UI);
-		
+
 		Life_Manager* Life_M = new Life_Manager(mSonic);
 		Life_M->SetName(L"Life_M");
 		AddGameobeject(Life_M, jk_LayerType::UI);
@@ -184,34 +184,34 @@ namespace jk
 
 
 
-	   //뒷배경
-		Act1skyBG*  act1sky = new Act1skyBG();
+		//뒷배경
+		Act1skyBG* act1sky = new Act1skyBG();
 		act1sky->SetName(L"SkyBG");
 		AddGameobeject(act1sky, jk_LayerType::foreground);
-		
+
 		act1_forest1* forestup = new act1_forest1();
 		forestup->SetName(L"fOREST1");
 		AddGameobeject(forestup, jk_LayerType::foreground);
 
-		acr1_forest2* forest2 = new acr1_forest2();		
+		acr1_forest2* forest2 = new acr1_forest2();
 		AddGameobeject(forest2, jk_LayerType::foreground);
 
 		midlesky* msky = new midlesky();
 		msky->SetName(L"msky");
 		AddGameobeject(msky, jk_LayerType::foreground);
-		
+
 		Sky* sky = new Sky();
 		sky->SetName(L"sky");
 		AddGameobeject(sky, jk_LayerType::foreground);
 
 		Act1_BG_object* bg = new Act1_BG_object();
 		AddGameobeject(bg, jk_LayerType::BG);
-		bg->SetName(L"Act1BG");		 	
+		bg->SetName(L"Act1BG");
 
 		Act1_Water* act1_Water = new Act1_Water();
 		AddGameobeject(act1_Water, jk_LayerType::UI);
 		act1_Water->SetName(L"act1_Water");
-	
+
 		act1_waterfall1* waterfall_1 = new act1_waterfall1();
 		AddGameobeject(waterfall_1, jk_LayerType::BG);
 		waterfall_1->SetName(L"waterfall_1");
@@ -242,7 +242,7 @@ namespace jk
 		flower1[5]->GetComponent<Transform>()->SetPos(Vector2{ 17125.0f, 3775.0f });
 		flower1[6]->GetComponent<Transform>()->SetPos(Vector2{ 23835.0f, 3765.0f });
 		flower1[7]->GetComponent<Transform>()->SetPos(Vector2{ 24040.0f, 3765.0f });
-		
+
 
 		act1_flower2* flower2[3];
 		for (int a = 0; a < 3; a++)
@@ -254,7 +254,7 @@ namespace jk
 		flower2[0]->GetComponent<Transform>()->SetPos(Vector2{ 13570.0f,3195.0f });
 		flower2[1]->GetComponent<Transform>()->SetPos(Vector2{ 17700.0f, 3585.0f });
 		flower2[2]->GetComponent<Transform>()->SetPos(Vector2{ 21640.0f, 3960.0f });
-	
+
 
 
 
@@ -317,7 +317,7 @@ namespace jk
 		rock_big[0]->GetComponent<Transform>()->SetPos(Vector2{ 15993.0f, 3628.0f });
 		rock_big[1]->GetComponent<Transform>()->SetPos(Vector2{ 19824.0f, 2625.0f });
 
-	
+
 		Collapses_Ground* collapses_Ground[1];
 		for (int a = 0; a < 1; a++)
 		{
@@ -347,7 +347,7 @@ namespace jk
 		jeep_line_Handle[2]->SetCenterpos(Vector2{ 18321.f, 2725.f });
 		jeep_line_Handle[2]->SetAngle(float{ 90 });
 		jeep_line_Handle[2]->SetDirect(int{ -1 });
-		
+
 
 
 		Jeep_line* jeep_line[3];
@@ -363,7 +363,7 @@ namespace jk
 		jeep_line[1]->SetCheck_JeepLine(jeep_line_Handle[1]);
 		jeep_line[2]->GetComponent<Transform>()->SetPos(Vector2{ 18221.f, 2743.f });
 		jeep_line[2]->SetCheck_JeepLine(jeep_line_Handle[2]);
-	
+
 
 
 		Move_GR* gr_move[3];
@@ -399,7 +399,7 @@ namespace jk
 
 
 
-		Cylinder* cylinder =  new Cylinder();
+		Cylinder* cylinder = new Cylinder();
 		cylinder->SetName(L"cylinder");
 		AddGameobeject(cylinder, jk_LayerType::BG_props);
 		cylinder->GetComponent<Transform>()->SetPos(Vector2{ 28085.0f, 2510.0f });
@@ -408,7 +408,7 @@ namespace jk
 		cylinder_r_c->SetName(L"cylinder_r_c");
 		AddGameobeject(cylinder_r_c, jk_LayerType::BG_props);
 		cylinder_r_c->GetComponent<Transform>()->SetPos(Vector2{ 28630.0f, 2690.0f });
-		
+
 		CYLINDER_COL_L* cylinder_l_c = new CYLINDER_COL_L(mSonic);
 		cylinder_l_c->SetName(L"cylinder_l_c");
 		AddGameobeject(cylinder_l_c, jk_LayerType::BG_props);
@@ -417,7 +417,7 @@ namespace jk
 
 		//몬스터
 		Rino* mRino[3];
-		for (int a = 0; a <3; a++)
+		for (int a = 0; a < 3; a++)
 		{
 			mRino[a] = new Rino();
 			mRino[a]->SetName(L"RinoMonster");
@@ -430,8 +430,8 @@ namespace jk
 		mRino[2]->GetComponent<Transform>()->SetPos(Vector2{ 24332.0f, 2417.0f });
 		mRino[2]->SetCenterpos(Vector2{ 24332.0f, 2417.0f });
 
-	
-		
+
+
 		Monkey* mMokey[5];
 		for (int a = 0; a < 5; a++)
 		{
@@ -464,7 +464,7 @@ namespace jk
 		cannon[2]->GetComponent<Transform>()->SetPos(Vector2{ 20928.0f, 2680.0f });
 
 
-		
+
 		//원체크
 		check1* circle_chek = new check1();
 		AddGameobeject(circle_chek, jk_LayerType::Player2);
@@ -478,13 +478,13 @@ namespace jk
 		AddGameobeject(playgr, jk_LayerType::Ground);
 
 
-	
+
 		mSonic->SetCheckTargetGround(playgr);
 		mTails->SetCheckTargetGround(playgr);
-		
-	
+
+
 		s_rock[0]->SetCheckTargetGround(playgr);
-		s_rock[1]->SetCheckTargetGround(playgr); 
+		s_rock[1]->SetCheckTargetGround(playgr);
 		s_rock[2]->SetCheckTargetGround(playgr);
 		rock_middle[0]->SetCheckTargetGround(playgr);
 		rock_big[0]->SetCheckTargetGround(playgr);
@@ -501,7 +501,7 @@ namespace jk
 		mMokey[3]->SetCheckTargetGround(playgr);
 		mMokey[4]->SetCheckTargetGround(playgr);
 		circle_chek->SetCheckTargetGround(playgr);
-		circle_chek2->SetCheckTargetGround(playgr);	
+		circle_chek2->SetCheckTargetGround(playgr);
 
 		//빅링위치
 		ItemBigRing* Big_Ring = new ItemBigRing();
@@ -516,9 +516,9 @@ namespace jk
 		{
 			ring[a] = new Ring(mSonic);
 			AddGameobeject(ring[a], jk_LayerType::Rings);
-		}				
-		ring[0]->GetComponent<Transform>()->SetPos(Vector2{ 11276.0f, 3056.0f});	
-		ring[1]->GetComponent<Transform>()->SetPos(Vector2{ 11376.0f, 3056.0f});
+		}
+		ring[0]->GetComponent<Transform>()->SetPos(Vector2{ 11276.0f, 3056.0f });
+		ring[1]->GetComponent<Transform>()->SetPos(Vector2{ 11376.0f, 3056.0f });
 		ring[2]->GetComponent<Transform>()->SetPos(Vector2{ 11476.0f, 3056.0f });
 		ring[3]->GetComponent<Transform>()->SetPos(Vector2{ 11712.0f, 3161.0f });
 		ring[4]->GetComponent<Transform>()->SetPos(Vector2{ 11812.0f, 3211.0f });
@@ -539,10 +539,10 @@ namespace jk
 		ring[19]->GetComponent<Transform>()->SetPos(Vector2{ 20258.f, 3163.f });
 		ring[20]->GetComponent<Transform>()->SetPos(Vector2{ 20426.f, 3225.f });
 		ring[21]->GetComponent<Transform>()->SetPos(Vector2{ 20498.f, 3379.f });
-		
 
 
-		Scene::Initialize();		
+
+		Scene::Initialize();
 	}
 
 	void PlayScene::Update()
@@ -550,9 +550,9 @@ namespace jk
 
 		frame_check = 1;
 
-		
+
 		Vector2 sonic_pos = mSonic->GetComponent<Transform>()->GetPos();
-		
+
 		if (sonic_pos.x >= 29720.f)
 		{
 			Camera_Switch = 1;
@@ -576,17 +576,17 @@ namespace jk
 				}
 			}
 		}
-		
-		Scene::Update();		
+
+		Scene::Update();
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
 			Act1_music->Stop(true);
 			Miniboss1->Stop(true);
 			Act2_music->Play(true);
-			SceneManager::LoadScene(jk_SceneType::GamePlay2);	
+			SceneManager::LoadScene(jk_SceneType::GamePlay2);
 			CreateBlending();
 		}
-	}  
+	}
 
 	void PlayScene::Render(HDC hdc)
 	{
@@ -615,26 +615,23 @@ namespace jk
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::UI, true);
 		CollisionManager::SetLayer(jk_LayerType::Player2, jk_LayerType::UI, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::BG_props, true);
-
-		//CollisionManager::SetLayer(jk_LayerType::Player2, jk_LayerType::BG_props, true);
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Player2, true);
-	
-		
+
+
 		if (Camera_Switch == 0)
 		{
-		Camera::SetTarget(mSonic);
+			Camera::SetTarget(mSonic);
 		}
-		
+
 	}
 
 	void PlayScene::OnExit()
-	{ 
-		//mSonic->SetPos(Vector2{ 0.0f, 0.0f }); (씬넘길때 원상복귀 시키는것(매스와 지금 문제가 이써안됨)	
+	{
 		Camera::Clear();
 	}
 
 	void PlayScene::CreateBlending()
-	{	
+	{
 		object::Instantiate<Blending>(jk_LayerType::Blend);
 	}
 
@@ -643,7 +640,7 @@ namespace jk
 		minibos_show* mbos_show = new minibos_show();
 		mbos_show->SetName(L"mbos_show");
 		AddGameobeject(mbos_show, jk_LayerType::MiniBoss);
-		mbos_show->GetComponent<Transform>()->SetPos(Vector2{ 30792.f, 2407.f });	
+		mbos_show->GetComponent<Transform>()->SetPos(Vector2{ 30792.f, 2407.f });
 
 
 		Lttle_miniboss* little_miniboss[3];
@@ -653,11 +650,11 @@ namespace jk
 			little_miniboss[a]->SetName(L"little_miniboss");
 			AddGameobeject(little_miniboss[a], jk_LayerType::MiniBoss);
 		}
-		little_miniboss[0] -> GetComponent<Transform>()->SetPos(Vector2{ 30352.f, 2267.f });
+		little_miniboss[0]->GetComponent<Transform>()->SetPos(Vector2{ 30352.f, 2267.f });
 		little_miniboss[0]->SetCenterpos(Vector2{ 30652.f, 2517.f });
-		little_miniboss[1] -> GetComponent<Transform>()->SetPos(Vector2{ 30252.f, 2367.f });
+		little_miniboss[1]->GetComponent<Transform>()->SetPos(Vector2{ 30252.f, 2367.f });
 		little_miniboss[1]->SetCenterpos(Vector2{ 30552.f, 2467.f });
-		little_miniboss[2] -> GetComponent<Transform>()->SetPos(Vector2{ 30302.f, 2167.f });	
+		little_miniboss[2]->GetComponent<Transform>()->SetPos(Vector2{ 30302.f, 2167.f });
 		little_miniboss[2]->SetCenterpos(Vector2{ 30602.f, 2617.f });
 	}
 }

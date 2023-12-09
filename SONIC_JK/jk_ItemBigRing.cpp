@@ -17,8 +17,8 @@ namespace jk
 		, mImage(nullptr)
 		, mAnimator(nullptr)
 	{
-		
-		
+
+
 	}
 
 	ItemBigRing::~ItemBigRing()
@@ -29,17 +29,17 @@ namespace jk
 	{
 		mImage = Resources::Load<Image>(L"sring", L"..\\Resources\\SpRing.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"Spring", mImage, Vector2(24, 546), Vector2(66, 66), Vector2(2, 2), 4, 3, 12, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"EatLSpring", mImage, Vector2(24, 744), Vector2(66, 66), Vector2(2, 2), 4, 2, 7, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"Spring", mImage, Vector2(24, 546), Vector2(66, 66), Vector2(2, 2), 4, 3, 12, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"EatLSpring", mImage, Vector2(24, 744), Vector2(66, 66), Vector2(2, 2), 4, 2, 7, Vector2::Zero, 0.1f);
 		mAnimator->Play(L"Spring", true);
 		mAnimator->GetCompleteEvent(L"EatLSpring") = std::bind(&ItemBigRing::death, this);
-		
-		
+
+
 		Collider* collider = AddComponent<Collider>();
 		collider->SetSize(Vector2(180.0f, 200.0f));
 		Vector2 size = collider->GetSize();
 		collider->SetCenter(Vector2{ (-0.15f) * size.x, (-0.35f) * size.y });
-		
+
 		Gameobject::Initialize();
 	}
 
@@ -47,19 +47,19 @@ namespace jk
 	{
 		Gameobject::Update();
 
-			switch (mState)
-			{
-			case ItemBigRing::eState::Idle:
-				idle();
-				break;
+		switch (mState)
+		{
+		case ItemBigRing::eState::Idle:
+			idle();
+			break;
 
-			case ItemBigRing::eState::Move:
-				move();
-				break;
-	
-			default:
-				break;
-			}
+		case ItemBigRing::eState::Move:
+			move();
+			break;
+
+		default:
+			break;
+		}
 	}
 
 	void ItemBigRing::Render(HDC hdc)
@@ -76,7 +76,7 @@ namespace jk
 	{
 		if (Sonic* sonic = dynamic_cast<Sonic*>(other->GetOwner()))
 		{
-			mAnimator->Play(L"EatLSpring", true);			
+			mAnimator->Play(L"EatLSpring", true);
 		}
 	}
 

@@ -17,8 +17,8 @@ namespace jk
 		: mOwner(owner)
 		, mAnimator(nullptr)
 		, mImage(nullptr)
-		, pos(0.f,0.f)
-	{		
+		, pos(0.f, 0.f)
+	{
 		mAnimator = AddComponent<Animator>();
 		mImage = Resources::Load<Image>(L"END_BG", L"..\\Resources\\END_BG.bmp");
 		mAnimator->CreateAnimation(L"END_Boss", mImage, Vector2{ 1408,43 }, Vector2{ 48,48 }, Vector2{ 0,0 }, 1, 1, 1, Vector2::Zero, 0.1f);
@@ -34,8 +34,8 @@ namespace jk
 	void Ending_boss::Update()
 	{
 		Transform* tr = GetComponent<Transform>();
-		pos =tr->GetPos();		
-		pos.y += 150 * Time::DeltaTime();
+		pos = tr->GetPos();
+		pos.y += 150 * static_cast<float>(Time::DeltaTime());
 		tr->SetPos(pos);
 		Gameobject::Update();
 	}

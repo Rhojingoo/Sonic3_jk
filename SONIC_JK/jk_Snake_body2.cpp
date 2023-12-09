@@ -16,7 +16,7 @@ namespace jk
 	Snake_body2::Snake_body2()
 		: mImage(nullptr)
 		, mAnimator(nullptr)
-		, prevPos(0.f,0.f)
+		, prevPos(0.f, 0.f)
 		, mState(eSnake::Right)
 		, snake_body(nullptr)
 		, snake_body_state()
@@ -44,7 +44,7 @@ namespace jk
 	void Snake_body2::Update()
 	{
 		prevPos = GetComponent<Transform>()->GetPos();
-	
+
 		switch (mState)
 		{
 		case jk::Snake_body2::eSnake::Right:
@@ -131,5 +131,5 @@ namespace jk
 	void Snake_body2::deth()
 	{
 		jk::object::Destory(this);
-	} 
+	}
 }

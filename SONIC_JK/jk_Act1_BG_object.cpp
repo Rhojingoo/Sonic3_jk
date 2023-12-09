@@ -14,7 +14,7 @@ namespace jk
 
 	Act1_BG_object::Act1_BG_object()
 		: mImage(nullptr)
-	{	
+	{
 	}
 
 	Act1_BG_object ::~Act1_BG_object()
@@ -37,12 +37,13 @@ namespace jk
 
 	void Act1_BG_object::Render(HDC hdc)
 	{
-			Gameobject::Render(hdc);
-			Transform* tr = GetComponent<Transform>();					
-			Vector2 pos = tr->GetPos();
-			Vector2 mpos = pos - (Camera::CaluatePos(pos) - pos);
-		
-			TransparentBlt(hdc, 0, 0, 1200, 840, mImage->GetHdc(), mpos.x, mpos.y, 1200, 840, RGB(13, 72, 7));
+		Gameobject::Render(hdc);
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->GetPos();
+		Vector2 mpos = pos - (Camera::CaluatePos(pos) - pos);
+
+		TransparentBlt(hdc, 0, 0, 1200, 840, mImage->GetHdc(),
+			static_cast<int>(mpos.x), static_cast<int>(mpos.y), 1200, 840, RGB(13, 72, 7));
 	}
 
 

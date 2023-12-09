@@ -21,7 +21,7 @@ namespace jk
 {
 	Jeepline_play::Jeepline_play()
 		:jeepline_Speed(500)
-		, Start_jeepline(Vector2{0.f,0.f})
+		, Start_jeepline(Vector2{ 0.f,0.f })
 		, Final_jeepline(Vector2{ 0.f,0.f })
 		, mState(eState::Idle)
 		, mImage(nullptr)
@@ -33,10 +33,10 @@ namespace jk
 	}
 	void Jeepline_play::Initialize()
 	{
-	
+
 		mImage = Resources::Load<Image>(L"Jeep_line", L"..\\Resources\\JEEP_LINE.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"Jeep_line_play", mImage, Vector2(120, 362), Vector2(24, 72), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"Jeep_line_play", mImage, Vector2(120, 362), Vector2(24, 72), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
 		mAnimator->Play(L"Jeep_line_play", false);
 
 		Collider* collider = AddComponent<Collider>();
@@ -48,17 +48,17 @@ namespace jk
 	}
 	void Jeepline_play::Update()
 	{
-		
+
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 		switch (mState)
-		{	
+		{
 		case jk::Jeepline_play::eState::Idle:idle();
 			break;
 
 		case jk::Jeepline_play::eState::Move:move();
-			break;			
-		
+			break;
+
 		default:
 			break;
 		}
@@ -80,12 +80,13 @@ namespace jk
 
 	void Jeepline_play::OnCollisionEnter(Collider* other)
 	{
-		if(Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner()))
-		{if (mSonic == nullptr)
-			return;
+		if (Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner()))
+		{
+			if (mSonic == nullptr)
+				return;
 
-		Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
-		rb->SetGround(true); 
+			Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
+			rb->SetGround(true);
 		}
 	}
 
@@ -112,7 +113,7 @@ namespace jk
 			if (!((mSonic->Getsonicstate() == Sonic::eSonicState::Jump) || (mSonic->Getsonicstate() == Sonic::eSonicState::Hurt)))
 			{
 				mState = eState::Move;
-				sonic_Pos = Jeep_line_Pos;				
+				sonic_Pos = Jeep_line_Pos;
 				sonicTr->SetPos(sonic_Pos);
 
 			}
@@ -150,11 +151,11 @@ namespace jk
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 		float m = slope(Start_jeepline, Final_jeepline);
-		float b = pos.y - m * pos.x;	
+		float b = pos.y - m * pos.x;
 
-		float newposX = pos.x + jeepline_Speed * Time::DeltaTime();
+		float newposX = pos.x + jeepline_Speed * static_cast<float>(Time::DeltaTime());
 		float newY = m * newposX + b;
-		
+
 		Vector2 newPos = Vector2(newposX, newY);
 		pos = newPos;
 

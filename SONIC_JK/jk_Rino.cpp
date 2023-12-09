@@ -45,15 +45,15 @@ namespace jk
 
 	void Rino::Initialize()
 	{
-		Death =  Resources::Load<Sound>(L"Monster_Death", L"..\\Resources\\Sound\\Sonic\\Monster_Death.wav");
-			
+		Death = Resources::Load<Sound>(L"Monster_Death", L"..\\Resources\\Sound\\Sonic\\Monster_Death.wav");
+
 		mImage = Resources::Load<Image>(L"RINO", L"..\\Resources\\Monster.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"RMonster", mImage, Vector2::RmonsterLTC, Vector2::Rmonstersize, Vector2::RmonsterSpace, 1, 1, 1, Vector2::Zero, 0.1f);
 		mAnimator->CreateAnimation(L"LMonster", mImage, Vector2::LmonsterLTC, Vector2::Lmonstersize, Vector2::LmonsterSpace, 1, 1, 1, Vector2::Zero, 0.1f);
-		mAnimator->CreateAnimation(L"RMonster_turn", mImage, Vector2::RmonsterLTC, Vector2::Rmonstersize, Vector2::RmonsterSpace, 9, 1, 9, Vector2::Zero, 0.05);
-		mAnimator->CreateAnimation(L"LMonster_turn", mImage, Vector2::LmonsterLTC, Vector2::Lmonstersize, Vector2::LmonsterSpace, 9, 1, 9, Vector2::Zero, 0.05);
-				
+		mAnimator->CreateAnimation(L"RMonster_turn", mImage, Vector2::RmonsterLTC, Vector2::Rmonstersize, Vector2::RmonsterSpace, 9, 1, 9, Vector2::Zero, 0.05f);
+		mAnimator->CreateAnimation(L"LMonster_turn", mImage, Vector2::LmonsterLTC, Vector2::Lmonstersize, Vector2::LmonsterSpace, 9, 1, 9, Vector2::Zero, 0.05f);
+
 
 		mImage1 = Resources::Load<Image>(L"Effect", L"..\\Resources\\Effect.bmp");
 		mAnimator->CreateAnimation(L"rino_death", mImage1, Vector2{ 242.f,458.f }, Vector2{ 40.f,32.f }, Vector2{ 8.f,0.f }, 4, 1, 4, Vector2::Zero, 0.3f);
@@ -73,7 +73,7 @@ namespace jk
 	}
 
 	void Rino::Update()
-	{		
+	{
 		if (Death_Point == 1)
 		{
 			mState = eMonsterState::Death;
@@ -88,7 +88,7 @@ namespace jk
 
 		case jk::Rino::eMonsterState::Turn:turn();
 			break;
-	
+
 		case jk::Rino::eMonsterState::Death:death();
 			break;
 
@@ -98,7 +98,7 @@ namespace jk
 
 		Transform* Rino_TR = GetComponent<Transform>();
 		Rigidbody* Rino_rb = GetComponent<Rigidbody>();
-		
+
 		check_map = check->Get_map_check();
 
 		mGroundImage = check->GetGroundImage();
@@ -109,15 +109,15 @@ namespace jk
 			if (Rino_TR && Rino_rb && mGroundImage)
 			{
 				Vector2 Rino_ps = Rino_TR->GetPos();
-				COLORREF FootColor = mGroundImage->GetPixel(Rino_ps.x, Rino_ps.y + 75);
+				COLORREF FootColor = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(Rino_ps.x), static_cast<int>(Rino_ps.y) + 75));
 				if (FootColor == RGB(0, 0, 0))
 				{
-					COLORREF FootColor = mGroundImage->GetPixel(Rino_ps.x, Rino_ps.y + 75);
+					FootColor = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(Rino_ps.x), static_cast<int>(Rino_ps.y) + 75));
 
 					while (FootColor == RGB(0, 0, 0))
 					{
 						Rino_ps.y -= 1;
-						FootColor = mGroundImage->GetPixel(Rino_ps.x, Rino_ps.y + 75);
+						FootColor = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(Rino_ps.x), static_cast<int>(Rino_ps.y) + 75));
 						Rino_TR->SetPos(Rino_ps);
 						Rino_rb->SetGround(true);
 					}
@@ -134,15 +134,15 @@ namespace jk
 			if (Rino_TR && Rino_rb && mGroundImage2)
 			{
 				Vector2 Rino_ps = Rino_TR->GetPos();
-				COLORREF FootColor = mGroundImage2->GetPixel(Rino_ps.x, Rino_ps.y + 75);
+				COLORREF FootColor = static_cast<int>(mGroundImage2->GetPixel(static_cast<int>(Rino_ps.x), static_cast<int>(Rino_ps.y) + 75));
 				if (FootColor == RGB(0, 0, 0))
 				{
-					COLORREF FootColor = mGroundImage2->GetPixel(Rino_ps.x, Rino_ps.y + 75);
+					FootColor = static_cast<int>(mGroundImage2->GetPixel(static_cast<int>(Rino_ps.x), static_cast<int>(Rino_ps.y) + 75));
 
 					while (FootColor == RGB(0, 0, 0))
 					{
 						Rino_ps.y -= 1;
-						FootColor = mGroundImage2->GetPixel(Rino_ps.x, Rino_ps.y + 75);
+						FootColor = static_cast<int>(mGroundImage2->GetPixel(static_cast<int>(Rino_ps.x), static_cast<int>(Rino_ps.y) + 75));
 						Rino_TR->SetPos(Rino_ps);
 						Rino_rb->SetGround(true);
 					}
@@ -156,7 +156,7 @@ namespace jk
 
 		Monster::Update();
 		//Gameobject::Update();
-	}	
+	}
 
 	void Rino::Render(HDC hdc)
 	{
@@ -175,11 +175,11 @@ namespace jk
 		if (Sonic* sonic = dynamic_cast<Sonic*>(other->GetOwner()))
 		{
 			sonicState = sonic->Getsonicstate();
-		
+
 			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
-			{				
+			{
 				Death->Play(false);
-       			mAnimator->Play(L"rino_death", false);		
+				mAnimator->Play(L"rino_death", false);
 				Death_Point = 1;
 			}
 		}
@@ -188,7 +188,7 @@ namespace jk
 			tailsState = tails->GetTails_state();
 
 			if (tailsState == Tails::eTailsState::Dash || tailsState == Tails::eTailsState::Jump || tailsState == Tails::eTailsState::Spin || tailsState == Tails::eTailsState::Movejump)
-			{				
+			{
 				Death->Play(false);
 				mAnimator->Play(L"rino_death", false);
 				Death_Point = 1;
@@ -211,14 +211,14 @@ namespace jk
 		Vector2 pos = tr->GetPos();
 		mCurpos = pos;
 
-	
+
 		float fDist = abs(mCenterpos.x - pos.x) - mMonmaxdistance;
 		if (fDist > 0.0f)
 		{
-			
+
 			mDir *= -1;
 			pos.x += fDist * mDir;
-			mState = eMonsterState::Turn;			
+			mState = eMonsterState::Turn;
 			if (mDir == 1)
 				mAnimator->Play(L"RMonster_turn", false);
 			else
@@ -233,7 +233,7 @@ namespace jk
 	}
 
 	void Rino::turn()
-	{	
+	{
 		mAnimator->GetCompleteEvent(L"LMonster_turn");
 		mAnimator->GetCompleteEvent(L"RMonster_turn");
 
@@ -244,9 +244,9 @@ namespace jk
 	{
 		Death_Point = 2;
 	}
-	
+
 	void Rino::release_animal()
-	{ 
+	{
 		Transform* tr = GetComponent<Transform>();
 		Scene* curScene = SceneManager::GetActiveScene();
 		Animal* ani = new Animal(this);

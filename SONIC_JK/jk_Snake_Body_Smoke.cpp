@@ -15,7 +15,7 @@ namespace jk
 	Snake_Body_Smoke::Snake_Body_Smoke()
 		: mImage(nullptr)
 		, mAnimator(nullptr)
-		, prevPos(0.f,0.f)
+		, prevPos(0.f, 0.f)
 		, Head_ch(nullptr)
 		, mState(eSnake::Right)
 		, Snake_State()
@@ -36,7 +36,7 @@ namespace jk
 		Collider* collider = AddComponent<Collider>();
 		collider->SetSize(Vector2(55.0f, 55.0f));
 		Vector2 size = collider->GetSize();
-		collider->SetCenter(Vector2{ (-0.25f) * size.x, (-0.35f) * size.y });	
+		collider->SetCenter(Vector2{ (-0.25f) * size.x, (-0.35f) * size.y });
 
 		Gameobject::Initialize();
 	}
@@ -111,7 +111,7 @@ namespace jk
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 		Vector2 Head_pos = Head_ch->GetComponent<Transform>()->GetPos();
-		pos = Head_pos + Vector2{ 45.0f, -20.0f };	
+		pos = Head_pos + Vector2{ 45.0f, -20.0f };
 		tr->SetPos(pos);
 
 		Snake* snake_head = dynamic_cast<Snake*>(Head_ch);

@@ -12,7 +12,7 @@
 #include "jk_Tails.h"
 
 
-namespace jk 
+namespace jk
 {
 	Spring_Up::Spring_Up()
 		: Spring_mc(nullptr)
@@ -30,8 +30,8 @@ namespace jk
 
 		mImage = Resources::Load<Image>(L"spring_up", L"..\\Resources\\Effect.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"spring_up", mImage, Vector2(504, 497), Vector2(32, 40), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"spring_up2", mImage, Vector2(544, 497), Vector2(32, 40), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"spring_up", mImage, Vector2(504, 497), Vector2(32, 40), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"spring_up2", mImage, Vector2(544, 497), Vector2(32, 40), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
 
 		mAnimator->Play(L"spring_up", false);
 
@@ -52,7 +52,7 @@ namespace jk
 
 		case Spring_Up::eState::Up:
 			up();
-			break;	
+			break;
 
 		default:
 			break;
@@ -69,7 +69,7 @@ namespace jk
 		Gameobject::Release();
 	}
 	void Spring_Up::OnCollisionEnter(Collider* other)
-	{		
+	{
 		mAnimator->Play(L"spring_up2", false);
 		mState = eState::Up;
 		Spring_mc->Play(false);
@@ -84,7 +84,7 @@ namespace jk
 	{
 		mAnimator->Play(L"spring_up", false);
 		mState = eState::Down;
-		return;		
+		return;
 	}
 	void Spring_Up::down()
 	{

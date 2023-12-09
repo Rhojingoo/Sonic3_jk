@@ -4,7 +4,7 @@
 #include "jk_Transform.h"
 #include "jk_Camera.h"
 
-namespace jk 
+namespace jk
 {
 	Act1skyBG::Act1skyBG()
 		:mImage(nullptr)
@@ -31,12 +31,13 @@ namespace jk
 	void Act1skyBG::Render(HDC hdc)
 	{
 		Gameobject::Render(hdc);
-		
+
 		Transform* tr = GetComponent<Transform>();
-		Vector2 pos = tr->GetPos();		
-		tr->SetPos(pos);	
+		Vector2 pos = tr->GetPos();
+		tr->SetPos(pos);
 		Vector2 mpos = Camera::CaluatePos(pos);
-		TransparentBlt(hdc, mpos.x /3.f,  mpos.y, 11515, 1026, mImage->GetHdc(), 33,15 , 11515, 1026, RGB(13, 72, 7));
+		TransparentBlt(hdc, static_cast<int>(mpos.x / 3.f), static_cast<int>(mpos.y), 11515, 1026,
+			mImage->GetHdc(), 33, 15, 11515, 1026, RGB(13, 72, 7));
 	}
 	void Act1skyBG::Release()
 	{

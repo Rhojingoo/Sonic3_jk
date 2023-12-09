@@ -17,11 +17,11 @@ namespace jk
 	Spike_Up::~Spike_Up()
 	{
 	}
-	void Spike_Up::Initialize()	
+	void Spike_Up::Initialize()
 	{
 		mImage = Resources::Load<Image>(L"Spike_up", L"..\\Resources\\Effect.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"Spike_up", mImage, Vector2(24, 217), Vector2(32, 32), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"Spike_up", mImage, Vector2(24, 217), Vector2(32, 32), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
 		mAnimator->Play(L"Spike_up", false);
 
 		Collider* collider = AddComponent<Collider>();

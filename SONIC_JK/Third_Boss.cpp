@@ -24,7 +24,7 @@ namespace jk
 		, Boss_Bomb(nullptr)
 		, sonicState()
 		, mState()
-		, pos(0.f,0.f)
+		, pos(0.f, 0.f)
 		, time(0.f)
 		, mSpeed(250.f)
 		, mDir(1)
@@ -69,7 +69,7 @@ namespace jk
 	{
 		Transform* tr = GetComponent<Transform>();
 		pos = tr->GetPos();
-				
+
 
 		switch (mState)
 		{
@@ -94,8 +94,8 @@ namespace jk
 		case jk::Third_Boss::eBossState::Grap_L:grap_L();
 			break;
 
-		//case jk::Third_Boss::eBossState::Hurt:Hurt();
-		//	break;
+			//case jk::Third_Boss::eBossState::Hurt:Hurt();
+			//	break;
 
 		case jk::Third_Boss::eBossState::Death:death();
 			break;
@@ -109,7 +109,7 @@ namespace jk
 
 		Gameobject::Update();
 	}
-	
+
 
 	void Third_Boss::Render(HDC hdc)
 	{
@@ -131,7 +131,7 @@ namespace jk
 			{
 				Damege_check += 1;
 				Hur_check = 1;
-				Boss_Hit->Play(false);			
+				Boss_Hit->Play(false);
 
 				if (Damege_check < 6)
 				{
@@ -156,7 +156,7 @@ namespace jk
 					{
 						mAnimator->Play(L"L_Boss_third_Hurt", false);
 					}
-				}			
+				}
 
 			}
 		}
@@ -178,10 +178,10 @@ namespace jk
 		if (pos.x >= 15150.0f)
 		{
 			mState = eBossState::Left_Cross;
-				mAnimator->Play(L"L_Boss_Third", true);
-				pos = Vector2{ 15150.f,5400.f };
-				mDir = -1;
-				Boss_cross_change = 1;	
+			mAnimator->Play(L"L_Boss_Third", true);
+			pos = Vector2{ 15150.f,5400.f };
+			mDir = -1;
+			Boss_cross_change = 1;
 		}
 		tr->SetPos(pos);
 	}
@@ -191,7 +191,7 @@ namespace jk
 		Transform* tr = GetComponent<Transform>();
 		pos.x -= mSpeed * static_cast<float>(Time::DeltaTime());
 
-		if((pos.x > 13550.0f)&& (pos.x <= 14350.f))
+		if ((pos.x > 13550.0f) && (pos.x <= 14350.f))
 		{
 			pos.x -= mSpeed * static_cast<float>(Time::DeltaTime());
 			pos.y -= mSpeed * static_cast<float>(Time::DeltaTime());
@@ -233,12 +233,12 @@ namespace jk
 		Transform* tr = GetComponent<Transform>();
 		pos.x += mSpeed * static_cast<float>(Time::DeltaTime());
 
-		if((pos.x >= 14350.f) &&(pos.x < 15510.f))
+		if ((pos.x >= 14350.f) && (pos.x < 15510.f))
 		{
 			pos.x += mSpeed * static_cast<float>(Time::DeltaTime());
 			pos.y -= mSpeed * static_cast<float>(Time::DeltaTime());
 		}
-		else if(pos.x > 15150.f)
+		else if (pos.x > 15150.f)
 		{
 			if (Boss_cross_change == 0)
 			{
@@ -364,12 +364,12 @@ namespace jk
 		{
 			mAnimator->Play(L"R_Boss_Third", true);
 			Hur_check = 0;
-			
+
 		}
 		else
 		{
 			mAnimator->Play(L"L_Boss_Third", true);
-			Hur_check = 0;		
+			Hur_check = 0;
 		}
 
 		return;
@@ -390,7 +390,7 @@ namespace jk
 		}
 		else if (Boomb_point == 1)
 		{
-			time += Time::DeltaTime();
+			time += static_cast<float>(Time::DeltaTime());
 			if (time >= 1)
 			{
 				mRigidbody = AddComponent<Rigidbody>();

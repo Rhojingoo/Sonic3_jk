@@ -31,7 +31,8 @@ namespace jk
 		tr->SetPos(pos);
 
 		Vector2 mpos = Camera::CaluatePos(pos);
-		TransparentBlt(hdc, mpos.x / 3.6f, mpos.y, 14064, 432, mImage->GetHdc(), 0, 0, 14064, 432, RGB(13, 72, 7));
+		TransparentBlt(hdc, static_cast<int>(mpos.x / 3.6f), static_cast<int>(mpos.y), 14064, 432,
+			mImage->GetHdc(), 0, 0, 14064, 432, RGB(13, 72, 7));
 
 		Gameobject::Render(hdc);
 	}

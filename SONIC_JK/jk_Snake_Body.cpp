@@ -15,7 +15,7 @@ namespace jk
 		: mImage(nullptr)
 		, mAnimator(nullptr)
 		, Body_smoke(nullptr)
-		, prevPos(0.f,0.f)
+		, prevPos(0.f, 0.f)
 		, mState(eSnake::Right)
 		, Snake_State()
 	{
@@ -46,8 +46,8 @@ namespace jk
 		{
 		case jk::Snake_Body::eSnake::Right:
 			right();
-			break;	
-			
+			break;
+
 		case jk::Snake_Body::eSnake::Left:
 			left();
 			break;
@@ -110,7 +110,7 @@ namespace jk
 		Vector2 pos = tr->GetPos();
 		pos = Body_smoke->GetPrevPos() + Vector2{ 80.0f, 0.0f };// 포스 위치 변경	
 		tr->SetPos(pos);
-	
+
 
 		Snake_Body_Smoke* snake_smoke_body = dynamic_cast<Snake_Body_Smoke*>(Body_smoke);
 		Snake_State = snake_smoke_body->Get_Snake_state();
@@ -127,6 +127,6 @@ namespace jk
 	}
 	void Snake_Body::deth()
 	{
-		jk::object::Destory(this);		
+		jk::object::Destory(this);
 	}
 }

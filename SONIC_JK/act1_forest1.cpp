@@ -18,7 +18,7 @@ namespace jk
 	{
 		mImage = Resources::Load<Image>(L"forestup", L"..\\Resources\\forestup.bmp");
 		Transform* tr = GetComponent<Transform>();
-		tr->SetPos(Vector2{ 2790.0f * 3, (940.0f * 3 -40) });
+		tr->SetPos(Vector2{ 2790.0f * 3, (940.0f * 3 - 40) });
 		Gameobject::Initialize();
 	}
 	void act1_forest1::Update()
@@ -32,7 +32,8 @@ namespace jk
 		Vector2 pos = tr->GetPos();
 		tr->SetPos(pos);
 		Vector2 mpos = Camera::CaluatePos(pos);
-		TransparentBlt(hdc, mpos.x/4.1f, mpos.y, 12515, 340, mImage->GetHdc(), 21, 14, 12515, 340, RGB(13, 72, 7));
+		TransparentBlt(hdc, static_cast<int>(mpos.x / 4.1f), static_cast<int>(mpos.y), 12515, 340,
+			mImage->GetHdc(), 21, 14, 12515, 340, RGB(13, 72, 7));
 	}
 
 	void act1_forest1::Release()

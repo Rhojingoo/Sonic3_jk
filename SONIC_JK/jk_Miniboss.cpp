@@ -1,4 +1,4 @@
-#include "jk_Minibos.h"
+#include "jk_Miniboss.h"
 #include "mB_Rdeath.h"
 #include "mBoss_Bl_L.h"
 #include "mBoss_BL_R.h"
@@ -27,7 +27,7 @@ namespace jk
 	Minibos::Minibos(Gameobject* owner)
 		: mOwner(owner)
 		, mCenterpos(13545.f, 2880.f)
-		, pos(0.f,0.f)
+		, pos(0.f, 0.f)
 		, mMonspeed(100.0f)
 		, mMonmaxdistance(100.0f)
 		, fDist(0.f)
@@ -69,7 +69,7 @@ namespace jk
 		Collider* collider = AddComponent<Collider>();
 		collider->SetSize(Vector2(245.0f, 200.0f));
 		Vector2 size = collider->GetSize();
-		collider->SetCenter(Vector2{ (-0.2f) * size.x, (-0.25f) * size.y });	
+		collider->SetCenter(Vector2{ (-0.2f) * size.x, (-0.25f) * size.y });
 	}
 	Minibos::~Minibos()
 	{
@@ -102,21 +102,21 @@ namespace jk
 			break;
 
 		case jk::Minibos::eState::Atack:atack();
-			break;	
+			break;
 
 		case jk::Minibos::eState::Hurt:hurt();
 			break;
 
 		case jk::Minibos::eState::Death:death();
-			break;		
-		
+			break;
+
 		default:
 			break;
 		}
 
 		if (Death == 1)
 		{
-			time += Time::DeltaTime();
+			time += static_cast<float>(Time::DeltaTime());
 			if (time >= 5)
 			{
 				Act2_music->Play(true);
@@ -149,14 +149,14 @@ namespace jk
 			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
 			{
 				attack_check += 1;
-			
+
 				Transform* tr = GetComponent<Transform>();
-				if ((attack_check>=6)&&(mDir == -1))//哭率
+				if ((attack_check >= 6) && (mDir == -1))//哭率
 				{
-					
+
 
 					mAnimator->Play(L"L_mBoss_idle", true);
-					mState = eState::Death;		
+					mState = eState::Death;
 					attack_check = 0;
 					time = 0;
 
@@ -165,11 +165,11 @@ namespace jk
 				}
 				if ((attack_check >= 6) && (mDir == 1))//坷弗率
 				{
-					
-					mAnimator->Play(L"R_mBoss_idle", true);		
+
+					mAnimator->Play(L"R_mBoss_idle", true);
 					mState = eState::Death;
 					attack_check = 0;
-					time = 0;			
+					time = 0;
 					Collider* collider = GetComponent<Collider>();
 					collider->SetSize(Vector2(.0f, 0.0f));
 				}
@@ -196,7 +196,7 @@ namespace jk
 
 		if (fDist <= -485.0f)
 		{
-			mState = eState::Atack;			
+			mState = eState::Atack;
 		}
 		tr->SetPos(pos);
 	}
@@ -210,16 +210,16 @@ namespace jk
 
 
 		if (fDist >= -35.0f)
-		{					
+		{
 			if (mDir == -1)//哭率
 			{
-				mState = eState::Left;				
-				int a = 0;				
+				mState = eState::Left;
+				int a = 0;
 			}
 			if (mDir == 1)//坷弗率
 			{
 				int a = 0;
-				mState = eState::Right;				
+				mState = eState::Right;
 			}
 		}
 		tr->SetPos(pos);
@@ -231,8 +231,8 @@ namespace jk
 		time_check = 0;
 		fDist = mCenterpos.x - pos.x - mMonmaxdistance;
 		pos.x += mMonspeed * static_cast<float>(Time::DeltaTime());
-	
-		if (fDist <= - 335.0f)
+
+		if (fDist <= -335.0f)
 		{
 			mState = eState::Down;
 			mAnimator->Play(L"L_mBoss", true);
@@ -247,7 +247,7 @@ namespace jk
 		time_check = 0;
 		fDist = mCenterpos.x - pos.x - mMonmaxdistance;
 		pos.x -= mMonspeed * static_cast<float>(Time::DeltaTime());
-		
+
 
 		if (fDist >= 590.0f)
 		{
@@ -260,7 +260,7 @@ namespace jk
 
 	void Minibos::waiting()
 	{
-		time_check += Time::DeltaTime();
+		time_check += static_cast<float>(Time::DeltaTime());
 		if (time_check > 3)//促款
 		{
 			if (attack == 0)
@@ -271,7 +271,7 @@ namespace jk
 				attack = 1;
 			}
 			if (attack == 1)
-			{				
+			{
 				mState = eState::Up;
 				time_check = 0;
 				attack = 0;
@@ -281,36 +281,36 @@ namespace jk
 
 	void Minibos::atack()
 	{
-		time_check += Time::DeltaTime();
+		time_check += static_cast<float>(Time::DeltaTime());
 		Transform* tr = GetComponent<Transform>();
-	
-			if (mDir == -1)//哭率
-			{
-				Scene* curScene = SceneManager::GetActiveScene();
-				mBoss_Bl_L* bullet = new mBoss_Bl_L(this);
-				bullet->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x-400, tr->GetPos().y + 25 });
-				curScene->AddGameobeject(bullet, jk_LayerType::Bullet);		
-				if (time_check >= 3)
-				{
-					object::Destory(bullet);
-					mState = eState::Waiting;
-					time_check = 0;
-				}
-			}
-			if (mDir == 1)//坷弗率
-			{
-				Scene* curScene = SceneManager::GetActiveScene();
-				mBoss_BL_R* bullet = new mBoss_BL_R(this);
-				bullet->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x+245, tr->GetPos().y + 25 });
-				curScene->AddGameobeject(bullet, jk_LayerType::Bullet);		
 
-				if (time_check >= 3)
-				{
-					object::Destory(bullet);
-					mState = eState::Waiting;
-					time_check = 0;
-				}
-			}			
+		if (mDir == -1)//哭率
+		{
+			Scene* curScene = SceneManager::GetActiveScene();
+			mBoss_Bl_L* bullet = new mBoss_Bl_L(this);
+			bullet->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x - 400, tr->GetPos().y + 25 });
+			curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
+			if (time_check >= 3)
+			{
+				object::Destory(bullet);
+				mState = eState::Waiting;
+				time_check = 0;
+			}
+		}
+		if (mDir == 1)//坷弗率
+		{
+			Scene* curScene = SceneManager::GetActiveScene();
+			mBoss_BL_R* bullet = new mBoss_BL_R(this);
+			bullet->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x + 245, tr->GetPos().y + 25 });
+			curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
+
+			if (time_check >= 3)
+			{
+				object::Destory(bullet);
+				mState = eState::Waiting;
+				time_check = 0;
+			}
+		}
 		tr->SetPos(pos);
 	}
 
@@ -320,9 +320,9 @@ namespace jk
 
 	void Minibos::death()
 	{
-		
+
 		if (attack_check == 0)
-		{			
+		{
 			Miniboss2->Stop(true);
 			Minboss_death->Play(false);
 
@@ -331,16 +331,16 @@ namespace jk
 			Scene* curScene = SceneManager::GetActiveScene();
 			boss_boomb->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x , tr->GetPos().y });
 			curScene->AddGameobeject(boss_boomb, jk_LayerType::MiniBoss);
-			attack_check = 1; 
-			time = 0;			
+			attack_check = 1;
+			time = 0;
 		}
-		time += Time::DeltaTime();
-		if ( (time >= 2) && (attack_check >=1))
-		{	
-			Death = 1;			
+		time += static_cast<float>(Time::DeltaTime());
+		if ((time >= 2) && (attack_check >= 1))
+		{
+			Death = 1;
 			time_check = 0;
 		}
 	}
 
-	
+
 }

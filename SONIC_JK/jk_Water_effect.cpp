@@ -20,7 +20,7 @@ namespace jk
 	{
 		mImage = Resources::Load<Image>(L"Effect", L"..\\Resources\\Effect.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"Water_Effect_act1", mImage, Vector2(24, 370), Vector2(40, 32), Vector2(8, 0), 7, 1,7, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"Water_Effect_act1", mImage, Vector2(24, 370), Vector2(40, 32), Vector2(8, 0), 7, 1, 7, Vector2::Zero, 0.1f);
 		mAnimator->Play(L"Water_Effect_act1", false);
 		mAnimator->GetCompleteEvent(L"Water_Effect_act1") = std::bind(&Water_effect::water_splashes, this);
 	}

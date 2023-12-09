@@ -19,7 +19,7 @@ namespace jk
 {
 	Robotnic_machine::Robotnic_machine()
 		:mSpeed(250)
-		, pos(0.f,0.f)
+		, pos(0.f, 0.f)
 		, mImage()
 		, mAnimator()
 		, mState()
@@ -32,8 +32,8 @@ namespace jk
 	{
 		mImage = Resources::Load<Image>(L"fly_event", L"..\\Resources\\ActBG_6\\fly_event.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"fly_event_idle", mImage, Vector2(0, 0), Vector2(68, 64), Vector2(4, 0), 1, 1, 1, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"fly_event", mImage, Vector2(0, 0), Vector2(68, 64), Vector2(4, 0), 2, 1, 2, Vector2::Zero, 0.3);
+		mAnimator->CreateAnimation(L"fly_event_idle", mImage, Vector2(0, 0), Vector2(68, 64), Vector2(4, 0), 1, 1, 1, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"fly_event", mImage, Vector2(0, 0), Vector2(68, 64), Vector2(4, 0), 2, 1, 2, Vector2::Zero, 0.3f);
 
 		mAnimator->Play(L"fly_event_idle", true);
 
@@ -129,7 +129,7 @@ namespace jk
 			if (fLen < fSize)
 			{
 				sonic_Pos.y -= (fSize - fLen) - 0.5f;
-				sonicTr->SetPos(Vector2{ groundPos.x + groundCol->GetSize().y / 2.0f ,groundPos.y- groundCol->GetSize().y});
+				sonicTr->SetPos(Vector2{ groundPos.x + groundCol->GetSize().y / 2.0f ,groundPos.y - groundCol->GetSize().y });
 			}
 
 			if ((mSonic->Getsonicstate() == Sonic::eSonicState::Jump) || (mSonic->Getsonicstate() == Sonic::eSonicState::Hurt))
@@ -141,7 +141,7 @@ namespace jk
 				rb->SetGround(false);
 
 				sonic_Pos = sonicTr->GetPos();
-				sonicTr->SetPos(Vector2{ sonic_Pos.x,sonic_Pos.y-100 });
+				sonicTr->SetPos(Vector2{ sonic_Pos.x,sonic_Pos.y - 100 });
 			}
 		}
 	}

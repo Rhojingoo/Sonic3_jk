@@ -19,7 +19,7 @@ namespace jk
 	{
 		mAnimator = AddComponent<Animator>();
 		mImage = Resources::Load<Image>(L"act2_waterfall_3", L"..\\Resources\\ActBG_1_2\\act2_waterfall_3.bmp");
-		mAnimator->CreateAnimation(L"act2_waterfall_3", mImage, Vector2(0, 0), Vector2(648, 752), Vector2(8, 0), 4, 1, 4, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"act2_waterfall_3", mImage, Vector2(0, 0), Vector2(648, 752), Vector2(8, 0), 4, 1, 4, Vector2::Zero, 0.1f);
 		mAnimator->Play(L"act2_waterfall_3", true);
 
 		Gameobject::Initialize();
@@ -30,12 +30,12 @@ namespace jk
 	}
 	void act2_waterfall3::Render(HDC hdc)
 	{
-		Gameobject::Render(hdc);			
+		Gameobject::Render(hdc);
 	}
 	void act2_waterfall3::Release()
 	{
 		Gameobject::Release();
-	}	
+	}
 	void act2_waterfall3::OnCollisionEnter(Collider* other)
 	{
 	}

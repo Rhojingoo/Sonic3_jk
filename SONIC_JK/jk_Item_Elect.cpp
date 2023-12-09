@@ -15,7 +15,7 @@ namespace jk
 		, mAnimator(nullptr)
 		, itemmState(eState::Idle)
 		, sonicState()
-	{		
+	{
 
 	}
 
@@ -27,8 +27,8 @@ namespace jk
 	{
 		mImage = Resources::Load<Image>(L"Item", L"..\\Resources\\Item.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"ElectItem", mImage, Vector2(565, 131), Vector2(32, 32), Vector2(0, 0), 1,1, 1, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"ItemDeath", mImage, Vector2(460, 216), Vector2(32, 16), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"ElectItem", mImage, Vector2(565, 131), Vector2(32, 32), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"ItemDeath", mImage, Vector2(460, 216), Vector2(32, 16), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
 		mAnimator->Play(L"ElectItem", true);
 
 		Collider* collider = AddComponent<Collider>();
@@ -69,7 +69,7 @@ namespace jk
 	void Item_Elect::OnCollisionEnter(Collider* other)
 	{
 		if (Sonic* sonic = dynamic_cast<Sonic*>(other->GetOwner()))
-		{			
+		{
 			sonicState = sonic->Getsonicstate();
 
 			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)

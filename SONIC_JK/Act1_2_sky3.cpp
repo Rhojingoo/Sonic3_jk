@@ -16,7 +16,7 @@ namespace jk
 	void Act1_2_sky3::Initialize()
 	{
 		mImage = Resources::Load<Image>(L"act1-2_sky3", L"..\\Resources\\ActBG_1_2\\sky_bg\\act1-2_sky3.bmp");
-		Transform* tr = GetComponent<Transform>();		
+		Transform* tr = GetComponent<Transform>();
 		Gameobject::Initialize();
 	}
 	void Act1_2_sky3::Update()
@@ -29,7 +29,8 @@ namespace jk
 		Vector2 pos = tr->GetPos();
 		tr->SetPos(pos);
 		Vector2 mpos = Camera::CaluatePos(pos);
-		TransparentBlt(hdc, mpos.x / 3.3f, mpos.y, 14064, 240, mImage->GetHdc(), 0, 0, 14064, 240, RGB(13, 72, 7));
+		TransparentBlt(hdc, static_cast<int>(mpos.x / 3.3f), static_cast<int>(mpos.y), 14064, 240,
+			mImage->GetHdc(), 0, 0, 14064, 240, RGB(13, 72, 7));
 
 		Gameobject::Render(hdc);
 	}

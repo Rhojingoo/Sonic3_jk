@@ -25,8 +25,8 @@ namespace jk
 {
 	Snake::Snake(Gameobject* owner)
 		: mCenterpos(0.f, 0.f)
-		, mCurpos(Vector2(0.f, 0.f))	
-		, prevPos(0.f,0.f)
+		, mCurpos(Vector2(0.f, 0.f))
+		, prevPos(0.f, 0.f)
 		, mMonmaxdistance_x(200.0f)
 		, mMonmaxdistance_y(50.0f)
 		, mDir_x(1)
@@ -43,7 +43,7 @@ namespace jk
 		, mAnimator(nullptr)
 	{
 	}
-	
+
 	Snake::~Snake()
 	{
 	}
@@ -61,7 +61,7 @@ namespace jk
 		mImage1 = Resources::Load<Image>(L"Effect", L"..\\Resources\\Effect.bmp");
 		mAnimator->CreateAnimation(L"snake_deth", mImage1, Vector2{ 242.f,458.f }, Vector2{ 40.f,32.f }, Vector2{ 8.f,0.f }, 4, 1, 4, Vector2::Zero, 0.3f);
 		mAnimator->CreateAnimation(L"deth2", mImage1, Vector2{ 242.f,498.f }, Vector2{ 32.f,24.f }, Vector2{ 8.f,0.f }, 4, 1, 4, Vector2::Zero, 0.3f);
-				
+
 		mAnimator->Play(L"RSnake_head", true);
 		mAnimator->GetCompleteEvent(L"snake_deth") = std::bind(&Snake::deth, this); //Canon_death2
 
@@ -69,7 +69,7 @@ namespace jk
 		collider->SetSize(Vector2(55.0f, 55.0f));
 		Vector2 size = collider->GetSize();
 		collider->SetCenter(Vector2{ (-0.25f) * size.x, (-0.35f) * size.y });
-		
+
 
 		Gameobject::Initialize();
 	}
@@ -77,19 +77,19 @@ namespace jk
 	void Snake::Update()
 	{
 		Transform* tr = GetComponent<Transform>();
-		Vector2 pos = tr->GetPos( );
+		Vector2 pos = tr->GetPos();
 		mCurpos = pos;
-			
- 		switch (mState)
+
+		switch (mState)
 		{
 		case jk::Snake::eSnake::Idle:
 			idle();
 			break;
-		
+
 		case jk::Snake::eSnake::Right:
 			right();
 			break;
-		
+
 		case jk::Snake::eSnake::Left:
 			left();
 			break;
@@ -97,7 +97,7 @@ namespace jk
 		case jk::Snake::eSnake::Deth:
 			deth();
 			break;
-		
+
 		default:
 			break;
 		}
@@ -122,7 +122,7 @@ namespace jk
 
 			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
 			{
-				mAnimator->Play(L"snake_deth", true);			
+				mAnimator->Play(L"snake_deth", true);
 				Death->Play(false);
 			}
 		}
@@ -132,11 +132,11 @@ namespace jk
 
 			if (tailsState == Tails::eTailsState::Dash || tailsState == Tails::eTailsState::Jump || tailsState == Tails::eTailsState::Spin || tailsState == Tails::eTailsState::Movejump)
 			{
-				mAnimator->Play(L"snake_deth", false);		
+				mAnimator->Play(L"snake_deth", false);
 				Death->Play(false);
 			}
 		}
-		
+
 
 	}
 
@@ -152,7 +152,7 @@ namespace jk
 	{
 		return prevPos;
 	}
-	
+
 
 
 	void Snake::idle()
@@ -170,9 +170,9 @@ namespace jk
 		Vector2 mDistance = Vector2{ mMonmaxdistance_x, mMonmaxdistance_y };
 
 		float time = static_cast<float>(TimeSinceStart());
-		float speed = 50.0f; 
-		float amplitude = 100.0f; 
-		float frequency = 2.f; 
+		float speed = 50.0f;
+		float amplitude = 100.0f;
+		float frequency = 2.f;
 		pos.x += speed * static_cast<float>(Time::DeltaTime());
 		pos.y += amplitude * sin(frequency * time) * static_cast<float>(Time::DeltaTime());
 
@@ -180,7 +180,7 @@ namespace jk
 		if (fDist_x >= 300.0f)
 		{
 			mState = eSnake::Left;
-			mDir_x * -1;
+			mDir_x = mDir_x * -1;
 			mAnimator->Play(L"LSnake_head", true);
 		}
 
@@ -210,7 +210,7 @@ namespace jk
 		if (fDist_x <= -100.0f)
 		{
 			mState = eSnake::Right;
-			mDir_x * -1;
+			mDir_x = mDir_x * -1;
 			mAnimator->Play(L"RSnake_head", true);
 		}
 		tr->SetPos(pos);

@@ -36,7 +36,7 @@ namespace jk
 
 		mImage = Resources::Load<Image>(L"Ground_collapses", L"..\\Resources\\Rock_Platform.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"Ground_collapses", mImage, Vector2(500, 562), Vector2(96, 64), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"Ground_collapses", mImage, Vector2(500, 562), Vector2(96, 64), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
 		mAnimator->Play(L"Ground_collapses", true);
 
 
@@ -86,7 +86,7 @@ namespace jk
 			Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
 			rb->SetGround(true);
 			Collider* mSonic_Col = mSonic->GetComponent<Collider>();
-			Vector2 mSonic_colPos = mSonic_Col->Getpos();		
+			Vector2 mSonic_colPos = mSonic_Col->Getpos();
 			Transform* sonicTr = mSonic->GetComponent<Transform>();
 			Vector2 sonic_Pos = sonicTr->GetPos();
 
@@ -96,29 +96,29 @@ namespace jk
 			Transform* grTr = this->GetComponent<Transform>();
 			Collider* groundCol = this->GetComponent<Collider>();
 			Vector2 ground_colPos = groundCol->Getpos();
-			
+
 
 			Vector2 velocity = rb->GetVelocity();
 			velocity.y = 0.0f;
 			rb->SetVelocity(velocity);
 
 
-			if(! ((mSonic->Getsonicstate() == Sonic::eSonicState::Jump) || (mSonic->Getsonicstate() == Sonic::eSonicState::Hurt)))
+			if (!((mSonic->Getsonicstate() == Sonic::eSonicState::Jump) || (mSonic->Getsonicstate() == Sonic::eSonicState::Hurt)))
 			{
-				sonic_Pos.y =  groundCol->Getpos().y - groundCol->GetSize().y/2.f;
- 				check_Gr = 1;
+				sonic_Pos.y = groundCol->Getpos().y - groundCol->GetSize().y / 2.f;
+				check_Gr = 1;
 				sonicTr->SetPos(sonic_Pos);
-			}	
-			else 
+			}
+			else
 			{
 				Vector2 velocity = rb->GetVelocity();
 				velocity.y = -650.0f;
-			
+
 				rb->SetVelocity(velocity);
 				rb->SetGround(false);
 
-				sonic_Pos = sonicTr->GetPos();				
-				sonicTr->SetPos(sonic_Pos);				
+				sonic_Pos = sonicTr->GetPos();
+				sonicTr->SetPos(sonic_Pos);
 			}
 		}
 
@@ -146,7 +146,7 @@ namespace jk
 
 			if (!((tails->GetTails_state() == Tails::eTailsState::Jump) || (tails->GetTails_state() == Tails::eTailsState::Movejump) || (tails->GetTails_state() == Tails::eTailsState::Hurt)))
 			{
-				tails_Pos.y = groundCol->Getpos().y - groundCol->GetSize().y / 2.f;				
+				tails_Pos.y = groundCol->Getpos().y - groundCol->GetSize().y / 2.f;
 				tails_Tr->SetPos(tails_Pos);
 			}
 			else
@@ -165,10 +165,10 @@ namespace jk
 
 		if (check_Gr == 1)
 		{
-			time_Gr += Time::DeltaTime();
+			time_Gr += static_cast<float>(Time::DeltaTime());
 			if (time_Gr >= 1)
 			{
-				mState = eState::Death;				
+				mState = eState::Death;
 				return;
 			}
 		}
@@ -197,9 +197,9 @@ namespace jk
 		Vector2 pos = tr->GetPos();
 		Callapses* GR_callapese = new Callapses();
 		Scene* curScene = SceneManager::GetActiveScene();
-		curScene->AddGameobeject(GR_callapese, jk_LayerType::BG_props);		
+		curScene->AddGameobeject(GR_callapese, jk_LayerType::BG_props);
 		GR_callapese->GetComponent<Transform>()->SetPos(pos);
 
-		jk::object::Destory(this);		
+		jk::object::Destory(this);
 	}
 }

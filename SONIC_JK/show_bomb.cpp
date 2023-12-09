@@ -26,12 +26,12 @@ namespace jk
 		, mState()
 		, mOwner(owner)
 		, pos(0.f, 0.f)
-		, Player_pos(0.f,0.f)
+		, Player_pos(0.f, 0.f)
 		, check_ground(0)
 	{
 		mImage = Resources::Load<Image>(L"Act1_3_Boomb", L"..\\Resources\\ActBG_1_3\\Act1_3_Boomber.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"Act1_3_Boomb", mImage, Vector2{ 16,403 }, Vector2{ 32,32}, Vector2{ 0.f,0.f }, 1, 1, 1, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"Act1_3_Boomb", mImage, Vector2{ 16,403 }, Vector2{ 32,32 }, Vector2{ 0.f,0.f }, 1, 1, 1, Vector2::Zero, 0.1f);
 		mAnimator->CreateAnimation(L"bombing", mImage, Vector2{ 16,403 }, Vector2{ 40,32 }, Vector2{ 8.f,0.f }, 6, 1, 6, Vector2::Zero, 0.1f);
 		mAnimator->GetCompleteEvent(L"bombing") = std::bind(&show_bomb::bomb, this);
 		mAnimator->Play(L"Act1_3_Boomb", true);
@@ -47,7 +47,7 @@ namespace jk
 	}
 	void show_bomb::Update()
 	{
-		mGroundImage = 	check->GetGroundImage3();
+		mGroundImage = check->GetGroundImage3();
 		Transform* tr = GetComponent<Transform>();
 		pos = tr->GetPos();
 
@@ -61,22 +61,20 @@ namespace jk
 
 		default:
 			break;
-		}		
+		}
 
 		if (mGroundImage)
-		{			
-			COLORREF FootColor = mGroundImage->GetPixel(pos.x, pos.y + 75);
+		{
+			COLORREF FootColor = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(pos.x), static_cast<int>(pos.y) + 75));
 			if (FootColor == RGB(0, 0, 0))
 			{
-				COLORREF FootColor = mGroundImage->GetPixel(pos.x, pos.y + 75);
-
-				while (FootColor == RGB(0, 0, 0))
+				do
 				{
 					pos.y -= 1;
-					FootColor = mGroundImage->GetPixel(pos.x, pos.y + 75);
-					tr->SetPos(pos);	
+					FootColor = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(pos.x), static_cast<int>(pos.y) + 75));
+					tr->SetPos(pos);
 					check_ground = 1;
-				}
+				} while (FootColor == RGB(0, 0, 0) && pos.y > 0);
 			}
 		}
 

@@ -37,7 +37,7 @@ namespace jk
 
 		mImage = Resources::Load<Image>(L"Ground_collapses", L"..\\Resources\\Rock_Platform.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"Ground_collapses_left", mImage, Vector2(540, 285), Vector2(96, 64), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"Ground_collapses_left", mImage, Vector2(540, 285), Vector2(96, 64), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
 		mAnimator->Play(L"Ground_collapses_left", true);
 
 
@@ -114,14 +114,14 @@ namespace jk
 			}
 
 			else
-			{				
+			{
 				Vector2 velocity = rb->GetVelocity();
 				velocity.y = -650.0f;
 
 				rb->SetVelocity(velocity);
 				rb->SetGround(false);
 
-				sonic_Pos = sonicTr->GetPos();		
+				sonic_Pos = sonicTr->GetPos();
 				sonicTr->SetPos(sonic_Pos);
 			}
 		}
@@ -150,7 +150,7 @@ namespace jk
 
 			if (!((tails->GetTails_state() == Tails::eTailsState::Jump) || (tails->GetTails_state() == Tails::eTailsState::Movejump) || (tails->GetTails_state() == Tails::eTailsState::Hurt)))
 			{
-				tails_Pos.y = groundCol->Getpos().y - groundCol->GetSize().y / 2.f;				
+				tails_Pos.y = groundCol->Getpos().y - groundCol->GetSize().y / 2.f;
 				tails_Tr->SetPos(tails_Pos);
 			}
 			else
@@ -166,15 +166,15 @@ namespace jk
 			}
 		}
 
-			if (check_Gr2 == 1)
+		if (check_Gr2 == 1)
+		{
+			time_Gr2 += static_cast<float>(Time::DeltaTime());
+			if (time_Gr2 >= 1)
 			{
-				time_Gr2 += Time::DeltaTime();
-				if (time_Gr2 >= 1)
-				{
-					mState = eState::Death;					
-					return;
-				}
-			}		
+				mState = eState::Death;
+				return;
+			}
+		}
 	}
 
 	void Collapses_GR_left::OnCollisionExit(Collider* other)
@@ -191,14 +191,14 @@ namespace jk
 	}
 
 	void Collapses_GR_left::death()
-	{		
+	{
 		Crash->Play(false);
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 		Callapses* GR_callapese = new Callapses();
 		Scene* curScene = SceneManager::GetActiveScene();
 		curScene->AddGameobeject(GR_callapese, jk_LayerType::BG_props);
-		GR_callapese->GetComponent<Transform>()->SetPos(pos);		
+		GR_callapese->GetComponent<Transform>()->SetPos(pos);
 
 		jk::object::Destory(this);
 	}

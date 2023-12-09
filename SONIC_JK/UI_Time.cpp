@@ -11,10 +11,10 @@ namespace jk
 {
 	UI_Time::UI_Time()
 		:time(0)
-		,mTime(0)
-		,time_S(0)
-		,time_M(0)
-		,mImage(nullptr)
+		, mTime(0)
+		, time_S(0)
+		, time_M(0)
+		, mImage(nullptr)
 	{
 	}
 	UI_Time::~UI_Time()
@@ -22,13 +22,13 @@ namespace jk
 	}
 	void UI_Time::Initialize()
 	{
-		mImage = Resources::Load<Image>(L"UI", L"..\\Resources\\UI\\UI.bmp");			
+		mImage = Resources::Load<Image>(L"UI", L"..\\Resources\\UI\\UI.bmp");
 
 		Gameobject::Initialize();
 	}
 	void UI_Time::Update()
 	{
-		time += Time::DeltaTime();
+		time += static_cast<float>(Time::DeltaTime());
 
 		if ((time >= 1.f) && (time < 2.f))
 		{
@@ -77,7 +77,7 @@ namespace jk
 		if (time_S >= 6)
 		{
 			time_S = 0;
-			time_M += 1;		
+			time_M += 1;
 		}
 
 		if (time_M >= 10)
@@ -147,7 +147,7 @@ namespace jk
 			b = 58;
 		}
 
-		TransparentBlt(hdc, 237, 91, 21,33, mImage->GetHdc(), a, b, 7, 11, RGB(13, 72, 7));
+		TransparentBlt(hdc, 237, 91, 21, 33, mImage->GetHdc(), a, b, 7, 11, RGB(13, 72, 7));
 		Gameobject::Render(hdc);
 	}
 	void UI_Time::Release()

@@ -18,7 +18,7 @@ namespace jk
 		, mState(eSnake::Right)
 		, bodyend_state()
 		, snake_body(nullptr)
-		, prevPos(0.f,0.f)
+		, prevPos(0.f, 0.f)
 	{
 	}
 	Snake_mTaIl::~Snake_mTaIl()

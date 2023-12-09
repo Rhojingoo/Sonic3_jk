@@ -12,13 +12,13 @@ namespace jk
 	}
 	acr1_forest2::~acr1_forest2()
 	{
-		
+
 	}
 	void acr1_forest2::Initialize()
 	{
 		mImage = Resources::Load<Image>(L"middlesky", L"..\\Resources\\middlesky.bmp");
 		Transform* tr = GetComponent<Transform>();
-		tr->SetPos(Vector2{2790.0f * 3, (940.0f * 3 - 127) });
+		tr->SetPos(Vector2{ 2790.0f * 3, (940.0f * 3 - 127) });
 		Gameobject::Initialize();
 	}
 	void acr1_forest2::Update()
@@ -33,7 +33,8 @@ namespace jk
 		tr->SetPos(pos);
 		Vector2 imagepos = Vector2(11515.f, 1026.f);
 		Vector2 mpos = Camera::CaluatePos(pos);
-		TransparentBlt(hdc, mpos.x / 3.f, mpos.y, 11590.f, 87.f, mImage->GetHdc(), 7.f, 1.f, 11590.f, 87.f, RGB(13, 72, 7));
+		TransparentBlt(hdc, static_cast<int>(mpos.x / 3.f), static_cast<int>(mpos.y), static_cast<int>(11590.f), static_cast<int>(87.f)
+			, mImage->GetHdc(), static_cast<int>(7.f), static_cast<int>(1.f), static_cast<int>(11590.f), static_cast<int>(87.f), RGB(13, 72, 7));
 	}
 
 	void acr1_forest2::Release()

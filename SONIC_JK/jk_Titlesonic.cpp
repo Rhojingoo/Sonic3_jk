@@ -30,14 +30,14 @@ namespace jk
 	{
 		mAnimator = AddComponent<Animator>();
 		mImage = Resources::Load<Image>(L"Opening_BG", L"..\\Resources\\Title\\OPEN_BG.bmp");
-		mAnimator->CreateAnimation(L"TitleBegin", mImage, Vector2(8, 472), Vector2(328, 232), Vector2(8, 8), 4, 4, 16, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"TitleBegin", mImage, Vector2(8, 472), Vector2(328, 232), Vector2(8, 8), 4, 4, 16, Vector2::Zero, 0.1f);
 		mImage = Resources::Load<Image>(L"Titlesonic_BG", L"..\\Resources\\Title\\OPEN_BG2.bmp");
-		mAnimator->CreateAnimation(L"TitleSonic", mImage, Vector2(8, 936), Vector2(328, 232), Vector2(8, 8), 4, 2, 8, Vector2::Zero, 0.1);
-		mAnimator->Play(L"TitleBegin", false);				
+		mAnimator->CreateAnimation(L"TitleSonic", mImage, Vector2(8, 936), Vector2(328, 232), Vector2(8, 8), 4, 2, 8, Vector2::Zero, 0.1f);
+		mAnimator->Play(L"TitleBegin", false);
 		mAnimator->GetCompleteEvent(L"TitleBegin") = std::bind(&Titlesonic::startscene, this);
 
 		Transform* tr = GetComponent<Transform>();
-		tr->SetPos(Vector2{ 160.0f, 232.0f });	
+		tr->SetPos(Vector2{ 160.0f, 232.0f });
 		tr->SetScale(Vector2{ 1.3f, 1.2f });
 		Gameobject::Initialize();
 

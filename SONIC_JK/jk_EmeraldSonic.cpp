@@ -30,8 +30,8 @@ namespace jk
 	{
 		Image* mImage = Resources::Load<Image>(L"SONIC", L"..\\Resources\\sonic.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"sonicidle", mImage, Vector2(675,2328), Vector2(50, 55), Vector2(2, 2), 1, 1, 1, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"sonicwalk", mImage, Vector2(725, 2328), Vector2(50, 55), Vector2(2, 2), 4, 2, 8, Vector2::Zero, 0.08);
+		mAnimator->CreateAnimation(L"sonicidle", mImage, Vector2(675,2328), Vector2(50, 55), Vector2(2, 2), 1, 1, 1, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"sonicwalk", mImage, Vector2(725, 2328), Vector2(50, 55), Vector2(2, 2), 4, 2, 8, Vector2::Zero, 0.08f);
 		
 		
 		Collider* collider = AddComponent<Collider>();

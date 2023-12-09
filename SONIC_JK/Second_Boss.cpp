@@ -25,7 +25,7 @@ namespace jk
 {
 	Second_Boss::Second_Boss()
 		: mCenterpos(14350.f, 6670.f)
-		, pos(0.f,0.f)
+		, pos(0.f, 0.f)
 		, mSpeed(250)
 		, mDir(1)
 		, Up_Down(-1)
@@ -53,7 +53,7 @@ namespace jk
 		Boss_Bomb = Resources::Load<Sound>(L"Boss_death", L"..\\Resources\\Sound\\Boss_death.wav");
 		Boss_Start = Resources::Load<Sound>(L"Boss_start", L"..\\Resources\\Sound\\Boss_start.wav");
 		Act6_music = Resources::Load<Sound>(L"Act6_bg", L"..\\Resources\\Sound\\Act6_bg.wav");
-	
+
 
 		mImage = Resources::Load<Image>(L"Second_boss_R", L"..\\Resources\\ActBG_6\\BOSS\\Second_boss_R.bmp");
 		mImage1 = Resources::Load<Image>(L"Second_boss_L", L"..\\Resources\\ActBG_6\\BOSS\\Second_boss_L.bmp");
@@ -63,7 +63,7 @@ namespace jk
 		mAnimator->CreateAnimation(L"L_Boss_3th", mImage, Vector2{ 580,3 }, Vector2{ 100,208 }, Vector2{ 4.f,0.f }, 9, 1, 9, Vector2::Zero, 0.2f);
 		mAnimator->CreateAnimation(L"L_Boss3_Hurt", mImage, Vector2{ 1480,3 }, Vector2{ 100,208 }, Vector2{ 4.f,0.f }, 3, 1, 3, Vector2::Zero, 0.1f);
 		mAnimator->CreateAnimation(L"L_Boss_2th", mImage, Vector2{ 580,218 }, Vector2{ 100,168 }, Vector2{ 4.f,0.f }, 9, 1, 9, Vector2::Zero, 0.2f);
-		mAnimator->CreateAnimation(L"L_Boss_2th_Hurt", mImage, Vector2{ 1480,218 }, Vector2{ 100,168 }, Vector2{ 4.f,0.f },  3, 1, 3, Vector2::Zero, 0.1f);
+		mAnimator->CreateAnimation(L"L_Boss_2th_Hurt", mImage, Vector2{ 1480,218 }, Vector2{ 100,168 }, Vector2{ 4.f,0.f }, 3, 1, 3, Vector2::Zero, 0.1f);
 		mAnimator->CreateAnimation(L"L_Boss_1th", mImage, Vector2{ 580,396 }, Vector2{ 84,128 }, Vector2{ 4.f,0.f }, 3, 1, 3, Vector2::Zero, 0.1f);
 		mAnimator->CreateAnimation(L"L_Boss_1th_Hurt", mImage, Vector2{ 832,396 }, Vector2{ 84,128 }, Vector2{ 4.f,0.f }, 3, 1, 3, Vector2::Zero, 0.1f);
 		mAnimator->CreateAnimation(L"L_Boss_Death", mImage, Vector2{ 832,396 }, Vector2{ 80,56 }, Vector2{ 0.f,0.f }, 1, 1, 1, Vector2::Zero, 0.1f);
@@ -94,7 +94,7 @@ namespace jk
 		Collider* collider = AddComponent<Collider>();
 		collider->SetSize(Vector2(245.0f, 500.0f));
 		Vector2 size = collider->GetSize();
-		collider->SetCenter(Vector2{ (-0.2f) * size.x, (-0.5f) * size.y });		
+		collider->SetCenter(Vector2{ (-0.2f) * size.x, (-0.5f) * size.y });
 	}
 
 	Second_Boss::~Second_Boss()
@@ -114,7 +114,7 @@ namespace jk
 
 		if (Boomb_point == 2)
 		{
-			secondtime += Time::DeltaTime();
+			secondtime += static_cast<float>(Time::DeltaTime());
 			if (secondtime > 2)
 			{
 				Create_RunBoss();
@@ -140,7 +140,7 @@ namespace jk
 			break;
 
 		case jk::Second_Boss::eBossState::Death:death();
-			break;		
+			break;
 
 		default:
 			break;
@@ -170,22 +170,22 @@ namespace jk
 			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
 			{
 				Damege_check += 1;
-				Boss_Hit->Play(false);				
+				Boss_Hit->Play(false);
 
 				if (Damege_check < 4)
-				{		
+				{
 					if (mDir == 1)
 					{
-						mAnimator->Play(L"R_Boss3_Hurt", true); 
+						mAnimator->Play(L"R_Boss3_Hurt", true);
 					}
 					else
 					{
-						mAnimator->Play(L"L_Boss3_Hurt", false);						
-					}					
+						mAnimator->Play(L"L_Boss3_Hurt", false);
+					}
 				}
 
-	
-				else if((Damege_check >= 4)&&(Damege_check < 6))
+
+				else if ((Damege_check >= 4) && (Damege_check < 6))
 				{
 
 					if (mDir == 1)
@@ -199,7 +199,7 @@ namespace jk
 							//何加前冻绢飘府扁 棺 气惯
 						}
 					}
-					else 
+					else
 					{
 						mAnimator->Play(L"L_Boss_2th_Hurt", true);
 						if (Damege_check == 4)
@@ -212,7 +212,7 @@ namespace jk
 					}
 				}
 
-				else if ((Damege_check >= 8) && (Damege_check < 9))			
+				else if ((Damege_check >= 8) && (Damege_check < 9))
 				{
 					if (mDir == 1)
 					{
@@ -277,7 +277,7 @@ namespace jk
 	void Second_Boss::Create_RunBoss()
 	{
 		Scene* curScene = SceneManager::GetActiveScene();
-		boss_run2 = new Boss_Run(this);		
+		boss_run2 = new Boss_Run(this);
 		boss_run2->SetName(L"boss_run2");
 		pos = Vector2{ 13850.f, 6000.f };
 		boss_run2->GetComponent<Transform>()->SetPos(pos);
@@ -288,7 +288,7 @@ namespace jk
 
 	void Second_Boss::R_up()
 	{
-		Transform* tr = GetComponent<Transform>();		
+		Transform* tr = GetComponent<Transform>();
 		pos.y -= mSpeed * static_cast<float>(Time::DeltaTime());
 
 		if (pos.y <= 4500.0f)
@@ -302,12 +302,12 @@ namespace jk
 
 	void Second_Boss::R_down()
 	{
-		Transform* tr = GetComponent<Transform>();			
+		Transform* tr = GetComponent<Transform>();
 		pos.y += mSpeed * static_cast<float>(Time::DeltaTime());
 
-		if (pos.y >=6000.0f)
+		if (pos.y >= 6000.0f)
 		{
-			mState = eBossState::L_up;		
+			mState = eBossState::L_up;
 			pos = Vector2{ 13850.f, 6000.f };
 			tr->SetPos(pos);
 
@@ -319,11 +319,11 @@ namespace jk
 			{
 				mAnimator->Play(L"L_Boss_2th", true);
 			}
-			else if (Damege_check >= 6 )
+			else if (Damege_check >= 6)
 			{
 				mAnimator->Play(L"L_Boss_1th", true);
 			}
-			
+
 			mDir = -1;
 			Up_Down = -1;
 		}
@@ -347,8 +347,8 @@ namespace jk
 
 	void Second_Boss::L_down()
 	{
-		Transform* tr = GetComponent<Transform>();		
-		
+		Transform* tr = GetComponent<Transform>();
+
 		pos.y += mSpeed * static_cast<float>(Time::DeltaTime());
 
 		if (pos.y >= 6000.0f)
@@ -377,27 +377,27 @@ namespace jk
 	}
 
 	void Second_Boss::death()
-	{	
+	{
 		Act6_music->Stop(true);
-		if(Boomb_point==0)
+		if (Boomb_point == 0)
 		{
-		Boss_Bomb->Play(false);	
+			Boss_Bomb->Play(false);
 
-		Scene* curScene = SceneManager::GetActiveScene();
-		Boss_act1_boomb* Boss2_boomb = new Boss_act1_boomb(this);		
-		Boss2_boomb->SetName(L"Boss2_boomb");
-		Boss2_boomb->GetComponent<Transform>()->SetPos(pos);
-		curScene->AddGameobeject(Boss2_boomb, jk_LayerType::Effect);
-	 	Boomb_point =  1;		
+			Scene* curScene = SceneManager::GetActiveScene();
+			Boss_act1_boomb* Boss2_boomb = new Boss_act1_boomb(this);
+			Boss2_boomb->SetName(L"Boss2_boomb");
+			Boss2_boomb->GetComponent<Transform>()->SetPos(pos);
+			curScene->AddGameobeject(Boss2_boomb, jk_LayerType::Effect);
+			Boomb_point = 1;
 		}
-		else if(Boomb_point == 1 )
-	 	 {		
-			time += Time::DeltaTime();
+		else if (Boomb_point == 1)
+		{
+			time += static_cast<float>(Time::DeltaTime());
 			if (time >= 2)
 			{
 				mRigidbody = AddComponent<Rigidbody>();
 				mRigidbody->SetMass(1.0f);
-				Boomb_point = 2;				
+				Boomb_point = 2;
 			}
 		}
 	}
@@ -414,12 +414,12 @@ namespace jk
 					mAnimator->Play(L"R_Boss_3th", true);
 					mState = eBossState::R_up;
 				}
-				else if(Boss_change_point == 2)
+				else if (Boss_change_point == 2)
 				{
 					mAnimator->Play(L"R_Boss_2th", true);
 					mState = eBossState::R_up;
 				}
-				else if(Boss_change_point == 1)
+				else if (Boss_change_point == 1)
 				{
 					mAnimator->Play(L"R_Boss_1th", true);
 					mState = eBossState::R_up;
@@ -514,7 +514,7 @@ namespace jk
 			Scene* curScene = SceneManager::GetActiveScene();
 			Second_boss_bullet* bullet2 = new Second_boss_bullet();
 			bullet2->SetName(L"bullet_boss2");
-			bullet2->GetComponent<Transform>()->SetPos(Vector2{ pos.x +50, pos.y + 45.f });
+			bullet2->GetComponent<Transform>()->SetPos(Vector2{ pos.x + 50, pos.y + 45.f });
 			curScene->AddGameobeject(bullet2, jk_LayerType::Bullet);
 			bullet2->Set_mDir(1);
 		}

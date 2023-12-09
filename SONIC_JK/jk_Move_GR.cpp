@@ -18,12 +18,12 @@
 namespace jk
 {
 	Move_GR::Move_GR()
-		: mCenterpos(Vector2(0.0f, 0.0f))	
+		: mCenterpos(Vector2(0.0f, 0.0f))
 		, pos(Vector2(0.0f, 0.0f))
 		, mMonspeed(100.0f)
 		, mMonmaxdistance(200.0f)
 		, fDist(0.f)
-		, mDir(1)	
+		, mDir(1)
 		, mImage(nullptr)
 		, mAnimator(nullptr)
 		, mState()
@@ -36,14 +36,14 @@ namespace jk
 	{
 		mImage = Resources::Load<Image>(L"Rock_Platform2", L"..\\Resources\\Rock_Platform.bmp");
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"small_gr", mImage, Vector2(660, 682), Vector2(64, 40), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"small_gr", mImage, Vector2(660, 682), Vector2(64, 40), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
 		mAnimator->Play(L"small_gr", true);
 
 
 		Collider* collider = AddComponent<Collider>();
 		collider->SetSize(Vector2(192.0f, 40.0f));
 		Vector2 size = collider->GetSize();
-		collider->SetCenter(Vector2{ (-0.15f) * size.x, (-0.35f) * size.y });		
+		collider->SetCenter(Vector2{ (-0.15f) * size.x, (-0.35f) * size.y });
 
 		Gameobject::Initialize();
 	}
@@ -79,7 +79,7 @@ namespace jk
 
 	void Move_GR::OnCollisionEnter(Collider* other)
 	{
-		
+
 
 	}
 	void Move_GR::OnCollisionStay(Collider* other)
@@ -124,7 +124,7 @@ namespace jk
 				sonicTr->SetPos(sonic_Pos);
 			}
 		}
-		
+
 		if (Tails* tails = dynamic_cast<Tails*>(other->GetOwner()))
 		{
 			Rigidbody* rb = tails->GetComponent<Rigidbody>();
