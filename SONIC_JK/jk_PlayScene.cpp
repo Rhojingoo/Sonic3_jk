@@ -63,7 +63,7 @@
 #include "jk_Boss.h"
 #include "jk_Lttle_miniboss.h"
 #include "jk_minibos_show.h"
-#include "jk_BaseBullet.h"
+#include "Bullet_Act1_Down.h"
 #include "jk_Rino.h"
 #include "jk_Monkey.h"
 #include "jk_Cannon.h"

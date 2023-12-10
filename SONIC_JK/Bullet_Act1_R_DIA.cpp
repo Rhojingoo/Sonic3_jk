@@ -42,7 +42,7 @@ namespace jk
         pos.y += 150.0f * static_cast<float>(Time::DeltaTime());
         pos.x -= 150.0f * static_cast<float>(Time::DeltaTime());
         tr->SetPos(pos);
-
+        Setpos_bullet(pos);
         Gameobject::Update();
     }
     void Bullet_Act1_R_DIA::Render(HDC hdc)

@@ -107,6 +107,7 @@ namespace jk
 			break;
 		}
 
+		Setpos_monster(pos);
 		Gameobject::Update();
 	}
 	void Cannon::Render(HDC hdc)

@@ -9,7 +9,7 @@ namespace jk
 {
 	class Rigidbody;
 	class Animator;
-	class Boss_Arm : public Boss
+	class Boss_Arm : public Gameobject
 	{
 	public:
 

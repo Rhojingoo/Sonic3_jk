@@ -17,5 +17,12 @@ namespace jk
 		virtual void OnCollisionEnter(class Collider* other) override;
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
+
+		void Setpos_bullet(Vector2 set) { _pos = set; }
+		Vector2 Getpos_bullet() { return _pos; }
+
+	private:
+		Transform* tr = nullptr;
+		Vector2 _pos = {};
 	};
 }

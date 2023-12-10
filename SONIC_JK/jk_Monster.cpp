@@ -4,6 +4,7 @@ namespace jk
 {
 	Monster::Monster()
 	{
+		tr = GetComponent<Transform>();
 	}
 	Monster::~Monster()
 	{
@@ -14,6 +15,8 @@ namespace jk
 	}
 	void Monster::Update()
 	{
+		_pos = tr->GetPos();
+
 		Gameobject::Update();
 	}
 	void Monster::Render(HDC hdc)

@@ -151,13 +151,13 @@ namespace jk
 				Boss_Hit->Play(false);
 
 
-				if (Damege_check <= 5)
+				if (Damege_check <= 1)
 				{
 					hurt();
 					mAnimator->Play(L"Boss1_hurt", false);
 				}
 
-				if (Damege_check >= 6)
+				if (Damege_check >= 1)
 				{
 					mAnimator->Play(L"Boss1_death", true);
 					mState = eBossState::Death;

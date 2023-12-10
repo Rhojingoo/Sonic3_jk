@@ -33,6 +33,7 @@ namespace jk
 		Image* mImage;
 		Image* mGroundImage;
 		Animator* mAnimator;
+		Transform* tr;
 		Gameobject* mOwner;		
 		Vector2 mCurpos;	
 		int check_ground_Mb;

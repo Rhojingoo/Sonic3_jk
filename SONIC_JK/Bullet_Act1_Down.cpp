@@ -1,4 +1,4 @@
-#include "jk_BaseBullet.h"
+#include "Bullet_Act1_Down.h"
 #include "jk_SceneManager.h"
 #include "jk_Scene.h"
 #include "jk_Transform.h"
@@ -44,7 +44,7 @@ namespace jk
 		Vector2 pos = tr->GetPos();		
 		pos.y += 150.0f * static_cast<float>(Time::DeltaTime());
 		tr->SetPos(pos);	
-	
+		Setpos_bullet(pos);
 		Gameobject::Update();
 	}
 

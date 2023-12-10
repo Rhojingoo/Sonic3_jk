@@ -20,6 +20,7 @@ namespace jk
 		: mCurpos(0.f,0.f)
 		, mOwner(owner)
 		, mRigidbody(nullptr)
+		, tr(nullptr)
 		, mImage(nullptr)
 		, mGroundImage(nullptr)
 		, mAnimator(nullptr)
@@ -35,6 +36,8 @@ namespace jk
 		mRigidbody->SetMass(1.0f);
 
 		mAnimator->Play(L"LM_B", true);
+
+		tr = GetComponent<Transform>();
 
 		Collider* collider = AddComponent<Collider>();
 		collider->SetSize(Vector2(30.0f, 35.0f));
@@ -52,6 +55,8 @@ namespace jk
 	}
 	void Monkey_Bullet::Update()
 	{
+		Vector2 pos = tr->GetPos();
+		Setpos_bullet(pos);
 		Gameobject::Update();
 	}
 	void Monkey_Bullet::Render(HDC hdc)

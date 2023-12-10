@@ -27,6 +27,7 @@ namespace jk
 		Image* mGroundImage;
 		Animator* mAnimator;
 		Rigidbody* mRigidbody;
+		Transform* tr;
 		int mDir;
 		int check_ground_Cb;
 		Gameobject* mOwner;

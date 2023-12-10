@@ -154,6 +154,7 @@ namespace jk
 			}
 		}
 
+		Setpos_monster(mCurpos);
 		Monster::Update();
 		//Gameobject::Update();
 	}

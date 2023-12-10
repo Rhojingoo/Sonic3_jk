@@ -49,12 +49,11 @@
 #include "mBoss_Bl_L.h"
 #include "mBoss_BL_R.h"
 #include "jk_Boss.h"
-#include "jk_BaseBullet.h"
+#include "Bullet_Act1_Down.h"
 #include "Bullet_Act1_L_DIA.h"
 #include "Bullet_Act1_L_Side.h"
 #include "Bullet_Act1_R_DIA.h"
 #include "Bullet_Act1_R_Side.h"
-#include "jk_BaseBullet.h"
 #include "boss1_object.h"
 #include "act6_bullet1.h"
 #include "boss1_body.h"
@@ -1043,17 +1042,15 @@ namespace jk
 					Ringcheck += 1;
 					ringpoint += 1;
 				}
-
-
 				
 								 
-			//Rino collision★
-						
-				if (Rino* rino = dynamic_cast<Rino*>(other->GetOwner()))
+				//Monster collision★				
+				if (Monster* rino = dynamic_cast<Monster*>(other->GetOwner()))
 				{
 					Transform* tr = GetComponent<Transform>();
 					Vector2 pos = tr->GetPos();
-					Vector2 rinopos = rino->Getmonster_pos();
+					Vector2 rinopos = rino->Getpos_monster();
+					//Vector2 rinopos = rino->Getmonster_pos();
 
 
 					if (!((mState == eSonicState::Spin) || (mState == eSonicState::Jump) || (mState == eSonicState::Dash) || (mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1)))
@@ -1137,181 +1134,16 @@ namespace jk
 							}
 						}
 					
-				}			
-
-				if (Monkey* monkey = dynamic_cast<Monkey*>(other->GetOwner()))
-				{
-					Transform* tr = GetComponent<Transform>();
-						Vector2 pos = tr->GetPos();
-						Vector2 monkeypos = monkey->Getmonster_pos();
-		
-			
-					if (!((mState == eSonicState::Spin) || (mState == eSonicState::Jump) || (mState == eSonicState::Dash) || (mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1)))
-					{
-						if (Ringcheck == 0)
-						{
-							mState = eSonicState::Death;
-							mAnimator->Play(L"RSonicShock", true);
-
-							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
-							mRigidbody->SetGround(false);
-							Life = Life - 1;
-						}
-						else if (Ringcheck >= 1)
-						{
-							Ring_Lose->Play(false);
-							if (monkeypos.x > pos.x)
-							{
-								hurtcheck = 1;
-								mAnimator->Play(L"RSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity -= (300.0f, 500.0f);
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-							}
-
-							else if (monkeypos.x < pos.x)
-							{
-								hurtcheck = -1;
-								mAnimator->Play(L"LSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity.x += 300.0f;
-								velocity.y -= 500.0f;
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-							}
-						}
-					}
-					else
-					{
-						pos.y = pos.y + 120;
-						if (pos.y < monkeypos.y)
-						{
-							Vector2 velocity = mRigidbody->GetVelocity();
-							velocity.y = 0.0f;
-							velocity.y = -350.f;
-							mRigidbody->SetGround(false);
-							mRigidbody->SetVelocity(velocity);
-						}
-					}
-				}
-
-				if (Monkey_Bullet* monkey_bullet = dynamic_cast<Monkey_Bullet*>(other->GetOwner()))
-				{
-					Transform* tr = GetComponent<Transform>();
-					Vector2 pos = tr->GetPos();
-					Vector2 monkeypos = monkey_bullet->Getmonster_pos();
-								
-					if (!(mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1))
-					{
-						if (Ringcheck == 0)
-						{
-							mState = eSonicState::Death;
-							mAnimator->Play(L"RSonicShock", true);
-
-							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
-							mRigidbody->SetGround(false);
-							Life = Life - 1;
-						}
-						else if (Ringcheck >= 1)
-						{
-							if (monkeypos.x > pos.x)
-							{
-								Ring_Lose->Play(false);
-								hurtcheck = 1;
-								mAnimator->Play(L"RSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity -= (300.0f, 500.0f);
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-							}
-						else if (monkeypos.x < pos.x)
-						{
-							hurtcheck = -1;
-							mAnimator->Play(L"LSonichurt", true);
-							Vector2 velocity = mRigidbody->GetVelocity();
-							velocity = Vector2(0.0f, 0.0f);
-							velocity.x += 300.0f;
-							velocity.y -= 500.0f;
-							mRigidbody->SetGround(false);
-							mRigidbody->SetVelocity(velocity);
-							mState = eSonicState::Hurt;
-
-							if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-							{
-								ring_drop_Small();
-							}
-							else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-							{
-								ring_drop_Midium();
-							}
-							else
-							{
-								ring_drop_Large();
-							}
-							Ringcheck = 0;
-							}
-						}
-					}
-					
-				}
+				}		
 				
-				if (Cannon* cannon = dynamic_cast<Cannon*>(other->GetOwner()))
+				//Bullet collision★	
+				if (Bullet* bullet = dynamic_cast<Bullet*>(other->GetOwner()))
 				{
 					Transform* tr = GetComponent<Transform>();
 					Vector2 pos = tr->GetPos();
-					Vector2 cannonpos = cannon->GetComponent<Transform>()->GetPos();				
+					Vector2 bullet_pos = bullet->GetComponent<Transform>()->GetPos();
 
-			
-					if (!((mState == eSonicState::Spin) || (mState == eSonicState::Jump) || (mState == eSonicState::Dash) || (mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1)))
+					if (!(mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1))
 					{
 						if (Ringcheck == 0)
 						{
@@ -1325,7 +1157,7 @@ namespace jk
 						else if (Ringcheck >= 1)
 						{
 							Ring_Lose->Play(false);
-							if (cannonpos.x > pos.x)
+							if (bullet_pos.x > pos.x)
 							{
 								hurtcheck = 1;
 								mAnimator->Play(L"RSonichurt", true);
@@ -1335,6 +1167,7 @@ namespace jk
 								mRigidbody->SetGround(false);
 								mRigidbody->SetVelocity(velocity);
 								mState = eSonicState::Hurt;
+
 
 								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
 								{
@@ -1349,8 +1182,9 @@ namespace jk
 									ring_drop_Large();
 								}
 								Ringcheck = 0;
+
 							}
-							else if (cannonpos.x < pos.x)
+							else if (bullet_pos.x < pos.x)
 							{
 								hurtcheck = -1;
 								mAnimator->Play(L"LSonichurt", true);
@@ -1376,434 +1210,12 @@ namespace jk
 								}
 								Ringcheck = 0;
 							}
+
 						}
 					}
-					else
-					{
-						pos.y = pos.y + 120;
-						if (pos.y < cannonpos.y)
-						{
-							Vector2 velocity = mRigidbody->GetVelocity();
-							velocity.y = 0.0f;
-							velocity.y = -350.f;
-							mRigidbody->SetGround(false);
-							mRigidbody->SetVelocity(velocity);
-						}
-					}
-					
 				}			
-
-				if (Canon_Bullet* cannon_bullet = dynamic_cast<Canon_Bullet*>(other->GetOwner()))
-				{
-					Transform* tr = GetComponent<Transform>();
-					Vector2 pos = tr->GetPos();
-					Vector2 cannon_pos = cannon_bullet->GetComponent<Transform>()->GetPos();
-
-					if (!(mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1))
-					{
-						if (Ringcheck == 0)
-						{
-							mState = eSonicState::Death;
-							mAnimator->Play(L"RSonicShock", true);
-
-							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
-							mRigidbody->SetGround(false);
-							Life = Life - 1;
-						}
-						else if (Ringcheck >= 1)
-						{
-							Ring_Lose->Play(false);
-							if (cannon_pos.x > pos.x)
-							{
-								hurtcheck = 1;
-								mAnimator->Play(L"RSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity -= (300.0f, 500.0f);
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-
-							}
-							else if (cannon_pos.x < pos.x)
-							{
-								hurtcheck = -1;
-								mAnimator->Play(L"LSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity.x += 300.0f;
-								velocity.y -= 500.0f;
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-							}
-
-						}
-					}
-				}	
-							
-				if (Snake* snake = dynamic_cast<Snake*>(other->GetOwner()))
-				{
-					Transform* tr = GetComponent<Transform>();
-					Vector2 pos = tr->GetPos();
-					Vector2 snake_pos = snake->GetComponent<Transform>()->GetPos();
-
-
-					if (!((mState == eSonicState::Spin) || (mState == eSonicState::Jump) || (mState == eSonicState::Dash) || (mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1)))
-					{
-						if (Ringcheck == 0)
-						{
-							mState = eSonicState::Death;
-							mAnimator->Play(L"RSonicShock", true);
-
-							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
-							mRigidbody->SetGround(false);
-							Life = Life - 1;
-						}
-						else
-						{
-							Ring_Lose->Play(false);
-							if (snake_pos.x > pos.x)
-							{
-								hurtcheck = 1;
-								mAnimator->Play(L"RSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity -= (300.0f, 500.0f);
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-							}
-							else if (snake_pos.x < pos.x)
-							{
-								hurtcheck = -1;
-								mAnimator->Play(L"LSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity.x += 300.0f;
-								velocity.y -= 500.0f;
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-							}
-						}
-					}
-					else
-					{
-						pos.y = pos.y + 120;
-						if (pos.y < snake_pos.y)
-						{
-							Vector2 velocity = mRigidbody->GetVelocity();
-							velocity.y = 0.0f;
-							velocity.y = -350.f;
-							mRigidbody->SetGround(false);
-							mRigidbody->SetVelocity(velocity);
-						}
-					}
-					
-				}
-
-				if (Snake_body2* snake = dynamic_cast<Snake_body2*>(other->GetOwner()))
-
-				{
-					Transform* tr = GetComponent<Transform>();
-					Vector2 pos = tr->GetPos();
-					Vector2 snake_pos = snake->GetComponent<Transform>()->GetPos();
-
-					if (!(mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1))
-					{
-						if (Ringcheck == 0)
-						{
-							mState = eSonicState::Death;
-							mAnimator->Play(L"RSonicShock", true);
-
-							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
-							mRigidbody->SetGround(false);
-							Life = Life - 1;
-						}
-						else
-						{
-							Ring_Lose->Play(false);
-
-							if (snake_pos.x > pos.x)
-							{
-								hurtcheck = 1;
-								mAnimator->Play(L"RSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity -= (300.0f, 500.0f);
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-
-							}
-							else if (snake_pos.x < pos.x)
-							{
-								hurtcheck = -1;
-								mAnimator->Play(L"LSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity.x += 300.0f;
-								velocity.y -= 500.0f;
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-							}
-						}
-					}
-				}
-
-				if (Snake_mTaIl* snake = dynamic_cast<Snake_mTaIl*>(other->GetOwner()))
-				{
-					Transform* tr = GetComponent<Transform>();
-					Vector2 pos = tr->GetPos();
-					Vector2 snake_pos = snake->GetComponent<Transform>()->GetPos();
-
-	
-					if (!(mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1))
-					{
-						if (Ringcheck == 0)
-						{
-							mState = eSonicState::Death;
-							mAnimator->Play(L"RSonicShock", true);
-
-							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
-							mRigidbody->SetGround(false);
-							Life = Life - 1;
-						}
-						else
-						{
-							Ring_Lose->Play(false);
-							if (snake_pos.x > pos.x)
-							{
-								hurtcheck = 1;
-								mAnimator->Play(L"RSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity -= (300.0f, 500.0f);
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-							}						
-					
-							else if (snake_pos.x < pos.x)
-							{
-								hurtcheck = -1;
-								mAnimator->Play(L"LSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity.x += 300.0f;
-								velocity.y -= 500.0f;
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-
-							}
-						}
-					}
-				}
-
-				if (Snake_Tail_End* snake = dynamic_cast<Snake_Tail_End*>(other->GetOwner()))
-
-				{
-					Transform* tr = GetComponent<Transform>();
-					Vector2 pos = tr->GetPos();
-					Vector2 snake_pos = snake->GetComponent<Transform>()->GetPos();
-
-
-					if (!(mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1))
-					{
-						if (Ringcheck == 0)
-						{
-							mState = eSonicState::Death;
-							mAnimator->Play(L"RSonicShock", true);
-
-							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
-							mRigidbody->SetGround(false);
-							Life = Life - 1;
-						}
-						else
-						{
-							Ring_Lose->Play(false);
-							if (snake_pos.x > pos.x)
-							{
-								hurtcheck = 1;
-								mAnimator->Play(L"RSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity -= (300.0f, 500.0f);
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-
-							}
-							else if (snake_pos.x < pos.x)
-							{
-								hurtcheck = -1;
-								mAnimator->Play(L"LSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity.x += 300.0f;
-								velocity.y -= 500.0f;
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-
-							}
-						}
-					}
-				}
-
-
-					
-			
-				//보스충돌
-				// MiniBoss 
+								
+				// Boss & MiniBoss 
 				if (Minibos* minibos = dynamic_cast<Minibos*>(other->GetOwner()))
 				{
 					Transform* tr = GetComponent<Transform>();
@@ -1908,167 +1320,13 @@ namespace jk
 						}
 					}
 				}
-
-				if (mBoss_Bl_L* bullet = dynamic_cast<mBoss_Bl_L*>(other->GetOwner()))
-				{
-					Transform* tr = GetComponent<Transform>();
-					Vector2 pos = tr->GetPos();
-					Vector2 bullet_pos = bullet->GetComponent<Transform>()->GetPos();
-
-					if (!(mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1))
-					{
-						if (Ringcheck == 0)
-						{
-							mState = eSonicState::Death;
-							mAnimator->Play(L"RSonicShock", true);
-
-							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
-							mRigidbody->SetGround(false);
-							Life = Life - 1;
-						}
-						else if (Ringcheck >= 1)
-						{
-							Ring_Lose->Play(false);
-							if (bullet_pos.x > pos.x)
-							{
-								hurtcheck = 1;
-								mAnimator->Play(L"RSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity -= (300.0f, 500.0f);
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-
-							}
-							else if (bullet_pos.x < pos.x)
-							{
-								hurtcheck = -1;
-								mAnimator->Play(L"LSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity.x += 300.0f;
-								velocity.y -= 500.0f;
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-							}
-						}
-					}
-				}
-
-				if (mBoss_BL_R* bullet = dynamic_cast<mBoss_BL_R*>(other->GetOwner()))
-				{
-					Transform* tr = GetComponent<Transform>();
-					Vector2 pos = tr->GetPos();
-					Vector2 bullet_pos = bullet->GetComponent<Transform>()->GetPos();
-
-					if (!(mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1))
-					{
-						if (Ringcheck == 0)
-						{
-							mState = eSonicState::Death;
-							mAnimator->Play(L"RSonicShock", true);
-
-							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
-							mRigidbody->SetGround(false);
-							Life = Life - 1;
-						}
-						else if (Ringcheck >= 1)
-						{
-							Ring_Lose->Play(false);
-							if (bullet_pos.x > pos.x)
-							{
-								hurtcheck = 1;
-								mAnimator->Play(L"RSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity -= (300.0f, 500.0f);
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-
-							}
-							else if (bullet_pos.x < pos.x)
-							{
-								hurtcheck = -1;
-								mAnimator->Play(L"LSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity.x += 300.0f;
-								velocity.y -= 500.0f;
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-							}
-						}
-					}
-				}
 				
 				if (Boss* boss = dynamic_cast<Boss*>(other->GetOwner()))
 				{
 					Transform* tr = GetComponent<Transform>();
 					Vector2 pos = tr->GetPos();
 					Vector2 boss_pos = boss->GetComponent<Transform>()->GetPos();
-
-
+				
 					if (!((mState == eSonicState::Spin) || (mState == eSonicState::Jump) || (mState == eSonicState::Dash) || (mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1)))
 					{
 						if (Ringcheck == 0)
@@ -2140,7 +1398,7 @@ namespace jk
 					}
 					else
 					{
-						Vector2 upattack = pos;					
+						Vector2 upattack = pos;
 						upattack.y = upattack.y + 120;
 						if (upattack.y < boss_pos.y)
 						{
@@ -2150,7 +1408,7 @@ namespace jk
 							mRigidbody->SetGround(false);
 							mRigidbody->SetVelocity(velocity);
 						}
-						else if ((upattack.y < boss_pos.y)&&(pos.x < boss_pos.x))
+						else if ((upattack.y < boss_pos.y) && (pos.x < boss_pos.x))
 						{
 							Vector2 velocity = mRigidbody->GetVelocity();
 							velocity.x = 0.0f;
@@ -2189,392 +1447,31 @@ namespace jk
 							mRigidbody->SetGround(false);
 							mRigidbody->SetVelocity(velocity);
 						}
-					}
-				}
-
-				if (Bullet_Act1_L_DIA* bullet = dynamic_cast<Bullet_Act1_L_DIA*>(other->GetOwner()))
+					}					
+				}	
+				
+				//LASTBOSS_Arm
+				if (Boss_Arm* last_boss_arm = dynamic_cast<Boss_Arm*>(other->GetOwner()))
 				{
+
+					Vector2 boss_arm_pos = last_boss_arm->GetComponent<Transform>()->GetPos();
 					Transform* tr = GetComponent<Transform>();
-					Vector2 pos = tr->GetPos();
-					Vector2 bullet_pos = bullet->GetComponent<Transform>()->GetPos();
+					Vector2 msonic = tr->GetPos();
 
-					if (!(mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1))
+
+					if (mDir == 1)
 					{
-						if (Ringcheck == 0)
-						{
-							mState = eSonicState::Death;
-							mAnimator->Play(L"RSonicShock", true);
-
-							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
-							mRigidbody->SetGround(false);
-							Life = Life - 1;
-						}
-						else if (Ringcheck >= 1)
-						{
-							Ring_Lose->Play(false);
-							if (bullet_pos.x > pos.x)
-							{
-								hurtcheck = 1;
-								mAnimator->Play(L"RSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity -= (100.0f, 500.0f);
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-
-							}
-							else if (bullet_pos.x < pos.x)
-							{
-								hurtcheck = -1;
-								mAnimator->Play(L"LSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity.x += 100.0f;
-								velocity.y -= 500.0f;
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-							}
-						}
+						mState = eSonicState::Jump;
+						mAnimator->Play(L"RSonicRollandJunp", true);
+					}
+					else if (mDir == -1)
+					{
+						mState = eSonicState::Jeep_line;
+						mAnimator->Play(L"LSonicRollandJunp", true);
 					}
 				}
-
-				if (Bullet_Act1_L_Side* bullet = dynamic_cast<Bullet_Act1_L_Side*>(other->GetOwner()))
-				{
-					Transform* tr = GetComponent<Transform>();
-					Vector2 pos = tr->GetPos();
-					Vector2 bullet_pos = bullet->GetComponent<Transform>()->GetPos();
-
-					if (!(mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1))
-					{
-						if (Ringcheck == 0)
-						{
-							mState = eSonicState::Death;
-							mAnimator->Play(L"RSonicShock", true);
-
-							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
-							mRigidbody->SetGround(false);
-							Life = Life - 1;
-						}
-						else if (Ringcheck >= 1)
-						{
-							Ring_Lose->Play(false);
-							if (bullet_pos.x > pos.x)
-							{
-								hurtcheck = 1;
-								mAnimator->Play(L"RSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity -= (100.0f, 500.0f);
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-
-							}
-							else if (bullet_pos.x < pos.x)
-							{
-								hurtcheck = -1;
-								mAnimator->Play(L"LSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity.x += 100.0f;
-								velocity.y -= 500.0f;
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-							}
-						}
-					}
-				}
-
-				if (Bullet_Act1_R_DIA* bullet = dynamic_cast<Bullet_Act1_R_DIA*>(other->GetOwner()))
-				{
-					Transform* tr = GetComponent<Transform>();
-					Vector2 pos = tr->GetPos();
-					Vector2 bullet_pos = bullet->GetComponent<Transform>()->GetPos();
-
-					if (!(mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1))
-					{
-						if (Ringcheck == 0)
-						{
-							mState = eSonicState::Death;
-							mAnimator->Play(L"RSonicShock", true);
-
-							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
-							mRigidbody->SetGround(false);
-							Life = Life - 1;
-						}
-						else if (Ringcheck >= 1)
-						{
-							Ring_Lose->Play(false);
-							if (bullet_pos.x > pos.x)
-							{
-								hurtcheck = 1;
-								mAnimator->Play(L"RSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity -= (100.0f, 500.0f);
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-
-							}
-							else if (bullet_pos.x < pos.x)
-							{
-								hurtcheck = -1;
-								mAnimator->Play(L"LSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity.x += 100.0f;
-								velocity.y -= 500.0f;
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-							}
-						}
-					}
-				}
-
-				if (Bullet_Act1_R_Side* bullet = dynamic_cast<Bullet_Act1_R_Side*>(other->GetOwner()))
-				{
-					Transform* tr = GetComponent<Transform>();
-					Vector2 pos = tr->GetPos();
-					Vector2 bullet_pos = bullet->GetComponent<Transform>()->GetPos();
-
-					if (!(mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1))
-					{
-						if (Ringcheck == 0)
-						{
-							mState = eSonicState::Death;
-							mAnimator->Play(L"RSonicShock", true);
-
-							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
-							mRigidbody->SetGround(false);
-							Life = Life - 1;
-						}
-						else if (Ringcheck >= 1)
-						{
-							Ring_Lose->Play(false);
-							if (bullet_pos.x > pos.x)
-							{
-								hurtcheck = 1;
-								mAnimator->Play(L"RSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity -= (100.0f, 500.0f);
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-
-							}
-							else if (bullet_pos.x < pos.x)
-							{
-								hurtcheck = -1;
-								mAnimator->Play(L"LSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity.x += 100.0f;
-								velocity.y -= 500.0f;
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-							}
-						}
-					}
-				}
-
-				if (BaseBullet* bullet = dynamic_cast<BaseBullet*>(other->GetOwner()))
-				{
-					Transform* tr = GetComponent<Transform>();
-					Vector2 pos = tr->GetPos();
-					Vector2 bullet_pos = bullet->GetComponent<Transform>()->GetPos();
-
-					if (!(mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1))
-					{
-						if (Ringcheck == 0)
-						{
-							mState = eSonicState::Death;
-							mAnimator->Play(L"RSonicShock", true);
-
-							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
-							mRigidbody->SetGround(false);
-							Life = Life - 1;
-						}
-						else if (Ringcheck >= 1)
-						{
-							Ring_Lose->Play(false);
-							if (bullet_pos.x > pos.x)
-							{
-								hurtcheck = 1;
-								mAnimator->Play(L"RSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity -= (100.0f, 500.0f);
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-							}
-							else if (bullet_pos.x < pos.x)
-							{
-								hurtcheck = -1;
-								mAnimator->Play(L"LSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity.x += 100.0f;
-								velocity.y -= 500.0f;
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-							}
-						}
-					}
-				}
-
+			
+				// 액트6 1번보스 오브젝트
 				if (boss1_object* object = dynamic_cast<boss1_object*>(other->GetOwner()))
 				{
 					Vector2 object_GR_pos = object->GetComponent<Transform>()->GetPos();
@@ -2591,532 +1488,6 @@ namespace jk
 					{
 						mState = eSonicState::Idle;
 						mAnimator->Play(L"LSonicStand", true);
-					}
-				}
-
-				if (boss1_body* boss = dynamic_cast<boss1_body*>(other->GetOwner()))
-
-				{
-					Transform* tr = GetComponent<Transform>();
-					Vector2 pos = tr->GetPos();
-					Vector2 boss_pos = boss->GetComponent<Transform>()->GetPos();
-
-
-					if (!((mState == eSonicState::Spin) || (mState == eSonicState::Jump) || (mState == eSonicState::Dash) || (mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1)))
-					{
-						if (Ringcheck == 0)
-						{
-							mState = eSonicState::Death;
-							mAnimator->Play(L"RSonicShock", true);
-
-							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
-							mRigidbody->SetGround(false);
-							Life = Life - 1;
-						}
-						else if (Ringcheck >= 1)
-						{
-							Ring_Lose->Play(false);
-							if (boss_pos.x > pos.x)
-							{
-								hurtcheck = 1;
-								mAnimator->Play(L"RSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity -= (300.0f, 500.0f);
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-							}
-							else if (boss_pos.x < pos.x)
-							{
-								hurtcheck = -1;
-								mAnimator->Play(L"LSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity.x += 300.0f;
-								velocity.y -= 500.0f;
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-							}
-						}
-					}
-					else
-					{
-						if (pos.x < boss_pos.x + boss->GetComponent<Transform>()->GetScale().x / 2)
-						{
-							Vector2 velocity = mRigidbody->GetVelocity();
-							velocity.x = 0.0f;
-							velocity.x = -250.f;
-							mRigidbody->SetGround(false);
-							mRigidbody->SetVelocity(velocity);
-						}
-						else if (pos.x > boss_pos.x)
-						{
-							Vector2 velocity = mRigidbody->GetVelocity();
-							velocity.x = 0.0f;
-							velocity.x = 250.f;
-							mRigidbody->SetGround(false);
-							mRigidbody->SetVelocity(velocity);
-						}
-					}
-				}
-				
-				if (act6_bullet1* bullet = dynamic_cast<act6_bullet1*>(other->GetOwner()))
-				{
-					Transform* tr = GetComponent<Transform>();
-					Vector2 pos = tr->GetPos();
-					Vector2 bullet_pos = bullet->GetComponent<Transform>()->GetPos();
-
-					if (!(mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1))
-					{
-						if (Ringcheck == 0)
-						{
-							mState = eSonicState::Death;
-							mAnimator->Play(L"RSonicShock", true);
-
-							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
-							mRigidbody->SetGround(false);
-							Life = Life - 1;
-						}
-						else if (Ringcheck >= 1)
-						{
-							if (bullet_pos.x > pos.x)
-							{
-								Ring_Lose->Play(false);
-								hurtcheck = 1;
-								mAnimator->Play(L"RSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity -= (100.0f, 300.0f);
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-
-							}
-							else if (bullet_pos.x < pos.x)
-							{
-								hurtcheck = -1;
-								mAnimator->Play(L"LSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity.x += 100.0f;
-								velocity.y -= 300.0f;
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-							}
-						}
-					}
-				}
-
-				if (Second_Boss* boss = dynamic_cast<Second_Boss*>(other->GetOwner()))
-
-				{
-					Transform* tr = GetComponent<Transform>();
-					Vector2 pos = tr->GetPos();
-					Vector2 boss_pos = boss->GetComponent<Transform>()->GetPos();
-
-
-					if (!((mState == eSonicState::Spin) || (mState == eSonicState::Jump) || (mState == eSonicState::Dash) || (mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1)))
-					{
-						if (Ringcheck == 0)
-						{
-							mState = eSonicState::Death;
-							mAnimator->Play(L"RSonicShock", true);
-
-							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
-							mRigidbody->SetGround(false);
-							Life = Life - 1;
-						}
-						else if (Ringcheck >= 1)
-						{
-							Ring_Lose->Play(false);
-							if (boss_pos.x > pos.x)
-							{
-								hurtcheck = 1;
-								mAnimator->Play(L"RSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity -= (300.0f, 500.0f);
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-							}
-							else if (boss_pos.x < pos.x)
-							{
-								hurtcheck = -1;
-								mAnimator->Play(L"LSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity.x += 300.0f;
-								velocity.y -= 500.0f;
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-							}
-						}
-					}
-					else
-					{
-						Vector2 upattack = pos;
-						upattack.y = upattack.y + 120;
-						if (upattack.y < boss_pos.y)
-						{
-							Vector2 velocity = mRigidbody->GetVelocity();
-							velocity.y = 0.0f;
-							velocity.y = -350.f;
-							mRigidbody->SetGround(false);
-							mRigidbody->SetVelocity(velocity);
-						}
-						else if ((upattack.y < boss_pos.y)&& (pos.x > boss_pos.x))
-						{
-							Vector2 velocity = mRigidbody->GetVelocity();
-							velocity.y = 0.0f;
-							velocity.y = -350.f;
-							velocity.x = 0.0f;
-							velocity.x = 250.f;
-							mRigidbody->SetGround(false);
-							mRigidbody->SetVelocity(velocity);
-						}
-						else if ((upattack.y < boss_pos.y) && (pos.x < boss_pos.x))
-						{
-							Vector2 velocity = mRigidbody->GetVelocity();
-							velocity.y = 0.0f;
-							velocity.y = -350.f;
-							velocity.x = 0.0f;
-							velocity.x = -250.f;
-							mRigidbody->SetGround(false);
-							mRigidbody->SetVelocity(velocity);
-						}
-
-						else if (pos.x < boss_pos.x )
-						{
-							Vector2 velocity = mRigidbody->GetVelocity();
-							velocity.x = 0.0f;
-							velocity.x = -250.f;
-							mRigidbody->SetGround(false);
-							mRigidbody->SetVelocity(velocity);
-						}
-						else if (pos.x > boss_pos.x)
-						{
-							Vector2 velocity = mRigidbody->GetVelocity();
-							velocity.x = 0.0f;
-							velocity.x = 250.f;
-							mRigidbody->SetGround(false);
-							mRigidbody->SetVelocity(velocity);
-						}
-					}
-				}
-				
-				if (Second_boss_bullet* bullet = dynamic_cast<Second_boss_bullet*>(other->GetOwner()))
-				{
-					Transform* tr = GetComponent<Transform>();
-					Vector2 pos = tr->GetPos();
-					Vector2 bullet_pos = bullet->GetComponent<Transform>()->GetPos();
-
-					if (!(mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1))
-					{
-						if (Ringcheck == 0)
-						{
-							mState = eSonicState::Death;
-							mAnimator->Play(L"RSonicShock", true);
-
-							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
-							mRigidbody->SetGround(false);
-							Life = Life - 1;
-						}
-						else if (Ringcheck >= 1)
-						{
-							Ring_Lose->Play(false);
-							if (bullet_pos.x > pos.x)
-							{
-								hurtcheck = 1;
-								mAnimator->Play(L"RSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity -= (100.0f, 300.0f);
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-
-							}
-							else if (bullet_pos.x < pos.x)
-							{
-								hurtcheck = -1;
-								mAnimator->Play(L"LSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity.x += 100.0f;
-								velocity.y -= 300.0f;
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-							}
-						}
-					}
-				}
-
-				if (Third_Boss* boss = dynamic_cast<Third_Boss*>(other->GetOwner()))
-
-				{
-					Transform* tr = GetComponent<Transform>();
-					Vector2 pos = tr->GetPos();
-					Vector2 boss_pos = boss->GetComponent<Transform>()->GetPos();
-
-
-					if (!((mState == eSonicState::Spin) || (mState == eSonicState::Jump) || (mState == eSonicState::Dash) || (mState == eSonicState::Hurt) || (Elect == 1) || (Water == 1) || (Fire == 1)))
-					{
-						if (Ringcheck == 0)
-						{
-							mState = eSonicState::Death;
-							mAnimator->Play(L"RSonicShock", true);
-
-							mRigidbody->SetVelocity(Vector2(0.f, -550.f));
-							mRigidbody->SetGround(false);
-							Life = Life - 1;
-						}
-						else if (Ringcheck >= 1)
-						{
-							Ring_Lose->Play(false);
-							if (boss_pos.x > pos.x)
-							{
-								hurtcheck = 1;
-								mAnimator->Play(L"RSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity -= (300.0f, 500.0f);
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-							}
-							else if (boss_pos.x < pos.x)
-							{
-								hurtcheck = -1;
-								mAnimator->Play(L"LSonichurt", true);
-								Vector2 velocity = mRigidbody->GetVelocity();
-								velocity = Vector2(0.0f, 0.0f);
-								velocity.x += 300.0f;
-								velocity.y -= 500.0f;
-								mRigidbody->SetGround(false);
-								mRigidbody->SetVelocity(velocity);
-								mState = eSonicState::Hurt;
-
-								if (mState == Sonic::eSonicState::Hurt && Ringcheck < 10)
-								{
-									ring_drop_Small();
-								}
-								else if (mState == Sonic::eSonicState::Hurt && Ringcheck < 50)
-								{
-									ring_drop_Midium();
-								}
-								else
-								{
-									ring_drop_Large();
-								}
-								Ringcheck = 0;
-							}
-						}
-					}
-					else
-					{
-						Vector2 upattack = pos;
-						upattack.y = upattack.y + 120;
-						if (upattack.y < boss_pos.y)
-						{
-							Vector2 velocity = mRigidbody->GetVelocity();
-							velocity.y = 0.0f;
-							velocity.y = -350.f;
-							mRigidbody->SetGround(false);
-							mRigidbody->SetVelocity(velocity);
-						}
-						else if ((upattack.y < boss_pos.y) && (pos.x > boss_pos.x))
-						{
-							Vector2 velocity = mRigidbody->GetVelocity();
-							velocity.y = 0.0f;
-							velocity.y = -550.f;
-							velocity.x = 0.0f;
-							velocity.x = 350.f;
-							mRigidbody->SetGround(false);
-							mRigidbody->SetVelocity(velocity);
-						}
-						else if ((upattack.y < boss_pos.y) && (pos.x < boss_pos.x))
-						{
-							Vector2 velocity = mRigidbody->GetVelocity();
-							velocity.y = 0.0f;
-							velocity.y = -550.f;
-							velocity.x = 0.0f;
-							velocity.x = -350.f;
-							mRigidbody->SetGround(false);
-							mRigidbody->SetVelocity(velocity);
-						}
-
-						else if (pos.x < boss_pos.x)
-						{
-							Vector2 velocity = mRigidbody->GetVelocity();
-							velocity.x = 0.0f;
-							velocity.x = -250.f;
-							mRigidbody->SetGround(false);
-							mRigidbody->SetVelocity(velocity);
-						}
-						else if (pos.x > boss_pos.x)
-						{
-							Vector2 velocity = mRigidbody->GetVelocity();
-							velocity.x = 0.0f;
-							velocity.x = 250.f;
-							mRigidbody->SetGround(false);
-							mRigidbody->SetVelocity(velocity);
-						}
-					}
-				}
-
-				//LASTBOSS
-				if (Boss_Arm* last_boss_arm = dynamic_cast<Boss_Arm*>(other->GetOwner()))
-				{
-
-					Vector2 boss_arm_pos = last_boss_arm->GetComponent<Transform>()->GetPos();
-					Transform* tr = GetComponent<Transform>();
-					Vector2 msonic = tr->GetPos();
-
-				
-					if (mDir == 1)
-					{
-						mState = eSonicState::Jump;
-						mAnimator->Play(L"RSonicRollandJunp", true);
-					}
-					else if (mDir == -1)
-					{
-						mState = eSonicState::Jeep_line;
-						mAnimator->Play(L"LSonicRollandJunp", true);
 					}
 				}	
 		}
@@ -3250,28 +1621,7 @@ namespace jk
 						mDir = -1;
 					}
 				}
-			}				
-	
-				//else
-				//{
-				//	for (int a = 0; a < Ringcheck; a++)
-				//	{
-				//		Transform* tr = GetComponent<Transform>();
-				//		Scene* curScene = SceneManager::GetActiveScene();
-				//		ring[a] = new Ring(this);
-				//		curScene->AddGameobeject(ring[a], jk_LayerType::Rings);						
-				//		int L = -300;
-				//		int R = 300;
-				//		for (int i = 0; i < 2; i++)
-				//		{
-				//			if (i == 0)
-				//				ring[a]->GetComponent<Transform>()->SetPos(Vector2{ pos.x + L, pos.y + L });
-				//			else
-				//				ring[a]->GetComponent<Transform>()->SetPos(Vector2{ pos.x + R, pos.y + R });
-				//		}
-				//	}
-				//}	
-
+			}			
 		}
 
 		void Sonic::move()
@@ -3304,23 +1654,6 @@ namespace jk
 				else if (Input::GetKeyDown(eKeyCode::DOWN) && mDir == -1)
 					mAnimator->Play(L"LSonicSit", false);
 			}
-
-			//Vector2 velocity = mRigidbody->GetVelocity();
-			//if (velocity.x == 0)
-			//{
-			//	if (mDir = -1)
-			//	{
-			//		mState = eSonicState::Idle;
-			//		mAnimator->Play(L"LSonicStand", true);
-			//		mDir = -1;
-			//	}
-			//	if (mDir = 1)
-			//	{
-			//		mState = eSonicState::Idle;
-			//		mAnimator->Play(L"RSonicStand", true);
-			//		mDir = 1;
-			//	}
-			//}
 
 			Transform* tr = GetComponent<Transform>();
 			Vector2 pos = tr->GetPos();
@@ -3427,7 +1760,7 @@ namespace jk
 			Transform* tr = GetComponent<Transform>();
 			Vector2 pos = tr->GetPos();
 
-			if ((SonicVelocity.x <= -400) /*&& (mDir == -1)*/ && (Input::GetKeyUp(eKeyCode::RIGHT)))
+			if ((SonicVelocity.x <= -400)  && (Input::GetKeyUp(eKeyCode::RIGHT)))
 			{
 				mRigidbody->Velocity() = Vector2{ 0.0f,0.0f };
 				mRigidbody->SetFiction(1000);
@@ -3437,7 +1770,7 @@ namespace jk
 			}
 
 
-			if ((SonicVelocity.x >= 400) /*&& (mDir == 1)*/ && (Input::GetKeyUp(eKeyCode::LEFT)))
+			if ((SonicVelocity.x >= 400)  && (Input::GetKeyUp(eKeyCode::LEFT)))
 			{
 				mRigidbody->Velocity() = Vector2{ 0.0f,0.0f };
 				mRigidbody->SetFiction(1000);
@@ -3892,17 +2225,7 @@ namespace jk
 				mRigidbody->SetGround(false);		
 			}
 
-			Vector2 velocity = mRigidbody->GetVelocity();
-			
-			//if ((end == 2)&& (velocity.y >= 0.0f))
-			//{
-
-			//	mState = eSonicState::End;
-			//	mAnimator->Play(L"End_sonic", true);
-			//	mRigidbody->SetGround(true);
-	
-
-			//}
+			Vector2 velocity = mRigidbody->GetVelocity();	
 
 			tr->SetPos(pos);
 		}
@@ -4209,23 +2532,7 @@ namespace jk
 					{
 						mState = eSonicState::Idle;
 						mAnimator->Play(L"RSonicStand", true);
-					}
-			
-				//if (jeepline == -1)
-				//{
-				//	Vector2 velocity = mRigidbody->GetVelocity();
-				//	velocity.y -= 550.0f;
-				//	velocity.x -= 550.0f;
-				//	mRigidbody->SetVelocity(velocity);
-				//	mRigidbody->SetGround(false);
-				//	mState = eSonicState::Jump;
-				//	 if (mDir == -1)
-				//	{
-				//		mAnimator->Play(L"LSonicRollandJunp", true);
-				//		mDir = -1;
-				//	}
-				//}
-			
+					}			
 			}
 		}
 

@@ -37,7 +37,10 @@ namespace jk
 	}
 
 	void mBoss_BL_R::Update()
-	{
+	{		
+		//Transform* tr = GetComponent<Transform>();
+		//Vector2 pos = tr->GetPos();
+		//Setpos_bullet(pos);
 		Gameobject::Update();
 	}
 

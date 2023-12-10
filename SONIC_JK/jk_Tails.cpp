@@ -38,7 +38,7 @@
 #include "jk_Snake_mTaIl.h"
 #include "jk_Snake_Tail_End.h"
 
-#include "jk_BaseBullet.h"
+#include "Bullet_Act1_Down.h"
 
 
 namespace jk
@@ -360,7 +360,6 @@ namespace jk
 			}
 		}
 
-
 		if (Collapses_Ground* collapses_Ground = dynamic_cast<Collapses_Ground*>(other->GetOwner()))
 		{
 			Vector2 Collapses_Gr = collapses_Ground->GetComponent<Transform>()->GetPos();
@@ -378,7 +377,6 @@ namespace jk
 				mAnimator->Play(L"LTailsStand", true);
 			}
 		}
-
 
 		if (Collapses_GR_left* collapses_Ground = dynamic_cast<Collapses_GR_left*>(other->GetOwner()))
 		{
@@ -399,7 +397,6 @@ namespace jk
 			}
 		}
 
-
 		if (Move_GR* move_GR = dynamic_cast<Move_GR*>(other->GetOwner()))
 		{
 			Vector2 move_GR_pos = move_GR->GetComponent<Transform>()->GetPos();
@@ -417,7 +414,6 @@ namespace jk
 				mAnimator->Play(L"LTailsStand", true);
 			}
 		}
-
 
 		if (Last_Bridge* last_Bridge = dynamic_cast<Last_Bridge*>(other->GetOwner()))
 		{
@@ -438,7 +434,6 @@ namespace jk
 			}
 		}
 
-
 		if (Act1_Water* act1_water = dynamic_cast<Act1_Water*>(other->GetOwner()))
 		{
 			Transform* tr = GetComponent<Transform>();
@@ -453,14 +448,14 @@ namespace jk
 
 
 
-		if (Rino* rino = dynamic_cast<Rino*>(other->GetOwner()))
+		if (Monster* monster = dynamic_cast<Monster*>(other->GetOwner()))
 		{
 			Transform* tr = GetComponent<Transform>();
 			Vector2 pos = tr->GetPos();
-			Vector2 rinopos = rino->Getmonster_pos();
+			Vector2 monsterpos = monster->Getpos_monster();
 			if (!(mState == Tails::eTailsState::Dash || mState == Tails::eTailsState::Jump || mState == Tails::eTailsState::Spin || mState == Tails::eTailsState::Movejump || mState == Tails::eTailsState::Hurt))
 			{
-				if (rinopos.x > pos.x)
+				if (monsterpos.x > pos.x)
 				{
 					hurtcheck = 1;
 					mAnimator->Play(L"RTails_Hurt", true);
@@ -471,7 +466,7 @@ namespace jk
 					mRigidbody->SetVelocity(velocity);
 					mState = eTailsState::Hurt;
 				}
-				else if (rinopos.x < pos.x)
+				else if (monsterpos.x < pos.x)
 				{
 					hurtcheck = -1;
 					mAnimator->Play(L"LTails_Hurt", true);
@@ -487,7 +482,7 @@ namespace jk
 			else
 			{
 				pos.y = pos.y + 120;
-				if (pos.y < rinopos.y)
+				if (pos.y < monsterpos.y)
 				{
 					Vector2 velocity = mRigidbody->GetVelocity();
 					velocity.y = 0.0f;
@@ -496,61 +491,16 @@ namespace jk
 					mRigidbody->SetVelocity(velocity);
 				}
 			}
-		}
+		}	
 
-		if (Monkey* monkey = dynamic_cast<Monkey*>(other->GetOwner()))
+		if (Bullet* bullet = dynamic_cast<Bullet*>(other->GetOwner()))
 		{
 			Transform* tr = GetComponent<Transform>();
 			Vector2 pos = tr->GetPos();
-			Vector2 monkey_pos = monkey->Getmonster_pos();
-			if (!(mState == Tails::eTailsState::Dash || mState == Tails::eTailsState::Jump || mState == Tails::eTailsState::Spin || mState == Tails::eTailsState::Movejump || mState == Tails::eTailsState::Hurt))
-			{
-				if (monkey_pos.x > pos.x)
-				{
-					hurtcheck = 1;
-					mAnimator->Play(L"RTails_Hurt", true);
-					Vector2 velocity = mRigidbody->GetVelocity();
-					velocity = Vector2(0.0f, 0.0f);
-					velocity -= (300.0f, 500.0f);
-					mRigidbody->SetGround(false);
-					mRigidbody->SetVelocity(velocity);
-					mState = eTailsState::Hurt;
-				}
-				else if (monkey_pos.x < pos.x)
-				{
-					hurtcheck = -1;
-					mAnimator->Play(L"LTails_Hurt", true);
-					Vector2 velocity = mRigidbody->GetVelocity();
-					velocity = Vector2(0.0f, 0.0f);
-					velocity.x += 300.0f;
-					velocity.y -= 500.0f;
-					mRigidbody->SetGround(false);
-					mRigidbody->SetVelocity(velocity);
-					mState = eTailsState::Hurt;
-				}
-			}
-			else
-			{
-				pos.y = pos.y + 120;
-				if (pos.y < monkey_pos.y)
-				{
-					Vector2 velocity = mRigidbody->GetVelocity();
-					velocity.y = 0.0f;
-					velocity.y = -350.f;
-					mRigidbody->SetGround(false);
-					mRigidbody->SetVelocity(velocity);
-				}
-			}
-		}
-
-		if (Monkey_Bullet* monkey_bullet = dynamic_cast<Monkey_Bullet*>(other->GetOwner()))
-		{
-			Transform* tr = GetComponent<Transform>();
-			Vector2 pos = tr->GetPos();
-			Vector2 monkey_pos = monkey_bullet->Getmonster_pos();
+			Vector2 bullet_pos = bullet->Getpos_bullet();
 			if (!(mState == Tails::eTailsState::Hurt))
 			{
-				if (monkey_pos.x > pos.x)
+				if (bullet_pos.x > pos.x)
 				{
 					hurtcheck = 1;
 					mAnimator->Play(L"RTails_Hurt", true);
@@ -561,7 +511,7 @@ namespace jk
 					mRigidbody->SetVelocity(velocity);
 					mState = eTailsState::Hurt;
 				}
-				else if (monkey_pos.x < pos.x)
+				else if (bullet_pos.x < pos.x)
 				{
 					hurtcheck = -1;
 					mAnimator->Play(L"LTails_Hurt", true);
@@ -574,237 +524,7 @@ namespace jk
 					mState = eTailsState::Hurt;
 				}
 			}
-		}
-
-		if (Cannon* cannon = dynamic_cast<Cannon*>(other->GetOwner()))
-		{
-			Transform* tr = GetComponent<Transform>();
-			Vector2 pos = tr->GetPos();
-			Vector2 cannon_pos = cannon->GetComponent<Transform>()->GetPos();
-			if (!(mState == Tails::eTailsState::Dash || mState == Tails::eTailsState::Jump || mState == Tails::eTailsState::Spin || mState == Tails::eTailsState::Movejump || mState == Tails::eTailsState::Hurt))
-			{
-				if (cannon_pos.x > pos.x)
-				{
-					hurtcheck = 1;
-					mAnimator->Play(L"RTails_Hurt", true);
-					Vector2 velocity = mRigidbody->GetVelocity();
-					velocity = Vector2(0.0f, 0.0f);
-					velocity -= (300.0f, 500.0f);
-					mRigidbody->SetGround(false);
-					mRigidbody->SetVelocity(velocity);
-					mState = eTailsState::Hurt;
-				}
-				else if (cannon_pos.x < pos.x)
-				{
-					hurtcheck = -1;
-					mAnimator->Play(L"LTails_Hurt", true);
-					Vector2 velocity = mRigidbody->GetVelocity();
-					velocity = Vector2(0.0f, 0.0f);
-					velocity.x += 300.0f;
-					velocity.y -= 500.0f;
-					mRigidbody->SetGround(false);
-					mRigidbody->SetVelocity(velocity);
-					mState = eTailsState::Hurt;
-				}
-			}
-			else
-			{
-				pos.y = pos.y + 120;
-				if (pos.y < cannon_pos.y)
-				{
-					Vector2 velocity = mRigidbody->GetVelocity();
-					velocity.y = 0.0f;
-					velocity.y = -350.f;
-					mRigidbody->SetGround(false);
-					mRigidbody->SetVelocity(velocity);
-				}
-			}
-		}
-
-		if (Canon_Bullet* cannon_bullet = dynamic_cast<Canon_Bullet*>(other->GetOwner()))
-
-		{
-			Transform* tr = GetComponent<Transform>();
-			Vector2 pos = tr->GetPos();
-			Vector2 cannon_pos = cannon_bullet->GetComponent<Transform>()->GetPos();
-			if (!(mState == Tails::eTailsState::Hurt))
-			{
-				if (cannon_pos.x > pos.x)
-				{
-					hurtcheck = 1;
-					mAnimator->Play(L"RTails_Hurt", true);
-					Vector2 velocity = mRigidbody->GetVelocity();
-					velocity = Vector2(0.0f, 0.0f);
-					velocity -= (300.0f, 500.0f);
-					mRigidbody->SetGround(false);
-					mRigidbody->SetVelocity(velocity);
-					mState = eTailsState::Hurt;
-				}
-				else if (cannon_pos.x < pos.x)
-				{
-					hurtcheck = -1;
-					mAnimator->Play(L"LTails_Hurt", true);
-					Vector2 velocity = mRigidbody->GetVelocity();
-					velocity = Vector2(0.0f, 0.0f);
-					velocity.x += 300.0f;
-					velocity.y -= 500.0f;
-					mRigidbody->SetGround(false);
-					mRigidbody->SetVelocity(velocity);
-					mState = eTailsState::Hurt;
-				}
-			}
-		}
-
-		if (Snake* snake = dynamic_cast<Snake*>(other->GetOwner()))
-		{
-			Transform* tr = GetComponent<Transform>();
-			Vector2 pos = tr->GetPos();
-			Vector2 snake_pos = snake->GetComponent<Transform>()->GetPos();
-			if (!(mState == Tails::eTailsState::Dash || mState == Tails::eTailsState::Jump || mState == Tails::eTailsState::Spin || mState == Tails::eTailsState::Movejump || mState == Tails::eTailsState::Hurt))
-			{
-				if (snake_pos.x > pos.x)
-				{
-					hurtcheck = 1;
-					mAnimator->Play(L"RTails_Hurt", true);
-					Vector2 velocity = mRigidbody->GetVelocity();
-					velocity = Vector2(0.0f, 0.0f);
-					velocity -= (300.0f, 500.0f);
-					mRigidbody->SetGround(false);
-					mRigidbody->SetVelocity(velocity);
-					mState = eTailsState::Hurt;
-				}
-				else if (snake_pos.x < pos.x)
-				{
-					hurtcheck = -1;
-					mAnimator->Play(L"LTails_Hurt", true);
-					Vector2 velocity = mRigidbody->GetVelocity();
-					velocity = Vector2(0.0f, 0.0f);
-					velocity.x += 300.0f;
-					velocity.y -= 500.0f;
-					mRigidbody->SetGround(false);
-					mRigidbody->SetVelocity(velocity);
-					mState = eTailsState::Hurt;
-				}
-			}
-			else
-			{
-				pos.y = pos.y + 120;
-				if (pos.y < snake_pos.y)
-				{
-					Vector2 velocity = mRigidbody->GetVelocity();
-					velocity.y = 0.0f;
-					velocity.y = -350.f;
-					mRigidbody->SetGround(false);
-					mRigidbody->SetVelocity(velocity);
-				}
-			}
-		}
-
-		if (Snake_body2* snake = dynamic_cast<Snake_body2*>(other->GetOwner()))
-		{
-			Transform* tr = GetComponent<Transform>();
-			Vector2 pos = tr->GetPos();
-			Vector2 snake_pos = snake->GetComponent<Transform>()->GetPos();
-			if (!(mState == Tails::eTailsState::Hurt))
-			{
-				if (snake_pos.x > pos.x)
-				{
-					hurtcheck = 1;
-					mAnimator->Play(L"RTails_Hurt", true);
-					Vector2 velocity = mRigidbody->GetVelocity();
-					velocity = Vector2(0.0f, 0.0f);
-					velocity -= (300.0f, 500.0f);
-					mRigidbody->SetGround(false);
-					mRigidbody->SetVelocity(velocity);
-					mState = eTailsState::Hurt;
-				}
-				else if (snake_pos.x < pos.x)
-				{
-					hurtcheck = -1;
-					mAnimator->Play(L"LTails_Hurt", true);
-					Vector2 velocity = mRigidbody->GetVelocity();
-					velocity = Vector2(0.0f, 0.0f);
-					velocity.x += 300.0f;
-					velocity.y -= 500.0f;
-					mRigidbody->SetGround(false);
-					mRigidbody->SetVelocity(velocity);
-					mState = eTailsState::Hurt;
-				}
-			}
-		}
-
-		if (Snake_mTaIl* snake = dynamic_cast<Snake_mTaIl*>(other->GetOwner()))
-		{
-			Transform* tr = GetComponent<Transform>();
-			Vector2 pos = tr->GetPos();
-			Vector2 snake_pos = snake->GetComponent<Transform>()->GetPos();
-			if (!(mState == Tails::eTailsState::Hurt))
-			{
-				if (snake_pos.x > pos.x)
-				{
-					hurtcheck = 1;
-					mAnimator->Play(L"RTails_Hurt", true);
-					Vector2 velocity = mRigidbody->GetVelocity();
-					velocity = Vector2(0.0f, 0.0f);
-					velocity -= (300.0f, 500.0f);
-					mRigidbody->SetGround(false);
-					mRigidbody->SetVelocity(velocity);
-					mState = eTailsState::Hurt;
-				}
-				else if (snake_pos.x < pos.x)
-				{
-					hurtcheck = -1;
-					mAnimator->Play(L"LTails_Hurt", true);
-					Vector2 velocity = mRigidbody->GetVelocity();
-					velocity = Vector2(0.0f, 0.0f);
-					velocity.x += 300.0f;
-					velocity.y -= 500.0f;
-					mRigidbody->SetGround(false);
-					mRigidbody->SetVelocity(velocity);
-					mState = eTailsState::Hurt;
-				}
-			}
-		}
-
-		if (Snake_Tail_End* snake = dynamic_cast<Snake_Tail_End*>(other->GetOwner()))
-		{
-			Transform* tr = GetComponent<Transform>();
-			Vector2 pos = tr->GetPos();
-			Vector2 snake_pos = snake->GetComponent<Transform>()->GetPos();
-			if (!(mState == Tails::eTailsState::Hurt))
-			{
-				if (snake_pos.x > pos.x)
-				{
-					hurtcheck = 1;
-					mAnimator->Play(L"RTails_Hurt", true);
-					Vector2 velocity = mRigidbody->GetVelocity();
-					velocity = Vector2(0.0f, 0.0f);
-					velocity -= (300.0f, 500.0f);
-					mRigidbody->SetGround(false);
-					mRigidbody->SetVelocity(velocity);
-					mState = eTailsState::Hurt;
-				}
-				else if (snake_pos.x < pos.x)
-				{
-					hurtcheck = -1;
-					mAnimator->Play(L"LTails_Hurt", true);
-					Vector2 velocity = mRigidbody->GetVelocity();
-					velocity = Vector2(0.0f, 0.0f);
-					velocity.x += 300.0f;
-					velocity.y -= 500.0f;
-					mRigidbody->SetGround(false);
-					mRigidbody->SetVelocity(velocity);
-					mState = eTailsState::Hurt;
-				}
-			}
-		}
-
-
-
-		if (BaseBullet* bullet = dynamic_cast<BaseBullet*>(other->GetOwner()))
-		{
-			mAnimator->Play(L"RTailsDeath", true);
-		}
+		}		
 
 		if (Ground* playgr = dynamic_cast<Ground*>(other->GetOwner()))
 		{
@@ -818,8 +538,6 @@ namespace jk
 				mAnimator->Play(L"LTailsStand", true);
 			}
 		}
-
-
 	}
 
 	void Tails::OnCollisionStay(Collider* other)

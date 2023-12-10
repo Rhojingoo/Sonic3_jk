@@ -1,5 +1,6 @@
 #pragma once
 #include "jk_Gameobject.h"
+#include "jk_Transform.h"
 
 namespace jk 
 {
@@ -18,6 +19,12 @@ namespace jk
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
+		void Setpos_monster(Vector2 set) { _pos = set; }
+		Vector2 Getpos_monster() { return _pos; }
+
+	private:
+		Transform* tr = nullptr;
+		Vector2 _pos = {};
 	};
 }
 

@@ -24,6 +24,7 @@ namespace jk
 		, mGroundImage(nullptr)
 		, mAnimator(nullptr)
 		, mRigidbody(nullptr)
+		, tr(nullptr)
 		, mOwner(owner)
 		, mDir(-1)
 		, check_ground_Cb(0)
@@ -42,6 +43,8 @@ namespace jk
 		mRigidbody = AddComponent<Rigidbody>();
 		mRigidbody->SetMass(1.0f);
 
+		tr = GetComponent<Transform>();
+
 		Cannon* canon = dynamic_cast<Cannon*>(owner);
 		mDir = canon->GetDir();	
 	}
@@ -57,6 +60,8 @@ namespace jk
 
 	void Canon_Bullet::Update()
 	{	
+		Vector2 pos = tr->GetPos();
+		Setpos_bullet(pos);
 		Gameobject::Update();
 	}
 

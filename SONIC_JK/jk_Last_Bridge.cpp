@@ -16,7 +16,7 @@
 #include "jk_SONIC.h"
 #include "jk_Tails.h"
 
-#include "jk_BaseBullet.h"
+#include "Bullet_Act1_Down.h"
 
 namespace jk
 {

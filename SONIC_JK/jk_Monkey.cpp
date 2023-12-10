@@ -136,6 +136,8 @@ namespace jk
 		default:
 			break;
 		}
+
+		Setpos_monster(pos);
 		Gameobject::Update();
 	}
 

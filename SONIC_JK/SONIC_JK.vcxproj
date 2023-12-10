@@ -208,7 +208,7 @@
     <ClInclude Include="jk_BackGround.h" />
     <ClInclude Include="jk_Blending.h" />
     <ClInclude Include="Act1_Boss.h" />
-    <ClInclude Include="jk_BaseBullet.h" />
+    <ClInclude Include="Bullet_Act1_Down.h" />
     <ClInclude Include="jk_Bullet.h" />
     <ClInclude Include="jk_Callapses.h" />
     <ClInclude Include="jk_Camera.h" />
@@ -389,7 +389,7 @@
     <ClCompile Include="jk_BackGround.cpp" />
     <ClCompile Include="jk_Blending.cpp" />
     <ClCompile Include="Act1_Boss.cpp" />
-    <ClCompile Include="jk_BaseBullet.cpp" />
+    <ClCompile Include="Bullet_Act1_Down.cpp" />
     <ClCompile Include="jk_Bullet.cpp" />
     <ClCompile Include="jk_Callapses.cpp" />
     <ClCompile Include="jk_Camera.cpp" />

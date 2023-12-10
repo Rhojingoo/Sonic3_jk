@@ -70,28 +70,9 @@ namespace jk
 			{
 				Boss_rb->SetGround(false);
 			}
-		}
-		//if (Boss_TR && Boss_rb && mGroundImage)  //무한루프
-		//{
-		//	Vector2 Boss_ps = Boss_TR->GetPos();
-		//	COLORREF FootColor = mGroundImage->GetPixel(static_cast<int>(Boss_ps.x) - 50, static_cast<int>(Boss_ps.y) + 70);
-		//	if (FootColor == RGB(0, 0, 0))
-		//	{
-		//		//COLORREF FootColor = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(Boss_ps.x) - 50, static_cast<int>(Boss_ps.y) + 70));
-		//		while (FootColor == RGB(0, 0, 0))
-		//		{
-		//			Boss_ps.y -= 1;
-		//			COLORREF FootColor =mGroundImage->GetPixel(static_cast<int>(Boss_ps.x) - 50, static_cast<int>(Boss_ps.y) + 70);
-		//			Boss_TR->SetPos(Boss_ps);
-		//			Boss_rb->SetGround(true);
-		//		}
-		//	}
-		//	else
-		//	{
-		//		Boss_rb->SetGround(false);
-		//	}
-		//}
+		}	
 
+		Setpos_bullet(pos);
 		Gameobject::Update();
 	}
 

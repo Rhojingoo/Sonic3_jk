@@ -412,7 +412,7 @@
     <ClInclude Include="jk_MinigameScene.h">
       <Filter>Contents\Scene\Minigame</Filter>
     </ClInclude>
-    <ClInclude Include="jk_BaseBullet.h">
+    <ClInclude Include="Bullet_Act1_Down.h">
       <Filter>Contents\Bullet\Act1 Boss</Filter>
     </ClInclude>
     <ClInclude Include="jk_Collider.h">
@@ -958,7 +958,7 @@
     <ClCompile Include="jk_MinigameScene.cpp">
       <Filter>Contents\Scene\Minigame</Filter>
     </ClCompile>
-    <ClCompile Include="jk_BaseBullet.cpp">
+    <ClCompile Include="Bullet_Act1_Down.cpp">
       <Filter>Contents\Bullet\Act1 Boss</Filter>
     </ClCompile>
     <ClCompile Include="jk_Collider.cpp">

@@ -7,7 +7,7 @@
 #include "jk_Time.h"
 
 
-#include "jk_BaseBullet.h"
+#include "Bullet_Act1_Down.h"
 #include "Bullet_Act1_R_Side.h"
 #include "Bullet_Act1_R_DIA.h"
 #include "Bullet_Act1_L_Side.h"

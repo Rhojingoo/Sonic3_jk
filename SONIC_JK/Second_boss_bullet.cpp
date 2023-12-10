@@ -41,23 +41,20 @@ namespace jk
 
 	void Second_boss_bullet::Update()
 	{		
-		
-		if (mDir == 1)
-		{
-			Transform* tr = GetComponent<Transform>();
-			Vector2 pos = tr->GetPos();
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->GetPos();
+		if (mDir == 1)		{
+			
 			pos.x += mSpeed * static_cast<float>(Time::DeltaTime());
 			tr->SetPos(pos);
 			
 		}
 		else
-		{
-			Transform* tr = GetComponent<Transform>();
-			Vector2 pos = tr->GetPos();
+		{		
 			pos.x -= mSpeed * static_cast<float>(Time::DeltaTime());
 			tr->SetPos(pos);			
 		}
-
+		Setpos_bullet(pos);
 		Gameobject::Update();
 	}
 

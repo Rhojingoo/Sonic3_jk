@@ -43,7 +43,7 @@ namespace jk
 		Vector2 pos = tr->GetPos();		
 		pos.x -= 150.0f * static_cast<float>(Time::DeltaTime());
 		tr->SetPos(pos);
-
+		Setpos_bullet(pos);
 
 		Gameobject::Update();
 	}
