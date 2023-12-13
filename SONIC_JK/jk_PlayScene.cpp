@@ -117,8 +117,8 @@ namespace jk
 		mSonic = new Sonic();
 		mSonic->SetName(L"Player");
 		AddGameobeject(mSonic, jk_LayerType::Player);
-		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 19718.f, 3450.f });
+		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
+		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 19718.f, 3450.f }); //첫원돌기
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{21480.f, 3450.f });//폭포
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 16100.0f, 3070.0f });//집라인쪽
@@ -416,52 +416,52 @@ namespace jk
 
 
 		//몬스터
-		Rino* mRino[3];
-		for (int a = 0; a < 3; a++)
-		{
-			mRino[a] = new Rino();
-			mRino[a]->SetName(L"RinoMonster");
-			AddGameobeject(mRino[a], jk_LayerType::Monster);
-		}
-		mRino[0]->GetComponent<Transform>()->SetPos(Vector2{ 14524.0f, 3021.0f });
-		mRino[0]->SetCenterpos(Vector2{ 14524.0f, 3021.0f });
-		mRino[1]->GetComponent<Transform>()->SetPos(Vector2{ 18126.0f, 1770.0f });
-		mRino[1]->SetCenterpos(Vector2{ 18126.0f, 1770.0f });
-		mRino[2]->GetComponent<Transform>()->SetPos(Vector2{ 24332.0f, 2417.0f });
-		mRino[2]->SetCenterpos(Vector2{ 24332.0f, 2417.0f });
+		//Rino* mRino[3];
+		//for (int a = 0; a < 3; a++)
+		//{
+		//	mRino[a] = new Rino();
+		//	mRino[a]->SetName(L"RinoMonster");
+		//	AddGameobeject(mRino[a], jk_LayerType::Monster);
+		//}
+		//mRino[0]->GetComponent<Transform>()->SetPos(Vector2{ 14524.0f, 3021.0f });
+		//mRino[0]->SetCenterpos(Vector2{ 14524.0f, 3021.0f });
+		//mRino[1]->GetComponent<Transform>()->SetPos(Vector2{ 18126.0f, 1770.0f });
+		//mRino[1]->SetCenterpos(Vector2{ 18126.0f, 1770.0f });
+		//mRino[2]->GetComponent<Transform>()->SetPos(Vector2{ 24332.0f, 2417.0f });
+		//mRino[2]->SetCenterpos(Vector2{ 24332.0f, 2417.0f });
 
 
 
-		Monkey* mMokey[5];
-		for (int a = 0; a < 5; a++)
-		{
-			mMokey[a] = new Monkey(mSonic);
-			mMokey[a]->SetName(L"Monkey");
-			AddGameobeject(mMokey[a], jk_LayerType::Monster);
-		}
-		//mMokey[0]->GetComponent<Transform>()->SetPos(Vector2{ 12450.0f, 3111.0f }); 오른쪽 원숭이
-		mMokey[0]->GetComponent<Transform>()->SetPos(Vector2{ 12280.0f, 3111.0f });
-		mMokey[0]->SetCenterpos(Vector2{ 12280.f,3111.f });
-		mMokey[1]->GetComponent<Transform>()->SetPos(Vector2{ 16865.0f, 3503.0f });
-		mMokey[1]->SetCenterpos(Vector2{ 16865.0f, 3503.0f });
-		mMokey[2]->GetComponent<Transform>()->SetPos(Vector2{ 18410.0f, 1550.0f });
-		mMokey[2]->SetCenterpos(Vector2{ 18410.0f, 1550.0f });
-		mMokey[3]->GetComponent<Transform>()->SetPos(Vector2{ 23796.0f, 3463.0f });
-		mMokey[3]->SetCenterpos(Vector2{ 23796.0f, 3463.0f });
-		mMokey[4]->GetComponent<Transform>()->SetPos(Vector2{ 23395.0f, 2350.0f });
-		mMokey[4]->SetCenterpos(Vector2{ 23395.0f, 2350.0f });
+		//Monkey* mMokey[5];
+		//for (int a = 0; a < 5; a++)
+		//{
+		//	mMokey[a] = new Monkey(mSonic);
+		//	mMokey[a]->SetName(L"Monkey");
+		//	AddGameobeject(mMokey[a], jk_LayerType::Monster);
+		//}
+		////mMokey[0]->GetComponent<Transform>()->SetPos(Vector2{ 12450.0f, 3111.0f }); 오른쪽 원숭이
+		//mMokey[0]->GetComponent<Transform>()->SetPos(Vector2{ 12280.0f, 3111.0f });
+		//mMokey[0]->SetCenterpos(Vector2{ 12280.f,3111.f });
+		//mMokey[1]->GetComponent<Transform>()->SetPos(Vector2{ 16865.0f, 3503.0f });
+		//mMokey[1]->SetCenterpos(Vector2{ 16865.0f, 3503.0f });
+		//mMokey[2]->GetComponent<Transform>()->SetPos(Vector2{ 18410.0f, 1550.0f });
+		//mMokey[2]->SetCenterpos(Vector2{ 18410.0f, 1550.0f });
+		//mMokey[3]->GetComponent<Transform>()->SetPos(Vector2{ 23796.0f, 3463.0f });
+		//mMokey[3]->SetCenterpos(Vector2{ 23796.0f, 3463.0f });
+		//mMokey[4]->GetComponent<Transform>()->SetPos(Vector2{ 23395.0f, 2350.0f });
+		//mMokey[4]->SetCenterpos(Vector2{ 23395.0f, 2350.0f });
 
 
-		Cannon* cannon[3];
-		for (int a = 0; a < 3; a++)
-		{
-			cannon[a] = new Cannon(mSonic);
-			cannon[a]->SetName(L"Cannon");
-			AddGameobeject(cannon[a], jk_LayerType::Monster);
-		}
-		cannon[0]->GetComponent<Transform>()->SetPos(Vector2{ 13518.0f, 3174.0f });
-		cannon[1]->GetComponent<Transform>()->SetPos(Vector2{ 16563.0f, 1887.0f });
-		cannon[2]->GetComponent<Transform>()->SetPos(Vector2{ 20928.0f, 2680.0f });
+		//Cannon* cannon[3];
+		//for (int a = 0; a < 3; a++)
+		//{
+		//	cannon[a] = new Cannon(mSonic);
+		//	cannon[a]->SetName(L"Cannon");
+		//	AddGameobeject(cannon[a], jk_LayerType::Monster);
+		//}
+		//cannon[0]->GetComponent<Transform>()->SetPos(Vector2{ 13518.0f, 3174.0f });
+		//cannon[1]->GetComponent<Transform>()->SetPos(Vector2{ 16563.0f, 1887.0f });
+		//cannon[2]->GetComponent<Transform>()->SetPos(Vector2{ 20928.0f, 2680.0f });
 
 
 
@@ -489,17 +489,17 @@ namespace jk
 		rock_middle[0]->SetCheckTargetGround(playgr);
 		rock_big[0]->SetCheckTargetGround(playgr);
 		rock_big[1]->SetCheckTargetGround(playgr);
-		cannon[0]->SetCheckTargetGround(playgr);
-		cannon[1]->SetCheckTargetGround(playgr);
-		cannon[2]->SetCheckTargetGround(playgr);
-		mRino[0]->SetCheckTargetGround(playgr);
-		mRino[1]->SetCheckTargetGround(playgr);
-		mRino[2]->SetCheckTargetGround(playgr);
-		mMokey[0]->SetCheckTargetGround(playgr);
-		mMokey[1]->SetCheckTargetGround(playgr);
-		mMokey[2]->SetCheckTargetGround(playgr);
-		mMokey[3]->SetCheckTargetGround(playgr);
-		mMokey[4]->SetCheckTargetGround(playgr);
+		//cannon[0]->SetCheckTargetGround(playgr);
+		//cannon[1]->SetCheckTargetGround(playgr);
+		//cannon[2]->SetCheckTargetGround(playgr);
+		//mRino[0]->SetCheckTargetGround(playgr);
+		//mRino[1]->SetCheckTargetGround(playgr);
+		//mRino[2]->SetCheckTargetGround(playgr);
+		//mMokey[0]->SetCheckTargetGround(playgr);
+		//mMokey[1]->SetCheckTargetGround(playgr);
+		//mMokey[2]->SetCheckTargetGround(playgr);
+		//mMokey[3]->SetCheckTargetGround(playgr);
+		//mMokey[4]->SetCheckTargetGround(playgr);
 		circle_chek->SetCheckTargetGround(playgr);
 		circle_chek2->SetCheckTargetGround(playgr);
 

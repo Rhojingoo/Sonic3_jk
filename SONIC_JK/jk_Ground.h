@@ -30,37 +30,11 @@ namespace jk
 		
 		void SetLotation(int rotaion) {	mRotationcheck = rotaion;}
 
-		class Image* GetGroundImage() 
-		{ 
-			if (!Ground_Image) 
-				return nullptr;
-			
-			return Ground_Image;
-		}
+		class Image* GetGroundImage();
+		class Image* GetGroundImage2();
+		class Image* GetGroundImage3();
+		class Image* GetGroundImage4();
 
-		class Image* GetGroundImage2()
-		{
-			if (!Ground_Image2)
-				return nullptr;
-
-			return Ground_Image2;
-		}
-
-		class Image* GetGroundImage3()
-		{
-			if (!Ground_Image3)
-				return nullptr;
-
-			return Ground_Image3;
-		}
-
-		class Image* GetGroundImage4()
-		{
-			if (!Ground_Image4)
-				return nullptr;
-
-			return Ground_Image4;
-		}
 
 	public:
 		void CheckGround();

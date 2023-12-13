@@ -21,8 +21,9 @@ namespace jk
 			Idle,
 			Attack,
 			Hurt,
-			Move,			
+			Move,
 			Run,
+			Circle,
 			Dash,
 			Brake,
 			Push,
@@ -33,7 +34,7 @@ namespace jk
 			Sit,
 			Spin,
 			Twojump,
-			Fire_Shield,			
+			Fire_Shield,
 			Electricity_Shield,
 			Water_Shield,
 			Jeep_line,
@@ -42,7 +43,10 @@ namespace jk
 			GameOver,
 			EMDING,
 			End,
+		};
 
+		enum class eCircle
+		{
 			Circle_Rturn_R,
 			Circle_Rturn_1,
 			Circle_Rturn_2,
@@ -58,8 +62,10 @@ namespace jk
 			Circle_Lturn_4,
 			Circle_Lturn_5,
 			Circle_Lturn_6,
-			Circle_Lturn_7,		
+			Circle_Lturn_7,
+			End,
 		};
+
 
 		Sonic();
 		~Sonic();
@@ -96,6 +102,7 @@ namespace jk
 		void hurt();
 		void move() ;	
 		void run() ;
+		void circle();
 		void dash();
 		void brake();
 		void push();
@@ -166,6 +173,7 @@ namespace jk
 		
 	private:
 		eSonicState mState;
+		eCircle mCircle_state;
 		Tails* Tails_call;
 		Vector2 tails_call;
 		int mDir;		

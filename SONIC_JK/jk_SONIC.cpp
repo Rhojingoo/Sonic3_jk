@@ -102,8 +102,8 @@ namespace jk
 			, Spin(nullptr)
 			, Last_Boss_f(nullptr)
 			, Spike_mc(nullptr)
-		
-			, mAnimator(nullptr)
+			
+			, mAnimator(nullptr)		
 			, mImage(nullptr)
 			, mGroundImage(nullptr)
 			, mRigidbody(nullptr)
@@ -119,6 +119,7 @@ namespace jk
 			, elect_effect(0)
 
 			, mState(eSonicState::Idle)
+			, mCircle_state(eCircle::Circle_Lturn_1)
 			, Tails_call(nullptr)
 			, tails_call(0.f,0.f)
 			, mDir(1)
@@ -304,6 +305,9 @@ namespace jk
 			case jk::Sonic::eSonicState::Run:run();
 				break;
 
+			case jk::Sonic::eSonicState::Circle:circle();
+				break;
+
 			case jk::Sonic::eSonicState::Dash:dash();
 				break;
 
@@ -359,51 +363,7 @@ namespace jk
 				break;
 
 			case jk::Sonic::eSonicState::Water_Shield:water_Shield();
-				break;
-
-			case jk::Sonic::eSonicState::Circle_Rturn_1:circle_Rturn_1();
-				break;
-
-			case jk::Sonic::eSonicState::Circle_Rturn_2:circle_Rturn_2();
-				break;
-
-			case jk::Sonic::eSonicState::Circle_Rturn_3:circle_Rturn_3();
-				break;
-
-			case jk::Sonic::eSonicState::Circle_Rturn_4:circle_Rturn_4();
-				break;
-
-			case jk::Sonic::eSonicState::Circle_Rturn_5:circle_Rturn_5();
-				break;
-
-			case jk::Sonic::eSonicState::Circle_Rturn_6:circle_Rturn_6();
-				break;
-
-			case jk::Sonic::eSonicState::Circle_Rturn_7:circle_Rturn_7();
-				break;
-
-
-
-			case jk::Sonic::eSonicState::Circle_Lturn_1:circle_Lturn_1();
-				break;
-
-			case jk::Sonic::eSonicState::Circle_Lturn_2:circle_Lturn_2();
-				break;
-
-			case jk::Sonic::eSonicState::Circle_Lturn_3:circle_Lturn_3();
-				break;
-
-			case jk::Sonic::eSonicState::Circle_Lturn_4:circle_Lturn_4();
-				break;
-
-			case jk::Sonic::eSonicState::Circle_Lturn_5:circle_Lturn_5();
-				break;
-
-			case jk::Sonic::eSonicState::Circle_Lturn_6:circle_Lturn_6();
-				break;
-
-			case jk::Sonic::eSonicState::Circle_Lturn_7:circle_Lturn_7();
-				break;
+				break;			
 
 			default:
 				break;
@@ -411,6 +371,7 @@ namespace jk
 
 			Gameobject::Update();
 		}
+
 
 		void Sonic::Render(HDC hdc)
 		{
@@ -421,7 +382,6 @@ namespace jk
 	{
 		Gameobject::Release();
 	}
-
 
 
 		void Sonic::OnCollisionEnter(Collider* other)
@@ -1625,7 +1585,10 @@ namespace jk
 		}
 
 		void Sonic::move()
-		{
+		{		
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->GetPos();			
+
 			mRigidbody->SetFiction(100);
 			if (Input::GetKeyUp(eKeyCode::RIGHT)
 				|| Input::GetKeyUp(eKeyCode::LEFT))
@@ -1655,8 +1618,7 @@ namespace jk
 					mAnimator->Play(L"LSonicSit", false);
 			}
 
-			Transform* tr = GetComponent<Transform>();
-			Vector2 pos = tr->GetPos();
+	
 
 			if (Input::GetKey(eKeyCode::LEFT))
 			{
@@ -1714,7 +1676,9 @@ namespace jk
 				mRigidbody->AddForce(Vector2(500.0f, 0.0f));
 				if (Circle_piece == 1)
 				{
-					mState = eSonicState::Circle_Rturn_1;
+			
+					mState = eSonicState::Circle;
+					mCircle_state = eCircle::Circle_Rturn_1;
 					SonicVelocity = mRigidbody->Velocity();
 					if (SonicVelocity.y <= -400)
 					{
@@ -1725,7 +1689,7 @@ namespace jk
 						mAnimator->Play(L"RSN_WT1", true);
 					}
 				}
-				mState = eSonicState::Circle_Rturn_1;
+				//mCircle_state = eCircle::Circle_Rturn_1;
 			}
 
 			if (circlecheck == 2)
@@ -1738,7 +1702,8 @@ namespace jk
 				mRigidbody->AddForce(Vector2(-500.0f, 0.0f));
 				if (Circle_piece == 7)
 				{
-					mState = eSonicState::Circle_Lturn_7;
+					mState = eSonicState::Circle;
+					mCircle_state = eCircle::Circle_Lturn_7;
 					SonicVelocity = mRigidbody->Velocity();
 					if (SonicVelocity.y <= -400)
 					{
@@ -1749,9 +1714,8 @@ namespace jk
 						mAnimator->Play(L"LSN_WT7", true);
 					}
 				}
-				mState = eSonicState::Circle_Lturn_7;
+				//mCircle_state = eCircle::Circle_Lturn_7;
 			}
-
 			tr->SetPos(pos);
 		}
 
@@ -1856,7 +1820,8 @@ namespace jk
 				mRigidbody->AddForce(Vector2(500.0f, 0.0f));
 				if (Circle_piece == 1)
 				{
-					mState = eSonicState::Circle_Rturn_1;
+					mState = eSonicState::Circle;
+					mCircle_state = eCircle::Circle_Rturn_1;
 					SonicVelocity = mRigidbody->Velocity();
 					if (SonicVelocity.y <= -400)
 					{
@@ -1867,7 +1832,7 @@ namespace jk
 						mAnimator->Play(L"RSN_WT1", true);
 					}
 				}
-				mState = eSonicState::Circle_Rturn_1;
+				//mState = Circle::Circle_Rturn_1;
 			}
 
 
@@ -1881,7 +1846,8 @@ namespace jk
 				mRigidbody->AddForce(Vector2(-500.0f, 0.0f));
 				if (Circle_piece == 7)
 				{
-					mState = eSonicState::Circle_Lturn_7;
+					mState = eSonicState::Circle;
+					mCircle_state = eCircle::Circle_Lturn_7;
 					SonicVelocity = mRigidbody->Velocity();
 					if (SonicVelocity.y <= -400)
 					{
@@ -1892,10 +1858,113 @@ namespace jk
 						mAnimator->Play(L"LSN_WT7", true);
 					}
 				}
-				mState = eSonicState::Circle_Lturn_7;
+				//mState = Circle::Circle_Lturn_7;
 			}
 
 			tr->SetPos(pos);
+		}
+
+		void Sonic::circle()
+		{
+
+			switch (mCircle_state)
+			{
+			case jk::Sonic::eCircle::Circle_Rturn_1:circle_Rturn_1();
+				break;
+
+			case jk::Sonic::eCircle::Circle_Rturn_2:circle_Rturn_2();
+				break;
+
+			case jk::Sonic::eCircle::Circle_Rturn_3:circle_Rturn_3();
+				break;
+
+			case jk::Sonic::eCircle::Circle_Rturn_4:circle_Rturn_4();
+				break;
+
+			case jk::Sonic::eCircle::Circle_Rturn_5:circle_Rturn_5();
+				break;
+
+			case jk::Sonic::eCircle::Circle_Rturn_6:circle_Rturn_6();
+				break;
+
+			case jk::Sonic::eCircle::Circle_Rturn_7:circle_Rturn_7();
+				break;
+
+
+
+			case jk::Sonic::eCircle::Circle_Lturn_1:circle_Lturn_1();
+				break;
+
+			case jk::Sonic::eCircle::Circle_Lturn_2:circle_Lturn_2();
+				break;
+
+			case jk::Sonic::eCircle::Circle_Lturn_3:circle_Lturn_3();
+				break;
+
+			case jk::Sonic::eCircle::Circle_Lturn_4:circle_Lturn_4();
+				break;
+
+			case jk::Sonic::eCircle::Circle_Lturn_5:circle_Lturn_5();
+				break;
+
+			case jk::Sonic::eCircle::Circle_Lturn_6:circle_Lturn_6();
+				break;
+
+			case jk::Sonic::eCircle::Circle_Lturn_7:circle_Lturn_7();
+				break;
+
+			default:
+				break;
+		}
+
+
+
+			#pragma region 원돌기 공식
+			{
+				//Vector2 mCenterpos = Vector2(2790.0f * 3, 2700.f);
+				Vector2 mCenterpos = Vector2(20229.f, 3346.f);
+
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->GetPos();
+
+				float centerX = mCenterpos.x;
+				float centerY = mCenterpos.y;
+				float radius = 220.0f;
+
+				SonicVelocity = mRigidbody->Velocity();
+
+				if (Input::GetKey(eKeyCode::LEFT))
+				{
+					angle += 200.f * static_cast<float>(Time::DeltaTime());
+					//여기부분을-로바꾸면앞으로+는뒤로
+					float radian = angle * 3.14f / 180.0f;
+
+
+					float x = centerX + radius * cos(radian);
+					float y = centerY + radius * sin(radian);
+					pos.x = x;
+					pos.y = y;
+
+					tr->SetPos(pos);
+				}
+				if (Input::GetKey(eKeyCode::RIGHT))
+				{
+					angle -= 200.f * static_cast<float>(Time::DeltaTime());
+					//여기부분을-로바꾸면앞으로+는뒤로
+					float radian = angle * 3.14f / 180.0f;
+
+
+					float x = centerX + radius * cos(radian);
+					float y = centerY + radius * sin(radian);
+					mRigidbody->SetVelocity(Vector2(x, y));
+
+					pos.x = x;
+					pos.y = y;
+
+					tr->SetPos(pos);
+				}
+			}
+			#pragma endregion 
 		}
 
 		void Sonic::dash()
@@ -1980,7 +2049,7 @@ namespace jk
 				mRigidbody->AddForce(Vector2(300.0f, -1000.0f));
 				if (Circle_piece == 1)
 				{
-					mState = eSonicState::Circle_Rturn_1;
+					mCircle_state = eCircle::Circle_Rturn_1;
 					SonicVelocity = mRigidbody->Velocity();
 					if (SonicVelocity.y <= -400)
 					{
@@ -1991,7 +2060,7 @@ namespace jk
 						mAnimator->Play(L"RSN_WT1", true);
 					}
 				}
-				mState = eSonicState::Circle_Rturn_1;
+				//mState = eSonicState::Circle_Rturn_1;
 			}
 
 			if (circlecheck == 2)
@@ -2004,7 +2073,7 @@ namespace jk
 				mRigidbody->AddForce(Vector2(-300.0f, -1000.0f));
 				if (Circle_piece == 7)
 				{
-					mState = eSonicState::Circle_Lturn_7;
+					mCircle_state = eCircle::Circle_Lturn_7;
 					SonicVelocity = mRigidbody->Velocity();
 					if (SonicVelocity.y <= -400)
 					{
@@ -2015,7 +2084,7 @@ namespace jk
 						mAnimator->Play(L"LSN_WT7", true);
 					}
 				}
-				mState = eSonicState::Circle_Lturn_7;
+				//mState = eSonicState::Circle_Lturn_7;
 
 
 
@@ -2633,18 +2702,59 @@ namespace jk
 
 		void Sonic::circle_Rturn_1()
 		{
-			Transform* tr = GetComponent<Transform>();
-			Vector2 pos = tr->GetPos();
+			//Vector2 mCenterpos = Vector2(2790.0f * 3, 2700.f);
+			//Vector2 mCenterpos = Vector2(20229.f, 3406.f);
+			//
+			//Transform* tr = GetComponent<Transform>();
+			//Vector2 pos = tr->GetPos();
 
-			mRigidbody->AddForce(Vector2(0.0f, 150.0f));
+			//float centerX = mCenterpos.x;
+			//float centerY = mCenterpos.y;
+			//float radius = 150.0f;
+
+			//SonicVelocity = mRigidbody->Velocity();
+
+			//if (Input::GetKey(eKeyCode::LEFT))
+			//{
+			//	angle += 10.f * static_cast<float>(Time::DeltaTime()) * 10.f;
+			//	//여기부분을-로바꾸면앞으로+는뒤로
+			//	float radian = angle * 3.14f / 180.0f;
+
+
+			//	float x = centerX + radius * cos(radian);
+			//	float y = centerY + radius * sin(radian);
+			//	pos.x = x;
+			//	pos.y = y;
+
+			//	tr->SetPos(pos);
+			//}
+			//if (Input::GetKey(eKeyCode::RIGHT))
+			//{
+			//	angle -= 10.f * static_cast<float>(Time::DeltaTime()) * 10.f;
+			//	//여기부분을-로바꾸면앞으로+는뒤로
+			//	float radian = angle * 3.14f / 180.0f;
+
+
+			//	float x = centerX + radius * cos(radian);
+			//	float y = centerY + radius * sin(radian);
+			//	pos.x = x;
+			//	pos.y = y;
+
+			//	tr->SetPos(pos);
+			//}
+
+
+
+
+			//mRigidbody->AddForce(Vector2(0.0f, 150.0f));
 			if (Circle_piece == 0)
 			{
-				mRigidbody = GetComponent<Rigidbody>();
-				mRigidbody->SetMass(1.0f);
-				Vector2 TempVel;
-				TempVel = mRigidbody->GetVelocity();
-				mRigidbody->SetVelocity(Vector2{ fabs(TempVel.y)*-1, 0.0f });
-				mRigidbody->SetGravity(Vector2{ 0.0f,500.f });
+				//mRigidbody = GetComponent<Rigidbody>();
+				//mRigidbody->SetMass(1.0f);
+				//Vector2 TempVel;
+				//TempVel = mRigidbody->GetVelocity();
+				//mRigidbody->SetVelocity(Vector2{ fabs(TempVel.y)*-1, 0.0f });
+				//mRigidbody->SetGravity(Vector2{ 0.0f,500.f });
 
 				int a = 0;
 				SonicVelocity = mRigidbody->Velocity();
@@ -2663,7 +2773,7 @@ namespace jk
 
 			if (Circle_piece == 2)
 			{
-				mState = eSonicState::Circle_Rturn_2;
+				mCircle_state = eCircle::Circle_Rturn_2;
 				SonicVelocity = mRigidbody->Velocity();
 				if (SonicVelocity.y <= -400)
 				{
@@ -2679,7 +2789,6 @@ namespace jk
 			{
 				mDir = -1;
 				mRigidbody->AddForce(Vector2(0.0f, 500.0f));
-
 				Vector2 SonicVelocity = mRigidbody->Velocity();
 			}
 
@@ -2693,10 +2802,10 @@ namespace jk
 
 		void Sonic::circle_Rturn_2()
 		{
-			mRigidbody->AddForce(Vector2(0.0f, 200.0f));
+			//mRigidbody->AddForce(Vector2(0.0f, 200.0f));
 			if (Circle_piece == 1)
 			{
-				mState = eSonicState::Circle_Rturn_1;
+				mCircle_state = eCircle::Circle_Rturn_1;
 				SonicVelocity = mRigidbody->Velocity();
 				if (SonicVelocity.y <= -400)
 				{
@@ -2710,7 +2819,7 @@ namespace jk
 
 			if (Circle_piece == 3)
 			{
-				mState = eSonicState::Circle_Rturn_3;
+				mCircle_state = eCircle::Circle_Rturn_3;
 				SonicVelocity = mRigidbody->Velocity();
 				if (SonicVelocity.y <= -400)
 				{
@@ -2725,9 +2834,7 @@ namespace jk
 			if (Input::GetKey(eKeyCode::LEFT))
 			{
 				mDir = -1;
-				mRigidbody->AddForce(Vector2(0.0f, 500.0f));
-
-				Vector2 SonicVelocity = mRigidbody->Velocity();
+				//mRigidbody->AddForce(Vector2(0.0f, 500.0f));
 			}
 
 			if (Input::GetKey(eKeyCode::RIGHT))
@@ -2744,7 +2851,7 @@ namespace jk
 			mRigidbody->AddForce(Vector2(0.0f, 300.0f));
 			if (Circle_piece == 2)
 			{
-				mState = eSonicState::Circle_Rturn_2;
+				mCircle_state = eCircle::Circle_Rturn_2;
 				SonicVelocity = mRigidbody->Velocity();
 				if (SonicVelocity.y <= -400)
 				{
@@ -2758,7 +2865,7 @@ namespace jk
 
 			if (Circle_piece == 4)
 			{
-				mState = eSonicState::Circle_Rturn_4;
+				mCircle_state = eCircle::Circle_Rturn_4;
 				SonicVelocity = mRigidbody->Velocity();
 				if (SonicVelocity.y <= -400)
 				{
@@ -2795,7 +2902,7 @@ namespace jk
 
 			if (Circle_piece == 3)
 			{
-				mState = eSonicState::Circle_Rturn_3;
+				mCircle_state = eCircle::Circle_Rturn_3;
 				SonicVelocity = mRigidbody->Velocity();
 				if (SonicVelocity.y <= -400)
 				{
@@ -2809,7 +2916,7 @@ namespace jk
 
 			if (Circle_piece == 5)
 			{
-				mState = eSonicState::Circle_Rturn_5;
+				mCircle_state = eCircle::Circle_Rturn_5;
 				SonicVelocity = mRigidbody->Velocity();
 				mRigidbody->AddForce(Vector2(-11000.0f, 1000.0f));
 				if (SonicVelocity.y <= -400)
@@ -2843,7 +2950,7 @@ namespace jk
 			mRigidbody->AddForce(Vector2(0.0f, 1000.0f));
 			if (Circle_piece == 4)
 			{
-				mState = eSonicState::Circle_Rturn_4;
+				mCircle_state = eCircle::Circle_Rturn_4;
 				SonicVelocity = mRigidbody->Velocity();
 				if (SonicVelocity.x <= -400)
 				{
@@ -2857,7 +2964,7 @@ namespace jk
 
 			if (Circle_piece == 6)
 			{
-				mState = eSonicState::Circle_Rturn_6;
+				mCircle_state = eCircle::Circle_Rturn_6;
 				mRigidbody->AddForce(Vector2(0.0f, 1000.0f));
 				SonicVelocity = mRigidbody->Velocity();
 				if (SonicVelocity.x <= -400)
@@ -2891,7 +2998,7 @@ namespace jk
 			mRigidbody->AddForce(Vector2(0.0f, 1000.0f));
 			if (Circle_piece == 5)
 			{
-				mState = eSonicState::Circle_Rturn_5;
+				mCircle_state = eCircle::Circle_Rturn_5;
 				SonicVelocity = mRigidbody->Velocity();
 				if (SonicVelocity.y <= -400)
 				{
@@ -2905,7 +3012,7 @@ namespace jk
 
 			if (Circle_piece == 7)
 			{
-				mState = eSonicState::Circle_Rturn_7;
+				mCircle_state = eCircle::Circle_Rturn_7;
 				mRigidbody->AddForce(Vector2(0.0f, 1000.0f));
 				SonicVelocity = mRigidbody->Velocity();
 				if (SonicVelocity.y <= -400)
@@ -2938,7 +3045,7 @@ namespace jk
 			mRigidbody->AddForce(Vector2(0.0f, -1000.0f));
 			if (Circle_piece == 6)
 			{
-				mState = eSonicState::Circle_Rturn_6;
+				mCircle_state = eCircle::Circle_Rturn_6;
 				SonicVelocity = mRigidbody->Velocity();
 				if (SonicVelocity.y <= -400)
 				{
@@ -3011,7 +3118,7 @@ namespace jk
 
 			if (Circle_piece == 2)
 			{
-				mState = eSonicState::Circle_Lturn_2;
+				mCircle_state = eCircle::Circle_Lturn_2;
 				SonicVelocity = mRigidbody->Velocity();
 				if (SonicVelocity.y <= -400)
 				{
@@ -3044,7 +3151,7 @@ namespace jk
 			mRigidbody->AddForce(Vector2(0.0f, 1000.0f));
 			if (Circle_piece == 1)
 			{
-				mState = eSonicState::Circle_Lturn_1;
+				mCircle_state = eCircle::Circle_Lturn_1;
 				SonicVelocity = mRigidbody->Velocity();
 				if (SonicVelocity.y <= -400)
 				{
@@ -3057,7 +3164,7 @@ namespace jk
 			}
 			if (Circle_piece == 3)
 			{
-				mState = eSonicState::Circle_Lturn_3;
+				mCircle_state = eCircle::Circle_Lturn_3;
 				SonicVelocity = mRigidbody->Velocity();
 				if (SonicVelocity.y <= -400)
 				{
@@ -3089,7 +3196,7 @@ namespace jk
 			mRigidbody->AddForce(Vector2(0.0f, 1000.0f));			
 			if (Circle_piece == 2)
 			{
-				mState = eSonicState::Circle_Lturn_2;
+				mCircle_state = eCircle::Circle_Lturn_2;
 				SonicVelocity = mRigidbody->Velocity();
 				if (SonicVelocity.y <= -400)
 				{
@@ -3102,7 +3209,7 @@ namespace jk
 			}
 			if (Circle_piece == 4)
 			{
-				mState = eSonicState::Circle_Lturn_4;
+				mCircle_state = eCircle::Circle_Lturn_4;
 				mRigidbody = GetComponent<Rigidbody>();
 				mRigidbody->SetMass(1.0f);
 				Vector2 TempVel;
@@ -3146,7 +3253,7 @@ namespace jk
 			if (Circle_piece == 3)
 			{
 				mRigidbody->AddForce(Vector2(11000.0f, 1000.0f));
-				mState = eSonicState::Circle_Lturn_3;
+				mCircle_state = eCircle::Circle_Lturn_3;
 				SonicVelocity = mRigidbody->Velocity();
 				if (SonicVelocity.y <= -400)
 				{
@@ -3159,7 +3266,7 @@ namespace jk
 			}
 			if (Circle_piece == 5)
 			{
-				mState = eSonicState::Circle_Lturn_5;
+				mCircle_state = eCircle::Circle_Lturn_5;
 				SonicVelocity = mRigidbody->Velocity();
 				if (SonicVelocity.y <= -400)
 				{
@@ -3193,7 +3300,7 @@ namespace jk
 	
 			if (Circle_piece == 4)
 			{
-				mState = eSonicState::Circle_Lturn_4;
+				mCircle_state = eCircle::Circle_Lturn_4;
 				mRigidbody->AddForce(Vector2(0.0f, 1000.0f));
 				SonicVelocity = mRigidbody->Velocity();
 				if (SonicVelocity.y <= -400)
@@ -3207,7 +3314,7 @@ namespace jk
 			}
 			if (Circle_piece == 6)
 			{
-				mState = eSonicState::Circle_Lturn_6;
+				mCircle_state = eCircle::Circle_Lturn_6;
 				SonicVelocity = mRigidbody->Velocity();
 				if (SonicVelocity.y <= -400)
 				{
@@ -3240,7 +3347,7 @@ namespace jk
 			mRigidbody->AddForce(Vector2(0.0f, 200.0f));
 			if (Circle_piece == 5)
 			{
-				mState = eSonicState::Circle_Lturn_5;
+				mCircle_state = eCircle::Circle_Lturn_5;
 				SonicVelocity = mRigidbody->Velocity();
 				if (SonicVelocity.y <= -400)
 				{
@@ -3253,7 +3360,7 @@ namespace jk
 			}
 			if (Circle_piece == 7)
 			{
-				mState = eSonicState::Circle_Lturn_7;
+				mCircle_state = eCircle::Circle_Lturn_7;
 				SonicVelocity = mRigidbody->Velocity();
 				if (SonicVelocity.y <= -400)
 				{
@@ -3305,7 +3412,7 @@ namespace jk
 
 			if (Circle_piece == 6)
 			{
-				mState = eSonicState::Circle_Lturn_6;
+				mCircle_state = eCircle::Circle_Lturn_6;
 				SonicVelocity = mRigidbody->Velocity();
 				if (SonicVelocity.y <= -400)
 				{

@@ -15,8 +15,8 @@ namespace jk
 		int GetDecibel(float volume);
 
 	private:
-		LPDIRECTSOUNDBUFFER		mSoundBuffer;
-		DSBUFFERDESC			mBufferDesc;
-		int mVolume;
+		LPDIRECTSOUNDBUFFER		mSoundBuffer = nullptr;
+		DSBUFFERDESC			mBufferDesc = {};
+		int mVolume = 0;
 	};
 }
