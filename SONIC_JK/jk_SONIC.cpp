@@ -134,6 +134,7 @@ namespace jk
 			, end(0)
 			, angle(90.f)
 			, time(0.f)	
+			, loopenter(false)
 		{	
 		}		
 		Sonic::~Sonic()
@@ -1689,7 +1690,8 @@ namespace jk
 						mAnimator->Play(L"RSN_WT1", true);
 					}
 				}
-				//mCircle_state = eCircle::Circle_Rturn_1;
+				loopenter = true;
+				mCircle_state = eCircle::Circle_Rturn_1;
 			}
 
 			if (circlecheck == 2)
@@ -1714,7 +1716,7 @@ namespace jk
 						mAnimator->Play(L"LSN_WT7", true);
 					}
 				}
-				//mCircle_state = eCircle::Circle_Lturn_7;
+				mCircle_state = eCircle::Circle_Lturn_7;
 			}
 			tr->SetPos(pos);
 		}
@@ -1820,8 +1822,6 @@ namespace jk
 				mRigidbody->AddForce(Vector2(500.0f, 0.0f));
 				if (Circle_piece == 1)
 				{
-					mState = eSonicState::Circle;
-					mCircle_state = eCircle::Circle_Rturn_1;
 					SonicVelocity = mRigidbody->Velocity();
 					if (SonicVelocity.y <= -400)
 					{
@@ -1832,7 +1832,9 @@ namespace jk
 						mAnimator->Play(L"RSN_WT1", true);
 					}
 				}
-				//mState = Circle::Circle_Rturn_1;
+				mState = eSonicState::Circle;
+				mCircle_state = eCircle::Circle_Rturn_1;
+				loopenter = true;
 			}
 
 
@@ -1918,53 +1920,55 @@ namespace jk
 		}
 
 
+			//if (loopenter == true)
+			//{
+			//#pragma region 원돌기 공식
+			//{
+			//	//Vector2 mCenterpos = Vector2(2790.0f * 3, 2700.f);
+			//	Vector2 mCenterpos = Vector2(20229.f, 3346.f);
 
-			#pragma region 원돌기 공식
-			{
-				//Vector2 mCenterpos = Vector2(2790.0f * 3, 2700.f);
-				Vector2 mCenterpos = Vector2(20229.f, 3346.f);
+			//	Transform* tr = GetComponent<Transform>();
+			//	Vector2 pos = tr->GetPos();
 
-				Transform* tr = GetComponent<Transform>();
-				Vector2 pos = tr->GetPos();
+			//	float centerX = mCenterpos.x;
+			//	float centerY = mCenterpos.y;
+			//	float radius = 220.0f;
 
-				float centerX = mCenterpos.x;
-				float centerY = mCenterpos.y;
-				float radius = 220.0f;
+			//	SonicVelocity = mRigidbody->Velocity();
 
-				SonicVelocity = mRigidbody->Velocity();
-
-				if (Input::GetKey(eKeyCode::LEFT))
-				{
-					angle += 200.f * static_cast<float>(Time::DeltaTime());
-					//여기부분을-로바꾸면앞으로+는뒤로
-					float radian = angle * 3.14f / 180.0f;
-
-
-					float x = centerX + radius * cos(radian);
-					float y = centerY + radius * sin(radian);
-					pos.x = x;
-					pos.y = y;
-
-					tr->SetPos(pos);
-				}
-				if (Input::GetKey(eKeyCode::RIGHT))
-				{
-					angle -= 200.f * static_cast<float>(Time::DeltaTime());
-					//여기부분을-로바꾸면앞으로+는뒤로
-					float radian = angle * 3.14f / 180.0f;
+			//	if (Input::GetKey(eKeyCode::LEFT))
+			//	{
+			//		angle += 200.f * static_cast<float>(Time::DeltaTime());
+			//		//여기부분을-로바꾸면앞으로+는뒤로
+			//		float radian = angle * 3.14f / 180.0f;
 
 
-					float x = centerX + radius * cos(radian);
-					float y = centerY + radius * sin(radian);
-					mRigidbody->SetVelocity(Vector2(x, y));
+			//		float x = centerX + radius * cos(radian);
+			//		float y = centerY + radius * sin(radian);
+			//		pos.x = x;
+			//		pos.y = y;
 
-					pos.x = x;
-					pos.y = y;
+			//		tr->SetPos(pos);
+			//	}
+			//	if (Input::GetKey(eKeyCode::RIGHT))
+			//	{
+			//		angle -= 200.f * static_cast<float>(Time::DeltaTime());
+			//		//여기부분을-로바꾸면앞으로+는뒤로
+			//		float radian = angle * 3.14f / 180.0f;
 
-					tr->SetPos(pos);
-				}
-			}
-			#pragma endregion 
+
+			//		float x = centerX + radius * cos(radian);
+			//		float y = centerY + radius * sin(radian);
+			//		mRigidbody->SetVelocity(Vector2(x, y));
+
+			//		pos.x = x;
+			//		pos.y = y;
+
+			//		tr->SetPos(pos);
+			//	}
+			//}
+			//#pragma endregion 
+			//}
 		}
 
 		void Sonic::dash()
@@ -2060,6 +2064,7 @@ namespace jk
 						mAnimator->Play(L"RSN_WT1", true);
 					}
 				}
+				loopenter = true;
 				//mState = eSonicState::Circle_Rturn_1;
 			}
 
@@ -2702,51 +2707,6 @@ namespace jk
 
 		void Sonic::circle_Rturn_1()
 		{
-			//Vector2 mCenterpos = Vector2(2790.0f * 3, 2700.f);
-			//Vector2 mCenterpos = Vector2(20229.f, 3406.f);
-			//
-			//Transform* tr = GetComponent<Transform>();
-			//Vector2 pos = tr->GetPos();
-
-			//float centerX = mCenterpos.x;
-			//float centerY = mCenterpos.y;
-			//float radius = 150.0f;
-
-			//SonicVelocity = mRigidbody->Velocity();
-
-			//if (Input::GetKey(eKeyCode::LEFT))
-			//{
-			//	angle += 10.f * static_cast<float>(Time::DeltaTime()) * 10.f;
-			//	//여기부분을-로바꾸면앞으로+는뒤로
-			//	float radian = angle * 3.14f / 180.0f;
-
-
-			//	float x = centerX + radius * cos(radian);
-			//	float y = centerY + radius * sin(radian);
-			//	pos.x = x;
-			//	pos.y = y;
-
-			//	tr->SetPos(pos);
-			//}
-			//if (Input::GetKey(eKeyCode::RIGHT))
-			//{
-			//	angle -= 10.f * static_cast<float>(Time::DeltaTime()) * 10.f;
-			//	//여기부분을-로바꾸면앞으로+는뒤로
-			//	float radian = angle * 3.14f / 180.0f;
-
-
-			//	float x = centerX + radius * cos(radian);
-			//	float y = centerY + radius * sin(radian);
-			//	pos.x = x;
-			//	pos.y = y;
-
-			//	tr->SetPos(pos);
-			//}
-
-
-
-
-			//mRigidbody->AddForce(Vector2(0.0f, 150.0f));
 			if (Circle_piece == 0)
 			{
 				//mRigidbody = GetComponent<Rigidbody>();
@@ -2785,19 +2745,19 @@ namespace jk
 				}				
 			}
 
-			if (Input::GetKey(eKeyCode::LEFT))
-			{
-				mDir = -1;
-				mRigidbody->AddForce(Vector2(0.0f, 500.0f));
-				Vector2 SonicVelocity = mRigidbody->Velocity();
-			}
+			//if (Input::GetKey(eKeyCode::LEFT))
+			//{
+			//	mDir = -1;
+			//	mRigidbody->AddForce(Vector2(0.0f, 500.0f));
+			//	Vector2 SonicVelocity = mRigidbody->Velocity();
+			//}
 
-			if (Input::GetKey(eKeyCode::RIGHT))
-			{
-				mDir = 1;
-				mRigidbody->AddForce(Vector2(0.f, -500.0f));
-				SonicVelocity = mRigidbody->Velocity();
-			}
+			//if (Input::GetKey(eKeyCode::RIGHT))
+			//{
+			//	mDir = 1;
+			//	mRigidbody->AddForce(Vector2(0.f, -500.0f));
+			//	SonicVelocity = mRigidbody->Velocity();
+			//}
 		}
 
 		void Sonic::circle_Rturn_2()
@@ -2834,7 +2794,7 @@ namespace jk
 			if (Input::GetKey(eKeyCode::LEFT))
 			{
 				mDir = -1;
-				//mRigidbody->AddForce(Vector2(0.0f, 500.0f));
+				mRigidbody->AddForce(Vector2(0.0f, 500.0f));
 			}
 
 			if (Input::GetKey(eKeyCode::RIGHT))
@@ -3074,6 +3034,7 @@ namespace jk
 					mAnimator->Play(L"RSonicWalk", true);
 					mState = eSonicState::Move;
 				}
+				loopenter = false;
 			}
 
 			if (Input::GetKey(eKeyCode::LEFT))
@@ -3407,7 +3368,7 @@ namespace jk
 				{
 					mState = eSonicState::Move;
 					mAnimator->Play(L"LSonicWalk", true);
-				}
+				}				
 			}
 
 			if (Circle_piece == 6)

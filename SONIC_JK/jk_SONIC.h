@@ -188,5 +188,6 @@ namespace jk
 		int end;
 		float angle;
 		float time;	
+		bool loopenter;
 	};
 }
