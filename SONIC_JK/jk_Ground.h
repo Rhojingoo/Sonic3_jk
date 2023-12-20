@@ -37,7 +37,10 @@ namespace jk
 
 
 	public:
-		void CheckGround();
+		void CheckTerrian();
+		void CheckGroundCollision(Vector2& playerPos, float xOffset, float yOffset, Image* ground, Transform* Playertr, Rigidbody* PlayerRg);
+		void CheckCeillingCollision(Vector2& playerPos, float xOffset, float yOffset, Vector2 velocityChange, Image* ground);
+		void CheckWallCollision(Vector2& playerPos, float xOffset, float yOffset, Vector2 velocityChange, int direction, Image* ground);
 		void CheckLoopEnter_R();
 		void CheckLoopStoneEnter_R();
 		void CheckLoopStoneSecond_R();
@@ -93,6 +96,7 @@ namespace jk
 		bool LoopStoneMeet = false;
 		class Collider* mCollider;
 		int map_chek;
+		int groundcheck;
 
 	private://외부에서 서클센터바꾸기		
 		Vector2 Circle1_Center;

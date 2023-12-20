@@ -291,80 +291,106 @@ namespace jk
 
  			switch (mState)
 			{
-			case jk::Sonic::eSonicState::Idle:idle();
+			case jk::Sonic::eSonicState::Idle:
+				idle();
 				break;
 
-			case jk::Sonic::eSonicState::Attack:attack();
+			case jk::Sonic::eSonicState::Move:
+				move();
 				break;
 
-			case jk::Sonic::eSonicState::Hurt:hurt();
+			case jk::Sonic::eSonicState::Run:
+				run();
 				break;
 
-			case jk::Sonic::eSonicState::Move:move();
+			case jk::Sonic::eSonicState::Jump:
+				jump();
 				break;
 
-			case jk::Sonic::eSonicState::Run:run();
+			case jk::Sonic::eSonicState::Sit:
+				sit();
 				break;
 
-			case jk::Sonic::eSonicState::Circle:circle();
+			case jk::Sonic::eSonicState::Spin:
+				spin();
 				break;
 
-			case jk::Sonic::eSonicState::Dash:dash();
+			case jk::Sonic::eSonicState::Dash:
+				dash();
 				break;
 
-			case jk::Sonic::eSonicState::Brake:brake();
+			case jk::Sonic::eSonicState::Brake:
+				brake();
 				break;
 
-			case jk::Sonic::eSonicState::Push:push();
+			case jk::Sonic::eSonicState::Circle:
+				circle();
 				break;
 
-			case jk::Sonic::eSonicState::Jump:jump();
+			case jk::Sonic::eSonicState::Lookup:
+				lookup();
 				break;
 
-			case jk::Sonic::eSonicState::Spring_Jump:spring_jump();
+			case jk::Sonic::eSonicState::Push:
+				push();
 				break;
 
-			case jk::Sonic::eSonicState::Cylinder_move:cylinder_move();
+			case jk::Sonic::eSonicState::Attack:
+				attack();
 				break;
 
-			case jk::Sonic::eSonicState::Sit:sit();
+			case jk::Sonic::eSonicState::Hurt:
+				hurt();
+				break;		
+
+			case jk::Sonic::eSonicState::Spring_Jump:
+				spring_jump();
 				break;
 
-			case jk::Sonic::eSonicState::Spin:spin();
+			case jk::Sonic::eSonicState::Cylinder_move:
+				cylinder_move();
 				break;
 
-			case jk::Sonic::eSonicState::Lookup:lookup();
+
+			case jk::Sonic::eSonicState::Twojump:
+				twojump();
 				break;
 
-			case jk::Sonic::eSonicState::Twojump:twojump();
+			case jk::Sonic::eSonicState::Jeep_line:
+				jeep_line();
 				break;
 
-			case jk::Sonic::eSonicState::Jeep_line:jeep_line();
+			case jk::Sonic::eSonicState::Tails_Hanging:
+				tails_hanging();
+				break;					
+
+			case jk::Sonic::eSonicState::Fire_Shield:
+				fire_Shield();
 				break;
 
-			case jk::Sonic::eSonicState::Tails_Hanging:tails_hanging();
-				break;				
-
-			case jk::Sonic::eSonicState::Death:death();
+			case jk::Sonic::eSonicState::Electricity_Shield:
+				electricity_Shield();
 				break;
 
-			case jk::Sonic::eSonicState::GameOver:gameover();
-				break;
-
-			case jk::Sonic::eSonicState::EMDING:ending();
-				break;
-
-			case jk::Sonic::eSonicState::End:endgame();
-				break;
-
-			case jk::Sonic::eSonicState::Fire_Shield:fire_Shield();
-				break;
-
-			case jk::Sonic::eSonicState::Electricity_Shield:electricity_Shield();
-				break;
-
-			case jk::Sonic::eSonicState::Water_Shield:water_Shield();
+			case jk::Sonic::eSonicState::Water_Shield:
+				water_Shield();
 				break;			
+
+			case jk::Sonic::eSonicState::Death:
+				death();
+				break;
+
+			case jk::Sonic::eSonicState::GameOver:
+				gameover();
+				break;
+
+			case jk::Sonic::eSonicState::EMDING:
+				ending();
+				break;
+
+			case jk::Sonic::eSonicState::End:
+				endgame();
+				break;
 
 			default:
 				break;
