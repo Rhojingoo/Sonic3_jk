@@ -29,7 +29,9 @@ namespace jk
 		bool GetGround() {return mbGround;}
 	
 		void SetFiction(float PlayerFriction) { mFriction = PlayerFriction; }
-
+		void Speed_Manegement();
+		void Gravity_management();
+		void Friction_management();
 
 		private:
 		float mMass;
@@ -41,11 +43,6 @@ namespace jk
 		Vector2 mGravity;
 		float mFriction;
 		bool mbGround;
-
-	/*	float mStaticFriction;
-		float mKineticFriction;
-		float mCoefficientFriction;
-		float mNormalForce;*/
 	};
 }
 

@@ -6,7 +6,7 @@
 
 namespace jk
 {
-	class Ground;
+	class Pixel_Ground;
 	class Rigidbody;
 	class Animator;
 	class Rock_Pice : public BackGround
@@ -21,7 +21,7 @@ namespace jk
 		virtual void Release() override;
 
 		void SetGroundImage(Image* image) { mGroundImage = image; }
-		void SetCheckTargetGround(Ground* ground) { check = ground; }
+		void SetCheckTargetGround(Pixel_Ground* ground) { check = ground; }
 
 
 	private:
@@ -29,7 +29,7 @@ namespace jk
 		Image* mGroundImage;
 		Animator* mAnimator;
 		Rigidbody* mRigidbody;
-		Ground* check;
+		Pixel_Ground* check;
 
 
 	private:

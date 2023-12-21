@@ -10,7 +10,7 @@ namespace jk
 	class FireSonic;
 	class Electsonic;
 	class Tails;
-	class Ground;
+	class Pixel_Ground;
 	class Rigidbody;
 	class Animator;
 	class Sonic : public Gameobject
@@ -82,7 +82,7 @@ namespace jk
 		eSonicState Getsonicstate() {return mState;}
 		int GetSonicDir() { return mDir; }
 		int GetRingCheck() {return Ringcheck;}
-		void SetCheckTargetGround(Ground* ground) { check = ground; }
+		void SetCheckTargetGround(Pixel_Ground* ground) { check = ground; }
 		
 		
 		int Elect_Shield() { return elect_effect; }
@@ -159,7 +159,7 @@ namespace jk
 		class Image* mImage;
 		class Image* mGroundImage;
 		Rigidbody* mRigidbody;
-		Ground* check;
+		Pixel_Ground* check;
 
 	private:
 		Vector2 SonicVelocity;

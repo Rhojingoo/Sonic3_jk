@@ -592,7 +592,7 @@
     <ClInclude Include="jk_Act1_2_BG.h">
       <Filter>Contents\BG\PlayBG\BG_act1-2</Filter>
     </ClInclude>
-    <ClInclude Include="jk_Ground.h">
+    <ClInclude Include="jk_Pixel_Ground.h">
       <Filter>Contents\BG\PlayBG\Ground</Filter>
     </ClInclude>
     <ClInclude Include="jk_fire_show.h">
@@ -1141,7 +1141,7 @@
     <ClCompile Include="jk_Act1_2_BG.cpp">
       <Filter>Contents\BG\PlayBG\BG_act1-2</Filter>
     </ClCompile>
-    <ClCompile Include="jk_Ground.cpp">
+    <ClCompile Include="jk_Pixel_Ground.cpp">
       <Filter>Contents\BG\PlayBG\Ground</Filter>
     </ClCompile>
     <ClCompile Include="jk_fire_show.cpp">

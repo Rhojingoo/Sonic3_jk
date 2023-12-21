@@ -10,7 +10,7 @@
 
 namespace jk
 {
-	class Ground;
+	class Pixel_Ground;
 	class Animator;
 	class Monkey : public Monster
 	{
@@ -38,7 +38,7 @@ namespace jk
 		virtual void OnCollisionExit(class Collider* other) override;
 
 		void SetGroundImage(Image* image) { mGroundImage = image; }
-		void SetCheckTargetGround(Ground* ground) { check = ground; }
+		void SetCheckTargetGround(Pixel_Ground* ground) { check = ground; }
 		void SetCenterpos(Vector2 pos) { mCenterpos = pos; }
 
 		Vector2 Getmonster_pos() { return pos; }
@@ -57,7 +57,7 @@ namespace jk
 
 	private:
 		Gameobject* mOwner;
-		Ground* check;
+		Pixel_Ground* check;
 		Sound* Death;
 		Image* mImage;
 		Image* mImage1;

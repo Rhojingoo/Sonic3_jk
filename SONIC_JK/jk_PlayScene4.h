@@ -15,7 +15,7 @@ namespace jk
 	class Second_Boss;
 	class Robotnic_machine;
 	class boss1_body;
-	class Ground;
+	class Pixel_Ground;
 	class Tails;
 	class Sonic;
 	class PlayScene4 : public Scene
@@ -45,7 +45,7 @@ namespace jk
 
 
 	private:
-		Ground* playgr;
+		Pixel_Ground* playgr;
 		Sonic* mSonic;
 		Tails* mtails;
 		boss1_body* boss_first;

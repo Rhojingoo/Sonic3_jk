@@ -6,7 +6,7 @@
 namespace jk
 {
 	class Sonic;
-	class Ground;
+	class Pixel_Ground;
 	class Rigidbody;
 	class Animator;
 	class Tails : public Gameobject
@@ -70,7 +70,7 @@ namespace jk
 
 		eTailsState GetTails_state() { return mState; }
 		int GetTailsDir() { return mDir; }
-		void SetCheckTargetGround(Ground* ground) { check = ground; }
+		void SetCheckTargetGround(Pixel_Ground* ground) { check = ground; }
 		void Set_Pursue_boss(int pursue) { pursue_boss = pursue; }
 
 		void Set_Fly(int fly) { fly_check = fly; }
@@ -124,7 +124,7 @@ namespace jk
 	private:		
 		Gameobject* mOwner;
 		Sonic* mSonic;
-		Ground* check;
+		Pixel_Ground* check;
 		eTailsState mState;
 		Animator* mAnimator;	
 		Rigidbody* mRigidbody;

@@ -7,7 +7,7 @@
 
 namespace jk
 {
-	class Ground;
+	class Pixel_Ground;
 	class Rigidbody;
 	class Canon_Bullet : public Bullet
 	{

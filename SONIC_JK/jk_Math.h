@@ -31,11 +31,7 @@ struct Vector2
 	{
 	}
 
-	//Vector2(const Vector2&) = default;
-	//Vector2& operator=(const Vector2&) = default;
 
-	//Vector2(Vector2&&) = default;
-	//Vector2& operator=(Vector2&&) = default;
 
 	Vector2 operator-()
 	{
@@ -167,12 +163,6 @@ struct Vector2
 	}
 
 
-
-
-	//Vector2(const Vector2&) = default;
-	//Vector2& operator=(const Vector2&) = default;
-	//Vector2(Vector2&&) = default;
-	//Vector2& operator=(Vector2&&) = default;
 
 	static Vector2 RSonicWalkLTC;
 	static Vector2 RSonicWalksize;

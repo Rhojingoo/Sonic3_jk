@@ -7,7 +7,7 @@
 
 namespace jk
 {
-	class Ground;
+	class Pixel_Ground;
 	class Rigidbody;
 	class Animator;
 	class boss_come : public Boss
@@ -33,7 +33,7 @@ namespace jk
 
 
 		void SetGroundImage(Image* image) { mGroundImage = image; }
-		void SetCheckTargetGround(Ground* ground) { check = ground; }
+		void SetCheckTargetGround(Pixel_Ground* ground) { check = ground; }
 
 	private:
 		void move();
@@ -47,7 +47,7 @@ namespace jk
 
 	private:
 		eBossState mState;
-		Ground* check;
+		Pixel_Ground* check;
 		Vector2 pos;
 		int check_map;
 		int mDir;

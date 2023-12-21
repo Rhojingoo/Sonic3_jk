@@ -40,7 +40,7 @@ namespace jk
 		void Set__BossDeath(int point) { Death_point = point; }
 
 		void SetGroundImage(Image* image) { mGroundImage = image; }
-		void SetCheckTargetGround(Ground* ground) { check = ground; }
+		void SetCheckTargetGround(Pixel_Ground* ground) { check = ground; }
 
 
 	private:
@@ -68,7 +68,7 @@ namespace jk
 		eBossState mState;
 		Sonic::eSonicState sonicState;
 		boss1_object* boss_ob;
-		Ground* check;
+		Pixel_Ground* check;
 
 	private:
 		Vector2 pos;

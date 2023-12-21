@@ -15,7 +15,7 @@
 #include "Rigidbody.h"
 #include "jk_Scene.h"
 #include "jk_Object.h"
-#include "jk_Ground.h"
+#include "jk_Pixel_Ground.h"
 
 
 #include "jk_Spring_Up.h"
@@ -1918,8 +1918,6 @@ namespace jk
 			case jk::Sonic::eCircle::Circle_Rturn_7:circle_Rturn_7();
 				break;
 
-
-
 			case jk::Sonic::eCircle::Circle_Lturn_1:circle_Lturn_1();
 				break;
 
@@ -1943,7 +1941,7 @@ namespace jk
 
 			default:
 				break;
-		}
+			}
 
 
 			//if (loopenter == true)
@@ -2735,14 +2733,6 @@ namespace jk
 		{
 			if (Circle_piece == 0)
 			{
-				//mRigidbody = GetComponent<Rigidbody>();
-				//mRigidbody->SetMass(1.0f);
-				//Vector2 TempVel;
-				//TempVel = mRigidbody->GetVelocity();
-				//mRigidbody->SetVelocity(Vector2{ fabs(TempVel.y)*-1, 0.0f });
-				//mRigidbody->SetGravity(Vector2{ 0.0f,500.f });
-
-				int a = 0;
 				SonicVelocity = mRigidbody->Velocity();
 				if (SonicVelocity.x <=-400)
 				{
@@ -2753,8 +2743,7 @@ namespace jk
 				{
 					mState = eSonicState::Move;
 					mAnimator->Play(L"RSonicWalk", true);
-				}		
-	
+				}			
 			}
 
 			if (Circle_piece == 2)
@@ -2770,25 +2759,10 @@ namespace jk
 					mAnimator->Play(L"RSN_WT2", true);
 				}				
 			}
-
-			//if (Input::GetKey(eKeyCode::LEFT))
-			//{
-			//	mDir = -1;
-			//	mRigidbody->AddForce(Vector2(0.0f, 500.0f));
-			//	Vector2 SonicVelocity = mRigidbody->Velocity();
-			//}
-
-			//if (Input::GetKey(eKeyCode::RIGHT))
-			//{
-			//	mDir = 1;
-			//	mRigidbody->AddForce(Vector2(0.f, -500.0f));
-			//	SonicVelocity = mRigidbody->Velocity();
-			//}
 		}
 
 		void Sonic::circle_Rturn_2()
 		{
-			//mRigidbody->AddForce(Vector2(0.0f, 200.0f));
 			if (Circle_piece == 1)
 			{
 				mCircle_state = eCircle::Circle_Rturn_1;

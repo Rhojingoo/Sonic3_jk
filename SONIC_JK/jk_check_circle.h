@@ -4,7 +4,7 @@
 
 namespace jk
 {
-	class Ground;
+	class Pixel_Ground;
 	class Animator;
 	class check_circle : public Gameobject
 	{
@@ -24,6 +24,6 @@ namespace jk
 
 	private:
 		class Collider* mCollider;
-		Ground* mGround;
+		Pixel_Ground* mGround;
 	};
 }

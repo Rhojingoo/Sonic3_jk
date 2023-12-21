@@ -9,7 +9,7 @@ namespace jk
 	class show_bomb;
 	class boss_bomber;
 	class Add_force;
-	class Ground;
+	class Pixel_Ground;
 	class Act1_Boss;
 	class Tails;
 	class Sonic;
@@ -38,7 +38,7 @@ namespace jk
 
 
 	private:
-		Ground* playgr;
+		Pixel_Ground* playgr;
 		Sonic* mSonic;
 		Tails* tails;
 		Act1_Boss* mBoss;

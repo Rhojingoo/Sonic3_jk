@@ -13,7 +13,7 @@
 
 namespace jk
 {
-	class Ground;
+	class Pixel_Ground;
 	class boss1_body;
 	class Animator;
 	class boss1_object : public BackGround

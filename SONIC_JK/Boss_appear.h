@@ -6,7 +6,7 @@
 
 namespace jk
 {
-	class Ground;
+	class Pixel_Ground;
 	class Animator;
 	class Boss_appear : public Boss
 	{

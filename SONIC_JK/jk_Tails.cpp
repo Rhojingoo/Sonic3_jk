@@ -12,7 +12,7 @@
 #include "jk_Object.h"
 
 
-#include "jk_Ground.h"
+#include "jk_Pixel_Ground.h"
 #include "finall_stage.h"
 #include "jk_Spring_Up.h"
 #include "jk_Spring_Left.h"
@@ -526,7 +526,7 @@ namespace jk
 			}
 		}		
 
-		if (Ground* playgr = dynamic_cast<Ground*>(other->GetOwner()))
+		if (Pixel_Ground* playgr = dynamic_cast<Pixel_Ground*>(other->GetOwner()))
 		{
 			mState = eTailsState::Idle;
 			if (mDir = 1)

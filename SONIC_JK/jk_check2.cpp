@@ -6,7 +6,7 @@
 #include "jk_Transform.h"
 #include "jk_Collider.h"
 #include "jk_Object.h"
-#include "jk_Ground.h"
+#include "jk_Pixel_Ground.h"
 #include "jk_SONIC.h"
 #include "Rigidbody.h"
 
@@ -48,7 +48,7 @@ namespace jk
 		if (Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner()))
 		{	
 			mGround->Set_Circle_Center(Vector2{26823.f,2637.f});		
-			mGround->CheckLoopEnter_R();		
+			mGround->CheckLoopStartColl_R();		
 		}
 	}
 	void check2::OnCollisionStay(Collider* other)

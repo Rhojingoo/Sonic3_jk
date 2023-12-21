@@ -6,7 +6,7 @@
 #include "jk_Resources.h"
 #include "jk_Animator.h"
 #include "jk_Collider.h"
-#include "jk_Ground.h"
+#include "jk_Pixel_Ground.h"
 
 
 namespace jk

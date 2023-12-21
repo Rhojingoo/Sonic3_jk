@@ -26,7 +26,7 @@
 #include "Life_TensDigit.h"
 
 
-#include "jk_Ground.h"
+#include "jk_Pixel_Ground.h"
 #include "jk_Gameobject.h"
 #include "jk_Resources.h"
 #include "Act1_2_Boss_wall.h"
@@ -137,7 +137,7 @@ namespace jk
 		tails->GetComponent<Transform>()->SetPos(Vector2(661.f, 3033.f));
 
 
-		playgr = new Ground();
+		playgr = new Pixel_Ground();
 		playgr->SetName(L"Ground2");
 		playgr->SetPlayer(mSonic, tails);
 		AddGameobeject(playgr, jk_LayerType::Ground);

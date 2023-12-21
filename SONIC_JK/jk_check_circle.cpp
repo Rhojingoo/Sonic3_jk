@@ -3,7 +3,7 @@
 #include "jk_Resources.h"
 #include "jk_Transform.h"
 #include "jk_Collider.h"
-#include "jk_Ground.h"
+#include "jk_Pixel_Ground.h"
 #include "jk_SONIC.h"
 
 
@@ -44,7 +44,7 @@ namespace jk
 		{
 			mGround->Set_Circlecheck(1);
 			mGround->Set_Circle_Center(Vector2{ 9660.f,3720.f });
-			mGround->CheckLoopEnter_R();
+			mGround->CheckLoopStartColl_R();
 		}
 	}
 	void check_circle::OnCollisionStay(Collider* other)

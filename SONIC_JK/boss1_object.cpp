@@ -9,7 +9,7 @@
 #include "jk_Scene.h"
 #include "jk_Object.h"
 #include "Rigidbody.h"
-#include "jk_Ground.h"
+#include "jk_Pixel_Ground.h"
 
 
 #include "jk_Time.h"

@@ -10,7 +10,7 @@
 #include "jk_Camera.h"
 #include "jk_Input.h"
 #include "jk_Blending.h"
-#include "jk_Ground.h"
+#include "jk_Pixel_Ground.h"
 
 
 #include "jk_Sonic.h"
@@ -118,9 +118,9 @@ namespace jk
 		mSonic->SetName(L"Player");
 		AddGameobeject(mSonic, jk_LayerType::Player);
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 19718.f, 3450.f }); //첫원돌기
+		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 19718.f, 3450.f }); //첫원돌기
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{21480.f, 3450.f });//폭포
-		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 26201.f, 3333.f });//폭포
+		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 26201.f, 3333.f });// 밑에원돌기
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 16100.0f, 3070.0f });//집라인쪽
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 28821.f, 1363.f });//끝
@@ -473,7 +473,7 @@ namespace jk
 		check2* circle_chek2 = new check2();
 		AddGameobeject(circle_chek2, jk_LayerType::Player2);
 
-		Ground* playgr = new Ground();
+		Pixel_Ground* playgr = new Pixel_Ground();
 		playgr->SetName(L"Ground");
 		playgr->SetPlayer(mSonic, mTails);
 		AddGameobeject(playgr, jk_LayerType::Ground);

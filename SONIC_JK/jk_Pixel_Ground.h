@@ -1,24 +1,20 @@
 #pragma once
 #include "jk_Gameobject.h"
-#include "jk_BackGround.h"
 
 namespace jk
 {
 	class Rigidbody;
-	class Ground : public BackGround
+	class Pixel_Ground : public Gameobject
 	{
 	public:
-		Ground();
-		virtual ~Ground();
+		Pixel_Ground();
+		virtual ~Pixel_Ground();
 
 		virtual void Initialize();
 		virtual void Update();
 		virtual void Render(HDC hd);
 		virtual void Realease();
 
-		virtual void OnCollisionEnter(class Collider* other);
-		virtual void OnCollisionStay(class Collider* other);
-		virtual void OnCollisionExit(class Collider* other);
 
 		int GetCicle_piece() { return Circle_pice; }		
 		virtual int GetgroundCh() {return mRotationcheck;}
@@ -28,7 +24,7 @@ namespace jk
 		void Set_Circlecheck(int cir_check) { Circlecheck = cir_check; }
 		void SetPlayer(class Sonic* player, class Tails* player2) { mPlayer = player, mPlayer2 = player2; }
 		
-		void SetLotation(int rotaion) {	mRotationcheck = rotaion;}
+		void SetLotation(const int rotaion) {	mRotationcheck = rotaion;}
 
 		class Image* GetGroundImage();
 		class Image* GetGroundImage2();
@@ -37,22 +33,28 @@ namespace jk
 
 
 	public:
+		void Loop_Angle();
+		void Loop_Enter();
+		void Loop_Stone();
 		void CheckTerrian();
 		void CheckGroundCollision(Vector2& playerPos, float xOffset, float yOffset, Image* ground, Transform* Playertr, Rigidbody* PlayerRg);
 		void CheckCeillingCollision(Vector2& playerPos, float xOffset, float yOffset, Vector2 velocityChange, Image* ground);
 		void CheckWallCollision(Vector2& playerPos, float xOffset, float yOffset, Vector2 velocityChange, int direction, Image* ground);
-		void CheckLoopEnter_R();
-		void CheckLoopStoneEnter_R();
-		void CheckLoopStoneSecond_R();
-		void CheckLoopStoneGround_R();
-		void CheckLoopHalfAfter_R();
+		
+		void CheckLoopStartColl_R();
+		void CheckLoopHalfColl_R();
+
+		void Check_LoopStoneEnter_R();
+		void Check_MidLoopStone_R();
+		void Check_FinalLoopStone_R();
 
 
-		void CheckLoopStoneEnter_L();
-		void CheckLoopStoneSecond_L();
-		void CheckLoopStoneGround_L();
-		void CheckLoopEnter_L();
-		void CheckLoopHalfAfter_L();
+		void CheckLoopStartColl_L();
+		void CheckLoopHalfColl_L();
+		
+		void Check_LoopStoneEnter_L();
+		void Check_MidLoopStone_L();
+		void Check_FinalLoopStone_L();
 
 		void Set_map_check(int chek) { map_chek = chek; }
 		int Get_map_check() { return map_chek; }

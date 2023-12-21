@@ -3,7 +3,7 @@
 #include "jk_Resources.h"
 #include "jk_Transform.h"
 #include "jk_Collider.h"
-#include "jk_Ground.h"
+#include "jk_Pixel_Ground.h"
 #include "jk_SONIC.h"
 
 namespace jk

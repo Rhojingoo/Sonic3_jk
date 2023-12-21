@@ -27,7 +27,7 @@
 #include "Life_TensDigit.h"
 
 
-#include "jk_Ground.h"
+#include "jk_Pixel_Ground.h"
 #include "jk_Gameobject.h"
 #include "Add_force.h"
 #include "Dead_line.h"
@@ -121,7 +121,7 @@ namespace jk
 		tails->GetComponent<Transform>()->SetPos(Vector2{ 600.f, 3285.f });
 
 
-		playgr = new Ground();
+		playgr = new Pixel_Ground();
 		playgr->SetName(L"Ground2");
 		playgr->SetPlayer(mSonic, tails);
 		AddGameobeject(playgr, jk_LayerType::Ground);

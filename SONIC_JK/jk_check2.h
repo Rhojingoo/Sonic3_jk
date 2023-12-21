@@ -5,7 +5,7 @@
 
 namespace jk
 {
-	class Ground;
+	class Pixel_Ground;
 	class Animator;
 	class check2 : public BackGround
 	{
@@ -23,11 +23,11 @@ namespace jk
 		virtual void OnCollisionStay(class Collider* other);
 		virtual void OnCollisionExit(class Collider* other);
 
-		void SetCheckTargetGround(Ground* ground) { mGround = ground; }
+		void SetCheckTargetGround(Pixel_Ground* ground) { mGround = ground; }
 
 
 	private:
 		class Collider* mCollider;
-		Ground* mGround;
+		Pixel_Ground* mGround;
 	}; 
 }

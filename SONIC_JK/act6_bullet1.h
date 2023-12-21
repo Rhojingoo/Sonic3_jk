@@ -6,7 +6,7 @@
 
 namespace jk
 {
-	class Ground;
+	class Pixel_Ground;
 	class Rigidbody;
 	class act6_bullet1 : public Bullet
 	{
@@ -20,7 +20,7 @@ namespace jk
 		virtual void Release() override;
 
 		void SetGroundImage(Image* image) { mGroundImage = image; }
-		void SetCheckTargetGround(Ground* ground) { check = ground; }
+		void SetCheckTargetGround(Pixel_Ground* ground) { check = ground; }
 
 		virtual void OnCollisionEnter(class Collider* other) override;
 		virtual void OnCollisionStay(class Collider* other) override;
@@ -32,7 +32,7 @@ namespace jk
 		Image* mGroundImage;
 		Animator* mAnimator;
 		Rigidbody* mRigidbody;
-		Ground* check;
+		Pixel_Ground* check;
 		Vector2 pos;
 	};
 }

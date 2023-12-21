@@ -7,7 +7,7 @@
 
 namespace jk
 {
-	class Ground;
+	class Pixel_Ground;
 	class Rigidbody;
 	class Animator;
 	class Rock_small : public BackGround
@@ -34,7 +34,7 @@ namespace jk
 		virtual void OnCollisionExit(class Collider* other) override;
 
 		void SetGroundImage(Image* image) { mGroundImage = image; }
-		void SetCheckTargetGround(Ground* ground) { check = ground; }
+		void SetCheckTargetGround(Pixel_Ground* ground) { check = ground; }
 
 	private:
 		void idle();
@@ -51,7 +51,7 @@ namespace jk
 		Rigidbody* mRigidbody;
 
 		eState mState;
-		Ground* check;
+		Pixel_Ground* check;
 		Sonic::eSonicState sonicState;
 	
 	private:

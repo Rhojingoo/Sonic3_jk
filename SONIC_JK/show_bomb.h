@@ -7,7 +7,7 @@
 
 namespace jk
 {
-	class Ground;
+	class Pixel_Ground;
 	class Animator;
 	class show_bomb : public Boss
 	{
@@ -30,7 +30,7 @@ namespace jk
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
-		void SetCheckTargetGround(Ground* ground) { check = ground; }
+		void SetCheckTargetGround(Pixel_Ground* ground) { check = ground; }
 
 	private:
 		void move();
@@ -44,7 +44,7 @@ namespace jk
 		Image* mGroundImage;
 		Animator* mAnimator;
 		eState mState;
-		Ground* check;
+		Pixel_Ground* check;
 		Gameobject* mOwner;
 
 		Vector2 pos;

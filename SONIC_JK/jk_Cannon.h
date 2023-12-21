@@ -10,7 +10,7 @@
 
 namespace jk
 {
-	class Ground;
+	class Pixel_Ground;
 	class Rigidbody;
 	class Animator;
 	class Cannon : public Monster
@@ -37,7 +37,7 @@ namespace jk
 		virtual void OnCollisionExit(class Collider* other) override;
 
 		void SetGroundImage(Image* image) { mGroundImage = image; }
-		void SetCheckTargetGround(Ground* ground) { check = ground; }
+		void SetCheckTargetGround(Pixel_Ground* ground) { check = ground; }
 
 
 		Vector2 Getmonster() { return pos; }
@@ -63,7 +63,7 @@ namespace jk
 		Image* mGroundImage;
 		Image* mGroundImage2;
 		Animator* mAnimator;
-		Ground* check;
+		Pixel_Ground* check;
 		Rigidbody* mRigidbody;
 		Image* bullet_groundImage;
 

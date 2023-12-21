@@ -8,7 +8,7 @@
 
 namespace jk
 {
-	class Ground;
+	class Pixel_Ground;
 	class Rigidbody;
 	class Monkey_Bullet : public Bullet
 	{

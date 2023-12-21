@@ -10,7 +10,7 @@
 
 namespace jk
 {
-	class Ground;
+	class Pixel_Ground;
 	class Rigidbody;
 	class Animator;
 	class Rino : public Monster
@@ -40,7 +40,7 @@ namespace jk
 
 
 		void SetGroundImage(Image* image) { mGroundImage = image; }
-		void SetCheckTargetGround(Ground* ground) { check = ground; }
+		void SetCheckTargetGround(Pixel_Ground* ground) { check = ground; }
 		void SetCenterpos(Vector2 pos) {mCenterpos = pos;}
 
 		Vector2 Getmonster_pos() {return mCurpos; }
@@ -62,7 +62,7 @@ namespace jk
 		Image* mGroundImage2;
 		
 	private:
-		Ground* check;
+		Pixel_Ground* check;
 		Vector2 mCenterpos;
 		Vector2 mCurpos;
 		float mMonspeed;

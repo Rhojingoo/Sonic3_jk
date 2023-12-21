@@ -8,7 +8,7 @@
 #include "jk_Collider.h"
 #include "jk_Resources.h"
 #include "jk_Object.h"
-#include "jk_Ground.h"
+#include "jk_Pixel_Ground.h"
 
 #include "jk_Input.h"
 #include "jk_Time.h"

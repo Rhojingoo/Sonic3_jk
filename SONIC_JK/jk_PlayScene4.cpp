@@ -30,7 +30,7 @@
 #include "Life_TensDigit.h"
 
 
-#include "jk_Ground.h"
+#include "jk_Pixel_Ground.h"
 #include "jk_Act6_BG.h"
 #include "act6_sky1.h"
 #include "Deatht_line_act6.h"
@@ -134,7 +134,7 @@ namespace jk
 		mtails->Set_Fly(1);
 
 
-		playgr = new Ground();
+		playgr = new Pixel_Ground();
 		playgr->SetName(L"Ground2");
 		playgr->SetPlayer(mSonic, mtails);
 		AddGameobeject(playgr, jk_LayerType::Ground);

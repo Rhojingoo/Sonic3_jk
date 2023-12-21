@@ -29,87 +29,10 @@ namespace jk
 	//1200
 	void Rigidbody::Update()
 	{
-		mAccelation = mForce / mMass;
 
-		if (mVelocity.x < 1200.f)
-		{
-			mVelocity += mAccelation * static_cast<float>(Time::DeltaTime());
-		}
-		else if(mVelocity.x>=1200.f)
-		{			
-			mVelocity += mAccelation * static_cast<float>(Time::DeltaTime());
-			mVelocity.x = 1200.f;
-		}
-		if (mVelocity.x <= -1200.f)
-		{
-			mVelocity.x = -1200.f;
-		}
-
-		if (mVelocity.y < 1200.f)
-		{
-			//mVelocity += mAccelation * Time::DeltaTime();
-		}
-		else if (mVelocity.y >= 1200.f)
-		{
-			mVelocity.y = 1200.f;
-		}
-		if (mVelocity.y <= -1200.f)
-		{
-			mVelocity.y = -1200.f;
-		}
-
-
-		if (mbGround)
-		{
-			//중력시 벡터를 단위1로 
-			Vector2 gravity = mGravity;
-			gravity.Normalize() ;
-
-			//경사면에서의 적용시 진행방향 이동 및 아래로 이동
-			float dot = math::Dot(mVelocity, gravity);
-			mVelocity -= gravity * dot;
-		}
-		else
-		{
-			mVelocity += mGravity * static_cast<float>(Time::DeltaTime());
-		}
-
-		//중력가속도 최대 속도제한
-		Vector2 gravity = mGravity;
-		gravity.Normalize();
-		float dot = math::Dot(mVelocity, gravity);
-		gravity = gravity * dot;
-
-		Vector2 sideVelocity = mVelocity - gravity;
-		/*if (mLimitedVelocity.y < gravity.Length())
-		{
-			gravity.Normalize();
-			gravity *= mLimitedVelocity.y;
-			mVelocity.y = gravity.y;
-		}*/
-		if (mLimitedVelocity.x < sideVelocity.Length())
-		{
-			sideVelocity.Normalize();
-			sideVelocity *= mLimitedVelocity.x;
-		}
-
-		//마찰력조건(적용된 힘이 없고, 속도가 0이아님)
-		if (!(mVelocity == Vector2::Zero))
-		{
-			//속도에 반대방향으로 마찰력이 적용
-			Vector2 friction = -mVelocity;
-			friction = friction.Normalize() * mFriction * mMass * static_cast<float>(Time::DeltaTime());
-
-			//마찰력으로 인한 속도 감소는 현재 속도보다 큰경우
-			if (mVelocity.Length() < friction.Length())
-			{
-				mVelocity = Vector2::Zero;
-			}		
-			else
-			{
-				mVelocity += friction;
-			}
-		}
+		Speed_Manegement();
+		Gravity_management();
+		Friction_management();		
 
 		// 속도에 맞게끔 물체를 이동시킨다.
 		Transform* tr = GetOwner()->GetComponent<Transform>();
@@ -128,4 +51,83 @@ namespace jk
 	{
 		mForce += force;
 	}
+
+	void Rigidbody::Speed_Manegement()
+	{
+		mAccelation = mForce / mMass;
+		
+		if (mVelocity.x < 1200.f)
+		{
+			mVelocity += mAccelation * static_cast<float>(Time::DeltaTime());
+		}
+		else if (mVelocity.x >= 1200.f)
+		{
+			mVelocity += mAccelation * static_cast<float>(Time::DeltaTime());
+			mVelocity.x = 1200.f;
+		}
+		if (mVelocity.x <= -1200.f)
+		{
+			mVelocity.x = -1200.f;
+		}
+	}
+
+	void Rigidbody::Gravity_management()
+	{
+		if (mbGround)
+		{			
+			Vector2 gravity = mGravity;						//중력시 벡터를 단위1로 
+			gravity.Normalize();			
+			float dot = math::Dot(mVelocity, gravity);		//경사면에서의 아래로 이동
+			mVelocity -= gravity * dot;
+		}
+		else
+		{
+			mVelocity += mGravity * static_cast<float>(Time::DeltaTime());
+		}
+
+
+		//중력가속도 속도제한1
+		if (mVelocity.y < 1200.f)
+		{
+			//mVelocity += mAccelation * Time::DeltaTime(); 
+		}
+		else if (mVelocity.y >= 1200.f)
+		{
+			mVelocity.y = 1200.f;
+		}
+		if (mVelocity.y <= -1200.f)
+		{
+			mVelocity.y = -1200.f;
+		}
+		
+		//중력가속도 최대 속도제한2
+		//Vector2 gravity = mGravity;							
+		//gravity.Normalize();
+		//float dot = math::Dot(mVelocity, gravity);
+		//gravity = gravity * dot;
+		//Vector2 sideVelocity = mVelocity - gravity;
+		//if (mLimitedVelocity.x < sideVelocity.Length())
+		//{
+		//	sideVelocity.Normalize();
+		//	sideVelocity *= mLimitedVelocity.x;
+		//}
+	}
+
+	void Rigidbody::Friction_management()
+	{	
+		if (!(mVelocity == Vector2::Zero))						//마찰력조건(적용된 힘이 없고, 속도가 0이아님)
+		{			
+			Vector2 friction = -mVelocity;						//속도에 반대방향으로 마찰력이 적용
+			friction = friction.Normalize() * mFriction * mMass * static_cast<float>(Time::DeltaTime());			
+			if (mVelocity.Length() < friction.Length())			//마찰력으로 인한 속도 감소는 현재 속도보다 큰경우
+			{
+				mVelocity = Vector2::Zero;
+			}
+			else
+			{
+				mVelocity += friction;
+			}
+		}
+	}
+
 }
