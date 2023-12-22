@@ -90,13 +90,13 @@ namespace jk
 	{
 		Ground_Image = Resources::Load<Image>(L"Ground_Image", L"..\\Resources\\Ground_Image.bmp");
 		Cicle_Rturn = Resources::Load<Image>(L"Cicle_Rturn", L"..\\Resources\\Cicle_Rturn.bmp");
-		Cicle_Lturn = Resources::Load<Image>(L"Cicle_Lturn", L"..\\Resources\\Cicle_Lturn.bmp");
+		//Cicle_Lturn = Resources::Load<Image>(L"Cicle_Lturn", L"..\\Resources\\Cicle_Lturn.bmp");
 		Circle1_Center = Vector2{ 20229.f,3406.f };
 		Circle1_Center2 = Vector2{ 9195.f, 3705.f };
 
 		Ground_Image2 = Resources::Load<Image>(L"Ground_Image2", L"..\\Resources\\Ground_Act1_2.bmp");
 		Cicle_Rturn2 = Resources::Load<Image>(L"Cicle_Rturn2", L"..\\Resources\\ActBG_1_2\\Cicle_Rturn2.bmp");
-		Cicle_Lturn2 = Resources::Load<Image>(L"Cicle_Lturn2", L"..\\Resources\\ActBG_1_2\\Cicle_Lturn2.bmp");
+		//Cicle_Lturn2 = Resources::Load<Image>(L"Cicle_Lturn2", L"..\\Resources\\ActBG_1_2\\Cicle_Lturn2.bmp");
 
 		Ground_Image3 = Resources::Load<Image>(L"Ground_Image3", L"..\\Resources\\ActBG_1_3\\Ground_Act1_3.bmp");
 		Ground_Image4 = Resources::Load<Image>(L"Ground_Image4", L"..\\Resources\\ActBG_6\\act 6-boss_ground.bmp");
@@ -300,35 +300,52 @@ namespace jk
 	}
 
 	void Pixel_Ground::Loop_Enter()
-	{	//소닉 Circle 진입확인
+	{
 		Vector2 playerPos = mPlayerTR->GetPos();
-		if (map_chek == 0)
+		Image* selectedImage = (map_chek == 0) ? Cicle_Rturn : Cicle_Rturn2;
+		COLORREF color_Right = static_cast<int>(selectedImage->GetPixel(static_cast<int>(playerPos.x + 100.f), static_cast<int>(playerPos.y + 50.f)));
+		if (mRotationcheck == GROUNDCOLOR && color_Right == GROUNDBLUE_LOOPCOURSE_LEFT)
 		{
-			COLORREF color_Right = static_cast<int>(Cicle_Lturn->GetPixel(static_cast<int>(playerPos.x + 100.f), static_cast<int>(playerPos.y + 50.f)));
-			if (mRotationcheck == GROUNDCOLOR && color_Right == GROUNDBLUE_LOOPCOURSE_LEFT)
-			{
-				mDirect = 1;
-			}
-			COLORREF  color_Left = static_cast<int>(Cicle_Rturn->GetPixel(static_cast<int>(playerPos.x), static_cast<int>(playerPos.y + 50.f)));
-			if (mRotationcheck == GROUNDCOLOR && color_Left == GROUNDYELLO_LOOPCOURSE_RIGHT)
-			{
-				mDirect = -1;
-			}
+			mDirect = 1;
 		}
-		if (map_chek == 1)
+
+		COLORREF  color_Left = static_cast<int>(selectedImage->GetPixel(static_cast<int>(playerPos.x), static_cast<int>(playerPos.y + 50.f)));
+		if (mRotationcheck == GROUNDCOLOR && color_Left == GROUNDYELLO_LOOPCOURSE_RIGHT)
 		{
-			COLORREF color_Right = static_cast<int>(Cicle_Rturn2->GetPixel(static_cast<int>(playerPos.x + 100.f), static_cast<int>(playerPos.y + 50.f)));
-			if (mRotationcheck == GROUNDCOLOR && color_Right == GROUNDBLUE_LOOPCOURSE_LEFT) // Input::GetKey(eKeyCode::RIGHT) &&
-			{
-				mDirect = 1;
-			}
-			COLORREF  color_Left = static_cast<int>(Cicle_Rturn2->GetPixel(static_cast<int>(playerPos.x), static_cast<int>(playerPos.y + 50.f)));
-			if (mRotationcheck == GROUNDCOLOR && color_Left == GROUNDYELLO_LOOPCOURSE_RIGHT)// && Input::GetKey(eKeyCode::LEFT)
-			{
-				mDirect = -1;
-			}
-		}
+			mDirect = -1;
+		}	
 	}
+
+
+	//if (map_chek == 0)
+	//{
+	//	COLORREF color_Right = static_cast<int>(Cicle_Rturn->GetPixel(static_cast<int>(playerPos.x + 100.f), static_cast<int>(playerPos.y + 50.f)));
+	//	if (mRotationcheck == GROUNDCOLOR && color_Right == GROUNDBLUE_LOOPCOURSE_LEFT)
+	//	{
+	//		mDirect = 1;
+	//	}
+	//	COLORREF  color_Left = static_cast<int>(Cicle_Rturn->GetPixel(static_cast<int>(playerPos.x), static_cast<int>(playerPos.y + 50.f)));
+	//	if (mRotationcheck == GROUNDCOLOR && color_Left == GROUNDYELLO_LOOPCOURSE_RIGHT)
+	//	{
+	//		mDirect = -1;
+	//	}
+	//}
+	//if (map_chek == 1)
+	//{
+	//	COLORREF color_Right = static_cast<int>(Cicle_Rturn2->GetPixel(static_cast<int>(playerPos.x + 100.f), static_cast<int>(playerPos.y + 50.f)));
+	//	if (mRotationcheck == GROUNDCOLOR && color_Right == GROUNDBLUE_LOOPCOURSE_LEFT) // Input::GetKey(eKeyCode::RIGHT) &&
+	//	{
+	//		mDirect = 1;
+	//	}
+	//	COLORREF  color_Left = static_cast<int>(Cicle_Rturn2->GetPixel(static_cast<int>(playerPos.x), static_cast<int>(playerPos.y + 50.f)));
+	//	if (mRotationcheck == GROUNDCOLOR && color_Left == GROUNDYELLO_LOOPCOURSE_RIGHT)// && Input::GetKey(eKeyCode::LEFT)
+	//	{
+	//		mDirect = -1;
+	//	}
+	//}
+
+
+
 
 	void Pixel_Ground::Loop_Stone()
 	{
@@ -350,7 +367,6 @@ namespace jk
 			{
 				CheckLoopHalfColl_R();
 			}
-
 			if (Circlecheck == -1)
 			{
 				Check_FinalLoopStone_R();
@@ -362,9 +378,18 @@ namespace jk
 			{
 				Check_LoopStoneEnter_L();
 			}
-				CheckLoopHalfColl_L();
-				Check_MidLoopStone_L();
+			if (mRotationcheck == LOOPAFTERHALF)
+			{
 				CheckLoopStartColl_L();
+			}
+			if (mRotationcheck == LOOPAFTERHALF)
+			{
+				Check_MidLoopStone_L();
+			}
+			if (mRotationcheck == LOOPENTERCOLOR)
+			{
+				CheckLoopHalfColl_L();
+			}	
 			if (Circlecheck == 1)
 			{
 				Check_FinalLoopStone_L();
@@ -596,23 +621,20 @@ namespace jk
 			mPlayerRigidBody->SetGravity(Vector2{ 0.0f,1000.0f });
 			mRotationcheck = GROUND;
 		}
-		
-		//if (map_chek == 1)
-		//{
-		//	COLORREF colorcheck = Cicle_Rturn2->GetPixel(static_cast<int>(mPlayerTR->GetPos().x) + 40, static_cast<int>(mPlayerTR->GetPos().y) + 40);
-		//	if (colorcheck != STONERED_LOOPENTER)
-		//		return;
-		//	if (mRotationcheck == LOOPAFTERHALF)
-		//	{
-		//		Vector2 TempVel;
-		//		TempVel = mPlayerRigidBody->Getgravity();
-		//		mPlayerRigidBody->SetGravity(Vector2{ 0.0f,1000.0f });
-		//		mRotationcheck = GROUND;
-		//	}
-		//}
-
 	}
-
+	//if (map_chek == 1)
+	//{
+	//	COLORREF colorcheck = Cicle_Rturn2->GetPixel(static_cast<int>(mPlayerTR->GetPos().x) + 40, static_cast<int>(mPlayerTR->GetPos().y) + 40);
+	//	if (colorcheck != STONERED_LOOPENTER)
+	//		return;
+	//	if (mRotationcheck == LOOPAFTERHALF)
+	//	{
+	//		Vector2 TempVel;
+	//		TempVel = mPlayerRigidBody->Getgravity();
+	//		mPlayerRigidBody->SetGravity(Vector2{ 0.0f,1000.0f });
+	//		mRotationcheck = GROUND;
+	//	}
+	//}
 
 	void Pixel_Ground::CheckLoopStartColl_R()
 	{
@@ -624,11 +646,6 @@ namespace jk
 		Vector2 center = { 50.0f, 35.0f };
 		float radius = 65.0f;
 
-		if (Circle_pice == 0)
-		{
-			//Vector2 TempVel;
-			//TempVel = mPlayerRigidBody->Getgravity();	
-		}
 		if (Circle_pice == 1)
 		{
 			Xrevice = 90.0f;
@@ -812,9 +829,8 @@ namespace jk
 	}
 	void Pixel_Ground::Check_MidLoopStone_L()
 	{
-
-		if (mRotationcheck != LOOPAFTERHALF)
-			return;
+		//if (mRotationcheck != LOOPAFTERHALF)
+		//	return;
 		Vector2 playerPos = mPlayerTR->GetPos();
 		COLORREF colorcheck;
 		bool LoopStoneMeet = false;
@@ -873,11 +889,10 @@ namespace jk
 	}
 
 
-
 	void Pixel_Ground::CheckLoopStartColl_L()
 	{
-		if (mRotationcheck != LOOPAFTERHALF)
-			return;
+		//if (mRotationcheck != LOOPAFTERHALF)
+		//	return;
 
 		float Xrevice = 0.0f;
 		float Yrevice = 0.0f;
@@ -969,8 +984,8 @@ namespace jk
 	}
 	void Pixel_Ground::CheckLoopHalfColl_L()
 	{
-		if (mRotationcheck != LOOPENTERCOLOR)
-			return;
+		//if (mRotationcheck != LOOPENTERCOLOR)
+		//	return;
 
 		Vector2 center = { 50.0f, 35.0f };
 		float radius = 65.0f;
