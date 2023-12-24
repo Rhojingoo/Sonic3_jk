@@ -106,7 +106,7 @@ namespace jk
 
 		if (Body_State == Snake_Last_Body::eSnake::Left)
 		{
-			prevPositions.empty();
+			
 			CurPos = Body_end->GetteurnPOs();
 			tr->SetPos(Vector2(CurPos.x + 135.f, CurPos.y - 10.f));
 			mAnimator->Play(L"LSnake_end", true);
@@ -119,7 +119,7 @@ namespace jk
 		tr->SetPos(Vector2(CurPos.x + 135.f, CurPos.y + 10.f));
 		if (Body_State == Snake_Last_Body::eSnake::Right)
 		{
-			prevPositions.empty();
+			
 			CurPos = Body_end->GetteurnPOs();
 			tr->SetPos(Vector2(CurPos.x - 135.f, CurPos.y + 10.f));
 			mAnimator->Play(L"RSnake_end", true);

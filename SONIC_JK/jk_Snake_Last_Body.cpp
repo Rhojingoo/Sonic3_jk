@@ -36,6 +36,7 @@ namespace jk
 	}
 	Snake_Last_Body::~Snake_Last_Body()
 	{
+		//prevPositions.empty();
 	}
 	void Snake_Last_Body::Initialize()
 	{
@@ -63,8 +64,8 @@ namespace jk
 			CurPos = Body_3->GetNextPosition();
 		}
 
-		if (GetLife() == false)
-			prevPositions.empty();
+
+
 
 		prevPositions.push_back(CurPos);
 
@@ -114,8 +115,7 @@ namespace jk
 		tr->SetPos(Vector2(CurPos.x - 130.f, CurPos.y ));
 		mAnimator->Play(L"LSnake_mTaIl", true);
 		if (Body3_State == Snake_Third_Body::eSnake::Left)
-		{
-			prevPositions.empty();
+		{	
 			CurPos = Body_3->GetteurnPOs();
 			tr->SetPos(Vector2(CurPos.x + 130.f, CurPos.y ));
 
@@ -127,8 +127,7 @@ namespace jk
 		tr->SetPos(Vector2(CurPos.x + 130.f, CurPos.y));
 		mAnimator->Play(L"RSnake_mTaIl", true);
 		if (Body3_State == Snake_Third_Body::eSnake::Right)
-		{
-			prevPositions.empty();
+		{		
 			CurPos = Body_3->GetteurnPOs();
 			tr->SetPos(Vector2(CurPos.x - 130.f, CurPos.y ));
 

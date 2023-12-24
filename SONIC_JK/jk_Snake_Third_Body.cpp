@@ -65,8 +65,8 @@ namespace jk
 			CurPos = Body_2->GetNextPosition();
 		}
 
-		if (GetLife() == false)
-			prevPositions.empty();
+		//if (GetLife() == false)
+		//	prevPositions.empty();
 
 		prevPositions.push_back(CurPos);
 
@@ -89,8 +89,6 @@ namespace jk
 		case jk::Snake_Third_Body::eSnake::Left:
 			left();
 			break;
-
-
 
 		default:
 			break;
@@ -123,7 +121,7 @@ namespace jk
 
 		if (Body2_State == Snake_Second_Body::eSnake::Left)
 		{
-			prevPositions.empty();
+
 			CurPos = Body_2->GetteurnPOs();
 			tr->SetPos(Vector2(CurPos.x + 100.f, CurPos.y - 10.f));
 			mAnimator->Play(L"LSnake_body_third", true);
@@ -136,7 +134,7 @@ namespace jk
 		tr->SetPos(Vector2(CurPos.x + 100.f, CurPos.y + 10.f));
 		if (Body2_State == Snake_Second_Body::eSnake::Right)
 		{
-			prevPositions.empty();
+			
 			CurPos = Body_2->GetteurnPOs();
 			tr->SetPos(Vector2(CurPos.x - 100.f, CurPos.y + 10.f));
 			mAnimator->Play(L"RSnake_body_third", true);

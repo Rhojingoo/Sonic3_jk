@@ -419,113 +419,59 @@ namespace jk
 
 
 		//몬스터
-		//Rino* mRino[3];
-		//for (int a = 0; a < 3; a++)
-		//{
-		//	mRino[a] = new Rino();
-		//	mRino[a]->SetName(L"RinoMonster");
-		//	AddGameobeject(mRino[a], jk_LayerType::Monster);
-		//}
-		//mRino[0]->GetComponent<Transform>()->SetPos(Vector2{ 14524.0f, 3021.0f });
-		//mRino[0]->SetCenterpos(Vector2{ 14524.0f, 3021.0f });
-		//mRino[1]->GetComponent<Transform>()->SetPos(Vector2{ 18126.0f, 1770.0f });
-		//mRino[1]->SetCenterpos(Vector2{ 18126.0f, 1770.0f });
-		//mRino[2]->GetComponent<Transform>()->SetPos(Vector2{ 24332.0f, 2417.0f });
-		//mRino[2]->SetCenterpos(Vector2{ 24332.0f, 2417.0f });
+		Rino* mRino[3];
+		for (int a = 0; a < 3; a++)
+		{
+			mRino[a] = new Rino();
+			mRino[a]->SetName(L"RinoMonster");
+			AddGameobeject(mRino[a], jk_LayerType::Monster);
+		}
+		mRino[0]->GetComponent<Transform>()->SetPos(Vector2{ 14524.0f, 3021.0f });
+		mRino[0]->SetCenterpos(Vector2{ 14524.0f, 3021.0f });
+		mRino[1]->GetComponent<Transform>()->SetPos(Vector2{ 18126.0f, 1770.0f });
+		mRino[1]->SetCenterpos(Vector2{ 18126.0f, 1770.0f });
+		mRino[2]->GetComponent<Transform>()->SetPos(Vector2{ 24332.0f, 2417.0f });
+		mRino[2]->SetCenterpos(Vector2{ 24332.0f, 2417.0f });
 
 
 
-		//Monkey* mMokey[5];
-		//for (int a = 0; a < 5; a++)
-		//{
-		//	mMokey[a] = new Monkey(mSonic);
-		//	mMokey[a]->SetName(L"Monkey");
-		//	AddGameobeject(mMokey[a], jk_LayerType::Monster);
-		//}
-		////mMokey[0]->GetComponent<Transform>()->SetPos(Vector2{ 12450.0f, 3111.0f }); 오른쪽 원숭이
-		//mMokey[0]->GetComponent<Transform>()->SetPos(Vector2{ 12280.0f, 3111.0f });
-		//mMokey[0]->SetCenterpos(Vector2{ 12280.f,3111.f });
-		//mMokey[1]->GetComponent<Transform>()->SetPos(Vector2{ 16865.0f, 3503.0f });
-		//mMokey[1]->SetCenterpos(Vector2{ 16865.0f, 3503.0f });
-		//mMokey[2]->GetComponent<Transform>()->SetPos(Vector2{ 18410.0f, 1550.0f });
-		//mMokey[2]->SetCenterpos(Vector2{ 18410.0f, 1550.0f });
-		//mMokey[3]->GetComponent<Transform>()->SetPos(Vector2{ 23796.0f, 3463.0f });
-		//mMokey[3]->SetCenterpos(Vector2{ 23796.0f, 3463.0f });
-		//mMokey[4]->GetComponent<Transform>()->SetPos(Vector2{ 23395.0f, 2350.0f });
-		//mMokey[4]->SetCenterpos(Vector2{ 23395.0f, 2350.0f });
+		Monkey* mMokey[5];
+		for (int a = 0; a < 5; a++)
+		{
+			mMokey[a] = new Monkey(mSonic);
+			mMokey[a]->SetName(L"Monkey");
+			AddGameobeject(mMokey[a], jk_LayerType::Monster);
+		}
+		//mMokey[0]->GetComponent<Transform>()->SetPos(Vector2{ 12450.0f, 3111.0f }); 오른쪽 원숭이
+		mMokey[0]->GetComponent<Transform>()->SetPos(Vector2{ 12280.0f, 3111.0f });
+		mMokey[0]->SetCenterpos(Vector2{ 12280.f,3111.f });
+		mMokey[1]->GetComponent<Transform>()->SetPos(Vector2{ 16865.0f, 3503.0f });
+		mMokey[1]->SetCenterpos(Vector2{ 16865.0f, 3503.0f });
+		mMokey[2]->GetComponent<Transform>()->SetPos(Vector2{ 18410.0f, 1550.0f });
+		mMokey[2]->SetCenterpos(Vector2{ 18410.0f, 1550.0f });
+		mMokey[3]->GetComponent<Transform>()->SetPos(Vector2{ 23796.0f, 3463.0f });
+		mMokey[3]->SetCenterpos(Vector2{ 23796.0f, 3463.0f });
+		mMokey[4]->GetComponent<Transform>()->SetPos(Vector2{ 23395.0f, 2350.0f });
+		mMokey[4]->SetCenterpos(Vector2{ 23395.0f, 2350.0f });
 
 
-		//Cannon* cannon[3];
-		//for (int a = 0; a < 3; a++)
-		//{
-		//	cannon[a] = new Cannon(mSonic);
-		//	cannon[a]->SetName(L"Cannon");
-		//	AddGameobeject(cannon[a], jk_LayerType::Monster);
-		//}
-		//cannon[0]->GetComponent<Transform>()->SetPos(Vector2{ 13518.0f, 3174.0f });
-		//cannon[1]->GetComponent<Transform>()->SetPos(Vector2{ 16563.0f, 1887.0f });
-		//cannon[2]->GetComponent<Transform>()->SetPos(Vector2{ 20928.0f, 2680.0f });
+		Cannon* cannon[3];
+		for (int a = 0; a < 3; a++)
+		{
+			cannon[a] = new Cannon(mSonic);
+			cannon[a]->SetName(L"Cannon");
+			AddGameobeject(cannon[a], jk_LayerType::Monster);
+		}
+		cannon[0]->GetComponent<Transform>()->SetPos(Vector2{ 13518.0f, 3174.0f });
+		cannon[1]->GetComponent<Transform>()->SetPos(Vector2{ 16563.0f, 1887.0f });
+		cannon[2]->GetComponent<Transform>()->SetPos(Vector2{ 20928.0f, 2680.0f });
 
 
-		Snake* mSnake = new Snake(Vector2{ 2795.0f * 3, 3200.f });
+		Snake* mSnake = new Snake(Vector2{ 8805.f, 3200.f });
 		AddGameobeject(mSnake, jk_LayerType::Monster);
 		mSnake->SetName(L"Snake_one");
 
-		//Snake_Head* Snake_head = new Snake_Head();
-		//Snake_head->SetName(L"Snake_head");
-		//AddGameobeject(Snake_head, jk_LayerType::Monster);		
-		//Snake_head->GetComponent<Transform>()->SetPos(Vector2{ 2795.0f * 3, 3200.f });
-		//Snake_head->SetCenterpos(Vector2{ 2795.0f * 3, 3200.f });
-
-		//Snake_First_Body* First_body = new Snake_First_Body(Snake_head);
-		//First_body->SetName(L"Snake_Body");
-		//AddGameobeject(First_body, jk_LayerType::Monster);
-		//First_body->GetComponent<Transform>()->SetPos(Vector2{ 2795.0f * 3, 3200.f });
-
-
-
-		//Snake_Body* snake_body[1];
-		//for (int a = 0; a < 1; a++)
-		//{
-		//	snake_body[a] = new Snake_Body();
-		//	snake_body[a]->SetName(L"Snake_Body");
-		//	AddGameobeject(snake_body[a], jk_LayerType::Monster);
-		//}
-		//snake_body[0]->GetComponent<Transform>()->SetPos(Vector2{ 6270.f, 3210.f });
-		//snake_body[0]->Set_Snake_Body(snake_Body_Smoke[0]);
-
-
-		//Snake_body2* snake_body_2 = new Snake_body2();
-		//snake_body_2->SetName(L"Snake_Body2");
-		//AddGameobeject(snake_body_2, jk_LayerType::Monster);
-		//snake_body_2->GetComponent<Transform>()->SetPos(Vector2{ 6270.f, 3210.f });
-		//snake_body_2->Set_Snake_body_third(snake_body[0]);
-
-
-		//Snake_mTaIl* snake_mT[1];
-		//for (int a = 0; a < 1; a++)
-		//{
-		//	snake_mT[a] = new Snake_mTaIl();
-		//	snake_mT[a]->SetName(L"Snake_Body");
-		//	AddGameobeject(snake_mT[a], jk_LayerType::Monster);
-		//}
-		//snake_mT[0]->GetComponent<Transform>()->SetPos(Vector2{ 6270.f, 3210.f });
-		//snake_mT[0]->Set_Snake_body_third(snake_body_2);
-
-
-		//Snake_Tail_End* Snake_Tail[1];
-		//for (int a = 0; a < 1; a++)
-		//{
-		//	Snake_Tail[a] = new Snake_Tail_End();
-		//	Snake_Tail[a]->SetName(L"Snake_Body");
-		//	AddGameobeject(Snake_Tail[a], jk_LayerType::Monster);
-		//}
-		//Snake_Tail[0]->GetComponent<Transform>()->SetPos(Vector2{ 6270.f, 3210.f });
-		//Snake_Tail[0]->Set_Snake_body_third(snake_mT[0]); 
-
-
-
-
+		
 
 
 

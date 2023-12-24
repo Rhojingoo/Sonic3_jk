@@ -1030,11 +1030,11 @@ namespace jk
 				
 								 
 				//Monster collision¡Ú				
-				if (Monster* rino = dynamic_cast<Monster*>(other->GetOwner()))
+				if (Monster* Mon = dynamic_cast<Monster*>(other->GetOwner()))
 				{
 					Transform* tr = GetComponent<Transform>();
 					Vector2 pos = tr->GetPos();
-					Vector2 rinopos = rino->Getpos_monster();
+					Vector2 Monpos = Mon->Getpos_monster();
 					//Vector2 rinopos = rino->Getmonster_pos();
 
 
@@ -1052,7 +1052,7 @@ namespace jk
 						else if (Ringcheck >= 1)
 						{
 							Ring_Lose->Play(false);
-							if (rinopos.x > pos.x)
+							if (Monpos.x > pos.x)
 							{
 								hurtcheck = 1;
 								mAnimator->Play(L"RSonichurt", true);
@@ -1078,7 +1078,7 @@ namespace jk
 								}
 								Ringcheck = 0;
 							}
-							else if (rinopos.x < pos.x)
+							else if (Monpos.x < pos.x)
 							{
 								hurtcheck = -1;
 								mAnimator->Play(L"LSonichurt", true);
@@ -1109,7 +1109,7 @@ namespace jk
 					else
 						{
 							pos.y = pos.y + 120;
-							if (pos.y < rinopos.y)
+							if (pos.y < Monpos.y)
 							{
 								Vector2 velocity = mRigidbody->GetVelocity();
 								velocity.y = 0.0f;

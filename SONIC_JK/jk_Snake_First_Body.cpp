@@ -34,6 +34,7 @@ namespace jk
 	}
 	Snake_First_Body::~Snake_First_Body()
 	{
+		//prevPositions.empty();
 	}
 	void Snake_First_Body::Initialize()
 	{
@@ -60,8 +61,8 @@ namespace jk
 			CurPos = Head_ch->GetNextPosition();
 		}
 
-		if (GetLife() == false)
-			prevPositions.empty();
+
+
 
 		prevPositions.push_back(CurPos);
 
@@ -109,8 +110,7 @@ namespace jk
 		tr->SetPos(Vector2(CurPos.x-70.f, CurPos.y-20.f));
 	
 		if (Head_state == Snake_Head::eSnake::Left)
-		{
-			prevPositions.empty();
+		{			
 			mAnimator->Play(L"LSnake_body1", true);
 			mState = eSnake::Left;
 		}
@@ -121,7 +121,6 @@ namespace jk
 
 		if (Head_state == Snake_Head::eSnake::Right)
 		{
-			prevPositions.empty();	
 			mAnimator->Play(L"RSnake_body1", true);
 			mState = eSnake::Right;
 		}

@@ -457,66 +457,12 @@ namespace jk
 		cannon[0]->SetCheckTargetGround(playgr);
 
 
-		/*Snake* Snake_head[1];
-		for (int a = 0; a < 1; a++)
-		{
-			Snake_head[a] = new Snake(mSonic);
-			Snake_head[a]->SetName(L"Snake_head");
-			AddGameobeject(Snake_head[a], jk_LayerType::Monster);
-		}
-		Snake_head[0]->GetComponent<Transform>()->SetPos(Vector2{ 6270.f, 3210.f });
-		Snake_head[0]->SetCenterpos(Vector2{ 6270.f, 3210.f });
 
+		Snake* mSnake = new Snake(Vector2{ 6270.f, 3210.f });
+		AddGameobeject(mSnake, jk_LayerType::Monster);
+		mSnake->SetName(L"Snake_one");
 
-		Snake_Body_Smoke* snake_Body_Smoke[1];
-		for (int a = 0; a < 1; a++)
-		{
-			snake_Body_Smoke[a] = new Snake_Body_Smoke();
-			snake_Body_Smoke[a]->SetName(L"Snake_Body");
-			AddGameobeject(snake_Body_Smoke[a], jk_LayerType::Monster);
-		}
-		snake_Body_Smoke[0]->GetComponent<Transform>()->SetPos(Vector2{ 6270.f, 3210.f });
-		snake_Body_Smoke[0]->Set_Snake_Body(Snake_head[0]);
 	
-
-		Snake_Body* snake_body[1];
-		for (int a = 0; a < 1; a++)
-		{
-			snake_body[a] = new Snake_Body();
-			snake_body[a]->SetName(L"Snake_Body");
-			AddGameobeject(snake_body[a], jk_LayerType::Monster);
-		}
-		snake_body[0]->GetComponent<Transform>()->SetPos(Vector2{ 6270.f, 3210.f });
-		snake_body[0]->Set_Snake_Body(snake_Body_Smoke[0]);
-
-
-		Snake_body2* snake_body_2 = new Snake_body2();
-		snake_body_2->SetName(L"Snake_Body2");
-		AddGameobeject(snake_body_2, jk_LayerType::Monster);
-		snake_body_2->GetComponent<Transform>()->SetPos(Vector2{ 6270.f, 3210.f });
-		snake_body_2->Set_Snake_body_third(snake_body[0]);
-
-
-		Snake_mTaIl* snake_mT[1];
-		for (int a = 0; a < 1; a++)
-		{
-			snake_mT[a] = new Snake_mTaIl();
-			snake_mT[a]->SetName(L"Snake_Body");
-			AddGameobeject(snake_mT[a], jk_LayerType::Monster);
-		}
-		snake_mT[0]->GetComponent<Transform>()->SetPos(Vector2{ 6270.f, 3210.f });
-		snake_mT[0]->Set_Snake_body_third(snake_body_2);
-
-
-		Snake_Tail_End* Snake_Tail[1];
-		for (int a = 0; a < 1; a++)
-		{
-			Snake_Tail[a] = new Snake_Tail_End();
-			Snake_Tail[a]->SetName(L"Snake_Body");
-			AddGameobeject(Snake_Tail[a], jk_LayerType::Monster);
-		}
-		Snake_Tail[0]->GetComponent<Transform>()->SetPos(Vector2{ 6270.f, 3210.f });
-		Snake_Tail[0]->Set_Snake_body_third(snake_mT[0]);*/
 
 
 		//Boss* ROBOT = new Boss(mSonic);

@@ -79,7 +79,7 @@ namespace jk
 		mAnimator->GetCompleteEvent(L"snake_deth") = std::bind(&Snake_Head::deth, this); 
 
 		Collider* collider = AddComponent<Collider>();
-		collider->SetSize(Vector2(55.0f, 55.0f));
+		collider->SetSize(Vector2(75.0f, 55.0f));
 		Vector2 size = collider->GetSize();
 		collider->SetCenter(Vector2{ (-0.25f) * size.x, (-0.35f) * size.y });
 
@@ -228,7 +228,7 @@ namespace jk
 	void Snake_Head::deth()
 	{		
 		SetLife(false);
-		prevPositions.empty();
+		//prevPositions.empty();
 	}
 
 
