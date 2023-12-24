@@ -487,19 +487,16 @@
     <ClInclude Include="jk_Cannon.h">
       <Filter>Contents\monster\Canon</Filter>
     </ClInclude>
-    <ClInclude Include="jk_Snake_Body_Smoke.h">
+    <ClInclude Include="jk_Snake_Second_Body.h">
       <Filter>Contents\monster\Snake</Filter>
     </ClInclude>
-    <ClInclude Include="jk_Snake_Body.h">
+    <ClInclude Include="jk_Snake_Third_Body.h">
       <Filter>Contents\monster\Snake</Filter>
     </ClInclude>
-    <ClInclude Include="jk_Snake_body2.h">
+    <ClInclude Include="jk_Snake_Last_Body.h">
       <Filter>Contents\monster\Snake</Filter>
     </ClInclude>
-    <ClInclude Include="jk_Snake_mTaIl.h">
-      <Filter>Contents\monster\Snake</Filter>
-    </ClInclude>
-    <ClInclude Include="jk_Snake_Tail_End.h">
+    <ClInclude Include="jk_Snake_Tail.h">
       <Filter>Contents\monster\Snake</Filter>
     </ClInclude>
     <ClInclude Include="jk_Monkey.h">
@@ -883,6 +880,12 @@
     <ClInclude Include="jk_Canon_Bullet.h">
       <Filter>Contents\Bullet\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="jk_Snake_Head.h">
+      <Filter>Contents\monster\Snake</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_Snake_First_Body.h">
+      <Filter>Contents\monster\Snake</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SONIC_JK.rc">
@@ -1030,19 +1033,16 @@
     <ClCompile Include="jk_Cannon.cpp">
       <Filter>Contents\monster\Canon</Filter>
     </ClCompile>
-    <ClCompile Include="jk_Snake_Body_Smoke.cpp">
+    <ClCompile Include="jk_Snake_Second_Body.cpp">
       <Filter>Contents\monster\Snake</Filter>
     </ClCompile>
-    <ClCompile Include="jk_Snake_Body.cpp">
+    <ClCompile Include="jk_Snake_Third_Body.cpp">
       <Filter>Contents\monster\Snake</Filter>
     </ClCompile>
-    <ClCompile Include="jk_Snake_body2.cpp">
+    <ClCompile Include="jk_Snake_Last_Body.cpp">
       <Filter>Contents\monster\Snake</Filter>
     </ClCompile>
-    <ClCompile Include="jk_Snake_mTaIl.cpp">
-      <Filter>Contents\monster\Snake</Filter>
-    </ClCompile>
-    <ClCompile Include="jk_Snake_Tail_End.cpp">
+    <ClCompile Include="jk_Snake_Tail.cpp">
       <Filter>Contents\monster\Snake</Filter>
     </ClCompile>
     <ClCompile Include="jk_Monkey.cpp">
@@ -1425,6 +1425,12 @@
     </ClCompile>
     <ClCompile Include="jk_Canon_Bullet.cpp">
       <Filter>Contents\Bullet\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Snake_Head.cpp">
+      <Filter>Contents\monster\Snake</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_Snake_First_Body.cpp">
+      <Filter>Contents\monster\Snake</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

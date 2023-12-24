@@ -80,13 +80,14 @@
 #include "jk_Rino.h"
 #include "jk_Monkey.h"
 #include "jk_Cannon.h"
-#include "jk_Snake.h"
-#include "jk_Snake_Body_Smoke.h"
-#include "jk_Snake_Body.h"
-#include "jk_Snake_Body2.h"
-#include "jk_Snake_mTaIl.h"
-#include "jk_Snake_Tail_End.h"
 
+#include "jk_Snake.h"
+#include "jk_Snake_Head.h"
+#include "jk_Snake_First_Body.h"
+#include "jk_Snake_Second_Body.h"
+#include "jk_Snake_Third_Body.h"
+#include "jk_Snake_Last_Body.h"
+#include "jk_Snake_Tail.h"
 
 namespace jk
 {
@@ -456,7 +457,7 @@ namespace jk
 		cannon[0]->SetCheckTargetGround(playgr);
 
 
-		Snake* Snake_head[1];
+		/*Snake* Snake_head[1];
 		for (int a = 0; a < 1; a++)
 		{
 			Snake_head[a] = new Snake(mSonic);
@@ -515,7 +516,7 @@ namespace jk
 			AddGameobeject(Snake_Tail[a], jk_LayerType::Monster);
 		}
 		Snake_Tail[0]->GetComponent<Transform>()->SetPos(Vector2{ 6270.f, 3210.f });
-		Snake_Tail[0]->Set_Snake_body_third(snake_mT[0]);
+		Snake_Tail[0]->Set_Snake_body_third(snake_mT[0]);*/
 
 
 		//Boss* ROBOT = new Boss(mSonic);

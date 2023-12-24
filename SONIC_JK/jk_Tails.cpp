@@ -34,9 +34,7 @@
 #include "jk_Cannon.h"
 #include "jk_Canon_Bullet.h"
 #include "jk_Snake.h"
-#include "jk_Snake_body2.h"
-#include "jk_Snake_mTaIl.h"
-#include "jk_Snake_Tail_End.h"
+
 
 #include "Bullet_Act1_Down.h"
 

@@ -1,25 +1,25 @@
 #pragma once
-#include "jk_Gameobject.h"
-#include "jk_Monster.h"
 #include "jk_Snake.h"
+#include "jk_Snake_First_Body.h"
 #include "jk_Image.h"
 #include "jk_Time.h"
+
 
 namespace jk
 {
 	class Animator;
-	class Snake_Body_Smoke : public Monster
+	class Snake_Second_Body : public Snake
 	{
+		Snake_First_Body* _Head;
 	public:
 		enum class eSnake
-		{		
+		{
 			Right,			
-			Left,	
-			Deth
+			Left,					
 		};
-
-		Snake_Body_Smoke();
-		~Snake_Body_Smoke();
+		Snake_Second_Body(Snake_First_Body* ob);
+		Snake_Second_Body();
+		~Snake_Second_Body();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
@@ -29,25 +29,25 @@ namespace jk
 		virtual void OnCollisionEnter(class Collider* other) override;
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
-			
-		eSnake Get_Snake_state() { return mState; }
-		void Set_Snake_Body(Gameobject* s_head) { Head_ch = s_head; }
-		virtual Vector2 GetPrevPos() override;
 
-	private:
-			
 		void right();
 		void left();
-		void deth();
-	
-		
 
-	private:		
-		Gameobject* Head_ch;
-		Animator* mAnimator;
+		eSnake Get_Snake_state() { return mState; }
+		Vector2 GetNextPosition();
+		Vector2 GetteurnPOs() { return CurPos; }
+
+	private:	
+		Snake_First_Body* Body_1;
+		std::deque<Vector2> prevPositions;
+		Vector2 CurPos;
+		Transform* tr;
+
 		Image* mImage;
+		Animator* mAnimator;		
 		eSnake mState;
-		Vector2 prevPos;
-		Snake::eSnake Snake_State;
+		Snake_Second_Body::eSnake Snake_State;
+		Snake_First_Body::eSnake Body1_State;
+		
 	};
 }

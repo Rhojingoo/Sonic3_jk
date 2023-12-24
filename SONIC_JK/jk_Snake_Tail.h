@@ -1,15 +1,15 @@
 #pragma once
-#include "jk_Gameobject.h"
-#include "jk_Monster.h"
-#include "jk_Snake_Body.h"
+#include "jk_Snake.h"
+#include "jk_Snake_Last_Body.h"
+
 #include "jk_Image.h"
 #include "jk_Time.h"
 
 
 namespace jk
-{	
+{
 	class Animator;
-	class Snake_body2 : public Monster
+	class Snake_Tail : public Snake
 	{
 	public:
 		enum class eSnake
@@ -19,8 +19,9 @@ namespace jk
 			Deth
 		};
 
-		Snake_body2();
-		~Snake_body2();
+		Snake_Tail(Snake_Last_Body* set);
+		Snake_Tail();
+		~Snake_Tail();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
@@ -31,22 +32,25 @@ namespace jk
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
-		eSnake Get_Snake_state() { return mState; }
-		void Set_Snake_body_third(Gameobject* s_body) { snake_body = s_body; }
-		virtual Vector2 GetPrevPos() override;
 
-	private:
-			
 		void right();
 		void left();
-		void deth();
+	
 
 	private:
+		Snake_Last_Body* Body_end;
+		std::deque<Vector2> prevPositions;
+		Vector2 CurPos;
+		Transform* tr;
+
+
 		Image* mImage;
 		Animator* mAnimator;
-		Gameobject* snake_body;
-		Snake_Body::eSnake snake_body_state;
 		eSnake mState;
-		Vector2 prevPos;
+		Snake_Tail::eSnake Tail_state;
+		Snake_Last_Body::eSnake Body_State;
+
+
+	
 	};
 }

@@ -67,12 +67,14 @@
 #include "jk_Rino.h"
 #include "jk_Monkey.h"
 #include "jk_Cannon.h"
+
 #include "jk_Snake.h"
-#include "jk_Snake_Body_Smoke.h"
-#include "jk_Snake_Body.h"
-#include "jk_Snake_Body2.h"
-#include "jk_Snake_mTaIl.h"
-#include "jk_Snake_Tail_End.h"
+#include "jk_Snake_Head.h"
+#include "jk_Snake_First_Body.h"
+#include "jk_Snake_Second_Body.h"
+#include "jk_Snake_Third_Body.h"
+#include "jk_Snake_Last_Body.h"
+#include "jk_Snake_Tail.h"
 
 
 #include "jk_ItemBigRing.h"
@@ -117,8 +119,8 @@ namespace jk
 		mSonic = new Sonic();
 		mSonic->SetName(L"Player");
 		AddGameobeject(mSonic, jk_LayerType::Player);
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
-		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 19718.f, 3450.f }); //첫원돌기
+		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
+		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 19718.f, 3450.f }); //첫원돌기
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{21480.f, 3450.f });//폭포
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 26201.f, 3333.f });// 밑에원돌기
 		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
@@ -463,6 +465,67 @@ namespace jk
 		//cannon[0]->GetComponent<Transform>()->SetPos(Vector2{ 13518.0f, 3174.0f });
 		//cannon[1]->GetComponent<Transform>()->SetPos(Vector2{ 16563.0f, 1887.0f });
 		//cannon[2]->GetComponent<Transform>()->SetPos(Vector2{ 20928.0f, 2680.0f });
+
+
+		Snake* mSnake = new Snake(Vector2{ 2795.0f * 3, 3200.f });
+		AddGameobeject(mSnake, jk_LayerType::Monster);
+		mSnake->SetName(L"Snake_one");
+
+		//Snake_Head* Snake_head = new Snake_Head();
+		//Snake_head->SetName(L"Snake_head");
+		//AddGameobeject(Snake_head, jk_LayerType::Monster);		
+		//Snake_head->GetComponent<Transform>()->SetPos(Vector2{ 2795.0f * 3, 3200.f });
+		//Snake_head->SetCenterpos(Vector2{ 2795.0f * 3, 3200.f });
+
+		//Snake_First_Body* First_body = new Snake_First_Body(Snake_head);
+		//First_body->SetName(L"Snake_Body");
+		//AddGameobeject(First_body, jk_LayerType::Monster);
+		//First_body->GetComponent<Transform>()->SetPos(Vector2{ 2795.0f * 3, 3200.f });
+
+
+
+		//Snake_Body* snake_body[1];
+		//for (int a = 0; a < 1; a++)
+		//{
+		//	snake_body[a] = new Snake_Body();
+		//	snake_body[a]->SetName(L"Snake_Body");
+		//	AddGameobeject(snake_body[a], jk_LayerType::Monster);
+		//}
+		//snake_body[0]->GetComponent<Transform>()->SetPos(Vector2{ 6270.f, 3210.f });
+		//snake_body[0]->Set_Snake_Body(snake_Body_Smoke[0]);
+
+
+		//Snake_body2* snake_body_2 = new Snake_body2();
+		//snake_body_2->SetName(L"Snake_Body2");
+		//AddGameobeject(snake_body_2, jk_LayerType::Monster);
+		//snake_body_2->GetComponent<Transform>()->SetPos(Vector2{ 6270.f, 3210.f });
+		//snake_body_2->Set_Snake_body_third(snake_body[0]);
+
+
+		//Snake_mTaIl* snake_mT[1];
+		//for (int a = 0; a < 1; a++)
+		//{
+		//	snake_mT[a] = new Snake_mTaIl();
+		//	snake_mT[a]->SetName(L"Snake_Body");
+		//	AddGameobeject(snake_mT[a], jk_LayerType::Monster);
+		//}
+		//snake_mT[0]->GetComponent<Transform>()->SetPos(Vector2{ 6270.f, 3210.f });
+		//snake_mT[0]->Set_Snake_body_third(snake_body_2);
+
+
+		//Snake_Tail_End* Snake_Tail[1];
+		//for (int a = 0; a < 1; a++)
+		//{
+		//	Snake_Tail[a] = new Snake_Tail_End();
+		//	Snake_Tail[a]->SetName(L"Snake_Body");
+		//	AddGameobeject(Snake_Tail[a], jk_LayerType::Monster);
+		//}
+		//Snake_Tail[0]->GetComponent<Transform>()->SetPos(Vector2{ 6270.f, 3210.f });
+		//Snake_Tail[0]->Set_Snake_body_third(snake_mT[0]); 
+
+
+
+
 
 
 

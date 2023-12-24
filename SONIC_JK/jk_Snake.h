@@ -1,11 +1,13 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_Monster.h"
+#include "jk_Image.h"
+#include "jk_Sound.h"
+
+#include "jk_Time.h"
+
 #include "jk_Sonic.h"
 #include "jk_Tails.h"
-#include "jk_Image.h"
-#include "jk_Time.h"
-#include "jk_Sound.h"
+
 
 namespace jk
 {
@@ -13,15 +15,9 @@ namespace jk
 	class Snake : public Monster
 	{
 	public:
-		enum class eSnake
-		{
-			Idle,
-			Right,		
-			Left,	
-			Deth
-		};
-
-		Snake(Gameobject* owner);
+		Snake(Vector2 _Pos);
+		Snake(Snake* abc);
+		Snake();
 		~Snake();
 
 		virtual void Initialize() override;
@@ -32,41 +28,24 @@ namespace jk
 		virtual void OnCollisionEnter(class Collider* other) override;
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
+		double TimeSinceStart();
 
-		eSnake Get_Snake_state() { return mState; }
-		virtual Vector2 GetPrevPos() override;
-
-		Vector2 Getmonster() { return mCurpos; }
-		void SetCenterpos(Vector2 pos) { mCenterpos = pos; }
 		void release_animal();
+		void SetLife(bool set) { LifeCheck = set; }
+		bool GetLife() { return LifeCheck; }
 
 	private:
-
-		void idle();
-		void right();
-		void left();
-		void deth();
-
-		
-
-	private:
+		Scene* mScene;
 		Sound* Death;
-		Gameobject* mOwner;
-		Image* mImage;
-		Image* mImage1;
 		Animator* mAnimator;
+		Vector2 pos;
+		static bool LifeCheck;
+		bool Obdel;
 
-	private:
-		eSnake mState;
-		Vector2 mCenterpos;
-		Vector2 mCurpos;
-		Vector2 prevPos;
-		float mMonmaxdistance_x;
-		float mMonmaxdistance_y;
-		int mDir_x;
-		int mDir_y;
+		//Snake_Head* Snake_head;
+		//Snake_First_Body* First_body;
+		Snake* snake[6] = {};
 
-	private:
 		Sonic::eSonicState sonicState;
 		Tails::eTailsState tailsState;
 	};

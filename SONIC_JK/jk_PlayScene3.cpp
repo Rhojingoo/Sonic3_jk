@@ -55,12 +55,7 @@
 #include "Act1_Boss.h"
 
 
-#include "jk_Snake.h"
-#include "jk_Snake_Body_Smoke.h"
-#include "jk_Snake_Body.h"
-#include "jk_Snake_Body2.h"
-#include "jk_Snake_mTaIl.h"
-#include "jk_Snake_Tail_End.h"
+
 
 namespace jk
 {
