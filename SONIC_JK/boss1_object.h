@@ -3,7 +3,7 @@
 #include "jk_BackGround.h"
 #include "jk_Boss.h"
 #include "boss_come.h"
-#include "boss1_body.h"
+#include "First_Boss.h"
 #include "act6_bullet1.h"
 #include "jk_SONIC.h"
 #include "jk_Image.h"
@@ -14,7 +14,7 @@
 namespace jk
 {
 	class Pixel_Ground;
-	class boss1_body;
+	class First_Boss;
 	class Animator;
 	class boss1_object : public BackGround
 	{
@@ -58,7 +58,7 @@ namespace jk
 		Sound* Bullet1;
 
 	private:
-		boss1_body* boss;
+		First_Boss* boss;
 		act6_bullet1* bullet;
 		eBossState mState;
 		Vector2 pos;

@@ -177,9 +177,7 @@ namespace jk
 				}
 				mState = eState::Death;
 			}
-		}
-		
-		
+		}		
 	}
 
 	void Rock_small::OnCollisionStay(Collider* other)

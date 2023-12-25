@@ -167,14 +167,14 @@ namespace jk
 
 
 
-	Vector2 Snake_Head::GetNextPosition() 
+	Vector2 Snake_Head::GetNextPosition()
 	{
 		if (!prevPositions.empty()) {
 			Vector2 nextPos = prevPositions.front();
 			prevPositions.pop_front();
 			return nextPos;
 		}
-		return Vector2(); // 또는 오류 값 반환
+		return Vector2();
 	}
 
 

@@ -167,8 +167,8 @@ namespace jk
 			Vector2 sonic_Pos = sonicTr->GetPos();
 
 
-
-			if ((mSonic->Getsonicstate() == Sonic::eSonicState::Hurt) || (mSonic->Getsonicstate() == Sonic::eSonicState::Death))
+			if ((mSonic->Getsonicstate() == Sonic::eSonicState::Hurt) ||
+				(mSonic->Getsonicstate() == Sonic::eSonicState::Death))
 			{
 				grap = 0;
 				sonicrb->SetGravity(Vector2{ 0.f,1000.f });
@@ -181,7 +181,8 @@ namespace jk
 				return;
 			}
 
-			else if ((mSonic->Getsonicstate() != Sonic::eSonicState::Hurt)  || (mSonic->Getsonicstate() != Sonic::eSonicState::Death) )
+			else if ((mSonic->Getsonicstate() != Sonic::eSonicState::Hurt)  ||
+				(mSonic->Getsonicstate() != Sonic::eSonicState::Death) )
 			{
 			
 				sonicrb->SetGround(true);

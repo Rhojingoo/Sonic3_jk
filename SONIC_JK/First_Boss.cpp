@@ -1,4 +1,4 @@
-#include "boss1_body.h"
+#include "First_Boss.h"
 #include "boss1_object.h"
 #include "boss_come.h"
 #include "Boss_act1_boomb.h"
@@ -18,7 +18,7 @@
 
 namespace jk
 {
-	jk::boss1_body::boss1_body()
+	jk::First_Boss::First_Boss()
 		: Boss_Hit(nullptr)
 		, Boss_Bomb(nullptr)
 		, Boss_Start(nullptr)
@@ -38,11 +38,11 @@ namespace jk
 	{
 	}
 
-	jk::boss1_body::~boss1_body()
+	jk::First_Boss::~First_Boss()
 	{
 	}
 
-	void jk::boss1_body::Initialize()
+	void jk::First_Boss::Initialize()
 	{
 		Boss_Hit = Resources::Load<Sound>(L"Boss_hit", L"..\\Resources\\Sound\\Boss_hit.wav");
 		Boss_Bomb = Resources::Load<Sound>(L"Boss_death", L"..\\Resources\\Sound\\Boss_death.wav");
@@ -58,8 +58,8 @@ namespace jk
 		mAnimator->CreateAnimation(L"Boss1_death", mImage, Vector2{ 324,378 }, Vector2{ 64,48 }, Vector2{ 0,0 }, 1, 1, 1, Vector2::Zero, 0.5f);
 		mAnimator->Play(L"Boss1_open", true);
 
-		mAnimator->GetCompleteEvent(L"Boss1_up") = std::bind(&boss1_body::idle, this);
-		mAnimator->GetCompleteEvent(L"Boss1_hurt") = std::bind(&boss1_body::idle, this);
+		mAnimator->GetCompleteEvent(L"Boss1_up") = std::bind(&First_Boss::idle, this);
+		mAnimator->GetCompleteEvent(L"Boss1_hurt") = std::bind(&First_Boss::idle, this);
 
 		mRigidbody = AddComponent<Rigidbody>();
 		mRigidbody->SetMass(1.0f);
@@ -75,7 +75,7 @@ namespace jk
 	}
 
 
-	void jk::boss1_body::Update()
+	void jk::First_Boss::Update()
 	{
 		Transform* tr = GetComponent<Transform>();
 		pos = tr->GetPos();
@@ -87,16 +87,16 @@ namespace jk
 		switch (mState)
 		{
 
-		case jk::boss1_body::eBossState::Move:move();
+		case jk::First_Boss::eBossState::Move:move();
 			break;
 
-		case jk::boss1_body::eBossState::Death:death();
+		case jk::First_Boss::eBossState::Death:death();
 			break;
 
-		case jk::boss1_body::eBossState::Attack_Up:attack_up();
+		case jk::First_Boss::eBossState::Attack_Up:attack_up();
 			break;
 
-		case jk::boss1_body::eBossState::Attack_Down:attack_down();
+		case jk::First_Boss::eBossState::Attack_Down:attack_down();
 			break;
 
 		default:
@@ -107,17 +107,17 @@ namespace jk
 		Gameobject::Update();
 	}
 
-	void jk::boss1_body::Render(HDC hdc)
+	void jk::First_Boss::Render(HDC hdc)
 	{
 		Gameobject::Render(hdc);
 	}
 
-	void jk::boss1_body::Release()
+	void jk::First_Boss::Release()
 	{
 		Gameobject::Release();
 	}
 
-	void jk::boss1_body::OnCollisionEnter(Collider* other)
+	void jk::First_Boss::OnCollisionEnter(Collider* other)
 	{
 
 		if (boss_come* robotnic = dynamic_cast<boss_come*>(other->GetOwner()))
@@ -166,29 +166,29 @@ namespace jk
 		}
 	}
 
-	void jk::boss1_body::OnCollisionStay(Collider* other)
+	void jk::First_Boss::OnCollisionStay(Collider* other)
 	{
 	}
 
-	void jk::boss1_body::OnCollisionExit(Collider* other)
+	void jk::First_Boss::OnCollisionExit(Collider* other)
 	{
 	}
 
-	void jk::boss1_body::idle()
+	void jk::First_Boss::idle()
 	{
 		mAnimator->Play(L"Boss1_idle", false);
 	}
 
-	void jk::boss1_body::move()
+	void jk::First_Boss::move()
 	{
 	}
 
-	void boss1_body::hurt()
+	void First_Boss::hurt()
 	{
 
 	}
 
-	void boss1_body::death()
+	void First_Boss::death()
 	{
 		mCollider = GetComponent<Collider>();
 		mCollider->SetSize(Vector2(0.0f, 0.0f));
@@ -221,11 +221,11 @@ namespace jk
 		boss_ob->Set_Deathpoint(Death_point);
 	}
 
-	void jk::boss1_body::attack_up()
+	void jk::First_Boss::attack_up()
 	{
 	}
 
-	void jk::boss1_body::attack_down()
+	void jk::First_Boss::attack_down()
 	{
 	}
 }

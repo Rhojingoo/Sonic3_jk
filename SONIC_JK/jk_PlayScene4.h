@@ -14,7 +14,7 @@ namespace jk
 	class finall_stage;
 	class Second_Boss;
 	class Robotnic_machine;
-	class boss1_body;
+	class First_Boss;
 	class Pixel_Ground;
 	class Tails;
 	class Sonic;
@@ -48,7 +48,7 @@ namespace jk
 		Pixel_Ground* playgr;
 		Sonic* mSonic;
 		Tails* mtails;
-		boss1_body* boss_first;
+		First_Boss* boss_first;
 		Robotnic_machine* fly_machine;
 		Second_Boss* second_boss;	
 		finall_stage* stage_final;

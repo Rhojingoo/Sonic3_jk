@@ -16,7 +16,7 @@ namespace jk
 	class Rino : public Monster
 	{
 	public:
-		enum class eMonsterState
+		enum class eRinoState
 		{		
 			Move,	
 			Run,
@@ -72,7 +72,7 @@ namespace jk
 		int check_map;
 
 	private:
-		eMonsterState mState;	
+		eRinoState mState;	
 		Sonic::eSonicState sonicState;		
 		Tails::eTailsState tailsState;
 	};

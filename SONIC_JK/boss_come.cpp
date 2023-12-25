@@ -1,5 +1,5 @@
 #include "boss_come.h"
-#include "boss1_body.h"
+#include "First_Boss.h"
 #include "jk_Time.h"
 #include "jk_Input.h"
 
@@ -107,7 +107,7 @@ namespace jk
 
 	void boss_come::OnCollisionEnter(Collider* other)
 	{
-		if (boss1_body* robotnic = dynamic_cast<boss1_body*>(other->GetOwner()))
+		if (First_Boss* robotnic = dynamic_cast<First_Boss*>(other->GetOwner()))
 		{
 			object::Destory(this);
 		}

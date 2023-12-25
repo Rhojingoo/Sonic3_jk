@@ -21,10 +21,8 @@ namespace jk
 			Right_Cross,
 			Left,
 			Right,
-
 			Grap_R,
 			Grap_L,
-
 			Death,
 			Ending
 		};

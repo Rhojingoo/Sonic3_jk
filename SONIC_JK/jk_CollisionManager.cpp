@@ -117,11 +117,7 @@ namespace jk
 		Vector2 leftSize = left->GetSize();
 		Vector2 rightSize = right->GetSize();
 
-		//1¾È
-		//leftPos.x = leftPos_tr.x + leftSize.x / 2.0f;
-		//leftPos.y = leftPos_tr.y + leftSize.y / 2.0f;
 
-		//2¾È
 		leftPos.x = leftPos.x + leftSize.x / 2.0f;
 		leftPos.y = leftPos.y + leftSize.y / 2.0f;
 

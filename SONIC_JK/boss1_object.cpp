@@ -36,7 +36,7 @@ namespace jk
 		, bullet(nullptr)
 
 	{
-		boss = dynamic_cast<boss1_body*>(owner);
+		boss = dynamic_cast<First_Boss*>(owner);
 
 		Bullet1 = Resources::Load<Sound>(L"Bullet1", L"..\\Resources\\Sound\\Bullet1.wav");
 
@@ -106,8 +106,6 @@ namespace jk
 				break;
 			}
 		}
-
-
 		Gameobject::Update();
 	}
 

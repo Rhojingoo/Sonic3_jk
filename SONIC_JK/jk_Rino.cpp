@@ -26,7 +26,7 @@ namespace jk
 		, Death_Point(0)
 		, sonicState()
 		, tailsState()
-		, mState(eMonsterState::Move)
+		, mState(eRinoState::Move)
 		, Death(nullptr)
 		, mImage(nullptr)
 		, mImage1(nullptr)
@@ -76,20 +76,20 @@ namespace jk
 	{
 		if (Death_Point == 1)
 		{
-			mState = eMonsterState::Death;
+			mState = eRinoState::Death;
 			mAnimator->Play(L"rino_death", false);
 		}
 
 
 		switch (mState)
 		{
-		case jk::Rino::eMonsterState::Move:move();
+		case jk::Rino::eRinoState::Move:move();
 			break;
 
-		case jk::Rino::eMonsterState::Turn:turn();
+		case jk::Rino::eRinoState::Turn:turn();
 			break;
 
-		case jk::Rino::eMonsterState::Death:death();
+		case jk::Rino::eRinoState::Death:death();
 			break;
 
 		default:
@@ -219,7 +219,7 @@ namespace jk
 
 			mDir *= -1;
 			pos.x += fDist * mDir;
-			mState = eMonsterState::Turn;
+			mState = eRinoState::Turn;
 			if (mDir == 1)
 				mAnimator->Play(L"RMonster_turn", false);
 			else
@@ -238,7 +238,7 @@ namespace jk
 		mAnimator->GetCompleteEvent(L"LMonster_turn");
 		mAnimator->GetCompleteEvent(L"RMonster_turn");
 
-		mState = eMonsterState::Move;
+		mState = eRinoState::Move;
 	}
 
 	void Rino::death()

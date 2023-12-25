@@ -164,7 +164,7 @@
     <ClInclude Include="act6_bullet1.h" />
     <ClInclude Include="act6_sky1.h" />
     <ClInclude Include="Add_force.h" />
-    <ClInclude Include="boss1_body.h" />
+    <ClInclude Include="First_Boss.h" />
     <ClInclude Include="boss1_object.h" />
     <ClInclude Include="Boss_act1_boomb.h" />
     <ClInclude Include="Boss_appear.h" />
@@ -350,7 +350,7 @@
     <ClCompile Include="act6_bullet1.cpp" />
     <ClCompile Include="act6_sky1.cpp" />
     <ClCompile Include="Add_force.cpp" />
-    <ClCompile Include="boss1_body.cpp" />
+    <ClCompile Include="First_Boss.cpp" />
     <ClCompile Include="boss1_object.cpp" />
     <ClCompile Include="Boss_act1_boomb.cpp" />
     <ClCompile Include="Boss_appear.cpp" />

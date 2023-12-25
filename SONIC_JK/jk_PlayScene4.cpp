@@ -36,7 +36,7 @@
 #include "Deatht_line_act6.h"
 
 #include "Robotnic_machine.h"
-#include "boss1_body.h"
+#include "First_Boss.h"
 #include "boss_come.h"
 #include "boss1_object.h"
 #include "finall_stage.h"
@@ -200,7 +200,7 @@ namespace jk
 
 
 		//First boss
-		boss_first = new boss1_body();
+		boss_first = new First_Boss();
 		boss_first->SetName(L"boss_first");
 		AddGameobeject(boss_first, jk_LayerType::BOSS);
 		boss_first->GetComponent<Transform>()->SetPos(Vector2{ 6185.0f,5215.0f });

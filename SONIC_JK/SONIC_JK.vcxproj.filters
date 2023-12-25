@@ -727,7 +727,7 @@
     <ClInclude Include="boss_come.h">
       <Filter>Contents\Boss\Act6_boss_first</Filter>
     </ClInclude>
-    <ClInclude Include="boss1_body.h">
+    <ClInclude Include="First_Boss.h">
       <Filter>Contents\Boss\Act6_boss_first</Filter>
     </ClInclude>
     <ClInclude Include="boss1_object.h">
@@ -1279,7 +1279,7 @@
     <ClCompile Include="boss_come.cpp">
       <Filter>Contents\Boss\Act6_boss_first</Filter>
     </ClCompile>
-    <ClCompile Include="boss1_body.cpp">
+    <ClCompile Include="First_Boss.cpp">
       <Filter>Contents\Boss\Act6_boss_first</Filter>
     </ClCompile>
     <ClCompile Include="boss1_object.cpp">

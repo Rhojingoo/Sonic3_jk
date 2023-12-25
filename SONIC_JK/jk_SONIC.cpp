@@ -56,7 +56,7 @@
 #include "Bullet_Act1_R_Side.h"
 #include "boss1_object.h"
 #include "act6_bullet1.h"
-#include "boss1_body.h"
+#include "First_Boss.h"
 #include "Second_Boss.h"
 #include "Second_boss_bullet.h"
 #include "Boss_Arm.h"

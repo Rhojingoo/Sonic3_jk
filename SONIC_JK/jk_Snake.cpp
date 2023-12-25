@@ -54,8 +54,7 @@ namespace jk
 		snake[0]->SetName(L"Snake_head");
 		mScene->AddGameobeject(snake[0], jk_LayerType::Monster);
 		snake[0]->GetComponent<Transform>()->SetPos(Vector2{ pos.x, pos.y });
-		snake[0]->Initialize();
-		
+		snake[0]->Initialize();		
 
 		snake[1] = new Snake_First_Body(dynamic_cast<Snake_Head*>(snake[0]));
 		snake[1]->SetName(L"Snake_Body");	
@@ -63,14 +62,11 @@ namespace jk
 		snake[1]->GetComponent<Transform>()->SetPos(Vector2{ pos.x, pos.y });
 		snake[1]->Initialize();
 
-
 		snake[2] = new Snake_Second_Body(dynamic_cast<Snake_First_Body*>(snake[1]));
 		snake[2]->SetName(L"Snake_Body2");
 		mScene->AddGameobeject(snake[2], jk_LayerType::Monster);
 		snake[2]->GetComponent<Transform>()->SetPos(Vector2{ pos.x, pos.y });
 		snake[2]->Initialize();
-
-
 
 		snake[3] = new Snake_Third_Body(dynamic_cast<Snake_Second_Body*>(snake[2]));
 		snake[3]->SetName(L"Snake_Body3");

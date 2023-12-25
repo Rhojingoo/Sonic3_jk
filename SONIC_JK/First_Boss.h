@@ -11,7 +11,7 @@ namespace jk
 	class boss1_object;
 	class Rigidbody;
 	class Animator;
-	class boss1_body : public Boss
+	class First_Boss : public Boss
 	{
 	public:
 		enum class eBossState
@@ -24,8 +24,8 @@ namespace jk
 			Attack_Down,
 		};
 
-		boss1_body();
-		~boss1_body();
+		First_Boss();
+		~First_Boss();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
