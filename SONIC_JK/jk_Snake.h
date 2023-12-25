@@ -32,7 +32,6 @@ namespace jk
 
 		void SetposSnake(Vector2 set) { pos = set; }
 
-		void release_animal();
 		void SetLife(bool set) { LifeCheck = set; }
 		bool GetLife() { return LifeCheck; }
 
@@ -44,8 +43,7 @@ namespace jk
 		static bool LifeCheck;
 		bool Obdel;
 
-		//Snake_Head* Snake_head;
-		//Snake_First_Body* First_body;
+
 		Snake* snake[6] = {};
 
 		Sonic::eSonicState sonicState;
