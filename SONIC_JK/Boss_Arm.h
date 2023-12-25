@@ -28,6 +28,7 @@ namespace jk
 		void Set_mDir(int dir) { mDir = dir; }
 		void Set_Hurt(int hurt) { Damege_check= hurt; }
 		int Get_grap() { return grap; }
+		void Set_Grap(int set) { grap = set; }
 
 		void Hurt();
 	
@@ -37,6 +38,8 @@ namespace jk
 		Image* mImage1;
 		Animator* mAnimator;
 		Rigidbody* mRigidbody;
+		Rigidbody* sonicrb;
+		Transform* sonicTr;
 		Gameobject* mOwner;
 
 	private:

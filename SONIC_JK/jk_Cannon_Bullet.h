@@ -9,11 +9,11 @@ namespace jk
 {
 	class Pixel_Ground;
 	class Rigidbody;
-	class Canon_Bullet : public Bullet
+	class Cannon_Bullet : public Bullet
 	{
 	public:
-		Canon_Bullet(Gameobject* owner);
-		~Canon_Bullet();
+		Cannon_Bullet(Gameobject* owner);
+		~Cannon_Bullet();
 
 		virtual void Initialize() override;
 		virtual void Update() override;

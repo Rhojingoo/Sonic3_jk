@@ -32,7 +32,7 @@
 #include "jk_Monkey.h"
 #include "jk_Monkey_Bullet.h"
 #include "jk_Cannon.h"
-#include "jk_Canon_Bullet.h"
+#include "jk_Cannon_Bullet.h"
 #include "jk_Snake.h"
 
 
@@ -543,18 +543,23 @@ namespace jk
 		Transform* tr = GetComponent<Transform>();
 		Vector2 tails_pos = tr->GetPos();
 
+
 		if (Sonic* sonic = dynamic_cast<Sonic*>(other->GetOwner()))
 		{
 			Sonic::eSonicState sonicState = sonic->Getsonicstate();
 			if (sonicState == Sonic::eSonicState::Tails_Hanging)
 			{
+				Rigidbody* rb = sonic->GetComponent<Rigidbody>();
+				rb->SetGround(true);
+				rb->SetGravity(Vector2{ 0.f,100.f });
+				rb->SetFiction(100.f);
+
 				sonicV = Vector2{ tails_pos.x,tails_pos.y + 90 };
 
 				if (sonicV.y > tails_pos.y + 90)
 				{
 					sonicV.y = tails_pos.y + 90;
-				}
-
+				}	
 				sonic->GetComponent<Transform>()->SetPos(sonicV);
 				mState = eTailsState::Fly_Pursue;
 			}
@@ -567,7 +572,9 @@ namespace jk
 		{
 			if (sonic->Getsonicstate() == Sonic::eSonicState::Idle)
 			{
+				Rigidbody* rb = sonic->GetComponent<Rigidbody>();
 
+				rb->SetGround(false);
 			}
 		}
 	}
@@ -1480,11 +1487,7 @@ namespace jk
 		tr->SetPos(pos);
 
 		sonicV = Vector2{ pos.x,pos.y + 90 };
-
-		if (sonicV.y > pos.y + 90)
-		{
-			sonicV.y = pos.y + 90;
-		}
+		sonicV.y = pos.y + 90;		
 		mOwner->GetComponent<Transform>()->SetPos(sonicV);
 
 		if (fly_check == 2)

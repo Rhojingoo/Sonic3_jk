@@ -183,7 +183,7 @@
     <ClInclude Include="Dead_line.h" />
     <ClInclude Include="Deatht_line_act6.h" />
     <ClInclude Include="jk_Boss.h" />
-    <ClInclude Include="jk_Canon_Bullet.h" />
+    <ClInclude Include="jk_Cannon_Bullet.h" />
     <ClInclude Include="jk_Effect.h" />
     <ClInclude Include="Electsonic.h" />
     <ClInclude Include="Elec_effect.h" />
@@ -368,7 +368,7 @@
     <ClCompile Include="Dead_line.cpp" />
     <ClCompile Include="Deatht_line_act6.cpp" />
     <ClCompile Include="jk_Boss.cpp" />
-    <ClCompile Include="jk_Canon_Bullet.cpp" />
+    <ClCompile Include="jk_Cannon_Bullet.cpp" />
     <ClCompile Include="jk_Effect.cpp" />
     <ClCompile Include="Electsonic.cpp" />
     <ClCompile Include="Elec_effect.cpp" />

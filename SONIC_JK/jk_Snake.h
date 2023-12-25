@@ -30,6 +30,8 @@ namespace jk
 		virtual void OnCollisionExit(class Collider* other) override;
 		double TimeSinceStart();
 
+		void SetposSnake(Vector2 set) { pos = set; }
+
 		void release_animal();
 		void SetLife(bool set) { LifeCheck = set; }
 		bool GetLife() { return LifeCheck; }

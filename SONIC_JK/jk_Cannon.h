@@ -5,7 +5,7 @@
 #include "jk_Sonic.h"
 #include "jk_Tails.h"
 #include "jk_Time.h"
-#include "jk_Canon_Bullet.h"
+#include "jk_Cannon_Bullet.h"
 
 
 namespace jk
@@ -77,7 +77,7 @@ namespace jk
 	private:
 		Sonic::eSonicState sonicState;
 		Tails::eTailsState tailsState;
-		Canon_Bullet* bullet; 
+		Cannon_Bullet* bullet; 
 		Transform* bullet_tr;
 		Rigidbody* bullet_rb;
 

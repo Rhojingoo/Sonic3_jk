@@ -37,22 +37,7 @@ namespace jk
 			EMDING,
 			End,
 
-			Circle_Rturn_R,
-			Circle_Rturn_1,
-			Circle_Rturn_2,
-			Circle_Rturn_3,
-			Circle_Rturn_4,
-			Circle_Rturn_5,
-			Circle_Rturn_6,
-			Circle_Rturn_7,
 
-			Circle_Lturn_1,
-			Circle_Lturn_2,
-			Circle_Lturn_3,
-			Circle_Lturn_4,
-			Circle_Lturn_5,
-			Circle_Lturn_6,
-			Circle_Lturn_7,
 		};
 
 		Tails(Gameobject* owner);
@@ -100,25 +85,6 @@ namespace jk
 		void fly_waiting();
 		void ending();
 		void endgame();
-
-
-		//void circle_Rturn_1();
-		//void circle_Rturn_2();
-		//void circle_Rturn_3();
-		//void circle_Rturn_4();
-		//void circle_Rturn_5();
-		//void circle_Rturn_6();
-		//void circle_Rturn_7();
-
-
-		//void circle_Lturn_1();
-		//void circle_Lturn_2();
-		//void circle_Lturn_3();
-		//void circle_Lturn_4();
-		//void circle_Lturn_5();
-		//void circle_Lturn_6();
-		//void circle_Lturn_7();
-
 
 
 	private:		

@@ -57,6 +57,19 @@ namespace jk
 	{
 		Vector2 pos = tr->GetPos();
 		Setpos_bullet(pos);
+
+		if (mGroundImage)
+		{
+			Vector2 Bullet_ps = tr->GetPos();
+			COLORREF FootColor = mGroundImage->GetPixel(static_cast<int>(Bullet_ps.x), static_cast<int>(Bullet_ps.y) + 20);
+			if (FootColor == RGB(0, 0, 0))
+			{
+				Bullet_ps.y += 100;
+				tr->SetPos(Bullet_ps);
+				this->SetState(eState::Pause);
+			}
+		}
+
 		Gameobject::Update();
 	}
 	void Monkey_Bullet::Render(HDC hdc)

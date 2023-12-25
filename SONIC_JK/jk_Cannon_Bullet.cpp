@@ -1,4 +1,4 @@
-#include "jk_Canon_Bullet.h"
+#include "jk_Cannon_Bullet.h"
 #include "jk_Cannon.h"
 
 #include "jk_SceneManager.h"
@@ -19,7 +19,7 @@
 
 namespace jk 
 {
-	Canon_Bullet::Canon_Bullet(Gameobject* owner)
+	Cannon_Bullet::Cannon_Bullet(Gameobject* owner)
 		: mImage(nullptr)
 		, mGroundImage(nullptr)
 		, mAnimator(nullptr)
@@ -49,28 +49,42 @@ namespace jk
 		mDir = canon->GetDir();	
 	}
 
-	Canon_Bullet::~Canon_Bullet()
+	Cannon_Bullet::~Cannon_Bullet()
 	{
 	}
 
-	void Canon_Bullet::Initialize()
+	void Cannon_Bullet::Initialize()
 	{
 		Gameobject::Initialize();		
 	}
 
-	void Canon_Bullet::Update()
+	void Cannon_Bullet::Update()
 	{	
 		Vector2 pos = tr->GetPos();
 		Setpos_bullet(pos);
+
+
+		if (mGroundImage)
+		{
+			Vector2 Bullet_ps = tr->GetPos();
+			COLORREF FootColor = mGroundImage->GetPixel(static_cast<int>(Bullet_ps.x), static_cast<int>(Bullet_ps.y) + 20);
+			if (FootColor == RGB(0, 0, 0))
+			{
+				Bullet_ps.y += 100;
+				tr->SetPos(Bullet_ps);
+				this->SetState(eState::Pause);
+			}
+		}
+
 		Gameobject::Update();
 	}
 
-	void Canon_Bullet::Render(HDC hdc)
+	void Cannon_Bullet::Render(HDC hdc)
 	{
 		Gameobject::Render(hdc);
 	}
 
-	void Canon_Bullet::Release()
+	void Cannon_Bullet::Release()
 	{
 		Gameobject::Release();
 	}

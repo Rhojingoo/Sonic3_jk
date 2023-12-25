@@ -92,6 +92,7 @@ namespace jk
 	{
 		mCurpos = tr->GetPos();
 		prevPositions.push_back(mCurpos);
+		SetposSnake(mCurpos);
 
 		// 저장할 위치 수를 제한 (예: 몸통 길이에 따라)
 		while (prevPositions.size() > 5) {
@@ -228,18 +229,18 @@ namespace jk
 	void Snake_Head::deth()
 	{		
 		SetLife(false);
-		//prevPositions.empty();
+		release_animal();
 	}
 
 
-	//void Snake_Head::release_animal()
-	//{
-	//	Transform* tr = GetComponent<Transform>();
-	//	Scene* curScene = SceneManager::GetActiveScene();
-	//	Animal* ani = new Animal(this);
+	void Snake_Head::release_animal()
+	{
+		Transform* tr = GetComponent<Transform>();
+		Scene* curScene = SceneManager::GetActiveScene();
+		Animal* ani = new Animal(this);
 
-	//	ani->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x, tr->GetPos().y });
-	//	curScene->AddGameobeject(ani, jk_LayerType::Animal);
-	//	return;
-	//}
+		ani->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x, tr->GetPos().y });
+		curScene->AddGameobeject(ani, jk_LayerType::Animal);
+		return;
+	}
 }

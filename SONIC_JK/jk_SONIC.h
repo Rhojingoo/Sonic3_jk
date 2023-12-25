@@ -30,6 +30,7 @@ namespace jk
 			Lookup,
 			Push,
 			Attack,
+			HitWaiting,
 			Hurt,
 			Spring_Jump,
 			Cylinder_move,
@@ -99,6 +100,7 @@ namespace jk
 	private:
 		void idle();
 		void attack();
+		void hitwaiting();
 		void hurt();
 		void move() ;	
 		void run() ;

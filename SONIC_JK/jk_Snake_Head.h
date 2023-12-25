@@ -42,7 +42,7 @@ namespace jk
 
 		Vector2 Getmonster() { return mCurpos; }
 		void SetCenterpos(Vector2 pos) { mCenterpos = pos; }
-		//void release_animal();
+		void release_animal();
 
 
 	private:

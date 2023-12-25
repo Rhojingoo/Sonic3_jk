@@ -459,6 +459,7 @@ namespace jk
 
 
 		Snake* mSnake = new Snake(Vector2{ 6270.f, 3210.f });
+		mSnake->SetLife(false);
 		AddGameobeject(mSnake, jk_LayerType::Monster);
 		mSnake->SetName(L"Snake_one");
 

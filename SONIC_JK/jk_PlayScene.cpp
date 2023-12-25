@@ -499,17 +499,17 @@ namespace jk
 		rock_middle[0]->SetCheckTargetGround(playgr);
 		rock_big[0]->SetCheckTargetGround(playgr);
 		rock_big[1]->SetCheckTargetGround(playgr);
-		//cannon[0]->SetCheckTargetGround(playgr);
-		//cannon[1]->SetCheckTargetGround(playgr);
-		//cannon[2]->SetCheckTargetGround(playgr);
-		//mRino[0]->SetCheckTargetGround(playgr);
-		//mRino[1]->SetCheckTargetGround(playgr);
-		//mRino[2]->SetCheckTargetGround(playgr);
-		//mMokey[0]->SetCheckTargetGround(playgr);
-		//mMokey[1]->SetCheckTargetGround(playgr);
-		//mMokey[2]->SetCheckTargetGround(playgr);
-		//mMokey[3]->SetCheckTargetGround(playgr);
-		//mMokey[4]->SetCheckTargetGround(playgr);
+		cannon[0]->SetCheckTargetGround(playgr);
+		cannon[1]->SetCheckTargetGround(playgr);
+		cannon[2]->SetCheckTargetGround(playgr);
+		mRino[0]->SetCheckTargetGround(playgr);
+		mRino[1]->SetCheckTargetGround(playgr);
+		mRino[2]->SetCheckTargetGround(playgr);
+		mMokey[0]->SetCheckTargetGround(playgr);
+		mMokey[1]->SetCheckTargetGround(playgr);
+		mMokey[2]->SetCheckTargetGround(playgr);
+		mMokey[3]->SetCheckTargetGround(playgr);
+		mMokey[4]->SetCheckTargetGround(playgr);
 		circle_chek->SetCheckTargetGround(playgr);
 		circle_chek2->SetCheckTargetGround(playgr);
 

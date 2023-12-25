@@ -27,6 +27,8 @@ namespace jk
 		, mImage1(nullptr)
 		, mAnimator(nullptr)
 		, mRigidbody(nullptr)
+		, sonicTr(nullptr)
+		, sonicrb(nullptr)
 	{
 		mImage = Resources::Load<Image>(L"third_boss_R", L"..\\Resources\\ActBG_6\\BOSS\\Third_boss3_R.bmp");
 		mImage1 = Resources::Load<Image>(L"third_boss_L", L"..\\Resources\\ActBG_6\\BOSS\\Third_boss3_L.bmp");
@@ -84,6 +86,18 @@ namespace jk
 			
 			tr->SetPos(pos);
 		}
+
+
+		if (grap == 1)
+		{
+			Vector2 sonic_Pos = sonicTr->GetPos();
+			sonic_Pos = pos;
+			sonicTr->SetPos(Vector2(sonic_Pos.x, sonic_Pos.y-50.f));
+		}
+
+
+
+
 		if (Damege_check == 1)
 		{
 			if (Damege_check != 1)
@@ -109,6 +123,9 @@ namespace jk
 				mAnimator->Play(L"L_Boss_arm", true);
 			}
 		}
+
+
+
 		Gameobject::Update();		
 	}
 
@@ -144,37 +161,44 @@ namespace jk
 				mAnimator->Play(L"L_Boss_GRAP", true);
 			}
 
-			Rigidbody* rb = mSonic->GetComponent<Rigidbody>();
-			rb->SetGround(true);
-			Transform* tr = GetComponent<Transform>();
-			Vector2 pos = tr->GetPos();
-
-			Collider* mSonic_Col = mSonic->GetComponent<Collider>();
-			Vector2 mSonic_Pos = mSonic_Col->Getpos();
-			Collider* Boss_Col = this->GetComponent<Collider>();
-			Vector2 Boss_ColPos = Boss_Col->Getpos();
-			Transform* sonicTr = mSonic->GetComponent<Transform>();
+			sonicTr = mSonic->GetComponent<Transform>();
+			sonicrb = mSonic->GetComponent<Rigidbody>();
 			Transform* grTr = this->GetComponent<Transform>();
 			Vector2 sonic_Pos = sonicTr->GetPos();
 
 
-			if (!(mSonic->Getsonicstate() == Sonic::eSonicState::Hurt))
+
+			if ((mSonic->Getsonicstate() == Sonic::eSonicState::Hurt) || (mSonic->Getsonicstate() == Sonic::eSonicState::Death))
 			{
-				sonic_Pos = pos;
+				grap = 0;
+				sonicrb->SetGravity(Vector2{ 0.f,1000.f });
+				sonicTr->SetPos(Vector2(sonic_Pos.x, sonic_Pos.y - 150));
+				sonicrb->SetGround(false);
+				Vector2 velocity = sonicrb->GetVelocity();
+				velocity = Vector2(0.0f, -500.0f);
+				sonicrb->SetVelocity(velocity);
+				sonicrb->SetGround(false);
+				return;
+			}
+
+			else if ((mSonic->Getsonicstate() != Sonic::eSonicState::Hurt)  || (mSonic->Getsonicstate() != Sonic::eSonicState::Death) )
+			{
+			
+				sonicrb->SetGround(true);
+				sonicrb->SetGravity(Vector2{ 0.f,100.f });
+
+				Vector2 pos = tr->GetPos();
+				Collider* mSonic_Col = mSonic->GetComponent<Collider>();
+				Vector2 mSonic_Pos = mSonic_Col->Getpos();
+				Collider* Boss_Col = this->GetComponent<Collider>();
+				Vector2 Boss_ColPos = Boss_Col->Getpos();		
+				mSonic_Pos.y = Boss_ColPos.y - 100;
+				mSonic_Col->SetPos(mSonic_Pos);
+
+				sonic_Pos =	Vector2 (pos.x, pos.y-100);
 				sonicTr->SetPos(sonic_Pos);
 			}
-			else
-			{
-				rb->SetGround(false);
-				Vector2 velocity = rb->GetVelocity();
-				velocity.x += 20.f;
-				velocity.y -= 30.f;
-				rb->SetVelocity(velocity);
-				rb->SetGround(false);
-				sonic_Pos = sonicTr->GetPos();
-				sonic_Pos = sonic_Pos + Vector2{ 10.f ,-15.f };
-				sonicTr->SetPos(sonic_Pos);
-			}
+
 		}
 	}
 
@@ -183,6 +207,10 @@ namespace jk
 		if (Sonic* mSonic = dynamic_cast<Sonic*>(other->GetOwner()))
 		{
 			grap = 0;
+			sonicTr = mSonic->GetComponent<Transform>();
+			sonicrb = mSonic->GetComponent<Rigidbody>();
+			sonicrb->SetGround(false);
+			sonicrb->SetGravity(Vector2{ 0.f,1000.f });
 			if (mDir == 1)
 			{
 				mAnimator->Play(L"R_Boss_arm", true);

@@ -70,7 +70,7 @@ namespace jk
 		collider->SetCenter(Vector2{ (-0.12f) * size.x, (-0.2f) * size.y });
 
 
-		bullet = new Canon_Bullet(this);
+		bullet = new Cannon_Bullet(this);
 		Scene* curScene = SceneManager::GetActiveScene();
 		bullet_tr = bullet->GetComponent<Transform>();
 		bullet_rb = bullet->GetComponent<Rigidbody>();
@@ -235,9 +235,7 @@ namespace jk
 			Vector2 Canon_ps = Canon_TR->GetPos();
 			COLORREF FootColor = selectedImage->GetPixel(static_cast<int>(Canon_ps.x), static_cast<int>(Canon_ps.y) + 130);
 			if (FootColor == RGB(0, 0, 0))
-			{
-				COLORREF FootColor = selectedImage->GetPixel(static_cast<int>(Canon_ps.x), static_cast<int>(Canon_ps.y) + 130);
-
+			{			
 				while (FootColor == RGB(0, 0, 0))
 				{
 					Canon_ps.y -= 1;

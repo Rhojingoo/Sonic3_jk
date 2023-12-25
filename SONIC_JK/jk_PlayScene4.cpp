@@ -402,6 +402,16 @@ namespace jk
 		}
 
 
+		if (Input::GetKeyDown(eKeyCode::M))
+		{
+			Vector2 stagepos = stage_final->GetComponent<Transform>()->GetPos();
+			mSonic->GetComponent<Transform>()->SetPos(Vector2(14150.f, stagepos.y-50.f));
+			mSonic->GetComponent<Rigidbody>()->SetGravity(Vector2{ 0.f,1000.f });
+			mSonic->GetComponent<Rigidbody>()->SetFiction(100.f);
+			playgr->SetLotation(0);
+			Sonic::eSonicState::Idle;
+		}
+
 
 		Scene::Update();
 

@@ -109,6 +109,7 @@ namespace jk
 				object::Destory(snake[3]);
 				object::Destory(snake[4]);
 				object::Destory(snake[5]);
+
 				Obdel = true;
 			}
 		}
@@ -133,9 +134,7 @@ namespace jk
 	void Snake::OnCollisionExit(Collider* other)
 	{
 	}
-	void Snake::release_animal()
-	{
-	}
+
 	double Snake::TimeSinceStart()
 	{
 		LARGE_INTEGER frequency;
