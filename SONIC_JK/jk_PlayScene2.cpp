@@ -458,7 +458,7 @@ namespace jk
 
 
 
-		Snake* mSnake = new Snake(Vector2{ 6270.f, 3210.f });
+		mSnake = new Snake(Vector2{ 6270.f, 3210.f });
 		mSnake->SetLife(false);
 		AddGameobeject(mSnake, jk_LayerType::Monster);
 		mSnake->SetName(L"Snake_one");
@@ -610,7 +610,7 @@ namespace jk
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::BOSS, true);		
 		CollisionManager::SetLayer(jk_LayerType::BG_props, jk_LayerType::BG_props, true);
 
-
+		mSnake->SetLife(false);
 		Camera::SetTarget(mSonic);
 	}
 	void PlayScene2::OnExit()

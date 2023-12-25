@@ -6,6 +6,7 @@ namespace jk
 {
 	class Sound;
 	class Pixel_Ground;
+	class Snake;
 	class Sonic;
 	class PlayScene2 : public Scene
 	{
@@ -31,6 +32,7 @@ namespace jk
 	private:
 		Pixel_Ground* playgr;
 		Sonic* mSonic;		
+		Snake* mSnake;
 		Sound* Act2_music;
 		Sound* Miniboss2;
 		int dir;
