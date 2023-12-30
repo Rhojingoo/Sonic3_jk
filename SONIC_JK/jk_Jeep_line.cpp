@@ -11,6 +11,7 @@
 #include "jk_Object.h"
 #include "jk_Blending.h"
 #include "jk_SONIC.h"
+#include "jk_Image.h"
 #include "Rigidbody.h"
 
 

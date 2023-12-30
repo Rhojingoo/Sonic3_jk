@@ -34,7 +34,7 @@ namespace jk
 		static void SetCamera(int cam) { camera = cam; }
 
 
-		//static void Move_L(float pos) { mMove.x = pos;}
+		//static void Move_L(float mPos) { mMove.x = mPos;}
 		//static float GetMove_L() { return mMove.x; }
 	
 	

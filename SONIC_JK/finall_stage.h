@@ -1,17 +1,8 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_BackGround.h"
-#include "jk_SONIC.h"
-#include "jk_Image.h"
-#include "jk_Sound.h"
-#include "jk_Time.h"
-
 
 namespace jk
 {
-	class boss1_object;
-	class Rigidbody;
-	class Animator;
 	class finall_stage : public BackGround
 	{
 	public:
@@ -37,9 +28,9 @@ namespace jk
 		void Bomb();
 
 
-		void Set_move_stage(int check) {check_map = check;}
-		void Set_end_Stage(int point) { end = point; }
-		int Get_end_Stage() {return end;};
+		void Set_move_stage(int check) {mCheck_Map = check;}
+		void Set_end_Stage(int point) { mEnd = point; }
+		int Get_end_Stage() {return mEnd;};
 
 
 	private:
@@ -50,16 +41,16 @@ namespace jk
 
 
 	private:
-		Image* mImage;
-		Animator* mAnimator;
-		Rigidbody* mRigidbody;
-		Sound* Rocket_Start;
+		class Image* mImage;
+		class Animator* mAnimator;
+		class Rigidbody* mRigidbody;
+		class Sound* mRocket_Start;
 		eBossState mState;
 	
 	private:
-		Vector2 pos;
+		Vector2 mPos;
 		float mSpeed;
-		int check_map;
-		int end;
+		int mCheck_Map;
+		int mEnd;
 	};
 }

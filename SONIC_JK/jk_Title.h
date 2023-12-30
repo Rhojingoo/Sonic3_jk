@@ -1,14 +1,13 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_BackGround.h"
-#include "jk_Image.h"
 
 namespace jk
 {
+	class Image;
 	class Animator;
 	class Title : public BackGround
 	{
-	
+
 	public:
 		Title();
 		~Title();
@@ -17,9 +16,9 @@ namespace jk
 		virtual void Update() override;
 		virtual void Render(HDC hdc) override;
 		virtual void Release() override;
-		
+
 	private:
-		Image* mImage;	
+		Image* mImage;
 		Animator* mAnimator;
 	};
 }

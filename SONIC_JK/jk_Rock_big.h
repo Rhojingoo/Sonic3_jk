@@ -1,13 +1,9 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_BackGround.h"
-#include "jk_Image.h"
-#include "jk_SONIC.h"
-#include "jk_Animator.h"
-#include "jk_Sound.h"
 
 namespace jk
 {
+	class Image;
 	class Pixel_Ground;
 	class Rigidbody;
 	class Animator;
@@ -35,7 +31,7 @@ namespace jk
 		virtual void OnCollisionExit(class Collider* other) override;
 
 		void SetGroundImage(Image* image) { mGroundImage = image; }
-		void SetCheckTargetGround(Pixel_Ground* ground) { check = ground; }
+		void SetCheckTargetGround(Pixel_Ground* ground) { mPixelGround_check = ground; }
 
 	private:
 		void idle();
@@ -44,21 +40,20 @@ namespace jk
 
 
 	private:
-		Sound* Crash;
+		Sound* mCrash;
 		Image* mImage;
 		Image* mGroundImage;
 		Animator* mAnimator;
 		Rigidbody* mRigidbody;
-		
-	private:
-		eState mState;
-		Pixel_Ground* check;
-		Sonic::eSonicState sonicState;	
 
 	private:
-		float timer_RB; 
-		float Rb_DisappearTime; 
-		float bounceForce_Rb;
-		int check_ground_BR;
+		eState mState;
+		Pixel_Ground* mPixelGround_check;
+		Sonic::eSonicState sonicState;
+
+	private:
+		float mTime;
+		float mDisappearTime;
+		int mCheckGR;
 	};
 }

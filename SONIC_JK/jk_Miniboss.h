@@ -1,14 +1,12 @@
 #pragma once
 #include "jk_Gameobject.h"
 #include "jk_Boss.h"
-#include "jk_Sonic.h"
-#include "jk_Image.h"
-#include "jk_Sound.h"
-#include "jk_Time.h"
-
 
 namespace jk
 {	
+	class Sound;
+	class Image;
+	class Sonic;
 	class Rigidbody;
 	class Animator;
 	class Minibos : public Boss
@@ -54,28 +52,27 @@ namespace jk
 		Animator* mAnimator;
 		eState mState;
 		Rigidbody* mRigidbody;
-		Sound* Miniboss2;
-		Sound* Boss_hit;
-		Sound* Minboss_death;
-		Sound* Act2_music;
+		Sound* mMiniboss2;
+		Sound* mBoss_hit;
+		Sound* mMinboss_death;
+		Sound* mAct2_music;
 
 
 		Gameobject* mOwner;
 		Vector2 mCenterpos;
-		Vector2 pos;
+		Vector2 mPos;
 		float mMonspeed;
 		float mMonmaxdistance;
 		int mDir;		
 		float fDist;
-		float time_check;
-		int attack;		
-		float time;
-
-		int attack_check;
+		float mTime_Check;
+		int mAttack;		
+		float mTime;
+		int mAttack_check;
 		Sonic::eSonicState sonicState;
 
-		int Death; //다음장면으로 가기위한변수
-		int map_check;
+		int mDeath; //다음장면으로 가기위한변수
+		int mMap_check;
 
 	};
 }

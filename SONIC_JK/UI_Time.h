@@ -1,9 +1,9 @@
 #pragma once
 #include "jk_Gameobject.h"
-#include "jk_Image.h"
 
 namespace jk
 {
+	class Image;
 	class Animator;
 	class UI_Time : public Gameobject
 	{
@@ -16,15 +16,15 @@ namespace jk
 		virtual void Render(HDC hdc) override;
 		virtual void Release() override;
 
-		float Get_seconds() { return time_S; }
-		float Get_minutes() { return time_M; }
+		float Get_seconds() { return mTime_S; }
+		float Get_minutes() { return mTime_M; }
 
 	private:
 		Image* mImage;
 		float mTime;
-		float time;
+		float mTime2;
 
-		float time_S; 
-		float time_M;
+		float mTime_S; 
+		float mTime_M;
 	};
 }

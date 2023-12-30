@@ -5,12 +5,13 @@
 #include "jk_Transform.h"
 #include "jk_Collider.h"
 #include "jk_Camera.h"
+#include "jk_Image.h"
 
 namespace jk
 {
 	act2_water::act2_water()
 		:mImage(nullptr)
-		, checktime(0.f)
+		, mCheckTime(0.f)
 	{
 	}
 	act2_water::~act2_water()
@@ -40,12 +41,12 @@ namespace jk
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 
-		checktime = 120.0f;
+		mCheckTime = 120.0f;
 		BLENDFUNCTION func = {};
 		func.BlendOp = AC_SRC_OVER;
 		func.BlendFlags = 0;
 		func.AlphaFormat = AC_SRC_ALPHA;
-		func.SourceConstantAlpha = (BYTE)checktime;
+		func.SourceConstantAlpha = (BYTE)mCheckTime;
 		Vector2 mpos = Camera::CaluatePos(pos);
 
 		AlphaBlend(hdc, static_cast<int>(mpos.x), static_cast<int>(mpos.y), mImage->GetWidth() * 10, mImage->GetHeight() * 15,

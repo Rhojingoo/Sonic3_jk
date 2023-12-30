@@ -1,11 +1,9 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_BackGround.h"
-#include "jk_Image.h"
-#include "jk_Animator.h"
 
 namespace jk
 {
+	class Image;
 	class Rigidbody;
 	class Animator;
 	class Jeep_line_Handle : public BackGround
@@ -26,9 +24,9 @@ namespace jk
 		virtual void OnCollisionExit(class Collider* other) override;
 
 		void SetCenterpos(Vector2 pos) { mCenterpos = pos; }
-		void SetAngle(float ang) { angle = ang; }
+		void SetAngle(float ang) { mAngle = ang; }
 		void SetDirect(int dir) { mDir_x = dir; }
-		int Getjeepline_state() { return Jeepline_state; }
+		int Getjeepline_state() { return mJeepline_state; }
 
 		int GetDir() {	return mDir_x;}
 			
@@ -40,8 +38,8 @@ namespace jk
 	private:
 		Vector2 mCenterpos;
 		int mDir_x;
-		int Jeepline_state;
-		float angle;
+		int mJeepline_state;
+		float mAngle;
 	};
 
 }

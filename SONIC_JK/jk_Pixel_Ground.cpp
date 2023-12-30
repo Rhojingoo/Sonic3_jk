@@ -12,20 +12,20 @@
 #include "jk_Tails.h"
 
 // 땅, 원 진입(300도 ~ 89도), 원의 중간 이후(90도 ~ 약240도) 
-//#define GROUND			0
-//#define LOOPENTERCOLOR	1
-//#define LOOPAFTERHALF		2
+//#define mGROUND			0
+//#define mLOOPENTERCOLOR	1
+//#define mLOOPAFTERHALF		2
 
-#define GROUNDCOLOR						RGB(0, 0, 0)
-#define WALLCOLOR						RGB(0, 12, 123)
-#define FLYLCOLOR						RGB(51, 102, 102)
-
-#define STONEGREY_LOOPENTER				RGB(127, 127, 127) 
-#define STONEORANGE_LOOPHALF			RGB(255, 127, 0)
-#define STONERED_LOOPENTER				RGB(255, 0, 0)
-
-#define GROUNDYELLO_LOOPCOURSE_RIGHT	RGB(255, 255, 0)
-#define GROUNDBLUE_LOOPCOURSE_LEFT		RGB(0, 0, 255)
+//#define GROUNDCOLOR						RGB(0, 0, 0)
+//#define WALLCOLOR						RGB(0, 12, 123)
+//#define FLYLCOLOR						RGB(51, 102, 102)
+//
+//#define STONEGREY_LOOPENTER				RGB(127, 127, 127) 
+//#define STONEORANGE_LOOPHALF			RGB(255, 127, 0)
+//#define STONERED_LOOPENTER				RGB(255, 0, 0)
+//
+//#define GROUNDYELLO_LOOPCOURSE_RIGHT	RGB(255, 255, 0)
+//#define GROUNDBLUE_LOOPCOURSE_LEFT		RGB(0, 0, 255)
 
 
 namespace jk
@@ -45,38 +45,38 @@ namespace jk
 		, mPlayer_Tails_TR(nullptr)
 		, mPlayerRigidBody(nullptr)
 		, mRigidbody_Tails(nullptr)
-		, SonicDir(0)
-		, TailsDir(0)
+		, mSonicDir(0)
+		, mTailsDir(0)
 
-		, GROUND(0)
-		, LOOPENTERCOLOR(1)
-		, LOOPAFTERHALF(2)
+		, mGROUND(0)
+		, mLOOPENTERCOLOR(1)
+		, mLOOPAFTERHALF(2)
 
-		, Circlecheck(1)
+		, mCirclecheck(1)
 		//act1-1
-		, Ground_Image(nullptr)
-		, Cicle_Rturn(nullptr)
-		, Cicle_Lturn(nullptr)
+		, mGround_Image(nullptr)
+		, mCicle_Rturn(nullptr)
+		, mCicle_Lturn(nullptr)
 		//act1-2
-		, Ground_Image2(nullptr)
-		, Cicle_Rturn2(nullptr)
-		, Cicle_Lturn2(nullptr)
+		, mGround_Image2(nullptr)
+		, mCicle_Rturn2(nullptr)
+		, mCicle_Lturn2(nullptr)
 		//act1-3
-		, Ground_Image3(nullptr)
+		, mGround_Image3(nullptr)
 		//act6
-		, Ground_Image4(nullptr)
+		, mGround_Image4(nullptr)
 
 		, mDirect(1)
-		, Circle_pice(0)
+		, mCircle_pice(0)
 		, mRotationcheck(0)
 
-		, Circle1_Center(0.f, 0.f)
-		, Circle1_Center2(0.f, 0.f)
+		, mCircle1_Center(0.f, 0.f)
+		, mCircle1_Center2(0.f, 0.f)
 
 		, WallCheck(0)
-		, LoopStoneMeet(false)
-		, map_chek(0)
-		, groundcheck(0)
+		, mLoopStoneMeet(false)
+		, mMap_Check(0)
+		, mGroundCheck(0)
 		, mCollider(nullptr)
 
 	{
@@ -88,18 +88,18 @@ namespace jk
 
 	void Pixel_Ground::Initialize()
 	{
-		Ground_Image = Resources::Load<Image>(L"Ground_Image", L"..\\Resources\\Ground_Image.bmp");
-		Cicle_Rturn = Resources::Load<Image>(L"Cicle_Rturn", L"..\\Resources\\Cicle_Rturn.bmp");
-		//Cicle_Lturn = Resources::Load<Image>(L"Cicle_Lturn", L"..\\Resources\\Cicle_Lturn.bmp");
-		Circle1_Center = Vector2{ 20229.f,3406.f };
-		Circle1_Center2 = Vector2{ 9195.f, 3705.f };
+		mGround_Image = Resources::Load<Image>(L"Ground_Image", L"..\\Resources\\Ground_Image.bmp");
+		mCicle_Rturn = Resources::Load<Image>(L"Cicle_Rturn", L"..\\Resources\\Cicle_Rturn.bmp");
+		//mCicle_Lturn = Resources::Load<Image>(L"mCicle_Lturn", L"..\\Resources\\mCicle_Lturn.bmp");
+		mCircle1_Center = Vector2{ 20229.f,3406.f };
+		mCircle1_Center2 = Vector2{ 9195.f, 3705.f };
 
-		Ground_Image2 = Resources::Load<Image>(L"Ground_Image2", L"..\\Resources\\Ground_Act1_2.bmp");
-		Cicle_Rturn2 = Resources::Load<Image>(L"Cicle_Rturn2", L"..\\Resources\\ActBG_1_2\\Cicle_Rturn2.bmp");
-		//Cicle_Lturn2 = Resources::Load<Image>(L"Cicle_Lturn2", L"..\\Resources\\ActBG_1_2\\Cicle_Lturn2.bmp");
+		mGround_Image2 = Resources::Load<Image>(L"Ground_Image2", L"..\\Resources\\Ground_Act1_2.bmp");
+		mCicle_Rturn2 = Resources::Load<Image>(L"Cicle_Rturn2", L"..\\Resources\\ActBG_1_2\\Cicle_Rturn2.bmp");
+		//mCicle_Lturn2 = Resources::Load<Image>(L"mCicle_Lturn2", L"..\\Resources\\ActBG_1_2\\mCicle_Lturn2.bmp");
 
-		Ground_Image3 = Resources::Load<Image>(L"Ground_Image3", L"..\\Resources\\ActBG_1_3\\Ground_Act1_3.bmp");
-		Ground_Image4 = Resources::Load<Image>(L"Ground_Image4", L"..\\Resources\\ActBG_6\\act 6-boss_ground.bmp");
+		mGround_Image3 = Resources::Load<Image>(L"Ground_Image3", L"..\\Resources\\ActBG_1_3\\Ground_Act1_3.bmp");
+		mGround_Image4 = Resources::Load<Image>(L"Ground_Image4", L"..\\Resources\\ActBG_6\\act 6-boss_ground.bmp");
 
 		Gameobject::Initialize();
 	}
@@ -110,7 +110,7 @@ namespace jk
 		mPlayerTR = mPlayer->GetComponent<Transform>();
  
 		Vector2 Player_Position = mPlayerTR->GetPos();
-		SonicDir = mPlayer->GetSonicDir();
+		mSonicDir = mPlayer->GetSonicDir();
 
 		//소닉 TR, RG설정
 		if ((nullptr == mPlayerTR) || (nullptr == mPlayerRigidBody))
@@ -152,48 +152,48 @@ namespace jk
 		Vector2 pos = tr->GetPos();
 		Vector2 mpos = pos - (Camera::CaluatePos(pos) - pos);
 
-		if (map_chek == 0)
+		if (mMap_Check == 0)
 		{
 			if (Input::GetKey(eKeyCode::Q))
 			{
-				TransparentBlt(hdc, 0, 0, 1200, 840, Ground_Image->GetHdc(),
+				TransparentBlt(hdc, 0, 0, 1200, 840, mGround_Image->GetHdc(),
 					static_cast<int>(mpos.x), static_cast<int>(mpos.y), 1200, 840, RGB(255, 255, 255));
 			}
 			if (Input::GetKey(eKeyCode::W))
 			{
-				TransparentBlt(hdc, 0, 0, 1200, 840, Cicle_Rturn->GetHdc(),
+				TransparentBlt(hdc, 0, 0, 1200, 840, mCicle_Rturn->GetHdc(),
 					static_cast<int>(mpos.x), static_cast<int>(mpos.y), 1200, 840, RGB(255, 255, 255));
 			}
 		}
 
-		if (map_chek == 1)
+		if (mMap_Check == 1)
 		{
 			if (Input::GetKey(eKeyCode::Q))
 			{
-				TransparentBlt(hdc, 0, 0, 1200, 840, Ground_Image2->GetHdc(),
+				TransparentBlt(hdc, 0, 0, 1200, 840, mGround_Image2->GetHdc(),
 					static_cast<int>(mpos.x), static_cast<int>(mpos.y), 1200, 840, RGB(255, 255, 255));
 			}
 			if (Input::GetKey(eKeyCode::W))
 			{
-				TransparentBlt(hdc, 0, 0, 1200, 840, Cicle_Rturn2->GetHdc(),
+				TransparentBlt(hdc, 0, 0, 1200, 840, mCicle_Rturn2->GetHdc(),
 					static_cast<int>(mpos.x), static_cast<int>(mpos.y), 1200, 840, RGB(255, 255, 255));
 			}
 		}
 
-		if (map_chek == 2)
+		if (mMap_Check == 2)
 		{
 			if (Input::GetKey(eKeyCode::Q))
 			{
-				TransparentBlt(hdc, 0, 0, 1200, 840, Ground_Image3->GetHdc(),
+				TransparentBlt(hdc, 0, 0, 1200, 840, mGround_Image3->GetHdc(),
 					static_cast<int>(mpos.x), static_cast<int>(mpos.y), 1200, 840, RGB(255, 255, 255));
 			}
 		}
 
-		if (map_chek == 3)
+		if (mMap_Check == 3)
 		{
 			if (Input::GetKey(eKeyCode::Q))
 			{
-				TransparentBlt(hdc, 0, 0, 1200, 840, Ground_Image4->GetHdc(),
+				TransparentBlt(hdc, 0, 0, 1200, 840, mGround_Image4->GetHdc(),
 					static_cast<int>(mpos.x), static_cast<int>(mpos.y), 1200, 840, RGB(255, 255, 255));
 			}
 		}
@@ -207,34 +207,34 @@ namespace jk
 
 	Image* Pixel_Ground::GetGroundImage()
 	{		
-		if (!Ground_Image)
+		if (!mGround_Image)
 			return nullptr;
 
-		return Ground_Image;		
+		return mGround_Image;		
 	}
 
 	Image* Pixel_Ground::GetGroundImage2()
 	{
-		if (!Ground_Image2)
+		if (!mGround_Image2)
 			return nullptr;
 
-		return Ground_Image2;
+		return mGround_Image2;
 	}
 
 	Image* Pixel_Ground::GetGroundImage3()
 	{
-		if (!Ground_Image3)
+		if (!mGround_Image3)
 			return nullptr;
 
-		return Ground_Image3;
+		return mGround_Image3;
 	}
 
 	Image* Pixel_Ground::GetGroundImage4()
 	{
-		if (!Ground_Image4)
+		if (!mGround_Image4)
 			return nullptr;
 
-		return Ground_Image4;
+		return mGround_Image4;
 	}
 
 	//#define NO_DEBUG_PRINT 디버그모드확인 세컨드스톤만나는위치확인
@@ -263,46 +263,46 @@ namespace jk
 
 	void Pixel_Ground::Loop_Angle()
 	{
-		Radian_Cicle1 = atan2(Circle1_Center.y - mPlayerTR->GetPos().y, Circle1_Center.x - mPlayerTR->GetPos().x);
+		Radian_Cicle1 = atan2(mCircle1_Center.y - mPlayerTR->GetPos().y, mCircle1_Center.x - mPlayerTR->GetPos().x);
 		Degree_Cicle1 = Radian_Cicle1 * (180.f / static_cast<float>(PI));
 		if (Degree_Cicle1 <= -67.5f && Degree_Cicle1 > -112.5f)//중앙하부 
 		{
-			Circle_pice = 0;
+			mCircle_pice = 0;
 		}
 		if (Degree_Cicle1 <= -112.5f && Degree_Cicle1 > -157.5f)//오른쪽하부 
 		{
-			Circle_pice = 1;
+			mCircle_pice = 1;
 		}
 		if (Degree_Cicle1 <= -157.5f || (Degree_Cicle1 >= 157.5f && Degree_Cicle1 <= 180.f))// 오른쪽옆
 		{
-			Circle_pice = 2;
+			mCircle_pice = 2;
 		}
 		if (Degree_Cicle1 >= 112.5f && Degree_Cicle1 < 157.5f)// 오른쪽상부
 		{
-			Circle_pice = 3;
+			mCircle_pice = 3;
 		}
 		if (Degree_Cicle1 >= 67.5f && Degree_Cicle1 < 112.5f)// 중앙상부
 		{
-			Circle_pice = 4;
+			mCircle_pice = 4;
 		}
 		if (Degree_Cicle1 >= 22.5f && Degree_Cicle1 < 67.5f)// 왼쪽상부
 		{
-			Circle_pice = 5;
+			mCircle_pice = 5;
 		}
 		if ((Degree_Cicle1 <= 0.f && Degree_Cicle1 > -22.5f) || (Degree_Cicle1 >= 0.f && Degree_Cicle1 < 22.5f))// 왼쪽옆
 		{
-			Circle_pice = 6;
+			mCircle_pice = 6;
 		}
 		if (Degree_Cicle1 <= -22.5f && Degree_Cicle1 > -67.5f)//왼쪽하부 
 		{
-			Circle_pice = 7;
+			mCircle_pice = 7;
 		}
 	}
 
 	void Pixel_Ground::Loop_Enter()
 	{
 		Vector2 playerPos = mPlayerTR->GetPos();
-		Image* selectedImage = (map_chek == 0) ? Cicle_Rturn : Cicle_Rturn2;
+		Image* selectedImage = (mMap_Check == 0) ? mCicle_Rturn : mCicle_Rturn2;
 		COLORREF color_Right = static_cast<int>(selectedImage->GetPixel(static_cast<int>(playerPos.x + 100.f), static_cast<int>(playerPos.y + 50.f)));
 		if (mRotationcheck == GROUNDCOLOR && color_Right == GROUNDBLUE_LOOPCOURSE_LEFT)
 		{
@@ -317,27 +317,27 @@ namespace jk
 	}
 
 
-	//if (map_chek == 0)
+	//if (mMap_Check == 0)
 	//{
-	//	COLORREF color_Right = static_cast<int>(Cicle_Rturn->GetPixel(static_cast<int>(playerPos.x + 100.f), static_cast<int>(playerPos.y + 50.f)));
+	//	COLORREF color_Right = static_cast<int>(mCicle_Rturn->GetPixel(static_cast<int>(playerPos.x + 100.f), static_cast<int>(playerPos.y + 50.f)));
 	//	if (mRotationcheck == GROUNDCOLOR && color_Right == GROUNDBLUE_LOOPCOURSE_LEFT)
 	//	{
 	//		mDirect = 1;
 	//	}
-	//	COLORREF  color_Left = static_cast<int>(Cicle_Rturn->GetPixel(static_cast<int>(playerPos.x), static_cast<int>(playerPos.y + 50.f)));
+	//	COLORREF  color_Left = static_cast<int>(mCicle_Rturn->GetPixel(static_cast<int>(playerPos.x), static_cast<int>(playerPos.y + 50.f)));
 	//	if (mRotationcheck == GROUNDCOLOR && color_Left == GROUNDYELLO_LOOPCOURSE_RIGHT)
 	//	{
 	//		mDirect = -1;
 	//	}
 	//}
-	//if (map_chek == 1)
+	//if (mMap_Check == 1)
 	//{
-	//	COLORREF color_Right = static_cast<int>(Cicle_Rturn2->GetPixel(static_cast<int>(playerPos.x + 100.f), static_cast<int>(playerPos.y + 50.f)));
+	//	COLORREF color_Right = static_cast<int>(mCicle_Rturn2->GetPixel(static_cast<int>(playerPos.x + 100.f), static_cast<int>(playerPos.y + 50.f)));
 	//	if (mRotationcheck == GROUNDCOLOR && color_Right == GROUNDBLUE_LOOPCOURSE_LEFT) // Input::GetKey(eKeyCode::RIGHT) &&
 	//	{
 	//		mDirect = 1;
 	//	}
-	//	COLORREF  color_Left = static_cast<int>(Cicle_Rturn2->GetPixel(static_cast<int>(playerPos.x), static_cast<int>(playerPos.y + 50.f)));
+	//	COLORREF  color_Left = static_cast<int>(mCicle_Rturn2->GetPixel(static_cast<int>(playerPos.x), static_cast<int>(playerPos.y + 50.f)));
 	//	if (mRotationcheck == GROUNDCOLOR && color_Left == GROUNDYELLO_LOOPCOURSE_RIGHT)// && Input::GetKey(eKeyCode::LEFT)
 	//	{
 	//		mDirect = -1;
@@ -351,46 +351,46 @@ namespace jk
 	{
 		if (mDirect == 1)
 		{
-			if (Circlecheck == 1)
+			if (mCirclecheck == 1)
 			{
 				Check_LoopStoneEnter_R();
 			}
-			if (mRotationcheck == LOOPENTERCOLOR)
+			if (mRotationcheck == mLOOPENTERCOLOR)
 			{
 				CheckLoopStartColl_R();
 			}
-			if (mRotationcheck == LOOPENTERCOLOR)
+			if (mRotationcheck == mLOOPENTERCOLOR)
 			{
 				Check_MidLoopStone_R();
 			}
-			if (mRotationcheck == LOOPAFTERHALF)
+			if (mRotationcheck == mLOOPAFTERHALF)
 			{
 				CheckLoopHalfColl_R();
 			}
-			if (Circlecheck == -1)
+			if (mCirclecheck == -1)
 			{
 				Check_FinalLoopStone_R();
 			}
 		}
 		else if (mDirect == -1)
 		{
-			if (Circlecheck == -1)
+			if (mCirclecheck == -1)
 			{
 				Check_LoopStoneEnter_L();
 			}
-			if (mRotationcheck == LOOPAFTERHALF)
+			if (mRotationcheck == mLOOPAFTERHALF)
 			{
 				CheckLoopStartColl_L();
 			}
-			if (mRotationcheck == LOOPAFTERHALF)
+			if (mRotationcheck == mLOOPAFTERHALF)
 			{
 				Check_MidLoopStone_L();
 			}
-			if (mRotationcheck == LOOPENTERCOLOR)
+			if (mRotationcheck == mLOOPENTERCOLOR)
 			{
 				CheckLoopHalfColl_L();
 			}	
-			if (Circlecheck == 1)
+			if (mCirclecheck == 1)
 			{
 				Check_FinalLoopStone_L();
 			}
@@ -399,7 +399,7 @@ namespace jk
 
 	void Pixel_Ground::CheckTerrian()
 	{
-		if (mRotationcheck != GROUND)
+		if (mRotationcheck != mGROUND)
 			return;
 
 		Vector2 playerPos = mPlayerTR->GetPos();
@@ -409,87 +409,87 @@ namespace jk
 		float Xrevice_side = 0.0f;
 		float Yrevice_side = 50.0f;
 		
-		if (map_chek == 0)////////////소닉 & 테일즈 픽셀체크 Act1-1//////////
+		if (mMap_Check == 0)////////////소닉 & 테일즈 픽셀체크 Act1-1//////////
 		{		
-			CheckGroundCollision(playerPos, Xrevice, Yrevice, Ground_Image, mPlayerTR, mPlayerRigidBody);					// 소닉땅체크	
-			CheckGroundCollision(playerPos_Tails, Xrevice, Yrevice, Ground_Image, mPlayer_Tails_TR, mRigidbody_Tails);			// 테일즈땅체크		
-			CheckCeillingCollision(playerPos,40.f, 20.f, Vector2{ mPlayerRigidBody->GetVelocity().x,0.f }, Ground_Image);   // 소닉위쪽벽 체크
-			CheckWallCollision(playerPos, 80.f, Yrevice_side, Vector2{ 0.f, 0.f }, -1, Ground_Image);						// 소닉오른쪽 벽체크	
-			CheckWallCollision(playerPos, 0.f, Yrevice_side, Vector2{ 0.f, 0.f }, 1, Ground_Image);							// 소닉왼쪽 벽체크		
+			CheckGroundCollision(playerPos, Xrevice, Yrevice, mGround_Image, mPlayerTR, mPlayerRigidBody);					// 소닉땅체크	
+			CheckGroundCollision(playerPos_Tails, Xrevice, Yrevice, mGround_Image, mPlayer_Tails_TR, mRigidbody_Tails);			// 테일즈땅체크		
+			CheckCeillingCollision(playerPos,40.f, 20.f, Vector2{ mPlayerRigidBody->GetVelocity().x,0.f }, mGround_Image);   // 소닉위쪽벽 체크
+			CheckWallCollision(playerPos, 80.f, Yrevice_side, Vector2{ 0.f, 0.f }, -1, mGround_Image);						// 소닉오른쪽 벽체크	
+			CheckWallCollision(playerPos, 0.f, Yrevice_side, Vector2{ 0.f, 0.f }, 1, mGround_Image);							// 소닉왼쪽 벽체크		
 
 			//FLY통
-			COLORREF player_Down_Side_PosColor = Cicle_Rturn->GetPixel(static_cast<int>(playerPos.x + 40.f), static_cast<int>(playerPos.y + 100.f));
+			COLORREF player_Down_Side_PosColor = mCicle_Rturn->GetPixel(static_cast<int>(playerPos.x + 40.f), static_cast<int>(playerPos.y + 100.f));
 			if (player_Down_Side_PosColor == FLYLCOLOR)
 			{
 				mPlayerRigidBody->SetGround(true);
 				while (player_Down_Side_PosColor == FLYLCOLOR)
 				{
 					playerPos.y -= 1;
-					player_Down_Side_PosColor = Cicle_Rturn->GetPixel(static_cast<int>(playerPos.x + 40.f), static_cast<int>(playerPos.y + 100.f));
+					player_Down_Side_PosColor = mCicle_Rturn->GetPixel(static_cast<int>(playerPos.x + 40.f), static_cast<int>(playerPos.y + 100.f));
 					//WallCheck = 1;
 				}
 				mPlayerTR->SetPos(playerPos);				
 			}
 		}		
-		if (map_chek == 1)////////////소닉 & 테일즈 픽셀체크 Act1-2//////////
+		if (mMap_Check == 1)////////////소닉 & 테일즈 픽셀체크 Act1-2//////////
 		{
-			CheckGroundCollision(playerPos, Xrevice, Yrevice, Ground_Image2, mPlayerTR, mPlayerRigidBody);					// 소닉땅체크	
-			CheckGroundCollision(playerPos_Tails, Xrevice, Yrevice, Ground_Image2, mPlayer_Tails_TR, mRigidbody_Tails);			// 테일즈땅체크		
-			CheckCeillingCollision(playerPos, 40.f, 20.f, Vector2{ mPlayerRigidBody->GetVelocity().x,0.f }, Ground_Image2); // 소닉위쪽벽 체크
-			CheckWallCollision(playerPos, 80.f, Yrevice_side, Vector2{ 0.f, 0.f }, -1, Ground_Image2);						// 소닉오른쪽 벽체크		
-			CheckWallCollision(playerPos, 0.f, Yrevice_side, Vector2{ 0.f, 0.f }, 1, Ground_Image2);						// 소닉왼쪽 벽체크		
+			CheckGroundCollision(playerPos, Xrevice, Yrevice, mGround_Image2, mPlayerTR, mPlayerRigidBody);					// 소닉땅체크	
+			CheckGroundCollision(playerPos_Tails, Xrevice, Yrevice, mGround_Image2, mPlayer_Tails_TR, mRigidbody_Tails);			// 테일즈땅체크		
+			CheckCeillingCollision(playerPos, 40.f, 20.f, Vector2{ mPlayerRigidBody->GetVelocity().x,0.f }, mGround_Image2); // 소닉위쪽벽 체크
+			CheckWallCollision(playerPos, 80.f, Yrevice_side, Vector2{ 0.f, 0.f }, -1, mGround_Image2);						// 소닉오른쪽 벽체크		
+			CheckWallCollision(playerPos, 0.f, Yrevice_side, Vector2{ 0.f, 0.f }, 1, mGround_Image2);						// 소닉왼쪽 벽체크		
 		}		
-		if (map_chek == 2)////////////소닉 & 테일즈 픽셀체크 Act1-3//////////
+		if (mMap_Check == 2)////////////소닉 & 테일즈 픽셀체크 Act1-3//////////
 		{
 			Xrevice_side = 0.0f;
 			Yrevice_side = 120.0f;
-			CheckGroundCollision(playerPos, Xrevice, Yrevice, Ground_Image3, mPlayerTR, mPlayerRigidBody);					// 소닉땅체크			
-			CheckGroundCollision(playerPos_Tails, Xrevice, Yrevice, Ground_Image3, mPlayer_Tails_TR, mRigidbody_Tails);		// 테일즈땅체크		
-			CheckCeillingCollision(playerPos, 40.f, 20.f, Vector2{ mPlayerRigidBody->GetVelocity().x,0.f }, Ground_Image3); // 소닉위쪽벽 체크
-			//CheckWallCollision(playerPos, 80.f, Yrevice_side, Vector2{ 0.f, 0.f }, -1, Ground_Image3);// 오른쪽 벽체크		
-			//CheckWallCollision(playerPos, 0.f, Yrevice_side, Vector2{ 0.f, 0.f }, 1, Ground_Image3);	// 왼쪽 벽체크		
+			CheckGroundCollision(playerPos, Xrevice, Yrevice, mGround_Image3, mPlayerTR, mPlayerRigidBody);					// 소닉땅체크			
+			CheckGroundCollision(playerPos_Tails, Xrevice, Yrevice, mGround_Image3, mPlayer_Tails_TR, mRigidbody_Tails);		// 테일즈땅체크		
+			CheckCeillingCollision(playerPos, 40.f, 20.f, Vector2{ mPlayerRigidBody->GetVelocity().x,0.f }, mGround_Image3); // 소닉위쪽벽 체크
+			//CheckWallCollision(playerPos, 80.f, Yrevice_side, Vector2{ 0.f, 0.f }, -1, mGround_Image3);// 오른쪽 벽체크		
+			//CheckWallCollision(playerPos, 0.f, Yrevice_side, Vector2{ 0.f, 0.f }, 1, mGround_Image3);	// 왼쪽 벽체크		
 
 			//오른쪽벽 	
-			COLORREF player_R_Side_PosColor = Ground_Image3->GetPixel(static_cast<int>(playerPos.x + 80.f), static_cast<int>(playerPos.y + Yrevice_side));
+			COLORREF player_R_Side_PosColor = mGround_Image3->GetPixel(static_cast<int>(playerPos.x + 80.f), static_cast<int>(playerPos.y + Yrevice_side));
 			if (player_R_Side_PosColor == WALLCOLOR)
 			{
-				COLORREF color_Push_Right = Ground_Image3->GetPixel(static_cast<int>(playerPos.x + 80.f), static_cast<int>(playerPos.y + Yrevice_side));
+				COLORREF color_Push_Right = mGround_Image3->GetPixel(static_cast<int>(playerPos.x + 80.f), static_cast<int>(playerPos.y + Yrevice_side));
 				if (color_Push_Right == WALLCOLOR)
 				{
 					while (color_Push_Right == WALLCOLOR)
 					{
 						playerPos.x -= 1;
-						color_Push_Right = Ground_Image3->GetPixel(static_cast<int>(playerPos.x + 80.f), static_cast<int>(playerPos.y + Yrevice_side));
+						color_Push_Right = mGround_Image3->GetPixel(static_cast<int>(playerPos.x + 80.f), static_cast<int>(playerPos.y + Yrevice_side));
 						mPlayerRigidBody->SetVelocity(Vector2{ 0.f,mPlayerRigidBody->GetVelocity().y });
 					}
 					mPlayerTR->SetPos(playerPos);
 				}
 			}
 			//왼쪽벽
-			COLORREF player_L_Side_PosColor = Ground_Image3->GetPixel(static_cast<int>(playerPos.x + 0.f), static_cast<int>(playerPos.y + Yrevice_side));
+			COLORREF player_L_Side_PosColor = mGround_Image3->GetPixel(static_cast<int>(playerPos.x + 0.f), static_cast<int>(playerPos.y + Yrevice_side));
 			if (player_L_Side_PosColor == WALLCOLOR)
 			{
-				COLORREF color_Push_Left = Ground_Image3->GetPixel(static_cast<int>(playerPos.x + 0.f), static_cast<int>(playerPos.y + Yrevice_side));
+				COLORREF color_Push_Left = mGround_Image3->GetPixel(static_cast<int>(playerPos.x + 0.f), static_cast<int>(playerPos.y + Yrevice_side));
 				if (color_Push_Left == WALLCOLOR)
 				{
 					while (color_Push_Left == WALLCOLOR)
 					{
 						playerPos.x += 1;
 						playerPos.y += 1;
-						color_Push_Left = Ground_Image3->GetPixel(static_cast<int>(playerPos.x + 0.f), static_cast<int>(playerPos.y + Yrevice_side));
+						color_Push_Left = mGround_Image3->GetPixel(static_cast<int>(playerPos.x + 0.f), static_cast<int>(playerPos.y + Yrevice_side));
 						mPlayerRigidBody->SetVelocity(Vector2{ 0.f,mPlayerRigidBody->GetVelocity().y });
 					}
 					mPlayerTR->SetPos(playerPos);
 				}
 			}
 		}		
-		if (map_chek == 3)////////////소닉 & 테일즈 픽셀체크 Act6//////////
+		if (mMap_Check == 3)////////////소닉 & 테일즈 픽셀체크 Act6//////////
 		{
-			CheckGroundCollision(playerPos, Xrevice, Yrevice, Ground_Image4, mPlayerTR, mPlayerRigidBody);					// 소닉땅체크			
-			CheckGroundCollision(playerPos_Tails, Xrevice, Yrevice, Ground_Image4, mPlayer_Tails_TR, mRigidbody_Tails);		// 테일즈땅체크			
-			CheckCeillingCollision(playerPos, 40.f, 20.f, Vector2{ mPlayerRigidBody->GetVelocity().x,0.f }, Ground_Image4); // 소닉위쪽벽 체크
-			CheckWallCollision(playerPos, 80.f, Yrevice_side, Vector2{ 0.f, 0.f }, -1, Ground_Image4);						// 소닉오른쪽 벽체크		
-			CheckWallCollision(playerPos, 0.f, Yrevice_side, Vector2{ 0.f, 0.f }, 1, Ground_Image4);						// 소닉왼쪽 벽체크		
+			CheckGroundCollision(playerPos, Xrevice, Yrevice, mGround_Image4, mPlayerTR, mPlayerRigidBody);					// 소닉땅체크			
+			CheckGroundCollision(playerPos_Tails, Xrevice, Yrevice, mGround_Image4, mPlayer_Tails_TR, mRigidbody_Tails);		// 테일즈땅체크			
+			CheckCeillingCollision(playerPos, 40.f, 20.f, Vector2{ mPlayerRigidBody->GetVelocity().x,0.f }, mGround_Image4); // 소닉위쪽벽 체크
+			CheckWallCollision(playerPos, 80.f, Yrevice_side, Vector2{ 0.f, 0.f }, -1, mGround_Image4);						// 소닉오른쪽 벽체크		
+			CheckWallCollision(playerPos, 0.f, Yrevice_side, Vector2{ 0.f, 0.f }, 1, mGround_Image4);						// 소닉왼쪽 벽체크		
 		}		
 	}
 	void Pixel_Ground::CheckGroundCollision(Vector2& playerPos, float xOffset, float yOffset, Image* ground, Transform* Playertr, Rigidbody* PlayerRg)
@@ -497,12 +497,12 @@ namespace jk
 		COLORREF playerFootPosColor = ground->GetPixel(static_cast<int>(playerPos.x + xOffset), static_cast<int>(playerPos.y + yOffset));
 
 		bool isJumpingOrHurt = mPlayer->Getsonicstate() == Sonic::eSonicState::Jump || mPlayer->Getsonicstate() == Sonic::eSonicState::Hurt || mPlayer->Getsonicstate() == Sonic::eSonicState::Spring_Jump;
-		groundcheck = isJumpingOrHurt ? 2 : 20;
-		playerFootPosColor = ground->GetPixel(static_cast<int>(playerPos.x + xOffset), static_cast<int>(playerPos.y + yOffset + groundcheck));
+		mGroundCheck = isJumpingOrHurt ? 2 : 20;
+		playerFootPosColor = ground->GetPixel(static_cast<int>(playerPos.x + xOffset), static_cast<int>(playerPos.y + yOffset + mGroundCheck));
 		
 		if (playerFootPosColor == GROUNDCOLOR)
 		{
-			playerPos.y += groundcheck - 1;
+			playerPos.y += mGroundCheck - 1;
 			while (ground->GetPixel(static_cast<int>(playerPos.x + xOffset), static_cast<int>(playerPos.y + yOffset)) == GROUNDCOLOR)
 			{
 				playerPos.y--;
@@ -549,7 +549,7 @@ namespace jk
 	{
 		Vector2 playerPos = mPlayerTR->GetPos();
 
-		Image* selectedImage = (map_chek == 0) ? Cicle_Rturn : Cicle_Rturn2;
+		Image* selectedImage = (mMap_Check == 0) ? mCicle_Rturn : mCicle_Rturn2;
 		COLORREF colorcheck = selectedImage->GetPixel(static_cast<int>(playerPos.x + 40.f), static_cast<int>(playerPos.y + 50.f));
 
 		if (colorcheck != STONEGREY_LOOPENTER)
@@ -558,15 +558,15 @@ namespace jk
 		if (mRotationcheck == GROUNDCOLOR)
 		{
 			mPlayerRigidBody->SetGravity(Vector2{ 1500.0f,0.0f });
-			mRotationcheck = LOOPENTERCOLOR;
+			mRotationcheck = mLOOPENTERCOLOR;
 		}
 	}
 	void Pixel_Ground::Check_MidLoopStone_R()
 	{
-		if (mRotationcheck != LOOPENTERCOLOR)
+		if (mRotationcheck != mLOOPENTERCOLOR)
 			return;
 
-		Image* selectedImage = (map_chek == 0) ? Cicle_Rturn : Cicle_Rturn2;
+		Image* selectedImage = (mMap_Check == 0) ? mCicle_Rturn : mCicle_Rturn2;
 
 		bool LoopStoneMeet = false;
 		Vector2 playerPos = mPlayerTR->GetPos();
@@ -600,45 +600,45 @@ namespace jk
 			mPlayerRigidBody->SetVelocity(Vector2(curVelocity.y * 0.25f, 0.f));
 
 			mPlayerRigidBody->AddForce(Vector2{ -10000.f,1000.f });
-			mRotationcheck = LOOPAFTERHALF;
+			mRotationcheck = mLOOPAFTERHALF;
 			count++;
-			Circlecheck = Circlecheck * -1;
+			mCirclecheck = mCirclecheck * -1;
 		}
 	}
 	void Pixel_Ground::Check_FinalLoopStone_R()
 	{
 
-		Image* selectedImage = (map_chek == 0) ? Cicle_Rturn : Cicle_Rturn2;
+		Image* selectedImage = (mMap_Check == 0) ? mCicle_Rturn : mCicle_Rturn2;
 	
 		COLORREF colorcheck = selectedImage->GetPixel(static_cast<int>(mPlayerTR->GetPos().x) + 70, static_cast<int>(mPlayerTR->GetPos().y) + 20);
 		if (colorcheck != STONERED_LOOPENTER)
 			return;
 
-		if (mRotationcheck == LOOPAFTERHALF)
+		if (mRotationcheck == mLOOPAFTERHALF)
 		{
 			Vector2 TempVel;
 			TempVel = mPlayerRigidBody->Getgravity();
 			mPlayerRigidBody->SetGravity(Vector2{ 0.0f,1000.0f });
-			mRotationcheck = GROUND;
+			mRotationcheck = mGROUND;
 		}
 	}
-	//if (map_chek == 1)
+	//if (mMap_Check == 1)
 	//{
-	//	COLORREF colorcheck = Cicle_Rturn2->GetPixel(static_cast<int>(mPlayerTR->GetPos().x) + 40, static_cast<int>(mPlayerTR->GetPos().y) + 40);
+	//	COLORREF colorcheck = mCicle_Rturn2->GetPixel(static_cast<int>(mPlayerTR->GetPos().x) + 40, static_cast<int>(mPlayerTR->GetPos().y) + 40);
 	//	if (colorcheck != STONERED_LOOPENTER)
 	//		return;
-	//	if (mRotationcheck == LOOPAFTERHALF)
+	//	if (mRotationcheck == mLOOPAFTERHALF)
 	//	{
 	//		Vector2 TempVel;
 	//		TempVel = mPlayerRigidBody->Getgravity();
 	//		mPlayerRigidBody->SetGravity(Vector2{ 0.0f,1000.0f });
-	//		mRotationcheck = GROUND;
+	//		mRotationcheck = mGROUND;
 	//	}
 	//}
 
 	void Pixel_Ground::CheckLoopStartColl_R()
 	{
-		if (mRotationcheck != LOOPENTERCOLOR)
+		if (mRotationcheck != mLOOPENTERCOLOR)
 			return;
 
 		float Xrevice = 0.0f;
@@ -646,22 +646,22 @@ namespace jk
 		Vector2 center = { 50.0f, 35.0f };
 		float radius = 65.0f;
 
-		if (Circle_pice == 1)
+		if (mCircle_pice == 1)
 		{
 			Xrevice = 90.0f;
 			Yrevice = 80.0f;
 		}
-		else if (Circle_pice == 2)
+		else if (mCircle_pice == 2)
 		{
 			Xrevice = 115.0f;
 			Yrevice = 50.0f;
 		}
-		else if (Circle_pice == 3)
+		else if (mCircle_pice == 3)
 		{
 			Xrevice = 115.0f;
 			Yrevice = 0.0f;
 		}
-		else if (Circle_pice == 4)
+		else if (mCircle_pice == 4)
 		{
 			Xrevice = 60.0f;
 			Yrevice = -35.0f;
@@ -669,7 +669,7 @@ namespace jk
 
 		Vector2 playerPos = mPlayerTR->GetPos();
 
-		Image* selectedImage = (map_chek == 0) ? Cicle_Rturn : Cicle_Rturn2;
+		Image* selectedImage = (mMap_Check == 0) ? mCicle_Rturn : mCicle_Rturn2;
 		COLORREF color1 = selectedImage->GetPixel(static_cast<int>(playerPos.x + Xrevice), static_cast<int>(playerPos.y + Yrevice));
 
 		if (color1 == GROUNDYELLO_LOOPCOURSE_RIGHT)
@@ -702,7 +702,7 @@ namespace jk
 	}
 	void Pixel_Ground::CheckLoopHalfColl_R()
 	{
-		//if (mRotationcheck != LOOPAFTERHALF)
+		//if (mRotationcheck != mLOOPAFTERHALF)
 		//	return;
 
 		Vector2 playerPos = mPlayerTR->GetPos();
@@ -713,7 +713,7 @@ namespace jk
 		float radius = 65.0f;
 
 
-		if (Circle_pice == 4)
+		if (mCircle_pice == 4)
 		{
 			Vector2 rotation = { radius, 0.0f };
 			rotation = math::Rotate(rotation, -90.f);
@@ -721,7 +721,7 @@ namespace jk
 			Xrevice = center.x + rotation.x;
 			Yrevice = center.y + rotation.y;
 		}
-		else if (Circle_pice == 5)
+		else if (mCircle_pice == 5)
 		{
 			Vector2 rotation = { radius, 0.0f };
 			rotation = math::Rotate(rotation, -135.f);
@@ -729,7 +729,7 @@ namespace jk
 			Xrevice = center.x + rotation.x;
 			Yrevice = center.y + rotation.y;
 		}
-		else if (Circle_pice == 6)
+		else if (mCircle_pice == 6)
 		{
 			Vector2 rotation = { radius, 0.0f };
 			rotation = math::Rotate(rotation, -180.f);
@@ -737,7 +737,7 @@ namespace jk
 			Xrevice = center.x + rotation.x;
 			Yrevice = center.y + rotation.y;
 		}
-		else if (Circle_pice == 7)
+		else if (mCircle_pice == 7)
 		{
 			Vector2 rotation = { radius, 0.0f };
 			rotation = math::Rotate(rotation, 135.f);
@@ -746,7 +746,7 @@ namespace jk
 			Yrevice = center.y + rotation.y;
 		}
 
-		Image* selectedImage = (map_chek == 0) ? Cicle_Rturn : Cicle_Rturn2;
+		Image* selectedImage = (mMap_Check == 0) ? mCicle_Rturn : mCicle_Rturn2;
 		COLORREF rotation = selectedImage->GetPixel(static_cast<int>(playerPos.x + Xrevice), static_cast<int>(playerPos.y + Yrevice));
 		if (rotation == GROUNDBLUE_LOOPCOURSE_LEFT)
 		{
@@ -786,7 +786,7 @@ namespace jk
 	void Pixel_Ground::Check_LoopStoneEnter_L()
 	{
 		Vector2 playerPos = mPlayerTR->GetPos();
-		Image* selectedImage = (map_chek == 0) ? Cicle_Rturn : Cicle_Rturn2;
+		Image* selectedImage = (mMap_Check == 0) ? mCicle_Rturn : mCicle_Rturn2;
 		COLORREF colorcheck = selectedImage->GetPixel(static_cast<int>(playerPos.x + 40), static_cast<int>(playerPos.y + 50));
 		if (colorcheck != STONERED_LOOPENTER)
 			return;
@@ -796,11 +796,11 @@ namespace jk
 			Vector2 TempVel;
 			TempVel = mPlayerRigidBody->Getgravity();
 			mPlayerRigidBody->SetGravity(Vector2{ -1000.0f,0.0f });
-			mRotationcheck = LOOPAFTERHALF;
+			mRotationcheck = mLOOPAFTERHALF;
 		}
-		/*if (map_chek == 0)
+		/*if (mMap_Check == 0)
 		{
-			COLORREF colorcheck = Cicle_Lturn->GetPixel(static_cast<int>(playerPos.x + 40), static_cast<int>(playerPos.y + 50));
+			COLORREF colorcheck = mCicle_Lturn->GetPixel(static_cast<int>(playerPos.x + 40), static_cast<int>(playerPos.y + 50));
 			if (colorcheck != STONERED_LOOPENTER)
 				return;
 
@@ -809,12 +809,12 @@ namespace jk
 				Vector2 TempVel;
 				TempVel = mPlayerRigidBody->Getgravity();
 				mPlayerRigidBody->SetGravity(Vector2{ -1000.0f,0.0f });
-				mRotationcheck = LOOPAFTERHALF;
+				mRotationcheck = mLOOPAFTERHALF;
 			}
 		}
-		if (map_chek == 1)
+		if (mMap_Check == 1)
 		{
-			COLORREF colorcheck = Cicle_Lturn2->GetPixel(static_cast<int>(playerPos.x + 40), static_cast<int>(playerPos.y + 50));
+			COLORREF colorcheck = mCicle_Lturn2->GetPixel(static_cast<int>(playerPos.x + 40), static_cast<int>(playerPos.y + 50));
 			if (colorcheck != STONERED_LOOPENTER)
 				return;
 
@@ -823,13 +823,13 @@ namespace jk
 				Vector2 TempVel;
 				TempVel = mPlayerRigidBody->Getgravity();
 				mPlayerRigidBody->SetGravity(Vector2{ -1000.0f,0.0f });
-				mRotationcheck = LOOPAFTERHALF;
+				mRotationcheck = mLOOPAFTERHALF;
 			}
 		}*/
 	}
 	void Pixel_Ground::Check_MidLoopStone_L()
 	{
-		//if (mRotationcheck != LOOPAFTERHALF)
+		//if (mRotationcheck != mLOOPAFTERHALF)
 		//	return;
 		Vector2 playerPos = mPlayerTR->GetPos();
 		COLORREF colorcheck;
@@ -840,7 +840,7 @@ namespace jk
 		{
 			for (int j = -20; j < 1; ++j)
 			{
-				Image* selectedImage = (map_chek == 0) ? Cicle_Rturn : Cicle_Rturn2;
+				Image* selectedImage = (mMap_Check == 0) ? mCicle_Rturn : mCicle_Rturn2;
 				colorcheck = selectedImage->GetPixel(static_cast<int>(playerPos.x + 60 + i), static_cast<int>(playerPos.y + j));
 				if (colorcheck == STONEORANGE_LOOPHALF)
 				{
@@ -864,34 +864,34 @@ namespace jk
 			mPlayerRigidBody->SetVelocity(Vector2(curVelocity.y * -0.25f, 0.f));
 
 			mPlayerRigidBody->AddForce(Vector2{ 10000.f,1000.f });
-			mRotationcheck = LOOPENTERCOLOR;
+			mRotationcheck = mLOOPENTERCOLOR;
 			count++;
 			//DEBUG_PRINT("Sonic Orange Stone Meet Count : %d\n", count);
-			Circlecheck = Circlecheck * -1;
+			mCirclecheck = mCirclecheck * -1;
 		}
 
 	}
 	void Pixel_Ground::Check_FinalLoopStone_L()
 	{
 
-		Image* selectedImage = (map_chek == 0) ? Cicle_Rturn : Cicle_Rturn2;
+		Image* selectedImage = (mMap_Check == 0) ? mCicle_Rturn : mCicle_Rturn2;
 		COLORREF colorcheck = selectedImage->GetPixel(static_cast<int>(mPlayerTR->GetPos().x), static_cast<int>(mPlayerTR->GetPos().y) + 100);
 		if (colorcheck != STONEGREY_LOOPENTER)
 			return;
 
-		if (mRotationcheck == LOOPENTERCOLOR)
+		if (mRotationcheck == mLOOPENTERCOLOR)
 		{
 			Vector2 TempVel;
 			TempVel = mPlayerRigidBody->Getgravity();
 			mPlayerRigidBody->SetGravity(Vector2{ 0.0f,1000.0f });
-			mRotationcheck = GROUND;
+			mRotationcheck = mGROUND;
 		}		
 	}
 
 
 	void Pixel_Ground::CheckLoopStartColl_L()
 	{
-		//if (mRotationcheck != LOOPAFTERHALF)
+		//if (mRotationcheck != mLOOPAFTERHALF)
 		//	return;
 
 		float Xrevice = 0.0f;
@@ -899,16 +899,16 @@ namespace jk
 		Vector2 center = { 50.0f, 35.0f };
 		float radius = 65.0f;
 
-		if (Circle_pice == 0)
+		if (mCircle_pice == 0)
 		{
 			Vector2 TempVel;
 			TempVel = mPlayerRigidBody->Getgravity();
 			mPlayerRigidBody->SetGravity(Vector2{ 0.0f,500.0f });
-			mRotationcheck = GROUND;
+			mRotationcheck = mGROUND;
 			Pixel_Ground::CheckTerrian();
 		}
 
-		if (Circle_pice == 7)
+		if (mCircle_pice == 7)
 		{
 			Vector2 rotation = { radius, 0.0f };
 			rotation = math::Rotate(rotation, 135.f);
@@ -916,7 +916,7 @@ namespace jk
 			Xrevice = center.x + rotation.x;
 			Yrevice = center.y + rotation.y;
 		}
-		else if (Circle_pice == 6)
+		else if (mCircle_pice == 6)
 		{
 			Xrevice = -10.0f;
 			Yrevice = 80.0f;
@@ -927,7 +927,7 @@ namespace jk
 			Yrevice = center.y + rotation.y;
 
 		}
-		else if (Circle_pice == 5)
+		else if (mCircle_pice == 5)
 		{
 			Vector2 rotation = { radius, 0.0f };
 			rotation = math::Rotate(rotation, -135.f);
@@ -935,7 +935,7 @@ namespace jk
 			Xrevice = center.x + rotation.x;
 			Yrevice = center.y + rotation.y;
 		}
-		else if (Circle_pice == 4)
+		else if (mCircle_pice == 4)
 		{
 			Vector2 rotation = { radius, 0.0f };
 			rotation = math::Rotate(rotation, -90.f);
@@ -947,7 +947,7 @@ namespace jk
 
 		Vector2 playerPos = mPlayerTR->GetPos();
 
-		Image* selectedImage = (map_chek == 0) ? Cicle_Rturn : Cicle_Rturn2;
+		Image* selectedImage = (mMap_Check == 0) ? mCicle_Rturn : mCicle_Rturn2;
 		COLORREF color1 = selectedImage->GetPixel(static_cast<int>(playerPos.x + Xrevice), static_cast<int>(playerPos.y + Yrevice));
 		if (color1 == GROUNDBLUE_LOOPCOURSE_LEFT)
 		{
@@ -984,7 +984,7 @@ namespace jk
 	}
 	void Pixel_Ground::CheckLoopHalfColl_L()
 	{
-		//if (mRotationcheck != LOOPENTERCOLOR)
+		//if (mRotationcheck != mLOOPENTERCOLOR)
 		//	return;
 
 		Vector2 center = { 50.0f, 35.0f };
@@ -992,7 +992,7 @@ namespace jk
 		float Xrevice = 0.0f;
 		float Yrevice = 0.0f;
 
-		if (Circle_pice == 0)
+		if (mCircle_pice == 0)
 		{
 			Vector2 rotation = { radius, 0.0f };
 			rotation = math::Rotate(rotation, 90.f);
@@ -1000,14 +1000,14 @@ namespace jk
 			Xrevice = center.x + rotation.x;
 			Yrevice = center.y + rotation.y;
 		}
-		else if (Circle_pice == 1)
+		else if (mCircle_pice == 1)
 		{
 			Vector2 rotation = { radius, 0.0f };
 			rotation = math::Rotate(rotation, 45.f);
 			Xrevice = center.x + rotation.x;
 			Yrevice = center.y + rotation.y;
 		}
-		else if (Circle_pice == 2)
+		else if (mCircle_pice == 2)
 		{
 
 			Vector2 rotation = { radius, 0.0f };
@@ -1015,7 +1015,7 @@ namespace jk
 			Xrevice = center.x + rotation.x;
 			Yrevice = center.y + rotation.y;
 		}
-		else if (Circle_pice == 3)
+		else if (mCircle_pice == 3)
 		{
 
 			Vector2 rotation = { radius, 0.0f };
@@ -1024,7 +1024,7 @@ namespace jk
 			Xrevice = center.x + rotation.x;
 			Yrevice = center.y + rotation.y;
 		}
-		else if (Circle_pice == 4)
+		else if (mCircle_pice == 4)
 		{
 
 			Vector2 rotation = { radius, 0.0f };
@@ -1035,7 +1035,7 @@ namespace jk
 
 
 		Vector2 playerPos = mPlayerTR->GetPos();
-		Image* selectedImage = (map_chek == 0) ? Cicle_Rturn : Cicle_Rturn2;
+		Image* selectedImage = (mMap_Check == 0) ? mCicle_Rturn : mCicle_Rturn2;
 		COLORREF color1 = selectedImage->GetPixel(static_cast<int>(playerPos.x + Xrevice), static_cast<int>(playerPos.y + Yrevice));
 		if (color1 == GROUNDYELLO_LOOPCOURSE_RIGHT)
 		{

@@ -1,11 +1,9 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_BackGround.h"
-#include "jk_Image.h"
-#include "jk_Animator.h"
 
 namespace jk
 {
+	class Image;
 	class Pixel_Ground;
 	class Rigidbody;
 	class Animator;
@@ -21,7 +19,7 @@ namespace jk
 		virtual void Release() override;
 
 		void SetGroundImage(Image* image) { mGroundImage = image; }
-		void SetCheckTargetGround(Pixel_Ground* ground) { check = ground; }
+		void SetCheckTargetGround(Pixel_Ground* ground) { mPixel_Ground = ground; }
 
 
 	private:
@@ -29,12 +27,12 @@ namespace jk
 		Image* mGroundImage;
 		Animator* mAnimator;
 		Rigidbody* mRigidbody;
-		Pixel_Ground* check;
+		Pixel_Ground* mPixel_Ground;
 
 
 	private:
-		float timer_rock = 0.0f; 
-		float bounce_Force = 300.0f;
-		int check_gr = 0;
+		float mTime = 0.0f; 
+		float mBounce_Force = 300.0f;
+		int mCheck_Ground = 0;
 	};
 }

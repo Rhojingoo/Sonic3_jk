@@ -1995,7 +1995,7 @@ namespace jk
 		//	Vector2 mCenterpos = Vector2(20229.f, 3346.f);
 
 		//	Transform* tr = GetComponent<Transform>();
-		//	Vector2 pos = tr->GetPos();
+		//	Vector2 mPos = tr->GetPos();
 
 		//	float centerX = mCenterpos.x;
 		//	float centerY = mCenterpos.y;
@@ -2005,33 +2005,33 @@ namespace jk
 
 		//	if (Input::GetKey(eKeyCode::LEFT))
 		//	{
-		//		angle += 200.f * static_cast<float>(Time::DeltaTime());
+		//		mAngle += 200.f * static_cast<float>(Time::DeltaTime());
 		//		//여기부분을-로바꾸면앞으로+는뒤로
-		//		float radian = angle * 3.14f / 180.0f;
+		//		float radian = mAngle * 3.14f / 180.0f;
 
 
 		//		float x = centerX + radius * cos(radian);
 		//		float y = centerY + radius * sin(radian);
-		//		pos.x = x;
-		//		pos.y = y;
+		//		mPos.x = x;
+		//		mPos.y = y;
 
-		//		tr->SetPos(pos);
+		//		tr->SetPos(mPos);
 		//	}
 		//	if (Input::GetKey(eKeyCode::RIGHT))
 		//	{
-		//		angle -= 200.f * static_cast<float>(Time::DeltaTime());
+		//		mAngle -= 200.f * static_cast<float>(Time::DeltaTime());
 		//		//여기부분을-로바꾸면앞으로+는뒤로
-		//		float radian = angle * 3.14f / 180.0f;
+		//		float radian = mAngle * 3.14f / 180.0f;
 
 
 		//		float x = centerX + radius * cos(radian);
 		//		float y = centerY + radius * sin(radian);
 		//		mRigidbody->SetVelocity(Vector2(x, y));
 
-		//		pos.x = x;
-		//		pos.y = y;
+		//		mPos.x = x;
+		//		mPos.y = y;
 
-		//		tr->SetPos(pos);
+		//		tr->SetPos(mPos);
 		//	}
 		//}
 		//#pragma endregion 

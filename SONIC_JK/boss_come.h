@@ -1,12 +1,9 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_Boss.h"
-#include "jk_Image.h"
-#include "jk_Time.h"
-
 
 namespace jk
 {
+	class Image;
 	class Pixel_Ground;
 	class Rigidbody;
 	class Animator;
@@ -33,7 +30,7 @@ namespace jk
 
 
 		void SetGroundImage(Image* image) { mGroundImage = image; }
-		void SetCheckTargetGround(Pixel_Ground* ground) { check = ground; }
+		void SetCheckTargetGround(Pixel_Ground* ground) { mPixelGround = ground; }
 
 	private:
 		void move();
@@ -47,8 +44,8 @@ namespace jk
 
 	private:
 		eBossState mState;
-		Pixel_Ground* check;
-		Vector2 pos;
+		Pixel_Ground* mPixelGround;
+		Vector2 mPos;
 		int check_map;
 		int mDir;
 	};

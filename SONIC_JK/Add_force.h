@@ -1,14 +1,10 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_BackGround.h"
-#include "jk_Image.h"
-#include "jk_SONIC.h"
-#include "jk_Animator.h"
+
 
 namespace jk
 {
 	class Rigidbody;
-	class Animator;
 	class Add_force : public BackGround
 	{
 	public:
@@ -25,15 +21,13 @@ namespace jk
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
-		void SetAddforce(int a) { up_add = a; }
+		void SetAddforce(int a) { mCheck_up = a; }
+
+
 
 	private:
-		void idle();
-		void death();
-
-	private:
-		class Collider* mCollider;			
-		Rigidbody* mRigidbody;		
-		int up_add;
+		class Collider* mCollider;
+		Rigidbody* mRigidbody;
+		int mCheck_up;
 	};
 }

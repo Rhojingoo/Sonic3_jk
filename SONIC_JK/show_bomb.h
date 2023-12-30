@@ -1,14 +1,8 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_Boss.h"
-#include "jk_Image.h"
-#include "jk_Sound.h"
-#include "jk_Time.h"
 
 namespace jk
 {
-	class Pixel_Ground;
-	class Animator;
 	class show_bomb : public Boss
 	{
 	public:
@@ -30,7 +24,7 @@ namespace jk
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
-		void SetCheckTargetGround(Pixel_Ground* ground) { check = ground; }
+		void SetCheckTargetGround(Pixel_Ground* ground) { mPixelGround = ground; }
 
 	private:
 		void move();
@@ -39,17 +33,17 @@ namespace jk
 
 
 	private:
-		Sound* Bomber_shot;
-		Image* mImage;
-		Image* mGroundImage;
-		Animator* mAnimator;
+		class Sound* Bomber_shot;
+		class Pixel_Ground* mPixelGround;
+		class Image* mImage;
+		class Image* mGroundImage;
+		class Animator* mAnimator;
 		eState mState;
-		Pixel_Ground* check;
 		Gameobject* mOwner;
 
-		Vector2 pos;
-		Vector2 Player_pos;
+		Vector2 mPos;
+		Vector2 mPlayer_pos;
 		float mMonspeed;
-		int check_ground;
+		int mCheck_Ground;
 	};
 }

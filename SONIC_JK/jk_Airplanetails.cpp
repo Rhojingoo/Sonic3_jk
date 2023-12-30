@@ -6,10 +6,9 @@
 #include "jk_Collider.h"
 #include "jk_Animator.h"
 #include "jk_Resources.h"
+#include "jk_Image.h"
 
 #include "jk_Time.h"
-
-
 
 namespace jk
 {
@@ -17,8 +16,8 @@ namespace jk
 	Airplanetails::Airplanetails()
 		: mDir(1)
 		, mCenterpos(Vector2(600.0f, 232.0f))
-		, mspeed(300.0f)
-		, maxdistance(700.0f)
+		, mSpeed(300.0f)
+		, mMaxdistance(700.0f)
 		, mImage(nullptr)
 		, mAnimator(nullptr)
 	{
@@ -48,7 +47,7 @@ namespace jk
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 
-		float fDist = abs(mCenterpos.x - pos.x) - maxdistance;
+		float fDist = abs(mCenterpos.x - pos.x) - mMaxdistance;
 		if (fDist > 0.0f)
 		{
 			mDir *= -1;
@@ -56,7 +55,7 @@ namespace jk
 		}
 		else
 		{
-			pos.x += mspeed * (float)Time::DeltaTime() * mDir;
+			pos.x += mSpeed * (float)Time::DeltaTime() * mDir;
 		}
 		if (mDir == 1)
 			mAnimator->Play(L"Titleplane", true);

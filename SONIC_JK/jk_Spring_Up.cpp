@@ -8,6 +8,9 @@
 #include "jk_Animator.h"
 #include "jk_Resources.h"
 
+#include "jk_Image.h"
+#include "jk_Sound.h"
+
 #include "jk_SONIC.h"
 #include "jk_Tails.h"
 

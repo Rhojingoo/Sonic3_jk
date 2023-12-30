@@ -1,10 +1,10 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_BackGround.h"
-#include "jk_Image.h"
+
 
 namespace jk
 {
+	class Image;
 	class Animator;
 	class Titlesonic : public BackGround
 	{
@@ -20,7 +20,7 @@ namespace jk
 
 		Animator* GetmAnimator() { return mAnimator; }
 
-		void startscene();		
+		void startscene();
 
 	private:
 		Image* mImage;

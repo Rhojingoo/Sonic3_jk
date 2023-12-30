@@ -1,12 +1,11 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_BackGround.h"
-#include "jk_Image.h"
-#include "jk_Animator.h"
-#include "jk_Sound.h"
+
 
 namespace jk
 {
+	class Sound;
+	class Image;
 	class Rigidbody;
 	class Animator;
 	class Collapses_GR_left : public BackGround
@@ -37,13 +36,13 @@ namespace jk
 
 
 	private:
-		Sound* Crash;
+		Sound* mCrash;
 		eState mState;
 		Image* mImage;
 		Animator* mAnimator;
 
 	private:
-		float time_Gr2;
-		int check_Gr2;
+		float mTime;
+		int mCheck_Ground;
 	};
 }

@@ -6,6 +6,7 @@
 #include "jk_Transform.h"
 #include "jk_Animator.h"
 #include "jk_Scene.h"
+#include "jk_Image.h"
 
 
 namespace jk
@@ -14,13 +15,13 @@ namespace jk
 		:mOwner(nullptr)
 		, mSonic(nullptr)
 		, mImage(nullptr)
-		, Ring_point(0)
-		, UnitsDigit(0)
-		, TensDigit(0)
-		, HundredsDigit(0)
-		, Ring_point_U(0)
-		, Ring_point_T(0)	
-		, Ring_point_H(0)
+		, mRing_point(0)
+		, mUnitsDigit(0)
+		, mTensDigit(0)
+		, mHundredsDigit(0)
+		, mRing_point_U(0)
+		, mRing_point_T(0)	
+		, mRing_point_H(0)
 	{
 		mOwner = owner;
 		mSonic = dynamic_cast<Sonic*>(owner);
@@ -36,126 +37,126 @@ namespace jk
 	}
 	void Ring_Point_Manager::Update()
 	{
-		Ring_point = mSonic->Get_Ring_Point();
-		Ring_point_U = Ring_point;
-		Ring_point_T = Ring_point;
-		Ring_point_H = Ring_point;
+		mRing_point = mSonic->Get_Ring_Point();
+		mRing_point_U = mRing_point;
+		mRing_point_T = mRing_point;
+		mRing_point_H = mRing_point;
 		int a = 0;
 
 		//1의자리
-		if ((Ring_point_U >= 10) && (Ring_point_U < 20))
-			Ring_point_U = Ring_point_U - 10;
-		if ((Ring_point_U >= 20) && (Ring_point_U < 30))
-			Ring_point_U = Ring_point_U - 20;
-		if ((Ring_point_U >= 30) && (Ring_point_U < 40))
-			Ring_point_U = Ring_point_U - 30;
-		if ((Ring_point_U >= 40) && (Ring_point_U < 50))
-			Ring_point_U = Ring_point_U - 40;
-		if ((Ring_point_U >= 50) && (Ring_point_U < 60))
-			Ring_point_U = Ring_point_U - 50;
-		if ((Ring_point_U >= 60) && (Ring_point_U < 70))
-			Ring_point_U = Ring_point_U - 60;
-		if ((Ring_point_U >= 70) && (Ring_point_U < 80))
-			Ring_point_U = Ring_point_U - 70;
-		if ((Ring_point_U >= 80) && (Ring_point_U < 90))
-			Ring_point_U = Ring_point_U - 80;
-		if ((Ring_point_U >= 90) && (Ring_point_U < 100))
-			Ring_point_U = Ring_point_U - 90;
+		if ((mRing_point_U >= 10) && (mRing_point_U < 20))
+			mRing_point_U = mRing_point_U - 10;
+		if ((mRing_point_U >= 20) && (mRing_point_U < 30))
+			mRing_point_U = mRing_point_U - 20;
+		if ((mRing_point_U >= 30) && (mRing_point_U < 40))
+			mRing_point_U = mRing_point_U - 30;
+		if ((mRing_point_U >= 40) && (mRing_point_U < 50))
+			mRing_point_U = mRing_point_U - 40;
+		if ((mRing_point_U >= 50) && (mRing_point_U < 60))
+			mRing_point_U = mRing_point_U - 50;
+		if ((mRing_point_U >= 60) && (mRing_point_U < 70))
+			mRing_point_U = mRing_point_U - 60;
+		if ((mRing_point_U >= 70) && (mRing_point_U < 80))
+			mRing_point_U = mRing_point_U - 70;
+		if ((mRing_point_U >= 80) && (mRing_point_U < 90))
+			mRing_point_U = mRing_point_U - 80;
+		if ((mRing_point_U >= 90) && (mRing_point_U < 100))
+			mRing_point_U = mRing_point_U - 90;
 	
 
-		if (Ring_point_U == 0)
-			UnitsDigit = 0;
-		if(Ring_point_U ==1)
-			UnitsDigit = 1;
-		else if (Ring_point_U == 2)
-			UnitsDigit = 2;
-		else if (Ring_point_U == 3)
-			UnitsDigit = 3;
-		else if (Ring_point_U == 4)
-			UnitsDigit = 4;
-		else if (Ring_point_U == 5)
-			UnitsDigit = 5;
-		else if (Ring_point_U == 6)
-			UnitsDigit = 6;
-		else if (Ring_point_U == 7)
-			UnitsDigit = 7;
-		else if (Ring_point_U == 8)
-			UnitsDigit = 8;
-		else if (Ring_point_U == 9)
-			UnitsDigit = 9;
-		else if (Ring_point_U == 10)
-			UnitsDigit = 0;				
+		if (mRing_point_U == 0)
+			mUnitsDigit = 0;
+		if(mRing_point_U ==1)
+			mUnitsDigit = 1;
+		else if (mRing_point_U == 2)
+			mUnitsDigit = 2;
+		else if (mRing_point_U == 3)
+			mUnitsDigit = 3;
+		else if (mRing_point_U == 4)
+			mUnitsDigit = 4;
+		else if (mRing_point_U == 5)
+			mUnitsDigit = 5;
+		else if (mRing_point_U == 6)
+			mUnitsDigit = 6;
+		else if (mRing_point_U == 7)
+			mUnitsDigit = 7;
+		else if (mRing_point_U == 8)
+			mUnitsDigit = 8;
+		else if (mRing_point_U == 9)
+			mUnitsDigit = 9;
+		else if (mRing_point_U == 10)
+			mUnitsDigit = 0;				
 		
 
 		//10의자리
-		if ((Ring_point_T >= 100) && (Ring_point_T < 200))
-			Ring_point_T = Ring_point_T - 100;
-		if ((Ring_point_T >= 200) && (Ring_point_T < 300))
-			Ring_point_T = Ring_point_T - 200;
-		if ((Ring_point_T >= 300) && (Ring_point_T < 400))
-			Ring_point_T = Ring_point_T - 300;
-		if ((Ring_point_T >= 400) && (Ring_point_T < 500))
-			Ring_point_T = Ring_point_T - 400;
-		if ((Ring_point_T >= 500) && (Ring_point_T < 600))
-			Ring_point_T = Ring_point_T - 500;
-		if ((Ring_point_T >= 600) && (Ring_point_T < 700))
-			Ring_point_T = Ring_point_T - 600;
-		if ((Ring_point_T >= 700) && (Ring_point_T < 800))
-			Ring_point_T = Ring_point_T - 700;
-		if ((Ring_point_T >= 800) && (Ring_point_T < 900))
-			Ring_point_T = Ring_point_T - 800;
-		if ((Ring_point_T >= 900) && (Ring_point_U < 1000))
-			Ring_point_T = Ring_point_T - 900;
+		if ((mRing_point_T >= 100) && (mRing_point_T < 200))
+			mRing_point_T = mRing_point_T - 100;
+		if ((mRing_point_T >= 200) && (mRing_point_T < 300))
+			mRing_point_T = mRing_point_T - 200;
+		if ((mRing_point_T >= 300) && (mRing_point_T < 400))
+			mRing_point_T = mRing_point_T - 300;
+		if ((mRing_point_T >= 400) && (mRing_point_T < 500))
+			mRing_point_T = mRing_point_T - 400;
+		if ((mRing_point_T >= 500) && (mRing_point_T < 600))
+			mRing_point_T = mRing_point_T - 500;
+		if ((mRing_point_T >= 600) && (mRing_point_T < 700))
+			mRing_point_T = mRing_point_T - 600;
+		if ((mRing_point_T >= 700) && (mRing_point_T < 800))
+			mRing_point_T = mRing_point_T - 700;
+		if ((mRing_point_T >= 800) && (mRing_point_T < 900))
+			mRing_point_T = mRing_point_T - 800;
+		if ((mRing_point_T >= 900) && (mRing_point_U < 1000))
+			mRing_point_T = mRing_point_T - 900;
 
 
-		if (Ring_point_T < 10)
-			TensDigit = 0;
-		if ((Ring_point_T >= 10)&& (Ring_point_T < 20))
-			TensDigit = 1;
-		else if ((Ring_point_T >= 20) && (Ring_point_T < 30))
-			TensDigit = 2;
-		else if ((Ring_point_T >= 30) && (Ring_point_T < 40))
-			TensDigit = 3;
-		else if ((Ring_point_T >= 40) && (Ring_point_T < 50))
-			TensDigit = 4;
-		else if ((Ring_point_T >= 50) && (Ring_point_T < 60))
-			TensDigit = 5;
-		else if ((Ring_point_T >= 60) && (Ring_point_T < 70))
-			TensDigit = 6;
-		else if ((Ring_point_T >= 70) && (Ring_point_T < 80))
-			TensDigit = 7;
-		else if ((Ring_point_T >= 80) && (Ring_point_T < 90))
-			TensDigit = 8;
-		else if ((Ring_point_T >= 90) && (Ring_point_T < 100))
-			TensDigit = 9;
-		else if (Ring_point_T >= 100)
-			TensDigit = 0;				
+		if (mRing_point_T < 10)
+			mTensDigit = 0;
+		if ((mRing_point_T >= 10)&& (mRing_point_T < 20))
+			mTensDigit = 1;
+		else if ((mRing_point_T >= 20) && (mRing_point_T < 30))
+			mTensDigit = 2;
+		else if ((mRing_point_T >= 30) && (mRing_point_T < 40))
+			mTensDigit = 3;
+		else if ((mRing_point_T >= 40) && (mRing_point_T < 50))
+			mTensDigit = 4;
+		else if ((mRing_point_T >= 50) && (mRing_point_T < 60))
+			mTensDigit = 5;
+		else if ((mRing_point_T >= 60) && (mRing_point_T < 70))
+			mTensDigit = 6;
+		else if ((mRing_point_T >= 70) && (mRing_point_T < 80))
+			mTensDigit = 7;
+		else if ((mRing_point_T >= 80) && (mRing_point_T < 90))
+			mTensDigit = 8;
+		else if ((mRing_point_T >= 90) && (mRing_point_T < 100))
+			mTensDigit = 9;
+		else if (mRing_point_T >= 100)
+			mTensDigit = 0;				
 		
 		
 
 		//100의자리		
-		if (Ring_point < 100) 
-			HundredsDigit = 0;
-		if ((Ring_point >= 100) && (Ring_point < 200))
-			HundredsDigit = 1;
-		else if ((Ring_point >= 200) && (Ring_point < 300))
-			HundredsDigit = 2;
-		else if ((Ring_point >= 300) && (Ring_point < 400))
-			HundredsDigit = 3;
-		else if ((Ring_point >= 400) && (Ring_point < 500))
-			HundredsDigit = 4;
-		else if ((Ring_point >= 500) && (Ring_point < 600))
-			HundredsDigit = 5;
-		else if ((Ring_point >= 600) && (Ring_point < 700))
-			HundredsDigit = 6;
-		else if ((Ring_point >= 700) && (Ring_point < 800))
-			HundredsDigit = 7;
-		else if ((Ring_point >= 800) && (Ring_point < 900))
-			HundredsDigit = 8;
-		else if ((Ring_point >= 900) && (Ring_point < 1000))
-			HundredsDigit = 9;
-		else if (Ring_point >= 1000)
-			HundredsDigit = 0;
+		if (mRing_point < 100) 
+			mHundredsDigit = 0;
+		if ((mRing_point >= 100) && (mRing_point < 200))
+			mHundredsDigit = 1;
+		else if ((mRing_point >= 200) && (mRing_point < 300))
+			mHundredsDigit = 2;
+		else if ((mRing_point >= 300) && (mRing_point < 400))
+			mHundredsDigit = 3;
+		else if ((mRing_point >= 400) && (mRing_point < 500))
+			mHundredsDigit = 4;
+		else if ((mRing_point >= 500) && (mRing_point < 600))
+			mHundredsDigit = 5;
+		else if ((mRing_point >= 600) && (mRing_point < 700))
+			mHundredsDigit = 6;
+		else if ((mRing_point >= 700) && (mRing_point < 800))
+			mHundredsDigit = 7;
+		else if ((mRing_point >= 800) && (mRing_point < 900))
+			mHundredsDigit = 8;
+		else if ((mRing_point >= 900) && (mRing_point < 1000))
+			mHundredsDigit = 9;
+		else if (mRing_point >= 1000)
+			mHundredsDigit = 0;
 
 		Gameobject::Update();
 	}

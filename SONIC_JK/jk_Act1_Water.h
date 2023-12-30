@@ -1,12 +1,9 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_BackGround.h"
-#include "jk_SONIC.h"
-#include "jk_Tails.h"
-#include "jk_Image.h"
 
 namespace jk
 {
+	class Image;
 	class Animator;
 	class Act1_Water : public BackGround
 	{
@@ -27,9 +24,6 @@ namespace jk
 
 	private:
 		Image* mImage;
-		float checktime;
-
-		//Sonic::eSonicState sonicState;
-		//Tails::eTailsState tails_State;
+		float mCcheckTime;
 	};
 }

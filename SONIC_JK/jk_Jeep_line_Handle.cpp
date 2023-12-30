@@ -9,16 +9,18 @@
 #include "jk_Collider.h"
 #include "jk_Object.h"
 #include "jk_Time.h"
+#include "jk_Image.h"
 
 #include "jk_SONIC.h"
+
 
 namespace jk
 {
 	Jeep_line_Handle::Jeep_line_Handle()
 		: mCenterpos(Vector2(0.f, 0.f))
-		, Jeepline_state()
+		, mJeepline_state()
 		, mDir_x(1)
-		, angle(45)
+		, mAngle(45)
 		, mImage(nullptr)
 		, mAnimator(nullptr)
 	{
@@ -53,22 +55,22 @@ namespace jk
 
 		if (mDir_x == 1)
 		{
-			angle += 10 * static_cast<float>(Time::DeltaTime()) * 10.f;
-			if (angle > 135)
+			mAngle += 10 * static_cast<float>(Time::DeltaTime()) * 10.f;
+			if (mAngle > 135)
 			{
 				mDir_x = -1;
 			}
 		}
 		else if (mDir_x == -1)
 		{
-			angle -= 10 * static_cast<float>(Time::DeltaTime()) * 10.f;
-			if (angle < 45)
+			mAngle -= 10 * static_cast<float>(Time::DeltaTime()) * 10.f;
+			if (mAngle < 45)
 			{
 				mDir_x = 1;
 			}
 		}
 
-		float radian = angle * 3.14f / 180.0f;
+		float radian = mAngle * 3.14f / 180.0f;
 
 		float x = centerX + radius * cos(radian);
 		float y = centerY + radius * sin(radian);
@@ -76,51 +78,51 @@ namespace jk
 		pos.y = y;
 
 
-		if (angle >= 45 && angle < 55)//¿À¸¥ÂÊ
+		if (mAngle >= 45 && mAngle < 55)//¿À¸¥ÂÊ
 		{
-			Jeepline_state = 9;
+			mJeepline_state = 9;
 		}
 
-		if (angle >= 55 && angle < 65)
+		if (mAngle >= 55 && mAngle < 65)
 		{
-			Jeepline_state = 8;
+			mJeepline_state = 8;
 		}
 
-		if (angle >= 65 && angle < 75)
+		if (mAngle >= 65 && mAngle < 75)
 		{
-			Jeepline_state = 7;
+			mJeepline_state = 7;
 		}
 
-		if (angle >= 75 && angle < 85)
+		if (mAngle >= 75 && mAngle < 85)
 		{
-			Jeepline_state = 6;
+			mJeepline_state = 6;
 		}
 
-		if (angle >= 85 && angle < 95)//Áß¾Ó
+		if (mAngle >= 85 && mAngle < 95)//Áß¾Ó
 		{
-			Jeepline_state = 5;
+			mJeepline_state = 5;
 		}
 
-		if (angle >= 95 && angle < 105)
+		if (mAngle >= 95 && mAngle < 105)
 		{
-			Jeepline_state = 4;
+			mJeepline_state = 4;
 		}
 
-		if (angle >= 105 && angle < 115)
+		if (mAngle >= 105 && mAngle < 115)
 		{
-			Jeepline_state = 3;
-		}
-
-
-		if (angle >= 115 && angle < 125)
-		{
-			Jeepline_state = 2;
+			mJeepline_state = 3;
 		}
 
 
-		if (angle >= 125 && angle < 135)//¿ÞÂÊ
+		if (mAngle >= 115 && mAngle < 125)
 		{
-			Jeepline_state = 1;
+			mJeepline_state = 2;
+		}
+
+
+		if (mAngle >= 125 && mAngle < 135)//¿ÞÂÊ
+		{
+			mJeepline_state = 1;
 		}
 
 

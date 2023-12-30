@@ -1,12 +1,10 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_BackGround.h"
-#include "jk_Image.h"
-#include "jk_SONIC.h"
-#include "jk_Animator.h"
 
 namespace jk
 {
+	class Image;
+	class Sound;
 	class Pixel_Ground;
 	class Rigidbody;
 	class Animator;
@@ -44,7 +42,7 @@ namespace jk
 
 
 	private:
-		Sound* Crash;
+		Sound* mCrash;
 		Image* mImage;
 		Image* mGroundImage;
 		Animator* mAnimator;
@@ -53,12 +51,11 @@ namespace jk
 		eState mState;
 		Pixel_Ground* check;
 		Sonic::eSonicState sonicState;
-	
+
 	private:
-		float timer_RS ;
-		float RS_DisappearTime;
-		float bounceForce_RS;
-		int check_ground_SR;
+		float mTime;
+		float mDisappearTime;
+		int mCheckGR;
 	};
 
 }

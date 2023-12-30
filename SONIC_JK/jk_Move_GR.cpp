@@ -11,6 +11,7 @@
 #include "jk_Time.h"
 #include "jk_Object.h"
 #include "jk_Blending.h"
+#include "jk_Image.h"
 
 #include "jk_SONIC.h"
 #include "jk_Tails.h"
@@ -19,10 +20,10 @@ namespace jk
 {
 	Move_GR::Move_GR()
 		: mCenterpos(Vector2(0.0f, 0.0f))
-		, pos(Vector2(0.0f, 0.0f))
+		, mPos(Vector2(0.0f, 0.0f))
 		, mMonspeed(100.0f)
 		, mMonmaxdistance(200.0f)
-		, fDist(0.f)
+		, mFinalDistance(0.f)
 		, mDir(1)
 		, mImage(nullptr)
 		, mAnimator(nullptr)
@@ -50,7 +51,7 @@ namespace jk
 	void Move_GR::Update()
 	{
 		Transform* tr = GetComponent<Transform>();
-		pos = tr->GetPos();
+		mPos = tr->GetPos();
 
 
 		switch (mState)
@@ -180,29 +181,29 @@ namespace jk
 	{
 		Transform* tr = GetComponent<Transform>();
 
-		fDist = mCenterpos.y - pos.y - mMonmaxdistance;
-		pos.y -= mMonspeed * static_cast<float>(Time::DeltaTime());
+		mFinalDistance = mCenterpos.y - mPos.y - mMonmaxdistance;
+		mPos.y -= mMonspeed * static_cast<float>(Time::DeltaTime());
 
-		if (fDist >= mMonmaxdistance)
+		if (mFinalDistance >= mMonmaxdistance)
 		{
 			mState = eState::Down;
 			mDir *= -1;
 		}
-		tr->SetPos(pos);
+		tr->SetPos(mPos);
 
 	}
 	void Move_GR::down()
 	{
 		Transform* tr = GetComponent<Transform>();
 
-		fDist = mCenterpos.y - pos.y - mMonmaxdistance;
-		pos.y += mMonspeed * static_cast<float>(Time::DeltaTime());
+		mFinalDistance = mCenterpos.y - mPos.y - mMonmaxdistance;
+		mPos.y += mMonspeed * static_cast<float>(Time::DeltaTime());
 
-		if (fDist <= -mMonmaxdistance)
+		if (mFinalDistance <= -mMonmaxdistance)
 		{
 			mState = eState::Up;
 			mDir *= -1;
 		}
-		tr->SetPos(pos);
+		tr->SetPos(mPos);
 	}
 }

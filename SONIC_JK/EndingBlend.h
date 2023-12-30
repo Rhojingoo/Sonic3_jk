@@ -1,6 +1,6 @@
 #pragma once
 #include "jk_Gameobject.h"
-#include "jk_Image.h"
+
 
 namespace jk
 {
@@ -17,7 +17,7 @@ namespace jk
 		virtual void Release() override;
 
 	private:
-		Image* mImage;
-		float checktime;
+		class Image* mImage;
+		float mCheckTime;
 	};
 }

@@ -1,14 +1,9 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_BackGround.h"
-#include "jk_Image.h"
-#include "jk_SONIC.h"
-#include "jk_Animator.h"
+
 
 namespace jk
 {
-	class Rigidbody;
-	class Animator;
 	class Callapses : public BackGround
 	{
 	public:
@@ -27,9 +22,9 @@ namespace jk
 
 
 	private:
-		Image* mImage;	
-		Rigidbody* mRigidbody;	
-		Animator* mAnimator;
+		class Image* mImage;	
+		class Rigidbody* mRigidbody;	
+		class Animator* mAnimator;
 	};
 
 }

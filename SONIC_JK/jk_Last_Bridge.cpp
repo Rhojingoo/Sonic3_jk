@@ -12,6 +12,7 @@
 #include "jk_Time.h"
 #include "jk_Object.h"
 #include "jk_Blending.h"
+#include "jk_Image.h"
 
 #include "jk_SONIC.h"
 #include "jk_Tails.h"

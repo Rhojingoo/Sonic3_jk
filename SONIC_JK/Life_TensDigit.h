@@ -1,10 +1,11 @@
 #pragma once
 #include "Life_Manager.h"
 #include "jk_Gameobject.h"
-#include "jk_Image.h"
+
 
 namespace jk
 {
+	class Image;
 	class Animator;
 	class Life_TensDigit : public Gameobject
 	{
@@ -19,8 +20,8 @@ namespace jk
 
 	private:
 		Gameobject* mOwner;
-		Life_Manager* Units;
+		Life_Manager* mUnits;
 		Image* mImage;
-		int TensDigit;
+		int mTensDigit;
 	};
 }

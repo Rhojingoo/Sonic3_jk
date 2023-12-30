@@ -4,17 +4,18 @@
 #include "jk_Transform.h"
 #include "jk_Animator.h"
 #include "jk_Scene.h"
+#include "jk_Image.h"
 
 namespace jk
 {
 	Life_TensDigit::Life_TensDigit(Gameobject* owner)
-		:TensDigit(0)
-		, Units(nullptr)
+		:mTensDigit(0)
+		, mUnits(nullptr)
 		, mOwner(nullptr)
 		, mImage(nullptr)
 	{
 		mOwner = owner;
-		Units = dynamic_cast<Life_Manager*>(owner);
+		mUnits = dynamic_cast<Life_Manager*>(owner);
 	}
 	Life_TensDigit::~Life_TensDigit()
 	{
@@ -27,7 +28,7 @@ namespace jk
 	}
 	void Life_TensDigit::Update()
 	{
-		TensDigit = Units->GetSonicLife_TensDigit();
+		mTensDigit = mUnits->GetSonicLife_TensDigit();
 		Gameobject::Update();
 	}
 	void Life_TensDigit::Render(HDC hdc)
@@ -38,52 +39,52 @@ namespace jk
 
 		int a = 9;
 		int b = 71;
-		if (TensDigit == 0)
+		if (mTensDigit == 0)
 		{
 			a = 9;
 			b = 71;
 		}
-		if (TensDigit == 1)
+		if (mTensDigit == 1)
 		{
 			a = 18;
 			b = 71;
 		}
-		if (TensDigit == 2)
+		if (mTensDigit == 2)
 		{
 			a = 27;
 			b = 71;
 		}
-		if (TensDigit == 3)
+		if (mTensDigit == 3)
 		{
 			a = 36;
 			b = 71;
 		}
-		if (TensDigit == 4)
+		if (mTensDigit == 4)
 		{
 			a = 45;
 			b = 71;
 		}
-		if (TensDigit == 5)
+		if (mTensDigit == 5)
 		{
 			a = 54;
 			b = 71;
 		}
-		if (TensDigit == 6)
+		if (mTensDigit == 6)
 		{
 			a = 63;
 			b = 71;
 		}
-		if (TensDigit == 7)
+		if (mTensDigit == 7)
 		{
 			a = 72;
 			b = 71;
 		}
-		if (TensDigit == 8)
+		if (mTensDigit == 8)
 		{
 			a = 81;
 			b = 71;
 		}
-		if (TensDigit == 9)
+		if (mTensDigit == 9)
 		{
 			a = 90;
 			b = 71;

@@ -1,13 +1,13 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_BackGround.h"
-#include "jk_Image.h"
+
 
 namespace jk
 {
+	class Image;
 	class Animator;
 	class Airplanetails : public BackGround
-	
+
 	{
 	public:
 		Airplanetails();
@@ -22,12 +22,12 @@ namespace jk
 
 	private:
 		Image* mImage;
-		Animator* mAnimator;	
+		Animator* mAnimator;
 
 	private:
 		Vector2 mCenterpos;
 		int mDir;
-		float mspeed;
-		float maxdistance;
+		float mSpeed;
+		float mMaxdistance;
 	};
 }

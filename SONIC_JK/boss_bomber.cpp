@@ -5,13 +5,8 @@
 #include "jk_Animator.h"
 #include "jk_Collider.h"
 #include "jk_Scene.h"
-
-
-
-
-
-
-
+#include "jk_Image.h"
+#include "jk_Time.h"
 
 namespace jk
 {
@@ -19,7 +14,7 @@ namespace jk
 		: mMonspeed(1650.0f)
 		, mImage(nullptr)
 		, mAnimator(nullptr)
-		, pos(0.f, 0.f)
+		, mPos(0.f, 0.f)
 	{
 		mImage = Resources::Load<Image>(L"Act1_3_Boomber", L"..\\Resources\\ActBG_1_3\\Act1_3_Boomber.bmp");
 		mAnimator = AddComponent<Animator>();
@@ -39,10 +34,10 @@ namespace jk
 	void boss_bomber::Update()
 	{
 		Transform* tr = GetComponent<Transform>();
-		pos = tr->GetPos();
-		pos.x += mMonspeed * static_cast<float>(Time::DeltaTime());
+		mPos = tr->GetPos();
+		mPos.x += mMonspeed * static_cast<float>(Time::DeltaTime());
 
-		tr->SetPos(pos);
+		tr->SetPos(mPos);
 		Gameobject::Update();
 	}
 

@@ -1,13 +1,10 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_BackGround.h"
-#include "jk_Image.h"
-#include "jk_Animator.h"
-#include "jk_Sound.h"
-
 
 namespace jk
 {
+	class Sound;
+	class Image;
 	class Rigidbody;
 	class Animator;
 	class Spring_Left : public BackGround
@@ -39,7 +36,7 @@ namespace jk
 
 
 	private:
-		Sound* Spring_mc;
+		Sound* mSpring_mc;
 		eState mState;
 		Image* mImage;
 		Animator* mAnimator;

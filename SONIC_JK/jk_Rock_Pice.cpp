@@ -11,6 +11,7 @@
 
 #include "jk_Object.h"
 #include "jk_SONIC.h"
+#include "jk_Image.h"
 
 
 namespace jk
@@ -20,10 +21,10 @@ namespace jk
 		, mGroundImage(nullptr)
 		, mAnimator(nullptr)
 		, mRigidbody(nullptr)
-		, check(nullptr)
-		, timer_rock(0.f)
-		, bounce_Force(300.f)
-		, check_gr(0)
+		, mPixel_Ground(nullptr)
+		, mTime(0.f)
+		, mBounce_Force(300.f)
+		, mCheck_Ground(0)
 	{
 		mImage = Resources::Load<Image>(L"Rock_Pice", L"..\\Resources\\Rock_Platform.bmp");
 		mAnimator = AddComponent<Animator>();
@@ -39,7 +40,7 @@ namespace jk
 		mRigidbody = AddComponent<Rigidbody>();
 		mRigidbody->SetMass(1.0f);
 
-		timer_rock = 0;
+		mTime = 0;
 	}
 
 	Rock_Pice::~Rock_Pice()
@@ -69,21 +70,21 @@ namespace jk
 					RING_Color = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(Ring_ps.x), static_cast<int>(Ring_ps.y + 24)));
 					rock_TR->SetPos(Ring_ps);
 					rock_rb->SetGround(true);
-					check_gr = 1;
+					mCheck_Ground = 1;
 
 					if (rock_rb->GetGround() == true)
 					{
-						Vector2 bounceForceVec(0.0f, -bounce_Force);
+						Vector2 bounceForceVec(0.0f, -mBounce_Force);
 						rock_rb->SetVelocity(bounceForceVec);
 						rock_rb->SetGround(false);
 					}
 				}
 			}
 
-			if (check_gr > 0)
+			if (mCheck_Ground > 0)
 			{
-				timer_rock += static_cast<float>(Time::DeltaTime());
-				if (timer_rock >= 15)
+				mTime += static_cast<float>(Time::DeltaTime());
+				if (mTime >= 15)
 				{
 					jk::object::Destory(this);
 					return;

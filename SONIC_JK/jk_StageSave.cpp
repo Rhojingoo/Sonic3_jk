@@ -7,6 +7,7 @@
 #include "jk_Animator.h"
 #include "jk_Collider.h"
 #include "Rigidbody.h"
+#include "jk_Image.h"
 
 namespace jk
 {

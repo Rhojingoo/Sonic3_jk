@@ -1,10 +1,9 @@
 #pragma once
 #include "UI_Time.h"
-#include "jk_Gameobject.h"
-#include "jk_Image.h"
 
 namespace jk
 {
+	class Image;
 	class Animator;
 	class UI_Time_minutes : public UI_Time
 	{
@@ -21,6 +20,6 @@ namespace jk
 		Gameobject* mOwner;
 		UI_Time* minutes;
 		Image* mImage;
-		float time_M;
+		float mTime_M;
 	};
 }

@@ -1,11 +1,8 @@
 #pragma once
 #include "jk_Gameobject.h"
-#include "jk_Image.h"
 
 namespace jk
 {
-	class Pixel_Ground;
-	class Animator;
 	class check_circle : public Gameobject
 	{
 	public:
@@ -24,6 +21,6 @@ namespace jk
 
 	private:
 		class Collider* mCollider;
-		Pixel_Ground* mGround;
+		class Pixel_Ground* mGround;
 	};
 }

@@ -4,19 +4,19 @@
 #include "jk_Transform.h"
 #include "jk_Animator.h"
 #include "jk_Scene.h"
-
+#include "jk_Image.h"
 
 
 namespace jk
 {
 	Life_UnitsDigit::Life_UnitsDigit(Gameobject* owner)
-		:UnitsDigit(0)
-		, Units(nullptr)
+		:mUnitsDigit(0)
+		, mUnits(nullptr)
 		, mOwner(nullptr)
 		, mImage(nullptr)
 	{
 		mOwner = owner;
-		Units = dynamic_cast<Life_Manager*>(owner);
+		mUnits = dynamic_cast<Life_Manager*>(owner);
 	}
 	Life_UnitsDigit::~Life_UnitsDigit()
 	{
@@ -29,7 +29,7 @@ namespace jk
 	}
 	void Life_UnitsDigit::Update()
 	{
-		UnitsDigit = Units->GetSonicLife_UnitsDigit();
+		mUnitsDigit = mUnits->GetSonicLife_UnitsDigit();
 		Gameobject::Update();
 	}
 	void Life_UnitsDigit::Render(HDC hdc)
@@ -40,52 +40,52 @@ namespace jk
 
 		int a = 9;
 		int b = 71;
-		if (UnitsDigit == 0)
+		if (mUnitsDigit == 0)
 		{
 			a = 9;
 			b = 71;
 		}
-		if (UnitsDigit == 1)
+		if (mUnitsDigit == 1)
 		{
 			a = 18;
 			b = 71;
 		}
-		if (UnitsDigit == 2)
+		if (mUnitsDigit == 2)
 		{
 			a = 27;
 			b = 71;
 		}
-		if (UnitsDigit == 3)
+		if (mUnitsDigit == 3)
 		{
 			a = 36;
 			b = 71;
 		}
-		if (UnitsDigit == 4)
+		if (mUnitsDigit == 4)
 		{
 			a = 45;
 			b = 71;
 		}
-		if (UnitsDigit == 5)
+		if (mUnitsDigit == 5)
 		{
 			a = 54;
 			b = 71;
 		}
-		if (UnitsDigit == 6)
+		if (mUnitsDigit == 6)
 		{
 			a = 63;
 			b = 71;
 		}
-		if (UnitsDigit == 7)
+		if (mUnitsDigit == 7)
 		{
 			a = 72;
 			b = 71;
 		}
-		if (UnitsDigit == 8)
+		if (mUnitsDigit == 8)
 		{
 			a = 81;
 			b = 71;
 		}
-		if (UnitsDigit == 9)
+		if (mUnitsDigit == 9)
 		{
 			a = 90;
 			b = 71;

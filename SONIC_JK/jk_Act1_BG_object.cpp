@@ -2,11 +2,13 @@
 #include "jk_SceneManager.h"
 #include "jk_Transform.h"
 #include "jk_Resources.h"
+#include "jk_Image.h"
 
 #include "jk_SONIC.h"
 #include "jk_Camera.h"
 #include "jk_Time.h"
 #include "jk_Input.h"
+
 
 
 namespace jk

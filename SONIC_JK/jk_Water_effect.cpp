@@ -6,6 +6,7 @@
 #include "jk_Transform.h"
 #include "jk_Animator.h"
 #include "jk_Collider.h"
+#include "jk_Image.h"
 
 #include "jk_Object.h"
 #include "jk_SONIC.h"

@@ -97,9 +97,9 @@
 //
 //		// 속도에 맞게끔 물체를 이동시킨다.
 //		Transform* tr = GetOwner()->GetComponent<Transform>();
-//		Vector2 pos = tr->GetPos();
-//		pos = pos + mVelocity * Time::DeltaTime();
-//		tr->SetPos(pos);
+//		Vector2 mPos = tr->GetPos();
+//		mPos = mPos + mVelocity * Time::DeltaTime();
+//		tr->SetPos(mPos);
 //		mForce.Clear();
 //
 //

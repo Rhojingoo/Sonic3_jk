@@ -5,14 +5,15 @@
 #include "jk_Collider.h"
 #include "jk_SONIC.h"
 #include "Rigidbody.h"
-
+#include "jk_Image.h"
+#include "jk_Animator.h"
 
 namespace jk
 {
 	Add_force::Add_force()
 		: mCollider(nullptr)
 		, mRigidbody(nullptr)
-		, up_add(0)
+		, mCheck_up(0)
 	{
 	}
 	Add_force::~Add_force()
@@ -21,7 +22,7 @@ namespace jk
 	void Add_force::Initialize()
 	{
 		mCollider = AddComponent<Collider>();
-		mCollider->SetSize(Vector2(50.0f, 250.f));		
+		mCollider->SetSize(Vector2(50.0f, 250.f));
 		Transform* tr = GetComponent<Transform>();
 		Gameobject::Initialize();
 	}
@@ -48,12 +49,12 @@ namespace jk
 	{
 		if (Sonic* sonic = dynamic_cast<Sonic*>(other->GetOwner()))
 		{
-			if (up_add == 0)
+			if (mCheck_up == 0)
 			{
 				Rigidbody* mSonic_rb = sonic->GetComponent<Rigidbody>();
 				mSonic_rb->AddForce(Vector2{ 10000.f,0.f });
-			}	
-			if (up_add == 1)
+			}
+			if (mCheck_up == 1)
 			{
 				Rigidbody* mSonic_rb = sonic->GetComponent<Rigidbody>();
 				mSonic_rb->AddForce(Vector2{ 0.f,-10000.f });
@@ -65,10 +66,6 @@ namespace jk
 	void Add_force::OnCollisionExit(Collider* other)
 	{
 	}
-	void Add_force::idle()
-	{
-	}
-	void Add_force::death()
-	{
-	}
+
+
 }

@@ -2,6 +2,18 @@
 #include <math.h>
 #define PI 3.141592
 
+#define GROUNDCOLOR						RGB(0, 0, 0)
+#define WALLCOLOR						RGB(0, 12, 123)
+#define FLYLCOLOR						RGB(51, 102, 102)
+
+#define STONEGREY_LOOPENTER				RGB(127, 127, 127) 
+#define STONEORANGE_LOOPHALF			RGB(255, 127, 0)
+#define STONERED_LOOPENTER				RGB(255, 0, 0)
+
+#define GROUNDYELLO_LOOPCOURSE_RIGHT	RGB(255, 255, 0)
+#define GROUNDBLUE_LOOPCOURSE_LEFT		RGB(0, 0, 255)
+
+
 struct Vector2
 {
 	static Vector2 Up;

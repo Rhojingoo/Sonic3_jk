@@ -3,12 +3,13 @@
 #include "jk_Time.h"
 #include "jk_Resources.h"
 #include "jk_Object.h"
+#include "jk_Image.h"
 
 namespace jk
 {
 
 	EndingBlend::EndingBlend()
-		:checktime(0.f)
+		:mCheckTime(0.f)
 		, mImage(nullptr)
 	{
 
@@ -31,16 +32,16 @@ namespace jk
 
 	void EndingBlend::Render(HDC hdc)
 	{
-		checktime += (float)Time::DeltaTime() * 255.0f * 0.7f;
+		mCheckTime += (float)Time::DeltaTime() * 255.0f * 0.7f;
 		BLENDFUNCTION func = {};
 		func.BlendOp = AC_SRC_OVER;
 		func.BlendFlags = 0;
 		func.AlphaFormat = AC_SRC_ALPHA;
-		func.SourceConstantAlpha = (BYTE)checktime;
+		func.SourceConstantAlpha = (BYTE)mCheckTime;
 
 		AlphaBlend(hdc, -1, -1, 1201, 841, mImage->GetHdc(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), func);
 
-		if (checktime > 255.0f)
+		if (mCheckTime > 255.0f)
 		object::Destory(this);
 
 		Gameobject::Render(hdc);

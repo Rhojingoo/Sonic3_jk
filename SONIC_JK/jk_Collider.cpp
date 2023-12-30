@@ -63,10 +63,10 @@ namespace jk
 
 			if (ONOFF == 0)
 			{
-				//Rectangle(hdc, pos.x, pos.y, pos.x + mSize.x, pos.y + mSize.y);
+				//Rectangle(hdc, mPos.x, mPos.y, mPos.x + mSize.x, mPos.y + mSize.y);
 				Rectangle(hdc, static_cast<int>(pos.x), static_cast<int>(pos.y), static_cast<int>(pos.x + mSize.x), static_cast<int>(pos.y + mSize.y));
 			}
-			//Rectangle(hdc, pos.x - mSize.x/2, pos.y - mSize.y, pos.x + mSize.x /2, pos.y);
+			//Rectangle(hdc, mPos.x - mSize.x/2, mPos.y - mSize.y, mPos.x + mSize.x /2, mPos.y);
 
 
 			(HPEN)SelectObject(hdc, oldPen);

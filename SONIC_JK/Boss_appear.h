@@ -1,13 +1,8 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_Boss.h"
-#include "jk_Image.h"
-#include "jk_Time.h"
 
 namespace jk
 {
-	class Pixel_Ground;
-	class Animator;
 	class Boss_appear : public Boss
 	{
 	public:	
@@ -23,11 +18,11 @@ namespace jk
 
 
 	private:
-		Image* mImage;
-		Animator* mAnimator;
+		class Image* mImage;
+		class Animator* mAnimator;
 
 		float mMonspeed;
-		Vector2 pos;
+		Vector2 mPos;
 		Gameobject* mOwner;
 	};
 }

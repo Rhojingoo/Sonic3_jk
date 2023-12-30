@@ -7,6 +7,8 @@
 #include "jk_Collider.h"
 #include "jk_Object.h"
 #include "jk_Pixel_Ground.h"
+#include "jk_Image.h"
+#include "jk_Sound.h"
 
 #include "jk_Time.h"
 #include "jk_Input.h"
@@ -22,12 +24,12 @@ namespace jk
 		, mImage(nullptr)
 		, mAnimator(nullptr)
 		, mGroundImage(nullptr)
-		, check(nullptr)
+		, mPixelGround(nullptr)
 		, mState()
 		, mOwner(owner)
-		, pos(0.f, 0.f)
-		, Player_pos(0.f, 0.f)
-		, check_ground(0)
+		, mPos(0.f, 0.f)
+		, mPlayer_pos(0.f, 0.f)
+		, mCheck_Ground(0)
 	{
 		mImage = Resources::Load<Image>(L"Act1_3_Boomb", L"..\\Resources\\ActBG_1_3\\Act1_3_Boomber.bmp");
 		mAnimator = AddComponent<Animator>();
@@ -47,9 +49,9 @@ namespace jk
 	}
 	void show_bomb::Update()
 	{
-		mGroundImage = check->GetGroundImage3();
+		mGroundImage = mPixelGround->GetGroundImage3();
 		Transform* tr = GetComponent<Transform>();
-		pos = tr->GetPos();
+		mPos = tr->GetPos();
 
 		switch (mState)
 		{
@@ -65,16 +67,16 @@ namespace jk
 
 		if (mGroundImage)
 		{
-			COLORREF FootColor = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(pos.x), static_cast<int>(pos.y) + 75));
+			COLORREF FootColor = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(mPos.x), static_cast<int>(mPos.y) + 75));
 			if (FootColor == RGB(0, 0, 0))
 			{
 				do
 				{
-					pos.y -= 1;
-					FootColor = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(pos.x), static_cast<int>(pos.y) + 75));
-					tr->SetPos(pos);
-					check_ground = 1;
-				} while (FootColor == RGB(0, 0, 0) && pos.y > 0);
+					mPos.y -= 1;
+					FootColor = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(mPos.x), static_cast<int>(mPos.y) + 75));
+					tr->SetPos(mPos);
+					mCheck_Ground = 1;
+				} while (FootColor == RGB(0, 0, 0) && mPos.y > 0);
 			}
 		}
 
@@ -101,13 +103,13 @@ namespace jk
 	void show_bomb::move()
 	{
 		Transform* tr = GetComponent<Transform>();
-		pos = tr->GetPos();
-		Player_pos = mOwner->GetComponent<Transform>()->GetPos();
-		pos.x += 1000 * static_cast<float>(Time::DeltaTime());
-		pos.y += 500 * static_cast<float>(Time::DeltaTime());
-		tr->SetPos(pos);
+		mPos = tr->GetPos();
+		mPlayer_pos = mOwner->GetComponent<Transform>()->GetPos();
+		mPos.x += 1000 * static_cast<float>(Time::DeltaTime());
+		mPos.y += 500 * static_cast<float>(Time::DeltaTime());
+		tr->SetPos(mPos);
 
-		if (check_ground == 1)
+		if (mCheck_Ground == 1)
 		{
 			Bomber_shot->Play(false);
 			mState = eState::Death;

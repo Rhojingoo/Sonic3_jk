@@ -8,6 +8,8 @@
 #include "jk_Collider.h"
 #include "jk_Animator.h"
 #include "jk_Resources.h"
+#include "jk_Image.h"
+#include "jk_Sound.h"
 
 #include "jk_Time.h"
 #include "jk_Object.h"
@@ -19,12 +21,12 @@
 namespace jk
 {
 	Collapses_GR_left::Collapses_GR_left()
-		: Crash(nullptr)
+		: mCrash(nullptr)
 		, mImage(nullptr)
 		, mAnimator(nullptr)
 		, mState(eState::Idle)
-		, time_Gr2(0.f)
-		, check_Gr2(0)
+		, mTime(0.f)
+		, mCheck_Ground(0)
 	{
 	}
 	Collapses_GR_left::~Collapses_GR_left()
@@ -33,7 +35,7 @@ namespace jk
 
 	void Collapses_GR_left::Initialize()
 	{
-		Crash = Resources::Load<Sound>(L"Crash", L"..\\Resources\\Sound\\Sonic\\Crash.wav");
+		mCrash = Resources::Load<Sound>(L"Crash", L"..\\Resources\\Sound\\Sonic\\Crash.wav");
 
 		mImage = Resources::Load<Image>(L"Ground_collapses", L"..\\Resources\\Rock_Platform.bmp");
 		mAnimator = AddComponent<Animator>();
@@ -109,7 +111,7 @@ namespace jk
 			if (!((mSonic->Getsonicstate() == Sonic::eSonicState::Jump) || (mSonic->Getsonicstate() == Sonic::eSonicState::Hurt)))
 			{
 				sonic_Pos.y = groundCol->Getpos().y - groundCol->GetSize().y / 2.f;
-				check_Gr2 = 1;
+				mCheck_Ground = 1;
 				sonicTr->SetPos(sonic_Pos);
 			}
 
@@ -166,10 +168,10 @@ namespace jk
 			}
 		}
 
-		if (check_Gr2 == 1)
+		if (mCheck_Ground == 1)
 		{
-			time_Gr2 += static_cast<float>(Time::DeltaTime());
-			if (time_Gr2 >= 1)
+			mTime += static_cast<float>(Time::DeltaTime());
+			if (mTime >= 1)
 			{
 				mState = eState::Death;
 				return;
@@ -192,7 +194,7 @@ namespace jk
 
 	void Collapses_GR_left::death()
 	{
-		Crash->Play(false);
+		mCrash->Play(false);
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 		Callapses* GR_callapese = new Callapses();

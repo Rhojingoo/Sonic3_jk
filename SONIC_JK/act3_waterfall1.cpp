@@ -3,8 +3,7 @@
 #include "jk_Resources.h"
 #include "jk_Animator.h"
 #include "jk_Scene.h"
-
-
+#include "jk_Image.h"
 
 namespace jk
 {

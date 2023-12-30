@@ -5,7 +5,7 @@
 #include "jk_Transform.h"
 #include "jk_Animator.h"
 #include "jk_Collider.h"
-
+#include "jk_Image.h"
 
 float time_S;
 
@@ -15,7 +15,7 @@ namespace jk
 		: mOwner(owner)
 		, seconds(nullptr)
 		, mImage(nullptr)
-		, time_S(0.f)
+		, mTime_S(0.f)
 	{		
 		seconds = dynamic_cast<UI_Time*>(owner);
 	}
@@ -30,7 +30,7 @@ namespace jk
 	}
 	void UI_Time_seconds::Update()
 	{
-		time_S =seconds->Get_seconds();			
+		mTime_S =seconds->Get_seconds();			
 
 		Gameobject::Update();
 	}
@@ -42,32 +42,32 @@ namespace jk
 
 		int a = 9;
 		int b = 58;
-		if (time_S == 0)
+		if (mTime_S == 0)
 		{
 			a = 9;
 			b = 58;
 		}
-		if (time_S == 1)
+		if (mTime_S == 1)
 		{
 			a = 18;
 			b = 58;
 		}
-		if (time_S == 2)
+		if (mTime_S == 2)
 		{
 			a = 27;
 			b = 58;
 		}
-		if (time_S == 3)
+		if (mTime_S == 3)
 		{
 			a = 36;
 			b = 58;
 		}
-		if (time_S == 4)
+		if (mTime_S == 4)
 		{
 			a = 45;
 			b = 58;
 		}
-		if (time_S == 5)
+		if (mTime_S == 5)
 		{
 			a = 54;
 			b = 58;

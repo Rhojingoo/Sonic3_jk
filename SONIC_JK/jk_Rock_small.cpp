@@ -12,6 +12,8 @@
 #include "jk_Time.h"
 #include "jk_Object.h"
 #include "jk_Pixel_Ground.h"
+#include "jk_Image.h"
+#include "jk_Sound.h"
 
 #include "jk_SONIC.h"
 
@@ -29,7 +31,7 @@ float Random_rock(float min, float max)
 namespace jk
 {
 	Rock_small::Rock_small()
-		: Crash(nullptr)
+		: mCrash(nullptr)
 		, mImage(nullptr)
 		, mGroundImage(nullptr)
 		, mAnimator(nullptr)
@@ -37,12 +39,11 @@ namespace jk
 		, mState(eState::Idle)
 		, check(nullptr)
 		, sonicState()
-		, timer_RS(0.f)// 타이머 변수
-		, RS_DisappearTime(20.f)// 돌이 사라지는 시간 (초)
-		, bounceForce_RS(500.f)
-		, check_ground_SR(0)
+		, mTime(0.f)// 타이머 변수
+		, mDisappearTime(20.f)// 돌이 사라지는 시간 (초)
+		, mCheckGR(0)
 	{
-		Crash = Resources::Load<Sound>(L"Crash", L"..\\Resources\\Sound\\Sonic\\Crash.wav");
+		mCrash = Resources::Load<Sound>(L"Crash", L"..\\Resources\\Sound\\Sonic\\Crash.wav");
 
 		mImage = Resources::Load<Image>(L"Rock_Platform", L"..\\Resources\\Rock_Platform.bmp");
 		mAnimator = AddComponent<Animator>();
@@ -90,7 +91,7 @@ namespace jk
 		Transform* ROCK_TR = GetComponent<Transform>();
 		Rigidbody* ROCK_rb = GetComponent<Rigidbody>();
 		mGroundImage = check->GetGroundImage();
-				
+
 		//if (ROCK_TR && ROCK_rb && mGroundImage)
 		//{
 		//	Vector2 ROCK_ps = ROCK_TR->GetPos();
@@ -103,7 +104,7 @@ namespace jk
 		//			ROCK_ps.y -= 1;
 		//			//RING_Color = mGroundImage->GetPixel(ROCK_ps.x, ROCK_ps.y+55);
 		//			ROCK_TR->SetPos(ROCK_ps);
-		//			check_ground_SR = 1;
+		//			mCheckGR = 1;
 		//		}
 		//	}		
 		//}
@@ -120,8 +121,8 @@ namespace jk
 					ROCK_ps.y -= 1;
 					//COLORREF RING_Color = mGroundImage->GetPixel(static_cast<int>(ROCK_ps.x), static_cast<int>(ROCK_ps.y) + 55);
 					ROCK_TR->SetPos(ROCK_ps);
-					check_ground_SR = 1;
-				} while (RING_Color == RGB(0, 0, 0) && ROCK_ps.y <0);
+					mCheckGR = 1;
+				} while (RING_Color == RGB(0, 0, 0) && ROCK_ps.y < 0);
 			}
 		}
 
@@ -140,14 +141,14 @@ namespace jk
 
 	void Rock_small::OnCollisionEnter(Collider* other)
 	{
-		
+
 		if (Sonic* sonic = dynamic_cast<Sonic*>(other->GetOwner()))
 		{
 			sonicState = sonic->Getsonicstate();
 
 			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
 			{
-				Crash->Play(false);
+				mCrash->Play(false);
 
 				Transform* tr = GetComponent<Transform>();
 				Scene* curScene = SceneManager::GetActiveScene();
@@ -177,7 +178,9 @@ namespace jk
 				}
 				mState = eState::Death;
 			}
-		}		
+		}
+
+
 	}
 
 	void Rock_small::OnCollisionStay(Collider* other)

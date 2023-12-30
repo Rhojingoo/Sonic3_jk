@@ -1,5 +1,5 @@
 #include "Act1_Boss.h"
-#include "jk_Time.h"
+
 #include "jk_SceneManager.h"
 #include "jk_Input.h"
 #include "jk_Resources.h"
@@ -10,6 +10,15 @@
 #include "jk_Object.h"
 #include "Rigidbody.h"
 
+#include "jk_SONIC.h"
+#include "jk_Image.h"
+#include "jk_Sound.h"
+#include "jk_Time.h"
+#include "Bullet_Act1_Down.h"
+#include "Bullet_Act1_R_Side.h"
+#include "Bullet_Act1_R_DIA.h"
+#include "Bullet_Act1_L_Side.h"
+#include "Bullet_Act1_L_DIA.h"
 
 #include "Boss_Run.h"
 #include "Boss_act1_boomb.h"
@@ -19,19 +28,19 @@ namespace jk
 {
 	Act1_Boss::Act1_Boss(Gameobject* owner)
 		: mCenterpos(Vector2(19860.f, 3480.f))
-		, pos(0.f, 0.f)
+		, mPos(0.f, 0.f)
 		, mMonspeed(200.0f)
 		, mMonmaxdistance(100.0f)
 		, fDist(0.f)
 		, mDir(-1)
-		, time(0)
-		, attack_check(0)
-		, starscene(0)
-		, attack_motion(0)
-		, Dir_change(0)
-		, hurt_state(0)
-		, Damege_sheck(0)
-		, Death_check(0)
+		, mTime(0)
+		, mAttack_check(0)
+		, mStarscene(0)
+		, mAttack_motion(0)
+		, mDir_change(0)
+		, mHurt_state(0)
+		, mDamege_check(0)
+		, mDeath_check(0)
 		, sonicState()
 		, mOwner(owner)
 		, mState()
@@ -185,56 +194,72 @@ namespace jk
 	void Act1_Boss::Update()
 	{
 		Transform* tr = GetComponent<Transform>();
-		pos = tr->GetPos();
+		mPos = tr->GetPos();
 
 		switch (mState)
 		{
-		case jk::Act1_Boss::eBossState::Idle:idle();
+		case jk::Act1_Boss::eBossState::Idle:
+			idle();
 			break;
 
-		case jk::Act1_Boss::eBossState::Move:move();
+		case jk::Act1_Boss::eBossState::Move:
+			move();
 			break;
 
-		case jk::Act1_Boss::eBossState::Right:right();
+		case jk::Act1_Boss::eBossState::Right:
+			right();
 			break;
 
-		case jk::Act1_Boss::eBossState::Left:left();
+		case jk::Act1_Boss::eBossState::Left:
+			left();
 			break;
 
-		case jk::Act1_Boss::eBossState::Up:up();
+		case jk::Act1_Boss::eBossState::Up:
+			up();
 			break;
 
-		case jk::Act1_Boss::eBossState::Down:down();
+		case jk::Act1_Boss::eBossState::Down:
+			down();
 			break;
 
-		case jk::Act1_Boss::eBossState::Side_Dianogol:side_dianogol();
+		case jk::Act1_Boss::eBossState::Side_Dianogol:
+			side_dianogol();
 			break;
 
-		case jk::Act1_Boss::eBossState::Dianogol_Down:dianogol_down();
+		case jk::Act1_Boss::eBossState::Dianogol_Down:
+			dianogol_down();
 			break;
 
-		case jk::Act1_Boss::eBossState::Down_Dianogol:down_dianogol();
+		case jk::Act1_Boss::eBossState::Down_Dianogol:
+			down_dianogol();
 			break;
 
-		case jk::Act1_Boss::eBossState::Dianogol_Side:dianogol_side();
+		case jk::Act1_Boss::eBossState::Dianogol_Side:
+			dianogol_side();
 			break;
 
-		case jk::Act1_Boss::eBossState::Side_Down:side_down();
+		case jk::Act1_Boss::eBossState::Side_Down:
+			side_down();
 			break;
 
-		case jk::Act1_Boss::eBossState::Attack_Side_Waiting:attack_side_waiting();
+		case jk::Act1_Boss::eBossState::Attack_Side_Waiting:
+			attack_side_waiting();
 			break;
 
-		case jk::Act1_Boss::eBossState::Attack_Dianogol_Waiting:attack_dianogol_waition();
+		case jk::Act1_Boss::eBossState::Attack_Dianogol_Waiting:
+			attack_dianogol_waition();
 			break;
 
-		case jk::Act1_Boss::eBossState::Attack_Down_Waiting:attack_down_waition();
+		case jk::Act1_Boss::eBossState::Attack_Down_Waiting:
+			attack_down_waition();
 			break;
 
-		case jk::Act1_Boss::eBossState::Death:death();
+		case jk::Act1_Boss::eBossState::Death:
+			death();
 			break;
 
-		case jk::Act1_Boss::eBossState::Death_throw:death_throw();
+		case jk::Act1_Boss::eBossState::Death_throw:
+			death_throw();
 			break;
 
 		default:
@@ -262,20 +287,20 @@ namespace jk
 			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
 			{
 
-				Damege_sheck += 1;
+				mDamege_check += 1;
 				Boss_Hit->Play(false);
 
-				if ((Damege_sheck >= 6) && (mDir == -1))//왼쪽 6대를 기본으로 함
+				if ((mDamege_check >= 6) && (mDir == -1))//왼쪽 6대를 기본으로 함
 				{
 					mAnimator->Play(L"L_Boss_side", true);
 					mState = eBossState::Death;
-					Death_check = 1;
+					mDeath_check = 1;
 				}
-				else if ((Damege_sheck >= 6) && (mDir == 1))//오른쪽
+				else if ((mDamege_check >= 6) && (mDir == 1))//오른쪽
 				{
 					mAnimator->Play(L"R_Boss_side", true);
 					mState = eBossState::Death;
-					Death_check = 1;
+					mDeath_check = 1;
 				}
 
 
@@ -286,13 +311,13 @@ namespace jk
 					if (mDir == -1)
 					{
 						mAnimator->Play(L"L_Boss_dianogol_hurt", false);
-						hurt_state = 1;
+						mHurt_state = 1;
 						mAnimator->GetCompleteEvent(L"L_Boss_dianogol_hurt") = std::bind(&Act1_Boss::hurt_dianogol, this);
 					}
 					if (mDir == 1)
 					{
 						mAnimator->Play(L"R_Boss_dianogol_hurt", false);
-						hurt_state = 1;
+						mHurt_state = 1;
 						mAnimator->GetCompleteEvent(L"L_Boss_dianogol_hurt") = std::bind(&Act1_Boss::hurt_dianogol, this);
 					}
 					break;
@@ -302,13 +327,13 @@ namespace jk
 					if (mDir == -1)
 					{
 						mAnimator->Play(L"L_Boss_dianogol_hurt", false);
-						hurt_state = 2;
+						mHurt_state = 2;
 						mAnimator->GetCompleteEvent(L"L_Boss_dianogol_hurt") = std::bind(&Act1_Boss::hurt_dianogol, this);
 					}
 					else
 					{
 						mAnimator->Play(L"R_Boss_dianogol_hurt", false);
-						hurt_state = 2;
+						mHurt_state = 2;
 						mAnimator->GetCompleteEvent(L"R_Boss_dianogol_hurt") = std::bind(&Act1_Boss::hurt_dianogol, this);
 					}
 					break;
@@ -318,13 +343,13 @@ namespace jk
 					if (mDir == -1)
 					{
 						mAnimator->Play(L"L_Boss_dianogol_hurt", false);
-						hurt_state = 3;
+						mHurt_state = 3;
 						mAnimator->GetCompleteEvent(L"L_Boss_dianogol_hurt") = std::bind(&Act1_Boss::hurt_dianogol, this);
 					}
 					else
 					{
 						mAnimator->Play(L"R_Boss_dianogol_hurt", false);
-						hurt_state = 3;
+						mHurt_state = 3;
 						mAnimator->GetCompleteEvent(L"R_Boss_dianogol_hurt") = std::bind(&Act1_Boss::hurt_dianogol, this);
 					}
 					break;
@@ -334,13 +359,13 @@ namespace jk
 					if (mDir == -1)
 					{
 						mAnimator->Play(L"L_Boss_dianogol_hurt", false);
-						hurt_state = 4;
+						mHurt_state = 4;
 						mAnimator->GetCompleteEvent(L"L_Boss_dianogol_hurt") = std::bind(&Act1_Boss::hurt_dianogol, this);
 					}
 					else
 					{
 						mAnimator->Play(L"R_Boss_dianogol_hurt", false);
-						hurt_state = 4;
+						mHurt_state = 4;
 						mAnimator->GetCompleteEvent(L"R_Boss_dianogol_hurt") = std::bind(&Act1_Boss::hurt_dianogol, this);
 					}
 					break;
@@ -350,13 +375,13 @@ namespace jk
 					if (mDir == -1)
 					{
 						mAnimator->Play(L"L_Boss_dianogol_hurt", false);
-						hurt_state = 5;
+						mHurt_state = 5;
 						mAnimator->GetCompleteEvent(L"L_Boss_dianogol_hurt") = std::bind(&Act1_Boss::hurt_dianogol, this);
 					}
 					else
 					{
 						mAnimator->Play(L"R_Boss_dianogol_hurt", false);
-						hurt_state = 5;
+						mHurt_state = 5;
 						mAnimator->GetCompleteEvent(L"R_Boss_dianogol_hurt") = std::bind(&Act1_Boss::hurt_dianogol, this);
 					}
 					break;
@@ -367,13 +392,13 @@ namespace jk
 					if (mDir == -1)
 					{
 						mAnimator->Play(L"L_Boss_dianogol_hurt", false);
-						hurt_state = 6;
+						mHurt_state = 6;
 						mAnimator->GetCompleteEvent(L"L_Boss_dianogol_hurt") = std::bind(&Act1_Boss::hurt_dianogol, this);
 					}
 					else
 					{
 						mAnimator->Play(L"R_Boss_dianogol_hurt", false);
-						hurt_state = 6;
+						mHurt_state = 6;
 						mAnimator->GetCompleteEvent(L"R_Boss_dianogol_hurt") = std::bind(&Act1_Boss::hurt_dianogol, this);
 					}
 					break;
@@ -384,13 +409,13 @@ namespace jk
 					if (mDir == -1)
 					{
 						mAnimator->Play(L"L_Boss_dianogol_hurt", false);
-						hurt_state = 7;
+						mHurt_state = 7;
 						mAnimator->GetCompleteEvent(L"L_Boss_dianogol_hurt") = std::bind(&Act1_Boss::hurt_side, this);
 					}
 					else
 					{
 						mAnimator->Play(L"R_Boss_dianogol_hurt", false);
-						hurt_state = 7;
+						mHurt_state = 7;
 						mAnimator->GetCompleteEvent(L"R_Boss_dianogol_hurt") = std::bind(&Act1_Boss::hurt_side, this);
 					}
 					break;
@@ -401,13 +426,13 @@ namespace jk
 					if (mDir == -1)
 					{
 						mAnimator->Play(L"L_Boss_side_hurt", false);
-						hurt_state = 8;
+						mHurt_state = 8;
 						mAnimator->GetCompleteEvent(L"L_Boss_dianogol_hurt") = std::bind(&Act1_Boss::hurt_side, this);
 					}
 					else
 					{
 						mAnimator->Play(L"R_Boss_side_hurt", false);
-						hurt_state = 8;
+						mHurt_state = 8;
 						mAnimator->GetCompleteEvent(L"R_Boss_dianogol_hurt") = std::bind(&Act1_Boss::hurt_side, this);
 					}
 					break;
@@ -418,13 +443,13 @@ namespace jk
 					if (mDir == -1)
 					{
 						mAnimator->Play(L"L_Boss_side_hurt", false);
-						hurt_state = 9;
+						mHurt_state = 9;
 						mAnimator->GetCompleteEvent(L"L_Boss_side_hurt") = std::bind(&Act1_Boss::hurt_side, this);
 					}
 					else
 					{
 						mAnimator->Play(L"R_Boss_side_hurt", false);
-						hurt_state = 9;
+						mHurt_state = 9;
 						mAnimator->GetCompleteEvent(L"R_Boss_side_hurt") = std::bind(&Act1_Boss::hurt_side, this);
 					}
 					break;
@@ -448,12 +473,12 @@ namespace jk
 
 	void Act1_Boss::idle()
 	{
-		time += static_cast<float>(Time::DeltaTime());
-		if (time >= 1)
+		mTime += static_cast<float>(Time::DeltaTime());
+		if (mTime >= 1)
 		{
 			mState = eBossState::Side_Down;
 			mAnimator->Play(L"L_Boss_side_down", false);
-			time = 0;
+			mTime = 0;
 		}
 		//mAnimator->GetCompleteEvent(L"L_Boss_side_down") = std::bind(&Boss::side_down, this);
 	}
@@ -462,17 +487,17 @@ namespace jk
 	{
 		Transform* tr = GetComponent<Transform>();
 
-		fDist = mCenterpos.x - pos.x - mMonmaxdistance;
-		pos.x += mMonspeed * static_cast<float>(Time::DeltaTime());
+		fDist = mCenterpos.x - mPos.x - mMonmaxdistance;
+		mPos.x += mMonspeed * static_cast<float>(Time::DeltaTime());
 
 		if (fDist <= 550.0f)
 		{
 			mState = eBossState::Down_Dianogol;
 			mAnimator->Play(L"L_Boss_down_dianogol", false);
 			mDir = -1;
-			Dir_change = 1;
+			mDir_change = 1;
 		}
-		tr->SetPos(pos);
+		tr->SetPos(mPos);
 	}
 
 
@@ -480,42 +505,42 @@ namespace jk
 	{
 		Transform* tr = GetComponent<Transform>();
 
-		fDist = mCenterpos.x - pos.x - mMonmaxdistance;
-		pos.x += mMonspeed * static_cast<float>(Time::DeltaTime());
+		fDist = mCenterpos.x - mPos.x - mMonmaxdistance;
+		mPos.x += mMonspeed * static_cast<float>(Time::DeltaTime());
 
 		if (fDist <= -650.0f)
 		{
 			mState = eBossState::Down_Dianogol;
 			mAnimator->Play(L"L_Boss_down_dianogol", false);
 			mDir = 1;
-			Dir_change = -1;
+			mDir_change = -1;
 		}
-		tr->SetPos(pos);
+		tr->SetPos(mPos);
 	}
 
 	void Act1_Boss::left()
 	{
 		Transform* tr = GetComponent<Transform>();
 
-		fDist = mCenterpos.x - pos.x - mMonmaxdistance;
-		pos.x -= mMonspeed * static_cast<float>(Time::DeltaTime());
+		fDist = mCenterpos.x - mPos.x - mMonmaxdistance;
+		mPos.x -= mMonspeed * static_cast<float>(Time::DeltaTime());
 
 		if (fDist >= 550.0f)
 		{
 			mState = eBossState::Side_Dianogol;
 			mAnimator->Play(L"R_Boss_down_dianogol", false);
 			mDir = -1;
-			Dir_change = -1;
+			mDir_change = -1;
 		}
-		tr->SetPos(pos);
+		tr->SetPos(mPos);
 	}
 
 	void Act1_Boss::up()
 	{
 		Transform* tr = GetComponent<Transform>();
 
-		fDist = mCenterpos.y - pos.y - mMonmaxdistance;
-		pos.y -= mMonspeed * static_cast<float>(Time::DeltaTime());
+		fDist = mCenterpos.y - mPos.y - mMonmaxdistance;
+		mPos.y -= mMonspeed * static_cast<float>(Time::DeltaTime());
 
 		if (fDist >= -100.0f)
 		{
@@ -530,15 +555,15 @@ namespace jk
 				mAnimator->Play(L"R_Boss_dianogol_side", false);
 			}
 		}
-		tr->SetPos(pos);
+		tr->SetPos(mPos);
 	}
 
 	void Act1_Boss::down()
 	{
 		Transform* tr = GetComponent<Transform>();
 
-		fDist = mCenterpos.y - pos.y - mMonmaxdistance;
-		pos.y += mMonspeed * static_cast<float>(Time::DeltaTime());
+		fDist = mCenterpos.y - mPos.y - mMonmaxdistance;
+		mPos.y += mMonspeed * static_cast<float>(Time::DeltaTime());
 
 		if (fDist <= -350.0f)
 		{
@@ -553,7 +578,7 @@ namespace jk
 				mAnimator->Play(L"R_Boss_dianogol_side", false);
 			}
 		}
-		tr->SetPos(pos);
+		tr->SetPos(mPos);
 	}
 
 	void Act1_Boss::side_dianogol()
@@ -626,75 +651,75 @@ namespace jk
 		if (mDir == -1)
 		{
 			Transform* tr = GetComponent<Transform>();
-			if (attack_check == 0)
+			if (mAttack_check == 0)
 			{
 				_L_side_bullet[0]->SetState(eState::Active);
 				_L_side_bullet[0]->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x + 200, tr->GetPos().y + 50 });
-				attack_check = 1;
+				mAttack_check = 1;
 			}
-			else if (attack_check == 2)
+			else if (mAttack_check == 2)
 			{
 				_L_side_bullet[1]->SetState(eState::Active);
 				_L_side_bullet[1]->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x + 90, tr->GetPos().y + 50 });
-				attack_check = 3;
+				mAttack_check = 3;
 			}
 
-			time += static_cast<float>(Time::DeltaTime());
-			if (time >= 2)
+			mTime += static_cast<float>(Time::DeltaTime());
+			if (mTime >= 2)
 			{
-				if (attack_motion == 0)
+				if (mAttack_motion == 0)
 				{
 					mState = eBossState::Attack_Side_Waiting;
 					mAnimator->Play(L"L_Boss_side_Attack2", false);
-					time = 0;
-					attack_motion = 1;
-					attack_check = 2;
+					mTime = 0;
+					mAttack_motion = 1;
+					mAttack_check = 2;
 				}
 				else
 				{
 					mState = eBossState::Up;
 					mAnimator->Play(L"L_Boss_side", false);
-					time = 0;
-					Dir_change = 1;
-					attack_motion = 0;
-					attack_check = 0;
+					mTime = 0;
+					mDir_change = 1;
+					mAttack_motion = 0;
+					mAttack_check = 0;
 				}
 			}
 		}
 		else if (mDir == 1)
 		{
 			Transform* tr = GetComponent<Transform>();
-			if (attack_check == 0)
+			if (mAttack_check == 0)
 			{
 				_R_side_bullet[0]->SetState(eState::Active);
 				_R_side_bullet[0]->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x - 100, tr->GetPos().y + 50 });
-				attack_check = 1;
+				mAttack_check = 1;
 			}
-			else if (attack_check == 2)
+			else if (mAttack_check == 2)
 			{
 				_R_side_bullet[1]->SetState(eState::Active);
 				_R_side_bullet[1]->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x + 30, tr->GetPos().y + 50 });
-				attack_check = 3;
+				mAttack_check = 3;
 			}
-			time += static_cast<float>(Time::DeltaTime());
-			if (time >= 2)
+			mTime += static_cast<float>(Time::DeltaTime());
+			if (mTime >= 2)
 			{
-				if (attack_motion == 0)
+				if (mAttack_motion == 0)
 				{
 					mState = eBossState::Attack_Side_Waiting;
 					mAnimator->Play(L"R_Boss_side_Attack2", false);
-					time = 0;
-					attack_motion = 1;
-					attack_check = 2;
+					mTime = 0;
+					mAttack_motion = 1;
+					mAttack_check = 2;
 				}
 				else
 				{
 					mState = eBossState::Up;
 					mAnimator->Play(L"R_Boss_side", false);
-					time = 0;
-					Dir_change = 1;
-					attack_motion = 0;
-					attack_check = 0;
+					mTime = 0;
+					mDir_change = 1;
+					mAttack_motion = 0;
+					mAttack_check = 0;
 				}
 			}
 		}
@@ -713,49 +738,49 @@ namespace jk
 		if (mDir == -1)
 		{
 			Transform* tr = GetComponent<Transform>();
-			if (attack_check == 0)
+			if (mAttack_check == 0)
 			{
 				_L_dia_bullet[0]->SetState(eState::Active);
 				_L_dia_bullet[0]->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x + 200, tr->GetPos().y + 90 });
-				attack_check = 1;
+				mAttack_check = 1;
 			}
-			else if (attack_check == 2)
+			else if (mAttack_check == 2)
 			{
 				_L_dia_bullet[1]->SetState(eState::Active);
 				_L_dia_bullet[1]->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x + 90, tr->GetPos().y + 90 });
-				attack_check = 3;
+				mAttack_check = 3;
 			}
 
 
-			time += static_cast<float>(Time::DeltaTime());
-			if (time >= 2)
+			mTime += static_cast<float>(Time::DeltaTime());
+			if (mTime >= 2)
 			{
-				if (attack_motion == 0)
+				if (mAttack_motion == 0)
 				{
 					mState = eBossState::Attack_Dianogol_Waiting;
 					mAnimator->Play(L"L_Boss_dianogol_Attack2", false);
-					time = 0;
-					attack_motion = -1;
-					attack_check = 2;
+					mTime = 0;
+					mAttack_motion = -1;
+					mAttack_check = 2;
 				}
 				else
 				{
 					//미사일2 넣기 location change
-					if (Dir_change == 1)
+					if (mDir_change == 1)
 					{
 						mState = eBossState::Right;
 						mAnimator->Play(L"L_Boss_dianogol", false);
-						time = 0;
-						Dir_change = -1;
-						attack_check = 0;
+						mTime = 0;
+						mDir_change = -1;
+						mAttack_check = 0;
 					}
-					else if (Dir_change == -1)
+					else if (mDir_change == -1)
 					{
 						mState = eBossState::Down;
 						mAnimator->Play(L"L_Boss_dianogol", false);
-						time = 0;
-						attack_motion = 0;
-						attack_check = 0;
+						mTime = 0;
+						mAttack_motion = 0;
+						mAttack_check = 0;
 					}
 				}
 			}
@@ -763,48 +788,48 @@ namespace jk
 		else if (mDir == 1)
 		{
 			Transform* tr = GetComponent<Transform>();
-			if (attack_check == 0)
+			if (mAttack_check == 0)
 			{
 				_R_dia_bullet[0]->SetState(eState::Active);
 				_R_dia_bullet[0]->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x - 80, tr->GetPos().y + 90 });
-				attack_check = 1;
+				mAttack_check = 1;
 			}
-			if (attack_check == 2)
+			if (mAttack_check == 2)
 			{
 				_R_dia_bullet[1]->SetState(eState::Active);
 				_R_dia_bullet[1]->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x + 70, tr->GetPos().y + 90 });
-				attack_check = 3;
+				mAttack_check = 3;
 			}
 
-			time += static_cast<float>(Time::DeltaTime());
-			if (time >= 2)
+			mTime += static_cast<float>(Time::DeltaTime());
+			if (mTime >= 2)
 			{
-				if (attack_motion == 0)
+				if (mAttack_motion == 0)
 				{
 					mState = eBossState::Attack_Dianogol_Waiting;
 					mAnimator->Play(L"R_Boss_dianogol_Attack2", false);
-					time = 0;
-					attack_motion = 1;
-					attack_check = 2;
+					mTime = 0;
+					mAttack_motion = 1;
+					mAttack_check = 2;
 				}
 				else
 				{
 					//미사일2 넣기 location change
-					if (Dir_change == 1)
+					if (mDir_change == 1)
 					{
 						mState = eBossState::Left;
 						mAnimator->Play(L"R_Boss_dianogol", false);
-						time = 0;
-						Dir_change = -1;
-						attack_check = 0;
+						mTime = 0;
+						mDir_change = -1;
+						mAttack_check = 0;
 					}
-					else if (Dir_change == -1)
+					else if (mDir_change == -1)
 					{
 						mState = eBossState::Down;
 						mAnimator->Play(L"R_Boss_dianogol", false);
-						time = 0;
-						attack_motion = 0;
-						attack_check = 0;
+						mTime = 0;
+						mAttack_motion = 0;
+						mAttack_check = 0;
 					}
 				}
 			}
@@ -824,38 +849,38 @@ namespace jk
 		if (mDir == -1)
 		{
 			Transform* tr = GetComponent<Transform>();
-			if (attack_check == 0)
+			if (mAttack_check == 0)
 			{
 				_Down_bullet[0]->SetState(eState::Active);
 				_Down_bullet[0]->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x + 60, tr->GetPos().y + 110 });
 
 				_Down_bullet[1]->SetState(eState::Active);
 				_Down_bullet[1]->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x + 200, tr->GetPos().y + 110 });
-				attack_check = 1;
+				mAttack_check = 1;
 			}
-			time += static_cast<float>(Time::DeltaTime());
-			if (time >= 2)
+			mTime += static_cast<float>(Time::DeltaTime());
+			if (mTime >= 2)
 			{
 				mState = eBossState::Move;
 				mAnimator->Play(L"L_Boss_Down", false);
-				time = 0;
-				attack_check = 0;
+				mTime = 0;
+				mAttack_check = 0;
 			}
 		}
 		else if (mDir == 1)
 		{
-			time += static_cast<float>(Time::DeltaTime());;
-			if (time >= 3)
+			mTime += static_cast<float>(Time::DeltaTime());;
+			if (mTime >= 3)
 			{
 				mState = eBossState::Side_Down;
 				mAnimator->Play(L"L_Boss_side_down", false);
-				time = 0;
+				mTime = 0;
 			}
 		}
-		else if (starscene == 0)
+		else if (mStarscene == 0)
 		{
 			mState = eBossState::Move;
-			starscene = 1;
+			mStarscene = 1;
 		}
 	}
 
@@ -867,20 +892,20 @@ namespace jk
 
 	void Act1_Boss::hurt_down()
 	{
-		if (hurt_state == 1)
+		if (mHurt_state == 1)
 		{
 		}
-		else if (hurt_state == 2)
+		else if (mHurt_state == 2)
 		{
 		}
-		else if (hurt_state == 3)
+		else if (mHurt_state == 3)
 		{
 		}
 	}
 
 	void Act1_Boss::hurt_side()
 	{
-		if (hurt_state == 7)
+		if (mHurt_state == 7)
 		{
 			mState = eBossState::Dianogol_Side;
 			if (mDir == -1)
@@ -892,7 +917,7 @@ namespace jk
 				mAnimator->Play(L"R_Boss_dianogol_side", false);
 			}
 		}
-		else if (hurt_state == 8)
+		else if (mHurt_state == 8)
 		{
 			mState = eBossState::Side_Down;
 			if (mDir == -1)
@@ -904,7 +929,7 @@ namespace jk
 				mAnimator->Play(L"R_Boss_side_down", false);
 			}
 		}
-		else if (hurt_state == 9)
+		else if (mHurt_state == 9)
 		{
 			mState = eBossState::Attack_Side_Waiting;
 			if (mDir == -1)
@@ -916,12 +941,12 @@ namespace jk
 				mAnimator->Play(L"R_Boss_side_Attack1", false);
 			}
 		}
-		hurt_state = 0;
+		mHurt_state = 0;
 	}
 
 	void Act1_Boss::hurt_dianogol()
 	{
-		if (hurt_state == 1)
+		if (mHurt_state == 1)
 		{
 			if (mDir == -1)
 			{
@@ -934,7 +959,7 @@ namespace jk
 				mAnimator->Play(L"R_Boss_down_dianogol", false);
 			}
 		}
-		else if (hurt_state == 2)
+		else if (mHurt_state == 2)
 		{
 			if (mDir == -1)
 			{
@@ -948,7 +973,7 @@ namespace jk
 			}
 
 		}
-		else if (hurt_state == 3)
+		else if (mHurt_state == 3)
 		{
 			if (mDir == -1)
 			{
@@ -961,19 +986,19 @@ namespace jk
 				mAnimator->Play(L"R_Boss_side_dianogol", false);
 			}
 		}
-		else if (hurt_state == 4)
+		else if (mHurt_state == 4)
 		{
 			mState = eBossState::Left;
 			mAnimator->Play(L"R_Boss_dianogol", false);
 		}
 
-		else if (hurt_state == 5)
+		else if (mHurt_state == 5)
 		{
 			mState = eBossState::Right;
 			mAnimator->Play(L"L_Boss_dianogol", false);
 		}
 
-		else if (hurt_state == 6)
+		else if (mHurt_state == 6)
 		{
 			mState = eBossState::Down;
 			if (mDir == -1)
@@ -985,7 +1010,7 @@ namespace jk
 				mAnimator->Play(L"R_Boss_dianogol", false);
 			}
 		}
-		hurt_state = 0;
+		mHurt_state = 0;
 	}
 
 	void Act1_Boss::death()
@@ -999,23 +1024,23 @@ namespace jk
 
 		Transform* tr = GetComponent<Transform>();
 		Scene* curScene = SceneManager::GetActiveScene();
-		if (Death_check == 1)
+		if (mDeath_check == 1)
 		{
 			Boss_act1_boomb* boss_boomb = new Boss_act1_boomb(this);
 			boss_boomb->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x , tr->GetPos().y });
 			curScene->AddGameobeject(boss_boomb, jk_LayerType::Effect);
-			time += static_cast<float>(Time::DeltaTime());
-			Death_check = 2;
+			mTime += static_cast<float>(Time::DeltaTime());
+			mDeath_check = 2;
 		}
 
 
-		time += static_cast<float>(Time::DeltaTime());
-		if ((Death_check == 2) && (time >= 3))
+		mTime += static_cast<float>(Time::DeltaTime());
+		if ((mDeath_check == 2) && (mTime >= 3))
 		{
 			boss_run = new Boss_Run(this);
 			boss_run->GetComponent<Transform>()->SetPos(Vector2{ tr->GetPos().x , tr->GetPos().y });
 			curScene->AddGameobeject(boss_run, jk_LayerType::BOSS);
-			time = 0;
+			mTime = 0;
 
 			mState = eBossState::Death_throw;
 			mAnimator->Play(L"Body_pice", false);
@@ -1028,16 +1053,16 @@ namespace jk
 		mRigidbody->SetVelocity(Vector2{ 0.f,500.f });
 
 
-		if (Death_check == 2)
+		if (mDeath_check == 2)
 		{
-			if (Death_check != 2)
+			if (mDeath_check != 2)
 				return;
 
 			Vector2 boss_pos = boss_run->GetComponent<Transform>()->GetPos();
 
 			if (boss_pos.x > 21845)
 			{
-				Death_check = 3;
+				mDeath_check = 3;
 			}
 		}
 

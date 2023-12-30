@@ -6,17 +6,17 @@
 #include "jk_Transform.h"
 #include "jk_Animator.h"
 #include "jk_Scene.h"
-
+#include "jk_Image.h"
 
 namespace jk
 {
 	Ring_HundredsDgit::Ring_HundredsDgit(Gameobject* owner)
-		:HundredsDigit(0)
-		, Units(nullptr)
+		:mHundredsDigit(0)
+		, mUnits(nullptr)
 		, mOwner(owner)
 		, mImage(nullptr)
 	{	
-		Units = dynamic_cast<Ring_Point_Manager*>(owner);
+		mUnits = dynamic_cast<Ring_Point_Manager*>(owner);
 	}
 	Ring_HundredsDgit::~Ring_HundredsDgit()
 	{
@@ -29,7 +29,7 @@ namespace jk
 	}
 	void Ring_HundredsDgit::Update()
 	{
-		HundredsDigit = Units->GetRingPoint_HundredsDigit();
+		mHundredsDigit = mUnits->GetRingPoint_HundredsDigit();
 
 		Gameobject::Update();
 	}
@@ -41,52 +41,52 @@ namespace jk
 
 		int a = 9;
 		int b = 58;
-		if (HundredsDigit == 0)
+		if (mHundredsDigit == 0)
 		{
 			a = 9;
 			b = 58;
 		}
-		if (HundredsDigit == 1)
+		if (mHundredsDigit == 1)
 		{
 			a = 18;
 			b = 58;
 		}
-		if (HundredsDigit == 2)
+		if (mHundredsDigit == 2)
 		{
 			a = 27;
 			b = 58;
 		}
-		if (HundredsDigit == 3)
+		if (mHundredsDigit == 3)
 		{
 			a = 36;
 			b = 58;
 		}
-		if (HundredsDigit == 4)
+		if (mHundredsDigit == 4)
 		{
 			a = 45;
 			b = 58;
 		}
-		if (HundredsDigit == 5)
+		if (mHundredsDigit == 5)
 		{
 			a = 54;
 			b = 58;
 		}
-		if (HundredsDigit == 6)
+		if (mHundredsDigit == 6)
 		{
 			a = 63;
 			b = 58;
 		}
-		if (HundredsDigit == 7)
+		if (mHundredsDigit == 7)
 		{
 			a = 72;
 			b = 58;
 		}
-		if (HundredsDigit == 8)
+		if (mHundredsDigit == 8)
 		{
 			a = 81;
 			b = 58;
 		}
-		if (HundredsDigit == 9)
+		if (mHundredsDigit == 9)
 		{
 			a = 90;
 			b = 58;

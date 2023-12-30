@@ -11,6 +11,9 @@
 #include "jk_Collider.h"
 #include "jk_Resources.h"
 
+#include "jk_Image.h"
+#include "jk_Sound.h"
+#include "jk_Time.h"
 #include "jk_Object.h"
 #include "jk_Pixel_Ground.h"
 #include "jk_Time.h"
@@ -19,22 +22,22 @@
 namespace jk
 {
 	jk::First_Boss::First_Boss()
-		: Boss_Hit(nullptr)
-		, Boss_Bomb(nullptr)
-		, Boss_Start(nullptr)
-		, Act6_music(nullptr)
+		: mBoss_Hit(nullptr)
+		, mBoss_Bomb(nullptr)
+		, mBoss_Start(nullptr)
+		, mAct6_music(nullptr)
 		, mImage(nullptr)
 		, mGroundImage(nullptr)
 		, mAnimator(nullptr)
-		, boss_ob(nullptr)
+		, mBoss_Object(nullptr)
 
-		, pos(0.f, 0.f)
+		, mPos(0.f, 0.f)
 		, sonicState()
 		, mState(eBossState::Idle)
-		, Damege_check(0)
-		, Death_point(0)
-		, time(0)
-		, check_map(0)
+		, mDamege_check(0)
+		, mDeath_point(0)
+		, mTime(0)
+		, mCheck_Map(0)
 	{
 	}
 
@@ -44,10 +47,10 @@ namespace jk
 
 	void jk::First_Boss::Initialize()
 	{
-		Boss_Hit = Resources::Load<Sound>(L"Boss_hit", L"..\\Resources\\Sound\\Boss_hit.wav");
-		Boss_Bomb = Resources::Load<Sound>(L"Boss_death", L"..\\Resources\\Sound\\Boss_death.wav");
-		Boss_Start = Resources::Load<Sound>(L"Boss_start", L"..\\Resources\\Sound\\Boss_start.wav");
-		Act6_music = Resources::Load<Sound>(L"Act6_bg", L"..\\Resources\\Sound\\Act6_bg.wav");
+		mBoss_Hit = Resources::Load<Sound>(L"Boss_hit", L"..\\Resources\\Sound\\Boss_hit.wav");
+		mBoss_Bomb = Resources::Load<Sound>(L"Boss_death", L"..\\Resources\\Sound\\Boss_death.wav");
+		mBoss_Start = Resources::Load<Sound>(L"Boss_start", L"..\\Resources\\Sound\\Boss_start.wav");
+		mAct6_music = Resources::Load<Sound>(L"Act6_bg", L"..\\Resources\\Sound\\Act6_bg.wav");
 
 		mImage = Resources::Load<Image>(L"First_boss", L"..\\Resources\\ActBG_6\\BOSS\\First_boss.bmp");
 		mAnimator = AddComponent<Animator>();
@@ -78,10 +81,10 @@ namespace jk
 	void jk::First_Boss::Update()
 	{
 		Transform* tr = GetComponent<Transform>();
-		pos = tr->GetPos();
+		mPos = tr->GetPos();
 
-		check_map = check->Get_map_check();
-		mGroundImage = check->GetGroundImage4();
+		mCheck_Map = mPixelGround->Get_map_check();
+		mGroundImage = mPixelGround->GetGroundImage4();
 
 
 		switch (mState)
@@ -133,11 +136,11 @@ namespace jk
 
 
 			Scene* curScene = SceneManager::GetActiveScene();
-			boss_ob = new boss1_object(this);
-			boss_ob->SetName(L"boss_ob");
-			curScene->AddGameobeject(boss_ob, jk_LayerType::BOSS);
-			boss_ob->GetComponent<Transform>()->SetPos(Vector2{ 6050.f, 5560.f });
-			boss_ob->SetGroundImage(mGroundImage);
+			mBoss_Object = new boss1_object(this);
+			mBoss_Object->SetName(L"boss_ob");
+			curScene->AddGameobeject(mBoss_Object, jk_LayerType::BOSS);
+			mBoss_Object->GetComponent<Transform>()->SetPos(Vector2{ 6050.f, 5560.f });
+			mBoss_Object->SetGroundImage(mGroundImage);
 		}
 
 
@@ -147,17 +150,17 @@ namespace jk
 
 			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
 			{
-				Damege_check += 1;
-				Boss_Hit->Play(false);
+				mDamege_check += 1;
+				mBoss_Hit->Play(false);
 
 
-				if (Damege_check <= 1)
+				if (mDamege_check <= 1)
 				{
 					hurt();
 					mAnimator->Play(L"Boss1_hurt", false);
 				}
 
-				if (Damege_check >= 1)
+				if (mDamege_check >= 1)
 				{
 					mAnimator->Play(L"Boss1_death", true);
 					mState = eBossState::Death;
@@ -193,32 +196,32 @@ namespace jk
 		mCollider = GetComponent<Collider>();
 		mCollider->SetSize(Vector2(0.0f, 0.0f));
 
-		Boss_Start->Stop(true);
-		Boss_Bomb->Play(false);
+		mBoss_Start->Stop(true);
+		mBoss_Bomb->Play(false);
 
-		if (Death_point == 0)
+		if (mDeath_point == 0)
 		{
 			Scene* curScene1 = SceneManager::GetActiveScene();
 			Boss_act1_boomb* boomb = new Boss_act1_boomb(this);
 			boomb->SetName(L"boomb_boss1");
 			curScene1->AddGameobeject(boomb, jk_LayerType::Effect);
-			boomb->GetComponent<Transform>()->SetPos(pos);
+			boomb->GetComponent<Transform>()->SetPos(mPos);
 
-			Death_point = 1;
-			boss_ob->Set_Deathpoint(Death_point);
+			mDeath_point = 1;
+			mBoss_Object->Set_Deathpoint(mDeath_point);
 		}
 
-		else if (Death_point == 1)
+		else if (mDeath_point == 1)
 		{
-			time += static_cast<float>(Time::DeltaTime());
-			if (time >= 3)
+			mTime += static_cast<float>(Time::DeltaTime());
+			if (mTime >= 3)
 			{
 				mRigidbody->SetGround(false);
 				mRigidbody->SetVelocity(Vector2{ 0.f,-1500.f });
-				boss_ob->Set_Deathpoint(Death_point);
+				mBoss_Object->Set_Deathpoint(mDeath_point);
 			}
 		}
-		boss_ob->Set_Deathpoint(Death_point);
+		mBoss_Object->Set_Deathpoint(mDeath_point);
 	}
 
 	void jk::First_Boss::attack_up()

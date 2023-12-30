@@ -4,7 +4,7 @@
 #include "jk_Resources.h"
 #include "jk_Transform.h"
 #include "jk_Animator.h"
-
+#include "jk_Image.h"
 
 namespace jk
 {
@@ -12,7 +12,7 @@ namespace jk
 		: mOwner(owner)
 		, mImage(nullptr)
 		, minutes(nullptr)
-		, time_M(0.f)
+		, mTime_M(0.f)
 	{
 		minutes = dynamic_cast<UI_Time*>(owner);
 	}
@@ -27,7 +27,7 @@ namespace jk
 	}
 	void UI_Time_minutes::Update()
 	{
-		time_M = minutes->Get_minutes();
+		mTime_M = minutes->Get_minutes();
 
 		Gameobject::Update();
 	}
@@ -39,52 +39,52 @@ namespace jk
 
 		int a = 9;
 		int b = 58;
-		if (time_M == 0)
+		if (mTime_M == 0)
 		{
 			a = 9;
 			b = 58;
 		}
-		if (time_M == 1)
+		if (mTime_M == 1)
 		{
 			a = 18;
 			b = 58;
 		}
-		if (time_M == 2)
+		if (mTime_M == 2)
 		{
 			a = 27;
 			b = 58;
 		}
-		if (time_M == 3)
+		if (mTime_M == 3)
 		{
 			a = 36;
 			b = 58;
 		}
-		if (time_M == 4)
+		if (mTime_M == 4)
 		{
 			a = 45;
 			b = 58;
 		}
-		if (time_M == 5)
+		if (mTime_M == 5)
 		{
 			a = 54;
 			b = 58;
 		}
-		if (time_M == 6)
+		if (mTime_M == 6)
 		{
 			a = 63;
 			b = 58;
 		}
-		if (time_M == 7)
+		if (mTime_M == 7)
 		{
 			a = 72;
 			b = 58;
 		}
-		if (time_M == 8)
+		if (mTime_M == 8)
 		{
 			a = 81;
 			b = 58;
 		}
-		if (time_M == 9)
+		if (mTime_M == 9)
 		{
 			a = 90;
 			b = 58;

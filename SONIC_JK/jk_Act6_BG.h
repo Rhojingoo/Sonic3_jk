@@ -1,7 +1,5 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_BackGround.h"
-#include "jk_Image.h"
 
 namespace jk
 {
@@ -19,6 +17,6 @@ namespace jk
 			
 
 	private:
-		Image* mImage;
+		class Image* mImage;
 	};
 }

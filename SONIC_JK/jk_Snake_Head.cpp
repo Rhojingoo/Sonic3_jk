@@ -28,7 +28,7 @@ namespace jk
 		, tailsState()
 
 	/*	, mOwner(owner)*/
-		//, Death(nullptr)
+		//, mDeath(nullptr)
 		, mImage(nullptr)
 		, mImage1(nullptr)
 		, mAnimator(nullptr)
@@ -50,7 +50,7 @@ namespace jk
 		, tailsState()
 
 		/*	, mOwner(owner)*/
-			//, Death(nullptr)
+			//, mDeath(nullptr)
 		, mImage(nullptr)
 		, mImage1(nullptr)
 		, mAnimator(nullptr)

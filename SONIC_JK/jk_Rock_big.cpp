@@ -12,6 +12,8 @@
 #include "jk_Time.h"
 #include "jk_Object.h"
 #include "jk_Pixel_Ground.h"
+#include "jk_Image.h"
+#include "jk_Sound.h"
 
 #include "jk_SONIC.h"
 
@@ -28,18 +30,17 @@ float Random_big_rock(float min, float max)
 namespace jk
 {
 	Rock_big::Rock_big()
-		: Crash(nullptr)
+		: mCrash(nullptr)
 		, mImage(nullptr)
 		, mGroundImage(nullptr)
 		, mAnimator(nullptr)
 		, mRigidbody(nullptr)
 		, mState(eState::Idle)
-		, check(nullptr)
+		, mPixelGround_check(nullptr)
 		, sonicState()
-		, timer_RB(0.f)// 타이머 변수
-		, Rb_DisappearTime(20.f)// 돌이 사라지는 시간 (초)
-		, bounceForce_Rb(500.f)
-		, check_ground_BR(0)
+		, mTime(0.f)// 타이머 변수
+		, mDisappearTime(20.f)// 돌이 사라지는 시간 (초)
+		, mCheckGR(0)
 	{
 	}
 
@@ -49,7 +50,7 @@ namespace jk
 
 	void Rock_big::Initialize()
 	{
-		Crash = Resources::Load<Sound>(L"Crash", L"..\\Resources\\Sound\\Sonic\\Crash.wav");
+		mCrash = Resources::Load<Sound>(L"Crash", L"..\\Resources\\Sound\\Sonic\\Crash.wav");
 
 		mImage = Resources::Load<Image>(L"Rock_Platform", L"..\\Resources\\Rock_Platform.bmp");
 		mAnimator = AddComponent<Animator>();
@@ -90,7 +91,7 @@ namespace jk
 
 		Transform* ROCK_TR = GetComponent<Transform>();
 		Rigidbody* ROCK_rb = GetComponent<Rigidbody>();
-		mGroundImage = check->GetGroundImage();
+		mGroundImage = mPixelGround_check->GetGroundImage();
 
 		if (ROCK_TR && ROCK_rb && mGroundImage)
 		{
@@ -106,7 +107,7 @@ namespace jk
 					RING_Color = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(ROCK_ps.x), static_cast<int>(ROCK_ps.y) + 160));
 					ROCK_TR->SetPos(ROCK_ps);
 					ROCK_rb->SetGround(true);
-					check_ground_BR = 1;
+					mCheckGR = 1;
 				}
 			}
 		}
@@ -132,7 +133,7 @@ namespace jk
 
 			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
 			{
-				Crash->Play(false);
+				mCrash->Play(false);
 
 				Transform* tr = GetComponent<Transform>();
 				Scene* curScene = SceneManager::GetActiveScene();
@@ -151,9 +152,9 @@ namespace jk
 					Rock_Pice* Rock_pice = new Rock_Pice();
 					curScene->AddGameobeject(Rock_pice, jk_LayerType::BG_props);
 
-					if (check)// 돌이 땅에 닿을때 의 상황
+					if (mPixelGround_check)// 돌이 땅에 닿을때 의 상황
 					{
-						Image* groundImage = check->GetGroundImage();
+						Image* groundImage = mPixelGround_check->GetGroundImage();
 						Rock_pice->SetGroundImage(groundImage);
 					}
 					Vector2 dropPos = tr->GetPos() + (dropDirection * distance); // 떨어지는 위치 계산

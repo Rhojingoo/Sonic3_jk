@@ -3,6 +3,7 @@
 #include "jk_Resources.h"
 #include "jk_Transform.h"
 #include "jk_Animator.h"
+#include "jk_Image.h"
 #include "jk_Collider.h"
 #include "jk_Scene.h"
 #include "jk_Object.h"
@@ -20,9 +21,9 @@ float slope(Vector2 start, Vector2 final)
 namespace jk
 {
 	Jeepline_play::Jeepline_play()
-		:jeepline_Speed(500)
-		, Start_jeepline(Vector2{ 0.f,0.f })
-		, Final_jeepline(Vector2{ 0.f,0.f })
+		:mJeepline_Speed(500)
+		, mStart_jeepline(Vector2{ 0.f,0.f })
+		, mFinal_jeepline(Vector2{ 0.f,0.f })
 		, mState(eState::Idle)
 		, mImage(nullptr)
 		, mAnimator(nullptr)
@@ -150,10 +151,10 @@ namespace jk
 	{
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
-		float m = slope(Start_jeepline, Final_jeepline);
+		float m = slope(mStart_jeepline, mFinal_jeepline);
 		float b = pos.y - m * pos.x;
 
-		float newposX = pos.x + jeepline_Speed * static_cast<float>(Time::DeltaTime());
+		float newposX = pos.x + mJeepline_Speed * static_cast<float>(Time::DeltaTime());
 		float newY = m * newposX + b;
 
 		Vector2 newPos = Vector2(newposX, newY);

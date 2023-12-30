@@ -1,13 +1,8 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_Boss.h"
-#include "jk_Image.h"
-#include "jk_Time.h"
 
 namespace jk
 {
-	class Pixel_Ground;
-	class Animator;
 	class boss_bomber : public Boss
 	{
 	public:
@@ -23,12 +18,10 @@ namespace jk
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;		
 
-
-
 	private:
-		Image* mImage;
-		Animator* mAnimator;	
-		Vector2 pos;	
+		class Image* mImage;
+		class Animator* mAnimator;	
+		Vector2 mPos;	
 		float mMonspeed;
 	};
 }

@@ -5,15 +5,16 @@
 #include "jk_Transform.h"
 #include "jk_Animator.h"
 #include "jk_Time.h"
+#include "jk_Image.h"
 
 
 namespace jk
 {
 	UI_Time::UI_Time()
-		:time(0)
+		:mTime2(0)
 		, mTime(0)
-		, time_S(0)
-		, time_M(0)
+		, mTime_S(0)
+		, mTime_M(0)
 		, mImage(nullptr)
 	{
 	}
@@ -28,61 +29,61 @@ namespace jk
 	}
 	void UI_Time::Update()
 	{
-		time += static_cast<float>(Time::DeltaTime());
+		mTime2 += static_cast<float>(Time::DeltaTime());
 
-		if ((time >= 1.f) && (time < 2.f))
+		if ((mTime2 >= 1.f) && (mTime2 < 2.f))
 		{
 			mTime = 1;
 		}
-		if ((time >= 2.f) && (time < 3.f))
+		if ((mTime2 >= 2.f) && (mTime2 < 3.f))
 		{
 			mTime = 2;
 		}
-		if ((time >= 3.f) && (time < 4.f))
+		if ((mTime2 >= 3.f) && (mTime2 < 4.f))
 		{
 			mTime = 3;
 		}
-		if ((time >= 4.f) && (time < 5.f))
+		if ((mTime2 >= 4.f) && (mTime2 < 5.f))
 		{
 			mTime = 4;
 		}
-		if ((time >= 5.f) && (time < 6.f))
+		if ((mTime2 >= 5.f) && (mTime2 < 6.f))
 		{
 			mTime = 5;
 		}
-		if ((time >= 6.f) && (time < 7.f))
+		if ((mTime2 >= 6.f) && (mTime2 < 7.f))
 		{
 			mTime = 6;
 		}
-		if ((time >= 7.f) && (time < 8.f))
+		if ((mTime2 >= 7.f) && (mTime2 < 8.f))
 		{
 			mTime = 7;
 		}
-		if ((time >= 8.f) && (time < 9.f))
+		if ((mTime2 >= 8.f) && (mTime2 < 9.f))
 		{
 			mTime = 8;
 		}
-		if ((time >= 9.f) && (time < 10.f))
+		if ((mTime2 >= 9.f) && (mTime2 < 10.f))
 		{
 			mTime = 9;
 		}
-		if ((time >= 10.f) && (time < 11.f))
+		if ((mTime2 >= 10.f) && (mTime2 < 11.f))
 		{
 			mTime = 0;
-			time = 0;
-			time_S += 1;
+			mTime2 = 0;
+			mTime_S += 1;
 		}
 
 
-		if (time_S >= 6)
+		if (mTime_S >= 6)
 		{
-			time_S = 0;
-			time_M += 1;
+			mTime_S = 0;
+			mTime_M += 1;
 		}
 
-		if (time_M >= 10)
+		if (mTime_M >= 10)
 		{
-			time_M = 0;
+			mTime_M = 0;
 		}
 
 

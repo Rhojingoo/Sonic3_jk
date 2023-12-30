@@ -10,13 +10,15 @@
 #include "jk_Input.h"
 #include "jk_Object.h"
 #include "jk_Camera.h"
-
+#include "jk_SONIC.h"
+#include "jk_Tails.h"
+#include "jk_Image.h"
 
 namespace jk
 {
 	Act1_Water::Act1_Water()
 		: mImage(nullptr)
-		, checktime(0.f)
+		, mCcheckTime(0.f)
 	{
 	}
 	Act1_Water::~Act1_Water()
@@ -49,12 +51,12 @@ namespace jk
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 
-		checktime = 120.0f;
+		mCcheckTime = 120.0f;
 		BLENDFUNCTION func = {};
 		func.BlendOp = AC_SRC_OVER;
 		func.BlendFlags = 0;
 		func.AlphaFormat = AC_SRC_ALPHA;
-		func.SourceConstantAlpha = (BYTE)checktime;
+		func.SourceConstantAlpha = (BYTE)mCcheckTime;
 		Vector2 mpos = Camera::CaluatePos(pos);
 
 		AlphaBlend(hdc, static_cast<int>(mpos.x), static_cast<int>(mpos.y), mImage->GetWidth() * 3, mImage->GetHeight() * static_cast<int>(3.5f),

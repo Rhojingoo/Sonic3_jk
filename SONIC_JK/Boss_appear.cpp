@@ -6,6 +6,7 @@
 #include "jk_Animator.h"
 #include "jk_Collider.h"
 #include "jk_Time.h"
+#include "jk_Image.h"
 
 
 namespace jk
@@ -15,7 +16,7 @@ namespace jk
 		, mOwner(owner)
 		, mAnimator(nullptr)
 		, mImage(nullptr)
-		, pos(0.f, 0.f)
+		, mPos(0.f, 0.f)
 	{
 		mImage = Resources::Load<Image>(L"ROBOT", L"..\\Resources\\ROBOT.bmp");
 		mAnimator = AddComponent<Animator>();
@@ -32,9 +33,9 @@ namespace jk
 	void Boss_appear::Update()
 	{
 		Transform* tr = GetComponent<Transform>();
-		pos = tr->GetPos();
-		pos.x += mMonspeed * static_cast<float>(Time::DeltaTime());
-		tr->SetPos(pos);
+		mPos = tr->GetPos();
+		mPos.x += mMonspeed * static_cast<float>(Time::DeltaTime());
+		tr->SetPos(mPos);
 		Gameobject::Update();
 	}
 	void Boss_appear::Render(HDC hdc)

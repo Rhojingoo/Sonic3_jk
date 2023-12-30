@@ -3,7 +3,7 @@
 #include "jk_Resources.h"
 #include "jk_Transform.h"
 #include "jk_Camera.h"
-
+#include "jk_Image.h"
 
 namespace jk
 {

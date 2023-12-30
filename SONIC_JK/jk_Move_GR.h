@@ -1,19 +1,17 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_BackGround.h"
-#include "jk_Image.h"
-#include "jk_SONIC.h"
-#include "jk_Animator.h"
+
 
 namespace jk
 {
+	class Image;
 	class Rigidbody;
 	class Animator;
 	class Move_GR : public BackGround
 	{
 	public:
 		enum class eState
-		{	
+		{
 			Up,
 			Down,
 		};
@@ -34,7 +32,7 @@ namespace jk
 		void SetCenterpos(Vector2 pos) { mCenterpos = pos; }
 		void Setmaxdistance(float max) { mMonmaxdistance = max; }
 
-	private:	
+	private:
 		void up();
 		void down();
 
@@ -45,10 +43,10 @@ namespace jk
 		eState mState;
 
 		Vector2 mCenterpos;
-		Vector2 pos;
+		Vector2 mPos;
 		float mMonspeed;
 		float mMonmaxdistance;
-		float fDist;
+		float mFinalDistance;
 		int mDir;
 
 

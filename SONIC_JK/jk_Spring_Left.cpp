@@ -8,13 +8,16 @@
 #include "jk_Animator.h"
 #include "jk_Resources.h"
 
+#include "jk_Image.h"
+#include "jk_Sound.h"
+
 #include "jk_SONIC.h"
 #include "jk_Tails.h"
 
 namespace jk
 {
 	Spring_Left::Spring_Left()
-		: Spring_mc(nullptr)
+		: mSpring_mc(nullptr)
 		, mImage(nullptr)
 		, mAnimator(nullptr)
 		, mState(eState::Down)
@@ -25,7 +28,7 @@ namespace jk
 	}
 	void Spring_Left::Initialize()
 	{
-		Spring_mc = Resources::Load<Sound>(L"Spring", L"..\\Resources\\Sound\\Sonic\\Spring.wav");
+		mSpring_mc = Resources::Load<Sound>(L"Spring", L"..\\Resources\\Sound\\Sonic\\Spring.wav");
 
 		mImage = Resources::Load<Image>(L"spring_Left", L"..\\Resources\\Effect.bmp");
 		mAnimator = AddComponent<Animator>();
@@ -82,7 +85,7 @@ namespace jk
 			}
 			else
 			{
-				Spring_mc->Play(false);
+				mSpring_mc->Play(false);
 				mAnimator->Play(L"spring_left2", false);
 				mState = eState::Up;
 			}
@@ -98,7 +101,7 @@ namespace jk
 			}
 			else
 			{
-				Spring_mc->Play(false);
+				mSpring_mc->Play(false);
 				mAnimator->Play(L"spring_left2", false);
 				mState = eState::Up;
 			}

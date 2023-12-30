@@ -1,10 +1,11 @@
 #pragma once
 #include "Ring_Point_Manager.h"
 #include "jk_Gameobject.h"
-#include "jk_Image.h"
+
 
 namespace jk
 {
+	class Image;
 	class Animator;
 	class Ring_UnitsDigit : public Gameobject
 	{
@@ -22,6 +23,6 @@ namespace jk
 		Ring_Point_Manager* Units;
 		Image* mImage;
 
-		int UnitsDigit;
+		int mUnitsDigit;
 	};
 }

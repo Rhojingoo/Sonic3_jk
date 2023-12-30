@@ -11,34 +11,40 @@
 #include "Rigidbody.h"
 #include "jk_Pixel_Ground.h"
 
-
+#include "jk_Image.h"
+#include "jk_Sound.h"
 #include "jk_Time.h"
 
+#include "jk_Boss.h"
+#include "boss_come.h"
+#include "First_Boss.h"
+#include "act6_bullet1.h"
+#include "jk_SONIC.h"
 
 namespace jk
 {
 	boss1_object::boss1_object(Gameobject* owner)
 		: mDir(1)
-		, time(0)
-		, attack_lotation(0)
-		, attack_check(1)
-		, Death_point(0)
-		, bullet_check(0)
-		, pos(0.f, 0.f)
+		, mTime(0)
+		, mAttack_lotation(0)
+		, mAttack_check(1)
+		, mDeath_point(0)
+		, mBullet_check(0)
+		, mPos(0.f, 0.f)
 		, mState(eBossState::Idle)
-		, boss(nullptr)
-		, Bullet1(nullptr)
+		, mBoss(nullptr)
+		, mBullet1(nullptr)
 		, mImage(nullptr)
 		, mGroundImage(nullptr)
 		, mAnimator(nullptr)
 		, mRigidbody(nullptr)
 		, mCollider(nullptr)
-		, bullet(nullptr)
+		, mBullet(nullptr)
 
 	{
-		boss = dynamic_cast<First_Boss*>(owner);
+		mBoss = dynamic_cast<First_Boss*>(owner);
 
-		Bullet1 = Resources::Load<Sound>(L"Bullet1", L"..\\Resources\\Sound\\Bullet1.wav");
+		mBullet1 = Resources::Load<Sound>(L"Bullet1", L"..\\Resources\\Sound\\Bullet1.wav");
 
 		mImage = Resources::Load<Image>(L"First_boss", L"..\\Resources\\ActBG_6\\BOSS\\First_boss.bmp");
 		mAnimator = AddComponent<Animator>();
@@ -57,13 +63,13 @@ namespace jk
 
 
 		Scene* curScene = SceneManager::GetActiveScene();
-		bullet = new act6_bullet1();
-		bullet->SetName(L"bullet_boss1");
-		bullet->SetState(eState::Active);
-		//bullet->GetComponent<Transform>()->SetPos(Vector2{ pos.x + 52.f, pos.y + 50 });
-		bullet->SetGroundImage(mGroundImage);
-		curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
-		bullet->SetState(eState::Pause);
+		mBullet = new act6_bullet1();
+		mBullet->SetName(L"bullet_boss1");
+		mBullet->SetState(eState::Active);
+		//mBullet->GetComponent<Transform>()->SetPos(Vector2{ mPos.x + 52.f, mPos.y + 50 });
+		mBullet->SetGroundImage(mGroundImage);
+		curScene->AddGameobeject(mBullet, jk_LayerType::Bullet);
+		mBullet->SetState(eState::Pause);
 	}
 
 	boss1_object::~boss1_object()
@@ -80,16 +86,16 @@ namespace jk
 	void boss1_object::Update()
 	{
 		Transform* tr = GetComponent<Transform>();
-		pos = tr->GetPos();
-		Death_point = boss->Get_BossDeath();
+		mPos = tr->GetPos();
+		mDeath_point = mBoss->Get_BossDeath();
 
 
-		if (Death_point == 1)
+		if (mDeath_point == 1)
 		{
 			object::Destory(this);
 		}
 
-		if (Death_point == 0)
+		if (mDeath_point == 0)
 		{
 			switch (mState)
 			{
@@ -180,16 +186,16 @@ namespace jk
 		if (mDir == 1)
 		{
 			mState = eBossState::Up;
-			if (attack_check == 1)
+			if (mAttack_check == 1)
 			{
 				mAnimator->Play(L"Boss1_OPEN_Up", false);
-				attack_check = -1;
+				mAttack_check = -1;
 			}
 
-			else if (attack_check == -1)
+			else if (mAttack_check == -1)
 			{
 				mAnimator->Play(L"Boss1_OPEN_Down", false);
-				attack_check = 1;
+				mAttack_check = 1;
 			}
 
 			mCollider->SetSize(Vector2(144.0f, 60.0f));
@@ -209,69 +215,69 @@ namespace jk
 
 	void boss1_object::up()
 	{
-		if (attack_lotation == 0)
+		if (mAttack_lotation == 0)
 		{
-			attack_lotation = 1;
+			mAttack_lotation = 1;
 		}
-		if (bullet_check >= 1)
+		if (mBullet_check >= 1)
 		{
-			time += static_cast<float>(Time::DeltaTime());
-			if (time >= 3)
+			mTime += static_cast<float>(Time::DeltaTime());
+			if (mTime >= 3)
 			{
 				mState = eBossState::Idle;
-				time = 0;
-				bullet_check = 0;
+				mTime = 0;
+				mBullet_check = 0;
 				mDir = 0;
 			}
 		}
 	}
 	void boss1_object::down()
 	{
-		time += static_cast<float>(Time::DeltaTime());
-		if (time >= 3)
+		mTime += static_cast<float>(Time::DeltaTime());
+		if (mTime >= 3)
 		{
 			mState = eBossState::Idle;
-			time = 0;
+			mTime = 0;
 			mDir = 1;
-			attack_lotation = 0;
+			mAttack_lotation = 0;
 		}
 	}
 
 	void boss1_object::attack_up()
 	{
-		if (bullet_check == 0)
+		if (mBullet_check == 0)
 		{
-			Bullet1->Play(false);
-			bullet->SetState(eState::Active);
-			bullet->GetComponent<Transform>()->SetPos(Vector2{ pos.x + 52.f, pos.y - 100.f });
-			bullet->SetGroundImage(mGroundImage);
-			bullet->GetComponent<Rigidbody>()->SetVelocity(Vector2{ -550.f,-150.f });
-			bullet->GetComponent<Rigidbody>()->SetGround(false);
+			mBullet1->Play(false);
+			mBullet->SetState(eState::Active);
+			mBullet->GetComponent<Transform>()->SetPos(Vector2{ mPos.x + 52.f, mPos.y - 100.f });
+			mBullet->SetGroundImage(mGroundImage);
+			mBullet->GetComponent<Rigidbody>()->SetVelocity(Vector2{ -550.f,-150.f });
+			mBullet->GetComponent<Rigidbody>()->SetGround(false);
 
-			bullet_check = 1;
+			mBullet_check = 1;
 		}
 	}
 
 	void boss1_object::attack_down()
 	{
-		if (bullet_check == 0)
+		if (mBullet_check == 0)
 		{
-			Bullet1->Play(false);
-			bullet->SetState(eState::Active);
-			bullet->GetComponent<Transform>()->SetPos(Vector2{ pos.x + 52.f, pos.y + 50 });
-			bullet->GetComponent<Rigidbody>()->SetVelocity(Vector2{ -550.f,0.f });
-			bullet->GetComponent<Rigidbody>()->SetGround(false);
+			mBullet1->Play(false);
+			mBullet->SetState(eState::Active);
+			mBullet->GetComponent<Transform>()->SetPos(Vector2{ mPos.x + 52.f, mPos.y + 50 });
+			mBullet->GetComponent<Rigidbody>()->SetVelocity(Vector2{ -550.f,0.f });
+			mBullet->GetComponent<Rigidbody>()->SetGround(false);
 
-			bullet_check = 1;
+			mBullet_check = 1;
 		}
 
 
-		time += static_cast<int>(Time::DeltaTime());
-		if (time >= 3)
+		mTime += static_cast<int>(Time::DeltaTime());
+		if (mTime >= 3)
 		{
 			mState = eBossState::Idle;
-			time = 0;
-			bullet_check = 0;
+			mTime = 0;
+			mBullet_check = 0;
 			mDir = 0;
 		}
 	}

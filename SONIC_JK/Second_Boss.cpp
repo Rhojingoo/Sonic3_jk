@@ -172,7 +172,7 @@ namespace jk
 				Damege_check += 1;
 				Boss_Hit->Play(false);
 
-				//if (Damege_check < 4)//4
+				//if (mDamege_check < 4)//4
 				//{
 				//	if (mDir == 1)
 				//	{
@@ -185,13 +185,13 @@ namespace jk
 				//}
 
 
-				//else if ((Damege_check >= 4) && (Damege_check < 6))//4,6
+				//else if ((mDamege_check >= 4) && (mDamege_check < 6))//4,6
 				//{
 
 				//	if (mDir == 1)
 				//	{
 				//		mAnimator->Play(L"R_Boss_2th_Hurt", true);
-				//		if (Damege_check == 4)
+				//		if (mDamege_check == 4)
 				//		{
 				//			Collider* collider = GetComponent<Collider>();
 				//			collider->SetSize(Vector2(245.0f, 400.0f));
@@ -202,7 +202,7 @@ namespace jk
 				//	else
 				//	{
 				//		mAnimator->Play(L"L_Boss_2th_Hurt", true);
-				//		if (Damege_check == 4)
+				//		if (mDamege_check == 4)
 				//		{
 				//			Collider* collider = GetComponent<Collider>();
 				//			collider->SetSize(Vector2(245.0f, 400.0f));
@@ -212,12 +212,12 @@ namespace jk
 				//	}
 				//}
 
-				//else if ((Damege_check >= 8) && (Damege_check < 9))//8&&9
+				//else if ((mDamege_check >= 8) && (mDamege_check < 9))//8&&9
 				//{
 				//	if (mDir == 1)
 				//	{
 				//		mAnimator->Play(L"R_Boss_1th_Hurt", true);
-				//		if (Damege_check == 8)
+				//		if (mDamege_check == 8)
 				//		{
 				//			Boss_change_point = 1;
 				//			//何加前冻绢飘府扁 棺 气惯
@@ -226,7 +226,7 @@ namespace jk
 				//	else
 				//	{
 				//		mAnimator->Play(L"L_Boss_1th_Hurt", true);
-				//		if (Damege_check == 8)
+				//		if (mDamege_check == 8)
 				//		{
 				//			Boss_change_point = 1;
 				//			//何加前冻绢飘府扁 棺 气惯

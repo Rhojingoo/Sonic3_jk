@@ -1,22 +1,11 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_Boss.h"
-#include "jk_SONIC.h"
-#include "jk_Image.h"
-#include "jk_Sound.h"
-#include "jk_Time.h"
-
-
-#include "Bullet_Act1_Down.h"
-#include "Bullet_Act1_R_Side.h"
-#include "Bullet_Act1_R_DIA.h"
-#include "Bullet_Act1_L_Side.h"
-#include "Bullet_Act1_L_DIA.h"
 
 
 namespace jk
 {
-	class Boss_Run;
+	class Sound;
+	class Image;
 	class Rigidbody;
 	class Animator;
 	class Act1_Boss : public Boss
@@ -55,7 +44,7 @@ namespace jk
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
-		int Boss_Death() { return Death_check; }
+		int Boss_Death() { return mDeath_check; }
 
 
 	private:
@@ -103,34 +92,34 @@ namespace jk
 		Vector2 mCenterpos;
 
 	private:
-		Vector2 pos;
+		Vector2 mPos;
 		float mMonspeed;
 		float mMonmaxdistance;
 		float fDist;
-		float time;
+		float mTime;
 		int mDir;
 
 	private:
-		Boss_Run* boss_run;
 		eBossState mState;
 		Gameobject* mOwner;
 		Sonic::eSonicState sonicState;
 
 	private:
-		BaseBullet* _Down_bullet[2] = {};
-		Bullet_Act1_R_Side* _R_side_bullet[2] = {};
-		Bullet_Act1_R_DIA* _R_dia_bullet[2] = {};
-		Bullet_Act1_L_Side* _L_side_bullet[2] = {};
-		Bullet_Act1_L_DIA* _L_dia_bullet[2] = {};
+		class Boss_Run* boss_run;
+		class BaseBullet* _Down_bullet[2] = {};
+		class Bullet_Act1_R_Side* _R_side_bullet[2] = {};
+		class Bullet_Act1_R_DIA* _R_dia_bullet[2] = {};
+		class Bullet_Act1_L_Side* _L_side_bullet[2] = {};
+		class Bullet_Act1_L_DIA* _L_dia_bullet[2] = {};
 
 	private:
-		int starscene;
-		int attack_motion;
-		int Dir_change;
-		int attack_check;
-		int hurt_state;
-		int Damege_sheck;
-		int Death_check;
+		int mStarscene;
+		int mAttack_motion;
+		int mDir_change;
+		int mAttack_check;
+		int mHurt_state;
+		int mDamege_check;
+		int mDeath_check;
 	};
 }
 

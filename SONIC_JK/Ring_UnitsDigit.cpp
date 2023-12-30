@@ -6,12 +6,13 @@
 #include "jk_Transform.h"
 #include "jk_Animator.h"
 #include "jk_Scene.h"
+#include "jk_Image.h"
 
 
 namespace jk
 {
 	Ring_UnitsDigit::Ring_UnitsDigit(Gameobject* owner)
-		:UnitsDigit(0)
+		:mUnitsDigit(0)
 		, Units(nullptr)
 		, mOwner(nullptr)
 		, mImage(nullptr)
@@ -31,7 +32,7 @@ namespace jk
 	}
 	void Ring_UnitsDigit::Update()
 	{
-		UnitsDigit = Units->GetRingPoint_UnitsDigit();
+		mUnitsDigit = Units->GetRingPoint_UnitsDigit();
 
 		Gameobject::Update();
 	}
@@ -43,52 +44,52 @@ namespace jk
 
 		int a = 9;
 		int b = 58;
-		if (UnitsDigit == 0)
+		if (mUnitsDigit == 0)
 		{
 			a = 9;
 			b = 58;
 		}
-		if (UnitsDigit == 1)
+		if (mUnitsDigit == 1)
 		{
 			a = 18;
 			b = 58;
 		}
-		if (UnitsDigit == 2)
+		if (mUnitsDigit == 2)
 		{
 			a = 27;
 			b = 58;
 		}
-		if (UnitsDigit == 3)
+		if (mUnitsDigit == 3)
 		{
 			a = 36;
 			b = 58;
 		}
-		if (UnitsDigit == 4)
+		if (mUnitsDigit == 4)
 		{
 			a = 45;
 			b = 58;
 		}
-		if (UnitsDigit == 5)
+		if (mUnitsDigit == 5)
 		{
 			a = 54;
 			b = 58;
 		}
-		if (UnitsDigit == 6)
+		if (mUnitsDigit == 6)
 		{
 			a = 63;
 			b = 58;
 		}
-		if (UnitsDigit == 7)
+		if (mUnitsDigit == 7)
 		{
 			a = 72;
 			b = 58;
 		}
-		if (UnitsDigit == 8)
+		if (mUnitsDigit == 8)
 		{
 			a = 81;
 			b = 58;
 		}
-		if (UnitsDigit == 9)
+		if (mUnitsDigit == 9)
 		{
 			a = 90;
 			b = 58;

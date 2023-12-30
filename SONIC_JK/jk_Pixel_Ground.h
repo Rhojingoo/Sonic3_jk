@@ -16,12 +16,12 @@ namespace jk
 		virtual void Realease();
 
 
-		int GetCicle_piece() { return Circle_pice; }		
+		int GetCicle_piece() { return mCircle_pice; }		
 		virtual int GetgroundCh() {return mRotationcheck;}
 
 
-		void Set_Circle_Center(Vector2 check) { Circle1_Center = check; }
-		void Set_Circlecheck(int cir_check) { Circlecheck = cir_check; }
+		void Set_Circle_Center(Vector2 check) { mCircle1_Center = check; }
+		void Set_Circlecheck(int cir_check) { mCirclecheck = cir_check; }
 		void SetPlayer(class Sonic* player, class Tails* player2) { mPlayer = player, mPlayer2 = player2; }
 		
 		void SetLotation(const int rotaion) {	mRotationcheck = rotaion;}
@@ -56,8 +56,8 @@ namespace jk
 		void Check_MidLoopStone_L();
 		void Check_FinalLoopStone_L();
 
-		void Set_map_check(int chek) { map_chek = chek; }
-		int Get_map_check() { return map_chek; }
+		void Set_map_check(int chek) { mMap_Check = chek; }
+		int Get_map_check() { return mMap_Check; }
 	
 
 	private:		
@@ -67,41 +67,41 @@ namespace jk
 		class Transform* mPlayer_Tails_TR;
 		Rigidbody* mPlayerRigidBody;
 		Rigidbody* mRigidbody_Tails;
-		int SonicDir;
-		int TailsDir;
+		int mSonicDir;
+		int mTailsDir;
 		
 	private:
-		int GROUND;		
-		int LOOPENTERCOLOR;	
-		int LOOPAFTERHALF;	
-		int Circlecheck;
+		int mGROUND;		
+		int mLOOPENTERCOLOR;	
+		int mLOOPAFTERHALF;	
+		int mCirclecheck;
 
 	private:
 		//act1-1 이미지
-		class Image* Ground_Image;
-		class Image* Cicle_Rturn;
-		class Image* Cicle_Lturn;		
+		class Image* mGround_Image;
+		class Image* mCicle_Rturn;
+		class Image* mCicle_Lturn;		
 		//act1-2 이미지
-		class Image* Ground_Image2;
-		class Image* Cicle_Rturn2;
-		class Image* Cicle_Lturn2;
+		class Image* mGround_Image2;
+		class Image* mCicle_Rturn2;
+		class Image* mCicle_Lturn2;
 		//act1-3 이미지
-		class Image* Ground_Image3;
+		class Image* mGround_Image3;
 		//act6 이미지
-		class Image* Ground_Image4;
+		class Image* mGround_Image4;
 
 	private:
 		int mDirect;
-		int Circle_pice;	
+		int mCircle_pice;	
 		int mRotationcheck;		
 		int WallCheck;
-		bool LoopStoneMeet = false;
+		bool mLoopStoneMeet = false;
 		class Collider* mCollider;
-		int map_chek;
-		int groundcheck;
+		int mMap_Check;
+		int mGroundCheck;
 
 	private://외부에서 서클센터바꾸기		
-		Vector2 Circle1_Center;
-		Vector2 Circle1_Center2;
+		Vector2 mCircle1_Center;
+		Vector2 mCircle1_Center2;
 	};
 }

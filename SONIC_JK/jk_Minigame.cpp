@@ -5,7 +5,7 @@
 #include "jk_Resources.h"
 #include "jk_Collider.h"
 #include "jk_Animator.h"
-
+#include "jk_Image.h"
 
 #include "jk_Time.h"
 #include "jk_Input.h"
@@ -18,7 +18,7 @@ namespace jk
 		, mState(eState::Idle)
 		, mImage(nullptr)
 		, mAnimator(nullptr)
-		, turnindex(0)
+		, mTturnIndex(0)
 	{
 
 	}
@@ -100,7 +100,7 @@ namespace jk
 			mDir = -1;
 			mState = eState::Turn;
 			mAnimator->Play(L"LT_Lblack", false);
-			turnindex = spriteIndex;
+			mTturnIndex = spriteIndex;
 		}
 		else if (spriteIndex == 0 && (Input::GetKeyDown(eKeyCode::LEFT) || Input::GetKey(eKeyCode::LEFT)))
 		{
@@ -109,7 +109,7 @@ namespace jk
 				mDir = -1;
 				mState = eState::Turn;
 				mAnimator->Play(L"LT_Lwhite", false);
-				turnindex = spriteIndex;
+				mTturnIndex = spriteIndex;
 			}
 		}
 		else if (spriteIndex == 8 && (Input::GetKeyDown(eKeyCode::RIGHT) || Input::GetKey(eKeyCode::RIGHT)))
@@ -117,14 +117,14 @@ namespace jk
 			mDir = 1;
 			mState = eState::Turn;
 			mAnimator->Play(L"RT_Lblack", false);
-			turnindex = spriteIndex;
+			mTturnIndex = spriteIndex;
 		}
 		else if (spriteIndex == 0 && (Input::GetKeyDown(eKeyCode::RIGHT) || Input::GetKey(eKeyCode::RIGHT)))
 		{
 			mDir = 1;
 			mState = eState::Turn;
 			mAnimator->Play(L"RT_Lwhite", false);
-			turnindex = spriteIndex;
+			mTturnIndex = spriteIndex;
 		}
 		tr->SetPos(pos);
 	}
@@ -138,20 +138,20 @@ namespace jk
 			mAnimator->Play(L"StageWalk", true);
 			activeAnim = mAnimator->GetActiveAnimation();
 			mState = eState::Move;
-			if ((mDir == -1) && turnindex == 8)
+			if ((mDir == -1) && mTturnIndex == 8)
 			{
 				activeAnim->Setspriteindex(0);
 			}
-			else if ((mDir == -1) && turnindex == 0)
+			else if ((mDir == -1) && mTturnIndex == 0)
 			{
 				activeAnim->Setspriteindex(8);
 			}
 
-			else if ((mDir == 1) && turnindex == 8)
+			else if ((mDir == 1) && mTturnIndex == 8)
 			{
 				activeAnim->Setspriteindex(0);
 			}
-			else if ((mDir == 1) && turnindex == 0)
+			else if ((mDir == 1) && mTturnIndex == 0)
 			{
 				activeAnim->Setspriteindex(8);
 			}

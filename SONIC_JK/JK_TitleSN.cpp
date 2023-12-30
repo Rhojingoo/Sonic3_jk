@@ -6,6 +6,7 @@
 #include "jk_Transform.h"
 #include "jk_Animator.h"
 #include "jk_Resources.h"
+#include "jk_Image.h"
 
 #include "jk_Time.h"
 #include "jk_Input.h"
@@ -22,7 +23,7 @@ namespace jk
 		mImage = Resources::Load<Image>(L"TTSN", L"..\\Resources\\Title\\OPEN_BG2.bmp");
 		mAnimator->CreateAnimation(L"TTSN", mImage, Vector2(671, 534), Vector2(297, 99), Vector2(0, 0), 1, 1, 1, Vector2::Zero, 0.1f);
 		mAnimator->Play(L"TTSN", true);
-		
+
 	}
 
 	TitleSN::~TitleSN()

@@ -6,17 +6,17 @@
 #include "jk_Transform.h"
 #include "jk_Animator.h"
 #include "jk_Scene.h"
-
+#include "jk_Image.h"
 
 namespace jk
 {
 	Ring_TensDigit::Ring_TensDigit(Gameobject* owner)
-		:TensDigit(0)	
-		, Units(nullptr)
+		:mTensDigit(0)	
+		, mUnits(nullptr)
 		, mOwner(owner)
 		, mImage(nullptr)
 	{	
-		Units = dynamic_cast<Ring_Point_Manager*>(owner);
+		mUnits = dynamic_cast<Ring_Point_Manager*>(owner);
 	}
 	Ring_TensDigit::~Ring_TensDigit()
 	{
@@ -29,7 +29,7 @@ namespace jk
 	}
 	void Ring_TensDigit::Update()
 	{
-		TensDigit = Units->GetRingPoint_TensDigit();
+		mTensDigit = mUnits->GetRingPoint_TensDigit();
 
 		Gameobject::Update();
 	}
@@ -41,52 +41,52 @@ namespace jk
 
 		int a = 9;
 		int b = 58;
-		if (TensDigit == 0)
+		if (mTensDigit == 0)
 		{
 			a = 9;
 			b = 58;
 		}
-		if (TensDigit == 1)
+		if (mTensDigit == 1)
 		{
 			a = 18;
 			b = 58;
 		}
-		if (TensDigit == 2)
+		if (mTensDigit == 2)
 		{
 			a = 27;
 			b = 58;
 		}
-		if (TensDigit == 3)
+		if (mTensDigit == 3)
 		{
 			a = 36;
 			b = 58;
 		}
-		if (TensDigit == 4)
+		if (mTensDigit == 4)
 		{
 			a = 45;
 			b = 58;
 		}
-		if (TensDigit == 5)
+		if (mTensDigit == 5)
 		{
 			a = 54;
 			b = 58;
 		}
-		if (TensDigit == 6)
+		if (mTensDigit == 6)
 		{
 			a = 63;
 			b = 58;
 		}
-		if (TensDigit == 7)
+		if (mTensDigit == 7)
 		{
 			a = 72;
 			b = 58;
 		}
-		if (TensDigit == 8)
+		if (mTensDigit == 8)
 		{
 			a = 81;
 			b = 58;
 		}
-		if (TensDigit == 9)
+		if (mTensDigit == 9)
 		{
 			a = 90;
 			b = 58;

@@ -2,6 +2,7 @@
 #include "jk_SceneManager.h"
 #include "jk_Transform.h"
 #include "jk_Resources.h"
+#include "jk_Image.h"
 
 namespace jk
 {

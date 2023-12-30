@@ -1,10 +1,9 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_BackGround.h"
-#include "jk_Image.h"
 
 namespace jk
 {
+	class Image;
 	class Animator;
 	class act2_water : public BackGround
 	{
@@ -24,6 +23,6 @@ namespace jk
 
 	private:
 		Image* mImage;
-		float checktime;
+		float mCheckTime;
 	};
 }

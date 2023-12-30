@@ -4,6 +4,9 @@
 #include "jk_Resources.h"
 #include "jk_Animator.h"
 #include "Rigidbody.h"
+#include "jk_Image.h"
+#include "jk_Animator.h"
+#include "jk_SONIC.h"
 
 namespace jk
 {

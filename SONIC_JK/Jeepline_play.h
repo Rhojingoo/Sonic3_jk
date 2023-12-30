@@ -1,11 +1,10 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_BackGround.h"
-#include "jk_Image.h"
-#include "jk_Animator.h"
+
 
 namespace jk
 {
+	class Image;
 	class Rigidbody;
 	class Animator;
 	class Jeepline_play : public BackGround
@@ -29,8 +28,8 @@ namespace jk
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 		
-		void Set_FinalArea(Vector2 area) { Final_jeepline = area; }
-		void Set_StartArea(Vector2 area) { Start_jeepline = area; }
+		void Set_FinalArea(Vector2 area) { mFinal_jeepline = area; }
+		void Set_StartArea(Vector2 area) { mStart_jeepline = area; }
 
 
 	private:
@@ -43,9 +42,9 @@ namespace jk
 		Image* mImage;
 		Animator* mAnimator;
 
-		float jeepline_Speed;
-		Vector2 Start_jeepline;
-		Vector2 Final_jeepline;		
+		float mJeepline_Speed;
+		Vector2 mStart_jeepline;
+		Vector2 mFinal_jeepline;		
 	};
 
 }

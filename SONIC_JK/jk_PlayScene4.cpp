@@ -199,7 +199,7 @@ namespace jk
 		fly_machine->GetComponent<Transform>()->SetPos(Vector2{ 6855.0f,5600.0f });
 
 
-		//First boss
+		//First mBoss
 		boss_first = new First_Boss();
 		boss_first->SetName(L"boss_first");
 		AddGameobeject(boss_first, jk_LayerType::BOSS);
@@ -491,7 +491,7 @@ namespace jk
 
 	void PlayScene4::Create_Boss3()
 	{
-		//Act6_music->Stop(true);
+		//mAct6_music->Stop(true);
 		Last_Boss_f->Play(true);
 
 		Scene* curScene1 = SceneManager::GetActiveScene();

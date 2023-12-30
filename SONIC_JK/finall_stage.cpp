@@ -9,21 +9,23 @@
 
 #include "jk_Time.h"
 #include "jk_Tails.h"
+#include "jk_SONIC.h"
 
-
+#include "jk_Image.h"
+#include "jk_Sound.h"
 
 
 namespace jk
 {
 	finall_stage::finall_stage()
-		:check_map(0)
+		:mCheck_Map(0)
 		, mSpeed(30)
-		, pos(0.f,0.f)
-		, end(0)
+		, mPos(0.f,0.f)
+		, mEnd(0)
 		, mImage(nullptr)
 		, mAnimator(nullptr)
 		, mRigidbody(nullptr)
-		, Rocket_Start(nullptr)
+		, mRocket_Start(nullptr)
 		, mState()
 	{
 	}
@@ -32,7 +34,7 @@ namespace jk
 	}
 	void finall_stage::Initialize()
 	{
-		Rocket_Start = Resources::Load<Sound>(L"Rocket_Start", L"..\\Resources\\Sound\\Rocket_Start.wav");
+		mRocket_Start = Resources::Load<Sound>(L"Rocket_Start", L"..\\Resources\\Sound\\Rocket_Start.wav");
 
 		mImage = Resources::Load<Image>(L"Last_stage", L"..\\Resources\\ActBG_6\\last_stage.bmp");
 		mAnimator = AddComponent<Animator>();
@@ -53,7 +55,7 @@ namespace jk
 	void finall_stage::Update()
 	{
 		Transform* tr = GetComponent<Transform>();
-		pos = tr->GetPos();		
+		mPos = tr->GetPos();		
 
 		switch (mState)
 		{
@@ -178,11 +180,11 @@ namespace jk
 
 	void finall_stage::idle()
 	{
-		if (check_map == 1)
+		if (mCheck_Map == 1)
 		{
 			mState = eBossState::Move;
 		}
-		if (end == 1)
+		if (mEnd == 1)
 		{
 			mState = eBossState::Death;
 			mAnimator->Play(L"Last_stage_end", false);			
@@ -194,22 +196,22 @@ namespace jk
 	{
 		Transform* tr = GetComponent<Transform>();
 
-		pos.y -= mSpeed * static_cast<float>(Time::DeltaTime());
-		Rocket_Start->Play(true);
+		mPos.y -= mSpeed * static_cast<float>(Time::DeltaTime());
+		mRocket_Start->Play(true);
 
-		if (pos.y <= 4950.0f)
+		if (mPos.y <= 4950.0f)
 		{
-			check_map = 2;
+			mCheck_Map = 2;
 			mState = eBossState::Idle;
-			Rocket_Start->Stop(false);
+			mRocket_Start->Stop(false);
 		}
 
-		tr->SetPos(pos);
+		tr->SetPos(mPos);
 	}
 
 	void finall_stage::death()
 	{
-		end = 2;
+		mEnd = 2;
 		mState = eBossState::Idle;
 	}
 	void finall_stage::Ending()

@@ -1,11 +1,11 @@
 #pragma once
 
-#include "jk_Sonic.h"
 #include "jk_Gameobject.h"
-#include "jk_Image.h"
 
 namespace jk
 {
+	class Sonic;
+	class Image;
 	class Animator;
 	class Life_Manager : public Gameobject
 	{
@@ -18,8 +18,8 @@ namespace jk
 		virtual void Render(HDC hdc) override;
 		virtual void Release() override;
 
-		int GetSonicLife_UnitsDigit() { return UnitsDigit; }
-		int GetSonicLife_TensDigit() { return TensDigit; }
+		int GetSonicLife_UnitsDigit() { return mUnitsDigit; }
+		int GetSonicLife_TensDigit() { return mTensDigit; }
 		
 
 	private:
@@ -27,13 +27,11 @@ namespace jk
 		Sonic* mSonic;
 		Image* mImage;
 
-		int Life_point;
-		int Life_point_U;
-		int Life_point_T;
+		int mLife_point;
+		int mLife_point_U;
+		int mLife_point_T;
 
-		int UnitsDigit;
-		int TensDigit;
-
-
+		int mUnitsDigit;
+		int mTensDigit;
 	};
 }

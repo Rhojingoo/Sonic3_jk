@@ -1,14 +1,11 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_BackGround.h"
-#include "jk_Image.h"
-#include "jk_SONIC.h"
-#include "jk_Animator.h"
 
 namespace jk
 {
 	class Pixel_Ground;
 	class Rigidbody;
+	class Image;
 	class Animator;
 	class Cylinder : public BackGround
 	{

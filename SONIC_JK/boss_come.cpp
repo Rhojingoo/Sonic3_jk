@@ -3,6 +3,7 @@
 #include "jk_Time.h"
 #include "jk_Input.h"
 
+#include "jk_Image.h"
 #include "jk_SceneManager.h"
 #include "jk_Scene.h"
 #include "jk_Transform.h"
@@ -21,9 +22,9 @@ namespace jk
 		, mGroundImage(nullptr)
 		, mAnimator(nullptr)
 		, mRigidbody(nullptr)
-		, check(nullptr)
+		, mPixelGround(nullptr)
 		, mState(eBossState::Move)
-		, pos(0.f, 0.f)
+		, mPos(0.f, 0.f)
 		, check_map(0)
 		, mDir(0)
 
@@ -50,7 +51,7 @@ namespace jk
 	void boss_come::Update()
 	{
 		Transform* tr = GetComponent<Transform>();
-		pos = tr->GetPos();
+		mPos = tr->GetPos();
 
 		switch (mState)
 		{
@@ -68,8 +69,8 @@ namespace jk
 		Rigidbody* Boss_rb = GetComponent<Rigidbody>();
 
 
-		check_map = check->Get_map_check();
-		mGroundImage = check->GetGroundImage4();
+		check_map = mPixelGround->Get_map_check();
+		mGroundImage = mPixelGround->GetGroundImage4();
 
 		if (Boss_TR && Boss_rb && mGroundImage)
 		{
@@ -126,7 +127,7 @@ namespace jk
 		mDir = -1;
 		mRigidbody->SetVelocity(Vector2{ -300.f, mRigidbody->GetVelocity().y });
 
-		if (pos.x <= 6470)
+		if (mPos.x <= 6470)
 		{
 			mState = eBossState::Jump;
 			mRigidbody->SetVelocity(Vector2(-250.f, -450.f));

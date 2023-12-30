@@ -1,10 +1,10 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_BackGround.h"
-#include "jk_Image.h"
+
 
 namespace jk
 {
+	class Image;
 	class Animator;
 	class Minigame : public BackGround
 	{
@@ -18,8 +18,6 @@ namespace jk
 
 		Minigame();
 		~Minigame();
-
-
 		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void Render(HDC hdc) override;
@@ -30,14 +28,12 @@ namespace jk
 		void move();
 		void turn();
 
-
-
 	private:	
 		Image* mImage;
 		Animator* mAnimator;
 		eState mState;
 		int mDir;
-		int turnindex;
+		int mTturnIndex;
 	};
 
 }

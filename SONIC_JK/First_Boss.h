@@ -1,13 +1,10 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_Boss.h"
-#include "jk_Image.h"
-#include "jk_Sound.h"
-#include "jk_Time.h"
-
 
 namespace jk
 {
+	class Image;
+	class Sound;
 	class boss1_object;
 	class Rigidbody;
 	class Animator;
@@ -36,11 +33,11 @@ namespace jk
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
-		int Get_BossDeath() { return  Death_point; }
-		void Set__BossDeath(int point) { Death_point = point; }
+		int Get_BossDeath() { return  mDeath_point; }
+		void Set__BossDeath(int point) { mDeath_point = point; }
 
 		void SetGroundImage(Image* image) { mGroundImage = image; }
-		void SetCheckTargetGround(Pixel_Ground* ground) { check = ground; }
+		void SetCheckTargetGround(Pixel_Ground* ground) { mPixelGround = ground; }
 
 
 	private:
@@ -59,22 +56,22 @@ namespace jk
 		Collider* mCollider;
 
 	private:
-		Sound* Boss_Hit;
-		Sound* Boss_Bomb;
-		Sound* Boss_Start;
-		Sound* Act6_music;
+		Sound* mBoss_Hit;
+		Sound* mBoss_Bomb;
+		Sound* mBoss_Start;
+		Sound* mAct6_music;
 
 	private:
 		eBossState mState;
 		Sonic::eSonicState sonicState;
-		boss1_object* boss_ob;
-		Pixel_Ground* check;
+		boss1_object* mBoss_Object;
+		Pixel_Ground* mPixelGround;
 
 	private:
-		Vector2 pos;
-		float time;
-		int Death_point;
-		int Damege_check;
-		int check_map;
+		Vector2 mPos;
+		float mTime;
+		int mDeath_point;
+		int mDamege_check;
+		int mCheck_Map;
 	};
 }
