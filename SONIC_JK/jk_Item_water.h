@@ -1,8 +1,5 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "Item.h"
-#include "jk_SONIC.h"
-#include "jk_Image.h"
 
 namespace jk
 {
@@ -29,7 +26,7 @@ namespace jk
 		virtual void OnCollisionExit(class Collider* other) override;
 
 		void CreateBlending();
-		int GetItemcheck() { return Itemcheck; }
+		int GetItemcheck() { return mItemcheck; }
 
 
 
@@ -38,12 +35,12 @@ namespace jk
 		void death();
 
 	private:
-		Image* mImage;
-		Animator* mAnimator;
+		class Image* mImage;
+		class Animator* mAnimator;
 		Gameobject* mOwner;
 		eState itemmState;
 		Sonic::eSonicState sonicState;
-		int Itemcheck;
+		int mItemcheck;
 	};
 
 }

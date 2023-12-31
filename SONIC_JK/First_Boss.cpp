@@ -90,16 +90,20 @@ namespace jk
 		switch (mState)
 		{
 
-		case jk::First_Boss::eBossState::Move:move();
+		case First_Boss::eBossState::Move:
+			move();
 			break;
 
-		case jk::First_Boss::eBossState::Death:death();
+		case First_Boss::eBossState::Death:
+			death();
 			break;
 
-		case jk::First_Boss::eBossState::Attack_Up:attack_up();
+		case First_Boss::eBossState::Attack_Up:
+			attack_up();
 			break;
 
-		case jk::First_Boss::eBossState::Attack_Down:attack_down();
+		case First_Boss::eBossState::Attack_Down:
+			attack_down();
 			break;
 
 		default:

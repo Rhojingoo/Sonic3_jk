@@ -8,6 +8,8 @@
 #include "jk_Collider.h"
 #include "jk_Time.h"
 
+#include "jk_Image.h"
+#include "jk_Animator.h"
 #include "jk_Last_Bridge.h"
 #include "jk_Object.h"
 

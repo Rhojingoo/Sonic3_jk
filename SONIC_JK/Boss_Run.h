@@ -1,13 +1,11 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_Boss.h"
-#include "jk_SONIC.h"
-#include "jk_Image.h"
-#include "jk_Time.h"
+
 
 
 namespace jk
 {
+	class Image;
 	class Animator;
 	class Boss_Run : public Boss
 	{

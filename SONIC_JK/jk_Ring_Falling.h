@@ -1,13 +1,8 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "Item.h"
-#include "jk_SONIC.h"
-#include "jk_Image.h"
 
 namespace jk
 {
-	class Rigidbody;
-	class Animator;
 	class Ring_Falling : public Item
 	{
 	public:
@@ -40,18 +35,17 @@ namespace jk
 		void death();
 
 	private:
-		Image* mImage;
-		Image* mGroundImage;
-		Animator* mAnimator;
-		Rigidbody* mRigidbody;
+		class Image* mImage;
+		class Image* mGroundImage;
+		class Animator* mAnimator;
+		class Rigidbody* mRigidbody;
 		Gameobject* mOwner;
 		eState Ring_State;
 
 
 	private:
-		float timer; 
-		float bounceForce;
-		int check_ground;
-
+		float mTime; 
+		float mBounceForce;
+		int mCheck_Ground;
 	};
 }

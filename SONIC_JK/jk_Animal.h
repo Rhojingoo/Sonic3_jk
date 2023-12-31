@@ -1,10 +1,5 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_Monster.h"
-#include "jk_Image.h"
-#include "jk_Time.h"
-#include "jk_Animator.h"
-
 
 namespace jk
 {
@@ -20,8 +15,8 @@ namespace jk
 		virtual void Release() override;
 
 	private:
-		Image* mImage;
-		Animator* mAnimator;
+		class Image* mImage;
+		class Animator* mAnimator;
 		Gameobject* mOwner;
 	};
 }

@@ -1,5 +1,4 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_Boss.h"
 
 namespace jk

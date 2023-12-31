@@ -1,11 +1,9 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "Item.h"
-#include "jk_Image.h"
+
 
 namespace jk
 {
-	class Animator;
 	class ItemBigRing : public Item
 	{
 	public:
@@ -35,8 +33,8 @@ namespace jk
 		void death();
 
 	private:
-		Image* mImage;
-		Animator* mAnimator;
+		class Image* mImage;
+		class Animator* mAnimator;
 		eState mState;
 	};
 

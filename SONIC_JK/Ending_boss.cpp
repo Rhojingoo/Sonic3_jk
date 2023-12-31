@@ -9,7 +9,7 @@
 #include "jk_Resources.h"
 #include "jk_Object.h"
 #include "jk_Time.h"
-
+#include "jk_Image.h"
 
 namespace jk
 {
@@ -17,7 +17,7 @@ namespace jk
 		: mOwner(owner)
 		, mAnimator(nullptr)
 		, mImage(nullptr)
-		, pos(0.f, 0.f)
+		, mPos(0.f, 0.f)
 	{
 		mAnimator = AddComponent<Animator>();
 		mImage = Resources::Load<Image>(L"END_BG", L"..\\Resources\\END_BG.bmp");
@@ -34,9 +34,9 @@ namespace jk
 	void Ending_boss::Update()
 	{
 		Transform* tr = GetComponent<Transform>();
-		pos = tr->GetPos();
-		pos.y += 150 * static_cast<float>(Time::DeltaTime());
-		tr->SetPos(pos);
+		mPos = tr->GetPos();
+		mPos.y += 150 * static_cast<float>(Time::DeltaTime());
+		tr->SetPos(mPos);
 		Gameobject::Update();
 	}
 	void Ending_boss::Render(HDC hdc)

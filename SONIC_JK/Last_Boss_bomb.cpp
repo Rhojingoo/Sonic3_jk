@@ -8,7 +8,7 @@
 #include "jk_Collider.h"
 #include "jk_Scene.h"
 #include "jk_Object.h"
-
+#include "jk_Image.h"
 
 namespace jk
 {

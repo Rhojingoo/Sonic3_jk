@@ -13,6 +13,10 @@
 #include "jk_Time.h"
 
 
+#include "jk_SONIC.h"
+#include "jk_Image.h"
+#include "jk_Sound.h"
+
 namespace jk
 {
 	Third_Boss::Third_Boss()
@@ -20,23 +24,23 @@ namespace jk
 		, mImage1(nullptr)
 		, mAnimator(nullptr)
 		, mRigidbody(nullptr)
-		, Boss_Hit(nullptr)
-		, Boss_Bomb(nullptr)
-		, sonicState()
+		, mBoss_Hit(nullptr)
+		, mBoss_Bomb(nullptr)
+		, mSonicState()
 		, mState()
-		, pos(0.f, 0.f)
-		, time(0.f)
+		, mPos(0.f, 0.f)
+		, mTime(0.f)
 		, mSpeed(250.f)
 		, mDir(1)
-		, Boss_cross_change(0)
-		, Damege_check(0)
-		, Boomb_point(0)
-		, Grap_pattern(0)
-		, Hur_check(0)
-		, Ending_point(0)
+		, mBoss_cross_change(0)
+		, mDamege_check(0)
+		, mBoomb_point(0)
+		, mGrap_pattern(0)
+		, mHurt_check(0)
+		, mEnding_point(0)
 	{
-		Boss_Hit = Resources::Load<Sound>(L"Boss_hit", L"..\\Resources\\Sound\\Boss_hit.wav");
-		Boss_Bomb = Resources::Load<Sound>(L"Boss_death", L"..\\Resources\\Sound\\Boss_death.wav");
+		mBoss_Hit = Resources::Load<Sound>(L"Boss_hit", L"..\\Resources\\Sound\\Boss_hit.wav");
+		mBoss_Bomb = Resources::Load<Sound>(L"Boss_death", L"..\\Resources\\Sound\\Boss_death.wav");
 		mAnimator = AddComponent<Animator>();
 		mImage = Resources::Load<Image>(L"third_boss_R", L"..\\Resources\\ActBG_6\\BOSS\\Third_boss3_R.bmp");
 		mImage1 = Resources::Load<Image>(L"third_boss_L", L"..\\Resources\\ActBG_6\\BOSS\\Third_boss3_L.bmp");
@@ -70,39 +74,45 @@ namespace jk
 		Transform* tr = GetComponent<Transform>();
 
 
-		pos = tr->GetPos();
+		mPos = tr->GetPos();
 
 
 		switch (mState)
 		{
-		case jk::Third_Boss::eBossState::Start:start();
+		case Third_Boss::eBossState::Start:
+			start();
 			break;
 
-		case jk::Third_Boss::eBossState::Left_Cross:L_cross();
+		case Third_Boss::eBossState::Left_Cross:
+			L_cross();
 			break;
 
-		case jk::Third_Boss::eBossState::Right_Cross:R_cross();
+		case Third_Boss::eBossState::Right_Cross:
+			R_cross();
 			break;
 
-		case jk::Third_Boss::eBossState::Left:left();
+		case Third_Boss::eBossState::Left:
+			left();
 			break;
 
-		case jk::Third_Boss::eBossState::Right:right();
+		case Third_Boss::eBossState::Right:
+			right();
 			break;
 
-		case jk::Third_Boss::eBossState::Grap_R:grap_R();
+		case Third_Boss::eBossState::Grap_R:
+			grap_R();
 			break;
 
-		case jk::Third_Boss::eBossState::Grap_L:grap_L();
+		case Third_Boss::eBossState::Grap_L:
+			grap_L();
 			break;
 
-			//case jk::Third_Boss::eBossState::Hurt:Hurt();
-			//	break;
-
-		case jk::Third_Boss::eBossState::Death:death();
+		case Third_Boss::eBossState::Death:
+			death();
 			break;
 
-		case jk::Third_Boss::eBossState::Ending:ending();
+		case Third_Boss::eBossState::Ending:
+			ending();
 			break;
 
 		default:
@@ -127,13 +137,13 @@ namespace jk
 	{
 		if (Sonic* sonic = dynamic_cast<Sonic*>(other->GetOwner()))
 		{
-			sonicState = sonic->Getsonicstate();
+			mSonicState = sonic->Getsonicstate();
 
-			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
+			if (mSonicState == Sonic::eSonicState::Dash || mSonicState == jk::Sonic::eSonicState::Jump || mSonicState == jk::Sonic::eSonicState::Spin)
 			{
-				Damege_check += 1;
-				Hur_check = 1;
-				Boss_Hit->Play(false);
+				mDamege_check += 1;
+				mHurt_check = 1;
+				mBoss_Hit->Play(false);
 
 				Transform* sonicTr = sonic->GetComponent<Transform>();
 				Vector2 sonic_Pos = sonicTr->GetPos();
@@ -141,7 +151,7 @@ namespace jk
 				sonicrb->SetVelocity(Vector2(0.f, -550.f));
 
 
-				if (Damege_check < 6)
+				if (mDamege_check < 6)
 				{
 					if (mDir == 1)
 					{
@@ -153,7 +163,7 @@ namespace jk
 					}
 				}
 
-				else if (Damege_check == 6)
+				else if (mDamege_check == 6)
 				{
 					mState = eBossState::Death;
 					if (mDir == 1)
@@ -165,7 +175,6 @@ namespace jk
 						mAnimator->Play(L"L_Boss_third_Hurt", false);
 					}
 				}
-
 			}
 		}
 
@@ -181,200 +190,200 @@ namespace jk
 	void Third_Boss::start()
 	{
 		Transform* tr = GetComponent<Transform>();
-		pos.x += mSpeed * static_cast<float>(Time::DeltaTime());
+		mPos.x += mSpeed * static_cast<float>(Time::DeltaTime());
 
-		if (pos.x >= 15150.0f)
+		if (mPos.x >= 15150.0f)
 		{
 			mState = eBossState::Left_Cross;
 			mAnimator->Play(L"L_Boss_Third", true);
-			pos = Vector2{ 15150.f,5400.f };
+			mPos = Vector2{ 15150.f,5400.f };
 			mDir = -1;
-			Boss_cross_change = 1;
+			mBoss_cross_change = 1;
 		}
-		tr->SetPos(pos);
+		tr->SetPos(mPos);
 	}
 
 	void Third_Boss::L_cross()
 	{
 		Transform* tr = GetComponent<Transform>();
-		pos.x -= mSpeed * static_cast<float>(Time::DeltaTime());
+		mPos.x -= mSpeed * static_cast<float>(Time::DeltaTime());
 
-		if ((pos.x > 13550.0f) && (pos.x <= 14350.f))
+		if ((mPos.x > 13550.0f) && (mPos.x <= 14350.f))
 		{
-			pos.x -= mSpeed * static_cast<float>(Time::DeltaTime());
-			pos.y -= mSpeed * static_cast<float>(Time::DeltaTime());
+			mPos.x -= mSpeed * static_cast<float>(Time::DeltaTime());
+			mPos.y -= mSpeed * static_cast<float>(Time::DeltaTime());
 		}
-		else if (pos.x <= 13550.0f)
+		else if (mPos.x <= 13550.0f)
 		{
-			 if (Grap_pattern == 1)
+			 if (mGrap_pattern == 1)
 			{
 				 mState = eBossState::Grap_R;
 				 mAnimator->Play(L"L_Boss_Third", true);
-				 pos = Vector2{ 14350.0f,4500.f };
-				 Boss_cross_change = 0;
+				 mPos = Vector2{ 14350.0f,4500.f };
+				 mBoss_cross_change = 0;
 				 mDir = 1;
 			 }
 			 else
 			 {
-				 if (Boss_cross_change == 0)
+				 if (mBoss_cross_change == 0)
 				 {
 					 mState = eBossState::Right_Cross;
 					 mAnimator->Play(L"R_Boss_Third", true);
-					 pos = Vector2{ 13550.0f,5300.f };
+					 mPos = Vector2{ 13550.0f,5300.f };
 					 mDir = 1;
-					 Boss_cross_change = 1;
+					 mBoss_cross_change = 1;
 				 }
-				 else if (Boss_cross_change == 1)
+				 else if (mBoss_cross_change == 1)
 				 {
 					 mState = eBossState::Right;
 					 mAnimator->Play(L"R_Boss_Third", true);
-					 pos = Vector2{ 13550.0f,5300.f };
+					 mPos = Vector2{ 13550.0f,5300.f };
 					 mDir = 1;
-					 Boss_cross_change = 2;
+					 mBoss_cross_change = 2;
 				 }
 			 }
 		}
 
-		tr->SetPos(pos);
+		tr->SetPos(mPos);
 	}
 
 	void Third_Boss::R_cross()
 	{
 		Transform* tr = GetComponent<Transform>();
-		pos.x += mSpeed * static_cast<float>(Time::DeltaTime());
+		mPos.x += mSpeed * static_cast<float>(Time::DeltaTime());
 
-		if ((pos.x >= 14350.f) && (pos.x < 15510.f))
+		if ((mPos.x >= 14350.f) && (mPos.x < 15510.f))
 		{
-			pos.x += mSpeed * static_cast<float>(Time::DeltaTime());
-			pos.y -= mSpeed * static_cast<float>(Time::DeltaTime());
+			mPos.x += mSpeed * static_cast<float>(Time::DeltaTime());
+			mPos.y -= mSpeed * static_cast<float>(Time::DeltaTime());
 		}
-		else if (pos.x > 15150.f)
+		else if (mPos.x > 15150.f)
 		{			
-			 if (Grap_pattern == 1)
+			 if (mGrap_pattern == 1)
 			{
 				mState = eBossState::Grap_L;
 				mAnimator->Play(L"L_Boss_Third", true);
-				pos = Vector2{ 14350.0f,4500.f };
-				Boss_cross_change = 0;
+				mPos = Vector2{ 14350.0f,4500.f };
+				mBoss_cross_change = 0;
 				mDir = -1;
 			}
 			 else
 			 {
-				 if (Boss_cross_change == 0)
+				 if (mBoss_cross_change == 0)
 				 {
 					 mState = eBossState::Left_Cross;
 					 mAnimator->Play(L"L_Boss_Third", false);
-					 pos = Vector2{ 15150.f,5300.f };
+					 mPos = Vector2{ 15150.f,5300.f };
 					 mDir = -1;
-					 Boss_cross_change = 1;
+					 mBoss_cross_change = 1;
 				 }
-				 else if (Boss_cross_change == 1)
+				 else if (mBoss_cross_change == 1)
 				 {
 					 mState = eBossState::Left;
 					 mAnimator->Play(L"L_Boss_Third", false);
-					 pos = Vector2{ 15150.f,5300.f };
+					 mPos = Vector2{ 15150.f,5300.f };
 					 mDir = -1;
-					 Boss_cross_change = 2;
+					 mBoss_cross_change = 2;
 				 }
 			 }
 
 		}
-		tr->SetPos(pos);
+		tr->SetPos(mPos);
 	}
 
 	void Third_Boss::left()
 	{
 		Transform* tr = GetComponent<Transform>();
-		pos.x -= mSpeed * static_cast<float>(Time::DeltaTime());
+		mPos.x -= mSpeed * static_cast<float>(Time::DeltaTime());
 
-		if (pos.x <= 13550.0f)
+		if (mPos.x <= 13550.0f)
 		{
-			if (Grap_pattern == 1)
+			if (mGrap_pattern == 1)
 			{
 				mState = eBossState::Grap_R;
 				mAnimator->Play(L"R_Boss_Third", true);
-				pos = Vector2{ 14350.0f,4500.f };
-				Boss_cross_change = 0;
+				mPos = Vector2{ 14350.0f,4500.f };
+				mBoss_cross_change = 0;
 				mDir = 1;
 			}
 			else
 			{
-				if (Boss_cross_change == 2)
+				if (mBoss_cross_change == 2)
 				{
 					mState = eBossState::Right_Cross;
 					mAnimator->Play(L"R_Boss_Third", true);
-					pos = Vector2{ 13550.0f,5300.f };
+					mPos = Vector2{ 13550.0f,5300.f };
 					mDir = 1;
-					Boss_cross_change = 0;
+					mBoss_cross_change = 0;
 				}
 			}
 		}
-		tr->SetPos(pos);
+		tr->SetPos(mPos);
 	}
 
 	void Third_Boss::right()
 	{
 		Transform* tr = GetComponent<Transform>();
-		pos.x += mSpeed * static_cast<float>(Time::DeltaTime());
+		mPos.x += mSpeed * static_cast<float>(Time::DeltaTime());
 
-		if (pos.x >= 15150.0f)
+		if (mPos.x >= 15150.0f)
 		{
-			if (Grap_pattern == 1)
+			if (mGrap_pattern == 1)
 			{
 				mState = eBossState::Grap_L;
 				mAnimator->Play(L"L_Boss_Third", true);
-				pos = Vector2{ 14350.0f,4500.f };
-				Boss_cross_change = 0;
+				mPos = Vector2{ 14350.0f,4500.f };
+				mBoss_cross_change = 0;
 				mDir = -1;
 			}
 			else 
 			{
 
-				if (Boss_cross_change == 2)
+				if (mBoss_cross_change == 2)
 				{
 					mState = eBossState::Left_Cross;
 					mAnimator->Play(L"L_Boss_Third", true);
-					pos = Vector2{ 15150.f,5300.f };
+					mPos = Vector2{ 15150.f,5300.f };
 					mDir = -1;
-					Boss_cross_change = 0;
+					mBoss_cross_change = 0;
 				}
 
 			}
 		}
-		tr->SetPos(pos);
+		tr->SetPos(mPos);
 	}
 
 
 	void Third_Boss::grap_R()
 	{
 		Transform* tr = GetComponent<Transform>();
-		pos.y += 3*mSpeed * static_cast<float>(Time::DeltaTime());
+		mPos.y += 3*mSpeed * static_cast<float>(Time::DeltaTime());
 
-		if (pos.y >= 6000.0f)
+		if (mPos.y >= 6000.0f)
 		{
 			mState = eBossState::Right;
 			mAnimator->Play(L"R_Boss_Third", true);
-			pos = Vector2{ 13550.0f,5300.f };
+			mPos = Vector2{ 13550.0f,5300.f };
 			mDir = 1;
-			Boss_cross_change = 2;
+			mBoss_cross_change = 2;
 		}
-		tr->SetPos(pos);
+		tr->SetPos(mPos);
 	}
 
 	void Third_Boss::grap_L()
 	{
 		Transform* tr = GetComponent<Transform>();
-		pos.y +=3* mSpeed * static_cast<float>(Time::DeltaTime());
+		mPos.y +=3* mSpeed * static_cast<float>(Time::DeltaTime());
 
-		if (pos.y >= 6000.0f)
+		if (mPos.y >= 6000.0f)
 		{
 			mState = eBossState::Left;
 			mAnimator->Play(L"L_Boss_Third", true);
-			pos = Vector2{ 15150.f,5300.f };
+			mPos = Vector2{ 15150.f,5300.f };
 			mDir = -1;
-			Boss_cross_change = 2;
+			mBoss_cross_change = 2;
 		}
-		tr->SetPos(pos);
+		tr->SetPos(mPos);
 	}
 
 	void Third_Boss::Hurt()
@@ -382,13 +391,13 @@ namespace jk
 		if (mDir == 1)
 		{
 			mAnimator->Play(L"R_Boss_Third", true);
-			Hur_check = 0;
+			mHurt_check = 0;
 
 		}
 		else
 		{
 			mAnimator->Play(L"L_Boss_Third", true);
-			Hur_check = 0;
+			mHurt_check = 0;
 		}
 
 		return;
@@ -396,32 +405,32 @@ namespace jk
 
 	void Third_Boss::death()
 	{
-		if (Boomb_point == 0)
+		if (mBoomb_point == 0)
 		{
-			Boss_Bomb->Play(true);
+			mBoss_Bomb->Play(true);
 
 			Scene* curScene = SceneManager::GetActiveScene();
 			Boss_act1_boomb* Boss2_boomb = new Boss_act1_boomb(this);
 			Boss2_boomb->SetName(L"Boss2_boomb");
-			Boss2_boomb->GetComponent<Transform>()->SetPos(pos);
+			Boss2_boomb->GetComponent<Transform>()->SetPos(mPos);
 			curScene->AddGameobeject(Boss2_boomb, jk_LayerType::Effect);
-			Boomb_point = 1;
+			mBoomb_point = 1;
 		}
-		else if (Boomb_point == 1)
+		else if (mBoomb_point == 1)
 		{
-			time += static_cast<float>(Time::DeltaTime());
-			if (time >= 1)
+			mTime += static_cast<float>(Time::DeltaTime());
+			if (mTime >= 1)
 			{
 				mRigidbody = AddComponent<Rigidbody>();
 				mRigidbody->SetMass(1.0f);
-				Boomb_point = 2;
+				mBoomb_point = 2;
 			}
 		}
 
-		if ((Boomb_point == 2) && (pos.y > 6000))
+		if ((mBoomb_point == 2) && (mPos.y > 6000))
 		{
-			Ending_point = 1;
-			Boomb_point = 3;
+			mEnding_point = 1;
+			mBoomb_point = 3;
 		}
 	}
 	void Third_Boss::ending()

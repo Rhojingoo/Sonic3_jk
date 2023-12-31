@@ -1994,8 +1994,8 @@ namespace jk
 		//	//Vector2 mCenterpos = Vector2(2790.0f * 3, 2700.f);
 		//	Vector2 mCenterpos = Vector2(20229.f, 3346.f);
 
-		//	Transform* tr = GetComponent<Transform>();
-		//	Vector2 mPos = tr->GetPos();
+		//	Transform* mTr = GetComponent<Transform>();
+		//	Vector2 mPos = mTr->GetPos();
 
 		//	float centerX = mCenterpos.x;
 		//	float centerY = mCenterpos.y;
@@ -2015,7 +2015,7 @@ namespace jk
 		//		mPos.x = x;
 		//		mPos.y = y;
 
-		//		tr->SetPos(mPos);
+		//		mTr->SetPos(mPos);
 		//	}
 		//	if (Input::GetKey(eKeyCode::RIGHT))
 		//	{
@@ -2031,7 +2031,7 @@ namespace jk
 		//		mPos.x = x;
 		//		mPos.y = y;
 
-		//		tr->SetPos(mPos);
+		//		mTr->SetPos(mPos);
 		//	}
 		//}
 		//#pragma endregion 

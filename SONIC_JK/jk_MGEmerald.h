@@ -1,7 +1,7 @@
 #pragma once
 #include "jk_Gameobject.h"
 #include "Item.h"
-#include "jk_Image.h"
+
 
 namespace jk
 {
@@ -25,10 +25,10 @@ namespace jk
 
 
 	private:
-		Image* mImage;
-		Animator* mAnimator;
-		bool b = false;
-		bool isLoad;
+		class Image* mImage;
+		class Animator* mAnimator;
+		bool mCheck = false;
+		bool mIsLoad;
 	
 	};
 

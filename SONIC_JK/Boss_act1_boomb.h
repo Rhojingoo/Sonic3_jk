@@ -1,14 +1,9 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_Effect.h"
-#include "jk_SONIC.h"
-#include "jk_Image.h"
-#include "jk_Time.h"
 
 
 namespace jk
 {
-	class Animator;
 	class Boss_act1_boomb : public Effect
 	{
 	public:
@@ -31,8 +26,8 @@ namespace jk
 		void move();
 
 	private:
-		Image* mImage;
-		Animator* mAnimator;
+		class Image* mImage;
+		class Animator* mAnimator;
 		Gameobject* mOwner;
 		int Death_point;
 	};

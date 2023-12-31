@@ -1,12 +1,8 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_Bullet.h"
-#include "jk_Image.h"
-#include "jk_Time.h"
 
 namespace jk
 {
-	class Animator;
 	class mBoss_Bl_L : public Bullet
 	{
 	public:
@@ -27,8 +23,8 @@ namespace jk
 		void death();
 
 	private:
-		Image* mImage;
-		Animator* mAnimator;
+		class Image* mImage;
+		class Animator* mAnimator;
 		Gameobject* mOwner;
 	};
 }

@@ -198,67 +198,67 @@ namespace jk
 
 		switch (mState)
 		{
-		case jk::Act1_Boss::eBossState::Idle:
+		case Act1_Boss::eBossState::Idle:
 			idle();
 			break;
 
-		case jk::Act1_Boss::eBossState::Move:
+		case Act1_Boss::eBossState::Move:
 			move();
 			break;
 
-		case jk::Act1_Boss::eBossState::Right:
+		case Act1_Boss::eBossState::Right:
 			right();
 			break;
 
-		case jk::Act1_Boss::eBossState::Left:
+		case Act1_Boss::eBossState::Left:
 			left();
 			break;
 
-		case jk::Act1_Boss::eBossState::Up:
+		case Act1_Boss::eBossState::Up:
 			up();
 			break;
 
-		case jk::Act1_Boss::eBossState::Down:
+		case Act1_Boss::eBossState::Down:
 			down();
 			break;
 
-		case jk::Act1_Boss::eBossState::Side_Dianogol:
+		case Act1_Boss::eBossState::Side_Dianogol:
 			side_dianogol();
 			break;
 
-		case jk::Act1_Boss::eBossState::Dianogol_Down:
+		case Act1_Boss::eBossState::Dianogol_Down:
 			dianogol_down();
 			break;
 
-		case jk::Act1_Boss::eBossState::Down_Dianogol:
+		case Act1_Boss::eBossState::Down_Dianogol:
 			down_dianogol();
 			break;
 
-		case jk::Act1_Boss::eBossState::Dianogol_Side:
+		case Act1_Boss::eBossState::Dianogol_Side:
 			dianogol_side();
 			break;
 
-		case jk::Act1_Boss::eBossState::Side_Down:
+		case Act1_Boss::eBossState::Side_Down:
 			side_down();
 			break;
 
-		case jk::Act1_Boss::eBossState::Attack_Side_Waiting:
+		case Act1_Boss::eBossState::Attack_Side_Waiting:
 			attack_side_waiting();
 			break;
 
-		case jk::Act1_Boss::eBossState::Attack_Dianogol_Waiting:
+		case Act1_Boss::eBossState::Attack_Dianogol_Waiting:
 			attack_dianogol_waition();
 			break;
 
-		case jk::Act1_Boss::eBossState::Attack_Down_Waiting:
+		case Act1_Boss::eBossState::Attack_Down_Waiting:
 			attack_down_waition();
 			break;
 
-		case jk::Act1_Boss::eBossState::Death:
+		case Act1_Boss::eBossState::Death:
 			death();
 			break;
 
-		case jk::Act1_Boss::eBossState::Death_throw:
+		case Act1_Boss::eBossState::Death_throw:
 			death_throw();
 			break;
 
@@ -480,7 +480,6 @@ namespace jk
 			mAnimator->Play(L"L_Boss_side_down", false);
 			mTime = 0;
 		}
-		//mAnimator->GetCompleteEvent(L"L_Boss_side_down") = std::bind(&Boss::side_down, this);
 	}
 
 	void Act1_Boss::move()
@@ -619,7 +618,6 @@ namespace jk
 		if (mDir == 1)
 		{
 			mAnimator->Play(L"R_Boss_down_Attack", false);
-			//mAnimator->GetCompleteEvent(L"R_Boss_down_Attack") = std::bind(&Boss::attack_down, this);
 		}
 	}
 
@@ -727,10 +725,6 @@ namespace jk
 
 	void Act1_Boss::attack_side_waiting()
 	{
-		//	mAnimator->GetCompleteEvent(L"L_Boss_side_Attack1") = std::bind(&Act1_Boss::attack_side, this);
-			//mAnimator->GetCompleteEvent(L"L_Boss_side_Attack2") = std::bind(&Act1_Boss::attack_side, this);
-			//mAnimator->GetCompleteEvent(L"R_Boss_side_Attack1") = std::bind(&Act1_Boss::attack_side, this);
-			//mAnimator->GetCompleteEvent(L"R_Boss_side_Attack2") = std::bind(&Act1_Boss::attack_side, this);
 	}
 
 	void Act1_Boss::attack_dianogol()
@@ -765,7 +759,6 @@ namespace jk
 				}
 				else
 				{
-					//미사일2 넣기 location change
 					if (mDir_change == 1)
 					{
 						mState = eBossState::Right;
@@ -814,7 +807,6 @@ namespace jk
 				}
 				else
 				{
-					//미사일2 넣기 location change
 					if (mDir_change == 1)
 					{
 						mState = eBossState::Left;
@@ -838,10 +830,6 @@ namespace jk
 
 	void Act1_Boss::attack_dianogol_waition()
 	{
-		//mAnimator->GetCompleteEvent(L"L_Boss_dianogol_Attack1") = std::bind(&Act1_Boss::attack_dianogol, this);
-		//mAnimator->GetCompleteEvent(L"L_Boss_dianogol_Attack2") = std::bind(&Act1_Boss::attack_dianogol, this);
-		//mAnimator->GetCompleteEvent(L"R_Boss_dianogol_Attack1") = std::bind(&Act1_Boss::attack_dianogol, this);
-		//mAnimator->GetCompleteEvent(L"R_Boss_dianogol_Attack2") = std::bind(&Act1_Boss::attack_dianogol, this);
 	}
 
 	void Act1_Boss::attack_down()
@@ -886,8 +874,6 @@ namespace jk
 
 	void Act1_Boss::attack_down_waition()
 	{
-		//mAnimator->GetCompleteEvent(L"L_Boss_down_Attack") = std::bind(&Act1_Boss::attack_down, this);
-		//mAnimator->GetCompleteEvent(L"R_Boss_down_Attack") = std::bind(&Act1_Boss::attack_down, this);
 	}
 
 	void Act1_Boss::hurt_down()

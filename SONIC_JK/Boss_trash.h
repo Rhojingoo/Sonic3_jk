@@ -1,15 +1,10 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_Effect.h"
-#include "jk_SONIC.h"
-#include "jk_Image.h"
-#include "jk_Time.h"
+
 
 
 namespace jk
 {
-	class Rigidbody;
-	class Animator;
 	class Boss_trash : public Effect
 	{
 	public:
@@ -23,9 +18,9 @@ namespace jk
 
 
 	private:
-		Image* mImage;
-		Animator* mAnimator;
+		class Image* mImage;
+		class Animator* mAnimator;
 		Gameobject* mOwner;
-		Vector2 pos;
+		Vector2 mPos;
 	};
 }

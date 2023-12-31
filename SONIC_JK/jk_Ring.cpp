@@ -5,7 +5,7 @@
 #include "jk_Collider.h"
 #include "jk_Animator.h"
 #include "jk_Resources.h"
-
+#include "jk_Image.h"
 #include "jk_Object.h"
 #include "jk_SONIC.h"
 
@@ -13,7 +13,7 @@
 namespace jk
 {
 	Ring::Ring(Gameobject* owner)
-		: Ringcheck(0)
+		: mRingcheck(0)
 		, mOwner(owner)
 		, mImage(nullptr)
 		, mAnimator(nullptr)
@@ -37,13 +37,13 @@ namespace jk
 		collider->SetSize(Vector2(65.0f, 60.0f));
 		Vector2 size = collider->GetSize();
 		collider->SetCenter(Vector2{ (-0.15f) * size.x, (-0.35f) * size.y });
-		Ringcheck = 0;
+		mRingcheck = 0;
 		Gameobject::Initialize();
 	}
 
 	void Ring::Update()
 	{
-		Ringcheck;
+		mRingcheck;
 
 		switch (Ring_State)
 		{
@@ -106,7 +106,7 @@ namespace jk
 	void Ring::eat()
 	{
 		mAnimator->GetCompleteEvent(L"Ring_Eat") = std::bind(&Ring::death, this);
-		Ringcheck += 1;
+		mRingcheck += 1;
 	}
 
 	void Ring::death()

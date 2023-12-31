@@ -119,15 +119,15 @@ namespace jk
 		AddGameobeject(mSonic, jk_LayerType::Player);
 		
 		mSonic->GetComponent<Transform>()->SetPos(Vector2(661.f, 3033.f)); //시작위치
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2(11700.f, 3770.f)); //보스전
+		//mSonic_Pos->GetComponent<Transform>()->SetPos(Vector2(11700.f, 3770.f)); //보스전
 
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2(7755.0f, 5070.0f));//워터시작
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 13100.f,3240.f }); //미니 보스
+		//mSonic_Pos->GetComponent<Transform>()->SetPos(Vector2(7755.0f, 5070.0f));//워터시작
+		//mSonic_Pos->GetComponent<Transform>()->SetPos(Vector2{ 13100.f,3240.f }); //미니 보스
 
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2(6450.f, 2940.f)); //집라인 시작
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2(7680.0f, 3660.0f)); //rino위치
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2(8712.f, 3396.f)); //집라인 끝위치
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2(3993.f, 1775.f)); //상부배경확인
+		//mSonic_Pos->GetComponent<Transform>()->SetPos(Vector2(6450.f, 2940.f)); //집라인 시작
+		//mSonic_Pos->GetComponent<Transform>()->SetPos(Vector2(7680.0f, 3660.0f)); //rino위치
+		//mSonic_Pos->GetComponent<Transform>()->SetPos(Vector2(8712.f, 3396.f)); //집라인 끝위치
+		//mSonic_Pos->GetComponent<Transform>()->SetPos(Vector2(3993.f, 1775.f)); //상부배경확인
 		// 
 		//13770.f, 2880.f
 		//8712.f, 3396.f
@@ -199,19 +199,19 @@ namespace jk
 		//ItemBigRing* Big_Ring = new ItemBigRing();
 		//Big_Ring->SetName(L"BIGRING");
 
-		//jk_Item_Elect* items = new jk_Item_Elect(mSonic);
+		//jk_Item_Elect* items = new jk_Item_Elect(mSonic_Pos);
 		//items->SetName(L"items");
 		//AddGameobeject(items, jk_LayerType::jk_Item_Elect);
 		//items->GetComponent<Transform>()->SetPos(Vector2(800.f, 3150.f));
 
 
-		//Item_water* water_item = new Item_water(mSonic);
+		//Item_water* water_item = new Item_water(mSonic_Pos);
 		//water_item->SetName(L"items");
 		//AddGameobeject(water_item, jk_LayerType::jk_Item_Elect);
 		//water_item->GetComponent<Transform>()->SetPos(Vector2(1100.f, 3150.f));
 
 
-		//Item_Fire* fire_item = new Item_Fire(mSonic);
+		//Item_Fire* fire_item = new Item_Fire(mSonic_Pos);
 		//fire_item->SetName(L"items");
 		//AddGameobeject(fire_item, jk_LayerType::jk_Item_Elect);
 		//fire_item->GetComponent<Transform>()->SetPos(Vector2(1400.f, 3150.f));
@@ -466,7 +466,7 @@ namespace jk
 	
 
 
-		//Boss* ROBOT = new Boss(mSonic);
+		//Boss* ROBOT = new Boss(mSonic_Pos);
 		//ROBOT->SetName(L"BOSS");
 		//링위치
 		Ring* ring[100];

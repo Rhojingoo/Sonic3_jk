@@ -8,13 +8,14 @@
 #include "jk_Animator.h"
 #include "jk_Collider.h"
 #include "jk_Time.h"
+#include "jk_Image.h"
 #include "jk_Input.h"
 
 jk::MGEmerald::MGEmerald()
 	: mImage(nullptr)
 	, mAnimator(nullptr)
-	, b(false)
-	, isLoad(false)
+	, mCheck(false)
+	, mIsLoad(false)
 {
 	Transform* tr = GetComponent<Transform>();
 	tr->SetPos(Vector2(595.0f, -200.0f));
@@ -44,12 +45,15 @@ void jk::MGEmerald::Initialize()
 
 void jk::MGEmerald::Update()
 {
-	if (isLoad == true)
+	if (mIsLoad == true)
 	{
 		SceneManager::LoadScene(jk_SceneType::GamePlay);
 	}
-	if (Input::GetKeyDown(eKeyCode::UP)) b = true;
-	if(b)
+	if (Input::GetKeyDown(eKeyCode::UP))
+	{
+		mCheck = true;
+	}
+	if(mCheck)
 	{
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
@@ -75,9 +79,9 @@ void jk::MGEmerald::OnCollisionEnter(Collider* other)
 
 	if (EmeraldSonic* sonic = dynamic_cast<EmeraldSonic*>(other->GetOwner()))
 	{
-		if (isLoad == false)
+		if (mIsLoad == false)
 		{
-			isLoad = true;
+			mIsLoad = true;
 		}
 	}	
 }

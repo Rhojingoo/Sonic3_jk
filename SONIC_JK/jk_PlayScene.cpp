@@ -120,19 +120,19 @@ namespace jk
 		mSonic->SetName(L"Player");
 		AddGameobeject(mSonic, jk_LayerType::Player);
 		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 2790.0f * 3, 3200.f });
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 19718.f, 3450.f }); //첫원돌기
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2{21480.f, 3450.f });//폭포
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 26201.f, 3333.f });// 밑에원돌기
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 16100.0f, 3070.0f });//집라인쪽
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 28821.f, 1363.f });//끝
-		//tr->SetPos(Vector2{ 24132.0f, 2417.0f });//원두번쨰 전
-		//tr->SetPos(Vector2{ 21579.f,72.f });//두번째 폭포
-		//tr->SetPos(Vector2{ 28821.f, 1363.f });//마지막폭포
-		//tr->SetPos(Vector2{ 19924.0f, 2625.0f });//돌3	
-		//tr->SetPos(Vector2{ 13218.0f, 3174.0f });//캐논
-		//tr->SetPos(Vector2(19718.f, 3450.f));//원돌기
-		//tr->SetPos(Vector2{ 26201.f, 3333.f });//밑에 원돌기
+		//mSonic_Pos->GetComponent<Transform>()->SetPos(Vector2{ 19718.f, 3450.f }); //첫원돌기
+		//mSonic_Pos->GetComponent<Transform>()->SetPos(Vector2{21480.f, 3450.f });//폭포
+		//mSonic_Pos->GetComponent<Transform>()->SetPos(Vector2{ 26201.f, 3333.f });// 밑에원돌기
+		//mSonic_Pos->GetComponent<Transform>()->SetPos(Vector2{ 27760.0f, 2792.0f });//원통
+		//mSonic_Pos->GetComponent<Transform>()->SetPos(Vector2{ 16100.0f, 3070.0f });//집라인쪽
+		//mSonic_Pos->GetComponent<Transform>()->SetPos(Vector2{ 28821.f, 1363.f });//끝
+		//mTr->SetPos(Vector2{ 24132.0f, 2417.0f });//원두번쨰 전
+		//mTr->SetPos(Vector2{ 21579.f,72.f });//두번째 폭포
+		//mTr->SetPos(Vector2{ 28821.f, 1363.f });//마지막폭포
+		//mTr->SetPos(Vector2{ 19924.0f, 2625.0f });//돌3	
+		//mTr->SetPos(Vector2{ 13218.0f, 3174.0f });//캐논
+		//mTr->SetPos(Vector2(19718.f, 3450.f));//원돌기
+		//mTr->SetPos(Vector2{ 26201.f, 3333.f });//밑에 원돌기
 
 
 		mTails = new Tails(mSonic);

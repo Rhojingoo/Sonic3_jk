@@ -272,7 +272,6 @@ namespace jk
 		{
 			if (mAttack == 0)
 			{
-				//mAnimator->Play(L"middle_bos_cover_open", false);
 				mState = eState::Atack;
 				mTime_Check = 0;
 				mAttack = 1;

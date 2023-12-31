@@ -1,18 +1,8 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_Monster.h"
-#include "jk_Image.h"
-#include "jk_Sonic.h"
-#include "jk_Tails.h"
-#include "jk_Sound.h"
-#include "jk_Time.h"
-
 
 namespace jk
 {
-	class Pixel_Ground;
-	class Rigidbody;
-	class Animator;
 	class Rino : public Monster
 	{
 	public:
@@ -24,9 +14,7 @@ namespace jk
 			Death,
 			Release_animal,
 		};
-
-
-		Rino();
+				Rino();
 		~Rino();
 
 		virtual void Initialize() override;
@@ -40,11 +28,12 @@ namespace jk
 
 
 		void SetGroundImage(Image* image) { mGroundImage = image; }
-		void SetCheckTargetGround(Pixel_Ground* ground) { check = ground; }
+		void SetCheckTargetGround(Pixel_Ground* ground) { mPixel_Ground = ground; }
 		void SetCenterpos(Vector2 pos) {mCenterpos = pos;}
 
 		Vector2 Getmonster_pos() {return mCurpos; }
 		void release_animal();
+		void GroundCheck();
 
 	private:	
 		void move();
@@ -53,23 +42,23 @@ namespace jk
 		void death();
 
 	private:	
-		Sound* Death;
-		Rigidbody* mRigidbody;
-		Animator* mAnimator;
-		Image* mImage;
-		Image* mImage1;
-		Image* mGroundImage;
-		Image* mGroundImage2;
+		class Sound* mDeath;
+		class Pixel_Ground* mPixel_Ground;
+		class Rigidbody* mRigidbody;
+		class Animator* mAnimator;
+		class Image* mImage;
+		class Image* mImage1;
+		class Image* mGroundImage;
+		class Image* mGroundImage2;
 		
 	private:
-		Pixel_Ground* check;
 		Vector2 mCenterpos;
 		Vector2 mCurpos;
 		float mMonspeed;
 		float mMonmaxdistance;
 		int mDir;
-		int Death_Point;
-		int check_map;
+		int mDeath_Point;
+		int mCheck_Map;
 
 	private:
 		eRinoState mState;	

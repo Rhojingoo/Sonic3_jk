@@ -105,8 +105,8 @@ namespace jk
 		mSonic->SetName(L"Player");
 		AddGameobeject(mSonic, jk_LayerType::Player);
 		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 600.f, 3285.f });//½ÃÀÛ
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 7800.0f, 3650.0f });//²É¾Õ
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 18400.f, 3900.f });//¿Õ ¾Õ
+		//mSonic_Pos->GetComponent<Transform>()->SetPos(Vector2{ 7800.0f, 3650.0f });//²É¾Õ
+		//mSonic_Pos->GetComponent<Transform>()->SetPos(Vector2{ 18400.f, 3900.f });//¿Õ ¾Õ
 		//13770.f, 2880.f 
 
 

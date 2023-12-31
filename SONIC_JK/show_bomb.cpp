@@ -55,10 +55,12 @@ namespace jk
 
 		switch (mState)
 		{
-		case jk::show_bomb::eState::Move:move();
+		case show_bomb::eState::Move:
+			move();
 			break;
 
-		case jk::show_bomb::eState::Death:death();
+		case show_bomb::eState::Death:
+			death();
 			break;
 
 		default:
@@ -68,7 +70,7 @@ namespace jk
 		if (mGroundImage)
 		{
 			COLORREF FootColor = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(mPos.x), static_cast<int>(mPos.y) + 75));
-			if (FootColor == RGB(0, 0, 0))
+			if (FootColor == GROUNDCOLOR)
 			{
 				do
 				{
@@ -76,7 +78,7 @@ namespace jk
 					FootColor = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(mPos.x), static_cast<int>(mPos.y) + 75));
 					tr->SetPos(mPos);
 					mCheck_Ground = 1;
-				} while (FootColor == RGB(0, 0, 0) && mPos.y > 0);
+				} while (FootColor == GROUNDCOLOR && mPos.y > 0);
 			}
 		}
 

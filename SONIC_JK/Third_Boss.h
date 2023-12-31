@@ -1,14 +1,10 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_Boss.h"
-#include "jk_SONIC.h"
-#include "jk_Image.h"
-#include "jk_Sound.h"
-#include "jk_Time.h"
-
 
 namespace jk
 {
+	class Sound;
+	class Image;
 	class Rigidbody;
 	class Animator;
 	class Third_Boss : public Boss
@@ -40,11 +36,11 @@ namespace jk
 		virtual void OnCollisionExit(class Collider* other) override;	
 
 		int Get_mDir() { return mDir; }
-		int Get_Hurt() { return Hur_check; }
-		void Set_Grap(int grap) { Grap_pattern = grap; }
+		int Get_Hurt() { return mHurt_check; }
+		void Set_Grap(int grap) { mGrap_pattern = grap; }
 
-		int GetEnding_point() { return Ending_point; }
-		void SetEnding_point(int end) { Ending_point = end; }
+		int GetEnding_point() { return mEnding_point; }
+		void SetEnding_point(int end) { mEnding_point = end; }
 
 
 	private:
@@ -53,16 +49,11 @@ namespace jk
 		void R_cross();
 		void left();
 		void right();
-
 		void grap_R();
 		void grap_L();
-
 		void Hurt();
-
 		void death();
-
 		void ending();
-
 
 	
 	private:
@@ -70,27 +61,27 @@ namespace jk
 		Image* mImage1;
 		Animator* mAnimator;
 		Rigidbody* mRigidbody;
-		Sound* Boss_Hit;
-		Sound* Boss_Bomb;
+		Sound* mBoss_Hit;
+		Sound* mBoss_Bomb;
 
 	private:	
-		Vector2 pos;
+		Vector2 mPos;
 		float mSpeed;
-		float time;
+		float mTime;
 		int mDir;
 
 
-		Sonic::eSonicState sonicState;
+		Sonic::eSonicState mSonicState;
 		eBossState mState;
 
 
 	private:
-		int Boss_cross_change;
-		int Damege_check;
-		int Boomb_point;
-		int Grap_pattern;
-		int Hur_check;
-		int Ending_point;
+		int mBoss_cross_change;
+		int mDamege_check;
+		int mBoomb_point;
+		int mGrap_pattern;
+		int mHurt_check;
+		int mEnding_point;
 
 	};
 }

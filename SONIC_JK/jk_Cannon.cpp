@@ -10,8 +10,10 @@
 #include "jk_Input.h"
 #include "jk_object.h"
 #include "jk_Pixel_Ground.h"
-
-
+#include "jk_Image.h"
+#include "jk_Sonic.h"
+#include "jk_Tails.h"
+#include "jk_Cannon_Bullet.h"
 #include "jk_animal.h"
 
 
@@ -20,14 +22,14 @@ int check_ground_CN = 0;
 namespace jk
 {
 	Cannon::Cannon(Gameobject* owner)
-		: pos(0.f, 0.f)
+		: mPos(0.f, 0.f)
 		, mDir(-1)
-		, check_map(0)
+		, mCheck_Map(0)
 		, sonicState()
 		, tailsState()
 		, mState(eCannon::Idle)
 		, mOwner(owner)
-		, check(nullptr)
+		, mPixel_Ground(nullptr)
 		, mGroundImage(nullptr)
 		, mGroundImage2(nullptr)
 		, Death(nullptr)
@@ -35,10 +37,10 @@ namespace jk
 		, mImage1(nullptr)
 		, mAnimator(nullptr)
 		, mRigidbody(nullptr)
-		, _death(false)
-		, bullet(nullptr)
-		, bullet_tr(nullptr)
-		, bullet_rb(nullptr)
+		, mDeath(false)
+		, mBullet(nullptr)
+		, mBullet_tr(nullptr)
+		, mBullet_rg(nullptr)
 
 	{
 	}
@@ -70,12 +72,12 @@ namespace jk
 		collider->SetCenter(Vector2{ (-0.12f) * size.x, (-0.2f) * size.y });
 
 
-		bullet = new Cannon_Bullet(this);
+		mBullet = new Cannon_Bullet(this);
 		Scene* curScene = SceneManager::GetActiveScene();
-		bullet_tr = bullet->GetComponent<Transform>();
-		bullet_rb = bullet->GetComponent<Rigidbody>();
-		curScene->AddGameobeject(bullet, jk_LayerType::Bullet);
-		bullet->SetState(eState::Pause);
+		mBullet_tr = mBullet->GetComponent<Transform>();
+		mBullet_rg = mBullet->GetComponent<Rigidbody>();
+		curScene->AddGameobeject(mBullet, jk_LayerType::Bullet);
+		mBullet->SetState(eState::Pause);
 
 		mRigidbody = AddComponent<Rigidbody>();
 		mRigidbody->SetMass(1.0f);
@@ -86,7 +88,7 @@ namespace jk
 	void Cannon::Update()
 	{
 		Transform* tr = GetComponent<Transform>();
-		pos = tr->GetPos();
+		mPos = tr->GetPos();
 		Ground_check();
 
 		switch (mState)
@@ -107,7 +109,7 @@ namespace jk
 			break;
 		}
 
-		Setpos_monster(pos);
+		Setpos_monster(mPos);
 		Gameobject::Update();
 	}
 	void Cannon::Render(HDC hdc)
@@ -192,17 +194,17 @@ namespace jk
 
 		if (mDir == -1)
 		{
-			bullet->SetState(eState::Active);
-			bullet_tr->SetPos(Vector2{ tr->GetPos().x, tr->GetPos().y - 25 });
-			bullet_rb->SetVelocity(Vector2{ 0.f, 0.f });
-			bullet_rb->SetVelocity(Vector2{ -300.0f, -300.0f });
+			mBullet->SetState(eState::Active);
+			mBullet_tr->SetPos(Vector2{ tr->GetPos().x, tr->GetPos().y - 25 });
+			mBullet_rg->SetVelocity(Vector2{ 0.f, 0.f });
+			mBullet_rg->SetVelocity(Vector2{ -300.0f, -300.0f });
 		}
 		else
 		{
-			bullet->SetState(eState::Active);
-			bullet_tr->SetPos(Vector2{ tr->GetPos().x, tr->GetPos().y - 25 });
-			bullet_rb->SetVelocity(Vector2{ 0.f, 0.f });
-			bullet_rb->SetVelocity(Vector2{ 300.0f, -300.0f });
+			mBullet->SetState(eState::Active);
+			mBullet_tr->SetPos(Vector2{ tr->GetPos().x, tr->GetPos().y - 25 });
+			mBullet_rg->SetVelocity(Vector2{ 0.f, 0.f });
+			mBullet_rg->SetVelocity(Vector2{ 300.0f, -300.0f });
 		}
 
 		mDir = mDir * -1;
@@ -223,12 +225,12 @@ namespace jk
 		Transform* Canon_TR = GetComponent<Transform>();
 		Rigidbody* Canon_rb = GetComponent<Rigidbody>();
 
-		check_map = check->Get_map_check();
+		mCheck_Map = mPixel_Ground->Get_map_check();
 
-		mGroundImage = check->GetGroundImage();
-		mGroundImage2 = check->GetGroundImage2();
+		mGroundImage = mPixel_Ground->GetGroundImage();
+		mGroundImage2 = mPixel_Ground->GetGroundImage2();
 
-		Image* selectedImage = (check_map == 0) ? mGroundImage : mGroundImage2;
+		Image* selectedImage = (mCheck_Map == 0) ? mGroundImage : mGroundImage2;
 
 		if (Canon_TR && Canon_rb && mGroundImage)
 		{
@@ -246,7 +248,7 @@ namespace jk
 				}
 			}
 		}
-		bullet->SetGroundImage(selectedImage);
+		mBullet->SetGroundImage(selectedImage);
 
 	}
 }

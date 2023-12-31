@@ -4,12 +4,14 @@
 #include "jk_Animator.h"
 #include "jk_Collider.h"
 #include "jk_Resources.h"
+#include "jk_SONIC.h"
+#include "jk_Image.h"
 
 namespace jk
 {
 	Item_water::Item_water(Gameobject* owner)
 		: mOwner(owner)
-		, Itemcheck(1)
+		, mItemcheck(1)
 		, mImage(nullptr)
 		, mAnimator(nullptr)
 		, itemmState(eState::Idle)
@@ -88,6 +90,6 @@ namespace jk
 	}
 	void Item_water::death()
 	{
-		Itemcheck = 2;
+		mItemcheck = 2;
 	}
 }

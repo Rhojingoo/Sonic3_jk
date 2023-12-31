@@ -7,12 +7,13 @@
 #include "jk_Resources.h"
 #include "jk_Time.h"
 #include "jk_Input.h"
+#include "jk_Image.h"
 
 namespace jk
 {
 	Lttle_miniboss::Lttle_miniboss( )
 		: mMonspeed(10.0f)
-		, pos(0.f,0.f)
+		, mPos(0.f,0.f)
 		, mCenterpos(0.f, 0.f)
 		, mMonmaxdistance(500.0f)
 		, fDist(0.f)
@@ -41,7 +42,7 @@ namespace jk
 	void Lttle_miniboss::Update()
 	{
 		Transform* tr = GetComponent<Transform>();
-		pos = tr->GetPos();
+		mPos = tr->GetPos();
 
 		switch (mState)
 		{
@@ -82,14 +83,14 @@ namespace jk
 	{
 		Transform* tr = GetComponent<Transform>();
 
-		fDist = mCenterpos.x - pos.x - mMonmaxdistance;
-		pos.x += mMonspeed * static_cast<float>(Time::DeltaTime())* mDir;
+		fDist = mCenterpos.x - mPos.x - mMonmaxdistance;
+		mPos.x += mMonspeed * static_cast<float>(Time::DeltaTime())* mDir;
 
 		if (fDist <= -1000.0f)
 		{
 			mState = eState::Death;	
 		}
-		tr->SetPos(pos);
+		tr->SetPos(mPos);
 
 	}
 

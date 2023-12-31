@@ -9,6 +9,7 @@
 #include "jk_Object.h"
 #include "jk_Camera.h"
 #include "jk_SONIC.h"
+#include "jk_Image.h"
 
 namespace jk
 {

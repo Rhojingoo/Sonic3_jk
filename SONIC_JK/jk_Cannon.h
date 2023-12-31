@@ -1,18 +1,8 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_Monster.h"
-#include "jk_Image.h"
-#include "jk_Sonic.h"
-#include "jk_Tails.h"
-#include "jk_Time.h"
-#include "jk_Cannon_Bullet.h"
-
 
 namespace jk
 {
-	class Pixel_Ground;
-	class Rigidbody;
-	class Animator;
 	class Cannon : public Monster
 	{
 	public:
@@ -37,10 +27,10 @@ namespace jk
 		virtual void OnCollisionExit(class Collider* other) override;
 
 		void SetGroundImage(Image* image) { mGroundImage = image; }
-		void SetCheckTargetGround(Pixel_Ground* ground) { check = ground; }
+		void SetCheckTargetGround(Pixel_Ground* ground) { mPixel_Ground = ground; }
 
 
-		Vector2 Getmonster() { return pos; }
+		Vector2 Getmonster() { return mPos; }
 		int GetDir() {	return mDir	;}
 
 
@@ -56,30 +46,31 @@ namespace jk
 		void Ground_check();
 
 	private:
-		Sound* Death;
 		Gameobject* mOwner;
-		Image* mImage;
-		Image* mImage1;
-		Image* mGroundImage;
-		Image* mGroundImage2;
-		Animator* mAnimator;
-		Pixel_Ground* check;
-		Rigidbody* mRigidbody;
-		Image* bullet_groundImage;
+		class Sound* Death;
+		class Image* mImage;
+		class Image * mImage1;
+		class Image* mGroundImage;
+		class Image* mGroundImage2;
+		class Image* bullet_groundImage;
+		class Animator* mAnimator;
+		class Pixel_Ground* mPixel_Ground;
+		class Rigidbody* mRigidbody;
+
+		class Cannon_Bullet* mBullet;
+		class Rigidbody* mBullet_rg;
+		Transform* mBullet_tr;
 
 	private:
 		eCannon mState;
-		Vector2 pos;
+		Vector2 mPos;
 		int mDir;
-		int check_map;
-		bool _death;
+		int mCheck_Map;
+		bool mDeath;
 
-	private:
 		Sonic::eSonicState sonicState;
 		Tails::eTailsState tailsState;
-		Cannon_Bullet* bullet; 
-		Transform* bullet_tr;
-		Rigidbody* bullet_rb;
+	
 
 	}; 
 }

@@ -1,12 +1,9 @@
 #pragma once
 #include "jk_Gameobject.h"
-#include "jk_Boss.h"
-#include "jk_Image.h"
-#include "jk_Time.h"
-
 
 namespace jk
 {
+	class Image;
 	class Rigidbody;
 	class Animator;
 	class Boss_Arm : public Gameobject
@@ -26,9 +23,9 @@ namespace jk
 		virtual void OnCollisionExit(class Collider* other) override;
 
 		void Set_mDir(int dir) { mDir = dir; }
-		void Set_Hurt(int hurt) { Damege_check= hurt; }
-		int Get_grap() { return grap; }
-		void Set_Grap(int set) { grap = set; }
+		void Set_Hurt(int hurt) { mDamege_check= hurt; }
+		int Get_grap() { return mGrap; }
+		void Set_Grap(int set) { mGrap = set; }
 
 		void Hurt();
 	
@@ -38,16 +35,16 @@ namespace jk
 		Image* mImage1;
 		Animator* mAnimator;
 		Rigidbody* mRigidbody;
-		Rigidbody* sonicrb;
-		Transform* sonicTr;
+		Rigidbody* mSonic_RG;
+		Transform* mSonic_Tr;
 		Gameobject* mOwner;
 
 	private:
-		Vector2 pos;
-		Vector2 Boss_pos;
+		Vector2 mPos;
+		Vector2 mBoss_pos;
 		int mDir;
-		int grap;
-		int moving_lotation;
-		int Damege_check;
+		int mGrap;
+		int mMoving_lotation;
+		int mDamege_check;
 	};
 }

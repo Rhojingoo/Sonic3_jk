@@ -99,13 +99,16 @@ namespace jk
 		{
 			switch (mState)
 			{
-			case jk::boss1_object::eBossState::Idle:idle();
+			case boss1_object::eBossState::Idle:
+				idle();
 				break;
 
-			case jk::boss1_object::eBossState::Up:up();
+			case boss1_object::eBossState::Up:
+				up();
 				break;
 
-			case jk::boss1_object::eBossState::Down:down();
+			case boss1_object::eBossState::Down:
+				down();
 				break;
 
 			default:

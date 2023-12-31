@@ -1,11 +1,10 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_Bullet.h"
-#include "jk_Image.h"
-#include "jk_Animator.h"
+
 
 namespace jk
 {
+	class Image;
 	class Pixel_Ground;
 	class Rigidbody;
 	class act6_bullet1 : public Bullet
@@ -20,7 +19,7 @@ namespace jk
 		virtual void Release() override;
 
 		void SetGroundImage(Image* image) { mGroundImage = image; }
-		void SetCheckTargetGround(Pixel_Ground* ground) { check = ground; }
+		void SetCheckTargetGround(Pixel_Ground* ground) { mPixel_Ground = ground; }
 
 		virtual void OnCollisionEnter(class Collider* other) override;
 		virtual void OnCollisionStay(class Collider* other) override;
@@ -32,7 +31,7 @@ namespace jk
 		Image* mGroundImage;
 		Animator* mAnimator;
 		Rigidbody* mRigidbody;
-		Pixel_Ground* check;
-		Vector2 pos;
+		Pixel_Ground* mPixel_Ground;
+		Vector2 mPos;
 	};
 }

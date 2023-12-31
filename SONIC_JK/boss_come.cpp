@@ -55,10 +55,12 @@ namespace jk
 
 		switch (mState)
 		{
-		case jk::boss_come::eBossState::Move:move();
+		case boss_come::eBossState::Move:
+			move();
 			break;
 
-		case jk::boss_come::eBossState::Jump:jump();
+		case boss_come::eBossState::Jump:
+			jump();
 			break;
 
 		default:
@@ -76,11 +78,11 @@ namespace jk
 		{
 			Vector2 Boss_ps = Boss_TR->GetPos();
 			COLORREF FootColor = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(Boss_ps.x), static_cast<int>(Boss_ps.y + 100.f)));
-			if (FootColor == RGB(0.f, 0.f, 0.f))
+			if (FootColor == GROUNDCOLOR)
 			{
 				COLORREF FootColor = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(Boss_ps.x), static_cast<int>(Boss_ps.y + 100.f)));
 
-				while (FootColor == RGB(0.f, 0.f, 0.f))
+				while (FootColor == GROUNDCOLOR)
 				{
 					Boss_ps.y -= 1;
 					FootColor = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(Boss_ps.x), static_cast<int>(Boss_ps.y + 100.f)));

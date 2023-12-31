@@ -1,14 +1,8 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "Item.h"
-#include "jk_Image.h"
-#include "jk_SONIC.h"
-#include "jk_Animator.h"
 
 namespace jk
 {
-	class Rigidbody;
-	class Animator;
 	class Robotnic_machine : public Item
 	{
 	public:
@@ -41,10 +35,9 @@ namespace jk
 
 	private:
 		eState mState;
-		Image* mImage;
-		Animator* mAnimator;
-
+		class Image* mImage;
+		class Animator* mAnimator;
 		float mSpeed;
-		Vector2 pos;
+		Vector2 mPos;
 	};
 }

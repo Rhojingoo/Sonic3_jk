@@ -1,14 +1,8 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_Bullet.h"
-#include "jk_Image.h"
-#include "jk_Animator.h"
-
 
 namespace jk
 {
-	class Pixel_Ground;
-	class Rigidbody;
 	class Cannon_Bullet : public Bullet
 	{
 	public:
@@ -23,13 +17,13 @@ namespace jk
 		void SetGroundImage(Image* image) { mGroundImage = image; }
 
 	private:
-		Image* mImage;
-		Image* mGroundImage;
-		Animator* mAnimator;
-		Rigidbody* mRigidbody;
-		Transform* tr;
+		class Image* mImage;
+		class Image* mGroundImage;
+		class Animator* mAnimator;
+		class Rigidbody* mRigidbody;
+		Transform* mTr;
 		int mDir;
-		int check_ground_Cb;
+		int mCheck_Ground;
 		Gameobject* mOwner;
 	};
 }

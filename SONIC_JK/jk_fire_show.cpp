@@ -7,7 +7,7 @@
 #include "jk_Resources.h"
 #include "jk_Collider.h"
 #include "jk_Object.h"
-
+#include "jk_Image.h"
 #include "jk_Time.h"
 #include "jk_Input.h"
 
@@ -16,7 +16,7 @@ namespace jk
 {
 	fire_show::fire_show()
 		: mCenterpos(30792.f, 2407.f)
-		, pos(0.f,0.f)
+		, mPos(0.f,0.f)
 		, mMonspeed(350.0f)
 		, mMonmaxdistance(1000000.0f)
 		, fDist(0.f)
@@ -37,7 +37,7 @@ namespace jk
 	void fire_show::Update()
 	{
 		Transform* tr = GetComponent<Transform>();
-		pos = tr->GetPos();
+		mPos = tr->GetPos();
 
 		switch (mState)
 		{
@@ -77,9 +77,9 @@ namespace jk
 	void fire_show::move()
 	{
 		Transform* tr = GetComponent<Transform>();
-		fDist = mCenterpos.y - pos.y - mMonmaxdistance;
-		pos.y -= mMonspeed * static_cast<float>(Time::DeltaTime());				
-		tr->SetPos(pos);
+		fDist = mCenterpos.y - mPos.y - mMonmaxdistance;
+		mPos.y -= mMonspeed * static_cast<float>(Time::DeltaTime());				
+		tr->SetPos(mPos);
 
 	}
 	void fire_show::attack()

@@ -4,14 +4,14 @@
 #include "jk_Animator.h"
 #include "jk_Collider.h"
 #include "jk_Resources.h"
-
-
+#include "jk_SONIC.h"
+#include "jk_Image.h"
 
 namespace jk
 {
 	Item_super::Item_super(Gameobject* owner)
 		: mOwner(owner)
-		, Itemcheck(1)
+		, mItemcheck(1)
 		, mImage(nullptr)
 		, mAnimator(nullptr)
 		, itemmState(eState::Idle)
@@ -55,7 +55,7 @@ namespace jk
 			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
 			{
 				mAnimator->Play(L"ItemDeath", true);
-				Itemcheck = 0;
+				mItemcheck = 0;
 			}
 		}
 	}

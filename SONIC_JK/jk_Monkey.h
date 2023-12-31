@@ -1,17 +1,8 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_Monster.h"
-#include "jk_Monkey_Bullet.h"
-#include "jk_Sonic.h"
-#include "jk_Tails.h"
-#include "jk_Image.h"
-#include "jk_Time.h"
-#include "jk_Sound.h"
 
 namespace jk
 {
-	class Pixel_Ground;
-	class Animator;
 	class Monkey : public Monster
 	{
 	public:
@@ -38,10 +29,10 @@ namespace jk
 		virtual void OnCollisionExit(class Collider* other) override;
 
 		void SetGroundImage(Image* image) { mGroundImage = image; }
-		void SetCheckTargetGround(Pixel_Ground* ground) { check = ground; }
+		void SetCheckTargetGround(Pixel_Ground* ground) { mPixel_Ground = ground; }
 		void SetCenterpos(Vector2 pos) { mCenterpos = pos; }
 
-		Vector2 Getmonster_pos() { return pos; }
+		Vector2 Getmonster_pos() { return mPos; }
 
 	private:
 		void Lmove_up();
@@ -57,31 +48,32 @@ namespace jk
 
 	private:
 		Gameobject* mOwner;
-		Pixel_Ground* check;
-		Sound* Death;
-		Image* mImage;
-		Image* mImage1;
-		Image* mGroundImage;
-		Animator* mAnimator;	
-		Transform* tr;
+		class Pixel_Ground* mPixel_Ground;
+		class Sound* mDeath;
+		class Image* mImage;
+		class Image* mImage1;
+		class Image* mGroundImage;
+		class Animator* mAnimator;	
+		Transform* mTr;
+		class Monkey_Bullet* mBullet;
+		Transform* mBullet_tr;
+		class Rigidbody* mBullet_rb;
 
 		eMonkey mState;
 		Vector2 mCenterpos;	
-		Vector2 pos;
+		Vector2 mPos;
 		float mMonspeed;
 		float mMonmaxdistance;
 		float fDist;
 		int mDir;
-		int death_point;
-		int animal_point;
+		int mDeath_point;
+		int mAnimal_point;
 
-		Vector2 mSonic;
-		int sonicpattern;
+		Vector2 mSonic_Pos;
+		int mSonicPattern;
 		Sonic::eSonicState sonicState;
 		Tails::eTailsState tailsState;
 
-		Monkey_Bullet* bullet;
-		Transform* bullet_tr;
-		Rigidbody* bullet_rb;
+
 	};
 }

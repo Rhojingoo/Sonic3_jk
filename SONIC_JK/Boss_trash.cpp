@@ -6,7 +6,7 @@
 #include "jk_Animator.h"
 #include "jk_Collider.h"
 #include "jk_Object.h"
-
+#include "jk_Image.h"
 #include "jk_Time.h"
 #include "jk_Input.h"
 
@@ -17,7 +17,7 @@ namespace jk
 		: mOwner(owner)
 		, mAnimator(nullptr)
 		, mImage(nullptr)
-		, pos(0.f,0.f)
+		, mPos(0.f,0.f)
 	{
 		mOwner = owner;
 		mImage = Resources::Load<Image>(L"END_BG", L"..\\Resources\\END_BG.bmp");
@@ -35,9 +35,9 @@ namespace jk
 	void Boss_trash::Update()
 	{
 		Transform* tr = GetComponent<Transform>();
-		pos = tr->GetPos();
-		pos.y += 150 * static_cast<int>(Time::DeltaTime());
-		tr->SetPos(pos);
+		mPos = tr->GetPos();
+		mPos.y += 150 * static_cast<int>(Time::DeltaTime());
+		tr->SetPos(mPos);
 
 		Gameobject::Update();
 	}

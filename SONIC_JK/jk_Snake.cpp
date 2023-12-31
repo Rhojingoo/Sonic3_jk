@@ -1,10 +1,7 @@
 #include "jk_Snake.h"
 #include "jk_SceneManager.h"
 #include "jk_Scene.h"
-
 #include "jk_Object.h"
-
-
 #include "jk_Snake_Head.h"
 #include "jk_Snake_First_Body.h"
 #include "jk_Snake_Second_Body.h"
@@ -12,30 +9,35 @@
 #include "jk_Snake_Last_Body.h"
 #include "jk_Snake_Tail.h"
 #include "jk_Animal.h"
+#include "jk_Image.h"
+#include "jk_Sound.h"
+#include "jk_Time.h"
+#include "jk_Sonic.h"
+#include "jk_Tails.h"
 
 namespace jk
 {
-	bool Snake::LifeCheck = true;
+	bool Snake::mLifeCheck = true;
 
 	Snake::Snake(Vector2 _Pos)
 		: mScene(nullptr)
-		, Death(nullptr)
+		, mDeath(nullptr)
 		, mAnimator(nullptr)
-		, pos(_Pos)
+		, mPos(_Pos)
 		, sonicState()
 		, tailsState()	
-		, Obdel(false)
+		, mObdel(false)
 	{
 
 	}
 	Snake::Snake(Snake* abc)
 		: mScene(nullptr)
-		, Death(nullptr)
+		, mDeath(nullptr)
 		, mAnimator(nullptr)
-		, pos(Vector2(0.f,0.f))
+		, mPos(Vector2(0.f,0.f))
 		, sonicState()
 		, tailsState()
-		, Obdel(false)
+		, mObdel(false)
 	{
 	}
 	Snake::Snake()
@@ -47,66 +49,66 @@ namespace jk
 	void Snake::Initialize()
 	{
 
-		LifeCheck = true;
+		mLifeCheck = true;
 		mScene = SceneManager::GetActiveScene();
 
-		snake[0] = new Snake_Head();
-		snake[0]->SetName(L"Snake_head");
-		mScene->AddGameobeject(snake[0], jk_LayerType::Monster);
-		snake[0]->GetComponent<Transform>()->SetPos(Vector2{ pos.x, pos.y });
-		snake[0]->Initialize();		
+		mSnake[0] = new Snake_Head();
+		mSnake[0]->SetName(L"Snake_head");
+		mScene->AddGameobeject(mSnake[0], jk_LayerType::Monster);
+		mSnake[0]->GetComponent<Transform>()->SetPos(Vector2{ mPos.x, mPos.y });
+		mSnake[0]->Initialize();		
 
-		snake[1] = new Snake_First_Body(dynamic_cast<Snake_Head*>(snake[0]));
-		snake[1]->SetName(L"Snake_Body");	
-		mScene->AddGameobeject(snake[1], jk_LayerType::Monster);
-		snake[1]->GetComponent<Transform>()->SetPos(Vector2{ pos.x, pos.y });
-		snake[1]->Initialize();
+		mSnake[1] = new Snake_First_Body(dynamic_cast<Snake_Head*>(mSnake[0]));
+		mSnake[1]->SetName(L"Snake_Body");	
+		mScene->AddGameobeject(mSnake[1], jk_LayerType::Monster);
+		mSnake[1]->GetComponent<Transform>()->SetPos(Vector2{ mPos.x, mPos.y });
+		mSnake[1]->Initialize();
 
-		snake[2] = new Snake_Second_Body(dynamic_cast<Snake_First_Body*>(snake[1]));
-		snake[2]->SetName(L"Snake_Body2");
-		mScene->AddGameobeject(snake[2], jk_LayerType::Monster);
-		snake[2]->GetComponent<Transform>()->SetPos(Vector2{ pos.x, pos.y });
-		snake[2]->Initialize();
+		mSnake[2] = new Snake_Second_Body(dynamic_cast<Snake_First_Body*>(mSnake[1]));
+		mSnake[2]->SetName(L"Snake_Body2");
+		mScene->AddGameobeject(mSnake[2], jk_LayerType::Monster);
+		mSnake[2]->GetComponent<Transform>()->SetPos(Vector2{ mPos.x, mPos.y });
+		mSnake[2]->Initialize();
 
-		snake[3] = new Snake_Third_Body(dynamic_cast<Snake_Second_Body*>(snake[2]));
-		snake[3]->SetName(L"Snake_Body3");
-		mScene->AddGameobeject(snake[3], jk_LayerType::Monster);
-		snake[3]->GetComponent<Transform>()->SetPos(Vector2{ pos.x, pos.y });
-		snake[3]->Initialize();
-
-
-
-		snake[4] = new Snake_Last_Body(dynamic_cast<Snake_Third_Body*>(snake[3]));
-		snake[4]->SetName(L"Snake_Body4");
-		mScene->AddGameobeject(snake[4], jk_LayerType::Monster);
-		snake[4]->GetComponent<Transform>()->SetPos(Vector2{ pos.x, pos.y });
-		snake[4]->Initialize();
+		mSnake[3] = new Snake_Third_Body(dynamic_cast<Snake_Second_Body*>(mSnake[2]));
+		mSnake[3]->SetName(L"Snake_Body3");
+		mScene->AddGameobeject(mSnake[3], jk_LayerType::Monster);
+		mSnake[3]->GetComponent<Transform>()->SetPos(Vector2{ mPos.x, mPos.y });
+		mSnake[3]->Initialize();
 
 
 
-		snake[5] = new Snake_Tail(dynamic_cast<Snake_Last_Body*>(snake[4]));
-		snake[5]->SetName(L"Snake_Body4");
-		mScene->AddGameobeject(snake[5], jk_LayerType::Monster);
-		snake[5]->GetComponent<Transform>()->SetPos(Vector2{ pos.x, pos.y });
-		snake[5]->Initialize();
+		mSnake[4] = new Snake_Last_Body(dynamic_cast<Snake_Third_Body*>(mSnake[3]));
+		mSnake[4]->SetName(L"Snake_Body4");
+		mScene->AddGameobeject(mSnake[4], jk_LayerType::Monster);
+		mSnake[4]->GetComponent<Transform>()->SetPos(Vector2{ mPos.x, mPos.y });
+		mSnake[4]->Initialize();
+
+
+
+		mSnake[5] = new Snake_Tail(dynamic_cast<Snake_Last_Body*>(mSnake[4]));
+		mSnake[5]->SetName(L"Snake_Body4");
+		mScene->AddGameobeject(mSnake[5], jk_LayerType::Monster);
+		mSnake[5]->GetComponent<Transform>()->SetPos(Vector2{ mPos.x, mPos.y });
+		mSnake[5]->Initialize();
 
 		Gameobject::Initialize();
 
 	}
 	void Snake::Update()
 	{
-		if (LifeCheck == false)
+		if (mLifeCheck == false)
 		{
-			if (Obdel == false)
+			if (mObdel == false)
 			{
-				object::Destory(snake[0]);
-				object::Destory(snake[1]);
-				object::Destory(snake[2]);
-				object::Destory(snake[3]);
-				object::Destory(snake[4]);
-				object::Destory(snake[5]);
+				object::Destory(mSnake[0]);
+				object::Destory(mSnake[1]);
+				object::Destory(mSnake[2]);
+				object::Destory(mSnake[3]);
+				object::Destory(mSnake[4]);
+				object::Destory(mSnake[5]);
 
-				Obdel = true;
+				mObdel = true;
 			}
 		}
 		Gameobject::Update();

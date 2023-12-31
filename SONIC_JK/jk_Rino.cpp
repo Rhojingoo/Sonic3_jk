@@ -6,12 +6,14 @@
 #include "jk_Collider.h"
 #include "jk_Resources.h"
 #include "jk_Animator.h"
-
 #include "jk_Object.h"
 #include "jk_Pixel_Ground.h"
 #include "jk_Animal.h"
-
-
+#include "jk_Image.h"
+#include "jk_Sonic.h"
+#include "jk_Tails.h"
+#include "jk_Sound.h"
+#include "jk_Time.h"
 
 namespace jk
 {
@@ -21,13 +23,13 @@ namespace jk
 		, mMonspeed(350.0f)
 		, mMonmaxdistance(300.0f)
 		, mDir(1)
-		, check(nullptr)
-		, check_map(0)
-		, Death_Point(0)
+		, mPixel_Ground(nullptr)
+		, mCheck_Map(0)
+		, mDeath_Point(0)
 		, sonicState()
 		, tailsState()
 		, mState(eRinoState::Move)
-		, Death(nullptr)
+		, mDeath(nullptr)
 		, mImage(nullptr)
 		, mImage1(nullptr)
 		, mGroundImage(nullptr)
@@ -45,7 +47,7 @@ namespace jk
 
 	void Rino::Initialize()
 	{
-		Death = Resources::Load<Sound>(L"Monster_Death", L"..\\Resources\\Sound\\Sonic\\Monster_Death.wav");
+		mDeath = Resources::Load<Sound>(L"Monster_Death", L"..\\Resources\\Sound\\Sonic\\Monster_Death.wav");
 
 		mImage = Resources::Load<Image>(L"RINO", L"..\\Resources\\Monster.bmp");
 		mAnimator = AddComponent<Animator>();
@@ -69,12 +71,11 @@ namespace jk
 		mRigidbody->SetMass(1.0f);
 
 		Monster::Initialize();
-		//Gameobject::Initialize();
 	}
 
 	void Rino::Update()
 	{
-		if (Death_Point == 1)
+		if (mDeath_Point == 1)
 		{
 			mState = eRinoState::Death;
 			mAnimator->Play(L"rino_death", false);
@@ -83,76 +84,23 @@ namespace jk
 
 		switch (mState)
 		{
-		case jk::Rino::eRinoState::Move:move();
+		case Rino::eRinoState::Move:
+			move();
 			break;
 
-		case jk::Rino::eRinoState::Turn:turn();
+		case Rino::eRinoState::Turn:
+			turn();
 			break;
 
-		case jk::Rino::eRinoState::Death:death();
+		case Rino::eRinoState::Death:
+			death();
 			break;
 
 		default:
 			break;
 		}
 
-		Transform* Rino_TR = GetComponent<Transform>();
-		Rigidbody* Rino_rb = GetComponent<Rigidbody>();
-
-		check_map = check->Get_map_check();
-
-		mGroundImage = check->GetGroundImage();
-		mGroundImage2 = check->GetGroundImage2();
-
-		if (check_map == 0)
-		{
-			if (Rino_TR && Rino_rb && mGroundImage)
-			{
-				Vector2 Rino_ps = Rino_TR->GetPos();
-				COLORREF FootColor = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(Rino_ps.x), static_cast<int>(Rino_ps.y) + 75));
-				if (FootColor == RGB(0, 0, 0))
-				{
-					FootColor = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(Rino_ps.x), static_cast<int>(Rino_ps.y) + 75));
-
-					while (FootColor == RGB(0, 0, 0))
-					{
-						Rino_ps.y -= 1;
-						FootColor = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(Rino_ps.x), static_cast<int>(Rino_ps.y) + 75));
-						Rino_TR->SetPos(Rino_ps);
-						Rino_rb->SetGround(true);
-					}
-				}
-				else
-				{
-					Rino_rb->SetGround(false);
-				}
-			}
-
-		}
-		else if (check_map == 1)
-		{
-			if (Rino_TR && Rino_rb && mGroundImage2)
-			{
-				Vector2 Rino_ps = Rino_TR->GetPos();
-				COLORREF FootColor = static_cast<int>(mGroundImage2->GetPixel(static_cast<int>(Rino_ps.x), static_cast<int>(Rino_ps.y) + 75));
-				if (FootColor == RGB(0, 0, 0))
-				{
-					FootColor = static_cast<int>(mGroundImage2->GetPixel(static_cast<int>(Rino_ps.x), static_cast<int>(Rino_ps.y) + 75));
-
-					while (FootColor == RGB(0, 0, 0))
-					{
-						Rino_ps.y -= 1;
-						FootColor = static_cast<int>(mGroundImage2->GetPixel(static_cast<int>(Rino_ps.x), static_cast<int>(Rino_ps.y) + 75));
-						Rino_TR->SetPos(Rino_ps);
-						Rino_rb->SetGround(true);
-					}
-				}
-				else
-				{
-					Rino_rb->SetGround(false);
-				}
-			}
-		}
+		GroundCheck();
 
 		Setpos_monster(mCurpos);
 		Monster::Update();
@@ -179,9 +127,9 @@ namespace jk
 
 			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
 			{
-				Death->Play(false);
+				mDeath->Play(false);
 				mAnimator->Play(L"rino_death", false);
-				Death_Point = 1;
+				mDeath_Point = 1;
 			}
 		}
 		else if (Tails* tails = dynamic_cast<Tails*>(other->GetOwner()))
@@ -190,9 +138,9 @@ namespace jk
 
 			if (tailsState == Tails::eTailsState::Dash || tailsState == Tails::eTailsState::Jump || tailsState == Tails::eTailsState::Spin || tailsState == Tails::eTailsState::Movejump)
 			{
-				Death->Play(false);
+				mDeath->Play(false);
 				mAnimator->Play(L"rino_death", false);
-				Death_Point = 1;
+				mDeath_Point = 1;
 			}
 		}
 	}
@@ -243,7 +191,7 @@ namespace jk
 
 	void Rino::death()
 	{
-		Death_Point = 2;
+		mDeath_Point = 2;
 	}
 
 	void Rino::release_animal()
@@ -255,6 +203,41 @@ namespace jk
 		curScene->AddGameobeject(ani, jk_LayerType::Animal);
 
 		jk::object::Destory(this);
+	}
+
+	void Rino::GroundCheck()
+	{
+		Transform* Rino_TR = GetComponent<Transform>();
+		Rigidbody* Rino_rb = GetComponent<Rigidbody>();
+
+		mCheck_Map = mPixel_Ground->Get_map_check();
+
+		mGroundImage = mPixel_Ground->GetGroundImage();
+		mGroundImage2 = mPixel_Ground->GetGroundImage2();
+
+		Image* selectedImage = (mCheck_Map == 0) ? mGroundImage : mGroundImage2;
+
+		if (Rino_TR && Rino_rb && mGroundImage)
+		{
+			Vector2 Rino_ps = Rino_TR->GetPos();
+			COLORREF FootColor = static_cast<int>(selectedImage->GetPixel(static_cast<int>(Rino_ps.x), static_cast<int>(Rino_ps.y) + 75));
+			if (FootColor == GROUNDCOLOR)
+			{
+				FootColor = static_cast<int>(selectedImage->GetPixel(static_cast<int>(Rino_ps.x), static_cast<int>(Rino_ps.y) + 75));
+
+				while (FootColor == GROUNDCOLOR)
+				{
+					Rino_ps.y -= 1;
+					FootColor = static_cast<int>(selectedImage->GetPixel(static_cast<int>(Rino_ps.x), static_cast<int>(Rino_ps.y) + 75));
+					Rino_TR->SetPos(Rino_ps);
+					Rino_rb->SetGround(true);
+				}
+			}
+			else
+			{
+				Rino_rb->SetGround(false);
+			}
+		}		
 	}
 
 }

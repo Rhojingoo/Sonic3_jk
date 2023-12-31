@@ -1,15 +1,8 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_Bullet.h"
-#include "jk_Image.h"
-#include "jk_Time.h"
-#include "jk_Animator.h"
-
 
 namespace jk
 {
-	class Pixel_Ground;
-	class Rigidbody;
 	class Monkey_Bullet : public Bullet
 	{
 	public:
@@ -29,13 +22,13 @@ namespace jk
 		Vector2 Getmonster_pos() { return mCurpos; }
 
 	private:
-		Rigidbody* mRigidbody;
-		Image* mImage;
-		Image* mGroundImage;
-		Animator* mAnimator;
-		Transform* tr;
+		class Rigidbody* mRigidbody;
+		class Image* mImage;
+		class Image* mGroundImage;
+		class Animator* mAnimator;
+		Transform* mTr;
 		Gameobject* mOwner;		
 		Vector2 mCurpos;	
-		int check_ground_Mb;
+		int mCheck_Ground;
 	};
 }

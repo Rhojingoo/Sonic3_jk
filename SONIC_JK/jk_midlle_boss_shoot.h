@@ -1,13 +1,8 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_Effect.h"
-#include "jk_Image.h"
-#include "jk_Time.h"
-
 
 namespace jk
 {
-	class Animator;
 	class midlle_boss_shoot : public Effect
 	{
 	public:
@@ -40,13 +35,13 @@ namespace jk
 
 
 	private:
-		Image* mImage;
-		Animator* mAnimator;
+		class Image* mImage;
+		class Animator* mAnimator;
 		eState mState;
 
 	private:
 		float fDist;
-		Vector2 pos;
+		Vector2 mPos;
 		Vector2 mCenterpos;
 		float mMonspeed;
 		float mMonmaxdistance;

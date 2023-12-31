@@ -6,12 +6,11 @@
 #include "Rigidbody.h"
 #include "jk_Collider.h"
 #include "jk_Resources.h"
-
+#include "jk_Image.h"
+#include "jk_Animator.h"
 #include "jk_Time.h"
 #include "jk_Input.h"
 #include "jk_Object.h"
-
-
 
 
 namespace jk
@@ -20,11 +19,11 @@ namespace jk
 		: mCurpos(0.f,0.f)
 		, mOwner(owner)
 		, mRigidbody(nullptr)
-		, tr(nullptr)
+		, mTr(nullptr)
 		, mImage(nullptr)
 		, mGroundImage(nullptr)
 		, mAnimator(nullptr)
-		, check_ground_Mb(0)
+		, mCheck_Ground(0)
 	{
 		mImage = Resources::Load<Image>(L"Monket_Bullet", L"..\\Resources\\Monster2.bmp");
 		mAnimator = AddComponent<Animator>();
@@ -37,14 +36,14 @@ namespace jk
 
 		mAnimator->Play(L"LM_B", true);
 
-		tr = GetComponent<Transform>();
+		mTr = GetComponent<Transform>();
 
 		Collider* collider = AddComponent<Collider>();
 		collider->SetSize(Vector2(30.0f, 35.0f));
 		Vector2 size = collider->GetSize();
 		collider->SetCenter(Vector2{ (-0.10f) * size.x, (-0.11f) * size.y });
 	
-		check_ground_Mb = 0;
+		mCheck_Ground = 0;
 	}
 	Monkey_Bullet::~Monkey_Bullet()
 	{
@@ -55,17 +54,17 @@ namespace jk
 	}
 	void Monkey_Bullet::Update()
 	{
-		Vector2 pos = tr->GetPos();
+		Vector2 pos = mTr->GetPos();
 		Setpos_bullet(pos);
 
 		if (mGroundImage)
 		{
-			Vector2 Bullet_ps = tr->GetPos();
+			Vector2 Bullet_ps = mTr->GetPos();
 			COLORREF FootColor = mGroundImage->GetPixel(static_cast<int>(Bullet_ps.x), static_cast<int>(Bullet_ps.y) + 20);
-			if (FootColor == RGB(0, 0, 0))
+			if (FootColor == GROUNDCOLOR)
 			{
 				Bullet_ps.y += 100;
-				tr->SetPos(Bullet_ps);
+				mTr->SetPos(Bullet_ps);
 				this->SetState(eState::Pause);
 			}
 		}

@@ -1,8 +1,9 @@
 #include "jk_Animal.h"
 #include "jk_SceneManager.h"
+#include "jk_Image.h"
+#include "jk_Animator.h"
 #include "jk_Scene.h"
 #include "jk_Transform.h"
-#include "jk_Animator.h"
 #include "jk_Collider.h"
 #include "jk_Resources.h"
 

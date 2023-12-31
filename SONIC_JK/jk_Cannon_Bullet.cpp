@@ -9,7 +9,8 @@
 #include "jk_Resources.h"
 #include "jk_Object.h"
 #include "jk_Pixel_Ground.h"
-
+#include "jk_Image.h"
+#include "jk_Animator.h"
 #include "jk_Input.h"
 #include "jk_Time.h"
 
@@ -24,10 +25,10 @@ namespace jk
 		, mGroundImage(nullptr)
 		, mAnimator(nullptr)
 		, mRigidbody(nullptr)
-		, tr(nullptr)
+		, mTr(nullptr)
 		, mOwner(owner)
 		, mDir(-1)
-		, check_ground_Cb(0)
+		, mCheck_Ground(0)
 
 	{
 		mImage = Resources::Load<Image>(L"Canon_B", L"..\\Resources\\Monster2.bmp");
@@ -43,7 +44,7 @@ namespace jk
 		mRigidbody = AddComponent<Rigidbody>();
 		mRigidbody->SetMass(1.0f);
 
-		tr = GetComponent<Transform>();
+		mTr = GetComponent<Transform>();
 
 		Cannon* canon = dynamic_cast<Cannon*>(owner);
 		mDir = canon->GetDir();	
@@ -60,18 +61,18 @@ namespace jk
 
 	void Cannon_Bullet::Update()
 	{	
-		Vector2 pos = tr->GetPos();
+		Vector2 pos = mTr->GetPos();
 		Setpos_bullet(pos);
 
 
 		if (mGroundImage)
 		{
-			Vector2 Bullet_ps = tr->GetPos();
+			Vector2 Bullet_ps = mTr->GetPos();
 			COLORREF FootColor = mGroundImage->GetPixel(static_cast<int>(Bullet_ps.x), static_cast<int>(Bullet_ps.y) + 20);
-			if (FootColor == RGB(0, 0, 0))
+			if (FootColor == GROUNDCOLOR)
 			{
 				Bullet_ps.y += 100;
-				tr->SetPos(Bullet_ps);
+				mTr->SetPos(Bullet_ps);
 				this->SetState(eState::Pause);
 			}
 		}

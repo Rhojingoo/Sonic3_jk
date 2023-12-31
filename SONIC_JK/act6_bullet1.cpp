@@ -7,7 +7,8 @@
 #include "jk_Animator.h"
 #include "jk_Collider.h"
 #include "jk_Pixel_Ground.h"
-
+#include "jk_Image.h"
+#include "jk_Animator.h"
 
 namespace jk
 {
@@ -16,8 +17,8 @@ namespace jk
 		, mGroundImage(nullptr)
 		, mAnimator(nullptr)
 		, mRigidbody(nullptr)
-		, check(nullptr)
-		, pos(0.f, 0.f)
+		, mPixel_Ground(nullptr)
+		, mPos(0.f, 0.f)
 	{
 		mImage = Resources::Load<Image>(L"First_boss", L"..\\Resources\\ActBG_6\\BOSS\\First_boss.bmp");
 		mAnimator = AddComponent<Animator>();
@@ -47,7 +48,7 @@ namespace jk
 	{
 		Transform* Boss_TR = GetComponent<Transform>();
 		Rigidbody* Boss_rb = GetComponent<Rigidbody>();
-		pos = Boss_TR->GetPos();
+		mPos = Boss_TR->GetPos();
 
 
 		if (Boss_TR && Boss_rb && mGroundImage)
@@ -55,14 +56,14 @@ namespace jk
 			Vector2 Boss_ps = Boss_TR->GetPos();
 			COLORREF FootColor = mGroundImage->GetPixel(static_cast<int>(Boss_ps.x) - 50, static_cast<int>(Boss_ps.y) + 70);
 
-			if (FootColor == RGB(0, 0, 0))
+			if (FootColor == GROUNDCOLOR)
 			{
 				do
 				{
 					Boss_ps.y -= 1;
 					FootColor = mGroundImage->GetPixel(static_cast<int>(Boss_ps.x) - 50, static_cast<int>(Boss_ps.y) + 70);
 					Boss_TR->SetPos(Boss_ps);
-				} while (FootColor == RGB(0, 0, 0) && Boss_ps.y > 0); // 추가된 조건으로 무한 루프 방지
+				} while (FootColor == GROUNDCOLOR && Boss_ps.y > 0); // 추가된 조건으로 무한 루프 방지
 
 				Boss_rb->SetGround(true);
 			}
@@ -72,7 +73,7 @@ namespace jk
 			}
 		}	
 
-		Setpos_bullet(pos);
+		Setpos_bullet(mPos);
 		Gameobject::Update();
 	}
 

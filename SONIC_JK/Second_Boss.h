@@ -1,17 +1,10 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_Boss.h"
-#include "jk_SONIC.h"
-#include "jk_Image.h"
-#include "jk_Sound.h"
-#include "jk_Time.h"
-
-
 
 namespace jk
 {
-	class Third_Boss;
-	class Boss_Arm;
+	class Sound;
+	class Image;
 	class Boss_Run;
 	class Rigidbody;
 	class Animator;
@@ -44,8 +37,8 @@ namespace jk
 
 		void Create_RunBoss();
 
-		int Get_last_BOSS() {return Boomb_point	;}
-		void Set_last_BOSS(int check) { Boomb_point = check; }
+		int Get_last_BOSS() {return mBoomb_point	;}
+		void Set_last_BOSS(int check) { mBoomb_point = check; }
 
 	
 
@@ -62,21 +55,21 @@ namespace jk
 
 
 	private:
-		Sound* Boss_Hit;
-		Sound* Boss_Bomb;
-		Sound* Boss_Start;
-		Sound* Act6_music;
+		Sound* mBoss_Hit;
+		Sound* mBoss_Bomb;
+		Sound* mBoss_Start;
+		Sound* mAct6_music;
 
 	private:
 		Image* mImage;
 		Image* mImage1;
 		Animator* mAnimator;
 		Rigidbody* mRigidbody;
-		Boss_Run* boss_run2;
+		Boss_Run* mBoss_Run;
 		
 	private:
 		Vector2 mCenterpos;
-		Vector2 pos;
+		Vector2 mPos;
 		float mSpeed;
 		float Up_Down;
 		int mDir;
@@ -84,10 +77,10 @@ namespace jk
 		eBossState mState;
 
 	private:
-		float time;
-		float secondtime;
-		int Boss_change_point;
-		int Damege_check;
-		int Boomb_point;	
+		float mTime;
+		float mTime2;
+		int mBoss_change_point;
+		int mDamege_check;
+		int mBoomb_point;	
 	};
 }

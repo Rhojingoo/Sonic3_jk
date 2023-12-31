@@ -5,7 +5,7 @@
 #include "jk_Transform.h"
 #include "jk_Animator.h"
 #include "jk_Collider.h"
-
+#include "jk_Image.h"
 
 
 
@@ -13,7 +13,7 @@ namespace jk
 {
 		midlle_boss_shoot::midlle_boss_shoot()
 			: mCenterpos(30792.f, 2407.f)
-			, pos(0.f,0.f)
+			, mPos(0.f,0.f)
 			, mMonspeed(120.0f)
 			, mMonmaxdistance(100.0f)
 			, fDist(0.f)
@@ -37,7 +37,7 @@ namespace jk
 		void midlle_boss_shoot::Update()
 		{
 			Transform* tr = GetComponent<Transform>();
-			pos = tr->GetPos();
+			mPos = tr->GetPos();
 
 			switch (mState)
 			{
@@ -76,10 +76,10 @@ namespace jk
 		{
 			Transform* tr = GetComponent<Transform>();
 
-			fDist = mCenterpos.y - pos.y - mMonmaxdistance;
-			pos.y -= mMonspeed * static_cast<float>(Time::DeltaTime());
+			fDist = mCenterpos.y - mPos.y - mMonmaxdistance;
+			mPos.y -= mMonspeed * static_cast<float>(Time::DeltaTime());
 				
-			tr->SetPos(pos);
+			tr->SetPos(mPos);
 		}
 		void midlle_boss_shoot::attack()
 		{

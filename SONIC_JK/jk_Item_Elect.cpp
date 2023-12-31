@@ -5,12 +5,13 @@
 #include "jk_Collider.h"
 #include "jk_Resources.h"
 #include "jk_SONIC.h"
+#include "jk_Image.h"
 
 namespace jk
 {
 	Item_Elect::Item_Elect(Gameobject* owner)
 		: mOwner(owner)
-		, Itemcheck(1)
+		, mItemcheck(1)
 		, mImage(nullptr)
 		, mAnimator(nullptr)
 		, itemmState(eState::Idle)
@@ -98,6 +99,6 @@ namespace jk
 
 	void Item_Elect::death()
 	{
-		Itemcheck = 2;
+		mItemcheck = 2;
 	}
 }

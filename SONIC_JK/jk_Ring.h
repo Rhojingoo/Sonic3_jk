@@ -1,11 +1,8 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "Item.h"
-#include "jk_Image.h"
 
 namespace jk
 {
-	class Animator;
 	class Ring : public Item
 	{
 	public:
@@ -29,9 +26,7 @@ namespace jk
 		virtual void OnCollisionExit(class Collider* other) override;
 
 		void CreateBlending();
-		int GetItemcheck() { return Ringcheck; }
-
-
+		int GetItemcheck() { return mRingcheck; }
 
 	private:
 		void idle();
@@ -39,10 +34,10 @@ namespace jk
 		void death();
 
 	private:
-		Image* mImage;
-		Animator* mAnimator;
+		class Image* mImage;
+		class Animator* mAnimator;
 		Gameobject* mOwner;
 		eState Ring_State;
-		int Ringcheck;
+		int mRingcheck;
 	};
 }

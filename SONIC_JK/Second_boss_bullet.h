@@ -1,15 +1,8 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_Bullet.h"
-#include "jk_Image.h"
-#include "jk_Time.h"
-#include "jk_Animator.h"
-
-
 
 namespace jk
 {
-	class Rigidbody;
 	class Second_boss_bullet : public Bullet
 	{
 
@@ -30,8 +23,8 @@ namespace jk
 		void Set_mDir(int dir) { mDir = dir; }
 
 	private:
-		Image* mImage;
-		Animator* mAnimator;			
+		class Image* mImage;
+		class Animator* mAnimator;			
 		int mDir;
 		float mSpeed;
 	

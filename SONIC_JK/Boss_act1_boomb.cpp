@@ -8,6 +8,8 @@
 #include "jk_Collider.h"
 #include "jk_Object.h"
 #include "jk_Time.h"
+#include "jk_SONIC.h"
+#include "jk_Image.h"
 
 
 namespace jk

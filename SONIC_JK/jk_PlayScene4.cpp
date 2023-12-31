@@ -122,8 +122,8 @@ namespace jk
 
 		Sonic::eSonicState::Jeep_line;
 		mSonic->GetComponent<Transform>()->SetPos(Vector2{ 840.f, 4830.f });
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 6000.f, 5085.f });
-		//mSonic->GetComponent<Transform>()->SetPos(Vector2{ 14350.f, 5550.f });
+		//mSonic_Pos->GetComponent<Transform>()->SetPos(Vector2{ 6000.f, 5085.f });
+		//mSonic_Pos->GetComponent<Transform>()->SetPos(Vector2{ 14350.f, 5550.f });
 		mSonic->Set_Fly(1);
 
 		mtails = new Tails(mSonic);
@@ -337,7 +337,7 @@ namespace jk
 					Create_Boss3();
 					BOSS3_Start = 4;
 					second_boss->Set_last_BOSS(BOSS3_Start);
-					//Boomb_point = 4;
+					//mBoomb_point = 4;
 					arm_lotaion = 1;
 				}
 			}

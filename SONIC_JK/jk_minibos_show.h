@@ -1,14 +1,8 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_Effect.h"
-#include "jk_Image.h"
-#include "jk_Time.h"
-#include "jk_Sound.h"
-
 
 namespace jk
 {
-	class Animator;
 	class minibos_show : public Effect
 	{
 	public:
@@ -27,7 +21,7 @@ namespace jk
 		virtual void Update() override;
 		virtual void Render(HDC hdc) override;
 		virtual void Release() override;
-		int Get_map_check() {return map_check;}
+		int Get_map_check() {return mMap_check;}
 
 		virtual void OnCollisionEnter(class Collider* other) override;
 		virtual void OnCollisionStay(class Collider* other) override;
@@ -41,16 +35,16 @@ namespace jk
 
 
 	private:
-		Image* mImage;
-		Animator* mAnimator;
-		Sound* Act1_music;
-		Sound* Miniboss1;
-		Sound* Fire_show;
-		Sound* Act2_music;
+		class Image* mImage;
+		class Animator* mAnimator;
+		class Sound* mAct1_music;
+		class Sound* mMiniboss1;
+		class Sound* mFire_show;
+		class Sound* mAct2_music;
 
 
 	private:
-		Vector2 pos;
+		Vector2 mPos;
 		Vector2 mCenterpos;	
 		float fDist;
 		float mMonspeed;
@@ -59,8 +53,7 @@ namespace jk
 		int mDir;
 		eState mState;
 	
-	private:
-		int shoot;	
-		int map_check;
+		int mShoot;	
+		int mMap_check;
 	};
 }

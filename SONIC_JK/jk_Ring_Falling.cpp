@@ -9,6 +9,7 @@
 #include "jk_Blending.h"
 #include "Rigidbody.h"
 
+#include "jk_Image.h"
 #include "jk_Camera.h"
 #include "jk_SONIC.h"
 #include "jk_Time.h"
@@ -24,9 +25,9 @@ namespace jk
 		, mOwner(owner)
 		, Ring_State(eState::Idle)
 
-		, timer(0.f)
-		, bounceForce(500.f)
-		, check_ground(0)
+		, mTime(0.f)
+		, mBounceForce(500.f)
+		, mCheck_Ground(0)
 	{
 		mImage = Resources::Load<Image>(L"Ring_fall", L"..\\Resources\\Ring.bmp");
 		mAnimator = AddComponent<Animator>();
@@ -79,31 +80,31 @@ namespace jk
 		{
 			Vector2 Ring_ps = ring_TR->GetPos();
 			COLORREF RING_Color = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(Ring_ps.x), static_cast<int>(Ring_ps.y)));
-			if (RING_Color == RGB(0, 0, 0))
+			if (RING_Color == GROUNDCOLOR)
 			{
 				RING_Color = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(Ring_ps.x), static_cast<int>(Ring_ps.y)));
 
-				while (RING_Color == RGB(0, 0, 0))
+				while (RING_Color ==GROUNDCOLOR)
 				{
 					Ring_ps.y -= 1;
 					RING_Color = static_cast<int>(mGroundImage->GetPixel(static_cast<int>(Ring_ps.x), static_cast<int>(Ring_ps.y)));
 					ring_TR->SetPos(Ring_ps);
 					ring_rb->SetGround(true);
-					check_ground = 1;
+					mCheck_Ground = 1;
 
 					if (ring_rb->GetGround() == true)
 					{
-						Vector2 bounceForceVec(0.0f, -bounceForce);
+						Vector2 bounceForceVec(0.0f, -mBounceForce);
 						ring_rb->SetVelocity(bounceForceVec);
 						ring_rb->SetGround(false);
 					}
 				}
 			}
 
-			if (check_ground > 0)
+			if (mCheck_Ground > 0)
 			{
-				timer += static_cast<float>(Time::DeltaTime());
-				if (timer >= 30)
+				mTime += static_cast<float>(Time::DeltaTime());
+				if (mTime >= 30)
 				{
 					jk::object::Destory(this);
 					return;

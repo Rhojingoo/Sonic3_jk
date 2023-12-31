@@ -5,7 +5,7 @@
 #include "jk_Collider.h"
 #include "jk_Scene.h"
 #include "jk_Object.h"
-
+#include "jk_Image.h"
 
 namespace jk
 {
@@ -38,8 +38,8 @@ namespace jk
 
 	void mBoss_BL_R::Update()
 	{		
-		//Transform* tr = GetComponent<Transform>();
-		//Vector2 mPos = tr->GetPos();
+		//Transform* mTr = GetComponent<Transform>();
+		//Vector2 mPos = mTr->GetPos();
 		//Setpos_bullet(mPos);
 		Gameobject::Update();
 	}

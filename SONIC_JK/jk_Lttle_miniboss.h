@@ -1,13 +1,8 @@
 #pragma once
-#include "jk_Gameobject.h"
 #include "jk_Effect.h"
-#include "jk_Image.h"
-#include "jk_Time.h"
-
 
 namespace jk
 {
-	class Animator;
 	class Lttle_miniboss : public Effect
 	{
 	public:
@@ -16,8 +11,6 @@ namespace jk
 			Move,
 			Death
 		};
-
-
 		Lttle_miniboss();
 		~Lttle_miniboss();
 
@@ -31,23 +24,18 @@ namespace jk
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
-
-	private:
 		void move();
 		void death();
 
-
 	private:
-		Image* mImage;
-		Animator* mAnimator;
-
-		Vector2 pos;
+		class Image* mImage;
+		class  Animator* mAnimator;
+		Vector2 mPos;
 		Vector2 mCenterpos;
 		int mDir;
 		float fDist;
 		float mMonspeed;
-		float mMonmaxdistance;
-	
+		float mMonmaxdistance;	
 		eState mState;		
 	};
 }

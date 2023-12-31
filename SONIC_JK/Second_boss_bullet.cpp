@@ -5,7 +5,8 @@
 #include "jk_Collider.h"
 #include "jk_Animator.h"
 #include "jk_Resources.h"
-
+#include "jk_Image.h"
+#include "jk_Animator.h"
 #include "jk_Input.h"
 #include "jk_Time.h"
 
