@@ -1,12 +1,10 @@
 #pragma once
 #include "jk_Snake.h"
-#include "jk_Snake_Third_Body.h"
-#include "jk_Image.h"
-#include "jk_Time.h"
-
 
 namespace jk
 {
+	class Snake_Third_Body;
+	class Image;
 	class Animator;
 	class Snake_Last_Body : public Snake
 	{
@@ -35,17 +33,14 @@ namespace jk
 		void left();
 
 		eSnake Get_Snake_state() { return mState; }
-		Vector2 GetNextPosition();
-		Vector2 GetteurnPOs() { return CurPos; }
-
+		Vector2 GetteurnPOs() { return mCurPos; }
+		Vector2 Gepos() { return mCurPos; }
 
 
 	private:
-		Snake_Third_Body* Body_3;
-		std::deque<Vector2> prevPositions;
-		Vector2 CurPos;
+		Snake_Third_Body* mBody_3;
+		Vector2 mCurPos;
 		Transform* tr;
-
 
 		Image* mImage;
 		Animator* mAnimator;

@@ -1,15 +1,13 @@
 #pragma once
 #include "jk_Snake.h"
-#include <deque>
-#include "jk_Monster.h"
 #include "jk_Sonic.h"
 #include "jk_Tails.h"
-#include "jk_Image.h"
-#include "jk_Time.h"
-#include "jk_Sound.h"
+
 
 namespace jk
 {
+	class Sound;
+	class Image;
 	class Animator;
 	class Snake_Head : public Snake
 	{
@@ -38,7 +36,8 @@ namespace jk
 		eSnake Get_Snake_state() { return mState; }
 
 
-		Vector2 GetNextPosition();
+		Vector2 Gepos() { return mCurpos; }
+
 
 		Vector2 Getmonster() { return mCurpos; }
 		void SetCenterpos(Vector2 pos) { mCenterpos = pos; }
@@ -60,8 +59,6 @@ namespace jk
 		Animator* mAnimator;
 
 	private:
-		std::deque<Vector2> prevPositions;
-	
 		Vector2 mCenterpos;
 		Vector2 mCurpos;
 		float mMonmaxdistance_x;

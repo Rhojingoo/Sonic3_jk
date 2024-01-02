@@ -9,7 +9,7 @@
 #include "jk_Transform.h"
 #include "jk_Blending.h"
 #include "jk_Resources.h"
-
+#include "jk_Image.h"
 #include "jk_Sonic.h"
 #include "Electsonic.h"
 #include "jk_Tails.h"
@@ -26,7 +26,7 @@
 #include "Life_UnitsDigit.h"
 #include "Life_TensDigit.h"
 
-
+#include "jk_Sound.h"
 #include "jk_Pixel_Ground.h"
 #include "jk_Gameobject.h"
 #include "Add_force.h"
@@ -61,30 +61,30 @@ namespace jk
 {
 	PlayScene3::PlayScene3()
 		: mSonic(nullptr)
-		, tails(nullptr)
+		, mTails(nullptr)
 		, mBoss(nullptr)
-		, mBomber(nullptr)
-		, bomb(nullptr)
-		, add_force()
-		, deathline(nullptr)
-		, playgr(nullptr)
+		, mBoss_bomber(nullptr)
+		, mShow_bomb(nullptr)
+		, mAdd_force()
+		, mDead_line(nullptr)
+		, mPixel_Ground(nullptr)
 
 
-		, Act2_music(nullptr)
-		, Act6_music(nullptr)
-		, Bomber(nullptr)
-		, Boss_start(nullptr)
+		, mAct2_music(nullptr)
+		, mAct6_music(nullptr)
+		, mBoss_Sound(nullptr)
+		, mBoss_start(nullptr)
 
 
-		, dir(1)
-		, check_map(0)
+		, mDir(1)
+		, mCheck_map(0)
 		, Camera_Switch(0)
-		, check_boss(0)
-		, frame_check(0)
-		, boomber(0)
-		, boss_death(0)
-		, bomb_check(0)
-		, boss_appear(0)
+		, mCheck_boss(0)
+		, mFrame_check(0)
+		, mBoomber(0)
+		, mBoss_death(0)
+		, mBomb_check(0)
+		, mBoss_appear(0)
 	{
 	}
 	PlayScene3::~PlayScene3()
@@ -92,12 +92,12 @@ namespace jk
 	}
 	void PlayScene3::Initialize()
 	{
-		check_map = 2;
+		mCheck_map = 2;
 
-		Act2_music = Resources::Load<Sound>(L"Act2_bg", L"..\\Resources\\Sound\\Act2_bg.wav");
-		Bomber = Resources::Load<Sound>(L"Bommber_start", L"..\\Resources\\Sound\\Bommber_start.wav");
-		Boss_start = Resources::Load<Sound>(L"Boss_start", L"..\\Resources\\Sound\\Boss_start.wav");
-		Act6_music = Resources::Load<Sound>(L"Act6_bg", L"..\\Resources\\Sound\\Act6_bg.wav");
+		mAct2_music = Resources::Load<Sound>(L"Act2_bg", L"..\\Resources\\Sound\\Act2_bg.wav");
+		mBoss_Sound = Resources::Load<Sound>(L"Bommber_start", L"..\\Resources\\Sound\\Bommber_start.wav");
+		mBoss_start = Resources::Load<Sound>(L"Boss_start", L"..\\Resources\\Sound\\Boss_start.wav");
+		mAct6_music = Resources::Load<Sound>(L"Act6_bg", L"..\\Resources\\Sound\\Act6_bg.wav");
 
 
 		//캐릭터
@@ -110,18 +110,18 @@ namespace jk
 		//13770.f, 2880.f 
 
 
-		tails = new Tails(mSonic);
-		tails->SetName(L"Player2");
-		AddGameobeject(tails, jk_LayerType::Player2);
-		tails->GetComponent<Transform>()->SetPos(Vector2{ 600.f, 3285.f });
+		mTails = new Tails(mSonic);
+		mTails->SetName(L"Player2");
+		AddGameobeject(mTails, jk_LayerType::Player2);
+		mTails->GetComponent<Transform>()->SetPos(Vector2{ 600.f, 3285.f });
 
 
-		playgr = new Pixel_Ground();
-		playgr->SetName(L"Ground2");
-		playgr->SetPlayer(mSonic, tails);
-		AddGameobeject(playgr, jk_LayerType::Ground);
-		mSonic->SetCheckTargetGround(playgr);
-		tails->SetCheckTargetGround(playgr);
+		mPixel_Ground = new Pixel_Ground();
+		mPixel_Ground->SetName(L"Ground2");
+		mPixel_Ground->SetPlayer(mSonic, mTails);
+		AddGameobeject(mPixel_Ground, jk_LayerType::Ground);
+		mSonic->SetCheckTargetGround(mPixel_Ground);
+		mTails->SetCheckTargetGround(mPixel_Ground);
 		
 
 		UI_framework* UI_frame = new UI_framework();
@@ -169,30 +169,29 @@ namespace jk
 		AddGameobeject(Life_t, jk_LayerType::UI);
 
 
-		deathline = new Dead_line();
-		deathline->SetName(L"deathline");
-		AddGameobeject(deathline, jk_LayerType::BOSS);
-		deathline->GetComponent<Transform>()->SetPos(Vector2{ 19000.f, 4030.f });
+		mDead_line = new Dead_line();
+		mDead_line->SetName(L"deathline");
+		AddGameobeject(mDead_line, jk_LayerType::BOSS);
+		mDead_line->GetComponent<Transform>()->SetPos(Vector2{ 19000.f, 4030.f });
 
 
 
-		add_force[9];
 		for (int a = 0; a < 9; a++)
 		{
-			add_force[a] = new Add_force();
-			add_force[a]->SetName(L"add_force");
-			AddGameobeject(add_force[a], jk_LayerType::BG_props);
+			mAdd_force[a] = new Add_force();
+			mAdd_force[a]->SetName(L"add_force");
+			AddGameobeject(mAdd_force[a], jk_LayerType::BG_props);
 		}
-		add_force[0]->GetComponent<Transform>()->SetPos(Vector2{1165.f, 3340.f });
-		add_force[1]->GetComponent<Transform>()->SetPos(Vector2{1240.f, 4030.f});
-		add_force[2]->GetComponent<Transform>()->SetPos(Vector2{ 1950.f, 3940.f });
-		add_force[3]->GetComponent<Transform>()->SetPos(Vector2{ 2705.f, 3940.f });
-		add_force[4]->GetComponent<Transform>()->SetPos(Vector2{ 3480.f, 3940.f });
-		add_force[5]->GetComponent<Transform>()->SetPos(Vector2{ 4250.f, 3940.f });
-		add_force[6]->GetComponent<Transform>()->SetPos(Vector2{ 5010.f, 3940.f });
-		add_force[7]->GetComponent<Transform>()->SetPos(Vector2{ 5790.f, 3940.f });
-		add_force[8]->GetComponent<Transform>()->SetPos(Vector2{ 7200.f, 3985.f });
-		add_force[8]->SetAddforce(1);
+		mAdd_force[0]->GetComponent<Transform>()->SetPos(Vector2{1165.f, 3340.f });
+		mAdd_force[1]->GetComponent<Transform>()->SetPos(Vector2{1240.f, 4030.f});
+		mAdd_force[2]->GetComponent<Transform>()->SetPos(Vector2{ 1950.f, 3940.f });
+		mAdd_force[3]->GetComponent<Transform>()->SetPos(Vector2{ 2705.f, 3940.f });
+		mAdd_force[4]->GetComponent<Transform>()->SetPos(Vector2{ 3480.f, 3940.f });
+		mAdd_force[5]->GetComponent<Transform>()->SetPos(Vector2{ 4250.f, 3940.f });
+		mAdd_force[6]->GetComponent<Transform>()->SetPos(Vector2{ 5010.f, 3940.f });
+		mAdd_force[7]->GetComponent<Transform>()->SetPos(Vector2{ 5790.f, 3940.f });
+		mAdd_force[8]->GetComponent<Transform>()->SetPos(Vector2{ 7200.f, 3985.f });
+		mAdd_force[8]->SetAddforce(1);
 
 		//배경
 		Act1_3_BG* act1_3_BG = new Act1_3_BG();
@@ -262,7 +261,7 @@ namespace jk
 	}
 	void PlayScene3::Update()
 	{
-		playgr->Set_map_check(check_map);
+		mPixel_Ground->Set_map_check(mCheck_map);
 		Vector2 sonic_pos = mSonic->GetComponent<Transform>()->GetPos();
 
 		//if (sonic_pos.x > 6900.f)
@@ -281,55 +280,55 @@ namespace jk
 		if (sonic_pos.x >= 8700.f)
 		{
 			Camera::SetCamera(1);
-			if(boomber == 0)
+			if(mBoomber == 0)
 			{
 			Create_Boomber_show();			
-			boomber = 1;
+			mBoomber = 1;
 			}
 		}		
 
-		if (boomber == 1)
+		if (mBoomber == 1)
 		{
-			sonic_bomber = mBomber->GetComponent<Transform>()->GetPos().x - sonic_pos.x;
+			sonic_bomber = mBoss_bomber->GetComponent<Transform>()->GetPos().x - sonic_pos.x;
 			Vector2 mBomber_pos1;
 			Vector2 mBomber_pos2;
 			Vector2 mBomber_pos3;
-			mBomber_pos1 = mBomber->GetComponent<Transform>()->GetPos();
-			mBomber_pos2 = mBomber->GetComponent<Transform>()->GetPos();
-			mBomber_pos3 = mBomber->GetComponent<Transform>()->GetPos();
+			mBomber_pos1 = mBoss_bomber->GetComponent<Transform>()->GetPos();
+			mBomber_pos2 = mBoss_bomber->GetComponent<Transform>()->GetPos();
+			mBomber_pos3 = mBoss_bomber->GetComponent<Transform>()->GetPos();
 			mBomber_pos1.x = mBomber_pos3.x + 480; //맨앞
 			mBomber_pos2.x = mBomber_pos3.x + 280; //중간
 			mBomber_pos3.x = mBomber_pos3.x + 120; //맨뒤
 
 
-			if((bomb_check==0)&&(mBomber_pos1.x+200 >= sonic_pos.x))
+			if((mBomb_check==0)&&(mBomber_pos1.x+200 >= sonic_pos.x))
 			{
 				Create_Boomber_bombing(mBomber_pos1.x, mBomber_pos1.y + 384);			
-				bomb_check = 1;
+				mBomb_check = 1;
 			}
-			if((bomb_check==1)&&(mBomber_pos2.x + 200 >= sonic_pos.x))
+			if((mBomb_check==1)&&(mBomber_pos2.x + 200 >= sonic_pos.x))
 			{
 				Create_Boomber_bombing(mBomber_pos2.x, mBomber_pos2.y + 384);		
-				bomb_check = 2;
+				mBomb_check = 2;
 			}
-			if((bomb_check==2)&&(mBomber_pos3.x+200 >= sonic_pos.x))
+			if((mBomb_check==2)&&(mBomber_pos3.x+200 >= sonic_pos.x))
 			{
 				Create_Boomber_bombing(mBomber_pos3.x, mBomber_pos3.y + 384);			
-				bomb_check = 3;
+				mBomb_check = 3;
 			}
 		}
 
 		if (sonic_bomber >= 800.f)
 		{
-			Bomber->Stop(true);
+			mBoss_Sound->Stop(true);
 		}
 
 		if (sonic_pos.x >= 14640.f)
 		{			
-			if (boss_appear == 0)
+			if (mBoss_appear == 0)
 			{
 				Create_Boss_Apear();			
-				boss_appear = 1;
+				mBoss_appear = 1;
 			}
 		}
 
@@ -343,17 +342,17 @@ namespace jk
 			
 			Camera::SetTarget(nullptr);
 			
-			if (check_boss == 0)
+			if (mCheck_boss == 0)
 			{
-				if (check_boss != 0)
+				if (mCheck_boss != 0)
 					return;
 				Create_Deathtline();
 				Create_Boss();
-				check_boss = 1;
+				mCheck_boss = 1;
 			}
 		}
 
-		if (check_boss == 1)
+		if (mCheck_boss == 1)
 		{
 			Vector2 Boss_Pos = mBoss->GetComponent<Transform>()->GetPos();
 			if (Boss_Pos.x > 19500.f)
@@ -364,36 +363,36 @@ namespace jk
 			if (Boss_Pos.x > 19940.f)
 			{				
 				Camera::SetTarget(nullptr);
-				check_boss = 2;
+				mCheck_boss = 2;
 			}			
 		}
 
-		if (check_boss == 2)
+		if (mCheck_boss == 2)
 		{
- 			boss_death = mBoss->Boss_Death();
-			if (boss_death == 3)
+ 			mBoss_death = mBoss->Boss_Death();
+			if (mBoss_death == 3)
 			{
 				int boss_run = 1;
-				tails->Set_Pursue_boss(boss_run);
-				check_boss = 3;
+				mTails->Set_Pursue_boss(boss_run);
+				mCheck_boss = 3;
 			}
 		}
 
-		if ((boss_death == 3) && (sonic_pos.x > 20885.f))
+		if ((mBoss_death == 3) && (sonic_pos.x > 20885.f))
 		{
-			Act2_music->Stop(true);
-			Act6_music->Play(true);
+			mAct2_music->Stop(true);
+			mAct6_music->Play(true);
 			SceneManager::LoadScene(jk_SceneType::GamePlay4);
 		}
 
 		Scene::Update();
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
-			Act2_music->Stop(true);
-			Act6_music->Play(true);
+			mAct2_music->Stop(true);
+			mAct6_music->Play(true);
 			SceneManager::LoadScene(jk_SceneType::GamePlay4);
 			//CreateBlending();
-			check_map = 3;
+			mCheck_map = 3;
 		}
 	}
 
@@ -448,8 +447,8 @@ namespace jk
 
 	void PlayScene3::Create_Boss()
 	{	
-		Act2_music->Stop(true);
-		Boss_start->Play(true);
+		mAct2_music->Stop(true);
+		mBoss_start->Play(true);
 
 
 		mBoss = new Act1_Boss(mSonic);
@@ -466,20 +465,20 @@ namespace jk
 
 	void PlayScene3::Create_Boomber_show()
 	{
-		Bomber->Play(true);
-		mBomber = new boss_bomber(mSonic);
-		mBomber->SetName(L"bomber");
-		AddGameobeject(mBomber, jk_LayerType::MiniBoss);
-		mBomber->GetComponent<Transform>()->SetPos(Vector2{ 7000.f, 3150.f });
+		mBoss_Sound->Play(true);
+		mBoss_bomber = new boss_bomber(mSonic);
+		mBoss_bomber->SetName(L"bomber");
+		AddGameobeject(mBoss_bomber, jk_LayerType::MiniBoss);
+		mBoss_bomber->GetComponent<Transform>()->SetPos(Vector2{ 7000.f, 3150.f });
 	}
 
 
 	void PlayScene3::Create_Boomber_bombing(float a, float b)
 	{
-		bomb = new show_bomb(mSonic);
-		bomb->SetName(L"act1_3_bomb");
-		AddGameobeject(bomb, jk_LayerType::Bullet);
-		bomb->GetComponent<Transform>()->SetPos(Vector2{ a, b });
-		bomb->SetCheckTargetGround(playgr);
+		mShow_bomb = new show_bomb(mSonic);
+		mShow_bomb->SetName(L"act1_3_bomb");
+		AddGameobeject(mShow_bomb, jk_LayerType::Bullet);
+		mShow_bomb->GetComponent<Transform>()->SetPos(Vector2{ a, b });
+		mShow_bomb->SetCheckTargetGround(mPixel_Ground);
 	}
 }

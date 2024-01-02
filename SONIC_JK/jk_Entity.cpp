@@ -3,7 +3,7 @@
 namespace jk
 {
 	Entity::Entity()
-		:mName(L"")
+		: mName(L"")
 		, mID((UINT64)this)
 	{
 	}

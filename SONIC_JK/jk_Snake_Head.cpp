@@ -10,6 +10,9 @@
 
 #include "jk_Animal.h"
 
+#include "jk_Image.h"
+#include "jk_Time.h"
+#include "jk_Sound.h"
 
 
 namespace jk
@@ -17,18 +20,13 @@ namespace jk
 	Snake_Head::Snake_Head(Vector2 _Pos)
 		:  mCenterpos(_Pos)
 		, mCurpos(Vector2(_Pos))
-
 		, mMonmaxdistance_x(200.0f)
 		, mMonmaxdistance_y(50.0f)
 		, mDir_x(1)
 		, mDir_y(1)
 		, mState(eSnake::Idle)
-
 		, sonicState()
 		, tailsState()
-
-	/*	, mOwner(owner)*/
-		//, mDeath(nullptr)
 		, mImage(nullptr)
 		, mImage1(nullptr)
 		, mAnimator(nullptr)
@@ -38,19 +36,13 @@ namespace jk
 	Snake_Head::Snake_Head()
 		:  mCenterpos(0.f, 0.f)
 		, mCurpos(Vector2(0.f, 0.f))
-
 		, mMonmaxdistance_x(200.0f)
 		, mMonmaxdistance_y(50.0f)
 		, mDir_x(1)
 		, mDir_y(1)
 		, mState(eSnake::Idle)
-	
-
 		, sonicState()
 		, tailsState()
-
-		/*	, mOwner(owner)*/
-			//, mDeath(nullptr)
 		, mImage(nullptr)
 		, mImage1(nullptr)
 		, mAnimator(nullptr)
@@ -91,13 +83,7 @@ namespace jk
 	void Snake_Head::Update()
 	{
 		mCurpos = tr->GetPos();
-		prevPositions.push_back(mCurpos);
 		SetposSnake(mCurpos);
-
-		// 저장할 위치 수를 제한 (예: 몸통 길이에 따라)
-		while (prevPositions.size() > 5) {
-			prevPositions.pop_front();
-		}
 
 		switch (mState)
 		{
@@ -163,18 +149,6 @@ namespace jk
 	}
 	void Snake_Head::OnCollisionExit(Collider* other)
 	{
-	}
-
-
-
-	Vector2 Snake_Head::GetNextPosition()
-	{
-		if (!prevPositions.empty()) {
-			Vector2 nextPos = prevPositions.front();
-			prevPositions.pop_front();
-			return nextPos;
-		}
-		return Vector2();
 	}
 
 

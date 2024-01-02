@@ -24,19 +24,14 @@ namespace jk
 		, mDeath(nullptr)
 		, mAnimator(nullptr)
 		, mPos(_Pos)
-		, sonicState()
-		, tailsState()	
 		, mObdel(false)
 	{
-
 	}
 	Snake::Snake(Snake* abc)
 		: mScene(nullptr)
 		, mDeath(nullptr)
 		, mAnimator(nullptr)
 		, mPos(Vector2(0.f,0.f))
-		, sonicState()
-		, tailsState()
 		, mObdel(false)
 	{
 	}
@@ -64,13 +59,13 @@ namespace jk
 		mSnake[1]->GetComponent<Transform>()->SetPos(Vector2{ mPos.x, mPos.y });
 		mSnake[1]->Initialize();
 
-		mSnake[2] = new Snake_Second_Body(dynamic_cast<Snake_First_Body*>(mSnake[1]));
+		mSnake[2] = new Snake_Second_Body(dynamic_cast<Snake_Head*>(mSnake[0]));
 		mSnake[2]->SetName(L"Snake_Body2");
 		mScene->AddGameobeject(mSnake[2], jk_LayerType::Monster);
 		mSnake[2]->GetComponent<Transform>()->SetPos(Vector2{ mPos.x, mPos.y });
 		mSnake[2]->Initialize();
 
-		mSnake[3] = new Snake_Third_Body(dynamic_cast<Snake_Second_Body*>(mSnake[2]));
+	/*	mSnake[3] = new Snake_Third_Body(dynamic_cast<Snake_Second_Body*>(mSnake[2]));
 		mSnake[3]->SetName(L"Snake_Body3");
 		mScene->AddGameobeject(mSnake[3], jk_LayerType::Monster);
 		mSnake[3]->GetComponent<Transform>()->SetPos(Vector2{ mPos.x, mPos.y });
@@ -85,12 +80,11 @@ namespace jk
 		mSnake[4]->Initialize();
 
 
-
 		mSnake[5] = new Snake_Tail(dynamic_cast<Snake_Last_Body*>(mSnake[4]));
 		mSnake[5]->SetName(L"Snake_Body4");
 		mScene->AddGameobeject(mSnake[5], jk_LayerType::Monster);
 		mSnake[5]->GetComponent<Transform>()->SetPos(Vector2{ mPos.x, mPos.y });
-		mSnake[5]->Initialize();
+		mSnake[5]->Initialize();*/
 
 		Gameobject::Initialize();
 
@@ -104,9 +98,9 @@ namespace jk
 				object::Destory(mSnake[0]);
 				object::Destory(mSnake[1]);
 				object::Destory(mSnake[2]);
-				object::Destory(mSnake[3]);
-				object::Destory(mSnake[4]);
-				object::Destory(mSnake[5]);
+				//object::Destory(mSnake[3]);
+				//object::Destory(mSnake[4]);
+				//object::Destory(mSnake[5]);
 
 				mObdel = true;
 			}

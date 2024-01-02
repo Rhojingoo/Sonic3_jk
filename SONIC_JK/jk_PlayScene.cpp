@@ -6,7 +6,8 @@
 #include "jk_Gameobject.h"
 #include "jk_Object.h"
 #include "jk_Resources.h"
-
+#include "jk_Image.h"
+#include "jk_Sound.h"
 #include "jk_Camera.h"
 #include "jk_Input.h"
 #include "jk_Blending.h"
@@ -92,13 +93,13 @@ namespace jk
 	PlayScene::PlayScene()
 		: mSonic(nullptr)
 		, mTails(nullptr)
-		, Act1_music(nullptr)
-		, Miniboss1(nullptr)
-		, Act2_music(nullptr)
-		, dir(1)
-		, Camera_Switch(0)
-		, check_minibos(0)
-		, frame_check(0)
+		, mAct1_music(nullptr)
+		, mMiniboss1(nullptr)
+		, mAct2_music(nullptr)
+		, mDir(1)
+		, mCamera_Switch(0)
+		, mCheck_minibos(0)
+		, mFrame_check(0)
 	{
 
 	}
@@ -110,9 +111,9 @@ namespace jk
 
 	void PlayScene::Initialize()
 	{
-		Act1_music = Resources::Load<Sound>(L"Act1_bg", L"..\\Resources\\Sound\\Act1_bg.wav");
-		Miniboss1 = Resources::Load<Sound>(L"Miniboss1", L"..\\Resources\\Sound\\Miniboss1.wav");
-		Act2_music = Resources::Load<Sound>(L"Act2_bg", L"..\\Resources\\Sound\\Act2_bg.wav");
+		mAct1_music = Resources::Load<Sound>(L"Act1_bg", L"..\\Resources\\Sound\\Act1_bg.wav");
+		mMiniboss1 = Resources::Load<Sound>(L"Miniboss1", L"..\\Resources\\Sound\\Miniboss1.wav");
+		mAct2_music = Resources::Load<Sound>(L"Act2_bg", L"..\\Resources\\Sound\\Act2_bg.wav");
 
 
 
@@ -558,31 +559,31 @@ namespace jk
 	void PlayScene::Update()
 	{
 
-		frame_check = 1;
+		mFrame_check = 1;
 
 
 		Vector2 sonic_pos = mSonic->GetComponent<Transform>()->GetPos();
 
 		if (sonic_pos.x >= 29720.f)
 		{
-			Camera_Switch = 1;
+			mCamera_Switch = 1;
 		}
-		if (Camera_Switch == 1)
+		if (mCamera_Switch == 1)
 		{
 			//Camera::SetTarget(nullptr);
 			Camera::SetCamera(1);
 			if (sonic_pos.x >= 30400.f)
 			{
 				Camera::SetTarget(nullptr);
-				if (check_minibos == 0)
+				if (mCheck_minibos == 0)
 				{
-					if (check_minibos != 0)
+					if (mCheck_minibos != 0)
 						return;
 
-					Act1_music->Stop(true);
-					Miniboss1->Play(true);
+					mAct1_music->Stop(true);
+					mMiniboss1->Play(true);
 					Create_Miniboss_show();
-					check_minibos = 1;
+					mCheck_minibos = 1;
 				}
 			}
 		}
@@ -590,9 +591,9 @@ namespace jk
 		Scene::Update();
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
-			Act1_music->Stop(true);
-			Miniboss1->Stop(true);
-			Act2_music->Play(true);
+			mAct1_music->Stop(true);
+			mMiniboss1->Stop(true);
+			mAct2_music->Play(true);
 			SceneManager::LoadScene(jk_SceneType::GamePlay2);
 			CreateBlending();
 		}
@@ -628,7 +629,7 @@ namespace jk
 		CollisionManager::SetLayer(jk_LayerType::Player, jk_LayerType::Player2, true);
 
 
-		if (Camera_Switch == 0)
+		if (mCamera_Switch == 0)
 		{
 			Camera::SetTarget(mSonic);
 		}

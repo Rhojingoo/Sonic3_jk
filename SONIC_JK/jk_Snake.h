@@ -3,7 +3,6 @@
 
 namespace jk
 {
-	class Animator;
 	class Snake : public Monster
 	{
 	public:
@@ -22,23 +21,18 @@ namespace jk
 		virtual void OnCollisionExit(class Collider* other) override;
 		double TimeSinceStart();
 
-		void SetposSnake(Vector2 set) { pos = set; }
+		void SetposSnake(Vector2 set) { mPos = set; }
 
-		void SetLife(bool set) { LifeCheck = set; }
-		bool GetLife() { return LifeCheck; }
+		void SetLife(bool set) { mLifeCheck = set; }
+		bool GetLife() { return mLifeCheck; }
 
 	private:
 		Scene* mScene;
-		Sound* Death;
-		Animator* mAnimator;
-		Vector2 pos;
-		static bool LifeCheck;
-		bool Obdel;
-
-
-		Snake* snake[6] = {};
-
-		Sonic::eSonicState sonicState;
-		Tails::eTailsState tailsState;
+		class Sound* mDeath;
+		class Animator* mAnimator;
+		Snake* mSnake[6] = {};
+		Vector2 mPos;
+		static bool mLifeCheck;
+		bool mObdel;
 	};
 }

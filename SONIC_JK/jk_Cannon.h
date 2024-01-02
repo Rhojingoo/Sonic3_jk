@@ -1,8 +1,12 @@
 #pragma once
 #include "jk_Monster.h"
+#include "jk_Sonic.h"
+#include "jk_Tails.h"
 
 namespace jk
 {
+	class Sonic;
+	class Tails;
 	class Cannon : public Monster
 	{
 	public:
@@ -47,7 +51,7 @@ namespace jk
 
 	private:
 		Gameobject* mOwner;
-		class Sound* Death;
+		class Sound* mDeath_Sound;
 		class Image* mImage;
 		class Image * mImage1;
 		class Image* mGroundImage;
@@ -70,7 +74,5 @@ namespace jk
 
 		Sonic::eSonicState sonicState;
 		Tails::eTailsState tailsState;
-	
-
 	}; 
 }

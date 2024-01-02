@@ -5,20 +5,21 @@
 #include "jk_Transform.h"
 #include "jk_Animator.h"
 #include "jk_Resources.h"
-
+#include "jk_Sonic.h"
+#include "jk_Image.h"
 
 namespace jk
 {
 	FireSonic::FireSonic(Gameobject* owner)
 		: mOwner(owner)
-		, sonic(nullptr)
+		, mSonic(nullptr)
 		, mAnimator(nullptr)
-		, mSonic(0.0f, 0.0f)
-		, effect_check(0)
+		, mSonic_Pos(0.0f, 0.0f)
+		, mEffect_check(0)
 		, mDir(0)
 		, mState(State::Idle)
 	{		
-		sonic = dynamic_cast<Sonic*>(owner);
+		mSonic = dynamic_cast<Sonic*>(owner);
 		Image* mImage = Resources::Load<Image>(L"shield", L"..\\Resources\\Shield.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"Fire", mImage, Vector2(372, 769), Vector2(56, 56), Vector2(8, 8), 6, 3, 18, Vector2::Zero, 0.05f);
@@ -37,13 +38,13 @@ namespace jk
 	}
 	void FireSonic::Update()
 	{
-		mSonic = mOwner->GetComponent<Transform>()->GetPos();
+		mSonic_Pos = mOwner->GetComponent<Transform>()->GetPos();
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
-		tr->SetPos(mSonic);
+		tr->SetPos(mSonic_Pos);
 
-		mDir = sonic->GetSonicDir();
-		effect_check= sonic->Fire_Shield();
+		mDir = mSonic->GetSonicDir();
+		mEffect_check= mSonic->Fire_Shield();
 
 		switch (mState)
 		{
@@ -69,13 +70,13 @@ namespace jk
 	}
 	void FireSonic::idle()
 	{
-		if (effect_check == 0)
+		if (mEffect_check == 0)
 		{
 			Transform* tr = GetComponent<Transform>();
 			Vector2 pos = tr->GetPos();
-			tr->SetPos(mSonic);
+			tr->SetPos(mSonic_Pos);
 		}
-		if (effect_check == 1)
+		if (mEffect_check == 1)
 		{
 			mState = State::Fire_Attack;
 			if (mDir == 1)
@@ -95,11 +96,11 @@ namespace jk
 		Vector2 pos = tr->GetPos();
 		if (mDir == 1)
 		{
-			tr->SetPos(Vector2{ mSonic.x - 16,mSonic.y+15 });
+			tr->SetPos(Vector2{ mSonic_Pos.x - 16,mSonic_Pos.y+15 });
 		}
 		else
 		{
-			tr->SetPos(Vector2{ mSonic.x,mSonic.y+15 });
+			tr->SetPos(Vector2{ mSonic_Pos.x,mSonic_Pos.y+15 });
 		}
 	}
 	void FireSonic::fire_effect()

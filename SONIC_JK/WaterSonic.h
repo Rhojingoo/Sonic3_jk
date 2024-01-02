@@ -1,10 +1,10 @@
 #pragma once
 #include "jk_Gameobject.h"
-#include "jk_Sonic.h"
-#include "jk_Image.h"
+
 
 namespace jk
 {
+	class Image;
 	class Animator;
 	class WaterSonic : public Gameobject
 	{
@@ -35,13 +35,13 @@ namespace jk
 
 	private:
 		Gameobject* mOwner;
-		Sonic* sonic;
+		Sonic* mSonic;
 		Animator* mAnimator;
-		Vector2 mSonic;
+		Vector2 mSonic_Pos;
 		State mState;
 
 		int mDir;
-		int shield_bounce;
+		int mShield_bounce;
 	};
 
 }

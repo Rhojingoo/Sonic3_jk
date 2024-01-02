@@ -1,8 +1,6 @@
 #pragma once
 #include "jk_Gameobject.h"
-#include "jk_Tails.h"
-#include "jk_Sound.h"
-#include "jk_Image.h"
+
 
 namespace jk
 {
@@ -12,6 +10,8 @@ namespace jk
 	class Tails;
 	class Pixel_Ground;
 	class Rigidbody;
+	class Image;
+	class Sound;
 	class Animator;
 	class Sonic : public Gameobject
 	{
@@ -82,20 +82,20 @@ namespace jk
 
 		eSonicState Getsonicstate() {return mState;}
 		int GetSonicDir() { return mDir; }
-		int GetRingCheck() {return Ringcheck;}
-		void SetCheckTargetGround(Pixel_Ground* ground) { check = ground; }
+		int GetRingCheck() {return mRingcheck;}
+		void SetCheckTargetGround(Pixel_Ground* ground) { mPixel_Ground = ground; }
 		
 		
-		int Elect_Shield() { return elect_effect; }
-		int Water_Shield() { return water_bounce; }
-		int Fire_Shield() { return fire_effect; }
-		void Fire_Shield_End(int check) { fire_effect = check; }
+		int Elect_Shield() { return mElect_effect; }
+		int Water_Shield() { return mWater_bounce; }
+		int Fire_Shield() { return mFire_effect; }
+		void Fire_Shield_End(int check) { mFire_effect = check; }
 	
-		void Set_Fly(int fly) { fly_check = fly; }
-		void Set_Ending(int final) { end = final; }
+		void Set_Fly(int fly) { mFly_check = fly; }
+		void Set_Ending(int final) { mEnd = final; }
 
-		int Get_Ring_Point() { return Ringcheck; }
-		int Get_Life_Point() { return Life; }
+		int Get_Ring_Point() { return mRingcheck; }
+		int Get_Life_Point() { return mLife; }
 
 	private:
 		void idle();
@@ -147,49 +147,49 @@ namespace jk
 
 
 	private:
-		Sound* Ending_song;
-		Sound* Sonic_Jump;
-		Sound* Ring_Have;
-		Sound* Ring_Lose;
-		Sound* Brake;
-		Sound* Spin;
-		Sound* Last_Boss_f;
-		Sound* Spike_mc;
+		Sound* mEnding_song;
+		Sound* mSonic_Jump;
+		Sound* mRing_Have;
+		Sound* mRing_Lose;
+		Sound* mBrake;
+		Sound* mSpin;
+		Sound* mLast_Boss_f;
+		Sound* mSpike_mc;
 
 	private:
 		Animator* mAnimator;
-		class Image* mImage;
-		class Image* mGroundImage;
+		Image* mImage;
+		Image* mGroundImage;
 		Rigidbody* mRigidbody;
-		Pixel_Ground* check;
+		Pixel_Ground* mPixel_Ground;
 
 	private:
-		Vector2 SonicVelocity;
-		Vector2 SonicBrake;
-		Electsonic* elect;
-		FireSonic* fire;
-		WaterSonic* water;
-		int water_bounce;
-		int fire_effect;
-		int elect_effect;
+		Vector2 mSonicVelocity;
+		Vector2 mSonicBrake;
+		Electsonic* mElect;
+		FireSonic* mFire;
+		WaterSonic* mWater;
+		int mWater_bounce;
+		int mFire_effect;
+		int mElect_effect;
 		
 	private:
 		eSonicState mState;
 		eCircle mCircle_state;
-		Tails* Tails_call;
-		Vector2 tails_call;
+		Tails* mTails_call;
+		Vector2 mTails_call_Pos;
 		int mDir;		
-		int check_map;
-		int circlecheck;
-		int Circle_piece;
-		int Ringcheck;
-		int hurtcheck;
-		int jeepline;
-		int fly_check;
-		int Life;
-		int end;
-		float angle;
-		float time;	
-		bool loopenter;
+		int mCheck_map;
+		int mCirclecheck;
+		int mCircle_piece;
+		int mRingcheck;
+		int mHurtcheck;
+		int mJeepline;
+		int mFly_check;
+		int mLife;
+		int mEnd;
+		float mAngle;
+		float mTime;	
+		bool mLoopenter;
 	};
 }

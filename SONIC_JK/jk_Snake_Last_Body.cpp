@@ -9,13 +9,15 @@
 #include "jk_Collider.h"
 #include "jk_Resources.h"
 #include "jk_Object.h"
+#include "jk_Snake_Third_Body.h"
+#include "jk_Image.h"
+#include "jk_Time.h"
 
 namespace jk
 {
 	Snake_Last_Body::Snake_Last_Body(Snake_Third_Body* set)
-		: Body_3(set)
-		, CurPos()
-		, prevPositions()
+		: mBody_3(set)
+		, mCurPos()
 		, tr(nullptr)
 		, mImage(nullptr)
 		, mAnimator(nullptr)
@@ -24,9 +26,8 @@ namespace jk
 	{
 	}
 	Snake_Last_Body::Snake_Last_Body()
-		: Body_3()
-		, CurPos()
-		, prevPositions()
+		: mBody_3()
+		, mCurPos()
 		, tr(nullptr)
 		, mImage(nullptr)
 		, mAnimator(nullptr)
@@ -58,22 +59,11 @@ namespace jk
 	}
 	void Snake_Last_Body::Update()
 	{
-		Body3_State = Body_3->Get_Snake_state();
+		Body3_State = mBody_3->Get_Snake_state();
 		if (GetLife() == true)
 		{
-			CurPos = Body_3->GetNextPosition();
+			mCurPos = mBody_3->Gepos(); 
 		}
-
-
-
-
-		prevPositions.push_back(CurPos);
-
-		// 저장할 위치 수를 제한 (예: 몸통 길이에 따라)
-		while (prevPositions.size() > 5) {
-			prevPositions.pop_front();
-		}
-
 
 
 		switch (mState)
@@ -112,36 +102,27 @@ namespace jk
 
 	void Snake_Last_Body::right()
 	{
-		tr->SetPos(Vector2(CurPos.x - 130.f, CurPos.y ));
+		tr->SetPos(Vector2(mCurPos.x - 130.f, mCurPos.y ));
 		mAnimator->Play(L"LSnake_mTaIl", true);
 		if (Body3_State == Snake_Third_Body::eSnake::Left)
 		{	
-			CurPos = Body_3->GetteurnPOs();
-			tr->SetPos(Vector2(CurPos.x + 130.f, CurPos.y ));
+			mCurPos = mBody_3->GetteurnPOs();
+			tr->SetPos(Vector2(mCurPos.x + 130.f, mCurPos.y ));
 
 			mState = eSnake::Left;
 		}
 	}
 	void Snake_Last_Body::left()
 	{
-		tr->SetPos(Vector2(CurPos.x + 130.f, CurPos.y));
+		tr->SetPos(Vector2(mCurPos.x + 130.f, mCurPos.y));
 		mAnimator->Play(L"RSnake_mTaIl", true);
 		if (Body3_State == Snake_Third_Body::eSnake::Right)
 		{		
-			CurPos = Body_3->GetteurnPOs();
-			tr->SetPos(Vector2(CurPos.x - 130.f, CurPos.y ));
+			mCurPos = mBody_3->GetteurnPOs();
+			tr->SetPos(Vector2(mCurPos.x - 130.f, mCurPos.y ));
 
 			mState = eSnake::Left;
 		}
-	}
-	Vector2 Snake_Last_Body::GetNextPosition()
-	{
-		if (!prevPositions.empty()) {
-			Vector2 nextPos = prevPositions.front();
-			prevPositions.pop_front();
-			return nextPos;
-		}
-		return Vector2(); // 또는 오류 값 반환
 	}
 
 }

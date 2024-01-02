@@ -1,6 +1,6 @@
 #include "jk_Snake_First_Body.h"
 #include "jk_Snake.h"
-
+#include "jk_Snake_Head.h"
 #include "jk_SceneManager.h"
 #include "jk_Scene.h"
 #include "jk_Transform.h"
@@ -8,16 +8,18 @@
 #include "jk_Animator.h"
 #include "jk_Resources.h"
 #include "jk_Object.h"
-
+#include "jk_Image.h"
+#include "jk_Time.h"
 
 namespace jk
 {
 	Snake_First_Body::Snake_First_Body(Snake_Head* _Head)
-		: mImage(nullptr)
+		: Snake::Snake(_Head)
+		, mImage(nullptr)
 		, mAnimator(nullptr)
-		, prevPos(0.f, 0.f)
-		, CurPos(0.f, 0.f)
-		, Head_ch(_Head)
+		, mPrevPos(0.f, 0.f)
+		, mCurPos(0.f, 0.f)
+		, mHead_ch(_Head)
 		, mState(eSnake::Right)
 		, Snake_State()
 	{
@@ -25,9 +27,8 @@ namespace jk
 	Snake_First_Body::Snake_First_Body()
 		: mImage(nullptr)
 		, mAnimator(nullptr)
-		, prevPos(0.f, 0.f)
-		, CurPos(0.f, 0.f)
-		, Head_ch(_Head)
+		, mPrevPos(0.f, 0.f)
+		, mCurPos(0.f, 0.f)
 		, mState(eSnake::Right)
 		, Snake_State()
 	{
@@ -45,30 +46,20 @@ namespace jk
 		mAnimator->Play(L"RSnake_body1", true);
 
 
-		Collider* collider = AddComponent<Collider>();
-		collider->SetSize(Vector2(55.0f, 55.0f));
-		Vector2 size = collider->GetSize();
-		collider->SetCenter(Vector2{ (-0.25f) * size.x, (-0.35f) * size.y });
+		//Collider* collider = AddComponent<Collider>();
+		//collider->SetSize(Vector2(55.0f, 55.0f));
+		//Vector2 size = collider->GetSize();
+		//collider->SetCenter(Vector2{ (-0.25f) * size.x, (-0.35f) * size.y });
 		tr = GetComponent<Transform>();
 
 		Gameobject::Initialize();
 	}
 	void Snake_First_Body::Update()
 	{
-		Head_state = Head_ch->Get_Snake_state();
+		Head_state = mHead_ch->Get_Snake_state();
 		if (GetLife() == true)
 		{
-			CurPos = Head_ch->GetNextPosition();
-		}
-
-
-
-
-		prevPositions.push_back(CurPos);
-
-		// 저장할 위치 수를 제한 (예: 몸통 길이에 따라)
-		while (prevPositions.size() > 5) {
-			prevPositions.pop_front();
+			mCurPos = mHead_ch->Gepos();
 		}
 
 		switch (mState)
@@ -107,7 +98,7 @@ namespace jk
 
 	void Snake_First_Body::right()
 	{
-		tr->SetPos(Vector2(CurPos.x-70.f, CurPos.y-20.f));
+		tr->SetPos(Vector2(mCurPos.x-70.f, mCurPos.y-20.f));
 	
 		if (Head_state == Snake_Head::eSnake::Left)
 		{			
@@ -117,7 +108,7 @@ namespace jk
 	}
 	void Snake_First_Body::left()
 	{		
-		tr->SetPos(Vector2(CurPos.x + 35.f, CurPos.y-15.f));
+		tr->SetPos(Vector2(mCurPos.x + 35.f, mCurPos.y-15.f));
 
 		if (Head_state == Snake_Head::eSnake::Right)
 		{
@@ -126,13 +117,5 @@ namespace jk
 		}
 	}
 
-	Vector2 Snake_First_Body::GetNextPosition()
-	{
-		if (!prevPositions.empty()) {
-			Vector2 nextPos = prevPositions.front();
-			prevPositions.pop_front();
-			return nextPos;
-		}
-		return Vector2(); // 또는 오류 값 반환
-	}
+
 }

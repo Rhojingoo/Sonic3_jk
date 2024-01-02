@@ -1,10 +1,11 @@
 #pragma once
 #include "jk_Scene.h"
-#include "jk_Image.h"
-#include "jk_Sound.h"
+
 
 namespace jk
 {
+	class Image;
+	class Sound;
 	class ChatarcterChoiseSC : public Scene
 	{
 	public:

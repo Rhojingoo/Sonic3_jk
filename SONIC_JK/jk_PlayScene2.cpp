@@ -4,11 +4,12 @@
 #include "jk_SceneManager.h"
 #include "jk_Camera.h"
 #include "jk_CollisionManager.h"
+#include "jk_Sound.h"
 #include "jk_Object.h"
 #include "jk_Transform.h"
 #include "jk_Blending.h"
 #include "Rigidbody.h"
-
+#include "jk_Image.h"
 #include "jk_Sonic.h"
 #include "Electsonic.h"
 #include "jk_Tails.h"
@@ -93,14 +94,15 @@ namespace jk
 {
 	PlayScene2::PlayScene2()
 		: mSonic(nullptr)
-		, playgr(nullptr)
-		, Act2_music(nullptr)
-		, Miniboss2(nullptr)
-		, dir(1)
-		, check_map(0)
-		, Camera_Switch(0)
-		, check_minibos(0)
-		, frame_check(0)
+		, mSnake(nullptr)
+		, mPixel_Ground(nullptr)
+		, mAct2_music(nullptr)
+		, mMiniboss2(nullptr)
+		, mDir(1)
+		, mCheck_map(0)
+		, mCamera_Switch(0)
+		, mCheck_minibos(0)
+		, mFrame_check(0)
 	{
 	}
 	PlayScene2::~PlayScene2()
@@ -108,9 +110,9 @@ namespace jk
 	}
 	void PlayScene2::Initialize()
 	{
-		check_map = 1;
-		Act2_music = Resources::Load<Sound>(L"Act2_bg", L"..\\Resources\\Sound\\Act2_bg.wav");
-		Miniboss2 = Resources::Load<Sound>(L"Miniboss2", L"..\\Resources\\Sound\\Miniboss2.wav");
+		mCheck_map = 1;
+		mAct2_music = Resources::Load<Sound>(L"Act2_bg", L"..\\Resources\\Sound\\Act2_bg.wav");
+		mMiniboss2 = Resources::Load<Sound>(L"Miniboss2", L"..\\Resources\\Sound\\Miniboss2.wav");
 
 
 		//Ä³¸¯ÅÍ
@@ -138,13 +140,13 @@ namespace jk
 		tails->GetComponent<Transform>()->SetPos(Vector2(661.f, 3033.f));
 
 
-		playgr = new Pixel_Ground();
-		playgr->SetName(L"Ground2");
-		playgr->SetPlayer(mSonic, tails);
-		AddGameobeject(playgr, jk_LayerType::Ground);
-		mSonic->SetCheckTargetGround(playgr);
-		tails->SetCheckTargetGround(playgr);
-		playgr->Set_Circle_Center(Vector2{ 9500.f, 3605.f });
+		mPixel_Ground = new Pixel_Ground();
+		mPixel_Ground->SetName(L"Ground2");
+		mPixel_Ground->SetPlayer(mSonic, tails);
+		AddGameobeject(mPixel_Ground, jk_LayerType::Ground);
+		mSonic->SetCheckTargetGround(mPixel_Ground);
+		tails->SetCheckTargetGround(mPixel_Ground);
+		mPixel_Ground->Set_Circle_Center(Vector2{ 9500.f, 3605.f });
 
 
 		UI_framework* UI_frame = new UI_framework();
@@ -367,7 +369,7 @@ namespace jk
 		//	AddGameobeject(rock_big[a], jk_LayerType::BG_props);
 		//}
 		//rock_big[0]->GetComponent<Transform>()->SetPos(Vector2{ 2096.0f, 3363.0f });
-		//rock_big[0]->SetCheckTargetGround(playgr);
+		//rock_big[0]->SetCheckTargetGround(mPixel_Ground);
 
 
 		Collapses_Ground* collapses_Ground[5];
@@ -435,7 +437,7 @@ namespace jk
 		AddGameobeject(mRino, jk_LayerType::Monster);
 		mRino->GetComponent<Transform>()->SetPos(Vector2{6450.0f,4350.0f });
 		mRino->SetCenterpos(Vector2{ 6540.0f, 4350.0f });
-		mRino->SetCheckTargetGround(playgr);
+		mRino->SetCheckTargetGround(mPixel_Ground);
 
 
 		Rino* mRino1 = new Rino();
@@ -443,7 +445,7 @@ namespace jk
 		AddGameobeject(mRino1, jk_LayerType::Monster);
 		mRino1->GetComponent<Transform>()->SetPos(Vector2{ 7680.0f, 3660.0f });
 		mRino1->SetCenterpos(Vector2{ 7680.0f, 3660.0f });
-		mRino1->SetCheckTargetGround(playgr);
+		mRino1->SetCheckTargetGround(mPixel_Ground);
 
 
 		Cannon* cannon[1];
@@ -454,7 +456,7 @@ namespace jk
 			AddGameobeject(cannon[a], jk_LayerType::Monster);
 		}	
 		cannon[0]->GetComponent<Transform>()->SetPos(Vector2{ 10785.0f, 3225.0f });
-		cannon[0]->SetCheckTargetGround(playgr);
+		cannon[0]->SetCheckTargetGround(mPixel_Ground);
 
 
 
@@ -534,8 +536,8 @@ namespace jk
 
 	void PlayScene2::Update()
 	{
-		playgr->Set_map_check(check_map);
-		playgr->Set_Circle_Center(Vector2{ 9600.f, 3705.f });
+		mPixel_Ground->Set_map_check(mCheck_map);
+		mPixel_Ground->Set_Circle_Center(Vector2{ 9600.f, 3705.f });
 
 
 		if (Input::GetKeyDown(eKeyCode::M))
@@ -543,7 +545,7 @@ namespace jk
 			mSonic->GetComponent<Transform>()->SetPos(Vector2(8712.f, 3396.f));
 			mSonic->GetComponent<Rigidbody>()->SetGravity(Vector2{ 0.f,1000.f });
 			mSonic->GetComponent<Rigidbody>()->SetFiction(100.f);
-			playgr->SetLotation(0);
+			mPixel_Ground->SetLotation(0);
 			Sonic::eSonicState::Idle;
 		}
 
@@ -557,21 +559,21 @@ namespace jk
 
 		if (sonic_pos.x >= 13370.f)
 		{
-			Camera_Switch = 1;
+			mCamera_Switch = 1;
 		}
-		if (Camera_Switch == 1)
+		if (mCamera_Switch == 1)
 		{
 			Camera::SetCamera(1);
 			Camera::SetTarget(nullptr);
-			if (check_minibos == 0)
+			if (mCheck_minibos == 0)
 			{
-				if (check_minibos != 0)
+				if (mCheck_minibos != 0)
 					return;
-				Act2_music->Stop(true);
-				Miniboss2->Play(true);
+				mAct2_music->Stop(true);
+				mMiniboss2->Play(true);
 
 				Create_Miniboss();
-				check_minibos = 1;
+				mCheck_minibos = 1;
 			}
 		}
 
@@ -581,7 +583,7 @@ namespace jk
 		{
 			SceneManager::LoadScene(jk_SceneType::GamePlay3);
 			//CreateBlending();
-			check_map = 2;
+			mCheck_map = 2;
 		}
 	}
 	void PlayScene2::Render(HDC hdc)

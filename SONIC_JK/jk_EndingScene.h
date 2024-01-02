@@ -1,6 +1,6 @@
 #pragma once
 #include "jk_Scene.h"
-#include "jk_Image.h"
+
 
 namespace jk
 {

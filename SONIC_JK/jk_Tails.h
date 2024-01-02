@@ -1,13 +1,13 @@
 #pragma once
 #include "jk_Gameobject.h"
-#include "jk_SONIC.h"
-#include "jk_Image.h"
+
 
 namespace jk
 {
 	class Sonic;
 	class Pixel_Ground;
 	class Rigidbody;
+	class Image;
 	class Animator;
 	class Tails : public Gameobject
 	{
@@ -55,12 +55,12 @@ namespace jk
 
 		eTailsState GetTails_state() { return mState; }
 		int GetTailsDir() { return mDir; }
-		void SetCheckTargetGround(Pixel_Ground* ground) { check = ground; }
-		void Set_Pursue_boss(int pursue) { pursue_boss = pursue; }
+		void SetCheckTargetGround(Pixel_Ground* ground) { mPixel_Ground = ground; }
+		void Set_Pursue_boss(int pursue) { mPursue_boss = pursue; }
 
-		void Set_Fly(int fly) { fly_check = fly; }
-		int Get_Fly() { return fly_check; }
-		void Set_Ending(int final) { end = final; }
+		void Set_Fly(int fly) { mFly_check = fly; }
+		int Get_Fly() { return mFly_check; }
+		void Set_Ending(int final) { mEnd = final; }
 
 
 	private:
@@ -90,24 +90,22 @@ namespace jk
 	private:		
 		Gameobject* mOwner;
 		Sonic* mSonic;
-		Pixel_Ground* check;
+		Pixel_Ground* mPixel_Ground;
 		eTailsState mState;
 		Animator* mAnimator;	
 		Rigidbody* mRigidbody;
-		Vector2 sonicV;		
-		Vector2 TailsVelocity;
-		Vector2 fallingcheck;
+		Vector2 mSonic_Velocity;		
+		Vector2 mTailsVelocity;
+		Vector2 mFalling_Check_pos;
 		
 
 	private:
 		int mDir;
-		int falling;
-		int circlecheck;
-		int Circle_piece;		
-		int fly_check;
-		int pursue_boss;
-		int hurtcheck;
-		int end;
+		int mFalling;
+		int mFly_check;
+		int mPursue_boss;
+		int mHurtcheck;
+		int mEnd;
 	};
 
 }

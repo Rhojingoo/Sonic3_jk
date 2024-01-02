@@ -11,11 +11,10 @@
 #include "jk_object.h"
 #include "jk_Pixel_Ground.h"
 #include "jk_Image.h"
-#include "jk_Sonic.h"
-#include "jk_Tails.h"
+
 #include "jk_Cannon_Bullet.h"
 #include "jk_animal.h"
-
+#include "jk_Sound.h"
 
 int check_ground_CN = 0;
 
@@ -32,7 +31,7 @@ namespace jk
 		, mPixel_Ground(nullptr)
 		, mGroundImage(nullptr)
 		, mGroundImage2(nullptr)
-		, Death(nullptr)
+		, mDeath_Sound(nullptr)
 		, mImage(nullptr)
 		, mImage1(nullptr)
 		, mAnimator(nullptr)
@@ -49,7 +48,7 @@ namespace jk
 	}
 	void Cannon::Initialize()
 	{
-		Death = Resources::Load<Sound>(L"Monster_Death", L"..\\Resources\\Sound\\Sonic\\Monster_Death.wav");
+		mDeath_Sound = Resources::Load<Sound>(L"Monster_Death", L"..\\Resources\\Sound\\Sonic\\Monster_Death.wav");
 
 		mImage = Resources::Load<Image>(L"CANON", L"..\\Resources\\Monster2.bmp");
 		mAnimator = AddComponent<Animator>();
@@ -131,7 +130,7 @@ namespace jk
 
 			if (sonicState == Sonic::eSonicState::Dash || sonicState == jk::Sonic::eSonicState::Jump || sonicState == jk::Sonic::eSonicState::Spin)
 			{
-				Death->Play(false);
+				mDeath_Sound->Play(false);
 				mAnimator->Play(L"Canon_death2", true);
 			}
 		}
@@ -141,7 +140,7 @@ namespace jk
 
 			if (tailsState == Tails::eTailsState::Dash || tailsState == Tails::eTailsState::Jump || tailsState == Tails::eTailsState::Spin || tailsState == Tails::eTailsState::Movejump)
 			{
-				Death->Play(false);
+				mDeath_Sound->Play(false);
 				mAnimator->Play(L"Canon_death2", true);
 			}
 		}
@@ -236,9 +235,9 @@ namespace jk
 		{
 			Vector2 Canon_ps = Canon_TR->GetPos();
 			COLORREF FootColor = selectedImage->GetPixel(static_cast<int>(Canon_ps.x), static_cast<int>(Canon_ps.y) + 130);
-			if (FootColor == RGB(0, 0, 0))
+			if (FootColor == GROUNDCOLOR)
 			{			
-				while (FootColor == RGB(0, 0, 0))
+				while (FootColor == GROUNDCOLOR)
 				{
 					Canon_ps.y -= 1;
 					FootColor = selectedImage->GetPixel(static_cast<int>(Canon_ps.x), static_cast<int>(Canon_ps.y) + 130);

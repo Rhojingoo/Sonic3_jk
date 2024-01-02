@@ -1,9 +1,10 @@
 #pragma once
 #include "jk_Scene.h"
-#include "jk_Image.h"
+
 
 namespace jk
 {
+	class Image;
 	class Sound;
 	class Pixel_Ground;
 	class Snake;
@@ -30,19 +31,19 @@ namespace jk
 
 
 	private:
-		Pixel_Ground* playgr;
+		Pixel_Ground* mPixel_Ground;
 		Sonic* mSonic;		
 		Snake* mSnake;
-		Sound* Act2_music;
-		Sound* Miniboss2;
-		int dir;
-		int check_map;
+		Sound* mAct2_music;
+		Sound* mMiniboss2;
+		int mDir;
+		int mCheck_map;
 
 
 		//ø’√‚«ˆ
-		int Camera_Switch;
-		int check_minibos;
-		int frame_check;
+		int mCamera_Switch;
+		int mCheck_minibos;
+		int mFrame_check;
 
 	};
 }

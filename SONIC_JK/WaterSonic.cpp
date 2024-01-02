@@ -5,21 +5,21 @@
 #include "jk_Transform.h"
 #include "jk_Animator.h"
 #include "jk_Resources.h"
-
+#include "jk_Sonic.h"
 
 
 namespace jk
 {
 	WaterSonic::WaterSonic(Gameobject* owner)
 		: mOwner(nullptr)
-		, sonic(nullptr)
+		, mSonic(nullptr)
 		, mAnimator(nullptr)
-		, mSonic(0.f,0.f)
+		, mSonic_Pos(0.f,0.f)
 		, mState(State::Idle)
-		, shield_bounce(0)
+		, mShield_bounce(0)
 		, mDir(0)
 	{
-		sonic = dynamic_cast<Sonic*>(owner);
+		mSonic = dynamic_cast<Sonic*>(owner);
 		Image* mImage = Resources::Load<Image>(L"shield", L"..\\Resources\\Shield.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"Water", mImage, Vector2(372, 343), Vector2(56, 56), Vector2(8, 8), 5, 2, 10, Vector2::Zero, 0.05f);
@@ -27,10 +27,10 @@ namespace jk
 		mAnimator->GetCompleteEvent(L"Water_collision") = std::bind(&WaterSonic::water_effect,this);
 		mAnimator->Play(L"Water", true);
 		
-		mSonic = mOwner->GetComponent<Transform>()->GetPos();
+		mSonic_Pos = mOwner->GetComponent<Transform>()->GetPos();
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
-		pos = mSonic;
+		pos = mSonic_Pos;
 				
 	}
 	WaterSonic::~WaterSonic()
@@ -42,8 +42,8 @@ namespace jk
 	}
 	void WaterSonic::Update()
 	{
-		mSonic = mOwner->GetComponent<Transform>()->GetPos();
-		shield_bounce = sonic->Water_Shield();
+		mSonic_Pos = mOwner->GetComponent<Transform>()->GetPos();
+		mShield_bounce = mSonic->Water_Shield();
 	
 		switch (mState)
 		{
@@ -77,13 +77,13 @@ namespace jk
 	}
 	void WaterSonic::idle()
 	{
-		if (shield_bounce == 0)
+		if (mShield_bounce == 0)
 		{
 			Transform* tr = GetComponent<Transform>();
 			Vector2 pos = tr->GetPos();
-			tr->SetPos(mSonic);
+			tr->SetPos(mSonic_Pos);
 		}
-		if (shield_bounce == 1)
+		if (mShield_bounce == 1)
 		{
 			mState = State::Collision_Ground;
 			mAnimator->Play(L"Water_collision", false);
@@ -93,7 +93,7 @@ namespace jk
 	{
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();	
-		tr->SetPos(Vector2{ mSonic.x - 24,mSonic.y });		
+		tr->SetPos(Vector2{ mSonic_Pos.x - 24,mSonic_Pos.y });		
 	}
 	void WaterSonic::water_effect()
 	{

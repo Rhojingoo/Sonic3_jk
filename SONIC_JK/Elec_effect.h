@@ -1,10 +1,9 @@
 #pragma once
 #include "jk_Gameobject.h"
-#include "jk_Sonic.h"
-#include "jk_Image.h"
 
 namespace jk
 {
+
 	class Rigidbody;
 	class Animator;
 	class Elec_effect : public Gameobject

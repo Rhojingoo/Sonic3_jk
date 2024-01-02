@@ -8,7 +8,8 @@
 #include "jk_Resources.h"
 #include "jk_Input.h"
 #include "jk_Object.h"
-
+#include "jk_Image.h"
+#include "jk_Sound.h"
 
 namespace jk
 {

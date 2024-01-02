@@ -3,8 +3,8 @@
 #include "jk_Titlesonic.h"
 #include "jk_Airplanetails.h"
 #include "jk_TitleSN.h"
-
-
+#include "jk_Image.h"
+#include "jk_Sound.h"
 #include "jk_SceneManager.h"
 #include "jk_Resources.h"
 

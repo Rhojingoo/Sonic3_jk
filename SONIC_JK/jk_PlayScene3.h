@@ -1,9 +1,10 @@
 #pragma once
 #include "jk_Scene.h"
-#include "jk_Image.h"
+
 
 namespace jk
 {
+	class Image;
 	class Sound;
 	class Dead_line;
 	class show_bomb;
@@ -38,31 +39,31 @@ namespace jk
 
 
 	private:
-		Pixel_Ground* playgr;
+		Pixel_Ground* mPixel_Ground;
 		Sonic* mSonic;
-		Tails* tails;
+		Tails* mTails;
 		Act1_Boss* mBoss;
-		boss_bomber* mBomber;
-		show_bomb* bomb;
-		Add_force* add_force[9];
-		Dead_line* deathline;
+		boss_bomber* mBoss_bomber;
+		show_bomb* mShow_bomb;
+		Add_force* mAdd_force[9];
+		Dead_line* mDead_line;
 
 	private:
-		Sound* Act2_music;
-		Sound* Act6_music;
-		Sound* Bomber;
-		Sound* Boss_start;
+		Sound* mAct2_music;
+		Sound* mAct6_music;
+		Sound* mBoss_Sound;
+		Sound* mBoss_start;
 
 	private:
-		int dir;
-		int check_map;
+		int mDir;
+		int mCheck_map;
 		//ø’√‚«ˆ
 		int Camera_Switch;
-		int check_boss;
-		int frame_check;
-		int boss_death;
-		int boomber;
-		int bomb_check;
-		int boss_appear;
+		int mCheck_boss;
+		int mFrame_check;
+		int mBoss_death;
+		int mBoomber;
+		int mBomb_check;
+		int mBoss_appear;
 	};
 }

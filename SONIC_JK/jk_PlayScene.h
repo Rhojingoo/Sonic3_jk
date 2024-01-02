@@ -1,10 +1,11 @@
 #pragma once
 #include "jk_Scene.h"
-#include "jk_Image.h"
-#include "jk_Sound.h"
+
 
 namespace jk
 {
+	class Image;
+	class Sound;
 	class Tails;
 	class Sonic;
 	class PlayScene : public Scene
@@ -27,13 +28,13 @@ namespace jk
 	private:
 		Sonic* mSonic;
 		Tails* mTails;
-		Sound* Act1_music;
-		Sound* Miniboss1;
-		Sound* Act2_music;
+		Sound* mAct1_music;
+		Sound* mMiniboss1;
+		Sound* mAct2_music;
 
-		int Camera_Switch;
-		int dir;
-		int check_minibos;
-		int frame_check;
+		int mCamera_Switch;
+		int mDir;
+		int mCheck_minibos;
+		int mFrame_check;
 	};
 }

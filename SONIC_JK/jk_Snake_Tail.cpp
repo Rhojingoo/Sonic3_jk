@@ -8,14 +8,16 @@
 #include "jk_Collider.h"
 #include "jk_Resources.h"
 #include "jk_Object.h"
+#include "jk_Snake_Last_Body.h"
+#include "jk_Image.h"
+#include "jk_Time.h"
 
 namespace jk
 {
 	Snake_Tail::Snake_Tail(Snake_Last_Body* set)
-		: Body_end(set)
-		, CurPos(0.f, 0.f)
+		: mBody_end(set)
+		, mCurPos(0.f, 0.f)
 		, tr(nullptr)
-		, prevPositions()
 		, mImage(nullptr)
 		, mAnimator(nullptr)
 		, mState(eSnake::Right)
@@ -23,10 +25,9 @@ namespace jk
 	{
 	}
 	Snake_Tail::Snake_Tail()
-		: Body_end(nullptr)
-		, CurPos(0.f, 0.f)
+		: mBody_end(nullptr)
+		, mCurPos(0.f, 0.f)
 		, tr(nullptr)
-		, prevPositions()
 		, mImage(nullptr)
 		, mAnimator(nullptr)
 		, mState(eSnake::Right)
@@ -57,10 +58,10 @@ namespace jk
 	void Snake_Tail::Update()
 	{
 
-		Body_State = Body_end->Get_Snake_state();
+		Body_State = mBody_end->Get_Snake_state();
 		if (GetLife() == true)
 		{
-			CurPos = Body_end->GetNextPosition();
+			mCurPos = mBody_end->Gepos();
 		}
 
 
@@ -102,13 +103,13 @@ namespace jk
 
 	void Snake_Tail::right()
 	{
-		tr->SetPos(Vector2(CurPos.x - 135.f, CurPos.y - 10.f));
+		tr->SetPos(Vector2(mCurPos.x - 135.f, mCurPos.y - 10.f));
 
 		if (Body_State == Snake_Last_Body::eSnake::Left)
 		{
 			
-			CurPos = Body_end->GetteurnPOs();
-			tr->SetPos(Vector2(CurPos.x + 135.f, CurPos.y - 10.f));
+			mCurPos = mBody_end->GetteurnPOs();
+			tr->SetPos(Vector2(mCurPos.x + 135.f, mCurPos.y - 10.f));
 			mAnimator->Play(L"LSnake_end", true);
 			mState = eSnake::Left;
 		}
@@ -116,12 +117,12 @@ namespace jk
 	}
 	void Snake_Tail::left()
 	{
-		tr->SetPos(Vector2(CurPos.x + 135.f, CurPos.y + 10.f));
+		tr->SetPos(Vector2(mCurPos.x + 135.f, mCurPos.y + 10.f));
 		if (Body_State == Snake_Last_Body::eSnake::Right)
 		{
 			
-			CurPos = Body_end->GetteurnPOs();
-			tr->SetPos(Vector2(CurPos.x - 135.f, CurPos.y + 10.f));
+			mCurPos = mBody_end->GetteurnPOs();
+			tr->SetPos(Vector2(mCurPos.x - 135.f, mCurPos.y + 10.f));
 			mAnimator->Play(L"RSnake_end", true);
 			mState = eSnake::Right;
 		}

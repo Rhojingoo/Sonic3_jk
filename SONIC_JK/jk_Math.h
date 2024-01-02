@@ -254,8 +254,8 @@ struct Vector2
 
 namespace jk::math
 {
-	//float x = dir.x * cosf(PI / 5.0f) - dir.y * sinf(PI / 5.0f);
-	//float y = dir.x * sinf(PI / 5.0f) + dir.y * cosf(PI / 5.0f);
+	//float x = mDir.x * cosf(PI / 5.0f) - mDir.y * sinf(PI / 5.0f);
+	//float y = mDir.x * sinf(PI / 5.0f) + mDir.y * cosf(PI / 5.0f);
 
 	inline static Vector2 Rotate(Vector2 vector, float degree)
 	{

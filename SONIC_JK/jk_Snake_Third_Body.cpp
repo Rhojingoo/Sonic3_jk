@@ -8,14 +8,15 @@
 #include "jk_Collider.h"
 #include "jk_Resources.h"
 #include "jk_Object.h"
-
+#include "jk_Snake_Second_Body.h"
+#include "jk_Image.h"
+#include "jk_Time.h"
 
 namespace jk
 {
 	Snake_Third_Body::Snake_Third_Body(Snake_Second_Body* ob)
-		: Body_2(ob)
-		, CurPos()
-		, prevPositions()
+		: mBody_2(ob)
+		, mCurPos()
 		, tr(nullptr)
 		, mImage(nullptr)
 		, mAnimator(nullptr)
@@ -24,9 +25,8 @@ namespace jk
 	{
 	}
 	Snake_Third_Body::Snake_Third_Body()
-		: Body_2()
-		, CurPos()
-		, prevPositions()
+		: mBody_2()
+		, mCurPos()
 		, tr(nullptr)
 		, mImage(nullptr)
 		, mAnimator(nullptr)
@@ -59,25 +59,11 @@ namespace jk
 	void Snake_Third_Body::Update()
 	{
 	
-		Body2_State = Body_2->Get_Snake_state();
+		Body2_State = mBody_2->Get_Snake_state();
 		if (GetLife() == true)
 		{
-			CurPos = Body_2->GetNextPosition();
+			mCurPos = mBody_2->Gepos(); 
 		}
-
-		//if (GetLife() == false)
-		//	prevPositions.empty();
-
-		prevPositions.push_back(CurPos);
-
-		// 저장할 위치 수를 제한 (예: 몸통 길이에 따라)
-		while (prevPositions.size() > 5) {
-			prevPositions.pop_front();
-		}
-
-
-
-
 
 
 		switch (mState)
@@ -117,13 +103,13 @@ namespace jk
 
 	void Snake_Third_Body::right()
 	{
-		tr->SetPos(Vector2(CurPos.x - 100.f, CurPos.y - 10.f));
+		tr->SetPos(Vector2(mCurPos.x - 100.f, mCurPos.y - 10.f));
 
 		if (Body2_State == Snake_Second_Body::eSnake::Left)
 		{
 
-			CurPos = Body_2->GetteurnPOs();
-			tr->SetPos(Vector2(CurPos.x + 100.f, CurPos.y - 10.f));
+			mCurPos = mBody_2->GetteurnPOs();
+			tr->SetPos(Vector2(mCurPos.x + 100.f, mCurPos.y - 10.f));
 			mAnimator->Play(L"LSnake_body_third", true);
 			mState = eSnake::Left;
 		}
@@ -131,27 +117,18 @@ namespace jk
 
 	void Snake_Third_Body::left()
 	{
-		tr->SetPos(Vector2(CurPos.x + 100.f, CurPos.y + 10.f));
+		tr->SetPos(Vector2(mCurPos.x + 100.f, mCurPos.y + 10.f));
 		if (Body2_State == Snake_Second_Body::eSnake::Right)
 		{
 			
-			CurPos = Body_2->GetteurnPOs();
-			tr->SetPos(Vector2(CurPos.x - 100.f, CurPos.y + 10.f));
+			mCurPos = mBody_2->GetteurnPOs();
+			tr->SetPos(Vector2(mCurPos.x - 100.f, mCurPos.y + 10.f));
 			mAnimator->Play(L"RSnake_body_third", true);
 			mState = eSnake::Right;
 		}
 
 	}
 
-	Vector2 Snake_Third_Body::GetNextPosition()
-	{
-		if (!prevPositions.empty()) {
-			Vector2 nextPos = prevPositions.front();
-			prevPositions.pop_front();
-			return nextPos;
-		}
-		return Vector2(); // 또는 오류 값 반환
-	}
 	void Snake_Third_Body::deth()
 	{
 		jk::object::Destory(this);

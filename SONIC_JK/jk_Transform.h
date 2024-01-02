@@ -17,7 +17,7 @@ namespace jk
 
 		void SetPos(Vector2 pos) { mPos = pos; }		
 		void SetScale(Vector2 scale) { mScale = scale; }
-		//void SetDir(int dir) { Dir = dir; }
+		//void SetDir(int mDir) { Dir = mDir; }
 		Vector2 GetPos() { return mPos; }
 		Vector2 GetScale() { return mScale; }
 	

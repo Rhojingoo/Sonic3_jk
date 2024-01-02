@@ -1,23 +1,20 @@
 #pragma once
 #include "jk_Snake.h"
-#include "jk_Snake_First_Body.h"
-#include "jk_Image.h"
-#include "jk_Time.h"
-
 
 namespace jk
 {
+	class Snake_Head;
+	class Image;
 	class Animator;
 	class Snake_Second_Body : public Snake
 	{
-		Snake_First_Body* _Head;
 	public:
 		enum class eSnake
 		{
 			Right,			
 			Left,					
 		};
-		Snake_Second_Body(Snake_First_Body* ob);
+		Snake_Second_Body(Snake_Head* ob);
 		Snake_Second_Body();
 		~Snake_Second_Body();
 
@@ -34,20 +31,19 @@ namespace jk
 		void left();
 
 		eSnake Get_Snake_state() { return mState; }
-		Vector2 GetNextPosition();
-		Vector2 GetteurnPOs() { return CurPos; }
+		Vector2 Gepos() { return mCurPos; }
+		Vector2 GetteurnPOs() { return mCurPos; }
 
 	private:	
-		Snake_First_Body* Body_1;
-		std::deque<Vector2> prevPositions;
-		Vector2 CurPos;
+		Snake_Head* mBody_1;
+		Vector2 mCurPos;
 		Transform* tr;
 
 		Image* mImage;
 		Animator* mAnimator;		
 		eSnake mState;
 		Snake_Second_Body::eSnake Snake_State;
-		Snake_First_Body::eSnake Body1_State;
+		Snake_Head::eSnake Body1_State;
 		
 	};
 }

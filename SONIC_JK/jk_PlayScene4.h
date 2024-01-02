@@ -1,10 +1,11 @@
 #pragma once
 #include "jk_Scene.h"
-#include "jk_Sound.h"
-#include "jk_Image.h"
+
 
 namespace jk
 {
+	class Image;
+	class Sound;
 	class Deatht_line_act6;
 	class Ending_boss;
 	class Boss_trash;
@@ -47,40 +48,40 @@ namespace jk
 	private:
 		Pixel_Ground* playgr;
 		Sonic* mSonic;
-		Tails* mtails;
-		First_Boss* boss_first;
-		Robotnic_machine* fly_machine;
-		Second_Boss* second_boss;	
-		finall_stage* stage_final;
-		Boss_Arm* boss_arm;
-		Third_Boss* last_boss;
-		act6_sky1* sky1;
-		Boss_trash* trash;
-		Ending_boss* end_boss;
-		Deatht_line_act6* death_line;
+		Tails* mTails;
+		First_Boss* mFirst_Boss;
+		Robotnic_machine* mRobotnic_machine;
+		Second_Boss* mSecond_Boss;	
+		finall_stage* mFinall_stage;
+		Boss_Arm* mBoss_Arm;
+		Third_Boss* mThird_Boss;
+		act6_sky1* mAct6_sky1;
+		Boss_trash* mBoss_trash;
+		Ending_boss* mEnding_boss;
+		Deatht_line_act6* mDeatht_line_act6;
 
 
 	private:
-		Sound* Boss_start;
-		Sound* Act6_music;
-		Sound* Rocket_Start;
-		Sound* Last_Boss_f;
-		Sound* Stage_bomb;
-		Sound* Ending;
+		Sound* mBoss_start;
+		Sound* mAct6_music;
+		Sound* mRocket_Start;
+		Sound* mLast_Boss_f;
+		Sound* mStage_bomb;
+		Sound* mEnding;
 
 
 		//ø’√‚«ˆ
-		int Camera_Switch;
-		int check_boss;
-		int frame_check;
-		int Boss_Death_point;
-		int map_lotation;
-		int BOSS2_Start;
-		int BOSS3_Start;
-		int Boss_end;
-		int arm_lotaion;
-		int dir;
-		int check_map;
-		float time;
+		int mCamera_Switch;
+		int mCheck_boss;
+		int mFrame_check;
+		int mBoss_Death_point;
+		int mMap_lotation;
+		int mBOSS2_Start;
+		int mBOSS3_Start;
+		int mBoss_end;
+		int mArm_lotaion;
+		int mDir;
+		int mCheck_map;
+		float mTime;
 	};
 }
