@@ -17,6 +17,37 @@
 <br>
 
 
+## 게임 개발시 주요내용
+
+
+<div align="center">
+  <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/76926a15-030d-4d8a-858d-a4d9e096be5c" height="300px" width="500px"/>
+</div>
+<br>
+<br>
+<br>
+<div align="center">
+  <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/e8b23171-e0af-4971-9c5c-c959795e21f3" height="300px" width="500px"/>
+</div>
+<br>
+<br>
+<br>
+<div align="center">
+  <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/3cd966c6-3b98-4016-8ad8-874831c90d15" height="300px" width="500px"/>
+</div>
+<br>
+<br>
+<br>
+<div align="center">
+  <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/0ae50491-b92d-4ae1-b959-b7681fe04a2d" height="300px" width="500px"/>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
 ## KEY Manual
 →방향키 : 오른쪽이동
 
@@ -89,5 +120,6 @@ Resources폴더안에 새로운 Resources폴더가 생기게 되있는데,<br>
 <br>
 <br>
 <br>
+
 
 
