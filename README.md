@@ -44,6 +44,12 @@
 <br>
 <br>
 <br>
+<div align="center">
+  <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/a9d0752c-6f91-4073-9ed6-2be05124bffa" height="300px" width="500px"/>
+</div>
+<br>
+<br>
+<br>
 <br>
 <br>
 
@@ -120,6 +126,8 @@ Resources폴더안에 새로운 Resources폴더가 생기게 되있는데,<br>
 <br>
 <br>
 <br>
+
+
 
 
 
