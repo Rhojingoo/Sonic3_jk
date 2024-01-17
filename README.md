@@ -1,11 +1,12 @@
 # API_Portfolio
 
 ### Project : SONIC3
-<div style="float: left">
-  <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/45d4e1fe-041c-4a11-9e39-16bb193e0e39" height="300px" width="750px"/>
+<div align="center">
+  <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/51d0e031-e715-4a41-80b3-fa31f186724f" height="400px" width="850px"/>
 </div>
-<br>
-<br>
+<div align="center">
+  <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/6df5fba8-ee68-4947-8f99-0e75472ac48b" height="150px" width="150px"/>
+</div>  
 <div align="center">
 [PLAY영상 바로가기]<br>
   (https://youtu.be/rUIf6ITWalU/)
