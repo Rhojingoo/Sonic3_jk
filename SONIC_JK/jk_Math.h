@@ -1,5 +1,6 @@
 #pragma once
 #include <math.h>
+#include <random>
 #define PI 3.141592
 
 #define GROUNDCOLOR						RGB(0, 0, 0)
@@ -12,6 +13,8 @@
 
 #define GROUNDYELLO_LOOPCOURSE_RIGHT	RGB(255, 255, 0)
 #define GROUNDBLUE_LOOPCOURSE_LEFT		RGB(0, 0, 255)
+
+
 
 
 struct Vector2
@@ -269,6 +272,13 @@ namespace jk::math
 		return Vector2(x, y);
 	}
 
+	float RandomFloat(float min, float max)
+	{
+		std::random_device rd;
+		std::mt19937 gen(rd());
+		std::uniform_real_distribution<float> dis(min, max);
+		return dis(gen);
+	}
 
 	inline static float Dot(Vector2& v1, Vector2& v2)
 	{

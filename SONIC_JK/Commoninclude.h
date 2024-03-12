@@ -18,7 +18,7 @@
 #include <assert.h>
 
 
-#include <random>// 최소값(min)과 최대값(max) 사이의 무작위 부동소수점 값을 반환하는 함수
+//#include <random>// 최소값(min)과 최대값(max) 사이의 무작위 부동소수점 값을 반환하는 함수
 
 
 #pragma comment(lib, "Msimg32.lib")   //소닉캐릭터 배경이미 삭제할떄 필요 

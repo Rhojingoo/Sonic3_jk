@@ -43,6 +43,7 @@ namespace jk
 		Vector2 mGravity;
 		float mFriction;
 		bool mbGround;
+		float MaxSpeed;
 	};
 }
 

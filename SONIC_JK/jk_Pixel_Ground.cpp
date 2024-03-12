@@ -1,5 +1,6 @@
 #include "jk_Pixel_Ground.h"
 
+#include "jk_Image.h"
 #include "jk_Transform.h"
 #include "Rigidbody.h"
 #include "jk_Collider.h"
@@ -303,78 +304,61 @@ namespace jk
 	{
 		Vector2 playerPos = mPlayerTR->GetPos();
 		Image* selectedImage = (mMap_Check == 0) ? mCicle_Rturn : mCicle_Rturn2;
-		COLORREF color_Right = static_cast<int>(selectedImage->GetPixel(static_cast<int>(playerPos.x + 100.f), static_cast<int>(playerPos.y + 50.f)));
+		float Xrevice = 100.0f;
+		float Yrevice = 50.0f;
+
+		
+		COLORREF color_Right = static_cast<int>(selectedImage->GetPixel(static_cast<int>(playerPos.x + Xrevice), static_cast<int>(playerPos.y + Yrevice)));
 		if (mRotationcheck == GROUNDCOLOR && color_Right == GROUNDBLUE_LOOPCOURSE_LEFT)
 		{
-			mDirect = 1;
+			mDirect = Right;
 		}
 
-		COLORREF  color_Left = static_cast<int>(selectedImage->GetPixel(static_cast<int>(playerPos.x), static_cast<int>(playerPos.y + 50.f)));
+		COLORREF  color_Left = static_cast<int>(selectedImage->GetPixel(static_cast<int>(playerPos.x), static_cast<int>(playerPos.y + Yrevice)));
 		if (mRotationcheck == GROUNDCOLOR && color_Left == GROUNDYELLO_LOOPCOURSE_RIGHT)
 		{
-			mDirect = -1;
+			mDirect = Left;
 		}	
 	}
 
 
-	//if (mMap_Check == 0)
-	//{
-	//	COLORREF color_Right = static_cast<int>(mCicle_Rturn->GetPixel(static_cast<int>(playerPos.x + 100.f), static_cast<int>(playerPos.y + 50.f)));
-	//	if (mRotationcheck == GROUNDCOLOR && color_Right == GROUNDBLUE_LOOPCOURSE_LEFT)
-	//	{
-	//		mDirect = 1;
-	//	}
-	//	COLORREF  color_Left = static_cast<int>(mCicle_Rturn->GetPixel(static_cast<int>(playerPos.x), static_cast<int>(playerPos.y + 50.f)));
-	//	if (mRotationcheck == GROUNDCOLOR && color_Left == GROUNDYELLO_LOOPCOURSE_RIGHT)
-	//	{
-	//		mDirect = -1;
-	//	}
-	//}
-	//if (mMap_Check == 1)
-	//{
-	//	COLORREF color_Right = static_cast<int>(mCicle_Rturn2->GetPixel(static_cast<int>(playerPos.x + 100.f), static_cast<int>(playerPos.y + 50.f)));
-	//	if (mRotationcheck == GROUNDCOLOR && color_Right == GROUNDBLUE_LOOPCOURSE_LEFT) // Input::GetKey(eKeyCode::RIGHT) &&
-	//	{
-	//		mDirect = 1;
-	//	}
-	//	COLORREF  color_Left = static_cast<int>(mCicle_Rturn2->GetPixel(static_cast<int>(playerPos.x), static_cast<int>(playerPos.y + 50.f)));
-	//	if (mRotationcheck == GROUNDCOLOR && color_Left == GROUNDYELLO_LOOPCOURSE_RIGHT)// && Input::GetKey(eKeyCode::LEFT)
-	//	{
-	//		mDirect = -1;
-	//	}
-	//}
 
 
 
 
 	void Pixel_Ground::Loop_Stone()
 	{
-		if (mDirect == 1)
+		if (mDirect == Right)
 		{
-			if (mCirclecheck == 1)
+			if (mCirclecheck == Right)
 			{
-				Check_LoopStoneEnter_R();
+				// 스톤을 만났을때 중력 변경지점
+				Check_LoopStoneEnter_R();			
 			}
 			if (mRotationcheck == mLOOPENTERCOLOR)
 			{
+				// 바뀐중력에 적용되는 그라운드픽셀충돌
 				CheckLoopStartColl_R();
 			}
 			if (mRotationcheck == mLOOPENTERCOLOR)
 			{
+				// 스톤을 만났을때 중력 변경지점
 				Check_MidLoopStone_R();
 			}
 			if (mRotationcheck == mLOOPAFTERHALF)
 			{
+				// 바뀐중력에 적용되는 그라운드픽셀충돌
 				CheckLoopHalfColl_R();
 			}
-			if (mCirclecheck == -1)
+			if (mCirclecheck == Left)
 			{
+				// 스톤을 만났을때 중력 변경지점
 				Check_FinalLoopStone_R();
 			}
 		}
-		else if (mDirect == -1)
+		else if (mDirect == Left)
 		{
-			if (mCirclecheck == -1)
+			if (mCirclecheck == Left)
 			{
 				Check_LoopStoneEnter_L();
 			}
@@ -390,7 +374,7 @@ namespace jk
 			{
 				CheckLoopHalfColl_L();
 			}	
-			if (mCirclecheck == 1)
+			if (mCirclecheck == Right)
 			{
 				Check_FinalLoopStone_L();
 			}
@@ -547,17 +531,20 @@ namespace jk
 
 	void Pixel_Ground::Check_LoopStoneEnter_R()
 	{
+		float Xrevice = 40.0f;
+		float Yrevice = 50.0f;
 		Vector2 playerPos = mPlayerTR->GetPos();
 
 		Image* selectedImage = (mMap_Check == 0) ? mCicle_Rturn : mCicle_Rturn2;
-		COLORREF colorcheck = selectedImage->GetPixel(static_cast<int>(playerPos.x + 40.f), static_cast<int>(playerPos.y + 50.f));
+		COLORREF colorcheck = selectedImage->GetPixel(static_cast<int>(playerPos.x + Xrevice), static_cast<int>(playerPos.y + Yrevice));
 
 		if (colorcheck != STONEGREY_LOOPENTER)
 			return;
 
 		if (mRotationcheck == GROUNDCOLOR)
 		{
-			mPlayerRigidBody->SetGravity(Vector2{ 1500.0f,0.0f });
+			float ChangeGravity = 1500.f;
+			mPlayerRigidBody->SetGravity(Vector2{ ChangeGravity,0.0f });
 			mRotationcheck = mLOOPENTERCOLOR;
 		}
 	}
@@ -567,7 +554,7 @@ namespace jk
 			return;
 
 		Image* selectedImage = (mMap_Check == 0) ? mCicle_Rturn : mCicle_Rturn2;
-
+		int Xrevice = 40;
 		bool LoopStoneMeet = false;
 		Vector2 playerPos = mPlayerTR->GetPos();
 		COLORREF colorcheck;
@@ -577,7 +564,7 @@ namespace jk
 		{
 			for (int j = -30; j < 1; ++j)
 			{
-				colorcheck = selectedImage->GetPixel(static_cast<int>(playerPos.x) + 40 + i, static_cast<int>(playerPos.y) + j);
+				colorcheck = selectedImage->GetPixel(static_cast<int>(playerPos.x) + Xrevice + i, static_cast<int>(playerPos.y) + j);
 				if (colorcheck == STONEORANGE_LOOPHALF)
 				{
 					LoopStoneMeet = true;
@@ -592,9 +579,10 @@ namespace jk
 		else
 		{
 			static int count = 0;
+			float ChangeGravity = -1500.f;
 			Vector2 TempVel;
 			TempVel = mPlayerRigidBody->Getgravity();
-			mPlayerRigidBody->SetGravity(Vector2{ -1500.0f,0.f });
+			mPlayerRigidBody->SetGravity(Vector2{ ChangeGravity,0.f });
 
 			Vector2 curVelocity = mPlayerRigidBody->GetVelocity();
 			mPlayerRigidBody->SetVelocity(Vector2(curVelocity.y * 0.25f, 0.f));
@@ -607,34 +595,24 @@ namespace jk
 	}
 	void Pixel_Ground::Check_FinalLoopStone_R()
 	{
-
+		int Xrevice = 70;
+		int Yrevice = 20;
 		Image* selectedImage = (mMap_Check == 0) ? mCicle_Rturn : mCicle_Rturn2;
 	
-		COLORREF colorcheck = selectedImage->GetPixel(static_cast<int>(mPlayerTR->GetPos().x) + 70, static_cast<int>(mPlayerTR->GetPos().y) + 20);
+		COLORREF colorcheck = selectedImage->GetPixel(static_cast<int>(mPlayerTR->GetPos().x) + Xrevice, static_cast<int>(mPlayerTR->GetPos().y) + Yrevice);
 		if (colorcheck != STONERED_LOOPENTER)
 			return;
 
 		if (mRotationcheck == mLOOPAFTERHALF)
 		{
+			float ChangeGravity = 1000.f;
 			Vector2 TempVel;
 			TempVel = mPlayerRigidBody->Getgravity();
-			mPlayerRigidBody->SetGravity(Vector2{ 0.0f,1000.0f });
+			mPlayerRigidBody->SetGravity(Vector2{ 0.0f,ChangeGravity });
 			mRotationcheck = mGROUND;
 		}
 	}
-	//if (mMap_Check == 1)
-	//{
-	//	COLORREF colorcheck = mCicle_Rturn2->GetPixel(static_cast<int>(mPlayerTR->GetPos().x) + 40, static_cast<int>(mPlayerTR->GetPos().y) + 40);
-	//	if (colorcheck != STONERED_LOOPENTER)
-	//		return;
-	//	if (mRotationcheck == mLOOPAFTERHALF)
-	//	{
-	//		Vector2 TempVel;
-	//		TempVel = mPlayerRigidBody->Getgravity();
-	//		mPlayerRigidBody->SetGravity(Vector2{ 0.0f,1000.0f });
-	//		mRotationcheck = mGROUND;
-	//	}
-	//}
+
 
 	void Pixel_Ground::CheckLoopStartColl_R()
 	{
@@ -702,8 +680,6 @@ namespace jk
 	}
 	void Pixel_Ground::CheckLoopHalfColl_R()
 	{
-		//if (mRotationcheck != mLOOPAFTERHALF)
-		//	return;
 
 		Vector2 playerPos = mPlayerTR->GetPos();
 
@@ -785,47 +761,23 @@ namespace jk
 
 	void Pixel_Ground::Check_LoopStoneEnter_L()
 	{
+		float Xrevice = 40.0f;
+		float Yrevice = 50.0f;
+
 		Vector2 playerPos = mPlayerTR->GetPos();
 		Image* selectedImage = (mMap_Check == 0) ? mCicle_Rturn : mCicle_Rturn2;
-		COLORREF colorcheck = selectedImage->GetPixel(static_cast<int>(playerPos.x + 40), static_cast<int>(playerPos.y + 50));
+		COLORREF colorcheck = selectedImage->GetPixel(static_cast<int>(playerPos.x + Xrevice), static_cast<int>(playerPos.y + Yrevice));
 		if (colorcheck != STONERED_LOOPENTER)
 			return;
 
 		if (mRotationcheck == GROUNDCOLOR)
 		{
 			Vector2 TempVel;
+			float ChangeGravity = -1000.f;
 			TempVel = mPlayerRigidBody->Getgravity();
-			mPlayerRigidBody->SetGravity(Vector2{ -1000.0f,0.0f });
+			mPlayerRigidBody->SetGravity(Vector2{ ChangeGravity,0.0f });
 			mRotationcheck = mLOOPAFTERHALF;
-		}
-		/*if (mMap_Check == 0)
-		{
-			COLORREF colorcheck = mCicle_Lturn->GetPixel(static_cast<int>(playerPos.x + 40), static_cast<int>(playerPos.y + 50));
-			if (colorcheck != STONERED_LOOPENTER)
-				return;
-
-			if (mRotationcheck == GROUNDCOLOR)
-			{
-				Vector2 TempVel;
-				TempVel = mPlayerRigidBody->Getgravity();
-				mPlayerRigidBody->SetGravity(Vector2{ -1000.0f,0.0f });
-				mRotationcheck = mLOOPAFTERHALF;
-			}
-		}
-		if (mMap_Check == 1)
-		{
-			COLORREF colorcheck = mCicle_Lturn2->GetPixel(static_cast<int>(playerPos.x + 40), static_cast<int>(playerPos.y + 50));
-			if (colorcheck != STONERED_LOOPENTER)
-				return;
-
-			if (mRotationcheck == GROUNDCOLOR)
-			{
-				Vector2 TempVel;
-				TempVel = mPlayerRigidBody->Getgravity();
-				mPlayerRigidBody->SetGravity(Vector2{ -1000.0f,0.0f });
-				mRotationcheck = mLOOPAFTERHALF;
-			}
-		}*/
+		}		
 	}
 	void Pixel_Ground::Check_MidLoopStone_L()
 	{
@@ -834,7 +786,6 @@ namespace jk
 		Vector2 playerPos = mPlayerTR->GetPos();
 		COLORREF colorcheck;
 		bool LoopStoneMeet = false;
-
 
 		for (int i = 10; i > 0; --i)
 		{
@@ -855,10 +806,11 @@ namespace jk
 			return;
 		else
 		{
+			float ChangeGravity = 1000.f;
 			static int count = 0;
 			Vector2 TempVel;
 			TempVel = mPlayerRigidBody->Getgravity();
-			mPlayerRigidBody->SetGravity(Vector2{ 1000.0f,0.f });
+			mPlayerRigidBody->SetGravity(Vector2{ ChangeGravity,0.f });
 
 			Vector2 curVelocity = mPlayerRigidBody->GetVelocity();
 			mPlayerRigidBody->SetVelocity(Vector2(curVelocity.y * -0.25f, 0.f));
@@ -873,17 +825,18 @@ namespace jk
 	}
 	void Pixel_Ground::Check_FinalLoopStone_L()
 	{
-
+		float Yrevice = 100.0f;
 		Image* selectedImage = (mMap_Check == 0) ? mCicle_Rturn : mCicle_Rturn2;
-		COLORREF colorcheck = selectedImage->GetPixel(static_cast<int>(mPlayerTR->GetPos().x), static_cast<int>(mPlayerTR->GetPos().y) + 100);
+		COLORREF colorcheck = selectedImage->GetPixel(static_cast<int>(mPlayerTR->GetPos().x), static_cast<int>(mPlayerTR->GetPos().y) + Yrevice);
 		if (colorcheck != STONEGREY_LOOPENTER)
 			return;
 
 		if (mRotationcheck == mLOOPENTERCOLOR)
 		{
+			float ChangeGravity = 1000.f;
 			Vector2 TempVel;
 			TempVel = mPlayerRigidBody->Getgravity();
-			mPlayerRigidBody->SetGravity(Vector2{ 0.0f,1000.0f });
+			mPlayerRigidBody->SetGravity(Vector2{ 0.0f,ChangeGravity });
 			mRotationcheck = mGROUND;
 		}		
 	}

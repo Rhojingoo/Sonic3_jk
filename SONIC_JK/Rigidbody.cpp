@@ -11,6 +11,7 @@ namespace jk
 		,mForce(Vector2::Zero)
 		,mAccelation(Vector2::Zero)
 		,mVelocity(Vector2::Zero)
+		,MaxSpeed(1200.f)
 	{
 		mLimitedVelocity.x = 505.0f;
 		mLimitedVelocity.y = 505.0f;
@@ -56,18 +57,18 @@ namespace jk
 	{
 		mAccelation = mForce / mMass;
 		
-		if (mVelocity.x < 1200.f)
+		if (mVelocity.x < MaxSpeed)
 		{
 			mVelocity += mAccelation * static_cast<float>(Time::DeltaTime());
 		}
-		else if (mVelocity.x >= 1200.f)
+		else if (mVelocity.x >= MaxSpeed)
 		{
 			mVelocity += mAccelation * static_cast<float>(Time::DeltaTime());
-			mVelocity.x = 1200.f;
+			mVelocity.x = MaxSpeed;
 		}
-		if (mVelocity.x <= -1200.f)
+		if (mVelocity.x <= -MaxSpeed)
 		{
-			mVelocity.x = -1200.f;
+			mVelocity.x = -MaxSpeed;
 		}
 	}
 
@@ -85,41 +86,30 @@ namespace jk
 			mVelocity += mGravity * static_cast<float>(Time::DeltaTime());
 		}
 
-
-		//중력가속도 속도제한1
-		if (mVelocity.y < 1200.f)
+		//중력가속도 속도제한
+		if (mVelocity.y < MaxSpeed)
 		{
-			//mVelocity += mAccelation * Time::DeltaTime(); 
 		}
-		else if (mVelocity.y >= 1200.f)
+		else if (mVelocity.y >= MaxSpeed)
 		{
-			mVelocity.y = 1200.f;
+			mVelocity.y = MaxSpeed;
 		}
-		if (mVelocity.y <= -1200.f)
+		if (mVelocity.y <= -MaxSpeed)
 		{
-			mVelocity.y = -1200.f;
+			mVelocity.y = -MaxSpeed;
 		}
-		
-		//중력가속도 최대 속도제한2
-		//Vector2 gravity = mGravity;							
-		//gravity.Normalize();
-		//float dot = math::Dot(mVelocity, gravity);
-		//gravity = gravity * dot;
-		//Vector2 sideVelocity = mVelocity - gravity;
-		//if (mLimitedVelocity.x < sideVelocity.Length())
-		//{
-		//	sideVelocity.Normalize();
-		//	sideVelocity *= mLimitedVelocity.x;
-		//}
 	}
 
 	void Rigidbody::Friction_management()
 	{	
-		if (!(mVelocity == Vector2::Zero))						//마찰력조건(적용된 힘이 없고, 속도가 0이아님)
+		if (!(mVelocity == Vector2::Zero))	//마찰력조건(적용된 힘이 없고, 속도가 0이아님)					
 		{			
-			Vector2 friction = -mVelocity;						//속도에 반대방향으로 마찰력이 적용
+			//속도에 반대방향으로 마찰력이 적용
+			Vector2 friction = -mVelocity;						
 			friction = friction.Normalize() * mFriction * mMass * static_cast<float>(Time::DeltaTime());			
-			if (mVelocity.Length() < friction.Length())			//마찰력으로 인한 속도 감소는 현재 속도보다 큰경우
+			
+			//마찰력으로 인한 속도 감소는 현재 속도보다 큰경우
+			if (mVelocity.Length() < friction.Length())			
 			{
 				mVelocity = Vector2::Zero;
 			}

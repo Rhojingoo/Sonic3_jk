@@ -19,13 +19,7 @@
 
 
 
-float Random_rock(float min, float max)
-{
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_real_distribution<float> dis(min, max);
-	return dis(gen);
-}
+
 
 
 namespace jk
@@ -92,22 +86,6 @@ namespace jk
 		Rigidbody* ROCK_rb = GetComponent<Rigidbody>();
 		mGroundImage = check->GetGroundImage();
 
-		//if (ROCK_TR && ROCK_rb && mGroundImage)
-		//{
-		//	Vector2 ROCK_ps = ROCK_TR->GetPos();
-		//	COLORREF RING_Color = mGroundImage->GetPixel(static_cast<int>(ROCK_ps.x), static_cast<int>(ROCK_ps.y)+55);
-		//	if (RING_Color == RGB(0, 0, 0))
-		//	{
-		//		ROCK_rb->SetGround(true);
-		//		while (RING_Color == RGB(0, 0, 0))
-		//		{
-		//			ROCK_ps.y -= 1;
-		//			//RING_Color = mGroundImage->GetPixel(ROCK_ps.x, ROCK_ps.y+55);
-		//			ROCK_TR->SetPos(ROCK_ps);
-		//			mCheckGR = 1;
-		//		}
-		//	}		
-		//}
 
 		if (ROCK_TR && ROCK_rb && mGroundImage)
 		{
@@ -161,7 +139,7 @@ namespace jk
 
 				for (int i = 0; i < numRings; ++i)
 				{
-					float angle = Random_rock(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+					float angle = jk::math::RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
 					Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
 
 					Rock_Pice* Rock_pice = new Rock_Pice();

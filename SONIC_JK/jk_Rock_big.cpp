@@ -19,13 +19,7 @@
 
 
 
-float Random_big_rock(float min, float max)
-{
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_real_distribution<float> dis(min, max);
-	return dis(gen);
-}
+
 
 namespace jk
 {
@@ -146,7 +140,7 @@ namespace jk
 
 				for (int i = 0; i < numRings; ++i)
 				{
-					float angle = Random_big_rock(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+					float angle = jk::math::RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
 					Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
 
 					Rock_Pice* Rock_pice = new Rock_Pice();

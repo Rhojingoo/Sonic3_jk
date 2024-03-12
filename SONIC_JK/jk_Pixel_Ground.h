@@ -3,6 +3,7 @@
 
 namespace jk
 {
+	class Image;
 	class Rigidbody;
 	class Pixel_Ground : public Gameobject
 	{
@@ -26,10 +27,10 @@ namespace jk
 		
 		void SetLotation(const int rotaion) {	mRotationcheck = rotaion;}
 
-		class Image* GetGroundImage();
-		class Image* GetGroundImage2();
-		class Image* GetGroundImage3();
-		class Image* GetGroundImage4();
+		Image* GetGroundImage();
+		Image* GetGroundImage2();
+		Image* GetGroundImage3();
+		Image* GetGroundImage4();
 
 
 	public:
@@ -99,6 +100,8 @@ namespace jk
 		class Collider* mCollider;
 		int mMap_Check;
 		int mGroundCheck;
+		const int Right = 1;
+		const int Left = -1;
 
 	private://외부에서 서클센터바꾸기		
 		Vector2 mCircle1_Center;

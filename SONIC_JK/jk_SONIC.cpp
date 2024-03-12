@@ -7,7 +7,6 @@
 #include "jk_Sound.h"
 #include "jk_Image.h"
 
-#include <random>
 #include "jk_Time.h"
 #include "jk_SceneManager.h"
 #include "jk_Input.h"
@@ -81,13 +80,6 @@ int Fire = 0;
 int LIFE_Point = 0;
 
 
-float RandomFloat(float min, float max)
-{
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_real_distribution<float> dis(min, max);
-	return dis(gen);
-}
 
 namespace jk
 {
@@ -2001,55 +1993,7 @@ namespace jk
 		}
 
 
-		//if (mLoopenter == true)
-		//{
-		//#pragma region 원돌기 공식
-		//{
-		//	//Vector2 mCenterpos = Vector2(2790.0f * 3, 2700.f);
-		//	Vector2 mCenterpos = Vector2(20229.f, 3346.f);
-
-		//	Transform* mTr = GetComponent<Transform>();
-		//	Vector2 mPos = mTr->GetPos();
-
-		//	float centerX = mCenterpos.x;
-		//	float centerY = mCenterpos.y;
-		//	float radius = 220.0f;
-
-		//	mSonicVelocity = mRigidbody->Velocity();
-
-		//	if (Input::GetKey(eKeyCode::LEFT))
-		//	{
-		//		mAngle += 200.f * static_cast<float>(Time::DeltaTime());
-		//		//여기부분을-로바꾸면앞으로+는뒤로
-		//		float radian = mAngle * 3.14f / 180.0f;
-
-
-		//		float x = centerX + radius * cos(radian);
-		//		float y = centerY + radius * sin(radian);
-		//		mPos.x = x;
-		//		mPos.y = y;
-
-		//		mTr->SetPos(mPos);
-		//	}
-		//	if (Input::GetKey(eKeyCode::RIGHT))
-		//	{
-		//		mAngle -= 200.f * static_cast<float>(Time::DeltaTime());
-		//		//여기부분을-로바꾸면앞으로+는뒤로
-		//		float radian = mAngle * 3.14f / 180.0f;
-
-
-		//		float x = centerX + radius * cos(radian);
-		//		float y = centerY + radius * sin(radian);
-		//		mRigidbody->SetVelocity(Vector2(x, y));
-
-		//		mPos.x = x;
-		//		mPos.y = y;
-
-		//		mTr->SetPos(mPos);
-		//	}
-		//}
-		//#pragma endregion 
-		//}
+		
 	}
 
 	void Sonic::dash()
@@ -3475,7 +3419,7 @@ namespace jk
 
 		for (int i = 0; i < mRingcheck; ++i)
 		{
-			float angle = RandomFloat(minAngle, maxAngle);
+			float angle = jk::math::RandomFloat(minAngle, maxAngle);
 			Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
 
 			Ring_Falling* ring = new Ring_Falling(this);
@@ -3508,7 +3452,7 @@ namespace jk
 
 		for (int i = 0; i < numRings; ++i)
 		{
-			float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+			float angle = jk::math::RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
 			Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
 
 			Ring_Falling* ring = new Ring_Falling(this);
@@ -3543,7 +3487,7 @@ namespace jk
 
 		for (int i = 0; i < numRings; ++i)
 		{
-			float angle = RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+			float angle = jk::math::RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
 			Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
 
 			Ring_Falling* ring = new Ring_Falling(this);
