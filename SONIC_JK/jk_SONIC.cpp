@@ -3419,7 +3419,7 @@ namespace jk
 
 		for (int i = 0; i < mRingcheck; ++i)
 		{
-			float angle = jk::math::RandomFloat(minAngle, maxAngle);
+			float angle = math::RandomFloat(minAngle, maxAngle);
 			Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle);
 
 			Ring_Falling* ring = new Ring_Falling(this);
@@ -3452,7 +3452,7 @@ namespace jk
 
 		for (int i = 0; i < numRings; ++i)
 		{
-			float angle = jk::math::RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+			float angle = math::RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
 			Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
 
 			Ring_Falling* ring = new Ring_Falling(this);
@@ -3487,7 +3487,7 @@ namespace jk
 
 		for (int i = 0; i < numRings; ++i)
 		{
-			float angle = jk::math::RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
+			float angle = math::RandomFloat(minAngle, maxAngle); // 떨어지는 각도를 랜덤하게 결정							
 			Vector2 dropDirection = math::Rotate(Vector2{ 0.f,-1.f }, angle); // 떨어지는 방향 벡터를 구함
 
 			Ring_Falling* ring = new Ring_Falling(this);

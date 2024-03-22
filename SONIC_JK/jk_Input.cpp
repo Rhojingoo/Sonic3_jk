@@ -57,30 +57,6 @@ namespace jk
 				mKeys[i].bPressed = false;
 			}
 		}
-
-
-		//if (GetAsyncKeyState(VK_SPACE) & 0x8000)
-		//{
-		//	// 이전 프레임에도 눌려 있었다
-		//	if (spKey.bPressed)
-		//		spKey.state = eKeyState::Pressed;
-		//	else
-		//		spKey.state = eKeyState::Down;
-
-		//	spKey.bPressed = true;
-		//}
-		//else // 현재 프레임에 키가 눌려있지 않다.
-		//{
-		//	// 이전 프레임에 내키가 눌려있엇다.
-		//	if (spKey.bPressed)
-		//		spKey.state = eKeyState::Up;
-		//	else
-		//		spKey.state = eKeyState::None;
-
-		//	spKey.bPressed = false;
-		//}
-
-
 	}
 
 	void Input::Render(HDC hdc)

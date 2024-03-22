@@ -2,6 +2,10 @@
 //
 
 #include "framework.h"
+
+#include <filesystem> 
+#include <windows.h>
+
 #include "SONIC_jk.h"
 #include"jk_Application.h"
 #include "jk_SceneManager.h"
@@ -23,6 +27,7 @@ WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름�
 jk::Application application;
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
+
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -44,6 +49,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // 전역 문자열을 초기화합니다.
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
+    wcscpy_s(szTitle, L"Sonic3");
     LoadStringW(hInstance, IDC_SONICJK, szWindowClass, MAX_LOADSTRING);
     MyRegisterClass(hInstance);
 
@@ -101,6 +107,27 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 //
 ATOM MyRegisterClass(HINSTANCE hInstance)
 {
+    HICON mhIcon = nullptr;
+
+    std::filesystem::path  Path = std::filesystem::current_path();
+    std::filesystem::path CurePath = Path.parent_path();
+    CurePath /= "Resources";
+    CurePath /= "Sonic.ico";
+    std::wstring IconPath = CurePath.wstring();
+
+    mhIcon = (HICON)LoadImage( // returns a HANDLE so we have to cast to HICON
+        NULL,             // hInstance must be NULL when loading from a file
+        IconPath.data(),   // the icon file name
+        IMAGE_ICON,       // specifies that the file is an icon
+        0,                // width of the image (we'll specify default later on)
+        0,                // height of the image
+        LR_LOADFROMFILE |  // we want to load a file (as opposed to a resource)
+        LR_DEFAULTSIZE |   // default metrics based on the type (IMAGE_ICON, 32x32)
+        LR_SHARED         // let the system release the handle when it's no longer used
+    );
+
+
+
     WNDCLASSEXW wcex;
 
     wcex.cbSize = sizeof(WNDCLASSEX);
@@ -109,12 +136,12 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = 0;
     wcex.hInstance = hInstance;
-    wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDC_SONICJK));
+    wcex.hIcon = mhIcon;
     wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
-    wcex.lpszMenuName = MAKEINTRESOURCEW(IDC_SONICJK);
+    wcex.lpszMenuName = nullptr;
     wcex.lpszClassName = szWindowClass;
-    wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
+    wcex.hIconSm = nullptr;
 
     return RegisterClassExW(&wcex);
 }
