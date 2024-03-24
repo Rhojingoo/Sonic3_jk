@@ -21,7 +21,7 @@
 ## 게임 개발시 주요내용
 
 <div align="center">
-  <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/f9adf5ab-a20e-48ca-8aac-fed8e11d5b4d" height="300px" width="500px"/>
+  <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/8a1c29ba-a201-45eb-adef-ba6ddf562d1b" height="300px" width="500px"/>
 </div>
 <br>
 <div align="center">
@@ -32,13 +32,13 @@
 <br>
 
 <div align="center">
-  <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/76926a15-030d-4d8a-858d-a4d9e096be5c" height="300px" width="500px"/>
+  <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/895cd633-5ec2-4997-9113-34dbb9a27a86" height="300px" width="500px"/>
 </div>
 <br>
 <br>
 <br>
 <div align="center">
-  <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/e8b23171-e0af-4971-9c5c-c959795e21f3" height="300px" width="500px"/>
+  <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/d91bc103-dde5-4cff-b235-ffe6d55931fe" height="300px" width="500px"/>
 </div>
 <br>
 <br>
@@ -50,13 +50,61 @@
 <br>
 <br>
 <div align="center">
-  <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/0ae50491-b92d-4ae1-b959-b7681fe04a2d" height="300px" width="500px"/>
+  <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/dc86dfeb-3b80-472d-bd98-3e8f6487bcb5" height="300px" width="500px"/>
 </div>
 <br>
 <br>
 <br>
 <div align="center">
-  <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/a9d0752c-6f91-4073-9ed6-2be05124bffa" height="300px" width="500px"/>
+  <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/33b7226c-7e07-4542-a30d-e1b8ae7813cd" height="300px" width="500px"/>
+</div>
+<br>
+<br>
+<br>
+<div align="center">
+  <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/06f17e04-db42-4be4-9ac8-f627ea898cdb" height="300px" width="500px"/>
+</div>
+<br>
+<br>
+<br>
+<div align="center">
+  <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/6fc6b7b7-8766-42b0-8fbf-0f25f8297baa" height="300px" width="500px"/>
+</div>
+<br>
+<br>
+<br>
+<div align="center">
+  <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/8b448b39-6228-4ea1-acf1-a0e80c437186" height="300px" width="500px"/>
+</div>
+<br>
+<br>
+<br>
+<div align="center">
+  <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/b162389f-d037-4af4-8c71-099dde99604d" height="300px" width="500px"/>
+</div>
+<br>
+<br>
+<br>
+<div align="center">
+  <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/d3c7392d-bb37-4790-8ef4-7ed9b405899e" height="300px" width="500px"/>
+</div>
+<br>
+<br>
+<br>
+<div align="center">
+  <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/d5d5ec1e-3dfc-440f-b8af-9fc99624f856" height="300px" width="500px"/>
+</div>
+<br>
+<br>
+<br>
+<div align="center">
+  <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/c2825b5e-5109-4932-9fd7-8df882f34cc8" height="300px" width="500px"/>
+</div>
+<br>
+<br>
+<br>
+<div align="center">
+  <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/4e60378b-5175-4a37-820c-d6187b5f3c97" height="300px" width="500px"/>
 </div>
 <br>
 <br>
