@@ -4,6 +4,7 @@
 
 namespace jk
 {
+	class Sonic;
 	class Image;
 	class Animator;
 	class WaterSonic : public Gameobject
