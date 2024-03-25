@@ -1,6 +1,5 @@
 #pragma once
 #include "jk_BackGround.h"
-#include "jk_SONIC.h"
 
 namespace jk
 {

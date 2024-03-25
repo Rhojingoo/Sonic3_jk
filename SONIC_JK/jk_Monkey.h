@@ -1,13 +1,8 @@
 #pragma once
 #include "jk_Monster.h"
-#include "jk_Sonic.h"
-#include "jk_Tails.h"
 
 namespace jk
 {
-	class Tails;
-	class Sonic;
-	class Pixel_Ground;
 	class Monkey : public Monster
 	{
 	public:

@@ -1,11 +1,9 @@
 #pragma once
 #include "jk_Boss.h"
-#include "jk_SONIC.h"
 
 
 namespace jk
 {
-	class Sonic;
 	class Sound;
 	class Image;
 	class Rigidbody;
