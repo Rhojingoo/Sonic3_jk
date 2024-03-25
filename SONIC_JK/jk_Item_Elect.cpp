@@ -4,7 +4,7 @@
 #include "jk_Animator.h"
 #include "jk_Collider.h"
 #include "jk_Resources.h"
-#include "jk_SONIC.h"
+
 #include "jk_Image.h"
 
 namespace jk

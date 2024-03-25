@@ -55,7 +55,7 @@ namespace jk
 
 	void Rigidbody::Speed_Manegement()
 	{
-		//mAccelation = mForce / mMass;
+		mAccelation = mForce / mMass;
 		
 		if (mVelocity.x < MaxSpeed)
 		{
