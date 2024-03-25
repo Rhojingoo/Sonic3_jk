@@ -3,6 +3,7 @@
 
 namespace jk
 {
+
 	class Bullet : public Gameobject
 	{
 	public:
@@ -22,7 +23,6 @@ namespace jk
 		Vector2 Getpos_bullet() { return _pos; }
 
 	private:
-		Transform* tr = nullptr;
 		Vector2 _pos = {};
 	};
 }

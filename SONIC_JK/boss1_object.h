@@ -3,6 +3,7 @@
 
 namespace jk
 {
+	class Rigidbody;
 	class Image;
 	class Sound;
 	class Pixel_Ground;

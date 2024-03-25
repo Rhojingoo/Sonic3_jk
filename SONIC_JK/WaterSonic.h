@@ -1,6 +1,6 @@
 #pragma once
 #include "jk_Gameobject.h"
-
+#include "jk_SONIC.h"
 
 namespace jk
 {

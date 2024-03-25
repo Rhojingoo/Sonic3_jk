@@ -6,6 +6,7 @@
 #include "jk_Transform.h"
 #include "jk_Collider.h"
 #include "jk_Resources.h"
+#include "jk_Time.h"
 
 double TimeSinceStartup()
 {

@@ -1,5 +1,7 @@
 #pragma once
 #include "jk_Monster.h"
+#include "jk_SONIC.h"
+#include "jk_Tails.h"
 
 namespace jk
 {

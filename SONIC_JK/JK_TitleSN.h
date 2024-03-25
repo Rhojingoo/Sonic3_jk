@@ -1,4 +1,5 @@
 #pragma once
+#include "jk_BackGround.h"
 
 namespace jk
 {

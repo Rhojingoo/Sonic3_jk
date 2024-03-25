@@ -1,5 +1,7 @@
 #pragma once
 #include "jk_Monster.h"
+#include "jk_SONIC.h"
+#include "jk_Tails.h"
 
 namespace jk
 {
@@ -27,8 +29,8 @@ namespace jk
 		virtual void OnCollisionExit(class Collider* other) override;
 
 
-		void SetGroundImage(Image* image) { mGroundImage = image; }
-		void SetCheckTargetGround(Pixel_Ground* ground) { mPixel_Ground = ground; }
+		void SetGroundImage(class Image* image) { mGroundImage = image; }
+		void SetCheckTargetGround(class Pixel_Ground* ground) { mPixel_Ground = ground; }
 		void SetCenterpos(Vector2 pos) {mCenterpos = pos;}
 
 		Vector2 Getmonster_pos() {return mCurpos; }
