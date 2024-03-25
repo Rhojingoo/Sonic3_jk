@@ -10,6 +10,7 @@
 #include "jk_Object.h"
 #include "Rigidbody.h"
 
+#include "jk_SONIC.h"
 #include "jk_Image.h"
 #include "jk_Sound.h"
 #include "jk_Time.h"

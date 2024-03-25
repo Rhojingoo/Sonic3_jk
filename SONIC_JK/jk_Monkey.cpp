@@ -12,7 +12,8 @@
 #include "jk_Input.h"
 #include "jk_Pixel_Ground.h"
 #include "jk_Monkey_Bullet.h"
-
+#include "jk_Sonic.h"
+#include "jk_Tails.h"
 #include "jk_Image.h"
 #include "jk_Time.h"
 #include "jk_Sound.h"

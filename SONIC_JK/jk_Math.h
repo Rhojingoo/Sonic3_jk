@@ -272,7 +272,7 @@ namespace jk::math
 		return Vector2(x, y);
 	}
 
-	inline static float RandomFloat(float min, float max)
+	float RandomFloat(float min, float max)
 	{
 		std::random_device rd;
 		std::mt19937 gen(rd());

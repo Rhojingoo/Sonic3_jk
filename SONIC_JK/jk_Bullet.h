@@ -3,7 +3,6 @@
 
 namespace jk
 {
-	class Transform;
 	class Bullet : public Gameobject
 	{
 	public:
