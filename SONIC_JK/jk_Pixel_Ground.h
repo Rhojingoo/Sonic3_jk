@@ -3,7 +3,6 @@
 
 namespace jk
 {
-	class Transform;
 	class Image;
 	class Rigidbody;
 	class Pixel_Ground : public Gameobject

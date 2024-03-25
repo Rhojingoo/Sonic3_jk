@@ -825,7 +825,7 @@ namespace jk
 	}
 	void Pixel_Ground::Check_FinalLoopStone_L()
 	{
-		int Yrevice = 100;
+		float Yrevice = 100.0f;
 		Image* selectedImage = (mMap_Check == 0) ? mCicle_Rturn : mCicle_Rturn2;
 		COLORREF colorcheck = selectedImage->GetPixel(static_cast<int>(mPlayerTR->GetPos().x), static_cast<int>(mPlayerTR->GetPos().y) + Yrevice);
 		if (colorcheck != STONEGREY_LOOPENTER)
