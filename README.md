@@ -165,6 +165,16 @@ K : 링 100개 추가
 <br>
 
 <div style="float: center">
+  <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/291f627c-6ecb-4bf4-b951-0044f1a6ada6" height="300px" width="750px"/>
+</div>
+<div align="center">
+  추가 압축 리소스가 있습니다.그냥 풀어서 놓으면됩니다.
+</div>
+<br>
+<br>
+<br>
+
+<div style="float: center">
   <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/5ab197fb-197c-4c28-b500-442abfa1d260" height="450px" width="750px"/>
 </div>
  <div align="center">
