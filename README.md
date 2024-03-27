@@ -165,10 +165,10 @@ K : 링 100개 추가
 <br>
 
 <div style="float: center">
-  <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/291f627c-6ecb-4bf4-b951-0044f1a6ada6" height="300px" width="750px"/>
+  <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/291f627c-6ecb-4bf4-b951-0044f1a6ada6" height="50px" width="50px"/>
 </div>
 <div align="center">
-  추가 압축 리소스가 있습니다.그냥 풀어서 놓으면됩니다.
+  추가 압축 리소스가 있습니다.그냥 같이 압축 풀어주세요 ㅠㅠ
 </div>
 <br>
 <br>
