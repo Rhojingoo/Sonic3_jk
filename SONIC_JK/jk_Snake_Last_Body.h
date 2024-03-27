@@ -1,9 +1,9 @@
 #pragma once
 #include "jk_Snake.h"
+#include "jk_Snake_Third_Body.h"
 
 namespace jk
 {
-	class Snake_Third_Body;
 	class Image;
 	class Animator;
 	class Snake_Last_Body : public Snake

@@ -57,8 +57,11 @@ namespace jk
 	{
 
 		mBitmap = (HBITMAP)LoadImageW(nullptr       //비트맵 추가하여 이미지 넣기(소닉)
-			, path.c_str(), IMAGE_BITMAP
-			, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+			, path.c_str(), 
+			IMAGE_BITMAP
+			, 0, 
+			0, 
+			LR_LOADFROMFILE | LR_CREATEDIBSECTION);
 
 		if (mBitmap == nullptr)
 			return E_FAIL;

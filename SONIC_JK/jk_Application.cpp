@@ -58,27 +58,28 @@ namespace jk
 		SoundManager::Initialize();
 		SceneManager::Initialize();
 
-		Camera::Initialize();
-		
+		Camera::Initialize();		
 	}
 
 	void Application::Run()
 	{
 		Update();
 		Render();	
+		if (SceneManager::IS_Init_Sc() == false)
+		{
+			Init_Sc();
+		}
 		SceneManager::Destroy();
 	}
 
 	void Application::Update()
-	{
-		
+	{		
 		Time::Update();
 		Input::Update();
 		Camera::Update();
 
 		SceneManager::Update();
 		CollisionManager::Update();
-
 	}
 
 	void Application::Render()
@@ -91,6 +92,12 @@ namespace jk
 
 		// 백버퍼에 있는 그림을 원본버퍼에 그려줘야한다.
 		BitBlt(mHdc, 0, 0, mWidth, mHeight, mBackHDC, 0, 0, SRCCOPY);
+	}
+
+	void Application::Init_Sc()
+	{
+		SceneManager::InitScene();
+		SceneManager::LoadScene(jk_SceneType::Tittle);
 	}
 
 	void Application::clear()

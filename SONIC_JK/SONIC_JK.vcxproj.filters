@@ -332,6 +332,12 @@
     <Filter Include="Contents\Boss\Run">
       <UniqueIdentifier>{6b313d23-71b1-4828-b806-4b2d4ad9dfeb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Scene\Loading">
+      <UniqueIdentifier>{8503e4af-3d02-43e2-a6a5-a565c05f45df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\BG\Loading">
+      <UniqueIdentifier>{49eaa4c0-609d-4302-bdfe-d6f50181e875}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -886,6 +892,12 @@
     <ClInclude Include="jk_Snake_First_Body.h">
       <Filter>Contents\monster\Snake</Filter>
     </ClInclude>
+    <ClInclude Include="jk_LoadingScene.h">
+      <Filter>Contents\Scene\Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="jk_LoadingBg.h">
+      <Filter>Contents\BG\Loading</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SONIC_JK.rc">
@@ -1431,6 +1443,12 @@
     </ClCompile>
     <ClCompile Include="jk_Snake_First_Body.cpp">
       <Filter>Contents\monster\Snake</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_LoadingScene.cpp">
+      <Filter>Contents\Scene\Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="jk_LoadingBg.cpp">
+      <Filter>Contents\BG\Loading</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

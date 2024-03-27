@@ -3,6 +3,7 @@
 
 namespace jk
 {
+	class Sonic;
 	class Image;
 	class Animator;
 	class FireSonic : public Gameobject

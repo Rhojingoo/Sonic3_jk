@@ -14,14 +14,14 @@ namespace jk
 		virtual void Render(HDC hdc) override;
 		virtual void Release() override;
 
-		void SetGroundImage(Image* image) { mGroundImage = image; }
+		void SetGroundImage(class Image* image) { mGroundImage = image; }
 
 	private:
 		class Image* mImage;
 		class Image* mGroundImage;
 		class Animator* mAnimator;
 		class Rigidbody* mRigidbody;
-		Transform* mTr;
+		class Transform* mTr;
 		int mDir;
 		int mCheck_Ground;
 		Gameobject* mOwner;

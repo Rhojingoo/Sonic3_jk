@@ -1,6 +1,6 @@
 #pragma once
 #include "Item.h"
-
+#include "jk_SONIC.h"
 namespace jk
 {
 	class Item_super : public Item

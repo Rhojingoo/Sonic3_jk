@@ -27,10 +27,10 @@ namespace jk
 		bool GetLife() { return mLifeCheck; }
 
 	private:
-		Scene* mScene;
+		class Scene* mScene;
 		class Sound* mDeath;
 		class Animator* mAnimator;
-		Snake* mSnake[6] = {};
+		Gameobject* mSnake[6] = {};
 		Vector2 mPos;
 		static bool mLifeCheck;
 		bool mObdel;

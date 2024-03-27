@@ -1,10 +1,10 @@
 #pragma once
 #include "jk_Snake.h"
-
+#include "jk_Snake_Last_Body.h"
 
 namespace jk
 {
-	class Snake_Last_Body;
+
 	class Image;
 	class Animator;
 	class Snake_Tail : public Snake
@@ -45,9 +45,6 @@ namespace jk
 		Animator* mAnimator;
 		eSnake mState;
 		Snake_Tail::eSnake Tail_state;
-		Snake_Last_Body::eSnake Body_State;
-
-
-	
+		Snake_Last_Body::eSnake Body_State;	
 	};
 }

@@ -138,7 +138,7 @@ namespace jk
 
 
 		Transform* tr = GetComponent<Transform>();
-		Scene* curScene = SceneManager::GetActiveScene();
+		Scene* curScene = SceneManager::GetInitScene();
 
 		for (int i = 0; i < 2; i++)
 		{

@@ -29,8 +29,7 @@ namespace jk
 	void TitleScene::Initialize()
 	{			
 		mainTheme = Resources::Load<Sound>(L"Opening", L"..\\Resources\\Sound\\Opening.wav");
-		choice_music = Resources::Load<Sound>(L"Character_choice", L"..\\Resources\\Sound\\Character_choice.wav");
-		mainTheme->Play(true);
+		choice_music = Resources::Load<Sound>(L"Character_choice", L"..\\Resources\\Sound\\Character_choice.wav");		
 
 		Title* title_bg = new Title();
 		AddGameobeject(title_bg, jk_LayerType::BG);
@@ -69,6 +68,7 @@ namespace jk
 
 	void TitleScene::OnEnter()
 	{
+		mainTheme->Play(true);
 	}
 
 	void TitleScene::OnExit()

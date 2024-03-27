@@ -3,6 +3,7 @@
 
 namespace jk
 {
+	class Transform;
 	class Image;
 	class Rigidbody;
 	class Animator;

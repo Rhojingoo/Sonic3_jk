@@ -1,5 +1,6 @@
 #pragma once
 #include "jk_Boss.h"
+#include "jk_SONIC.h"
 
 namespace jk
 {

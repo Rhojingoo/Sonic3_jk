@@ -1,8 +1,9 @@
 #pragma once
 #include "jk_BackGround.h"
-
+#include "jk_SONIC.h"
 namespace jk
 {
+	class Sound;
 	class Image;
 	class Pixel_Ground;
 	class Rigidbody;

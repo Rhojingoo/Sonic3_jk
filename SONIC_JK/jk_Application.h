@@ -13,6 +13,7 @@ namespace jk
 		void Run();
 		void Update();
 		void Render();
+		void Init_Sc();
 
 		HWND GetHwnd() { return mHwnd; }
 		HDC GetHdc() { return mHdc; }

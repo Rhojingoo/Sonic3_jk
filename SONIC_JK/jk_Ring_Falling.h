@@ -26,7 +26,7 @@ namespace jk
 		virtual void OnCollisionExit(class Collider* other) override;
 
 		void CreateBlending();
-		void SetGroundImage(Image* image) { mGroundImage = image; }
+		void SetGroundImage(class Image* image) { mGroundImage = image; }
 
 
 	private:

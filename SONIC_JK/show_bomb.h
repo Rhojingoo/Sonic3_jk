@@ -24,7 +24,7 @@ namespace jk
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
-		void SetCheckTargetGround(Pixel_Ground* ground) { mPixelGround = ground; }
+		void SetCheckTargetGround(class Pixel_Ground* ground) { mPixelGround = ground; }
 
 	private:
 		void move();

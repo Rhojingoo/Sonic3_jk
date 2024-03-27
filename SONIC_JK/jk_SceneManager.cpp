@@ -8,16 +8,22 @@
 #include "jk_ChatarcterChoiseSC.h"
 #include "jk_CollisionManager.h"
 #include "jk_MinigameScene.h"
+#include "jk_LoadingScene.h"
 
 namespace jk
 {
 	std::vector<Scene*> SceneManager::mScenes = {};
 	Scene* SceneManager::mActiveScene= nullptr;
+	Scene* SceneManager::mInitializeScene = nullptr;
+	bool SceneManager::AllInit_SCENE = false;
+	
 
 	void SceneManager::Initialize()
 	{
 		mScenes.resize((UINT)jk_SceneType::END);
 
+		mScenes[(UINT)jk_SceneType::Loading] = new LoadingScene();
+		mScenes[(UINT)jk_SceneType::Loading]->SetName(L"Loading");
 
 		mScenes[(UINT)jk_SceneType::Tittle] = new TitleScene();
 		mScenes[(UINT)jk_SceneType::Tittle]->SetName(L"Tittle");
@@ -43,14 +49,9 @@ namespace jk
 		mScenes[(UINT)jk_SceneType::Ending] = new EndingScene();
 		mScenes[(UINT)jk_SceneType::Ending]->SetName(L"Ending");
 
-		for (Scene* scene : mScenes)
-		{
-			if (scene == nullptr)
-				continue;
-
-			scene->Initialize();
-		}		
-		mActiveScene = mScenes[(UINT)jk_SceneType::Tittle];
+		
+		mScenes[(UINT)jk_SceneType::Loading]->Initialize();
+		mActiveScene = mScenes[(UINT)jk_SceneType::Loading];
 	}
 
 	void SceneManager::Update()
@@ -77,6 +78,23 @@ namespace jk
 	void SceneManager::Destroy()
 	{
 		mActiveScene->Destory();
+	}
+
+	void SceneManager::InitScene()
+	{
+		for (Scene* scene : mScenes)
+		{
+			if (scene == nullptr)
+				continue;
+
+			std::wstring mName = L"Loading";
+			if (mName == scene->GetName())
+				continue;
+
+			mInitializeScene = scene;
+			scene->Initialize();
+		}
+		AllInit_SCENE = true;
 	}
 
 	void SceneManager::LoadScene(jk_SceneType type)

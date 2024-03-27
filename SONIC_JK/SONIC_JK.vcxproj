@@ -44,7 +44,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-    <EnableUnitySupport>true</EnableUnitySupport>
+    <EnableUnitySupport>false</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -52,7 +52,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <EnableUnitySupport>true</EnableUnitySupport>
+    <EnableUnitySupport>false</EnableUnitySupport>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -234,6 +234,14 @@
     <ClInclude Include="jk_Enums.h" />
     <ClInclude Include="jk_fire_show.h" />
     <ClInclude Include="jk_Gameobject.h" />
+    <ClInclude Include="jk_LoadingBg.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="jk_LoadingScene.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="jk_Pixel_Ground.h" />
     <ClInclude Include="jk_Image.h" />
     <ClInclude Include="jk_Input.h" />
@@ -417,6 +425,14 @@
     <ClCompile Include="jk_Entity.cpp" />
     <ClCompile Include="jk_fire_show.cpp" />
     <ClCompile Include="jk_Gameobject.cpp" />
+    <ClCompile Include="jk_LoadingBg.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="jk_LoadingScene.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="jk_Pixel_Ground.cpp" />
     <ClCompile Include="jk_Image.cpp" />
     <ClCompile Include="jk_Input.cpp" />

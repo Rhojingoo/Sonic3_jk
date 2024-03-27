@@ -12,7 +12,7 @@ namespace jk
 	}
 	void Scene::Initialize()
 	{
-		SceneManager::SetActiveScene(this);
+		//SceneManager::SetActiveScene(this);
 
 		for (Layer& layer : mLayers)
 		{

@@ -72,7 +72,7 @@ namespace jk
 
 
 		mBullet = new Cannon_Bullet(this);
-		Scene* curScene = SceneManager::GetActiveScene();
+		Scene* curScene = SceneManager::GetInitScene();
 		mBullet_tr = mBullet->GetComponent<Transform>();
 		mBullet_rg = mBullet->GetComponent<Rigidbody>();
 		curScene->AddGameobeject(mBullet, jk_LayerType::Bullet);

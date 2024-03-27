@@ -4,6 +4,7 @@
 
 namespace jk
 {
+	class Animator;
 	class Image;
 	class Pixel_Ground;
 	class Rigidbody;

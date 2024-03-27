@@ -88,7 +88,7 @@ namespace jk
 		mBullet = new Monkey_Bullet(mOwner);
 		mBullet_tr = mBullet->GetComponent<Transform>();
 		mBullet_rb = mBullet->GetComponent<Rigidbody>();
-		Scene* curScene = SceneManager::GetActiveScene();
+		Scene* curScene = SceneManager::GetInitScene();
 		curScene->AddGameobeject(mBullet, jk_LayerType::Bullet);
 		mBullet->SetState(eState::Pause);
 

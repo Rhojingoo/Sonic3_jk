@@ -3,6 +3,7 @@
 
 enum class jk_SceneType
 {
+	Loading,
 	Tittle,
 	CharacterChoice,
 	GamePlay,
