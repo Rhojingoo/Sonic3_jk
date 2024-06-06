@@ -194,7 +194,7 @@ Resources폴더안에 새로운 Resources폴더가 생기게 되있는데,<br>
 </div>
 <br>
 <br>
-<br>](url)
+<br>]
 
 
 
