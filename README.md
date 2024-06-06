@@ -144,7 +144,7 @@ K : 링 100개 추가
 <br>
 <br>
 
-<div align= "center">
+[<div align= "center">
   <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/517319fb-f059-4562-9d05-f62c98089857" height="100px" width="500px"/>
 </div>
 <div align="center">
@@ -194,7 +194,7 @@ Resources폴더안에 새로운 Resources폴더가 생기게 되있는데,<br>
 </div>
 <br>
 <br>
-<br>
+<br>](url)
 
 
 
